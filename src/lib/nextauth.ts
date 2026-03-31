@@ -5,9 +5,6 @@ import {
 } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-// import { PrismaAdapter } from "@next-auth/prisma-adapter";
-// import { prisma } from "@/lib/db";
-
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
@@ -29,6 +26,11 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.AUTH_GOOGLE_ID ?? "",
       clientSecret: process.env.AUTH_GOOGLE_SECRET ?? "",
+      authorization: {
+        params: {
+          prompt: "select_account",
+        },
+      },
     }),
   ],
   callbacks: {

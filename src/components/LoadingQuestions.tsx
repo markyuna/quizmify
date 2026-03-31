@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { BrainCircuit, Sparkles, Wand2 } from "lucide-react";
 import { Progress } from "./ui/progress";
 
@@ -28,7 +28,7 @@ export default function LoadingQuestions({
   finished,
 }: LoadingQuestionsProps) {
   const [progress, setProgress] = React.useState(0);
-  const [loadingText, setLoadingText] = React.useState(loadingTexts[0]);
+  const [textIndex, setTextIndex] = React.useState(0);
   const [activeBadge, setActiveBadge] = React.useState(0);
 
   React.useEffect(() => {
@@ -39,7 +39,9 @@ export default function LoadingQuestions({
 
     const interval = setInterval(() => {
       setProgress((prev) => {
-        const step = Math.random() < 0.18 ? 2.2 : 0.6;
+        const step =
+          prev < 35 ? 1.6 : prev < 65 ? 0.9 : prev < 85 ? 0.45 : 0.2;
+
         return Math.min(prev + step, 95);
       });
     }, 120);
@@ -51,16 +53,14 @@ export default function LoadingQuestions({
     if (finished) return;
 
     const interval = setInterval(() => {
-      setLoadingText((prev) => {
-        const currentIndex = loadingTexts.indexOf(prev);
-        return loadingTexts[(currentIndex + 1) % loadingTexts.length];
-      });
-
+      setTextIndex((prev) => (prev + 1) % loadingTexts.length);
       setActiveBadge((prev) => (prev + 1) % loadingBadges.length);
     }, 2200);
 
     return () => clearInterval(interval);
   }, [finished]);
+
+  const loadingText = loadingTexts[textIndex];
 
   return (
     <main className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-4xl items-center justify-center px-4 py-10">
@@ -80,7 +80,7 @@ export default function LoadingQuestions({
                 <motion.span
                   key={badge}
                   animate={{
-                    opacity: isActive ? 1 : 0.5,
+                    opacity: isActive ? 1 : 0.45,
                     scale: isActive ? 1.04 : 1,
                   }}
                   transition={{ duration: 0.25 }}
@@ -161,19 +161,21 @@ export default function LoadingQuestions({
             </motion.div>
           </div>
 
-          <motion.h1
-            key={loadingText}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35 }}
-            className="max-w-xl text-balance text-2xl font-semibold tracking-tight text-white"
-          >
-            {loadingText}
-          </motion.h1>
+          <AnimatePresence mode="wait">
+            <motion.h1
+              key={loadingText}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.35 }}
+              className="max-w-xl text-balance text-2xl font-semibold tracking-tight text-white"
+            >
+              {loadingText}
+            </motion.h1>
+          </AnimatePresence>
 
-          <p className="mt-3 max-w-lg text-sm text-white/60">
-            Our AI is assembling questions, balancing difficulty, and preparing
-            a more engaging quiz experience for you.
+          <p className="mt-2 text-xs text-white/40">
+            This may take a few seconds depending on complexity.
           </p>
 
           <div className="mt-8 w-full max-w-xl">
@@ -185,7 +187,7 @@ export default function LoadingQuestions({
             <Progress
               value={progress}
               className="h-2.5 w-full bg-white/10"
-              indicatorClassName="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400 shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+              indicatorClassName="bg-[length:200%_100%] bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400 shadow-[0_0_20px_rgba(168,85,247,0.4)] animate-[shimmer_2.2s_linear_infinite]"
             />
           </div>
 
