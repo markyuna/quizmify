@@ -5,20 +5,26 @@ import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 
 type MCQPageProps = {
-  params: {
+  params: Promise<{
     gameId: string;
-  };
+  }>;
 };
 
 export const metadata = {
   title: "MCQ Game | Quizmify",
 };
 
-export default async function MCQPage({ params: { gameId } }: MCQPageProps) {
+export default async function MCQPage({ params }: MCQPageProps) {
   const session = await getAuthSession();
 
-  if (!session?.user) {
+  if (!session?.user?.id) {
     redirect("/");
+  }
+
+  const { gameId } = await params;
+
+  if (!gameId) {
+    redirect("/quiz");
   }
 
   const game = await prisma.game.findFirst({
@@ -34,6 +40,9 @@ export default async function MCQPage({ params: { gameId } }: MCQPageProps) {
           question: true,
           answer: true,
           options: true,
+        },
+        orderBy: {
+          id: "asc",
         },
       },
     },

@@ -8,9 +8,9 @@ import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 
 type StatisticsPageProps = {
-  params: {
+  params: Promise<{
     gameId: string;
-  };
+  }>;
 };
 
 export const metadata = {
@@ -18,12 +18,18 @@ export const metadata = {
 };
 
 export default async function StatisticsPage({
-  params: { gameId },
+  params,
 }: StatisticsPageProps) {
   const session = await getAuthSession();
 
   if (!session?.user?.id) {
     redirect("/");
+  }
+
+  const { gameId } = await params;
+
+  if (!gameId) {
+    redirect("/quiz");
   }
 
   const game = await prisma.game.findUnique({
@@ -43,7 +49,7 @@ export default async function StatisticsPage({
     redirect("/quiz");
   }
 
-  const questions = game.questions;
+  const questions = game.questions ?? [];
   const totalQuestions = questions.length;
 
   const correctAnswers = questions.filter(
