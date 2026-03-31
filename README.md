@@ -5,13 +5,22 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx create-next-app@latest quizmify
+
+npm install next-auth
+
+npx auth secret
+
+touch .env
+echo '.env*' >> .gitignore
+
+AUTH_SECRET=tu_secret
+AUTH_GOOGLE_ID=tu_client_id
+AUTH_GOOGLE_SECRET=tu_client_secret
+
+gh repo create <nombre-repositorio> --public --source=.
+
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
