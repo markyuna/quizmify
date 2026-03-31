@@ -29,6 +29,47 @@ export default async function Home() {
       </div>
 
       <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+        <Card className="glass-card relative overflow-hidden rounded-[2rem] border-white/10 p-2 shadow-2xl">
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-cyan-500/10" />
+
+          <div className="relative">
+            <CardHeader className="space-y-4 text-center">
+              <div className="mb-6 flex justify-center">
+                <Logo />
+              </div>
+
+              <div className="space-y-2">
+                <CardTitle className="text-2xl font-bold sm:text-3xl">
+                  Start your next quiz
+                </CardTitle>
+
+                <CardDescription className="mx-auto max-w-sm text-sm leading-6 sm:text-base">
+                  Sign in with Google to generate quizzes, review your results,
+                  and build a smarter learning habit.
+                </CardDescription>
+              </div>
+            </CardHeader>
+
+            <CardContent className="space-y-4">
+              <SignInButton text="Sign in with Google" />
+
+              <div className="grid grid-cols-3 gap-3 pt-2 text-center">
+                <div className="rounded-2xl border border-white/10 bg-white/40 p-3 backdrop-blur-xl dark:bg-white/5">
+                  <p className="text-lg font-bold">AI</p>
+                  <p className="text-xs text-muted-foreground">Generated</p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/40 p-3 backdrop-blur-xl dark:bg-white/5">
+                  <p className="text-lg font-bold">MCQ</p>
+                  <p className="text-xs text-muted-foreground">Interactive</p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/40 p-3 backdrop-blur-xl dark:bg-white/5">
+                  <p className="text-lg font-bold">Stats</p>
+                  <p className="text-xs text-muted-foreground">Tracked</p>
+                </div>
+              </div>
+            </CardContent>
+          </div>
+        </Card>
         <div className="space-y-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm text-muted-foreground backdrop-blur-xl dark:bg-white/5">
             <Sparkles className="h-4 w-4 text-violet-400" />
@@ -81,47 +122,6 @@ export default async function Home() {
           </div>
         </div>
 
-        <Card className="glass-card relative overflow-hidden rounded-[2rem] border-white/10 p-2 shadow-2xl">
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-cyan-500/10" />
-
-          <div className="relative">
-            <CardHeader className="space-y-4 text-center">
-              <div className="mb-6 flex justify-center">
-                <Logo />
-              </div>
-
-              <div className="space-y-2">
-                <CardTitle className="text-2xl font-bold sm:text-3xl">
-                  Start your next quiz
-                </CardTitle>
-
-                <CardDescription className="mx-auto max-w-sm text-sm leading-6 sm:text-base">
-                  Sign in with Google to generate quizzes, review your results,
-                  and build a smarter learning habit.
-                </CardDescription>
-              </div>
-            </CardHeader>
-
-            <CardContent className="space-y-4">
-              <SignInButton text="Sign in with Google" />
-
-              <div className="grid grid-cols-3 gap-3 pt-2 text-center">
-                <div className="rounded-2xl border border-white/10 bg-white/40 p-3 backdrop-blur-xl dark:bg-white/5">
-                  <p className="text-lg font-bold">AI</p>
-                  <p className="text-xs text-muted-foreground">Generated</p>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/40 p-3 backdrop-blur-xl dark:bg-white/5">
-                  <p className="text-lg font-bold">MCQ</p>
-                  <p className="text-xs text-muted-foreground">Interactive</p>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/40 p-3 backdrop-blur-xl dark:bg-white/5">
-                  <p className="text-lg font-bold">Stats</p>
-                  <p className="text-xs text-muted-foreground">Tracked</p>
-                </div>
-              </div>
-            </CardContent>
-          </div>
-        </Card>
       </div>
     </section>
   );

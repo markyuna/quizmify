@@ -38,7 +38,7 @@ const HistoryComponent = async ({ limit, userId }: Props) => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="min-w-0 space-y-3 sm:space-y-4">
       {attempts.map((attempt) => {
         const gameType = attempt.game?.gameType ?? "mcq";
         const topic = attempt.game?.topic ?? "Untitled quiz";
@@ -46,55 +46,69 @@ const HistoryComponent = async ({ limit, userId }: Props) => {
 
         return (
           <div
-            className="flex items-start justify-between rounded-2xl border border-border/50 p-4 transition-colors hover:bg-muted/40"
             key={attempt.id}
+            className="min-w-0 rounded-2xl border border-border/50 p-3 transition-colors hover:bg-muted/40 sm:p-4"
           >
-            <div className="flex items-start">
-              {gameType === "mcq" ? (
-                <CopyCheck className="mr-3 mt-1 h-5 w-5" />
-              ) : (
-                <Edit2 className="mr-3 mt-1 h-5 w-5" />
-              )}
+            <div className="flex min-w-0 items-start gap-3">
+              <div className="shrink-0 pt-1">
+                {gameType === "mcq" ? (
+                  <CopyCheck className="h-5 w-5" />
+                ) : (
+                  <Edit2 className="h-5 w-5" />
+                )}
+              </div>
 
-              <div className="ml-2 space-y-2">
+              <div className="min-w-0 flex-1 space-y-2">
                 {gameId ? (
                   <Link
                     href={`/statistics/${gameId}`}
-                    className="text-base font-medium leading-none underline"
+                    className="block truncate text-sm font-medium underline underline-offset-4 sm:text-base"
+                    title={topic}
                   >
                     {topic}
                   </Link>
                 ) : (
-                  <p className="text-base font-medium leading-none">
+                  <p
+                    className="truncate text-sm font-medium sm:text-base"
+                    title={topic}
+                  >
                     {topic}
                   </p>
                 )}
 
                 <div className="flex flex-wrap items-center gap-2">
-                  <p className="flex items-center rounded-lg bg-slate-800 px-2 py-1 text-xs text-white">
-                    <Clock className="mr-1 h-4 w-4" />
-                    {new Date(attempt.createdAt).toLocaleDateString()}
+                  <p className="inline-flex max-w-full items-center rounded-lg bg-slate-800 px-2 py-1 text-[11px] text-white sm:text-xs">
+                    <Clock className="mr-1 h-3.5 w-3.5 shrink-0" />
+                    <span className="truncate">
+                      {new Date(attempt.createdAt).toLocaleDateString()}
+                    </span>
                   </p>
 
-                  <p className="rounded-lg border px-2 py-1 text-xs text-muted-foreground">
-                    {gameType === "mcq" ? "MCQ" : "Open Ended"}
+                  <p className="inline-flex max-w-full items-center rounded-lg border px-2 py-1 text-[11px] text-muted-foreground sm:text-xs">
+                    <span className="truncate">
+                      {gameType === "mcq" ? "MCQ" : "Open Ended"}
+                    </span>
                   </p>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-                  <p className="flex items-center gap-1">
-                    <Trophy className="h-4 w-4" />
-                    {attempt.score}%
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground sm:text-sm">
+                  <p className="inline-flex min-w-0 items-center gap-1">
+                    <Trophy className="h-4 w-4 shrink-0" />
+                    <span className="truncate">{attempt.score}%</span>
                   </p>
 
-                  <p className="flex items-center gap-1">
-                    <Target className="h-4 w-4" />
-                    {attempt.correctAnswers}/{attempt.totalQuestions} correct
+                  <p className="inline-flex min-w-0 items-center gap-1">
+                    <Target className="h-4 w-4 shrink-0" />
+                    <span className="truncate">
+                      {attempt.correctAnswers}/{attempt.totalQuestions} correct
+                    </span>
                   </p>
 
-                  <p className="flex items-center gap-1">
-                    <Clock className="h-4 w-4" />
-                    {formatTimeDelta(attempt.timeSpent)}
+                  <p className="inline-flex min-w-0 items-center gap-1">
+                    <Clock className="h-4 w-4 shrink-0" />
+                    <span className="truncate">
+                      {formatTimeDelta(attempt.timeSpent)}
+                    </span>
                   </p>
                 </div>
               </div>
