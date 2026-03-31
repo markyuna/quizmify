@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider     = "postgresql"
+  relationMode = "prisma"
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId], map: "account_userId_idx")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], map: "session_userId_idx")
+}
+
+model User {
+  id                 String                 @id @default(cuid())
+  name               String?
+  email              String?                @unique
+  emailVerified      DateTime?
+  image              String?
+  password           String?
+  createdAt          DateTime               @default(now())
+  updatedAt          DateTime               @updatedAt
+  subscriptionStatus String                 @default("free")
+  stripeCustomerId   String?
+  accounts           Account[]
+  sessions           Session[]
+  games              Game[]
+  attempts           Attempt[]
+  questionProgress   UserQuestionProgress[]
+}
+
+model Game {
+  id          String     @id @default(cuid())
+  gameType    GameType
+  timeStarted DateTime   @default(now())
+  timeEnded   DateTime?
+  topic       String
+  difficulty  String?
+  userId      String
+  score       Int        @default(0)
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  questions   Question[]
+  attempts    Attempt[]
+
+  @@index([userId])
+}
+
+model TopicCount {
+  id    String @id @default(cuid())
+  topic String @unique
+  count Int
+}
+
+model McqQuestion {
+  id             String   @id @default(cuid())
+  topic          String
+  difficulty     String
+  question       String
+  options        String[]
+  correct_answer String
+  explanation    String?
+  is_active      Boolean  @default(true)
+  usage_count    Int      @default(0)
+  created_at     DateTime @default(now())
+
+  @@map("mcq_questions")
+}
+
+model Question {
+  id               String                 @id @default(cuid())
+  question         String
+  answer           String
+  options          String[]
+  questionType     String
+  explanation      String?
+  userAnswer       String?
+  isCorrect        Boolean?
+  orderIndex       Int?
+  gameId           String
+  sourceQuestionId String?
+  game             Game                   @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  progressEntries  UserQuestionProgress[]
+
+  @@index([gameId])
+  @@index([sourceQuestionId])
+}
+
+model Attempt {
+  id             String          @id @default(cuid())
+  userId         String
+  gameId         String
+  score          Int
+  totalQuestions Int
+  correctAnswers Int
+  timeSpent      Int
+  createdAt      DateTime        @default(now())
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game           Game            @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  answers        AttemptAnswer[]
+
+  @@index([userId])
+  @@index([gameId])
+  @@index([createdAt])
+}
+
+model AttemptAnswer {
+  id             String  @id @default(cuid())
+  attemptId      String
+  questionId     String
+  selectedAnswer String
+  isCorrect      Boolean
+  attempt        Attempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+
+  @@unique([attemptId, questionId])
+  @@index([attemptId])
+  @@index([questionId])
+}
+
+enum GameType {
+  mcq
+  open_ended
+}
+
+model UserQuestionProgress {
+  id                    String   @id @default(cuid())
+  userId                String
+  questionId            String
+  wrongCount            Int      @default(0)
+  correctCount          Int      @default(0)
+  needsReview           Boolean  @default(false)
+  lastAnsweredCorrectly Boolean  @default(false)
+  updatedAt             DateTime @updatedAt
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, questionId])
+  @@index([userId])
+  @@index([questionId])
+  @@index([userId, needsReview])
+}
