@@ -3,7 +3,6 @@
 import { useMemo } from "react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
-import D3WordCloud from "react-d3-cloud";
 
 type Topic = {
   text: string;
@@ -43,8 +42,8 @@ function getColorFromText(text: string, theme: string | undefined) {
   return palette[Math.abs(hash) % palette.length];
 }
 
-function getBaseFontSize(value: number) {
-  return Math.max(18, Math.min(64, Math.log2(value + 1) * 12 + 10));
+function getFontSize(value: number) {
+  return Math.max(16, Math.min(42, Math.log2(value + 1) * 8 + 10));
 }
 
 export default function CustomWordCloud({ formattedTopics }: Props) {
@@ -53,29 +52,35 @@ export default function CustomWordCloud({ formattedTopics }: Props) {
 
   const data = useMemo(
     () =>
-      formattedTopics.map((word) => ({
-        ...word,
-        color: getColorFromText(word.text, theme),
-      })),
+      [...formattedTopics]
+        .sort((a, b) => b.value - a.value)
+        .map((word) => ({
+          ...word,
+          color: getColorFromText(word.text, theme),
+          fontSize: getFontSize(word.value),
+        })),
     [formattedTopics, theme]
   );
 
   return (
-    <div className="cursor-pointer">
-      <D3WordCloud
-        height={550}
-        data={data}
-        font="Inter"
-        fontSize={(word: Topic) => getBaseFontSize(word.value)}
-        rotate={0}
-        padding={6}
-        fill={(word: Topic & { color?: string }) =>
-          word.color ?? (theme === "dark" ? "#ffffff" : "#111111")
-        }
-        onWordClick={(word: Topic) => {
-          router.push(`/quiz?topic=${encodeURIComponent(word.text)}`);
-        }}
-      />
+    <div className="flex flex-wrap items-center justify-center gap-3 rounded-2xl p-4">
+      {data.map((word) => (
+        <button
+          key={word.text}
+          type="button"
+          onClick={() =>
+            router.push(`/quiz?topic=${encodeURIComponent(word.text)}`)
+          }
+          className="rounded-full border border-white/10 bg-white/5 px-4 py-2 font-semibold transition-transform duration-200 hover:scale-105 hover:bg-white/10"
+          style={{
+            color: word.color,
+            fontSize: `${word.fontSize}px`,
+            lineHeight: 1.1,
+          }}
+        >
+          {word.text}
+        </button>
+      ))}
     </div>
   );
 }

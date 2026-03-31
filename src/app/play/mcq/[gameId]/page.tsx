@@ -40,6 +40,7 @@ export default async function MCQPage({ params }: MCQPageProps) {
           question: true,
           answer: true,
           options: true,
+          explanation: true,
         },
         orderBy: {
           id: "asc",

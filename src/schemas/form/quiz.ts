@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const quizCreationSchema = z.object({
   topic: z.string().min(1, "Topic is required"),
-  amount: z.coerce.number().int().min(1, "Minimum is 1").max(20, "Maximum is 20"),
+  amount: z.number().int().min(1, "Minimum is 1").max(20, "Maximum is 20"),
   difficulty: z.enum(["easy", "medium", "hard"]),
   type: z.literal("mcq"),
 });

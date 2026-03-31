@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -35,7 +35,11 @@ type QuizCreationProps = {
   topicParam: string;
 };
 
-type QuizCreationInput = z.infer<typeof quizCreationSchema>;
+type QuizCreationInput = z.output<typeof quizCreationSchema>;
+
+type CreateGameResponse = {
+  gameId?: string;
+};
 
 export default function QuizCreation({ topicParam }: QuizCreationProps) {
   const router = useRouter();
@@ -61,7 +65,7 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
 
   const { mutate: createGame, isPending } = useMutation({
     mutationFn: async (values: QuizCreationInput) => {
-      const response = await axios.post("/api/game", values);
+      const response = await axios.post<CreateGameResponse>("/api/game", values);
       return response.data;
     },
     onSuccess: (data) => {
@@ -84,11 +88,12 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
     onError: (error) => {
       setShowLoader(false);
 
-      if (error instanceof AxiosError) {
+      if (axios.isAxiosError(error)) {
         toast({
           title: "Error",
           description:
-            error.response?.data?.error ?? "Unable to create the quiz.",
+            (error.response?.data as { error?: string } | undefined)?.error ??
+            "Unable to create the quiz.",
           variant: "destructive",
         });
         return;
@@ -185,6 +190,8 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
                         min={1}
                         max={20}
                         {...field}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        value={field.value ?? 3}
                         className="border-white/10 bg-white/5 text-white placeholder:text-slate-400"
                       />
                     </FormControl>
