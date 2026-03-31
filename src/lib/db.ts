@@ -12,14 +12,14 @@ const globalForPrisma = globalThis as {
   prisma?: PrismaClient;
 };
 
+const pool = new pg.Pool({
+  connectionString,
+});
+
 export const prisma =
   globalForPrisma.prisma ??
   new PrismaClient({
-    adapter: new PrismaPg(
-      new pg.Pool({
-        connectionString,
-      })
-    ),
+    adapter: new PrismaPg(pool),
   });
 
 if (process.env.NODE_ENV !== "production") {

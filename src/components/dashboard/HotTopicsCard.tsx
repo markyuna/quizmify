@@ -33,8 +33,7 @@ export default async function HotTopicsCard() {
     .slice(0, 12);
 
   return (
-    <Card className="relative h-full max-h-[420px] overflow-hidden rounded-[1.75rem] border-white/10 bg-white/60 shadow-xl shadow-black/5 transition-all duration-300 hover:scale-[1.01] dark:bg-white/5">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-cyan-500/10" />
+    <Card className="relative h-full min-h-[440px] overflow-hidden rounded-[1.75rem] border-white/10 bg-white/60 shadow-xl shadow-black/5 transition-all duration-300 hover:scale-[1.01] dark:bg-white/5">      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-cyan-500/10" />
       <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 rounded-full bg-violet-500/10 blur-3xl" />
       <div className="pointer-events-none absolute bottom-0 left-0 h-40 w-40 rounded-full bg-cyan-500/10 blur-3xl" />
 
@@ -57,7 +56,7 @@ export default async function HotTopicsCard() {
       <CardContent className="relative z-10 p-4 pt-0">
         {formattedTopics.length > 0 ? (
           <div className="rounded-[1.5rem] border border-white/10 bg-white/40 p-3 backdrop-blur-xl dark:bg-white/5">
-            <div className="min-h-[300px] rounded-[1.25rem]">
+            <div className="h-[320px] w-full rounded-[1.25rem]">
               <HotTopicsCloud formattedTopics={formattedTopics} />
             </div>
           </div>
