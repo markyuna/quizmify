@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
+import { motion } from "framer-motion";
+import { BrainCircuit, Sparkles, Wand2 } from "lucide-react";
 import { Progress } from "./ui/progress";
 
 type LoadingQuestionsProps = {
@@ -9,11 +10,18 @@ type LoadingQuestionsProps = {
 };
 
 const loadingTexts = [
-  "Generating questions...",
-  "Unleashing the power of curiosity...",
-  "Diving deep into the ocean of questions...",
-  "Harnessing the collective knowledge of the cosmos...",
-  "Igniting the flame of wonder and exploration...",
+  "Generating intelligent question sets...",
+  "Analyzing topic depth and difficulty...",
+  "Designing a sharper learning experience...",
+  "Structuring questions for better recall...",
+  "Optimizing your next quiz session...",
+];
+
+const loadingBadges = [
+  "AI reasoning",
+  "Topic mapping",
+  "Adaptive generation",
+  "Precision prompts",
 ];
 
 export default function LoadingQuestions({
@@ -21,6 +29,7 @@ export default function LoadingQuestions({
 }: LoadingQuestionsProps) {
   const [progress, setProgress] = React.useState(0);
   const [loadingText, setLoadingText] = React.useState(loadingTexts[0]);
+  const [activeBadge, setActiveBadge] = React.useState(0);
 
   React.useEffect(() => {
     if (finished) {
@@ -29,8 +38,11 @@ export default function LoadingQuestions({
     }
 
     const interval = setInterval(() => {
-      setProgress((prev) => Math.min(prev + (Math.random() < 0.1 ? 2 : 0.5), 95));
-    }, 100);
+      setProgress((prev) => {
+        const step = Math.random() < 0.18 ? 2.2 : 0.6;
+        return Math.min(prev + step, 95);
+      });
+    }, 120);
 
     return () => clearInterval(interval);
   }, [finished]);
@@ -39,24 +51,174 @@ export default function LoadingQuestions({
     if (finished) return;
 
     const interval = setInterval(() => {
-      const randomIndex = Math.floor(Math.random() * loadingTexts.length);
-      setLoadingText(loadingTexts[randomIndex]);
-    }, 2000);
+      setLoadingText((prev) => {
+        const currentIndex = loadingTexts.indexOf(prev);
+        return loadingTexts[(currentIndex + 1) % loadingTexts.length];
+      });
+
+      setActiveBadge((prev) => (prev + 1) % loadingBadges.length);
+    }, 2200);
 
     return () => clearInterval(interval);
   }, [finished]);
 
   return (
-    <main className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-3xl flex-col items-center justify-center px-4 py-10">
-      <Image
-        src="/loading.gif"
-        width={300}
-        height={300}
-        alt="Loading animation"
-        priority
-      />
-      <Progress value={progress} className="mt-4 w-full" />
-      <h1 className="mt-4 text-center text-xl font-medium">{loadingText}</h1>
+    <main className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-4xl items-center justify-center px-4 py-10">
+      <div className="relative w-full max-w-2xl overflow-hidden rounded-[2rem] border border-white/10 bg-black/40 p-8 shadow-2xl shadow-violet-950/20 backdrop-blur-2xl">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.16),transparent_30%),radial-gradient(circle_at_top_right,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_bottom,rgba(217,70,239,0.10),transparent_30%)]" />
+
+        <div className="pointer-events-none absolute left-10 top-10 h-32 w-32 rounded-full bg-violet-500/10 blur-3xl" />
+        <div className="pointer-events-none absolute right-10 top-16 h-32 w-32 rounded-full bg-cyan-500/10 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-8 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-fuchsia-500/10 blur-3xl" />
+
+        <div className="relative z-10 flex flex-col items-center text-center">
+          <div className="mb-6 flex flex-wrap items-center justify-center gap-2">
+            {loadingBadges.map((badge, index) => {
+              const isActive = index === activeBadge;
+
+              return (
+                <motion.span
+                  key={badge}
+                  animate={{
+                    opacity: isActive ? 1 : 0.5,
+                    scale: isActive ? 1.04 : 1,
+                  }}
+                  transition={{ duration: 0.25 }}
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-xl"
+                >
+                  {badge}
+                </motion.span>
+              );
+            })}
+          </div>
+
+          <div className="relative mb-8 flex h-52 w-52 items-center justify-center">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 12,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute h-52 w-52 rounded-full border border-violet-400/20"
+            />
+
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{
+                duration: 9,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute h-40 w-40 rounded-full border border-cyan-400/20"
+            />
+
+            <motion.div
+              animate={{ scale: [1, 1.06, 1], opacity: [0.7, 1, 0.7] }}
+              transition={{
+                duration: 2.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute h-28 w-28 rounded-full bg-gradient-to-br from-violet-500/30 via-fuchsia-500/20 to-cyan-400/30 blur-xl"
+            />
+
+            <motion.div
+              animate={{ y: [0, -5, 0], rotate: [0, 4, -4, 0] }}
+              transition={{
+                duration: 3.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="relative flex h-24 w-24 items-center justify-center rounded-[1.75rem] border border-white/10 bg-white/10 shadow-xl backdrop-blur-xl"
+            >
+              <BrainCircuit className="h-10 w-10 text-violet-300" />
+            </motion.div>
+
+            <motion.div
+              animate={{ opacity: [0.3, 1, 0.3], scale: [1, 1.15, 1] }}
+              transition={{
+                duration: 2.4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute left-6 top-10"
+            >
+              <Sparkles className="h-5 w-5 text-cyan-300" />
+            </motion.div>
+
+            <motion.div
+              animate={{ opacity: [0.4, 1, 0.4], scale: [1, 1.15, 1] }}
+              transition={{
+                duration: 2.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.6,
+              }}
+              className="absolute bottom-8 right-8"
+            >
+              <Wand2 className="h-5 w-5 text-fuchsia-300" />
+            </motion.div>
+          </div>
+
+          <motion.h1
+            key={loadingText}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+            className="max-w-xl text-balance text-2xl font-semibold tracking-tight text-white"
+          >
+            {loadingText}
+          </motion.h1>
+
+          <p className="mt-3 max-w-lg text-sm text-white/60">
+            Our AI is assembling questions, balancing difficulty, and preparing
+            a more engaging quiz experience for you.
+          </p>
+
+          <div className="mt-8 w-full max-w-xl">
+            <div className="mb-3 flex items-center justify-between text-sm text-white/70">
+              <span>Preparing your quiz</span>
+              <span>{Math.round(progress)}%</span>
+            </div>
+
+            <Progress
+              value={progress}
+              className="h-2.5 w-full bg-white/10"
+              indicatorClassName="bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400 shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+            />
+          </div>
+
+          <div className="mt-6 grid w-full max-w-xl grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur-xl">
+              <p className="text-xs uppercase tracking-[0.18em] text-white/40">
+                Status
+              </p>
+              <p className="mt-1 text-sm font-medium text-white/85">
+                {finished ? "Finalizing" : "Generating"}
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur-xl">
+              <p className="text-xs uppercase tracking-[0.18em] text-white/40">
+                Engine
+              </p>
+              <p className="mt-1 text-sm font-medium text-white/85">
+                Adaptive AI
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur-xl">
+              <p className="text-xs uppercase tracking-[0.18em] text-white/40">
+                Output
+              </p>
+              <p className="mt-1 text-sm font-medium text-white/85">
+                Quiz questions
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
