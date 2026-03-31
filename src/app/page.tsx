@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { Sparkles, Trophy, BrainCircuit } from "lucide-react";
+import Logo from "@/components/Logo";
 
 import SignInButton from "@/components/SignInButton";
 import {
@@ -85,17 +86,8 @@ export default async function Home() {
 
           <div className="relative">
             <CardHeader className="space-y-4 text-center">
-              <div className="mx-auto flex justify-center">
-                <div className="rounded-3xl border border-white/10 bg-white/40 px-6 py-4 shadow-lg backdrop-blur-xl dark:bg-white/5">
-                  <Image
-                    src="/logo.png"
-                    alt="Quizmify logo"
-                    width={220}
-                    height={90}
-                    priority
-                    className="drop-shadow-[0_12px_32px_rgba(139,92,246,0.35)]"
-                  />
-                </div>
+              <div className="mb-6 flex justify-center">
+                <Logo />
               </div>
 
               <div className="space-y-2">
