@@ -244,7 +244,7 @@ const MCQ = ({ game }: MCQProps) => {
 
   if (!currentQuestion && !quizFinished) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 px-4 py-10">
+      <div className="w-full bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 px-4 py-6 sm:py-8">
         <div className="mx-auto flex max-w-4xl flex-col gap-6">
           <Card className="rounded-3xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-xl">
             <CardHeader>
@@ -274,7 +274,7 @@ const MCQ = ({ game }: MCQProps) => {
       finalResult?.score ?? Math.round((score / totalQuestions) * 100);
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 px-4 py-10">
+      <div className="w-full bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 px-4 py-6 sm:py-8">
         <div className="mx-auto flex max-w-4xl flex-col gap-6">
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-xl">
             <p className="text-sm uppercase tracking-[0.25em] text-cyan-300">
@@ -373,7 +373,7 @@ const MCQ = ({ game }: MCQProps) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 px-4 py-10">
+    <div className="w-full bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 px-4 py-6 sm:py-8">
       <div className="mx-auto flex max-w-4xl flex-col gap-6">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-xl">
           <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -420,11 +420,11 @@ const MCQ = ({ game }: MCQProps) => {
                     onClick={() => handleSelect(option)}
                     disabled={hasAnswered || isCheckingAnswer || isSubmittingQuiz}
                     className={cn(
-                      "group flex w-full items-center justify-between rounded-2xl border px-5 py-4 text-left text-base font-medium text-slate-100 transition-all duration-200 shadow-lg shadow-black/10",
+                      "group flex w-full items-start justify-between gap-3 rounded-2xl border px-4 py-4 text-left text-sm font-medium text-slate-100 transition-all duration-200 shadow-lg shadow-black/10 sm:px-5 sm:text-base",
                       getOptionStyle(option)
                     )}
                   >
-                    <span>{option}</span>
+                    <span className="min-w-0 break-words pr-3">{option}</span>
 
                     {hasAnswered && isCorrect && (
                       <CheckCircle2 className="h-5 w-5 text-emerald-300" />

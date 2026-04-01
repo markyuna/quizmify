@@ -79,21 +79,21 @@ const QuizMeCard = ({
   ];
 
   return (
-    <Card className="group relative h-full max-h-[420px] overflow-hidden rounded-[1.75rem] border-white/10 bg-white/60 shadow-xl shadow-black/5 transition-all duration-300 hover:scale-[1.01] dark:bg-white/5">
+    <Card className="group overflow-hidden relative min-w-0 rounded-[1.75rem] border-white/10 bg-white/60 shadow-xl shadow-black/5 transition-all duration-300 hover:scale-[1.01] dark:bg-white/5">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-violet-500/15 via-fuchsia-500/10 to-cyan-500/15 opacity-80" />
       <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-violet-500/20 blur-3xl" />
 
-      <CardContent className="relative z-10 p-5">
+      <CardContent className="relative z-10 p-5 sm:p-6">
         <div className="flex items-start justify-between gap-4">
-          <div className="space-y-3">
+          <div className="space-y-3 min-w-0">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/60 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur-xl dark:bg-white/5">
               <Sparkles className="h-3.5 w-3.5 text-violet-400" />
               AI powered
             </div>
 
-            <div>
+            <div className="min-w-0">
               <h2 className="text-xl font-bold tracking-tight">Quiz me</h2>
-              <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground">
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 Use quick actions to start a new quiz, explore random topics,
                 revisit previous subjects, and strengthen weak areas.
               </p>
@@ -105,7 +105,7 @@ const QuizMeCard = ({
           </div>
         </div>
 
-        <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="mt-5 grid grid-cols-1 gap-3 xl:grid-cols-2">
           {actions.map((action) => {
             const Icon = action.icon;
 
@@ -131,7 +131,7 @@ const QuizMeCard = ({
                       <p className="font-semibold text-foreground">
                         {action.title}
                       </p>
-                      <p className="mt-1 truncate text-sm text-muted-foreground">
+                      <p className="mt-1 text-sm leading-5 text-muted-foreground break-words">
                         {action.description}
                       </p>
                     </div>

@@ -117,7 +117,7 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
   }
 
   return (
-    <main className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-xl items-center justify-center px-4 py-10">
+    <div className="mx-auto flex w-full max-w-xl items-center justify-center px-4 py-6 sm:py-10">
       <Card className="w-full border-white/10 bg-slate-950/70 text-white backdrop-blur">
         <CardHeader>
           <CardTitle className="text-3xl font-bold">Create a Quiz</CardTitle>
@@ -225,6 +225,6 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
           </Form>
         </CardContent>
       </Card>
-    </main>
+    </div>
   );
 }

@@ -277,7 +277,7 @@ export default async function DashboardPage() {
   };
 
   return (
-    <main className="mx-auto w-full max-w-7xl overflow-x-hidden px-3 pb-8 pt-3 sm:px-5 sm:pb-10 sm:pt-5 lg:px-8">
+    <div className="w-full overflow-x-hidden px-0 pb-8 pt-3 sm:pb-10 sm:pt-5">
       <section className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/60 p-4 shadow-2xl shadow-black/5 backdrop-blur-xl dark:bg-white/5 sm:rounded-[2rem] sm:p-6 lg:p-8">
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-cyan-500/10" />
         <div className="pointer-events-none absolute -left-10 top-0 h-32 w-32 rounded-full bg-violet-500/15 blur-3xl sm:h-40 sm:w-40" />
@@ -324,24 +324,14 @@ export default async function DashboardPage() {
       </section>
 
       <section className="mt-4 grid grid-cols-1 gap-4 sm:mt-6 lg:grid-cols-2">
-        
-        {/* MOBILE: Quiz first */}
-        <div className="block lg:hidden">
+        <div className="order-1 min-w-0">
           <QuizMeCard
             lastTopic={lastGame?.topic ?? null}
             hasMistakes={mistakesCount > 0}
           />
         </div>
 
-        {/* DESKTOP: Quiz aquí */}
-        <div className="hidden lg:block">
-          <QuizMeCard
-            lastTopic={lastGame?.topic ?? null}
-            hasMistakes={mistakesCount > 0}
-          />
-        </div>
-
-        <div className="min-w-0 order-2">
+        <div className="order-2 min-w-0">
           <HistoryCard />
         </div>
       </section>
@@ -458,6 +448,6 @@ export default async function DashboardPage() {
       <section className="mt-4 sm:mt-6">
         <RecentActivityCard />
       </section>
-    </main>
+    </div>
   );
 }

@@ -1,4 +1,4 @@
-import Image from "next/image";
+
 import { redirect } from "next/navigation";
 import { Sparkles, Trophy, BrainCircuit } from "lucide-react";
 import Logo from "@/components/Logo";

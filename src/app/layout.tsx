@@ -32,11 +32,11 @@ export default function RootLayout({
         className={cn(
           inter.variable,
           inter.className,
-          "min-h-screen bg-background font-sans text-foreground antialiased"
+          "min-h-screen overflow-x-hidden bg-background font-sans text-foreground antialiased"
         )}
       >
         <Providers>
-          <div className="relative min-h-screen overflow-x-hidden">
+          <div className="relative min-h-screen isolate flex flex-col">
             <div className="pointer-events-none absolute inset-0 -z-10">
               <div className="absolute inset-0 bg-background" />
               <div className="absolute left-[-10%] top-0 h-[420px] w-[420px] rounded-full bg-violet-500/15 blur-3xl" />
@@ -46,7 +46,7 @@ export default function RootLayout({
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/80" />
             </div>
 
-            <div className="relative z-10">
+            <div className="relative z-10 min-h-screen ">
               <Navbar />
               <main className="mx-auto w-full max-w-7xl px-4 pb-10 pt-24 sm:px-6 lg:px-8">
                 {children}
