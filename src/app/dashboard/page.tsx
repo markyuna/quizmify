@@ -371,7 +371,7 @@ export default async function DashboardPage() {
           <Card className="relative h-full overflow-hidden rounded-[1.5rem] border-white/10 bg-white/60 shadow-xl shadow-black/5 dark:bg-white/5 sm:rounded-[1.75rem]">
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-fuchsia-500/10 via-transparent to-violet-500/10" />
 
-            <CardHeader className="relative z-10 flex flex-row items-start justify-between gap-3 p-4 sm:p-6">
+            <CardHeader className=" flex flex-row items-start justify-between gap-3 p-4 sm:p-6">
               <div className="min-w-0">
                 <CardTitle className="text-lg font-bold sm:text-xl">
                   Recent Quiz Results
