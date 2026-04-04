@@ -34,7 +34,7 @@ export default function Logo() {
         initial={{ y: 10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.1 }}
-        className="text-3xl font-bold text-white tracking-tight leading-none"
+        className="text-3xl font-bold text-black dark:text-white tracking-tight leading-none"
       >
         uizmify
       </motion.span>
