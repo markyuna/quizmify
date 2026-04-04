@@ -13,14 +13,14 @@ const MCQCounter = ({
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center justify-between text-sm text-slate-300">
+      <div className="flex items-center justify-between text-sm text-slate-600 dark:text-slate-300">
         <span>
           Question {currentQuestionIndex + 1} / {questionsLength}
         </span>
         <span>{Math.round(progress)}%</span>
       </div>
 
-      <div className="h-3 w-full overflow-hidden rounded-full bg-white/10">
+      <div className="h-3 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
         <div
           className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 transition-all duration-300"
           style={{ width: `${progress}%` }}

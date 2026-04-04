@@ -1,45 +1,46 @@
 "use client";
 
-import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useSyncExternalStore } from "react";
+import { cn } from "@/lib/utils";
 
-import { Button } from "./ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+function useMounted() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+}
 
-export function ThemeToggle({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
-  const { setTheme } = useTheme();
+export default function ThemeToggle() {
+  const { resolvedTheme, setTheme } = useTheme();
+  const mounted = useMounted();
+
+  const isDark = resolvedTheme === "dark";
 
   return (
-    <div className={className} {...props}>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="icon">
-            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            <span className="sr-only">Toggle theme</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => setTheme("light")}>
-            Light
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("dark")}>
-            Dark
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("system")}>
-            System
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+    <button
+      type="button"
+      onClick={() => mounted && setTheme(isDark ? "light" : "dark")}
+      aria-label="Toggle theme"
+      className={cn(
+        "inline-flex h-11 w-11 items-center justify-center rounded-2xl",
+        "border border-white/40 bg-white/70 backdrop-blur-md shadow-sm",
+        "transition-all duration-300 hover:scale-105 hover:shadow-md",
+        "dark:border-white/10 dark:bg-white/10",
+        !mounted && "opacity-90"
+      )}
+    >
+      {mounted ? (
+        isDark ? (
+          <Sun className="h-5 w-5" />
+        ) : (
+          <Moon className="h-5 w-5" />
+        )
+      ) : (
+        <div className="h-5 w-5" />
+      )}
+    </button>
   );
 }

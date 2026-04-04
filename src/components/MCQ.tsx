@@ -228,27 +228,29 @@ const MCQ = ({ game }: MCQProps) => {
     const isSelected = option === selectedAnswer;
 
     if (!hasAnswered) {
-      return "border-white/10 bg-white/5 hover:bg-white/10 hover:border-cyan-400/40";
+      return "border-black/10 bg-white/80 text-slate-800 hover:bg-white hover:border-cyan-400/50 dark:border-white/10 dark:bg-white/5 dark:text-slate-100 dark:hover:bg-white/10 dark:hover:border-cyan-400/40";
     }
 
     if (isCorrect) {
-      return "border-emerald-400/50 bg-emerald-500/20 text-white";
+      return "border-emerald-400/50 bg-emerald-500/15 text-emerald-700 dark:bg-emerald-500/20 dark:text-white";
     }
 
     if (isSelected && !isCorrect) {
-      return "border-rose-400/50 bg-rose-500/20 text-white";
+      return "border-rose-400/50 bg-rose-500/15 text-rose-700 dark:bg-rose-500/20 dark:text-white";
     }
 
-    return "border-white/10 bg-white/5 opacity-70";
+    return "border-black/10 bg-white/60 text-slate-500 opacity-70 dark:border-white/10 dark:bg-white/5 dark:text-slate-300";
   };
 
   if (!currentQuestion && !quizFinished) {
     return (
-      <div className="w-full bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 px-4 py-6 sm:py-8">
+      <div className="w-full rounded-[2rem] bg-gradient-to-br from-slate-100 via-white to-cyan-100 px-4 py-6 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950 sm:py-8">
         <div className="mx-auto flex max-w-4xl flex-col gap-6">
-          <Card className="rounded-3xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-xl">
+          <Card className="rounded-3xl border border-black/5 bg-white/70 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
             <CardHeader>
-              <CardTitle className="text-white">No questions found</CardTitle>
+              <CardTitle className="text-slate-900 dark:text-white">
+                No questions found
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <Link
@@ -274,50 +276,52 @@ const MCQ = ({ game }: MCQProps) => {
       finalResult?.score ?? Math.round((score / totalQuestions) * 100);
 
     return (
-      <div className="w-full bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 px-4 py-6 sm:py-8">
+      <div className="w-full rounded-[2rem] bg-gradient-to-br from-slate-100 via-white to-cyan-100 px-4 py-6 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950 sm:py-8">
         <div className="mx-auto flex max-w-4xl flex-col gap-6">
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-xl">
-            <p className="text-sm uppercase tracking-[0.25em] text-cyan-300">
+          <div className="rounded-3xl border border-black/5 bg-white/70 p-6 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+            <p className="text-sm uppercase tracking-[0.25em] text-cyan-500 dark:text-cyan-300">
               Quiz completed
             </p>
-            <h1 className="mt-2 text-3xl font-bold text-white md:text-4xl">
+            <h1 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white md:text-4xl">
               {game.topic}
             </h1>
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">
-            <Card className="rounded-3xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-xl">
+            <Card className="rounded-3xl border border-black/5 bg-white/70 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
               <CardHeader>
-                <CardTitle className="text-sm text-slate-300">
+                <CardTitle className="text-sm text-slate-500 dark:text-slate-300">
                   Final Score
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-4xl font-bold text-white">{finalScore}%</p>
+                <p className="text-4xl font-bold text-slate-900 dark:text-white">
+                  {finalScore}%
+                </p>
               </CardContent>
             </Card>
 
-            <Card className="rounded-3xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-xl">
+            <Card className="rounded-3xl border border-black/5 bg-white/70 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
               <CardHeader>
-                <CardTitle className="text-sm text-slate-300">
+                <CardTitle className="text-sm text-slate-500 dark:text-slate-300">
                   Correct Answers
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-4xl font-bold text-white">
+                <p className="text-4xl font-bold text-slate-900 dark:text-white">
                   {correctAnswers}/{totalQuestions}
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="rounded-3xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-xl">
+            <Card className="rounded-3xl border border-black/5 bg-white/70 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
               <CardHeader>
-                <CardTitle className="text-sm text-slate-300">
+                <CardTitle className="text-sm text-slate-500 dark:text-slate-300">
                   Total Time
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-4xl font-bold text-white">
+                <p className="text-4xl font-bold text-slate-900 dark:text-white">
                   {formatTimeDelta(elapsedSeconds)}
                 </p>
               </CardContent>
@@ -327,7 +331,7 @@ const MCQ = ({ game }: MCQProps) => {
           <div className="flex flex-wrap gap-3">
             <Button
               onClick={handleRestartLocal}
-              className="h-12 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 text-white shadow-lg shadow-cyan-900/30 hover:opacity-95"
+              className="h-12 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 text-white shadow-lg shadow-cyan-900/20 hover:opacity-95"
             >
               <RotateCcw className="mr-2 h-4 w-4" />
               Replay Locally
@@ -349,7 +353,7 @@ const MCQ = ({ game }: MCQProps) => {
                 href="/quiz/mistakes"
                 className={cn(
                   buttonVariants({ variant: "outline" }),
-                  "h-12 rounded-2xl px-6 border-white/10 bg-white/5 text-white hover:bg-white/10"
+                  "h-12 rounded-2xl border-black/10 bg-white/70 px-6 text-slate-800 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
                 )}
               >
                 <AlertCircle className="mr-2 h-4 w-4" />
@@ -361,7 +365,7 @@ const MCQ = ({ game }: MCQProps) => {
               href="/quiz"
               className={cn(
                 buttonVariants({ variant: "ghost" }),
-                "h-12 rounded-2xl px-6 text-slate-300 hover:bg-white/5 hover:text-white"
+                "h-12 rounded-2xl px-6 text-slate-600 hover:bg-black/5 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
               )}
             >
               New Quiz
@@ -373,20 +377,20 @@ const MCQ = ({ game }: MCQProps) => {
   }
 
   return (
-    <div className="w-full bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 px-4 py-6 sm:py-8">
+    <div className="w-full rounded-[2rem] bg-gradient-to-br from-slate-100 via-white to-cyan-100 px-4 py-6 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950 sm:py-8">
       <div className="mx-auto flex max-w-4xl flex-col gap-6">
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-xl">
+        <div className="rounded-3xl border border-black/5 bg-white/70 p-6 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
           <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="text-sm uppercase tracking-[0.25em] text-cyan-300">
+              <p className="text-sm uppercase tracking-[0.25em] text-cyan-500 dark:text-cyan-300">
                 Quiz Challenge
               </p>
-              <h1 className="mt-2 text-3xl font-bold text-white md:text-4xl">
+              <h1 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white md:text-4xl">
                 {game.topic}
               </h1>
             </div>
 
-            <div className="flex items-center gap-3 rounded-2xl border border-cyan-400/20 bg-cyan-500/10 px-4 py-3 text-cyan-100">
+            <div className="flex items-center gap-3 rounded-2xl border border-cyan-300/40 bg-cyan-500/10 px-4 py-3 text-cyan-700 dark:border-cyan-400/20 dark:text-cyan-100">
               <Timer className="h-5 w-5" />
               <span className="font-medium">
                 {formatTimeDelta(elapsedSeconds)}
@@ -400,9 +404,9 @@ const MCQ = ({ game }: MCQProps) => {
           />
         </div>
 
-        <Card className="rounded-3xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-xl">
+        <Card className="rounded-3xl border border-black/5 bg-white/70 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold leading-snug text-white">
+            <CardTitle className="text-2xl font-bold leading-snug text-slate-900 dark:text-white">
               {currentQuestion.question}
             </CardTitle>
           </CardHeader>
@@ -420,18 +424,18 @@ const MCQ = ({ game }: MCQProps) => {
                     onClick={() => handleSelect(option)}
                     disabled={hasAnswered || isCheckingAnswer || isSubmittingQuiz}
                     className={cn(
-                      "group flex w-full items-start justify-between gap-3 rounded-2xl border px-4 py-4 text-left text-sm font-medium text-slate-100 transition-all duration-200 shadow-lg shadow-black/10 sm:px-5 sm:text-base",
+                      "group flex w-full items-start justify-between gap-3 rounded-2xl border px-4 py-4 text-left text-sm font-medium transition-all duration-200 shadow-lg shadow-black/5 sm:px-5 sm:text-base",
                       getOptionStyle(option)
                     )}
                   >
                     <span className="min-w-0 break-words pr-3">{option}</span>
 
                     {hasAnswered && isCorrect && (
-                      <CheckCircle2 className="h-5 w-5 text-emerald-300" />
+                      <CheckCircle2 className="h-5 w-5 text-emerald-500 dark:text-emerald-300" />
                     )}
 
                     {hasAnswered && isSelected && !isCorrect && (
-                      <XCircle className="h-5 w-5 text-rose-300" />
+                      <XCircle className="h-5 w-5 text-rose-500 dark:text-rose-300" />
                     )}
                   </button>
                 );
@@ -440,20 +444,20 @@ const MCQ = ({ game }: MCQProps) => {
 
             <div className="mt-2 space-y-3">
               {hasAnswered && lastAnswerWasCorrect === false && lastCorrectAnswer && (
-                <div className="rounded-2xl border border-rose-400/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-100">
+                <div className="rounded-2xl border border-rose-300/50 bg-rose-500/10 px-4 py-3 text-sm text-rose-700 dark:border-rose-400/30 dark:bg-rose-500/10 dark:text-rose-100">
                   Correct answer:{" "}
                   <span className="font-semibold">{lastCorrectAnswer}</span>
                 </div>
               )}
 
               {hasAnswered && lastAnswerWasCorrect === true && (
-                <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
+                <div className="rounded-2xl border border-emerald-300/50 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-700 dark:border-emerald-400/30 dark:bg-emerald-500/10 dark:text-emerald-100">
                   Correct — keep going.
                 </div>
               )}
 
               {hasAnswered && currentQuestion.explanation && (
-                <div className="rounded-2xl border border-cyan-400/30 bg-cyan-500/10 px-4 py-3 text-sm leading-6 text-cyan-100">
+                <div className="rounded-2xl border border-cyan-300/50 bg-cyan-500/10 px-4 py-3 text-sm leading-6 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-100">
                   <span className="font-semibold">Explanation:</span>{" "}
                   {currentQuestion.explanation}
                 </div>
@@ -461,8 +465,8 @@ const MCQ = ({ game }: MCQProps) => {
             </div>
 
             <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-              <div className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-slate-200">
-                Score: <span className="font-bold text-white">{score}</span> /{" "}
+              <div className="rounded-2xl border border-black/10 bg-white/60 px-4 py-3 text-sm text-slate-700 dark:border-white/10 dark:bg-black/20 dark:text-slate-200">
+                Score: <span className="font-bold text-slate-900 dark:text-white">{score}</span> /{" "}
                 {game.questions.length}
               </div>
 
@@ -470,7 +474,7 @@ const MCQ = ({ game }: MCQProps) => {
                 <Button
                   onClick={handleNext}
                   disabled={isSubmittingQuiz}
-                  className="h-12 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 text-white shadow-lg shadow-cyan-900/30 hover:opacity-95"
+                  className="h-12 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 text-white shadow-lg shadow-cyan-900/20 hover:opacity-95"
                 >
                   {isSubmittingQuiz ? (
                     <>
@@ -485,7 +489,7 @@ const MCQ = ({ game }: MCQProps) => {
                   )}
                 </Button>
               ) : (
-                <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-300">
+                <div className="flex items-center gap-2 rounded-2xl border border-black/10 bg-white/60 px-4 py-3 text-sm text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
                   {isCheckingAnswer ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" />
@@ -504,7 +508,7 @@ const MCQ = ({ game }: MCQProps) => {
           href="/"
           className={cn(
             buttonVariants({ variant: "ghost" }),
-            "mx-auto text-slate-300 hover:bg-white/5 hover:text-white"
+            "mx-auto text-slate-600 hover:bg-black/5 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
           )}
         >
           Back to Home

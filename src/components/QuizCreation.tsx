@@ -118,10 +118,10 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
 
   return (
     <div className="mx-auto flex w-full max-w-xl items-center justify-center px-4 py-6 sm:py-10">
-      <Card className="w-full border-white/10 bg-slate-950/70 text-white backdrop-blur">
+      <Card className="w-full border-black/5 bg-white/70 text-slate-900 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70 dark:text-white">
         <CardHeader>
           <CardTitle className="text-3xl font-bold">Create a Quiz</CardTitle>
-          <CardDescription className="text-slate-300">
+          <CardDescription className="text-slate-600 dark:text-slate-300">
             Choose a topic, difficulty, and number of questions.
           </CardDescription>
         </CardHeader>
@@ -140,10 +140,10 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
                         placeholder="Enter a topic..."
                         {...field}
                         value={field.value ?? ""}
-                        className="border-white/10 bg-white/5 text-white placeholder:text-slate-400"
+                        className="border-black/10 bg-white/80 text-slate-900 placeholder:text-slate-400 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-slate-400"
                       />
                     </FormControl>
-                    <FormDescription className="text-slate-400">
+                    <FormDescription className="text-slate-500 dark:text-slate-400">
                       Example: JavaScript, History, Biology...
                     </FormDescription>
                     <FormMessage />
@@ -160,17 +160,11 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
                     <FormControl>
                       <select
                         {...field}
-                        className="flex h-10 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                        className="flex h-10 w-full rounded-md border border-black/10 bg-white/80 px-3 py-2 text-sm text-slate-900 dark:border-white/10 dark:bg-white/5 dark:text-white"
                       >
-                        <option value="easy" className="text-black">
-                          Easy
-                        </option>
-                        <option value="medium" className="text-black">
-                          Medium
-                        </option>
-                        <option value="hard" className="text-black">
-                          Hard
-                        </option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
                       </select>
                     </FormControl>
                     <FormMessage />
@@ -192,10 +186,10 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
                         {...field}
                         onChange={(e) => field.onChange(Number(e.target.value))}
                         value={field.value ?? 3}
-                        className="border-white/10 bg-white/5 text-white placeholder:text-slate-400"
+                        className="border-black/10 bg-white/80 text-slate-900 placeholder:text-slate-400 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-slate-400"
                       />
                     </FormControl>
-                    <FormDescription className="text-slate-400">
+                    <FormDescription className="text-slate-500 dark:text-slate-400">
                       Choose between 1 and 20 questions.
                     </FormDescription>
                     <FormMessage />
@@ -203,7 +197,7 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
                 )}
               />
 
-              <div className="overflow-hidden rounded-xl border border-white/10">
+              <div className="overflow-hidden rounded-xl border border-black/10 dark:border-white/10">
                 <Button
                   type="button"
                   className="h-12 w-full rounded-none bg-gradient-to-r from-violet-600 to-cyan-500 text-base font-semibold text-white hover:opacity-90"

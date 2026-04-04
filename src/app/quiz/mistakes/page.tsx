@@ -9,6 +9,14 @@ export const metadata = {
   title: "Practice Mistakes | Quizmify",
 };
 
+type PracticeQuestion = {
+  id: string;
+  question: string;
+  answer: string;
+  options: string[];
+  questionType: string;
+};
+
 export default async function PracticeMistakesPage() {
   const session = await getAuthSession();
 
@@ -61,23 +69,22 @@ export default async function PracticeMistakesPage() {
     },
   });
 
-  const questionsById = new Map(
-    questions.map((question) => [question.id, question])
+  const questionsById = new Map<string, PracticeQuestion>(
+    questions.map((question) => [
+      question.id,
+      {
+        id: question.id,
+        question: question.question,
+        answer: question.answer,
+        options: question.options,
+        questionType: question.questionType ?? "mcq",
+      },
+    ])
   );
 
   const orderedQuestions = uniqueQuestionIds
     .map((id) => questionsById.get(id))
-    .filter(
-      (
-        question
-      ): question is {
-        id: string;
-        question: string;
-        answer: string;
-        options: string[];
-        questionType: string;
-      } => Boolean(question)
-    );
+    .filter((question): question is PracticeQuestion => Boolean(question));
 
   if (orderedQuestions.length === 0) {
     redirect("/quiz");
@@ -94,7 +101,7 @@ export default async function PracticeMistakesPage() {
           question: question.question,
           answer: question.answer,
           options: question.options,
-          questionType: question.questionType || "mcq",
+          questionType: question.questionType,
         })),
       },
     },

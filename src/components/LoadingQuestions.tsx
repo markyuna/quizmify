@@ -64,8 +64,8 @@ export default function LoadingQuestions({
 
   return (
     <main className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-4xl items-center justify-center px-4 py-10">
-      <div className="relative w-full max-w-2xl overflow-hidden rounded-[2rem] border border-white/10 bg-black/40 p-8 shadow-2xl shadow-violet-950/20 backdrop-blur-2xl">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.16),transparent_30%),radial-gradient(circle_at_top_right,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_bottom,rgba(217,70,239,0.10),transparent_30%)]" />
+      <div className="relative w-full max-w-2xl overflow-hidden rounded-[2rem] border border-black/5 bg-white/70 p-8 shadow-2xl shadow-slate-200/60 backdrop-blur-2xl dark:border-white/10 dark:bg-black/40 dark:shadow-violet-950/20">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.12),transparent_30%),radial-gradient(circle_at_top_right,rgba(34,211,238,0.10),transparent_28%),radial-gradient(circle_at_bottom,rgba(217,70,239,0.08),transparent_30%)] dark:bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.16),transparent_30%),radial-gradient(circle_at_top_right,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_bottom,rgba(217,70,239,0.10),transparent_30%)]" />
 
         <div className="pointer-events-none absolute left-10 top-10 h-32 w-32 rounded-full bg-violet-500/10 blur-3xl" />
         <div className="pointer-events-none absolute right-10 top-16 h-32 w-32 rounded-full bg-cyan-500/10 blur-3xl" />
@@ -80,11 +80,11 @@ export default function LoadingQuestions({
                 <motion.span
                   key={badge}
                   animate={{
-                    opacity: isActive ? 1 : 0.45,
+                    opacity: isActive ? 1 : 0.5,
                     scale: isActive ? 1.04 : 1,
                   }}
                   transition={{ duration: 0.25 }}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-xl"
+                  className="rounded-full border border-black/5 bg-white/75 px-3 py-1 text-xs font-medium text-slate-700 backdrop-blur-xl dark:border-white/10 dark:bg-white/5 dark:text-white/80"
                 >
                   {badge}
                 </motion.span>
@@ -130,9 +130,9 @@ export default function LoadingQuestions({
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="relative flex h-24 w-24 items-center justify-center rounded-[1.75rem] border border-white/10 bg-white/10 shadow-xl backdrop-blur-xl"
+              className="relative flex h-24 w-24 items-center justify-center rounded-[1.75rem] border border-black/5 bg-white/80 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-white/10"
             >
-              <BrainCircuit className="h-10 w-10 text-violet-300" />
+              <BrainCircuit className="h-10 w-10 text-violet-500 dark:text-violet-300" />
             </motion.div>
 
             <motion.div
@@ -144,7 +144,7 @@ export default function LoadingQuestions({
               }}
               className="absolute left-6 top-10"
             >
-              <Sparkles className="h-5 w-5 text-cyan-300" />
+              <Sparkles className="h-5 w-5 text-cyan-500 dark:text-cyan-300" />
             </motion.div>
 
             <motion.div
@@ -157,7 +157,7 @@ export default function LoadingQuestions({
               }}
               className="absolute bottom-8 right-8"
             >
-              <Wand2 className="h-5 w-5 text-fuchsia-300" />
+              <Wand2 className="h-5 w-5 text-fuchsia-500 dark:text-fuchsia-300" />
             </motion.div>
           </div>
 
@@ -168,53 +168,53 @@ export default function LoadingQuestions({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.35 }}
-              className="max-w-xl text-balance text-2xl font-semibold tracking-tight text-white"
+              className="max-w-xl text-balance text-2xl font-semibold tracking-tight text-slate-900 dark:text-white"
             >
               {loadingText}
             </motion.h1>
           </AnimatePresence>
 
-          <p className="mt-2 text-xs text-white/40">
+          <p className="mt-2 text-xs text-slate-500 dark:text-white/40">
             This may take a few seconds depending on complexity.
           </p>
 
           <div className="mt-8 w-full max-w-xl">
-            <div className="mb-3 flex items-center justify-between text-sm text-white/70">
+            <div className="mb-3 flex items-center justify-between text-sm text-slate-600 dark:text-white/70">
               <span>Preparing your quiz</span>
               <span>{Math.round(progress)}%</span>
             </div>
 
             <Progress
               value={progress}
-              className="h-2.5 w-full bg-white/10"
-              indicatorClassName="bg-[length:200%_100%] bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400 shadow-[0_0_20px_rgba(168,85,247,0.4)] animate-[shimmer_2.2s_linear_infinite]"
+              className="h-2.5 w-full bg-slate-200 dark:bg-white/10"
+              indicatorClassName="bg-[length:200%_100%] bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400 shadow-[0_0_20px_rgba(168,85,247,0.35)] animate-[shimmer_2.2s_linear_infinite]"
             />
           </div>
 
           <div className="mt-6 grid w-full max-w-xl grid-cols-1 gap-3 sm:grid-cols-3">
-            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur-xl">
-              <p className="text-xs uppercase tracking-[0.18em] text-white/40">
+            <div className="rounded-2xl border border-black/5 bg-white/75 px-4 py-3 text-left backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+              <p className="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-white/40">
                 Status
               </p>
-              <p className="mt-1 text-sm font-medium text-white/85">
+              <p className="mt-1 text-sm font-medium text-slate-800 dark:text-white/85">
                 {finished ? "Finalizing" : "Generating"}
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur-xl">
-              <p className="text-xs uppercase tracking-[0.18em] text-white/40">
+            <div className="rounded-2xl border border-black/5 bg-white/75 px-4 py-3 text-left backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+              <p className="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-white/40">
                 Engine
               </p>
-              <p className="mt-1 text-sm font-medium text-white/85">
+              <p className="mt-1 text-sm font-medium text-slate-800 dark:text-white/85">
                 Adaptive AI
               </p>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur-xl">
-              <p className="text-xs uppercase tracking-[0.18em] text-white/40">
+            <div className="rounded-2xl border border-black/5 bg-white/75 px-4 py-3 text-left backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+              <p className="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-white/40">
                 Output
               </p>
-              <p className="mt-1 text-sm font-medium text-white/85">
+              <p className="mt-1 text-sm font-medium text-slate-800 dark:text-white/85">
                 Quiz questions
               </p>
             </div>

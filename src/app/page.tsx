@@ -21,7 +21,7 @@ export default async function Home() {
   }
 
   return (
-    <section className="relative flex min-h-[calc(100vh-6rem)] items-center justify-center overflow-hidden">
+    <main className="relative flex min-h-[calc(100vh-6rem)] items-center justify-center overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[8%] top-[10%] h-40 w-40 rounded-full bg-violet-500/20 blur-3xl" />
         <div className="absolute right-[10%] top-[18%] h-44 w-44 rounded-full bg-cyan-500/20 blur-3xl" />
@@ -123,6 +123,6 @@ export default async function Home() {
         </div>
 
       </div>
-    </section>
+    </main>
   );
 }
