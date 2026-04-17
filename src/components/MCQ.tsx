@@ -61,6 +61,12 @@ const MCQ = ({ game }: MCQProps) => {
   const [hasAnswered, setHasAnswered] = React.useState(false);
   const [score, setScore] = React.useState(0);
   const [now, setNow] = React.useState(new Date());
+  const [timeStartedAt, setTimeStartedAt] = React.useState<Date>(
+    new Date(game.timeStarted)
+  );
+  const [finalElapsedSeconds, setFinalElapsedSeconds] = React.useState<
+    number | null
+  >(null);
   const [answers, setAnswers] = React.useState<AnswerRecord[]>([]);
   const [lastCorrectAnswer, setLastCorrectAnswer] = React.useState<string | null>(
     null
@@ -74,11 +80,6 @@ const MCQ = ({ game }: MCQProps) => {
 
   const currentQuestion = game.questions[questionIndex];
   const isLastQuestion = questionIndex === game.questions.length - 1;
-
-  React.useEffect(() => {
-    const interval = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   const { mutate: checkAnswer, isPending: isCheckingAnswer } = useMutation({
     mutationFn: async ({
@@ -166,6 +167,8 @@ const MCQ = ({ game }: MCQProps) => {
       });
     },
     onError: () => {
+      setFinalElapsedSeconds(null);
+
       toast({
         title: "Error",
         description: "Unable to save the final result.",
@@ -173,6 +176,16 @@ const MCQ = ({ game }: MCQProps) => {
       });
     },
   });
+
+  React.useEffect(() => {
+    if (quizFinished || isSubmittingQuiz) return;
+
+    const interval = setInterval(() => {
+      setNow(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [quizFinished, isSubmittingQuiz]);
 
   const handleSelect = (option: string) => {
     if (hasAnswered || isCheckingAnswer || isSubmittingQuiz) return;
@@ -197,11 +210,13 @@ const MCQ = ({ game }: MCQProps) => {
       return;
     }
 
-    const elapsedSeconds = differenceInSeconds(now, new Date(game.timeStarted));
+    const frozenElapsedSeconds = differenceInSeconds(new Date(), timeStartedAt);
+
+    setFinalElapsedSeconds(frozenElapsedSeconds);
 
     submitQuiz({
       gameId: game.id,
-      timeSpent: elapsedSeconds,
+      timeSpent: frozenElapsedSeconds,
       answers: answers.map((answer) => ({
         questionId: answer.questionId,
         selectedAnswer: answer.selectedAnswer,
@@ -210,10 +225,15 @@ const MCQ = ({ game }: MCQProps) => {
   };
 
   const handleRestartLocal = () => {
+    const restartedAt = new Date();
+
     setQuestionIndex(0);
     setSelectedAnswer(null);
     setHasAnswered(false);
     setScore(0);
+    setNow(restartedAt);
+    setTimeStartedAt(restartedAt);
+    setFinalElapsedSeconds(null);
     setAnswers([]);
     setLastCorrectAnswer(null);
     setLastAnswerWasCorrect(null);
@@ -221,7 +241,8 @@ const MCQ = ({ game }: MCQProps) => {
     setFinalResult(null);
   };
 
-  const elapsedSeconds = differenceInSeconds(now, new Date(game.timeStarted));
+  const liveElapsedSeconds = differenceInSeconds(now, timeStartedAt);
+  const displayedElapsedSeconds = finalElapsedSeconds ?? liveElapsedSeconds;
 
   const getOptionStyle = (option: string) => {
     const isCorrect = option === currentQuestion.answer;
@@ -322,7 +343,7 @@ const MCQ = ({ game }: MCQProps) => {
               </CardHeader>
               <CardContent>
                 <p className="text-4xl font-bold text-slate-900 dark:text-white">
-                  {formatTimeDelta(elapsedSeconds)}
+                  {formatTimeDelta(displayedElapsedSeconds)}
                 </p>
               </CardContent>
             </Card>
@@ -393,7 +414,7 @@ const MCQ = ({ game }: MCQProps) => {
             <div className="flex items-center gap-3 rounded-2xl border border-cyan-300/40 bg-cyan-500/10 px-4 py-3 text-cyan-700 dark:border-cyan-400/20 dark:text-cyan-100">
               <Timer className="h-5 w-5" />
               <span className="font-medium">
-                {formatTimeDelta(elapsedSeconds)}
+                {formatTimeDelta(displayedElapsedSeconds)}
               </span>
             </div>
           </div>
