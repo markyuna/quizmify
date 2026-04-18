@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
+import { calculateEarnedXp, calculateLevel } from "@/lib/xp";
 import { submitQuizSchema } from "@/schemas/form/quiz";
 
 export async function POST(req: Request) {
@@ -58,6 +59,14 @@ export async function POST(req: Request) {
     });
 
     if (existingAttempt) {
+      const currentUser = await prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+          xp: true,
+          level: true,
+        },
+      });
+
       return NextResponse.json(
         {
           success: true,
@@ -65,6 +74,9 @@ export async function POST(req: Request) {
           score: existingAttempt.score,
           correctAnswers: existingAttempt.correctAnswers,
           totalQuestions: existingAttempt.totalQuestions,
+          earnedXp: 0,
+          newXp: currentUser?.xp ?? 0,
+          newLevel: currentUser?.level ?? 1,
         },
         { status: 200 }
       );
@@ -123,7 +135,12 @@ export async function POST(req: Request) {
       Math.min(parsedBody.timeSpent, 60 * 60 * 3)
     );
 
-    const attempt = await prisma.$transaction(async (tx) => {
+    const earnedXp = calculateEarnedXp({
+      correctAnswers,
+      totalQuestions,
+    });
+
+    const result = await prisma.$transaction(async (tx) => {
       const createdAttempt = await tx.attempt.create({
         data: {
           userId,
@@ -148,16 +165,42 @@ export async function POST(req: Request) {
         },
       });
 
-      return createdAttempt;
+      const currentUser = await tx.user.findUnique({
+        where: { id: userId },
+        select: {
+          xp: true,
+        },
+      });
+
+      const newXp = (currentUser?.xp ?? 0) + earnedXp;
+      const newLevel = calculateLevel(newXp);
+
+      await tx.user.update({
+        where: { id: userId },
+        data: {
+          xp: newXp,
+          level: newLevel,
+        },
+      });
+
+      return {
+        attempt: createdAttempt,
+        earnedXp,
+        newXp,
+        newLevel,
+      };
     });
 
     return NextResponse.json(
       {
         success: true,
-        attemptId: attempt.id,
+        attemptId: result.attempt.id,
         score,
         correctAnswers,
         totalQuestions,
+        earnedXp: result.earnedXp,
+        newXp: result.newXp,
+        newLevel: result.newLevel,
       },
       { status: 200 }
     );
@@ -175,7 +218,10 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json(
-      { error: "Internal server error" },
+      {
+        error: "Internal server error",
+        details: error instanceof Error ? error.message : String(error),
+      },
       { status: 500 }
     );
   }

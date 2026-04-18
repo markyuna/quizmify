@@ -16,6 +16,7 @@ import RecentActivityCard from "@/components/dashboard/RecentActivityCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
+import { getLevelProgress } from "@/lib/xp";
 
 export const metadata = {
   title: "Dashboard | Quizmify",
@@ -125,6 +126,7 @@ export default async function DashboardPage() {
   const userId = session.user.id;
 
   const [
+    userProfile,
     attempts,
     attemptsCount,
     gamesCount,
@@ -135,6 +137,15 @@ export default async function DashboardPage() {
     lastGame,
     mistakesCount,
   ] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        xp: true,
+        level: true,
+        name: true,
+      },
+    }),
+
     prisma.attempt.findMany({
       where: { userId },
       select: {
@@ -232,6 +243,10 @@ export default async function DashboardPage() {
     }),
   ]);
 
+  const totalXp = userProfile?.xp ?? 0;
+  const currentLevel = userProfile?.level ?? 1;
+  const levelProgress = getLevelProgress(totalXp);
+
   const totalCorrect = totalCorrectAggregate._sum.correctAnswers ?? 0;
   const totalAnswered = totalAnsweredAggregate._sum.totalQuestions ?? 0;
   const totalTimeSpent = totalTimeAggregate._sum.timeSpent ?? 0;
@@ -301,6 +316,44 @@ export default async function DashboardPage() {
               Track your progress, review recent quiz results, and keep building
               momentum with a cleaner, smarter learning workflow.
             </p>
+
+            <div className="mt-5 max-w-xl rounded-[1.5rem] border border-white/10 bg-white/60 p-4 shadow-lg shadow-black/5 backdrop-blur-xl dark:bg-white/5">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-violet-500 dark:text-violet-300">
+                    Level Progress
+                  </p>
+                  <h2 className="mt-1 text-xl font-bold text-slate-900 dark:text-white">
+                    Level {currentLevel}
+                  </h2>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {totalXp} XP total · {levelProgress.xpToNextLevel} XP to
+                    Level {currentLevel + 1}
+                  </p>
+                </div>
+
+                <div className="shrink-0 rounded-2xl border border-white/10 bg-white/70 px-4 py-3 text-center backdrop-blur-xl dark:bg-white/10">
+                  <p className="text-xs text-muted-foreground">XP</p>
+                  <p className="text-lg font-bold text-slate-900 dark:text-white">
+                    {totalXp}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-4">
+                <div className="mb-2 flex items-center justify-between text-xs text-muted-foreground">
+                  <span>{levelProgress.xpIntoCurrentLevel}/100 XP</span>
+                  <span>{Math.round(levelProgress.progressPercent)}%</span>
+                </div>
+
+                <div className="h-3 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-500 transition-all duration-500"
+                    style={{ width: `${levelProgress.progressPercent}%` }}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="grid w-full grid-cols-2 gap-3 sm:w-auto sm:min-w-[260px]">
@@ -308,7 +361,9 @@ export default async function DashboardPage() {
               <p className="text-xs text-muted-foreground sm:text-sm">
                 Quizzes done
               </p>
-              <p className="mt-1 text-lg font-bold sm:text-xl">{attemptsCount}</p>
+              <p className="mt-1 text-lg font-bold sm:text-xl">
+                {attemptsCount}
+              </p>
             </div>
 
             <div className="rounded-2xl border border-white/10 bg-white/50 px-3 py-3 text-sm backdrop-blur-xl dark:bg-white/5 sm:px-4">
@@ -335,6 +390,7 @@ export default async function DashboardPage() {
           <HistoryCard />
         </div>
       </section>
+
       <section className="mt-4 grid grid-cols-1 gap-4 sm:mt-6 sm:grid-cols-2 xl:grid-cols-4">
         {statCards.map((item) => {
           const stat = stats[item.key];
@@ -351,7 +407,6 @@ export default async function DashboardPage() {
         })}
       </section>
 
-
       <section className="mt-4 grid grid-cols-1 gap-4 sm:mt-6 xl:grid-cols-7">
         <div className="order-2 xl:order-1 xl:col-span-4">
           <HotTopicsCard />
@@ -361,7 +416,7 @@ export default async function DashboardPage() {
           <Card className="relative h-full overflow-hidden rounded-[1.5rem] border-white/10 bg-white/60 shadow-xl shadow-black/5 dark:bg-white/5 sm:rounded-[1.75rem]">
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-fuchsia-500/10 via-transparent to-violet-500/10" />
 
-            <CardHeader className=" flex flex-row items-start justify-between gap-3 p-4 sm:p-6">
+            <CardHeader className="flex flex-row items-start justify-between gap-3 p-4 sm:p-6">
               <div className="min-w-0">
                 <CardTitle className="text-lg font-bold sm:text-xl">
                   Recent Quiz Results

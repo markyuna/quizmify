@@ -48,6 +48,8 @@ model User {
   updatedAt          DateTime               @updatedAt
   subscriptionStatus String                 @default("free")
   stripeCustomerId   String?
+  xp                 Int                    @default(0)
+  level              Int                    @default(1)
   accounts           Account[]
   sessions           Session[]
   games              Game[]

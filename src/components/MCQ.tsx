@@ -5,6 +5,7 @@ import Link from "next/link";
 import axios from "axios";
 import { differenceInSeconds } from "date-fns";
 import { useMutation } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import {
   CheckCircle2,
   ChevronRight,
@@ -22,6 +23,7 @@ import { Button, buttonVariants } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { useToast } from "./ui/use-toast";
 import { cn, formatTimeDelta } from "@/lib/utils";
+import { getLevelProgress } from "@/lib/xp";
 
 type QuestionWithOptions = Pick<
   Question,
@@ -51,6 +53,9 @@ type SubmitQuizResponse = {
   score: number;
   correctAnswers: number;
   totalQuestions: number;
+  earnedXp: number;
+  newXp: number;
+  newLevel: number;
 };
 
 const MCQ = ({ game }: MCQProps) => {
@@ -244,6 +249,10 @@ const MCQ = ({ game }: MCQProps) => {
   const liveElapsedSeconds = differenceInSeconds(now, timeStartedAt);
   const displayedElapsedSeconds = finalElapsedSeconds ?? liveElapsedSeconds;
 
+  const levelProgress = finalResult
+    ? getLevelProgress(finalResult.newXp)
+    : null;
+
   const getOptionStyle = (option: string) => {
     const isCorrect = option === currentQuestion.answer;
     const isSelected = option === selectedAnswer;
@@ -299,57 +308,180 @@ const MCQ = ({ game }: MCQProps) => {
     return (
       <div className="w-full rounded-[2rem] bg-gradient-to-br from-slate-100 via-white to-cyan-100 px-4 py-6 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950 sm:py-8">
         <div className="mx-auto flex max-w-4xl flex-col gap-6">
-          <div className="rounded-3xl border border-black/5 bg-white/70 p-6 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+            className="rounded-3xl border border-black/5 bg-white/70 p-6 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5"
+          >
             <p className="text-sm uppercase tracking-[0.25em] text-cyan-500 dark:text-cyan-300">
               Quiz completed
             </p>
             <h1 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white md:text-4xl">
               {game.topic}
             </h1>
-          </div>
+          </motion.div>
 
           <div className="grid gap-4 md:grid-cols-3">
-            <Card className="rounded-3xl border border-black/5 bg-white/70 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
-              <CardHeader>
-                <CardTitle className="text-sm text-slate-500 dark:text-slate-300">
-                  Final Score
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-4xl font-bold text-slate-900 dark:text-white">
-                  {finalScore}%
-                </p>
-              </CardContent>
-            </Card>
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.05 }}
+            >
+              <Card className="rounded-3xl border border-black/5 bg-white/70 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+                <CardHeader>
+                  <CardTitle className="text-sm text-slate-500 dark:text-slate-300">
+                    Final Score
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-4xl font-bold text-slate-900 dark:text-white">
+                    {finalScore}%
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card className="rounded-3xl border border-black/5 bg-white/70 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
-              <CardHeader>
-                <CardTitle className="text-sm text-slate-500 dark:text-slate-300">
-                  Correct Answers
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-4xl font-bold text-slate-900 dark:text-white">
-                  {correctAnswers}/{totalQuestions}
-                </p>
-              </CardContent>
-            </Card>
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.1 }}
+            >
+              <Card className="rounded-3xl border border-black/5 bg-white/70 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+                <CardHeader>
+                  <CardTitle className="text-sm text-slate-500 dark:text-slate-300">
+                    Correct Answers
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-4xl font-bold text-slate-900 dark:text-white">
+                    {correctAnswers}/{totalQuestions}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card className="rounded-3xl border border-black/5 bg-white/70 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
-              <CardHeader>
-                <CardTitle className="text-sm text-slate-500 dark:text-slate-300">
-                  Total Time
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-4xl font-bold text-slate-900 dark:text-white">
-                  {formatTimeDelta(displayedElapsedSeconds)}
-                </p>
-              </CardContent>
-            </Card>
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.15 }}
+            >
+              <Card className="rounded-3xl border border-black/5 bg-white/70 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+                <CardHeader>
+                  <CardTitle className="text-sm text-slate-500 dark:text-slate-300">
+                    Total Time
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-4xl font-bold text-slate-900 dark:text-white">
+                    {formatTimeDelta(displayedElapsedSeconds)}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
 
-          <div className="flex flex-wrap gap-3">
+          {finalResult && levelProgress && (
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.45, delay: 0.2 }}
+            >
+              <Card className="overflow-hidden rounded-3xl border border-violet-300/20 bg-gradient-to-r from-violet-500/10 via-fuchsia-500/10 to-cyan-500/10 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+                <CardContent className="flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="min-w-0 flex-1">
+                    <motion.p
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: 0.28 }}
+                      className="text-sm uppercase tracking-[0.2em] text-violet-500 dark:text-violet-300"
+                    >
+                      XP Earned
+                    </motion.p>
+
+                    <motion.h3
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        duration: 0.35,
+                        delay: 0.35,
+                        type: "spring",
+                        stiffness: 180,
+                      }}
+                      className="mt-1 text-3xl font-bold text-slate-900 dark:text-white"
+                    >
+                      +{finalResult.earnedXp} XP
+                    </motion.h3>
+
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3, delay: 0.42 }}
+                      className="mt-1 text-sm text-muted-foreground"
+                    >
+                      You are now Level {finalResult.newLevel} with{" "}
+                      {finalResult.newXp} XP total.
+                    </motion.p>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.35, delay: 0.5 }}
+                      className="mt-4"
+                    >
+                      <div className="mb-2 flex items-center justify-between text-xs text-muted-foreground">
+                        <span>{levelProgress.xpIntoCurrentLevel}/100 XP</span>
+                        <span>{Math.round(levelProgress.progressPercent)}%</span>
+                      </div>
+
+                      <div className="h-3 overflow-hidden rounded-full bg-white/40 dark:bg-white/10">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{
+                            width: `${levelProgress.progressPercent}%`,
+                          }}
+                          transition={{
+                            duration: 0.9,
+                            delay: 0.65,
+                            ease: "easeOut",
+                          }}
+                          className="h-full rounded-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-500"
+                        />
+                      </div>
+
+                      <p className="mt-2 text-xs text-muted-foreground">
+                        {levelProgress.xpToNextLevel} XP to next level
+                      </p>
+                    </motion.div>
+                  </div>
+
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      duration: 0.35,
+                      delay: 0.45,
+                      type: "spring",
+                      stiffness: 220,
+                    }}
+                    className="rounded-2xl border border-white/10 bg-white/70 px-4 py-3 text-center shadow-sm backdrop-blur-xl dark:bg-white/10"
+                  >
+                    <p className="text-xs text-muted-foreground">Level</p>
+                    <p className="text-xl font-bold text-slate-900 dark:text-white">
+                      {finalResult.newLevel}
+                    </p>
+                  </motion.div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.3 }}
+            className="flex flex-wrap gap-3"
+          >
             <Button
               onClick={handleRestartLocal}
               className="h-12 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 text-white shadow-lg shadow-cyan-900/20 hover:opacity-95"
@@ -391,7 +523,7 @@ const MCQ = ({ game }: MCQProps) => {
             >
               New Quiz
             </Link>
-          </div>
+          </motion.div>
         </div>
       </div>
     );
@@ -487,8 +619,11 @@ const MCQ = ({ game }: MCQProps) => {
 
             <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <div className="rounded-2xl border border-black/10 bg-white/60 px-4 py-3 text-sm text-slate-700 dark:border-white/10 dark:bg-black/20 dark:text-slate-200">
-                Score: <span className="font-bold text-slate-900 dark:text-white">{score}</span> /{" "}
-                {game.questions.length}
+                Score:{" "}
+                <span className="font-bold text-slate-900 dark:text-white">
+                  {score}
+                </span>{" "}
+                / {game.questions.length}
               </div>
 
               {hasAnswered ? (
