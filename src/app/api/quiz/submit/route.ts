@@ -169,12 +169,26 @@ export async function POST(req: Request) {
         where: { id: userId },
         select: {
           xp: true,
+          level: true,
         },
       });
-
-      const newXp = (currentUser?.xp ?? 0) + earnedXp;
+      
+      if (!currentUser) {
+        return {
+          attempt: createdAttempt,
+          earnedXp: 0,
+          newXp: 0,
+          previousLevel: 1,
+          newLevel: 1,
+          didLevelUp: false,
+        };
+      }
+      
+      const previousLevel = currentUser.level;
+      const newXp = currentUser.xp + earnedXp;
       const newLevel = calculateLevel(newXp);
-
+      const didLevelUp = newLevel > previousLevel;
+      
       await tx.user.update({
         where: { id: userId },
         data: {
@@ -182,12 +196,14 @@ export async function POST(req: Request) {
           level: newLevel,
         },
       });
-
+      
       return {
         attempt: createdAttempt,
         earnedXp,
         newXp,
+        previousLevel,
         newLevel,
+        didLevelUp,
       };
     });
 
@@ -200,7 +216,9 @@ export async function POST(req: Request) {
         totalQuestions,
         earnedXp: result.earnedXp,
         newXp: result.newXp,
+        previousLevel: result.previousLevel,
         newLevel: result.newLevel,
+        didLevelUp: result.didLevelUp,
       },
       { status: 200 }
     );

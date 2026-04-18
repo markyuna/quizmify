@@ -5,7 +5,7 @@ import Link from "next/link";
 import axios from "axios";
 import { differenceInSeconds } from "date-fns";
 import { useMutation } from "@tanstack/react-query";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   CheckCircle2,
   ChevronRight,
@@ -55,7 +55,9 @@ type SubmitQuizResponse = {
   totalQuestions: number;
   earnedXp: number;
   newXp: number;
+  previousLevel: number;
   newLevel: number;
+  didLevelUp: boolean;
 };
 
 const MCQ = ({ game }: MCQProps) => {
@@ -82,6 +84,7 @@ const MCQ = ({ game }: MCQProps) => {
   const [quizFinished, setQuizFinished] = React.useState(false);
   const [finalResult, setFinalResult] =
     React.useState<SubmitQuizResponse | null>(null);
+  const [showLevelUpOverlay, setShowLevelUpOverlay] = React.useState(false);
 
   const currentQuestion = game.questions[questionIndex];
   const isLastQuestion = questionIndex === game.questions.length - 1;
@@ -165,6 +168,7 @@ const MCQ = ({ game }: MCQProps) => {
     onSuccess: (data) => {
       setFinalResult(data);
       setQuizFinished(true);
+      setShowLevelUpOverlay(data.didLevelUp);
 
       toast({
         title: "Quiz completed 🎉",
@@ -191,6 +195,16 @@ const MCQ = ({ game }: MCQProps) => {
 
     return () => clearInterval(interval);
   }, [quizFinished, isSubmittingQuiz]);
+
+  React.useEffect(() => {
+    if (!showLevelUpOverlay) return;
+
+    const timeout = window.setTimeout(() => {
+      setShowLevelUpOverlay(false);
+    }, 2200);
+
+    return () => window.clearTimeout(timeout);
+  }, [showLevelUpOverlay]);
 
   const handleSelect = (option: string) => {
     if (hasAnswered || isCheckingAnswer || isSubmittingQuiz) return;
@@ -244,14 +258,13 @@ const MCQ = ({ game }: MCQProps) => {
     setLastAnswerWasCorrect(null);
     setQuizFinished(false);
     setFinalResult(null);
+    setShowLevelUpOverlay(false);
   };
 
   const liveElapsedSeconds = differenceInSeconds(now, timeStartedAt);
   const displayedElapsedSeconds = finalElapsedSeconds ?? liveElapsedSeconds;
 
-  const levelProgress = finalResult
-    ? getLevelProgress(finalResult.newXp)
-    : null;
+  const levelProgress = finalResult ? getLevelProgress(finalResult.newXp) : null;
 
   const getOptionStyle = (option: string) => {
     const isCorrect = option === currentQuestion.answer;
@@ -307,6 +320,67 @@ const MCQ = ({ game }: MCQProps) => {
 
     return (
       <div className="w-full rounded-[2rem] bg-gradient-to-br from-slate-100 via-white to-cyan-100 px-4 py-6 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950 sm:py-8">
+        <AnimatePresence>
+          {showLevelUpOverlay && finalResult && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="pointer-events-none fixed inset-0 z-[80] flex items-center justify-center bg-slate-950/35 backdrop-blur-sm"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: 24 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 220,
+                  damping: 16,
+                }}
+                className="mx-4 w-full max-w-md rounded-[2rem] border border-violet-300/20 bg-white/85 p-8 text-center shadow-[0_30px_80px_-20px_rgba(139,92,246,0.45)] backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/85"
+              >
+                <motion.div
+                  initial={{ scale: 0.6, rotate: -8 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.1, type: "spring", stiffness: 260 }}
+                  className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-500 text-3xl text-white shadow-xl"
+                >
+                  🎉
+                </motion.div>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 }}
+                  className="mt-6 text-xs font-semibold uppercase tracking-[0.35em] text-violet-500 dark:text-violet-300"
+                >
+                  Level Up
+                </motion.p>
+
+                <motion.h2
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.22 }}
+                  className="mt-3 text-4xl font-black tracking-tight text-slate-900 dark:text-white"
+                >
+                  Level {finalResult.newLevel}
+                </motion.h2>
+
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="mt-3 text-sm text-slate-600 dark:text-slate-300"
+                >
+                  You advanced from Level {finalResult.previousLevel} to Level{" "}
+                  {finalResult.newLevel}.
+                </motion.p>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <div className="mx-auto flex max-w-4xl flex-col gap-6">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -596,12 +670,14 @@ const MCQ = ({ game }: MCQProps) => {
             </div>
 
             <div className="mt-2 space-y-3">
-              {hasAnswered && lastAnswerWasCorrect === false && lastCorrectAnswer && (
-                <div className="rounded-2xl border border-rose-300/50 bg-rose-500/10 px-4 py-3 text-sm text-rose-700 dark:border-rose-400/30 dark:bg-rose-500/10 dark:text-rose-100">
-                  Correct answer:{" "}
-                  <span className="font-semibold">{lastCorrectAnswer}</span>
-                </div>
-              )}
+              {hasAnswered &&
+                lastAnswerWasCorrect === false &&
+                lastCorrectAnswer && (
+                  <div className="rounded-2xl border border-rose-300/50 bg-rose-500/10 px-4 py-3 text-sm text-rose-700 dark:border-rose-400/30 dark:bg-rose-500/10 dark:text-rose-100">
+                    Correct answer:{" "}
+                    <span className="font-semibold">{lastCorrectAnswer}</span>
+                  </div>
+                )}
 
               {hasAnswered && lastAnswerWasCorrect === true && (
                 <div className="rounded-2xl border border-emerald-300/50 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-700 dark:border-emerald-400/30 dark:bg-emerald-500/10 dark:text-emerald-100">
