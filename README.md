@@ -1,45 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Quizmify
 
-## Getting Started
+AI-powered quiz generation platform with persistent learning and performance tracking.
 
-First, run the development server:
+## 🌐 Live Demo
 
-```bash
-npx create-next-app@latest quizmify
+https://quizmify-two.vercel.app/
 
-npm install next-auth
+---
 
-npx auth secret
+## ✨ Concept
 
-touch .env
-echo '.env*' >> .gitignore
+Quizmify is a modern learning platform that transforms any topic into an interactive quiz using AI.
 
-AUTH_SECRET=tu_secret
-AUTH_GOOGLE_ID=tu_client_id
-AUTH_GOOGLE_SECRET=tu_client_secret
+Users can instantly generate quizzes, practice dynamically, track their performance, and improve over time through data-driven feedback.
 
-gh repo create <nombre-repositorio> --public --source=.
+---
 
+## 🧠 How it works
 
+1. Enter a topic or prompt
+2. AI generates structured quiz questions
+3. Complete the quiz interactively
+4. Review results and track performance
+5. Improve with history and mistake analysis
+
+---
+
+## 🚀 Features
+
+* AI-generated quiz questions
+* Real-time quiz interaction
+* Performance tracking dashboard
+* Quiz history & progress analysis
+* Mistake review system
+* Clean and modern UX
+* Fully responsive interface
+
+---
+
+## 💡 Use Cases
+
+* Students learning new topics
+* Developers practicing concepts
+* Interview preparation
+* Training platforms
+* EdTech products
+
+---
+
+## 🛠️ Tech Stack
+
+* Next.js
+* TypeScript
+* Supabase
+* OpenAI API
+* Tailwind CSS
+* Framer Motion
+
+---
+
+## 📸 Preview
+
+<p align="center">
+  <img src="./public/screenshots/mockup.png" width="750"/>
+</p>
+
+---
+
+## 📊 Experience
+
+### Quiz Generation
+
+<p align="center">
+  <img src="./public/screenshots/home.png" width="500"/>
+</p>
+
+### Dashboard & History
+
+<p align="center">
+  <img src="./public/screenshots/dashboard.png" width="500"/>
+</p>
+
+### Results & Review
+
+<p align="center">
+  <img src="./public/screenshots/statics.png" width="500"/>
+</p>
+
+---
+
+## 🔐 Security
+
+Environment variables and API keys are not included in this repository.
+
+Refer to `.env.example` for required configuration.
+
+---
+
+## 📁 Environment Variables
+
+Create a `.env.local` file:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+OPENAI_API_KEY=
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📌 Project Status
 
-## Learn More
+Quizmify is a functional AI-powered application showcasing how modern technologies can be combined to build interactive, scalable and data-driven learning tools.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Vision
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project can evolve into a full SaaS platform including:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* User authentication & accounts
+* Personalized learning paths
+* Subscription-based model
+* Advanced analytics & insights
