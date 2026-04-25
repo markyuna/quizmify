@@ -1,11 +1,10 @@
-import "next-auth";
+// src/app/types/next-auth.d.ts
+import { DefaultSession } from "next-auth";
 
 declare module "next-auth" {
-  interface Session {
+  interface Session extends DefaultSession {
     user: {
-      name?: string | null;
-      email?: string | null;
-      image?: string | null;
-    };
+      id: string;
+    } & DefaultSession["user"];
   }
 }
