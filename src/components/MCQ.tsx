@@ -17,6 +17,8 @@ import {
   RotateCcw,
   AlertCircle,
   Trophy,
+  Zap,
+  Lock,
 } from "lucide-react";
 import { Game, Question } from "@/generated/prisma/client";
 
@@ -59,6 +61,7 @@ type SubmitQuizResponse = {
   previousLevel: number;
   newLevel: number;
   didLevelUp: boolean;
+  hitFreeLimit: boolean;
 };
 
 const MCQ = ({ game }: MCQProps) => {
@@ -270,7 +273,7 @@ const MCQ = ({ game }: MCQProps) => {
           </div>
         </motion.div>
 
-        {finalResult && levelProgress && (
+        {finalResult && levelProgress && !finalResult.hitFreeLimit && (
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -303,6 +306,37 @@ const MCQ = ({ game }: MCQProps) => {
                 <p className="text-xs text-slate-400">Level</p>
                 <p className="text-2xl font-black text-slate-900 dark:text-white">{finalResult.newLevel}</p>
               </div>
+            </div>
+          </motion.div>
+        )}
+
+        {finalResult?.hitFreeLimit && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-violet-600 via-fuchsia-500 to-cyan-500 p-px shadow-2xl shadow-violet-500/20"
+          >
+            <div className="rounded-[1.7rem] bg-slate-900 p-5 dark:bg-slate-950">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-500 shadow-lg">
+                  <Lock className="h-5 w-5 text-white" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-bold uppercase tracking-widest text-violet-300">Free limit reached</p>
+                  <p className="mt-1 text-lg font-black text-white">You've reached Level 2</p>
+                  <p className="mt-1 text-sm text-white/60">
+                    Upgrade once to unlock unlimited level progression and keep earning XP.
+                  </p>
+                </div>
+              </div>
+              <Link
+                href="/upgrade"
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 py-3 text-sm font-bold text-white hover:opacity-90 transition-opacity"
+              >
+                <Zap className="h-4 w-4" />
+                Upgrade to Pro — $9.99 one-time
+              </Link>
             </div>
           </motion.div>
         )}

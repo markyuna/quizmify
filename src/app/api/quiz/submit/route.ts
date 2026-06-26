@@ -4,6 +4,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { calculateEarnedXp, calculateLevel } from "@/lib/xp";
+import { FREE_XP_CAP, FREE_LEVEL_CAP } from "@/lib/stripe";
 import { submitQuizSchema } from "@/schemas/form/quiz";
 
 export async function POST(req: Request) {
@@ -168,7 +169,7 @@ export async function POST(req: Request) {
 
       const previousUser = await tx.user.findUnique({
         where: { id: userId },
-        select: { level: true },
+        select: { level: true, subscriptionStatus: true },
       });
 
       if (!previousUser) {
@@ -179,10 +180,12 @@ export async function POST(req: Request) {
           previousLevel: 1,
           newLevel: 1,
           didLevelUp: false,
+          hitFreeLimit: false,
         };
       }
 
       const previousLevel = previousUser.level;
+      const isPro = previousUser.subscriptionStatus === "pro";
 
       const updatedUser = await tx.user.update({
         where: { id: userId },
@@ -190,24 +193,34 @@ export async function POST(req: Request) {
         select: { xp: true },
       });
 
-      const newXp = updatedUser.xp;
-      const newLevel = calculateLevel(newXp);
-      const didLevelUp = newLevel > previousLevel;
+      let newXp = updatedUser.xp;
+      let newLevel = calculateLevel(newXp);
+      const hitFreeLimit = !isPro && newXp >= FREE_XP_CAP;
 
-      if (newLevel !== previousLevel) {
+      if (hitFreeLimit) {
+        newXp = FREE_XP_CAP - 1;
+        newLevel = FREE_LEVEL_CAP;
+        await tx.user.update({
+          where: { id: userId },
+          data: { xp: newXp, level: newLevel },
+        });
+      } else if (newLevel !== previousLevel) {
         await tx.user.update({
           where: { id: userId },
           data: { level: newLevel },
         });
       }
-      
+
+      const didLevelUp = !hitFreeLimit && newLevel > previousLevel;
+
       return {
         attempt: createdAttempt,
-        earnedXp,
+        earnedXp: hitFreeLimit ? Math.max(0, FREE_XP_CAP - 1 - (newXp - earnedXp)) : earnedXp,
         newXp,
         previousLevel,
         newLevel,
         didLevelUp,
+        hitFreeLimit,
       };
     });
 
@@ -223,6 +236,7 @@ export async function POST(req: Request) {
         previousLevel: result.previousLevel,
         newLevel: result.newLevel,
         didLevelUp: result.didLevelUp,
+        hitFreeLimit: result.hitFreeLimit,
       },
       { status: 200 }
     );

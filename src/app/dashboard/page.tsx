@@ -5,6 +5,8 @@ import {
   Sparkles,
   Target,
   Trophy,
+  Zap,
+  Lock,
 } from "lucide-react";
 
 import DetailsDialog from "@/components/DetailsDialog";
@@ -130,6 +132,7 @@ export default async function DashboardPage() {
         xp: true,
         level: true,
         name: true,
+        subscriptionStatus: true,
       },
     }),
 
@@ -190,6 +193,8 @@ export default async function DashboardPage() {
 
   const totalXp = userProfile?.xp ?? 0;
   const currentLevel = userProfile?.level ?? 1;
+  const isPro = userProfile?.subscriptionStatus === "pro";
+  const isAtFreeLimit = !isPro && currentLevel >= 2;
   const levelProgress = getLevelProgress(totalXp);
 
   const attemptsCount = attemptsAggregate._count._all;
@@ -344,6 +349,33 @@ export default async function DashboardPage() {
         <HotTopicsCard />
       </section>
 
+      {isAtFreeLimit && (
+        <section className="mt-4 sm:mt-6">
+          <div className="overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-violet-600 via-fuchsia-500 to-cyan-500 p-px shadow-2xl shadow-violet-500/20">
+            <div className="flex flex-col gap-4 rounded-[1.7rem] bg-slate-900 p-6 sm:flex-row sm:items-center sm:justify-between dark:bg-slate-950">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-500 shadow-lg">
+                  <Lock className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-violet-300">Free limit reached</p>
+                  <p className="mt-0.5 text-lg font-bold text-white">You are at Level 2 — the free cap</p>
+                  <p className="mt-1 text-sm text-white/60">
+                    Upgrade once for $9.99 to unlock unlimited level progression forever.
+                  </p>
+                </div>
+              </div>
+              <a
+                href="/upgrade"
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 px-6 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90"
+              >
+                <Zap className="h-4 w-4" />
+                Upgrade to Pro
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

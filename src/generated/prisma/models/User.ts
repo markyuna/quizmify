@@ -47,6 +47,7 @@ export type UserMinAggregateOutputType = {
   updatedAt: Date | null
   subscriptionStatus: string | null
   stripeCustomerId: string | null
+  stripePaymentId: string | null
   xp: number | null
   level: number | null
 }
@@ -62,6 +63,7 @@ export type UserMaxAggregateOutputType = {
   updatedAt: Date | null
   subscriptionStatus: string | null
   stripeCustomerId: string | null
+  stripePaymentId: string | null
   xp: number | null
   level: number | null
 }
@@ -77,6 +79,7 @@ export type UserCountAggregateOutputType = {
   updatedAt: number
   subscriptionStatus: number
   stripeCustomerId: number
+  stripePaymentId: number
   xp: number
   level: number
   _all: number
@@ -104,6 +107,7 @@ export type UserMinAggregateInputType = {
   updatedAt?: true
   subscriptionStatus?: true
   stripeCustomerId?: true
+  stripePaymentId?: true
   xp?: true
   level?: true
 }
@@ -119,6 +123,7 @@ export type UserMaxAggregateInputType = {
   updatedAt?: true
   subscriptionStatus?: true
   stripeCustomerId?: true
+  stripePaymentId?: true
   xp?: true
   level?: true
 }
@@ -134,6 +139,7 @@ export type UserCountAggregateInputType = {
   updatedAt?: true
   subscriptionStatus?: true
   stripeCustomerId?: true
+  stripePaymentId?: true
   xp?: true
   level?: true
   _all?: true
@@ -236,6 +242,7 @@ export type UserGroupByOutputType = {
   updatedAt: Date
   subscriptionStatus: string
   stripeCustomerId: string | null
+  stripePaymentId: string | null
   xp: number
   level: number
   _count: UserCountAggregateOutputType | null
@@ -274,6 +281,7 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   subscriptionStatus?: Prisma.StringFilter<"User"> | string
   stripeCustomerId?: Prisma.StringNullableFilter<"User"> | string | null
+  stripePaymentId?: Prisma.StringNullableFilter<"User"> | string | null
   xp?: Prisma.IntFilter<"User"> | number
   level?: Prisma.IntFilter<"User"> | number
   accounts?: Prisma.AccountListRelationFilter
@@ -294,6 +302,7 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   subscriptionStatus?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  stripePaymentId?: Prisma.SortOrderInput | Prisma.SortOrder
   xp?: Prisma.SortOrder
   level?: Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
@@ -306,6 +315,7 @@ export type UserOrderByWithRelationInput = {
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   email?: string
+  stripePaymentId?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
@@ -324,7 +334,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   games?: Prisma.GameListRelationFilter
   attempts?: Prisma.AttemptListRelationFilter
   questionProgress?: Prisma.UserQuestionProgressListRelationFilter
-}, "id" | "email">
+}, "id" | "email" | "stripePaymentId">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -337,6 +347,7 @@ export type UserOrderByWithAggregationInput = {
   updatedAt?: Prisma.SortOrder
   subscriptionStatus?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  stripePaymentId?: Prisma.SortOrderInput | Prisma.SortOrder
   xp?: Prisma.SortOrder
   level?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -360,6 +371,7 @@ export type UserScalarWhereWithAggregatesInput = {
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   subscriptionStatus?: Prisma.StringWithAggregatesFilter<"User"> | string
   stripeCustomerId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  stripePaymentId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   xp?: Prisma.IntWithAggregatesFilter<"User"> | number
   level?: Prisma.IntWithAggregatesFilter<"User"> | number
 }
@@ -375,6 +387,7 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   subscriptionStatus?: string
   stripeCustomerId?: string | null
+  stripePaymentId?: string | null
   xp?: number
   level?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -395,6 +408,7 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   subscriptionStatus?: string
   stripeCustomerId?: string | null
+  stripePaymentId?: string | null
   xp?: number
   level?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -415,6 +429,7 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -435,6 +450,7 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -455,6 +471,7 @@ export type UserCreateManyInput = {
   updatedAt?: Date | string
   subscriptionStatus?: string
   stripeCustomerId?: string | null
+  stripePaymentId?: string | null
   xp?: number
   level?: number
 }
@@ -470,6 +487,7 @@ export type UserUpdateManyMutationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -485,6 +503,7 @@ export type UserUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -505,6 +524,7 @@ export type UserCountOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   subscriptionStatus?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrder
+  stripePaymentId?: Prisma.SortOrder
   xp?: Prisma.SortOrder
   level?: Prisma.SortOrder
 }
@@ -525,6 +545,7 @@ export type UserMaxOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   subscriptionStatus?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrder
+  stripePaymentId?: Prisma.SortOrder
   xp?: Prisma.SortOrder
   level?: Prisma.SortOrder
 }
@@ -540,6 +561,7 @@ export type UserMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
   subscriptionStatus?: Prisma.SortOrder
   stripeCustomerId?: Prisma.SortOrder
+  stripePaymentId?: Prisma.SortOrder
   xp?: Prisma.SortOrder
   level?: Prisma.SortOrder
 }
@@ -642,6 +664,7 @@ export type UserCreateWithoutAccountsInput = {
   updatedAt?: Date | string
   subscriptionStatus?: string
   stripeCustomerId?: string | null
+  stripePaymentId?: string | null
   xp?: number
   level?: number
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
@@ -661,6 +684,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   updatedAt?: Date | string
   subscriptionStatus?: string
   stripeCustomerId?: string | null
+  stripePaymentId?: string | null
   xp?: number
   level?: number
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
@@ -696,6 +720,7 @@ export type UserUpdateWithoutAccountsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
@@ -715,6 +740,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -734,6 +760,7 @@ export type UserCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   subscriptionStatus?: string
   stripeCustomerId?: string | null
+  stripePaymentId?: string | null
   xp?: number
   level?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -753,6 +780,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   subscriptionStatus?: string
   stripeCustomerId?: string | null
+  stripePaymentId?: string | null
   xp?: number
   level?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -788,6 +816,7 @@ export type UserUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -807,6 +836,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -826,6 +856,7 @@ export type UserCreateWithoutGamesInput = {
   updatedAt?: Date | string
   subscriptionStatus?: string
   stripeCustomerId?: string | null
+  stripePaymentId?: string | null
   xp?: number
   level?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -845,6 +876,7 @@ export type UserUncheckedCreateWithoutGamesInput = {
   updatedAt?: Date | string
   subscriptionStatus?: string
   stripeCustomerId?: string | null
+  stripePaymentId?: string | null
   xp?: number
   level?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -880,6 +912,7 @@ export type UserUpdateWithoutGamesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -899,6 +932,7 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -918,6 +952,7 @@ export type UserCreateWithoutAttemptsInput = {
   updatedAt?: Date | string
   subscriptionStatus?: string
   stripeCustomerId?: string | null
+  stripePaymentId?: string | null
   xp?: number
   level?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -937,6 +972,7 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   updatedAt?: Date | string
   subscriptionStatus?: string
   stripeCustomerId?: string | null
+  stripePaymentId?: string | null
   xp?: number
   level?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -972,6 +1008,7 @@ export type UserUpdateWithoutAttemptsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -991,6 +1028,7 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1010,6 +1048,7 @@ export type UserCreateWithoutQuestionProgressInput = {
   updatedAt?: Date | string
   subscriptionStatus?: string
   stripeCustomerId?: string | null
+  stripePaymentId?: string | null
   xp?: number
   level?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -1029,6 +1068,7 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   updatedAt?: Date | string
   subscriptionStatus?: string
   stripeCustomerId?: string | null
+  stripePaymentId?: string | null
   xp?: number
   level?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -1064,6 +1104,7 @@ export type UserUpdateWithoutQuestionProgressInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -1083,6 +1124,7 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
   stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -1169,6 +1211,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   subscriptionStatus?: boolean
   stripeCustomerId?: boolean
+  stripePaymentId?: boolean
   xp?: boolean
   level?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -1190,6 +1233,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   updatedAt?: boolean
   subscriptionStatus?: boolean
   stripeCustomerId?: boolean
+  stripePaymentId?: boolean
   xp?: boolean
   level?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1205,6 +1249,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   updatedAt?: boolean
   subscriptionStatus?: boolean
   stripeCustomerId?: boolean
+  stripePaymentId?: boolean
   xp?: boolean
   level?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1220,11 +1265,12 @@ export type UserSelectScalar = {
   updatedAt?: boolean
   subscriptionStatus?: boolean
   stripeCustomerId?: boolean
+  stripePaymentId?: boolean
   xp?: boolean
   level?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "xp" | "level", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -1256,6 +1302,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     updatedAt: Date
     subscriptionStatus: string
     stripeCustomerId: string | null
+    stripePaymentId: string | null
     xp: number
     level: number
   }, ExtArgs["result"]["user"]>
@@ -1696,6 +1743,7 @@ export interface UserFieldRefs {
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly subscriptionStatus: Prisma.FieldRef<"User", 'String'>
   readonly stripeCustomerId: Prisma.FieldRef<"User", 'String'>
+  readonly stripePaymentId: Prisma.FieldRef<"User", 'String'>
   readonly xp: Prisma.FieldRef<"User", 'Int'>
   readonly level: Prisma.FieldRef<"User", 'Int'>
 }
