@@ -335,7 +335,7 @@ const MCQ = ({ game }: MCQProps) => {
                 className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 py-3 text-sm font-bold text-white hover:opacity-90 transition-opacity"
               >
                 <Zap className="h-4 w-4" />
-                Upgrade to Pro — $9.99 one-time
+                Upgrade to Pro — $5.99 one-time
               </Link>
             </div>
           </motion.div>

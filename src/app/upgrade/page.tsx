@@ -119,7 +119,7 @@ function UpgradeContent() {
             </div>
             <h2 className="mt-5 text-xl font-bold text-white">Pro</h2>
             <div className="mt-2 flex items-baseline gap-1">
-              <span className="text-4xl font-black text-white">$9.99</span>
+              <span className="text-4xl font-black text-white">$5.99</span>
               <span className="text-white/60">one-time</span>
             </div>
 

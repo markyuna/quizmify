@@ -361,7 +361,7 @@ export default async function DashboardPage() {
                   <p className="text-xs font-bold uppercase tracking-widest text-violet-300">Free limit reached</p>
                   <p className="mt-0.5 text-lg font-bold text-white">You are at Level 2 — the free cap</p>
                   <p className="mt-1 text-sm text-white/60">
-                    Upgrade once for $9.99 to unlock unlimited level progression forever.
+                    Upgrade once for $5.99 to unlock unlimited level progression forever.
                   </p>
                 </div>
               </div>
