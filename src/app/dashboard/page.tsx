@@ -17,6 +17,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { getLevelProgress } from "@/lib/xp";
+import { FREE_LEVEL_CAP } from "@/lib/stripe";
 
 export const metadata = {
   title: "Dashboard | Quizmify",
@@ -194,7 +195,7 @@ export default async function DashboardPage() {
   const totalXp = userProfile?.xp ?? 0;
   const currentLevel = userProfile?.level ?? 1;
   const isPro = userProfile?.subscriptionStatus === "pro";
-  const isAtFreeLimit = !isPro && currentLevel >= 2;
+  const isAtFreeLimit = !isPro && currentLevel >= FREE_LEVEL_CAP;
   const levelProgress = getLevelProgress(totalXp);
 
   const attemptsCount = attemptsAggregate._count._all;
@@ -321,6 +322,7 @@ export default async function DashboardPage() {
           <QuizMeCard
             lastTopic={lastGame?.topic ?? null}
             hasMistakes={mistakesCount > 0}
+            isAtFreeLimit={isAtFreeLimit}
           />
         </div>
 
@@ -346,7 +348,7 @@ export default async function DashboardPage() {
       </section>
 
       <section className="mt-4 sm:mt-6">
-        <HotTopicsCard />
+        <HotTopicsCard isAtFreeLimit={isAtFreeLimit} />
       </section>
 
       {isAtFreeLimit && (

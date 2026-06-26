@@ -11,7 +11,7 @@ import { prisma } from "@/lib/db";
 
 import HotTopicsCloud from "./HotTopicsCloud";
 
-export default async function HotTopicsCard() {
+export default async function HotTopicsCard({ isAtFreeLimit = false }: { isAtFreeLimit?: boolean }) {
   const topics = await prisma.game.groupBy({
     by: ["topic"],
     where: { topic: { notIn: ["", "Practice Mistakes"] } },
@@ -50,7 +50,7 @@ export default async function HotTopicsCard() {
         {formattedTopics.length > 0 ? (
           <div className="rounded-[1.5rem] border border-white/10 bg-white/40 p-3 backdrop-blur-xl dark:bg-white/5">
             <div className="h-[320px] w-full rounded-[1.25rem]">
-              <HotTopicsCloud formattedTopics={formattedTopics} />
+              <HotTopicsCloud formattedTopics={formattedTopics} isAtFreeLimit={isAtFreeLimit} />
             </div>
           </div>
         ) : (

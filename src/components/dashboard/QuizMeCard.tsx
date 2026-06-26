@@ -10,6 +10,8 @@ import {
   Shuffle,
   RotateCcw,
   AlertCircle,
+  Lock,
+  Zap,
 } from "lucide-react";
 
 import { Card, CardContent } from "../ui/card";
@@ -18,6 +20,7 @@ import { cn } from "@/lib/utils";
 type QuizMeCardProps = {
   lastTopic?: string | null;
   hasMistakes?: boolean;
+  isAtFreeLimit?: boolean;
 };
 
 const TOPICS = [
@@ -36,6 +39,7 @@ const DEFAULT_TOPIC = "JavaScript";
 const QuizMeCard = ({
   lastTopic = null,
   hasMistakes = false,
+  isAtFreeLimit = false,
 }: QuizMeCardProps) => {
   const [randomTopic, setRandomTopic] = React.useState(DEFAULT_TOPIC);
 
@@ -48,33 +52,39 @@ const QuizMeCard = ({
   const actions = [
     {
       title: "New quiz",
-      description: "Start a fresh quiz",
-      href: "/quiz",
+      description: isAtFreeLimit ? "Upgrade to unlock" : "Start a fresh quiz",
+      href: isAtFreeLimit ? "/upgrade" : "/quiz",
       icon: PlusCircle,
       disabled: false,
+      locked: isAtFreeLimit,
     },
     {
       title: "Random topic",
-      description: randomTopic,
-      href: `/quiz?topic=${encodeURIComponent(randomTopic)}`,
+      description: isAtFreeLimit ? "Upgrade to unlock" : randomTopic,
+      href: isAtFreeLimit ? "/upgrade" : `/quiz?topic=${encodeURIComponent(randomTopic)}`,
       icon: Shuffle,
       disabled: false,
+      locked: isAtFreeLimit,
     },
     {
       title: "Repeat last topic",
-      description: lastTopic ?? "Not available yet",
-      href: lastTopic ? `/quiz?topic=${encodeURIComponent(lastTopic)}` : "/quiz",
+      description: isAtFreeLimit ? "Upgrade to unlock" : (lastTopic ?? "Not available yet"),
+      href: isAtFreeLimit ? "/upgrade" : (lastTopic ? `/quiz?topic=${encodeURIComponent(lastTopic)}` : "/quiz"),
       icon: RotateCcw,
-      disabled: !lastTopic,
+      disabled: !isAtFreeLimit && !lastTopic,
+      locked: isAtFreeLimit,
     },
     {
       title: "Practice mistakes",
-      description: hasMistakes
+      description: isAtFreeLimit
+        ? "Upgrade to unlock"
+        : hasMistakes
         ? "Review your incorrect answers"
         : "No mistakes saved yet",
-      href: hasMistakes ? "/quiz/mistakes" : "/quiz",
+      href: isAtFreeLimit ? "/upgrade" : (hasMistakes ? "/quiz/mistakes" : "/quiz"),
       icon: AlertCircle,
-      disabled: !hasMistakes,
+      disabled: !isAtFreeLimit && !hasMistakes,
+      locked: isAtFreeLimit,
     },
   ];
 
@@ -93,17 +103,37 @@ const QuizMeCard = ({
 
             <div className="min-w-0">
               <h2 className="text-xl font-bold tracking-tight">Quiz me</h2>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Use quick actions to start a new quiz, explore random topics,
-                revisit previous subjects, and strengthen weak areas.
-              </p>
+              {isAtFreeLimit ? (
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  You&apos;ve reached Level 2 — the free cap. Upgrade once to keep going.
+                </p>
+              ) : (
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  Use quick actions to start a new quiz, explore random topics,
+                  revisit previous subjects, and strengthen weak areas.
+                </p>
+              )}
             </div>
           </div>
 
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/60 shadow-sm backdrop-blur-xl dark:bg-white/5">
-            <Brain className="h-5 w-5 text-violet-500 dark:text-violet-300" />
+            {isAtFreeLimit ? (
+              <Lock className="h-5 w-5 text-violet-500 dark:text-violet-300" />
+            ) : (
+              <Brain className="h-5 w-5 text-violet-500 dark:text-violet-300" />
+            )}
           </div>
         </div>
+
+        {isAtFreeLimit && (
+          <Link
+            href="/upgrade"
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90"
+          >
+            <Zap className="h-4 w-4" />
+            Upgrade to Pro — $5.99 one-time
+          </Link>
+        )}
 
         <div className="mt-5 grid grid-cols-1 gap-3 xl:grid-cols-2">
           {actions.map((action) => {
@@ -118,13 +148,19 @@ const QuizMeCard = ({
                   "rounded-2xl border border-white/10 bg-white/50 p-4 backdrop-blur-xl transition-all duration-200 dark:bg-white/5",
                   action.disabled
                     ? "pointer-events-none opacity-50"
+                    : action.locked
+                    ? "opacity-60 hover:-translate-y-0.5 hover:bg-white/70 dark:hover:bg-white/10"
                     : "hover:-translate-y-0.5 hover:bg-white/70 dark:hover:bg-white/10"
                 )}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex min-w-0 items-start gap-3">
                     <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/60 dark:bg-white/5">
-                      <Icon className="h-5 w-5 text-violet-500 dark:text-violet-300" />
+                      {action.locked ? (
+                        <Lock className="h-5 w-5 text-violet-500 dark:text-violet-300" />
+                      ) : (
+                        <Icon className="h-5 w-5 text-violet-500 dark:text-violet-300" />
+                      )}
                     </div>
 
                     <div className="min-w-0">
@@ -137,7 +173,11 @@ const QuizMeCard = ({
                     </div>
                   </div>
 
-                  <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-foreground/60" />
+                  {action.locked ? (
+                    <Zap className="mt-1 h-4 w-4 shrink-0 text-violet-500" />
+                  ) : (
+                    <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-foreground/60" />
+                  )}
                 </div>
               </Link>
             );
