@@ -12,7 +12,6 @@ import DetailsDialog from "@/components/DetailsDialog";
 import HistoryCard from "@/components/dashboard/HistoryCard";
 import HotTopicsCard from "@/components/dashboard/HotTopicsCard";
 import QuizMeCard from "@/components/dashboard/QuizMeCard";
-import RecentActivityCard from "@/components/dashboard/RecentActivityCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
@@ -440,9 +439,6 @@ export default async function DashboardPage() {
         </div>
       </section>
 
-      <section className="mt-4 sm:mt-6">
-        <RecentActivityCard userId={userId} gamesCount={gamesCount} />
-      </section>
     </div>
   );
 }
