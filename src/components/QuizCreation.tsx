@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Sparkles, Minus, Plus } from "lucide-react";
+import { Sparkles, Minus, Plus, Lock } from "lucide-react";
 
 import { quizCreationSchema } from "@/schemas/form/quiz";
 import { useToast } from "./ui/use-toast";
@@ -100,11 +100,14 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
       setShowLoader(false);
 
       if (axios.isAxiosError(error)) {
+        const data = error.response?.data as { error?: string; freeLimitReached?: boolean } | undefined;
+        if (data?.freeLimitReached) {
+          router.push("/upgrade");
+          return;
+        }
         toast({
           title: "Error",
-          description:
-            (error.response?.data as { error?: string } | undefined)?.error ??
-            "Unable to create the quiz.",
+          description: data?.error ?? "Unable to create the quiz.",
           variant: "destructive",
         });
         return;

@@ -6,6 +6,7 @@ import { getAuthSession } from "@/lib/nextauth";
 import { openai } from "@/lib/openai";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { quizCreationSchema } from "@/schemas/form/quiz";
+import { FREE_LEVEL_CAP } from "@/lib/stripe";
 
 type Difficulty = "easy" | "medium" | "hard";
 
@@ -238,6 +239,15 @@ export async function POST(req: Request) {
 
     if (!session?.user?.id) {
       return jsonError("Unauthorized", 401);
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { level: true, subscriptionStatus: true },
+    });
+
+    if (user && user.subscriptionStatus !== "pro" && user.level >= FREE_LEVEL_CAP) {
+      return jsonError("Free limit reached. Upgrade to continue.", 403, { freeLimitReached: true });
     }
 
     const body = await req.json();
