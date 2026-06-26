@@ -4,7 +4,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { openai } from "@/lib/openai";
-import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { quizCreationSchema } from "@/schemas/form/quiz";
 import { FREE_LEVEL_CAP } from "@/lib/stripe";
 
@@ -118,7 +118,7 @@ async function fetchExistingMCQQuestions(params: {
 }): Promise<SupabaseMCQQuestion[]> {
   const { topic, difficulty, amount } = params;
 
-  const { data, error } = await supabaseAdmin
+  const { data, error } = await getSupabaseAdmin()
     .from("mcq_questions")
     .select("*")
     .ilike("topic", topic)
@@ -215,7 +215,7 @@ async function saveGeneratedQuestionsToSupabase(params: {
     usage_count: 0,
   }));
 
-  const { error } = await supabaseAdmin.from("mcq_questions").insert(rows);
+  const { error } = await getSupabaseAdmin().from("mcq_questions").insert(rows);
 
   if (error) {
     throw new Error(`Supabase insert error: ${error.message}`);
@@ -224,7 +224,7 @@ async function saveGeneratedQuestionsToSupabase(params: {
 
 async function incrementUsageCount(questions: SupabaseMCQQuestion[]) {
   const updates = questions.map((question) =>
-    supabaseAdmin
+    getSupabaseAdmin()
       .from("mcq_questions")
       .update({ usage_count: question.usage_count + 1 })
       .eq("id", question.id)
