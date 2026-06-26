@@ -13,7 +13,7 @@ export default async function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-8">
         <Link href="/" className="flex items-center">
-          <Logo compact />
+          <Logo />
         </Link>
 
         <div className="flex items-center gap-3">

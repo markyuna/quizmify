@@ -24,7 +24,3 @@ export const submitQuizSchema = z.object({
     )
     .min(1, "At least one answer is required"),
 });
-
-export const endGameSchema = z.object({
-  gameId: z.string().min(1, "Game ID is required"),
-});

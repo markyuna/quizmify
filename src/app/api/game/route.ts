@@ -237,7 +237,7 @@ export async function POST(req: Request) {
     const session = await getAuthSession();
 
     if (!session?.user?.id) {
-      return jsonError("No autorizado", 401);
+      return jsonError("Unauthorized", 401);
     }
 
     const body = await req.json();
@@ -257,9 +257,8 @@ export async function POST(req: Request) {
         amount,
       });
 
-      console.log("Preguntas encontradas en Supabase:", cachedQuestions.length);
     } catch (error) {
-      console.error("Error leyendo cache desde Supabase:", error);
+      console.error("Supabase cache read error:", error);
       cachedQuestions = [];
     }
 
@@ -289,12 +288,8 @@ export async function POST(req: Request) {
             questions: dedupedAIQuestions,
           });
 
-          console.log(
-            "Preguntas guardadas en Supabase:",
-            dedupedAIQuestions.length
-          );
         } catch (error) {
-          console.error("Error guardando cache en Supabase:", error);
+          console.error("Supabase cache write error:", error);
         }
 
         finalQuestions = dedupeQuestions([
@@ -307,7 +302,7 @@ export async function POST(req: Request) {
     finalQuestions = dedupeQuestions(finalQuestions).slice(0, amount);
 
     if (finalQuestions.length === 0) {
-      return jsonError("No se pudieron obtener ni generar preguntas.", 500);
+      return jsonError("Could not fetch or generate questions.", 500);
     }
 
     const game = await prisma.$transaction(async (tx) => {
@@ -361,15 +356,15 @@ export async function POST(req: Request) {
     console.error("POST /api/game error:", error);
 
     if (error instanceof z.ZodError) {
-      return jsonError("Datos inválidos", 400, error.flatten());
+      return jsonError("Invalid data", 400, error.flatten());
     }
 
     if (error instanceof Error) {
-      return jsonError("Error interno del servidor", 500, {
+      return jsonError("Internal server error", 500, {
         message: error.message,
       });
     }
 
-    return jsonError("Error interno del servidor", 500);
+    return jsonError("Internal server error", 500);
   }
 }
