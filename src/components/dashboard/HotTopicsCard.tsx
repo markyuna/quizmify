@@ -14,7 +14,7 @@ import HotTopicsCloud from "./HotTopicsCloud";
 export default async function HotTopicsCard() {
   const topics = await prisma.game.groupBy({
     by: ["topic"],
-    where: { topic: { not: "" } },
+    where: { topic: { notIn: ["", "Practice Mistakes"] } },
     _count: { topic: true },
     orderBy: { _count: { topic: "desc" } },
     take: 12,

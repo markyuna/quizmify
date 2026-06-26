@@ -5,7 +5,6 @@ import {
   Sparkles,
   Target,
   Trophy,
-  TrendingUp,
 } from "lucide-react";
 
 import DetailsDialog from "@/components/DetailsDialog";
@@ -32,13 +31,6 @@ function formatSeconds(seconds: number) {
   if (hrs > 0) return `${hrs}h ${mins}m`;
   if (mins > 0) return `${mins}m ${secs}s`;
   return `${secs}s`;
-}
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("en-US", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(date);
 }
 
 const statCards = [
@@ -155,7 +147,7 @@ export default async function DashboardPage() {
 
     prisma.attempt.findMany({
       where: { userId },
-      take: 5,
+      take: 6,
       orderBy: {
         createdAt: "desc",
       },
@@ -165,10 +157,12 @@ export default async function DashboardPage() {
         createdAt: true,
         correctAnswers: true,
         totalQuestions: true,
+        timeSpent: true,
         game: {
           select: {
             id: true,
             topic: true,
+            gameType: true,
           },
         },
       },
@@ -281,7 +275,7 @@ export default async function DashboardPage() {
 
               <div className="mt-4">
                 <div className="mb-2 flex items-center justify-between text-xs text-muted-foreground">
-                  <span>{levelProgress.xpIntoCurrentLevel}/100 XP</span>
+                  <span>{levelProgress.xpIntoCurrentLevel}/{levelProgress.xpPerLevel} XP</span>
                   <span>{Math.round(levelProgress.progressPercent)}%</span>
                 </div>
 
@@ -326,7 +320,7 @@ export default async function DashboardPage() {
         </div>
 
         <div className="order-2 min-w-0">
-          <HistoryCard userId={userId} attemptsCount={attemptsCount} />
+          <HistoryCard userId={userId} attemptsCount={attemptsCount} attempts={recentAttempts} />
         </div>
       </section>
 
@@ -346,97 +340,8 @@ export default async function DashboardPage() {
         })}
       </section>
 
-      <section className="mt-4 grid grid-cols-1 gap-4 sm:mt-6 xl:grid-cols-7">
-        <div className="order-2 xl:order-1 xl:col-span-4">
-          <HotTopicsCard />
-        </div>
-
-        <div className="order-1 xl:order-2 xl:col-span-3">
-          <Card className="relative h-full overflow-hidden rounded-[1.5rem] border-white/10 bg-white/60 shadow-xl shadow-black/5 dark:bg-white/5 sm:rounded-[1.75rem]">
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-fuchsia-500/10 via-transparent to-violet-500/10" />
-
-            <CardHeader className="flex flex-row items-start justify-between gap-3 p-4 sm:p-6">
-              <div className="min-w-0">
-                <CardTitle className="text-lg font-bold sm:text-xl">
-                  Recent Quiz Results
-                </CardTitle>
-                <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                  Your latest quiz performance at a glance.
-                </p>
-              </div>
-
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/60 shadow-sm backdrop-blur-xl dark:bg-white/5 sm:h-11 sm:w-11">
-                <TrendingUp className="h-4 w-4 text-fuchsia-400 sm:h-5 sm:w-5" />
-              </div>
-            </CardHeader>
-
-            <CardContent className="relative z-10 p-4 pt-0 sm:p-6 sm:pt-0">
-              {recentAttempts.length === 0 ? (
-                <div className="flex min-h-[220px] items-center justify-center rounded-[1.25rem] border border-dashed border-white/10 bg-white/40 p-5 text-center backdrop-blur-xl dark:bg-white/5 sm:min-h-[260px] sm:rounded-[1.5rem] sm:p-6">
-                  <div className="max-w-sm space-y-2">
-                    <p className="text-sm font-semibold">No quiz attempts yet</p>
-                    <p className="text-sm leading-6 text-muted-foreground">
-                      Start your first quiz and your recent results will appear
-                      here.
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {recentAttempts.map((attempt) => {
-                    const topic = attempt.game?.topic ?? "Untitled quiz";
-                    const progress =
-                      attempt.totalQuestions > 0
-                        ? Math.round(
-                            (attempt.correctAnswers / attempt.totalQuestions) *
-                              100
-                          )
-                        : 0;
-
-                    return (
-                      <div
-                        key={attempt.id}
-                        className="rounded-[1.15rem] border border-white/10 bg-white/50 p-3 shadow-sm backdrop-blur-xl transition-all duration-200 hover:bg-white/70 dark:bg-white/5 dark:hover:bg-white/10 sm:rounded-[1.25rem] sm:p-4"
-                      >
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="min-w-0">
-                            <p className="truncate text-sm font-semibold sm:text-base">
-                              {topic}
-                            </p>
-                            <p className="mt-1 text-[11px] text-muted-foreground sm:text-xs">
-                              {formatDate(attempt.createdAt)}
-                            </p>
-                          </div>
-
-                          <div className="shrink-0 rounded-full border border-white/10 bg-white/70 px-2.5 py-1 text-xs font-semibold backdrop-blur-xl dark:bg-white/10 sm:px-3 sm:text-sm">
-                            {attempt.score}%
-                          </div>
-                        </div>
-
-                        <div className="mt-3">
-                          <div className="mb-2 flex items-center justify-between gap-2 text-[11px] text-muted-foreground sm:text-xs">
-                            <span>
-                              {attempt.correctAnswers}/{attempt.totalQuestions}{" "}
-                              correct
-                            </span>
-                            <span>{progress}%</span>
-                          </div>
-
-                          <div className="h-2 overflow-hidden rounded-full bg-muted/70">
-                            <div
-                              className="h-full rounded-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-500"
-                              style={{ width: `${progress}%` }}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </div>
+      <section className="mt-4 sm:mt-6">
+        <HotTopicsCard />
       </section>
 
     </div>

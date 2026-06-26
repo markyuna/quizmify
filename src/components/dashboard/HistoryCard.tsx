@@ -9,14 +9,15 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import HistoryComponent from "../HistoryComponent";
+import HistoryComponent, { type AttemptItem } from "../HistoryComponent";
 
 type HistoryCardProps = {
   userId: string;
   attemptsCount: number;
+  attempts?: AttemptItem[];
 };
 
-const HistoryCard = ({ userId, attemptsCount }: HistoryCardProps) => {
+const HistoryCard = ({ userId, attemptsCount, attempts }: HistoryCardProps) => {
   return (
     <Card className="relative h-full overflow-hidden rounded-[1.5rem] border-white/10 bg-white/60 shadow-xl shadow-black/5 transition-all duration-300 hover:scale-[1.01] dark:bg-white/5 sm:rounded-[1.75rem]">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-cyan-500/10" />
@@ -51,7 +52,7 @@ const HistoryCard = ({ userId, attemptsCount }: HistoryCardProps) => {
       <CardContent className="relative z-10 p-4 pt-0 sm:p-6 sm:pt-0">
         <div className="min-w-0 rounded-[1.25rem] border border-white/10 bg-white/40 p-2 backdrop-blur-xl dark:bg-white/5 sm:rounded-[1.5rem] sm:p-3">
           <div className="min-w-0 rounded-[1rem] sm:rounded-[1.25rem] lg:max-h-[300px] lg:overflow-y-auto lg:pr-1">
-            <HistoryComponent limit={6} userId={userId} />
+            <HistoryComponent limit={6} userId={userId} data={attempts} />
           </div>
         </div>
       </CardContent>
