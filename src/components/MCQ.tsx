@@ -358,10 +358,10 @@ const MCQ = ({ game }: MCQProps) => {
               </Link>
               <Link
                 href="/upgrade"
-                className={cn(buttonVariants({ variant: "outline" }), "h-12 rounded-2xl col-span-2 sm:col-span-1 opacity-60 cursor-not-allowed pointer-events-none")}
+                className={cn(buttonVariants({ variant: "outline" }), "h-12 rounded-2xl col-span-2 sm:col-span-1")}
               >
                 <Lock className="mr-2 h-4 w-4" />
-                New Quiz (Locked)
+                New Quiz (Upgrade)
               </Link>
             </>
           ) : (

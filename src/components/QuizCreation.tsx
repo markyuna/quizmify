@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Sparkles, Minus, Plus, Lock } from "lucide-react";
+import { Sparkles, Minus, Plus } from "lucide-react";
 
 import { quizCreationSchema } from "@/schemas/form/quiz";
 import { useToast } from "./ui/use-toast";
