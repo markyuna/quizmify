@@ -341,7 +341,7 @@ const MCQ = ({ game }: MCQProps) => {
 
           <Link
             href="/quiz"
-            className={cn(buttonVariants({ variant: "ghost" }), "h-12 rounded-2xl text-slate-500 hover:text-slate-900 dark:hover:text-white")}
+            className={cn(buttonVariants({ variant: "outline" }), "h-12 rounded-2xl")}
           >
             New Quiz
           </Link>
