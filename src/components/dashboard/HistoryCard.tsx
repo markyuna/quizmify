@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { History, ArrowRight } from "lucide-react";
 
 import {
@@ -11,23 +10,13 @@ import {
   CardTitle,
 } from "../ui/card";
 import HistoryComponent from "../HistoryComponent";
-import { getAuthSession } from "@/lib/nextauth";
-import { prisma } from "@/lib/db";
 
-const HistoryCard = async () => {
-  const session = await getAuthSession();
-  const userId = session?.user?.id;
+type HistoryCardProps = {
+  userId: string;
+  attemptsCount: number;
+};
 
-  if (!userId) {
-    redirect("/");
-  }
-
-  const attemptsCount = await prisma.attempt.count({
-    where: {
-      userId,
-    },
-  });
-
+const HistoryCard = ({ userId, attemptsCount }: HistoryCardProps) => {
   return (
     <Card className="relative h-full overflow-hidden rounded-[1.5rem] border-white/10 bg-white/60 shadow-xl shadow-black/5 transition-all duration-300 hover:scale-[1.01] dark:bg-white/5 sm:rounded-[1.75rem]">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-cyan-500/10" />

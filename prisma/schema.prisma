@@ -71,12 +71,7 @@ model Game {
   attempts    Attempt[]
 
   @@index([userId])
-}
-
-model TopicCount {
-  id    String @id @default(cuid())
-  topic String @unique
-  count Int
+  @@index([userId, timeStarted])
 }
 
 model McqQuestion {
@@ -126,6 +121,7 @@ model Attempt {
   game           Game            @relation(fields: [gameId], references: [id], onDelete: Cascade)
   answers        AttemptAnswer[]
 
+  @@unique([userId, gameId])
   @@index([userId])
   @@index([gameId])
   @@index([createdAt])
@@ -146,7 +142,6 @@ model AttemptAnswer {
 
 enum GameType {
   mcq
-  open_ended
 }
 
 model UserQuestionProgress {

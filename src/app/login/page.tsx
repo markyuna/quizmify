@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { BrainCircuit, Zap, Trophy, RotateCcw } from "lucide-react";
 
 import LoginButton from "@/components/LoginButton";
 import { getAuthSession } from "@/lib/nextauth";
@@ -6,6 +7,12 @@ import { getAuthSession } from "@/lib/nextauth";
 export const metadata = {
   title: "Login | Quizmify",
 };
+
+const features = [
+  { icon: Zap, label: "AI-generated quizzes in seconds" },
+  { icon: Trophy, label: "Track XP and level up" },
+  { icon: RotateCcw, label: "Practice your mistakes" },
+];
 
 export default async function LoginPage() {
   const session = await getAuthSession();
@@ -15,25 +22,57 @@ export default async function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-white to-cyan-50 px-4 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800">
-      <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none">
-        <div className="mb-6 flex justify-center">
-          <div className="rounded-2xl bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 px-4 py-2 shadow-lg shadow-violet-500/20">
-            <span className="text-lg font-bold tracking-tight text-white">
-              Quizmify
-            </span>
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-violet-50 via-white to-cyan-50 px-4 py-12 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/4 top-0 h-80 w-80 -translate-x-1/2 rounded-full bg-violet-400/20 blur-3xl dark:bg-violet-500/15" />
+        <div className="absolute right-1/4 top-1/4 h-64 w-64 rounded-full bg-cyan-400/20 blur-3xl dark:bg-cyan-500/15" />
+        <div className="absolute bottom-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-fuchsia-400/15 blur-3xl dark:bg-fuchsia-500/10" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-sm">
+        <div className="mb-8 text-center">
+          <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-[1.5rem] bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-500 shadow-2xl shadow-violet-500/30">
+            <BrainCircuit className="h-10 w-10 text-white" />
           </div>
+
+          <h1 className="text-4xl font-black tracking-tight text-slate-900 dark:text-white">
+            Quizmify
+          </h1>
+          <p className="mt-2 text-base font-medium text-slate-500 dark:text-slate-400">
+            Level up your knowledge ⚡
+          </p>
         </div>
 
-        <h1 className="mb-2 text-center text-3xl font-bold text-slate-900 dark:text-white">
-          Bienvenido a Quizmify
-        </h1>
+        <div className="rounded-[1.75rem] border border-slate-200/80 bg-white/80 p-6 shadow-2xl shadow-slate-200/50 backdrop-blur-xl dark:border-white/10 dark:bg-white/5 dark:shadow-none sm:p-8">
+          <h2 className="text-center text-xl font-bold text-slate-900 dark:text-white">
+            Ready to get smarter?
+          </h2>
+          <p className="mt-1.5 text-center text-sm text-slate-500 dark:text-slate-400">
+            Sign in to start your quiz journey
+          </p>
 
-        <p className="mb-6 text-center text-sm text-slate-600 dark:text-slate-300">
-          Inicia sesión para guardar tu historial y ver tus estadísticas.
-        </p>
+          <div className="mt-6">
+            <LoginButton />
+          </div>
 
-        <LoginButton />
+          <ul className="mt-6 space-y-2.5">
+            {features.map(({ icon: Icon, label }) => (
+              <li
+                key={label}
+                className="flex items-center gap-2.5 text-sm text-slate-600 dark:text-slate-300"
+              >
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-violet-100 dark:bg-violet-500/15">
+                  <Icon className="h-3.5 w-3.5 text-violet-600 dark:text-violet-300" />
+                </div>
+                {label}
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-6 text-center text-xs text-slate-400 dark:text-slate-500">
+            Free to use · No credit card needed
+          </p>
+        </div>
       </div>
     </div>
   );

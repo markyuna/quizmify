@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getAuthSession } from "@/lib/nextauth";
 
 export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
   try {
+    const session = await getAuthSession();
+
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { searchParams } = new URL(req.url);
 
     const topic = searchParams.get("topic");

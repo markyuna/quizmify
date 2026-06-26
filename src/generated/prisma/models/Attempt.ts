@@ -273,6 +273,7 @@ export type AttemptOrderByWithRelationInput = {
 
 export type AttemptWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  userId_gameId?: Prisma.AttemptUserIdGameIdCompoundUniqueInput
   AND?: Prisma.AttemptWhereInput | Prisma.AttemptWhereInput[]
   OR?: Prisma.AttemptWhereInput[]
   NOT?: Prisma.AttemptWhereInput | Prisma.AttemptWhereInput[]
@@ -286,7 +287,7 @@ export type AttemptWhereUniqueInput = Prisma.AtLeast<{
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   game?: Prisma.XOR<Prisma.GameScalarRelationFilter, Prisma.GameWhereInput>
   answers?: Prisma.AttemptAnswerListRelationFilter
-}, "id">
+}, "id" | "userId_gameId">
 
 export type AttemptOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -405,6 +406,11 @@ export type AttemptListRelationFilter = {
 
 export type AttemptOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type AttemptUserIdGameIdCompoundUniqueInput = {
+  userId: string
+  gameId: string
 }
 
 export type AttemptCountOrderByAggregateInput = {

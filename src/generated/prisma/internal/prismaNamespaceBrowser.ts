@@ -55,7 +55,6 @@ export const ModelName = {
   Session: 'Session',
   User: 'User',
   Game: 'Game',
-  TopicCount: 'TopicCount',
   McqQuestion: 'McqQuestion',
   Question: 'Question',
   Attempt: 'Attempt',
@@ -137,15 +136,6 @@ export const GameScalarFieldEnum = {
 } as const
 
 export type GameScalarFieldEnum = (typeof GameScalarFieldEnum)[keyof typeof GameScalarFieldEnum]
-
-
-export const TopicCountScalarFieldEnum = {
-  id: 'id',
-  topic: 'topic',
-  count: 'count'
-} as const
-
-export type TopicCountScalarFieldEnum = (typeof TopicCountScalarFieldEnum)[keyof typeof TopicCountScalarFieldEnum]
 
 
 export const McqQuestionScalarFieldEnum = {

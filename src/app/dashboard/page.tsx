@@ -127,12 +127,8 @@ export default async function DashboardPage() {
 
   const [
     userProfile,
-    attempts,
-    attemptsCount,
+    attemptsAggregate,
     gamesCount,
-    totalCorrectAggregate,
-    totalAnsweredAggregate,
-    totalTimeAggregate,
     recentAttempts,
     lastGame,
     mistakesCount,
@@ -146,55 +142,16 @@ export default async function DashboardPage() {
       },
     }),
 
-    prisma.attempt.findMany({
+    prisma.attempt.aggregate({
       where: { userId },
-      select: {
-        id: true,
-        score: true,
-        correctAnswers: true,
-        totalQuestions: true,
-        timeSpent: true,
-        createdAt: true,
-        game: {
-          select: {
-            id: true,
-            topic: true,
-            gameType: true,
-          },
-        },
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    }),
-
-    prisma.attempt.count({
-      where: { userId },
+      _count: { _all: true },
+      _sum: { correctAnswers: true, totalQuestions: true, timeSpent: true },
+      _avg: { score: true },
+      _max: { score: true },
     }),
 
     prisma.game.count({
       where: { userId },
-    }),
-
-    prisma.attempt.aggregate({
-      where: { userId },
-      _sum: {
-        correctAnswers: true,
-      },
-    }),
-
-    prisma.attempt.aggregate({
-      where: { userId },
-      _sum: {
-        totalQuestions: true,
-      },
-    }),
-
-    prisma.attempt.aggregate({
-      where: { userId },
-      _sum: {
-        timeSpent: true,
-      },
     }),
 
     prisma.attempt.findMany({
@@ -247,30 +204,18 @@ export default async function DashboardPage() {
   const currentLevel = userProfile?.level ?? 1;
   const levelProgress = getLevelProgress(totalXp);
 
-  const totalCorrect = totalCorrectAggregate._sum.correctAnswers ?? 0;
-  const totalAnswered = totalAnsweredAggregate._sum.totalQuestions ?? 0;
-  const totalTimeSpent = totalTimeAggregate._sum.timeSpent ?? 0;
+  const attemptsCount = attemptsAggregate._count._all;
+  const totalCorrect = attemptsAggregate._sum.correctAnswers ?? 0;
+  const totalAnswered = attemptsAggregate._sum.totalQuestions ?? 0;
+  const totalTimeSpent = attemptsAggregate._sum.timeSpent ?? 0;
+  const averageScore = Math.round(attemptsAggregate._avg.score ?? 0);
+  const bestScore = attemptsAggregate._max.score ?? null;
 
   const accuracy =
     totalAnswered > 0 ? Math.round((totalCorrect / totalAnswered) * 100) : 0;
 
-  const averageScore =
-    attempts.length > 0
-      ? Math.round(
-          attempts.reduce((acc, attempt) => acc + attempt.score, 0) /
-            attempts.length
-        )
-      : 0;
-
   const averageTimePerQuiz =
     attemptsCount > 0 ? Math.round(totalTimeSpent / attemptsCount) : 0;
-
-  const bestAttempt =
-    attempts.length > 0
-      ? attempts.reduce((best, current) =>
-          current.score > best.score ? current : best
-        )
-      : null;
 
   const stats = {
     attempts: {
@@ -283,7 +228,7 @@ export default async function DashboardPage() {
     },
     score: {
       value: `${averageScore}%`,
-      subtitle: `Best run: ${bestAttempt ? `${bestAttempt.score}%` : "—"}`,
+      subtitle: `Best run: ${bestScore !== null ? `${bestScore}%` : "—"}`,
     },
     time: {
       value: formatSeconds(averageTimePerQuiz),
@@ -371,7 +316,7 @@ export default async function DashboardPage() {
                 Best score
               </p>
               <p className="mt-1 text-lg font-bold sm:text-xl">
-                {bestAttempt ? `${bestAttempt.score}%` : "—"}
+                {bestScore !== null ? `${bestScore}%` : "—"}
               </p>
             </div>
           </div>
@@ -387,7 +332,7 @@ export default async function DashboardPage() {
         </div>
 
         <div className="order-2 min-w-0">
-          <HistoryCard />
+          <HistoryCard userId={userId} attemptsCount={attemptsCount} />
         </div>
       </section>
 
@@ -501,7 +446,7 @@ export default async function DashboardPage() {
       </section>
 
       <section className="mt-4 sm:mt-6">
-        <RecentActivityCard />
+        <RecentActivityCard userId={userId} gamesCount={gamesCount} />
       </section>
     </div>
   );

@@ -9,14 +9,6 @@ export const metadata = {
   title: "Practice Mistakes | Quizmify",
 };
 
-type PracticeQuestion = {
-  id: string;
-  question: string;
-  answer: string;
-  options: string[];
-  questionType: string;
-};
-
 export default async function PracticeMistakesPage() {
   const session = await getAuthSession();
 
@@ -26,67 +18,47 @@ export default async function PracticeMistakesPage() {
 
   const userId = session.user.id;
 
-  const failedAnswers = await prisma.attemptAnswer.findMany({
-    where: {
-      isCorrect: false,
-      attempt: {
-        userId,
+  const progressEntries = await prisma.userQuestionProgress.findMany({
+    where: { userId, needsReview: true },
+    orderBy: { updatedAt: "desc" },
+    select: {
+      question: {
+        select: {
+          id: true,
+          question: true,
+          answer: true,
+          options: true,
+          questionType: true,
+          explanation: true,
+          sourceQuestionId: true,
+        },
       },
     },
-    orderBy: {
-      id: "desc",
-    },
-    select: {
-      questionId: true,
-    },
-    take: 50,
+    take: MAX_QUESTIONS * 3,
   });
 
-  const uniqueQuestionIds = Array.from(
-    new Set(
-      failedAnswers
-        .map((item) => item.questionId)
-        .filter((questionId): questionId is string => Boolean(questionId))
-    )
-  ).slice(0, MAX_QUESTIONS);
+  const rawQuestions = progressEntries
+    .map((e) => e.question)
+    .filter(
+      (q) =>
+        !!q &&
+        q.question.trim() !== "" &&
+        q.answer.trim() !== "" &&
+        Array.isArray(q.options) &&
+        q.options.length > 0
+    );
 
-  if (uniqueQuestionIds.length === 0) {
-    redirect("/quiz");
+  const seen = new Map<string, (typeof rawQuestions)[number]>();
+  for (const q of rawQuestions) {
+    const key =
+      q.sourceQuestionId?.trim() ||
+      `${q.question.trim().toLowerCase()}::${q.answer.trim().toLowerCase()}`;
+    if (!seen.has(key)) seen.set(key, q);
   }
 
-  const questions = await prisma.question.findMany({
-    where: {
-      id: {
-        in: uniqueQuestionIds,
-      },
-    },
-    select: {
-      id: true,
-      question: true,
-      answer: true,
-      options: true,
-      questionType: true,
-    },
-  });
+  const questionsToPractice = Array.from(seen.values()).slice(0, MAX_QUESTIONS);
 
-  const questionsById = new Map<string, PracticeQuestion>(
-    questions.map((question) => [
-      question.id,
-      {
-        id: question.id,
-        question: question.question,
-        answer: question.answer,
-        options: question.options,
-        questionType: question.questionType ?? "mcq",
-      },
-    ])
-  );
-
-  const orderedQuestions = uniqueQuestionIds
-    .map((id) => questionsById.get(id))
-    .filter((question): question is PracticeQuestion => Boolean(question));
-
-  if (orderedQuestions.length === 0) {
+  if (questionsToPractice.length === 0) {
     redirect("/quiz");
   }
 
@@ -97,17 +69,17 @@ export default async function PracticeMistakesPage() {
       gameType: "mcq",
       timeStarted: new Date(),
       questions: {
-        create: orderedQuestions.map((question) => ({
-          question: question.question,
-          answer: question.answer,
-          options: question.options,
-          questionType: question.questionType,
+        create: questionsToPractice.map((q) => ({
+          question: q.question,
+          answer: q.answer,
+          options: q.options,
+          questionType: q.questionType ?? "mcq",
+          explanation: q.explanation,
+          sourceQuestionId: q.sourceQuestionId ?? q.id,
         })),
       },
     },
-    select: {
-      id: true,
-    },
+    select: { id: true },
   });
 
   redirect(`/play/mcq/${game.id}`);

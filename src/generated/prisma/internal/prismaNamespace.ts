@@ -388,7 +388,6 @@ export const ModelName = {
   Session: 'Session',
   User: 'User',
   Game: 'Game',
-  TopicCount: 'TopicCount',
   McqQuestion: 'McqQuestion',
   Question: 'Question',
   Attempt: 'Attempt',
@@ -409,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "topicCount" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "userQuestionProgress"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "userQuestionProgress"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -706,80 +705,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.GameCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.GameCountAggregateOutputType> | number
-        }
-      }
-    }
-    TopicCount: {
-      payload: Prisma.$TopicCountPayload<ExtArgs>
-      fields: Prisma.TopicCountFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.TopicCountFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicCountPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.TopicCountFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicCountPayload>
-        }
-        findFirst: {
-          args: Prisma.TopicCountFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicCountPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.TopicCountFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicCountPayload>
-        }
-        findMany: {
-          args: Prisma.TopicCountFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicCountPayload>[]
-        }
-        create: {
-          args: Prisma.TopicCountCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicCountPayload>
-        }
-        createMany: {
-          args: Prisma.TopicCountCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.TopicCountCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicCountPayload>[]
-        }
-        delete: {
-          args: Prisma.TopicCountDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicCountPayload>
-        }
-        update: {
-          args: Prisma.TopicCountUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicCountPayload>
-        }
-        deleteMany: {
-          args: Prisma.TopicCountDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.TopicCountUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.TopicCountUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicCountPayload>[]
-        }
-        upsert: {
-          args: Prisma.TopicCountUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicCountPayload>
-        }
-        aggregate: {
-          args: Prisma.TopicCountAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateTopicCount>
-        }
-        groupBy: {
-          args: Prisma.TopicCountGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TopicCountGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.TopicCountCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TopicCountCountAggregateOutputType> | number
         }
       }
     }
@@ -1252,15 +1177,6 @@ export const GameScalarFieldEnum = {
 export type GameScalarFieldEnum = (typeof GameScalarFieldEnum)[keyof typeof GameScalarFieldEnum]
 
 
-export const TopicCountScalarFieldEnum = {
-  id: 'id',
-  topic: 'topic',
-  count: 'count'
-} as const
-
-export type TopicCountScalarFieldEnum = (typeof TopicCountScalarFieldEnum)[keyof typeof TopicCountScalarFieldEnum]
-
-
 export const McqQuestionScalarFieldEnum = {
   id: 'id',
   topic: 'topic',
@@ -1538,7 +1454,6 @@ export type GlobalOmitConfig = {
   session?: Prisma.SessionOmit
   user?: Prisma.UserOmit
   game?: Prisma.GameOmit
-  topicCount?: Prisma.TopicCountOmit
   mcqQuestion?: Prisma.McqQuestionOmit
   question?: Prisma.QuestionOmit
   attempt?: Prisma.AttemptOmit

@@ -2,7 +2,6 @@
 
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
 
 type TopicItem = {
@@ -14,27 +13,16 @@ type HotTopicsCloudProps = {
   formattedTopics: TopicItem[];
 };
 
-const lightPalette = [
-  "text-violet-600",
-  "text-fuchsia-600",
-  "text-cyan-600",
-  "text-sky-600",
-  "text-indigo-600",
-  "text-teal-600",
+const palette = [
+  "text-violet-600 dark:text-violet-300",
+  "text-fuchsia-600 dark:text-fuchsia-300",
+  "text-cyan-600 dark:text-cyan-300",
+  "text-sky-600 dark:text-sky-300",
+  "text-indigo-600 dark:text-indigo-300",
+  "text-teal-600 dark:text-teal-300",
 ];
 
-const darkPalette = [
-  "text-violet-300",
-  "text-fuchsia-300",
-  "text-cyan-300",
-  "text-sky-300",
-  "text-indigo-300",
-  "text-teal-300",
-];
-
-function getColorClass(text: string, theme?: string) {
-  const palette = theme === "dark" ? darkPalette : lightPalette;
-
+function getColorClass(text: string) {
   let hash = 0;
   for (let i = 0; i < text.length; i++) {
     hash = text.charCodeAt(i) + ((hash << 5) - hash);
@@ -76,7 +64,6 @@ export default function HotTopicsCloud({
   formattedTopics,
 }: HotTopicsCloudProps) {
   const router = useRouter();
-  const { theme } = useTheme();
 
   const maxValue = Math.max(...formattedTopics.map((topic) => topic.value), 1);
 
@@ -87,10 +74,10 @@ export default function HotTopicsCloud({
     return sorted.map((topic, index) => ({
       ...topic,
       ...positions[index],
-      colorClass: getColorClass(topic.text, theme),
+      colorClass: getColorClass(topic.text),
       sizeClass: getSizeClass(topic.value, maxValue),
     }));
-  }, [formattedTopics, maxValue, theme]);
+  }, [formattedTopics, maxValue]);
 
   return (
     <div className="relative h-[320px] w-full overflow-hidden rounded-[1.25rem]">

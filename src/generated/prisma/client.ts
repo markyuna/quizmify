@@ -62,11 +62,6 @@ export type User = Prisma.UserModel
  */
 export type Game = Prisma.GameModel
 /**
- * Model TopicCount
- * 
- */
-export type TopicCount = Prisma.TopicCountModel
-/**
  * Model McqQuestion
  * 
  */

@@ -14,23 +14,16 @@ import HotTopicsCloud from "./HotTopicsCloud";
 export default async function HotTopicsCard() {
   const topics = await prisma.game.groupBy({
     by: ["topic"],
-    _count: {
-      topic: true,
-    },
-    orderBy: {
-      _count: {
-        topic: "desc",
-      },
-    },
+    where: { topic: { not: "" } },
+    _count: { topic: true },
+    orderBy: { _count: { topic: "desc" } },
+    take: 12,
   });
 
-  const formattedTopics = topics
-    .filter((topic) => topic.topic && topic.topic.trim() !== "")
-    .map((topic) => ({
-      text: topic.topic,
-      value: topic._count.topic,
-    }))
-    .slice(0, 12);
+  const formattedTopics = topics.map((topic) => ({
+    text: topic.topic,
+    value: topic._count.topic,
+  }));
 
   return (
     <Card className="relative h-full min-h-[440px] overflow-hidden rounded-[1.75rem] border-white/10 bg-white/60 shadow-xl shadow-black/5 transition-all duration-300 hover:scale-[1.01] dark:bg-white/5">      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-cyan-500/10" />

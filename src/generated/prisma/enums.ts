@@ -10,8 +10,7 @@
 */
 
 export const GameType = {
-  mcq: 'mcq',
-  open_ended: 'open_ended'
+  mcq: 'mcq'
 } as const
 
 export type GameType = (typeof GameType)[keyof typeof GameType]

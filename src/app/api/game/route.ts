@@ -317,27 +317,31 @@ export async function POST(req: Request) {
       return jsonError("No se pudieron obtener ni generar preguntas.", 500);
     }
 
-    const game = await prisma.game.create({
-      data: {
-        gameType: "mcq",
-        timeStarted: new Date(),
-        userId: session.user.id,
-        topic,
-      },
-    });
+    const game = await prisma.$transaction(async (tx) => {
+      const createdGame = await tx.game.create({
+        data: {
+          gameType: "mcq",
+          timeStarted: new Date(),
+          userId: session.user.id,
+          topic,
+        },
+      });
 
-    await prisma.question.createMany({
-      data: finalQuestions.map((question) => ({
-        question: question.question,
-        answer: question.correct_answer,
-        options: ensureValidOptions(question.options, question.correct_answer),
-        explanation:
-          "explanation" in question && question.explanation
-            ? question.explanation
-            : null,
-        gameId: game.id,
-        questionType: "mcq",
-      })),
+      await tx.question.createMany({
+        data: finalQuestions.map((question) => ({
+          question: question.question,
+          answer: question.correct_answer,
+          options: ensureValidOptions(question.options, question.correct_answer),
+          explanation:
+            "explanation" in question && question.explanation
+              ? question.explanation
+              : null,
+          gameId: createdGame.id,
+          questionType: "mcq",
+        })),
+      });
+
+      return createdGame;
     });
 
     await incrementUsageCount(

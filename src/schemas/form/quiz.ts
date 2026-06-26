@@ -1,22 +1,15 @@
 import { z } from "zod";
 
 export const quizCreationSchema = z.object({
-  topic: z.string().min(1, "Topic is required"),
+  topic: z.string().min(1, "Topic is required").max(200, "Topic is too long"),
   amount: z.number().int().min(1, "Minimum is 1").max(20, "Maximum is 20"),
   difficulty: z.enum(["easy", "medium", "hard"]),
   type: z.literal("mcq"),
 });
 
-export const getQuestionsSchema = z.object({
-  topic: z.string().min(1, "Topic is required"),
-  difficulty: z.enum(["easy", "medium", "hard"]),
-  amount: z.number().int().positive().min(1).max(10),
-  type: z.enum(["mcq", "open_ended"]),
-});
-
 export const checkAnswerSchema = z.object({
   questionId: z.string().min(1, "Question ID is required"),
-  userAnswer: z.string().min(1, "Answer is required"),
+  userAnswer: z.string().min(1, "Answer is required").max(1000, "Answer is too long"),
 });
 
 export const submitQuizSchema = z.object({
@@ -34,9 +27,4 @@ export const submitQuizSchema = z.object({
 
 export const endGameSchema = z.object({
   gameId: z.string().min(1, "Game ID is required"),
-});
-
-export const joinGameSchema = z.object({
-  gameId: z.string().min(1, "Game ID is required"),
-  userId: z.string().min(1, "User ID is required"),
 });

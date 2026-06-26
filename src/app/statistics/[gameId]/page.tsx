@@ -49,6 +49,10 @@ export default async function StatisticsPage({
     redirect("/quiz");
   }
 
+  if (!game.timeEnded) {
+    redirect(`/play/mcq/${gameId}`);
+  }
+
   const questions = game.questions ?? [];
   const totalQuestions = questions.length;
 
@@ -61,7 +65,7 @@ export default async function StatisticsPage({
       ? Math.round((correctAnswers / totalQuestions) * 100)
       : 0;
 
-  const timeEnded = game.timeEnded ?? new Date();
+  const timeEnded = game.timeEnded;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50 px-4 py-8 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950 md:px-6 md:py-10">
@@ -76,7 +80,7 @@ export default async function StatisticsPage({
           </h1>
 
           <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300 md:text-base">
-            Aquí tienes el resumen de tu partida.
+            Here&apos;s a full breakdown of your quiz.
           </p>
         </section>
 
@@ -104,7 +108,7 @@ export default async function StatisticsPage({
             </h2>
 
             <div className="inline-flex items-center rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm text-slate-600 dark:border-white/10 dark:bg-black/20 dark:text-slate-200">
-              Score final:
+              Final score:
               <span className="ml-2 font-bold text-slate-900 dark:text-white">
                 {correctAnswers} / {totalQuestions}
               </span>

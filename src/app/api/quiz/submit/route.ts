@@ -165,15 +165,12 @@ export async function POST(req: Request) {
         },
       });
 
-      const currentUser = await tx.user.findUnique({
+      const previousUser = await tx.user.findUnique({
         where: { id: userId },
-        select: {
-          xp: true,
-          level: true,
-        },
+        select: { level: true },
       });
-      
-      if (!currentUser) {
+
+      if (!previousUser) {
         return {
           attempt: createdAttempt,
           earnedXp: 0,
@@ -183,19 +180,25 @@ export async function POST(req: Request) {
           didLevelUp: false,
         };
       }
-      
-      const previousLevel = currentUser.level;
-      const newXp = currentUser.xp + earnedXp;
+
+      const previousLevel = previousUser.level;
+
+      const updatedUser = await tx.user.update({
+        where: { id: userId },
+        data: { xp: { increment: earnedXp } },
+        select: { xp: true },
+      });
+
+      const newXp = updatedUser.xp;
       const newLevel = calculateLevel(newXp);
       const didLevelUp = newLevel > previousLevel;
-      
-      await tx.user.update({
-        where: { id: userId },
-        data: {
-          xp: newXp,
-          level: newLevel,
-        },
-      });
+
+      if (newLevel !== previousLevel) {
+        await tx.user.update({
+          where: { id: userId },
+          data: { level: newLevel },
+        });
+      }
       
       return {
         attempt: createdAttempt,
