@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
-import { openai } from "@/lib/openai";
+import { getOpenAI } from "@/lib/openai";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { quizCreationSchema } from "@/schemas/form/quiz";
 import { FREE_LEVEL_CAP } from "@/lib/stripe";
@@ -141,7 +141,7 @@ async function generateQuestionsWithAI(params: {
 }): Promise<GeneratedQuestion[]> {
   const { topic, difficulty, amount } = params;
 
-  const response = await openai.chat.completions.create({
+  const response = await getOpenAI().chat.completions.create({
     model: process.env.OPENAI_MODEL || "gpt-4o",
     messages: [
       {
