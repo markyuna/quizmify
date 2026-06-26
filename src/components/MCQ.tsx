@@ -286,7 +286,7 @@ const MCQ = ({ game }: MCQProps) => {
                 </p>
                 <div className="mt-3">
                   <div className="mb-1.5 flex items-center justify-between text-xs text-slate-400">
-                    <span>{levelProgress.xpIntoCurrentLevel}/100 XP</span>
+                    <span>{levelProgress.xpIntoCurrentLevel}/{levelProgress.xpPerLevel} XP</span>
                     <span>{Math.round(levelProgress.progressPercent)}%</span>
                   </div>
                   <div className="h-2.5 overflow-hidden rounded-full bg-white/40 dark:bg-white/10">

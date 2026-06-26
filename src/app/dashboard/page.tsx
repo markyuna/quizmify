@@ -190,13 +190,8 @@ export default async function DashboardPage() {
       },
     }),
 
-    prisma.attemptAnswer.count({
-      where: {
-        isCorrect: false,
-        attempt: {
-          userId,
-        },
-      },
+    prisma.userQuestionProgress.count({
+      where: { userId, needsReview: true },
     }),
   ]);
 

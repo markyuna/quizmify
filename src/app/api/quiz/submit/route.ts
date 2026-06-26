@@ -61,11 +61,10 @@ export async function POST(req: Request) {
     if (existingAttempt) {
       const currentUser = await prisma.user.findUnique({
         where: { id: userId },
-        select: {
-          xp: true,
-          level: true,
-        },
+        select: { xp: true, level: true },
       });
+
+      const level = currentUser?.level ?? 1;
 
       return NextResponse.json(
         {
@@ -76,7 +75,9 @@ export async function POST(req: Request) {
           totalQuestions: existingAttempt.totalQuestions,
           earnedXp: 0,
           newXp: currentUser?.xp ?? 0,
-          newLevel: currentUser?.level ?? 1,
+          newLevel: level,
+          previousLevel: level,
+          didLevelUp: false,
         },
         { status: 200 }
       );

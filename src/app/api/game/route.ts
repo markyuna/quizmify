@@ -248,13 +248,6 @@ export async function POST(req: Request) {
     const difficulty = normalizeDifficulty(parsedBody.difficulty);
     const type = parsedBody.type;
 
-    if (type !== "mcq") {
-      return jsonError(
-        "Solo se admiten preguntas tipo MCQ en esta versión.",
-        400
-      );
-    }
-
     let cachedQuestions: SupabaseMCQQuestion[] = [];
 
     try {
@@ -324,6 +317,7 @@ export async function POST(req: Request) {
           timeStarted: new Date(),
           userId: session.user.id,
           topic,
+          difficulty,
         },
       });
 
@@ -331,7 +325,7 @@ export async function POST(req: Request) {
         data: finalQuestions.map((question) => ({
           question: question.question,
           answer: question.correct_answer,
-          options: ensureValidOptions(question.options, question.correct_answer),
+          options: question.options,
           explanation:
             "explanation" in question && question.explanation
               ? question.explanation
