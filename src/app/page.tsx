@@ -11,7 +11,6 @@ import {
   Zap,
 } from "lucide-react";
 
-import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getAuthSession } from "@/lib/nextauth";
@@ -33,7 +32,7 @@ export default async function HomePage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-cyan-50 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950">
       {/* Hero */}
-      <section className="relative overflow-hidden px-4 pb-16 pt-32 md:px-8 md:pb-24 md:pt-40">
+      <section className="relative overflow-hidden px-4 pb-16 pt-24 md:px-8 md:pb-24 md:pt-32">
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-violet-400/20 blur-3xl animate-pulse dark:bg-violet-500/20" />
           <div className="absolute right-10 top-24 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl animate-pulse dark:bg-cyan-500/20" />
@@ -43,12 +42,6 @@ export default async function HomePage() {
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2">
           {/* Left — copy */}
           <div className="relative z-10">
-            <div className="mb-6 flex items-center">
-              <div className="origin-left scale-75 sm:scale-90 md:scale-100">
-                <Logo />
-              </div>
-            </div>
-
             <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm text-slate-700 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
               <Sparkles className="h-4 w-4 text-violet-500" />
               Learn faster with AI-powered quizzes
