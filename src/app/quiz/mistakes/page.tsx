@@ -48,39 +48,61 @@ export default async function PracticeMistakesPage() {
         q.options.length > 0
     );
 
-  const seen = new Map<string, (typeof rawQuestions)[number]>();
+  // Group by dedup key (same conceptual question across different games)
+  const groups = new Map<string, Array<(typeof rawQuestions)[number]>>();
   for (const q of rawQuestions) {
     const key =
       q.sourceQuestionId?.trim() ||
       `${q.question.trim().toLowerCase()}::${q.answer.trim().toLowerCase()}`;
-    if (!seen.has(key)) seen.set(key, q);
+    const group = groups.get(key) ?? [];
+    group.push(q);
+    groups.set(key, group);
   }
 
-  const questionsToPractice = Array.from(seen.values()).slice(0, MAX_QUESTIONS);
+  // Pick one representative per group (most recently updated = first due to orderBy)
+  const questionsToPractice = Array.from(groups.values())
+    .map((group) => group[0])
+    .slice(0, MAX_QUESTIONS);
 
   if (questionsToPractice.length === 0) {
     redirect("/quiz");
   }
 
-  const game = await prisma.game.create({
-    data: {
-      userId,
-      topic: "Practice Mistakes",
-      gameType: "mcq",
-      timeStarted: new Date(),
-      questions: {
-        create: questionsToPractice.map((q) => ({
-          question: q.question,
-          answer: q.answer,
-          options: q.options,
-          questionType: q.questionType ?? "mcq",
-          explanation: q.explanation,
-          sourceQuestionId: q.sourceQuestionId ?? q.id,
-        })),
+  // Collect all absorbed duplicate IDs — same conceptual question, but not chosen
+  // for practice. Mark them resolved immediately so they don't resurface next session.
+  const practiceIds = new Set(questionsToPractice.map((q) => q.id));
+  const absorbedIds = rawQuestions
+    .map((q) => q.id)
+    .filter((id) => !practiceIds.has(id));
+
+  const [game] = await Promise.all([
+    prisma.game.create({
+      data: {
+        userId,
+        topic: "Practice Mistakes",
+        gameType: "mcq",
+        timeStarted: new Date(),
+        questions: {
+          create: questionsToPractice.map((q) => ({
+            question: q.question,
+            answer: q.answer,
+            options: q.options,
+            questionType: q.questionType ?? "mcq",
+            explanation: q.explanation,
+            sourceQuestionId: q.sourceQuestionId ?? q.id,
+          })),
+        },
       },
-    },
-    select: { id: true },
-  });
+      select: { id: true },
+    }),
+
+    absorbedIds.length > 0
+      ? prisma.userQuestionProgress.updateMany({
+          where: { userId, questionId: { in: absorbedIds } },
+          data: { needsReview: false },
+        })
+      : Promise.resolve(),
+  ]);
 
   redirect(`/play/mcq/${game.id}`);
 }
