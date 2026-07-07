@@ -2,7 +2,7 @@ import { prisma } from "@/lib/db";
 import { Clock, CopyCheck, Edit2, Target, Trophy } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { formatTimeDelta } from "@/lib/utils";
+import { cn, formatTimeDelta } from "@/lib/utils";
 
 export type AttemptItem = {
   id: string;
@@ -24,32 +24,54 @@ type Props = {
   data?: AttemptItem[];
 };
 
+function getScoreStyle(score: number) {
+  if (score >= 80)
+    return "bg-emerald-500/15 text-emerald-400 border-emerald-500/30";
+  if (score >= 50)
+    return "bg-amber-500/15 text-amber-400 border-amber-500/30";
+  return "bg-rose-500/15 text-rose-400 border-rose-500/30";
+}
+
+function formatDate(date: Date) {
+  return new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
 const HistoryComponent = async ({ limit, userId, data }: Props) => {
-  const attempts: AttemptItem[] = data ?? await prisma.attempt.findMany({
-    where: { userId },
-    take: limit,
-    orderBy: { createdAt: "desc" },
-    include: {
-      game: {
-        select: {
-          id: true,
-          topic: true,
-          gameType: true,
+  const attempts: AttemptItem[] =
+    data ??
+    (await prisma.attempt.findMany({
+      where: { userId },
+      take: limit,
+      orderBy: { createdAt: "desc" },
+      include: {
+        game: {
+          select: { id: true, topic: true, gameType: true },
         },
       },
-    },
-  });
+    }));
 
   if (attempts.length === 0) {
     return (
-      <div className="flex items-center justify-center py-8 text-sm text-muted-foreground">
-        No quiz attempts yet.
+      <div className="flex flex-col items-center justify-center py-12 text-center">
+        <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5">
+          <Trophy className="h-6 w-6 text-muted-foreground/40" />
+        </div>
+        <p className="text-sm font-medium text-muted-foreground">
+          No quiz attempts yet
+        </p>
+        <p className="mt-1 text-xs text-muted-foreground/50">
+          Complete your first quiz to see history here
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="min-w-0 space-y-3 sm:space-y-4">
+    <div className="divide-y divide-white/[0.06]">
       {attempts.map((attempt) => {
         const gameType = attempt.game?.gameType ?? "mcq";
         const topic = attempt.game?.topic ?? "Untitled quiz";
@@ -58,71 +80,73 @@ const HistoryComponent = async ({ limit, userId, data }: Props) => {
         return (
           <div
             key={attempt.id}
-            className="min-w-0 rounded-2xl border border-border/50 p-3 transition-colors hover:bg-muted/40 sm:p-4"
+            className="flex items-center gap-3 px-1 py-3.5 transition-colors hover:bg-white/[0.03] sm:gap-4 sm:py-4"
           >
-            <div className="flex min-w-0 items-start gap-3">
-              <div className="shrink-0 pt-1">
-                {gameType === "mcq" ? (
-                  <CopyCheck className="h-5 w-5" />
-                ) : (
-                  <Edit2 className="h-5 w-5" />
-                )}
+            {/* Icon */}
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-500/15 sm:h-10 sm:w-10 sm:rounded-2xl">
+              {gameType === "mcq" ? (
+                <CopyCheck className="h-4 w-4 text-violet-400 sm:h-5 sm:w-5" />
+              ) : (
+                <Edit2 className="h-4 w-4 text-violet-400 sm:h-5 sm:w-5" />
+              )}
+            </div>
+
+            {/* Content */}
+            <div className="min-w-0 flex-1">
+              {gameId ? (
+                <Link
+                  href={`/statistics/${gameId}`}
+                  className="block truncate text-sm font-semibold text-foreground/90 transition-colors hover:text-white sm:text-[15px]"
+                  title={topic}
+                >
+                  {topic}
+                </Link>
+              ) : (
+                <p
+                  className="truncate text-sm font-semibold sm:text-[15px]"
+                  title={topic}
+                >
+                  {topic}
+                </p>
+              )}
+
+              <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span className="text-[11px] text-muted-foreground/60 sm:text-xs">
+                  {formatDate(attempt.createdAt)}
+                </span>
+
+                <span className="text-muted-foreground/25">·</span>
+
+                <span className="rounded-md bg-violet-500/15 px-1.5 py-0.5 text-[10px] font-medium text-violet-400 sm:text-[11px]">
+                  {gameType === "mcq" ? "MCQ" : "Open Ended"}
+                </span>
+
+                <span className="text-muted-foreground/25">·</span>
+
+                <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground/60 sm:text-xs">
+                  <Target className="h-3 w-3 shrink-0" />
+                  {attempt.correctAnswers}/{attempt.totalQuestions} correct
+                </span>
+
+                <span className="text-muted-foreground/25">·</span>
+
+                <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground/60 sm:text-xs">
+                  <Clock className="h-3 w-3 shrink-0" />
+                  {formatTimeDelta(attempt.timeSpent)}
+                </span>
               </div>
+            </div>
 
-              <div className="min-w-0 flex-1 space-y-2">
-                {gameId ? (
-                  <Link
-                    href={`/statistics/${gameId}`}
-                    className="block truncate text-sm font-medium underline underline-offset-4 sm:text-base"
-                    title={topic}
-                  >
-                    {topic}
-                  </Link>
-                ) : (
-                  <p
-                    className="truncate text-sm font-medium sm:text-base"
-                    title={topic}
-                  >
-                    {topic}
-                  </p>
+            {/* Score badge */}
+            <div className="shrink-0">
+              <span
+                className={cn(
+                  "inline-flex items-center rounded-xl border px-2.5 py-1 text-sm font-bold tabular-nums sm:rounded-2xl sm:px-3 sm:text-[15px]",
+                  getScoreStyle(attempt.score)
                 )}
-
-                <div className="flex flex-wrap items-center gap-2">
-                  <p className="inline-flex max-w-full items-center rounded-lg bg-slate-100 px-2 py-1 text-[11px] text-slate-600 dark:bg-white/10 dark:text-slate-300 sm:text-xs">
-                    <Clock className="mr-1 h-3.5 w-3.5 shrink-0" />
-                    <span className="truncate">
-                      {new Date(attempt.createdAt).toLocaleDateString()}
-                    </span>
-                  </p>
-
-                  <p className="inline-flex max-w-full items-center rounded-lg border px-2 py-1 text-[11px] text-muted-foreground sm:text-xs">
-                    <span className="truncate">
-                      {gameType === "mcq" ? "MCQ" : "Open Ended"}
-                    </span>
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground sm:text-sm">
-                  <p className="inline-flex min-w-0 items-center gap-1">
-                    <Trophy className="h-4 w-4 shrink-0" />
-                    <span className="truncate">{attempt.score}%</span>
-                  </p>
-
-                  <p className="inline-flex min-w-0 items-center gap-1">
-                    <Target className="h-4 w-4 shrink-0" />
-                    <span className="truncate">
-                      {attempt.correctAnswers}/{attempt.totalQuestions} correct
-                    </span>
-                  </p>
-
-                  <p className="inline-flex min-w-0 items-center gap-1">
-                    <Clock className="h-4 w-4 shrink-0" />
-                    <span className="truncate">
-                      {formatTimeDelta(attempt.timeSpent)}
-                    </span>
-                  </p>
-                </div>
-              </div>
+              >
+                {attempt.score}%
+              </span>
             </div>
           </div>
         );

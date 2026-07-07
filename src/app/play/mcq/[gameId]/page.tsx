@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import MCQ from "@/components/MCQ";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
+import { FREE_LEVEL_CAP } from "@/lib/stripe";
 
 type MCQPageProps = {
   params: Promise<{
@@ -51,6 +52,17 @@ export default async function MCQPage({ params }: MCQPageProps) {
 
   if (!game) {
     redirect("/quiz");
+  }
+
+  if (game.timeEnded) {
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { level: true, subscriptionStatus: true },
+    });
+
+    if (user && user.subscriptionStatus !== "pro" && user.level >= FREE_LEVEL_CAP) {
+      redirect("/upgrade");
+    }
   }
 
   return <MCQ game={game} />;

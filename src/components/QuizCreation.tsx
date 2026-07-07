@@ -100,11 +100,14 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
       setShowLoader(false);
 
       if (axios.isAxiosError(error)) {
+        const data = error.response?.data as { error?: string; freeLimitReached?: boolean } | undefined;
+        if (data?.freeLimitReached) {
+          router.push("/upgrade");
+          return;
+        }
         toast({
           title: "Error",
-          description:
-            (error.response?.data as { error?: string } | undefined)?.error ??
-            "Unable to create the quiz.",
+          description: data?.error ?? "Unable to create the quiz.",
           variant: "destructive",
         });
         return;

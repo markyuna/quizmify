@@ -195,7 +195,8 @@ export async function POST(req: Request) {
 
       let newXp = updatedUser.xp;
       let newLevel = calculateLevel(newXp);
-      const hitFreeLimit = !isPro && newXp >= FREE_XP_CAP;
+      // Trigger when user reaches or exceeds the cap level, not just when XP crosses 200
+      const hitFreeLimit = !isPro && newLevel >= FREE_LEVEL_CAP;
 
       if (hitFreeLimit) {
         newXp = FREE_XP_CAP - 1;
@@ -212,10 +213,13 @@ export async function POST(req: Request) {
       }
 
       const didLevelUp = !hitFreeLimit && newLevel > previousLevel;
+      const actualEarnedXp = hitFreeLimit
+        ? Math.max(0, (FREE_XP_CAP - 1) - (updatedUser.xp - earnedXp))
+        : earnedXp;
 
       return {
         attempt: createdAttempt,
-        earnedXp: hitFreeLimit ? Math.max(0, FREE_XP_CAP - 1 - (newXp - earnedXp)) : earnedXp,
+        earnedXp: actualEarnedXp,
         newXp,
         previousLevel,
         newLevel,

@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
+import { FREE_LEVEL_CAP } from "@/lib/stripe";
 
 const MAX_QUESTIONS = 10;
 
@@ -17,6 +18,15 @@ export default async function PracticeMistakesPage() {
   }
 
   const userId = session.user.id;
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { level: true, subscriptionStatus: true },
+  });
+
+  if (user && user.subscriptionStatus !== "pro" && user.level >= FREE_LEVEL_CAP) {
+    redirect("/upgrade");
+  }
 
   const progressEntries = await prisma.userQuestionProgress.findMany({
     where: { userId, needsReview: true },

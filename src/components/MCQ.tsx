@@ -347,38 +347,59 @@ const MCQ = ({ game }: MCQProps) => {
           transition={{ delay: 0.2 }}
           className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap"
         >
-          <Button
-            onClick={handlePlayAgain}
-            className="h-12 rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white shadow-lg shadow-violet-500/20 hover:opacity-95"
-          >
-            <RotateCcw className="mr-2 h-4 w-4" />
-            Play Again
-          </Button>
+          {finalResult?.hitFreeLimit ? (
+            <>
+              <Link
+                href={`/statistics/${game.id}`}
+                className={cn(buttonVariants({ variant: "secondary" }), "h-12 rounded-2xl")}
+              >
+                <BarChart3 className="mr-2 h-4 w-4" />
+                Statistics
+              </Link>
+              <Link
+                href="/upgrade"
+                className={cn(buttonVariants({ variant: "outline" }), "h-12 rounded-2xl col-span-2 sm:col-span-1")}
+              >
+                <Lock className="mr-2 h-4 w-4" />
+                New Quiz (Upgrade)
+              </Link>
+            </>
+          ) : (
+            <>
+              <Button
+                onClick={handlePlayAgain}
+                className="h-12 rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white shadow-lg shadow-violet-500/20 hover:opacity-95"
+              >
+                <RotateCcw className="mr-2 h-4 w-4" />
+                Play Again
+              </Button>
 
-          <Link
-            href={`/statistics/${game.id}`}
-            className={cn(buttonVariants({ variant: "secondary" }), "h-12 rounded-2xl")}
-          >
-            <BarChart3 className="mr-2 h-4 w-4" />
-            Statistics
-          </Link>
+              <Link
+                href={`/statistics/${game.id}`}
+                className={cn(buttonVariants({ variant: "secondary" }), "h-12 rounded-2xl")}
+              >
+                <BarChart3 className="mr-2 h-4 w-4" />
+                Statistics
+              </Link>
 
-          {finalScore < 100 && (
-            <Link
-              href="/quiz/mistakes"
-              className={cn(buttonVariants({ variant: "outline" }), "h-12 rounded-2xl col-span-2 sm:col-span-1")}
-            >
-              <AlertCircle className="mr-2 h-4 w-4" />
-              Practice Mistakes
-            </Link>
+              {finalScore < 100 && (
+                <Link
+                  href="/quiz/mistakes"
+                  className={cn(buttonVariants({ variant: "outline" }), "h-12 rounded-2xl col-span-2 sm:col-span-1")}
+                >
+                  <AlertCircle className="mr-2 h-4 w-4" />
+                  Practice Mistakes
+                </Link>
+              )}
+
+              <Link
+                href="/quiz"
+                className={cn(buttonVariants({ variant: "outline" }), "h-12 rounded-2xl")}
+              >
+                New Quiz
+              </Link>
+            </>
           )}
-
-          <Link
-            href="/quiz"
-            className={cn(buttonVariants({ variant: "outline" }), "h-12 rounded-2xl")}
-          >
-            New Quiz
-          </Link>
         </motion.div>
       </div>
     );

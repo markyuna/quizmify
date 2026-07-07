@@ -11,6 +11,7 @@ type TopicItem = {
 
 type HotTopicsCloudProps = {
   formattedTopics: TopicItem[];
+  isAtFreeLimit?: boolean;
 };
 
 const palette = [
@@ -62,6 +63,7 @@ function generateCloudPositions(count: number) {
 
 export default function HotTopicsCloud({
   formattedTopics,
+  isAtFreeLimit = false,
 }: HotTopicsCloudProps) {
   const router = useRouter();
 
@@ -113,7 +115,7 @@ export default function HotTopicsCloud({
           }}
           whileTap={{ scale: 0.96 }}
           onClick={() =>
-            router.push(`/quiz?topic=${encodeURIComponent(topic.text)}`)
+            router.push(isAtFreeLimit ? "/upgrade" : `/quiz?topic=${encodeURIComponent(topic.text)}`)
           }
           className={`absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-3 py-1.5 transition-all duration-300 ${topic.colorClass} ${topic.sizeClass} hover:bg-white/50 hover:shadow-[0_0_35px_rgba(168,85,247,0.18)] dark:hover:bg-white/10`}
           style={{
