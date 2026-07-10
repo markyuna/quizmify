@@ -15,5 +15,11 @@ export async function isUserAtFreeLimit(userId: string): Promise<boolean> {
   if (!user) return false;
 
   const isPro = user.subscriptionStatus === "pro";
-  return !isPro && user.xp >= FREE_XP_CAP;
+
+  // /api/quiz/submit deliberately never lets a free user's stored xp reach
+  // FREE_XP_CAP — it clamps back down to FREE_XP_CAP - 1 the instant that
+  // threshold would be crossed (see submit/route.ts), so FREE_XP_CAP - 1 is
+  // the real, permanent ceiling for free accounts. Checking `>= FREE_XP_CAP`
+  // here would never be true and the cap would never engage.
+  return !isPro && user.xp >= FREE_XP_CAP - 1;
 }

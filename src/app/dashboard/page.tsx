@@ -18,6 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { getLevelProgress } from "@/lib/xp";
+import { FREE_XP_CAP } from "@/lib/stripe";
 
 export const metadata = {
   title: "Dashboard | Quizmify",
@@ -196,7 +197,9 @@ export default async function DashboardPage() {
   const totalXp = userProfile?.xp ?? 0;
   const currentLevel = userProfile?.level ?? 1;
   const isPro = userProfile?.subscriptionStatus === "pro";
-  const isAtFreeLimit = !isPro && currentLevel >= 2;
+  // Mirrors isUserAtFreeLimit's threshold: free-tier xp is permanently
+  // clamped to FREE_XP_CAP - 1 by /api/quiz/submit, so that's the real cap.
+  const isAtFreeLimit = !isPro && totalXp >= FREE_XP_CAP - 1;
   const levelProgress = getLevelProgress(totalXp);
 
   const attemptsCount = attemptsAggregate._count._all;
