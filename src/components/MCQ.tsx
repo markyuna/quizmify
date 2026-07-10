@@ -19,6 +19,7 @@ import {
   Trophy,
   Zap,
   Lock,
+  LayoutDashboard,
 } from "lucide-react";
 import { Game, Question } from "@/generated/prisma/client";
 import { useTranslations } from "next-intl";
@@ -380,6 +381,14 @@ const MCQ = ({ game }: MCQProps) => {
             className={cn(buttonVariants({ variant: "outline" }), "h-12 rounded-2xl")}
           >
             {t("newQuiz")}
+          </Link>
+
+          <Link
+            href="/dashboard"
+            className={cn(buttonVariants({ variant: "ghost" }), "h-12 rounded-2xl col-span-2")}
+          >
+            <LayoutDashboard className="mr-2 h-4 w-4" />
+            {t("backToDashboard")}
           </Link>
         </motion.div>
       </div>
