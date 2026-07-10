@@ -50,6 +50,7 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
 
   const [showLoader, setShowLoader] = React.useState(false);
   const [finished, setFinished] = React.useState(false);
+  const [checkingEligibility, setCheckingEligibility] = React.useState(true);
   const navigationTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   React.useEffect(() => {
@@ -57,6 +58,33 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
       if (navigationTimeoutRef.current) clearTimeout(navigationTimeoutRef.current);
     };
   }, []);
+
+  // Defense-in-depth: a stale (bfcache/back-forward) client render of this
+  // form must not be trusted. Re-check the real cap against the server on
+  // every mount before letting the user interact with the form — the actual
+  // enforcement lives server-side in POST /api/game, this just avoids
+  // flashing a form the request would reject anyway.
+  React.useEffect(() => {
+    let cancelled = false;
+
+    axios
+      .get<{ eligible: boolean }>("/api/game/eligibility")
+      .then((res) => {
+        if (cancelled) return;
+        if (!res.data.eligible) {
+          router.replace("/upgrade?limit=true");
+          return;
+        }
+        setCheckingEligibility(false);
+      })
+      .catch(() => {
+        if (!cancelled) setCheckingEligibility(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [router]);
 
   const normalizedTopic =
     topicParam && topicParam !== "undefined" && topicParam !== "null"
@@ -137,6 +165,10 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
 
   if (showLoader) {
     return <LoadingQuestions finished={finished} />;
+  }
+
+  if (checkingEligibility) {
+    return null;
   }
 
   return (

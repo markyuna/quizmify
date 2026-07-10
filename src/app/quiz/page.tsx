@@ -2,8 +2,9 @@ import { redirect } from "next/navigation";
 
 import QuizCreation from "@/components/QuizCreation";
 import { getAuthSession } from "@/lib/nextauth";
-import { prisma } from "@/lib/db";
-import { FREE_XP_CAP } from "@/lib/stripe";
+import { isUserAtFreeLimit } from "@/lib/paywall";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Create Quiz | Quizmify",
@@ -22,14 +23,7 @@ export default async function QuizPage({ searchParams }: QuizPageProps) {
     redirect("/");
   }
 
-  const currentUser = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: { xp: true, subscriptionStatus: true },
-  });
-
-  const isPro = currentUser?.subscriptionStatus === "pro";
-
-  if (!isPro && (currentUser?.xp ?? 0) >= FREE_XP_CAP) {
+  if (await isUserAtFreeLimit(session.user.id)) {
     redirect("/upgrade?limit=true");
   }
 
