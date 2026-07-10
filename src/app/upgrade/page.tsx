@@ -11,6 +11,7 @@ function UpgradeContent() {
   const searchParams = useSearchParams();
   const success = searchParams.get("success") === "true";
   const canceled = searchParams.get("canceled") === "true";
+  const limitReached = searchParams.get("limit") === "true";
   const [loading, setLoading] = useState(false);
   const [waiverAccepted, setWaiverAccepted] = useState(false);
   const t = useTranslations("Upgrade");
@@ -86,6 +87,12 @@ function UpgradeContent() {
         <p className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
           {t("paymentCanceled")}
         </p>
+      )}
+
+      {limitReached && (
+        <div className="mx-auto mt-8 max-w-xl rounded-2xl border border-violet-200 bg-violet-50 px-4 py-3 text-center text-sm font-medium text-violet-700 dark:border-violet-500/20 dark:bg-violet-500/10 dark:text-violet-300">
+          {t("limitReachedBanner")}
+        </div>
       )}
 
       <div className="mt-12 grid gap-6 md:grid-cols-2">

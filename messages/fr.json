@@ -92,7 +92,9 @@
     "errorTitle": "Erreur",
     "errorNoGameId": "Le serveur n'a pas renvoyé d'identifiant de partie.",
     "errorUnableToCreate": "Impossible de créer le quiz.",
-    "errorGeneric": "Une erreur est survenue."
+    "errorGeneric": "Une erreur est survenue.",
+    "freeLimitTitle": "Limite gratuite atteinte",
+    "freeLimitDescription": "Vous avez atteint le plafond de niveau gratuit. Passez à Pro pour continuer à créer des quiz."
   },
   "LoadingQuestions": {
     "loadingTexts": [
@@ -258,6 +260,7 @@
     "choosePlan": "Choisissez votre plan",
     "startForFree": "Commencez gratuitement. Passez à Pro une fois pour débloquer une progression illimitée.",
     "paymentCanceled": "Paiement annulé — aucun débit n'a été effectué.",
+    "limitReachedBanner": "Vous avez atteint le plafond de niveau gratuit. Passez à Pro pour continuer à créer des quiz et à progresser.",
     "free": "Gratuit",
     "forever": "pour toujours",
     "startQuizzing": "Commencer à jouer",

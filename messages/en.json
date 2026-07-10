@@ -92,7 +92,9 @@
     "errorTitle": "Error",
     "errorNoGameId": "The server did not return a game ID.",
     "errorUnableToCreate": "Unable to create the quiz.",
-    "errorGeneric": "Something went wrong."
+    "errorGeneric": "Something went wrong.",
+    "freeLimitTitle": "Free limit reached",
+    "freeLimitDescription": "You've hit the free level cap. Upgrade to Pro to keep creating quizzes."
   },
   "LoadingQuestions": {
     "loadingTexts": [
@@ -258,6 +260,7 @@
     "choosePlan": "Choose your plan",
     "startForFree": "Start for free. Upgrade once to unlock unlimited progression.",
     "paymentCanceled": "Payment canceled — no charge was made.",
+    "limitReachedBanner": "You've reached the free level cap. Upgrade to Pro to keep creating quizzes and leveling up.",
     "free": "Free",
     "forever": "forever",
     "startQuizzing": "Start quizzing",

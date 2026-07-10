@@ -8,6 +8,7 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { quizCreationSchema } from "@/schemas/form/quiz";
 import { getRequestLocale } from "@/i18n/get-locale";
 import type { Locale } from "@/i18n/locales";
+import { FREE_XP_CAP } from "@/lib/stripe";
 
 type Difficulty = "easy" | "medium" | "hard";
 
@@ -252,6 +253,17 @@ export async function POST(req: Request) {
 
     if (!session?.user?.id) {
       return jsonError("Unauthorized", 401);
+    }
+
+    const currentUser = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { xp: true, subscriptionStatus: true },
+    });
+
+    const isPro = currentUser?.subscriptionStatus === "pro";
+
+    if (!isPro && (currentUser?.xp ?? 0) >= FREE_XP_CAP) {
+      return jsonError("FREE_LIMIT_REACHED", 403);
     }
 
     const body = await req.json();

@@ -102,11 +102,21 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
       setShowLoader(false);
 
       if (axios.isAxiosError(error)) {
+        const errorCode = (error.response?.data as { error?: string } | undefined)?.error;
+
+        if (error.response?.status === 403 && errorCode === "FREE_LIMIT_REACHED") {
+          toast({
+            title: t("freeLimitTitle"),
+            description: t("freeLimitDescription"),
+            variant: "destructive",
+          });
+          router.push("/upgrade");
+          return;
+        }
+
         toast({
           title: t("errorTitle"),
-          description:
-            (error.response?.data as { error?: string } | undefined)?.error ??
-            t("errorUnableToCreate"),
+          description: errorCode ?? t("errorUnableToCreate"),
           variant: "destructive",
         });
         return;

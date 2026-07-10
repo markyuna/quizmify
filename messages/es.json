@@ -92,7 +92,9 @@
     "errorTitle": "Error",
     "errorNoGameId": "El servidor no devolvió un ID de partida.",
     "errorUnableToCreate": "No se pudo crear el quiz.",
-    "errorGeneric": "Algo salió mal."
+    "errorGeneric": "Algo salió mal.",
+    "freeLimitTitle": "Límite gratuito alcanzado",
+    "freeLimitDescription": "Llegaste al tope de nivel gratuito. Actualizá a Pro para seguir creando quizzes."
   },
   "LoadingQuestions": {
     "loadingTexts": [
@@ -258,6 +260,7 @@
     "choosePlan": "Elegí tu plan",
     "startForFree": "Empezá gratis. Actualizá una sola vez para desbloquear progresión ilimitada.",
     "paymentCanceled": "Pago cancelado — no se realizó ningún cobro.",
+    "limitReachedBanner": "Llegaste al tope de nivel gratuito. Actualizá a Pro para seguir creando quizzes y subiendo de nivel.",
     "free": "Gratis",
     "forever": "para siempre",
     "startQuizzing": "Empezar a jugar",
