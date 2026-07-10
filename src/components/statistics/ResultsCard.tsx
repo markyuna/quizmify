@@ -1,28 +1,30 @@
+import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy } from "lucide-react";
 
 type Props = { accuracy: number };
 
 export default function ResultsCard({ accuracy }: Props) {
+  const t = useTranslations("Statistics");
   let label = "";
   let scoreColor = "";
   let badgeClasses = "";
   let emoji = "";
 
   if (accuracy >= 75) {
-    label = "Excellent";
+    label = t("excellent");
     scoreColor = "text-amber-600 dark:text-yellow-400";
     badgeClasses =
       "bg-amber-100 text-amber-700 dark:bg-yellow-500/15 dark:text-yellow-300";
     emoji = "🏆";
   } else if (accuracy >= 50) {
-    label = "Good job";
+    label = t("goodJob");
     scoreColor = "text-violet-600 dark:text-violet-400";
     badgeClasses =
       "bg-violet-100 text-violet-700 dark:bg-violet-500/15 dark:text-violet-300";
     emoji = "👏";
   } else {
-    label = "Keep practicing";
+    label = t("keepPracticing");
     scoreColor = "text-rose-600 dark:text-rose-400";
     badgeClasses =
       "bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300";
@@ -33,7 +35,7 @@ export default function ResultsCard({ accuracy }: Props) {
     <Card className="text-center md:col-span-7">
       <CardHeader className="flex flex-row items-center justify-between pb-4">
         <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">
-          Results
+          {t("results")}
         </CardTitle>
 
         <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-100 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400">

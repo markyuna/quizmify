@@ -21,6 +21,7 @@ import {
   Lock,
 } from "lucide-react";
 import { Game, Question } from "@/generated/prisma/client";
+import { useTranslations } from "next-intl";
 
 import MCQCounter from "./MCQCounter";
 import { Button, buttonVariants } from "./ui/button";
@@ -67,6 +68,7 @@ type SubmitQuizResponse = {
 const MCQ = ({ game }: MCQProps) => {
   const router = useRouter();
   const { toast } = useToast();
+  const t = useTranslations("MCQ");
 
   const [questionIndex, setQuestionIndex] = React.useState(0);
   const [selectedAnswer, setSelectedAnswer] = React.useState<string | null>(null);
@@ -112,7 +114,7 @@ const MCQ = ({ game }: MCQProps) => {
       });
     },
     onError: () => {
-      toast({ title: "Error", description: "Unable to check your answer.", variant: "destructive" });
+      toast({ title: t("error"), description: t("unableToCheckAnswer"), variant: "destructive" });
     },
   });
 
@@ -128,7 +130,7 @@ const MCQ = ({ game }: MCQProps) => {
     },
     onError: () => {
       setFinalElapsedSeconds(null);
-      toast({ title: "Error", description: "Unable to save the final result.", variant: "destructive" });
+      toast({ title: t("error"), description: t("unableToSaveResult"), variant: "destructive" });
     },
   });
 
@@ -200,8 +202,8 @@ const MCQ = ({ game }: MCQProps) => {
     return (
       <div className="flex min-h-[60vh] items-center justify-center px-4">
         <div className="text-center">
-          <p className="text-xl font-bold text-slate-900 dark:text-white">No questions found</p>
-          <Link href="/quiz" className={cn(buttonVariants(), "mt-4")}>Back to Quiz</Link>
+          <p className="text-xl font-bold text-slate-900 dark:text-white">{t("noQuestionsFound")}</p>
+          <Link href="/quiz" className={cn(buttonVariants(), "mt-4")}>{t("backToQuiz")}</Link>
         </div>
       </div>
     );
@@ -234,10 +236,10 @@ const MCQ = ({ game }: MCQProps) => {
                 <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-500 text-3xl shadow-xl">
                   🎉
                 </div>
-                <p className="mt-5 text-xs font-bold uppercase tracking-[0.35em] text-violet-500 dark:text-violet-300">Level Up!</p>
-                <h2 className="mt-2 text-4xl font-black tracking-tight text-slate-900 dark:text-white">Level {finalResult.newLevel}</h2>
+                <p className="mt-5 text-xs font-bold uppercase tracking-[0.35em] text-violet-500 dark:text-violet-300">{t("levelUp")}</p>
+                <h2 className="mt-2 text-4xl font-black tracking-tight text-slate-900 dark:text-white">{t("level")} {finalResult.newLevel}</h2>
                 <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-                  From Level {finalResult.previousLevel} → Level {finalResult.newLevel}
+                  {t("fromLevelToLevel", { from: finalResult.previousLevel, to: finalResult.newLevel })}
                 </p>
               </motion.div>
             </motion.div>
@@ -251,7 +253,7 @@ const MCQ = ({ game }: MCQProps) => {
         >
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-violet-500 dark:text-violet-300">Quiz completed</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-violet-500 dark:text-violet-300">{t("quizCompleted")}</p>
               <h1 className="mt-1 text-2xl font-black text-slate-900 dark:text-white sm:text-3xl">{game.topic}</h1>
             </div>
             <span className="text-4xl">{scoreEmoji}</span>
@@ -260,15 +262,15 @@ const MCQ = ({ game }: MCQProps) => {
           <div className="mt-5 grid grid-cols-3 gap-3">
             <div className="rounded-2xl bg-slate-50 p-3 text-center dark:bg-white/5">
               <p className={cn("text-3xl font-black", scoreColor)}>{finalScore}%</p>
-              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Score</p>
+              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">{t("score")}</p>
             </div>
             <div className="rounded-2xl bg-slate-50 p-3 text-center dark:bg-white/5">
               <p className="text-3xl font-black text-slate-900 dark:text-white">{correctA}/{totalQ}</p>
-              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Correct</p>
+              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">{t("correct")}</p>
             </div>
             <div className="rounded-2xl bg-slate-50 p-3 text-center dark:bg-white/5">
               <p className="text-3xl font-black text-slate-900 dark:text-white">{formatTimeDelta(displayedElapsedSeconds)}</p>
-              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Time</p>
+              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">{t("time")}</p>
             </div>
           </div>
         </motion.div>
@@ -282,10 +284,10 @@ const MCQ = ({ game }: MCQProps) => {
           >
             <div className="flex items-center justify-between gap-4">
               <div className="min-w-0">
-                <p className="text-xs font-bold uppercase tracking-widest text-violet-600 dark:text-violet-300">XP Earned</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-violet-600 dark:text-violet-300">{t("xpEarned")}</p>
                 <p className="mt-1 text-3xl font-black text-slate-900 dark:text-white">+{finalResult.earnedXp} XP</p>
                 <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                  Level {finalResult.newLevel} · {finalResult.newXp} XP total
+                  {t("level")} {finalResult.newLevel} · {t("xpTotal", { xp: finalResult.newXp })}
                 </p>
                 <div className="mt-3">
                   <div className="mb-1.5 flex items-center justify-between text-xs text-slate-400">
@@ -303,7 +305,7 @@ const MCQ = ({ game }: MCQProps) => {
                 </div>
               </div>
               <div className="shrink-0 rounded-2xl bg-white/60 px-4 py-3 text-center shadow-sm dark:bg-white/10">
-                <p className="text-xs text-slate-400">Level</p>
+                <p className="text-xs text-slate-400">{t("level")}</p>
                 <p className="text-2xl font-black text-slate-900 dark:text-white">{finalResult.newLevel}</p>
               </div>
             </div>
@@ -323,10 +325,10 @@ const MCQ = ({ game }: MCQProps) => {
                   <Lock className="h-5 w-5 text-white" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs font-bold uppercase tracking-widest text-violet-300">Free limit reached</p>
-                  <p className="mt-1 text-lg font-black text-white">You've reached Level 2</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-violet-300">{t("freeLimitReached")}</p>
+                  <p className="mt-1 text-lg font-black text-white">{t("reachedLevel2")}</p>
                   <p className="mt-1 text-sm text-white/60">
-                    Upgrade once to unlock unlimited level progression and keep earning XP.
+                    {t("upgradePrompt")}
                   </p>
                 </div>
               </div>
@@ -335,7 +337,7 @@ const MCQ = ({ game }: MCQProps) => {
                 className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 py-3 text-sm font-bold text-white hover:opacity-90 transition-opacity"
               >
                 <Zap className="h-4 w-4" />
-                Upgrade to Pro — $5.99 one-time
+                {t("upgradeToPro")}
               </Link>
             </div>
           </motion.div>
@@ -352,7 +354,7 @@ const MCQ = ({ game }: MCQProps) => {
             className="h-12 rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white shadow-lg shadow-violet-500/20 hover:opacity-95"
           >
             <RotateCcw className="mr-2 h-4 w-4" />
-            Play Again
+            {t("playAgain")}
           </Button>
 
           <Link
@@ -360,7 +362,7 @@ const MCQ = ({ game }: MCQProps) => {
             className={cn(buttonVariants({ variant: "secondary" }), "h-12 rounded-2xl")}
           >
             <BarChart3 className="mr-2 h-4 w-4" />
-            Statistics
+            {t("statistics")}
           </Link>
 
           {finalScore < 100 && (
@@ -369,7 +371,7 @@ const MCQ = ({ game }: MCQProps) => {
               className={cn(buttonVariants({ variant: "outline" }), "h-12 rounded-2xl col-span-2 sm:col-span-1")}
             >
               <AlertCircle className="mr-2 h-4 w-4" />
-              Practice Mistakes
+              {t("practiceMistakes")}
             </Link>
           )}
 
@@ -377,7 +379,7 @@ const MCQ = ({ game }: MCQProps) => {
             href="/quiz"
             className={cn(buttonVariants({ variant: "outline" }), "h-12 rounded-2xl")}
           >
-            New Quiz
+            {t("newQuiz")}
           </Link>
         </motion.div>
       </div>
@@ -391,7 +393,7 @@ const MCQ = ({ game }: MCQProps) => {
           <div className="min-w-0">
             <p className="truncate text-xs font-medium text-slate-500 dark:text-slate-400">{game.topic}</p>
             <p className="text-sm font-bold text-slate-900 dark:text-white">
-              Q{questionIndex + 1} <span className="font-normal text-slate-400">/ {totalQuestions}</span>
+              {t("questionAbbrev")}{questionIndex + 1} <span className="font-normal text-slate-400">/ {totalQuestions}</span>
             </p>
           </div>
 
@@ -416,7 +418,7 @@ const MCQ = ({ game }: MCQProps) => {
         <div className="rounded-[1.75rem] border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-xl dark:border-white/10 dark:bg-white/5 dark:shadow-none">
           <div className="p-5 sm:p-6">
             <p className="mb-3 text-xs font-bold uppercase tracking-widest text-violet-500 dark:text-violet-300">
-              Question {questionIndex + 1}
+              {t("question")} {questionIndex + 1}
             </p>
             <h2 className="text-lg font-bold leading-snug text-slate-900 dark:text-white sm:text-xl">
               {currentQuestion.question}
@@ -461,17 +463,17 @@ const MCQ = ({ game }: MCQProps) => {
                 >
                   {lastAnswerWasCorrect === false && lastCorrectAnswer && (
                     <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-200">
-                      Correct answer: <span className="font-semibold">{lastCorrectAnswer}</span>
+                      {t("correctAnswerLabel")} <span className="font-semibold">{lastCorrectAnswer}</span>
                     </div>
                   )}
                   {lastAnswerWasCorrect === true && (
                     <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-200">
-                      ✓ Correct — keep going!
+                      ✓ {t("correctKeepGoing")}
                     </div>
                   )}
                   {currentQuestion.explanation && (
                     <div className="rounded-2xl border border-cyan-200 bg-cyan-50 px-4 py-3 text-sm leading-6 text-cyan-700 dark:border-cyan-500/20 dark:bg-cyan-500/10 dark:text-cyan-200">
-                      <span className="font-semibold">Explanation:</span> {currentQuestion.explanation}
+                      <span className="font-semibold">{t("explanationLabel")}</span> {currentQuestion.explanation}
                     </div>
                   )}
                 </motion.div>
@@ -483,10 +485,10 @@ const MCQ = ({ game }: MCQProps) => {
                 {isCheckingAnswer ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    Checking...
+                    {t("checking")}
                   </>
                 ) : (
-                  "👆 Tap an answer to continue"
+                  `👆 ${t("tapAnAnswer")}`
                 )}
               </div>
             )}
@@ -502,9 +504,9 @@ const MCQ = ({ game }: MCQProps) => {
           className="h-13 w-full rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 text-base font-bold text-white shadow-lg shadow-violet-500/20 disabled:opacity-40"
         >
           {isSubmittingQuiz ? (
-            <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving...</>
+            <><Loader2 className="mr-2 h-4 w-4 animate-spin" />{t("saving")}</>
           ) : (
-            <>{isLastQuestion ? "Finish Quiz 🎉" : "Next Question"}<ChevronRight className="ml-2 h-4 w-4" /></>
+            <>{isLastQuestion ? t("finishQuiz") : t("nextQuestion")}<ChevronRight className="ml-2 h-4 w-4" /></>
           )}
         </Button>
       </div>
@@ -531,7 +533,7 @@ const MCQ = ({ game }: MCQProps) => {
           href="/"
           className={cn(buttonVariants({ variant: "ghost" }), "text-slate-500 hover:text-slate-900 dark:hover:text-white")}
         >
-          ← Home
+          ← {t("home")}
         </Link>
       </div>
     </div>

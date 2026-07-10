@@ -4,7 +4,8 @@ import type { User } from "next-auth";
 import Link from "next/link";
 import React from "react";
 import { signOut } from "next-auth/react";
-import { History, LayoutDashboard, LogOut, Sparkles } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { History, LayoutDashboard, LogOut, Settings, Sparkles } from "lucide-react";
 
 import UserAvatar from "./UserAvatar";
 import {
@@ -20,6 +21,8 @@ type Props = {
 };
 
 const UserAccountNav = ({ user }: Props) => {
+  const t = useTranslations("UserMenu");
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -75,7 +78,7 @@ const UserAccountNav = ({ user }: Props) => {
         >
           <Link href="/dashboard" className="flex items-center gap-3">
             <LayoutDashboard className="h-4 w-4" />
-            <span>Dashboard</span>
+            <span>{t("dashboard")}</span>
           </Link>
         </DropdownMenuItem>
 
@@ -85,7 +88,7 @@ const UserAccountNav = ({ user }: Props) => {
         >
           <Link href="/quiz" className="flex items-center gap-3">
             <Sparkles className="h-4 w-4" />
-            <span>Quiz</span>
+            <span>{t("quiz")}</span>
           </Link>
         </DropdownMenuItem>
 
@@ -95,7 +98,17 @@ const UserAccountNav = ({ user }: Props) => {
         >
           <Link href="/history" className="flex items-center gap-3">
             <History className="h-4 w-4" />
-            <span>History</span>
+            <span>{t("history")}</span>
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem
+          asChild
+          className="cursor-pointer rounded-2xl px-3 py-2.5 text-sm font-medium text-slate-700 outline-none transition hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10"
+        >
+          <Link href="/account" className="flex items-center gap-3">
+            <Settings className="h-4 w-4" />
+            <span>{t("myAccount")}</span>
           </Link>
         </DropdownMenuItem>
 
@@ -110,7 +123,7 @@ const UserAccountNav = ({ user }: Props) => {
         >
           <div className="flex items-center gap-3">
             <LogOut className="h-4 w-4" />
-            <span>Sign out</span>
+            <span>{t("signOut")}</span>
           </div>
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -1171,6 +1171,7 @@ export const GameScalarFieldEnum = {
   timeEnded: 'timeEnded',
   topic: 'topic',
   difficulty: 'difficulty',
+  language: 'language',
   userId: 'userId',
   score: 'score'
 } as const
@@ -1182,6 +1183,7 @@ export const McqQuestionScalarFieldEnum = {
   id: 'id',
   topic: 'topic',
   difficulty: 'difficulty',
+  language: 'language',
   question: 'question',
   options: 'options',
   correct_answer: 'correct_answer',

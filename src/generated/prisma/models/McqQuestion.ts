@@ -38,6 +38,7 @@ export type McqQuestionMinAggregateOutputType = {
   id: string | null
   topic: string | null
   difficulty: string | null
+  language: string | null
   question: string | null
   correct_answer: string | null
   explanation: string | null
@@ -50,6 +51,7 @@ export type McqQuestionMaxAggregateOutputType = {
   id: string | null
   topic: string | null
   difficulty: string | null
+  language: string | null
   question: string | null
   correct_answer: string | null
   explanation: string | null
@@ -62,6 +64,7 @@ export type McqQuestionCountAggregateOutputType = {
   id: number
   topic: number
   difficulty: number
+  language: number
   question: number
   options: number
   correct_answer: number
@@ -85,6 +88,7 @@ export type McqQuestionMinAggregateInputType = {
   id?: true
   topic?: true
   difficulty?: true
+  language?: true
   question?: true
   correct_answer?: true
   explanation?: true
@@ -97,6 +101,7 @@ export type McqQuestionMaxAggregateInputType = {
   id?: true
   topic?: true
   difficulty?: true
+  language?: true
   question?: true
   correct_answer?: true
   explanation?: true
@@ -109,6 +114,7 @@ export type McqQuestionCountAggregateInputType = {
   id?: true
   topic?: true
   difficulty?: true
+  language?: true
   question?: true
   options?: true
   correct_answer?: true
@@ -209,6 +215,7 @@ export type McqQuestionGroupByOutputType = {
   id: string
   topic: string
   difficulty: string
+  language: string
   question: string
   options: string[]
   correct_answer: string
@@ -245,6 +252,7 @@ export type McqQuestionWhereInput = {
   id?: Prisma.StringFilter<"McqQuestion"> | string
   topic?: Prisma.StringFilter<"McqQuestion"> | string
   difficulty?: Prisma.StringFilter<"McqQuestion"> | string
+  language?: Prisma.StringFilter<"McqQuestion"> | string
   question?: Prisma.StringFilter<"McqQuestion"> | string
   options?: Prisma.StringNullableListFilter<"McqQuestion">
   correct_answer?: Prisma.StringFilter<"McqQuestion"> | string
@@ -258,6 +266,7 @@ export type McqQuestionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   topic?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   question?: Prisma.SortOrder
   options?: Prisma.SortOrder
   correct_answer?: Prisma.SortOrder
@@ -274,6 +283,7 @@ export type McqQuestionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.McqQuestionWhereInput | Prisma.McqQuestionWhereInput[]
   topic?: Prisma.StringFilter<"McqQuestion"> | string
   difficulty?: Prisma.StringFilter<"McqQuestion"> | string
+  language?: Prisma.StringFilter<"McqQuestion"> | string
   question?: Prisma.StringFilter<"McqQuestion"> | string
   options?: Prisma.StringNullableListFilter<"McqQuestion">
   correct_answer?: Prisma.StringFilter<"McqQuestion"> | string
@@ -287,6 +297,7 @@ export type McqQuestionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   topic?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   question?: Prisma.SortOrder
   options?: Prisma.SortOrder
   correct_answer?: Prisma.SortOrder
@@ -308,6 +319,7 @@ export type McqQuestionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"McqQuestion"> | string
   topic?: Prisma.StringWithAggregatesFilter<"McqQuestion"> | string
   difficulty?: Prisma.StringWithAggregatesFilter<"McqQuestion"> | string
+  language?: Prisma.StringWithAggregatesFilter<"McqQuestion"> | string
   question?: Prisma.StringWithAggregatesFilter<"McqQuestion"> | string
   options?: Prisma.StringNullableListFilter<"McqQuestion">
   correct_answer?: Prisma.StringWithAggregatesFilter<"McqQuestion"> | string
@@ -321,6 +333,7 @@ export type McqQuestionCreateInput = {
   id?: string
   topic: string
   difficulty: string
+  language?: string
   question: string
   options?: Prisma.McqQuestionCreateoptionsInput | string[]
   correct_answer: string
@@ -334,6 +347,7 @@ export type McqQuestionUncheckedCreateInput = {
   id?: string
   topic: string
   difficulty: string
+  language?: string
   question: string
   options?: Prisma.McqQuestionCreateoptionsInput | string[]
   correct_answer: string
@@ -347,6 +361,7 @@ export type McqQuestionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   options?: Prisma.McqQuestionUpdateoptionsInput | string[]
   correct_answer?: Prisma.StringFieldUpdateOperationsInput | string
@@ -360,6 +375,7 @@ export type McqQuestionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   options?: Prisma.McqQuestionUpdateoptionsInput | string[]
   correct_answer?: Prisma.StringFieldUpdateOperationsInput | string
@@ -373,6 +389,7 @@ export type McqQuestionCreateManyInput = {
   id?: string
   topic: string
   difficulty: string
+  language?: string
   question: string
   options?: Prisma.McqQuestionCreateoptionsInput | string[]
   correct_answer: string
@@ -386,6 +403,7 @@ export type McqQuestionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   options?: Prisma.McqQuestionUpdateoptionsInput | string[]
   correct_answer?: Prisma.StringFieldUpdateOperationsInput | string
@@ -399,6 +417,7 @@ export type McqQuestionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   options?: Prisma.McqQuestionUpdateoptionsInput | string[]
   correct_answer?: Prisma.StringFieldUpdateOperationsInput | string
@@ -420,6 +439,7 @@ export type McqQuestionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   topic?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   question?: Prisma.SortOrder
   options?: Prisma.SortOrder
   correct_answer?: Prisma.SortOrder
@@ -437,6 +457,7 @@ export type McqQuestionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   topic?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   question?: Prisma.SortOrder
   correct_answer?: Prisma.SortOrder
   explanation?: Prisma.SortOrder
@@ -449,6 +470,7 @@ export type McqQuestionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   topic?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   question?: Prisma.SortOrder
   correct_answer?: Prisma.SortOrder
   explanation?: Prisma.SortOrder
@@ -480,6 +502,7 @@ export type McqQuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   id?: boolean
   topic?: boolean
   difficulty?: boolean
+  language?: boolean
   question?: boolean
   options?: boolean
   correct_answer?: boolean
@@ -493,6 +516,7 @@ export type McqQuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   id?: boolean
   topic?: boolean
   difficulty?: boolean
+  language?: boolean
   question?: boolean
   options?: boolean
   correct_answer?: boolean
@@ -506,6 +530,7 @@ export type McqQuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   id?: boolean
   topic?: boolean
   difficulty?: boolean
+  language?: boolean
   question?: boolean
   options?: boolean
   correct_answer?: boolean
@@ -519,6 +544,7 @@ export type McqQuestionSelectScalar = {
   id?: boolean
   topic?: boolean
   difficulty?: boolean
+  language?: boolean
   question?: boolean
   options?: boolean
   correct_answer?: boolean
@@ -528,7 +554,7 @@ export type McqQuestionSelectScalar = {
   created_at?: boolean
 }
 
-export type McqQuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "topic" | "difficulty" | "question" | "options" | "correct_answer" | "explanation" | "is_active" | "usage_count" | "created_at", ExtArgs["result"]["mcqQuestion"]>
+export type McqQuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "topic" | "difficulty" | "language" | "question" | "options" | "correct_answer" | "explanation" | "is_active" | "usage_count" | "created_at", ExtArgs["result"]["mcqQuestion"]>
 
 export type $McqQuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "McqQuestion"
@@ -537,6 +563,7 @@ export type $McqQuestionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     id: string
     topic: string
     difficulty: string
+    language: string
     question: string
     options: string[]
     correct_answer: string
@@ -970,6 +997,7 @@ export interface McqQuestionFieldRefs {
   readonly id: Prisma.FieldRef<"McqQuestion", 'String'>
   readonly topic: Prisma.FieldRef<"McqQuestion", 'String'>
   readonly difficulty: Prisma.FieldRef<"McqQuestion", 'String'>
+  readonly language: Prisma.FieldRef<"McqQuestion", 'String'>
   readonly question: Prisma.FieldRef<"McqQuestion", 'String'>
   readonly options: Prisma.FieldRef<"McqQuestion", 'String[]'>
   readonly correct_answer: Prisma.FieldRef<"McqQuestion", 'String'>

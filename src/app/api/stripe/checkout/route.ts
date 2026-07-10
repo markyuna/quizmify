@@ -4,12 +4,20 @@ import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { getStripe } from "@/lib/stripe";
 
-export async function POST() {
+export async function POST(request: Request) {
   try {
     const session = await getAuthSession();
 
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const body = await request.json().catch(() => ({}));
+    if (body?.waiverAccepted !== true) {
+      return NextResponse.json(
+        { error: "You must accept the Terms of Sale and withdrawal waiver" },
+        { status: 400 }
+      );
     }
 
     const user = await prisma.user.findUnique({
@@ -60,7 +68,10 @@ export async function POST() {
       ],
       success_url: `${baseUrl}/upgrade?success=true`,
       cancel_url: `${baseUrl}/upgrade?canceled=true`,
-      metadata: { userId: user.id },
+      metadata: {
+        userId: user.id,
+        withdrawalWaiverAcceptedAt: new Date().toISOString(),
+      },
     });
 
     return NextResponse.json({ url: checkoutSession.url });

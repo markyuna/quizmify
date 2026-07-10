@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import {
   Table,
   TableBody,
@@ -14,10 +15,12 @@ type Props = {
 };
 
 export default function QuestionsList({ questions }: Props) {
+  const t = useTranslations("Statistics");
+
   if (!questions?.length) {
     return (
       <p className="mt-4 text-center text-sm text-slate-500 dark:text-slate-400">
-        No questions available.
+        {t("noQuestionsAvailable")}
       </p>
     );
   }
@@ -31,16 +34,16 @@ export default function QuestionsList({ questions }: Props) {
               #
             </TableHead>
             <TableHead className="text-slate-600 dark:text-slate-300">
-              Question
+              {t("question")}
             </TableHead>
             <TableHead className="text-slate-600 dark:text-slate-300">
-              Your Answer
+              {t("yourAnswer")}
             </TableHead>
             <TableHead className="text-slate-600 dark:text-slate-300">
-              Correct Answer
+              {t("correctAnswer")}
             </TableHead>
             <TableHead className="text-slate-600 dark:text-slate-300">
-              Status
+              {t("status")}
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -98,10 +101,10 @@ export default function QuestionsList({ questions }: Props) {
                   )}
                 >
                   {q.isCorrect === true
-                    ? "Correct"
+                    ? t("correct")
                     : q.isCorrect === false
-                    ? "Wrong"
-                    : "Pending"}
+                    ? t("wrong")
+                    : t("pending")}
                 </span>
               </TableCell>
             </TableRow>

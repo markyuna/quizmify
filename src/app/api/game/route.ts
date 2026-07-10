@@ -6,13 +6,22 @@ import { getAuthSession } from "@/lib/nextauth";
 import { openai } from "@/lib/openai";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { quizCreationSchema } from "@/schemas/form/quiz";
+import { getRequestLocale } from "@/i18n/get-locale";
+import type { Locale } from "@/i18n/locales";
 
 type Difficulty = "easy" | "medium" | "hard";
+
+const LANGUAGE_NAMES: Record<Locale, string> = {
+  en: "English",
+  fr: "French",
+  es: "Spanish",
+};
 
 type SupabaseMCQQuestion = {
   id: string;
   topic: string;
   difficulty: Difficulty;
+  language: string;
   question: string;
   options: string[];
   correct_answer: string;
@@ -113,15 +122,17 @@ function dedupeQuestions<T extends { question: string }>(questions: T[]): T[] {
 async function fetchExistingMCQQuestions(params: {
   topic: string;
   difficulty: Difficulty;
+  language: Locale;
   amount: number;
 }): Promise<SupabaseMCQQuestion[]> {
-  const { topic, difficulty, amount } = params;
+  const { topic, difficulty, language, amount } = params;
 
   const { data, error } = await supabaseAdmin
     .from("mcq_questions")
     .select("*")
     .ilike("topic", topic)
     .eq("difficulty", difficulty)
+    .eq("language", language)
     .eq("is_active", true)
     .order("usage_count", { ascending: true })
     .limit(amount);
@@ -136,21 +147,22 @@ async function fetchExistingMCQQuestions(params: {
 async function generateQuestionsWithAI(params: {
   topic: string;
   difficulty: Difficulty;
+  language: Locale;
   amount: number;
 }): Promise<GeneratedQuestion[]> {
-  const { topic, difficulty, amount } = params;
+  const { topic, difficulty, language, amount } = params;
+  const languageName = LANGUAGE_NAMES[language];
 
   const response = await openai.chat.completions.create({
     model: process.env.OPENAI_MODEL || "gpt-4o",
     messages: [
       {
         role: "developer",
-        content:
-          "Generate high-quality multiple-choice quiz questions. Return only valid JSON. Each question must have exactly 4 options and exactly 1 correct answer. Avoid duplicates.",
+        content: `Generate high-quality multiple-choice quiz questions entirely in ${languageName}. Return only valid JSON. Each question must have exactly 4 options and exactly 1 correct answer. Avoid duplicates.`,
       },
       {
         role: "user",
-        content: `Generate ${amount} multiple-choice quiz questions about "${topic}" with difficulty "${difficulty}".
+        content: `Generate ${amount} multiple-choice quiz questions about "${topic}" with difficulty "${difficulty}". Write the question, options, and explanation entirely in ${languageName}.
 
 Return a JSON object with this exact structure:
 {
@@ -168,7 +180,7 @@ Rules:
 - exactly 4 options per question
 - exactly 1 correct answer
 - the correct answer must appear in options
-- concise and clear English
+- concise and clear ${languageName}
 - no markdown
 - no extra text`,
       },
@@ -197,15 +209,17 @@ Rules:
 async function saveGeneratedQuestionsToSupabase(params: {
   topic: string;
   difficulty: Difficulty;
+  language: Locale;
   questions: GeneratedQuestion[];
 }) {
-  const { topic, difficulty, questions } = params;
+  const { topic, difficulty, language, questions } = params;
 
   if (questions.length === 0) return;
 
   const rows = questions.map((q) => ({
     topic,
     difficulty,
+    language,
     question: q.question,
     options: q.options,
     correct_answer: q.correct_answer,
@@ -247,6 +261,7 @@ export async function POST(req: Request) {
     const amount = parsedBody.amount;
     const difficulty = normalizeDifficulty(parsedBody.difficulty);
     const type = parsedBody.type;
+    const language = await getRequestLocale();
 
     let cachedQuestions: SupabaseMCQQuestion[] = [];
 
@@ -254,6 +269,7 @@ export async function POST(req: Request) {
       cachedQuestions = await fetchExistingMCQQuestions({
         topic,
         difficulty,
+        language,
         amount,
       });
 
@@ -272,6 +288,7 @@ export async function POST(req: Request) {
       const aiQuestions = await generateQuestionsWithAI({
         topic,
         difficulty,
+        language,
         amount: missingAmount,
       });
 
@@ -285,6 +302,7 @@ export async function POST(req: Request) {
           await saveGeneratedQuestionsToSupabase({
             topic,
             difficulty,
+            language,
             questions: dedupedAIQuestions,
           });
 
@@ -313,6 +331,7 @@ export async function POST(req: Request) {
           userId: session.user.id,
           topic,
           difficulty,
+          language,
         },
       });
 

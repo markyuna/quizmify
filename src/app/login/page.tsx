@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { BrainCircuit, Zap, Trophy, RotateCcw } from "lucide-react";
 
 import LoginButton from "@/components/LoginButton";
@@ -8,18 +9,19 @@ export const metadata = {
   title: "Login | Quizmify",
 };
 
-const features = [
-  { icon: Zap, label: "AI-generated quizzes in seconds" },
-  { icon: Trophy, label: "Track XP and level up" },
-  { icon: RotateCcw, label: "Practice your mistakes" },
-];
-
 export default async function LoginPage() {
   const session = await getAuthSession();
+  const t = await getTranslations("Login");
 
   if (session?.user) {
     redirect("/dashboard");
   }
+
+  const features = [
+    { icon: Zap, label: t("featureAi") },
+    { icon: Trophy, label: t("featureXp") },
+    { icon: RotateCcw, label: t("featureMistakes") },
+  ];
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-violet-50 via-white to-cyan-50 px-4 py-12 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950">
@@ -39,16 +41,16 @@ export default async function LoginPage() {
             Quizmify
           </h1>
           <p className="mt-2 text-base font-medium text-slate-500 dark:text-slate-400">
-            Level up your knowledge ⚡
+            {t("tagline")}
           </p>
         </div>
 
         <div className="rounded-[1.75rem] border border-slate-200/80 bg-white/80 p-6 shadow-2xl shadow-slate-200/50 backdrop-blur-xl dark:border-white/10 dark:bg-white/5 dark:shadow-none sm:p-8">
           <h2 className="text-center text-xl font-bold text-slate-900 dark:text-white">
-            Ready to get smarter?
+            {t("cardTitle")}
           </h2>
           <p className="mt-1.5 text-center text-sm text-slate-500 dark:text-slate-400">
-            Sign in to start your quiz journey
+            {t("cardSubtitle")}
           </p>
 
           <div className="mt-6">
@@ -70,7 +72,7 @@ export default async function LoginPage() {
           </ul>
 
           <p className="mt-6 text-center text-xs text-slate-400 dark:text-slate-500">
-            Free to use · No credit card needed
+            {t("footNote")}
           </p>
         </div>
       </div>

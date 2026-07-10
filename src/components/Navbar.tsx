@@ -1,13 +1,16 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 import { getAuthSession } from "@/lib/nextauth";
 import Logo from "./Logo";
 import SignInButton from "./SignInButton";
 import ThemeToggle from "./ThemeToggle";
+import LanguageSwitcher from "./LanguageSwitcher";
 import UserAccountNav from "./UserAccountNav";
 
 export default async function Navbar() {
   const session = await getAuthSession();
+  const t = await getTranslations("Navbar");
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70">
@@ -17,11 +20,12 @@ export default async function Navbar() {
         </Link>
 
         <div className="flex items-center gap-3">
+          <LanguageSwitcher />
           <ThemeToggle />
           {session?.user ? (
             <UserAccountNav user={session.user} />
           ) : (
-            <SignInButton text="Sign In" />
+            <SignInButton text={t("signIn")} />
           )}
         </div>
       </div>

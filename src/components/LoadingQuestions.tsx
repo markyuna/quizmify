@@ -3,30 +3,20 @@
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BrainCircuit, Sparkles, Wand2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Progress } from "./ui/progress";
 
 type LoadingQuestionsProps = {
   finished: boolean;
 };
 
-const loadingTexts = [
-  "Generating intelligent question sets...",
-  "Analyzing topic depth and difficulty...",
-  "Designing a sharper learning experience...",
-  "Structuring questions for better recall...",
-  "Optimizing your next quiz session...",
-];
-
-const loadingBadges = [
-  "AI reasoning",
-  "Topic mapping",
-  "Adaptive generation",
-  "Precision prompts",
-];
-
 export default function LoadingQuestions({
   finished,
 }: LoadingQuestionsProps) {
+  const t = useTranslations("LoadingQuestions");
+  const loadingTexts = t.raw("loadingTexts") as string[];
+  const loadingBadges = t.raw("loadingBadges") as string[];
+
   const [progress, setProgress] = React.useState(0);
   const [textIndex, setTextIndex] = React.useState(0);
   const [activeBadge, setActiveBadge] = React.useState(0);
@@ -175,12 +165,12 @@ export default function LoadingQuestions({
           </AnimatePresence>
 
           <p className="mt-2 text-xs text-slate-500 dark:text-white/40">
-            This may take a few seconds depending on complexity.
+            {t("mayTakeAFewSeconds")}
           </p>
 
           <div className="mt-8 w-full max-w-xl">
             <div className="mb-3 flex items-center justify-between text-sm text-slate-600 dark:text-white/70">
-              <span>Preparing your quiz</span>
+              <span>{t("preparingYourQuiz")}</span>
               <span>{Math.round(progress)}%</span>
             </div>
 
@@ -194,28 +184,28 @@ export default function LoadingQuestions({
           <div className="mt-6 grid w-full max-w-xl grid-cols-1 gap-3 sm:grid-cols-3">
             <div className="rounded-2xl border border-black/5 bg-white/75 px-4 py-3 text-left backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
               <p className="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-white/40">
-                Status
+                {t("status")}
               </p>
               <p className="mt-1 text-sm font-medium text-slate-800 dark:text-white/85">
-                {finished ? "Finalizing" : "Generating"}
+                {finished ? t("finalizing") : t("generating")}
               </p>
             </div>
 
             <div className="rounded-2xl border border-black/5 bg-white/75 px-4 py-3 text-left backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
               <p className="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-white/40">
-                Engine
+                {t("engine")}
               </p>
               <p className="mt-1 text-sm font-medium text-slate-800 dark:text-white/85">
-                Adaptive AI
+                {t("engineValue")}
               </p>
             </div>
 
             <div className="rounded-2xl border border-black/5 bg-white/75 px-4 py-3 text-left backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
               <p className="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-white/40">
-                Output
+                {t("output")}
               </p>
               <p className="mt-1 text-sm font-medium text-slate-800 dark:text-white/85">
-                Quiz questions
+                {t("outputValue")}
               </p>
             </div>
           </div>

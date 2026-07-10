@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { History, ArrowRight } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 import {
   Card,
@@ -17,7 +18,9 @@ type HistoryCardProps = {
   attempts?: AttemptItem[];
 };
 
-const HistoryCard = ({ userId, attemptsCount, attempts }: HistoryCardProps) => {
+const HistoryCard = async ({ userId, attemptsCount, attempts }: HistoryCardProps) => {
+  const t = await getTranslations("HistoryCard");
+
   return (
     <Card className="relative h-full overflow-hidden rounded-[1.5rem] border-white/10 bg-white/60 shadow-xl shadow-black/5 transition-all duration-300 hover:scale-[1.01] dark:bg-white/5 sm:rounded-[1.75rem]">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-cyan-500/10" />
@@ -27,7 +30,7 @@ const HistoryCard = ({ userId, attemptsCount, attempts }: HistoryCardProps) => {
         <div className="space-y-2">
           <div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/60 px-3 py-1 text-[11px] font-medium text-muted-foreground backdrop-blur-xl dark:bg-white/5 sm:text-xs">
             <History className="h-3.5 w-3.5 text-emerald-400" />
-            History
+            {t("badge")}
           </div>
 
           <div className="min-w-0">
@@ -36,14 +39,14 @@ const HistoryCard = ({ userId, attemptsCount, attempts }: HistoryCardProps) => {
                 href="/history"
                 className="inline-flex items-center gap-2 hover:opacity-80"
               >
-                Quiz History
+                {t("quizHistory")}
                 <ArrowRight className="h-4 w-4 shrink-0" />
               </Link>
             </CardTitle>
 
             <CardDescription className="text-sm leading-6">
               {attemptsCount}{" "}
-              {attemptsCount === 1 ? "attempt" : "attempts"} recorded
+              {attemptsCount === 1 ? t("attempt") : t("attempts")} {t("recorded")}
             </CardDescription>
           </div>
         </div>

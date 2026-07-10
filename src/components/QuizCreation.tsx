@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Sparkles, Minus, Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { quizCreationSchema } from "@/schemas/form/quiz";
 import { useToast } from "./ui/use-toast";
@@ -34,17 +35,18 @@ type CreateGameResponse = {
   gameId?: string;
 };
 
-const DIFFICULTIES = [
-  { value: "easy" as const, label: "Easy", emoji: "🟢", desc: "Beginner" },
-  { value: "medium" as const, label: "Medium", emoji: "🟡", desc: "Challenge" },
-  { value: "hard" as const, label: "Hard", emoji: "🔴", desc: "Expert" },
-];
-
 const TOPIC_SUGGESTIONS = ["JavaScript", "History", "Biology", "Space", "Movies", "Math"];
 
 export default function QuizCreation({ topicParam }: QuizCreationProps) {
   const router = useRouter();
   const { toast } = useToast();
+  const t = useTranslations("QuizCreation");
+
+  const DIFFICULTIES = [
+    { value: "easy" as const, label: t("difficultyEasy"), emoji: "🟢", desc: t("difficultyEasyDesc") },
+    { value: "medium" as const, label: t("difficultyMedium"), emoji: "🟡", desc: t("difficultyMediumDesc") },
+    { value: "hard" as const, label: t("difficultyHard"), emoji: "🔴", desc: t("difficultyHardDesc") },
+  ];
 
   const [showLoader, setShowLoader] = React.useState(false);
   const [finished, setFinished] = React.useState(false);
@@ -83,8 +85,8 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
       if (!data?.gameId) {
         setShowLoader(false);
         toast({
-          title: "Error",
-          description: "The server did not return a game ID.",
+          title: t("errorTitle"),
+          description: t("errorNoGameId"),
           variant: "destructive",
         });
         return;
@@ -101,18 +103,18 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
 
       if (axios.isAxiosError(error)) {
         toast({
-          title: "Error",
+          title: t("errorTitle"),
           description:
             (error.response?.data as { error?: string } | undefined)?.error ??
-            "Unable to create the quiz.",
+            t("errorUnableToCreate"),
           variant: "destructive",
         });
         return;
       }
 
       toast({
-        title: "Error",
-        description: "Something went wrong.",
+        title: t("errorTitle"),
+        description: t("errorGeneric"),
         variant: "destructive",
       });
     },
@@ -132,13 +134,13 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
       <div className="text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-4 py-1.5 text-sm font-medium text-violet-700 dark:border-violet-500/20 dark:bg-violet-500/10 dark:text-violet-300">
           <Sparkles className="h-3.5 w-3.5" />
-          AI-powered quiz generator
+          {t("badge")}
         </div>
         <h1 className="mt-3 text-2xl font-black tracking-tight text-slate-900 dark:text-white sm:text-3xl">
-          Create your quiz
+          {t("title")}
         </h1>
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-          Pick a topic, a difficulty, and the number of questions.
+          {t("subtitle")}
         </p>
       </div>
 
@@ -151,11 +153,11 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-                    Topic
+                    {t("topicLabel")}
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="e.g. JavaScript, History, Space..."
+                      placeholder={t("topicPlaceholder")}
                       {...field}
                       value={field.value ?? ""}
                       className="h-12 rounded-2xl border-slate-200 bg-white/80 text-slate-900 placeholder:text-slate-400 focus:border-violet-400 focus:ring-violet-400/20 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-slate-500"
@@ -184,7 +186,7 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-                    Difficulty
+                    {t("difficultyLabel")}
                   </FormLabel>
                   <FormControl>
                     <div className="grid grid-cols-3 gap-2">
@@ -232,7 +234,7 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-                    Number of questions
+                    {t("amountLabel")}
                   </FormLabel>
                   <FormControl>
                     <div className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white/80 p-2 dark:border-white/10 dark:bg-white/5">
@@ -250,7 +252,7 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
                           {field.value}
                         </span>
                         <p className="text-xs text-slate-400">
-                          {field.value === 1 ? "question" : "questions"}
+                          {field.value === 1 ? t("questionSingular") : t("questionPlural")}
                         </p>
                       </div>
 
@@ -280,12 +282,12 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  Creating quiz...
+                  {t("creating")}
                 </span>
               ) : (
                 <span className="flex items-center gap-2">
                   <Sparkles className="h-4 w-4" />
-                  Generate {amount} question{amount !== 1 ? "s" : ""}
+                  {t("generate")} {amount} {amount !== 1 ? t("questionPlural") : t("questionSingular")}
                 </span>
               )}
             </Button>

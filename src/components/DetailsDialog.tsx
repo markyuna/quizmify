@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { HelpCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import {
   Dialog,
@@ -14,42 +15,41 @@ import {
 } from "./ui/dialog";
 
 const DetailsDialog = () => {
+  const t = useTranslations("DetailsDialog");
+
   return (
     <Dialog>
       <DialogTrigger asChild>
         <button className="flex items-center rounded-md bg-slate-800 px-2 py-1 text-white">
-          What is this
+          {t("whatIsThis")}
           <HelpCircle className="ml-1 h-5 w-5" />
         </button>
       </DialogTrigger>
 
       <DialogContent className="w-[70vw] max-w-[100vw] md:w-[50vw]">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Welcome to Quizzzy!</DialogTitle>
+          <DialogTitle className="text-2xl">{t("welcomeTitle")}</DialogTitle>
 
           <DialogDescription asChild>
             <div>
               <p className="my-2 mt-4">
-                Are you tired of mundane and repetitive quizzes? Say goodbye to
-                the ordinary and embrace the extraordinary with Quizmefy! Our
-                platform is revolutionizing the quiz and trivia experience by
-                harnessing the immense potential of artificial intelligence.
+                {t("intro")}
               </p>
 
               <hr className="my-4" />
 
               <div className="my-2">
-                <h4 className="text-base font-semibold">Built with</h4>
+                <h4 className="text-base font-semibold">{t("builtWith")}</h4>
 
                 <div className="mt-2 grid grid-cols-2 gap-y-3 md:grid-cols-4">
                   <div className="flex items-center gap-2">
                     <Image
-                      alt="planetscale"
+                      alt="supabase"
                       src="/planetscale.png"
                       width={35}
                       height={35}
                     />
-                    <span>Planet Scale</span>
+                    <span>Supabase</span>
                   </div>
 
                   <div className="flex items-center gap-2">

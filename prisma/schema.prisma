@@ -65,6 +65,7 @@ model Game {
   timeEnded   DateTime?
   topic       String
   difficulty  String?
+  language    String     @default("en")
   userId      String
   score       Int        @default(0)
   user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -79,6 +80,7 @@ model McqQuestion {
   id             String   @id @default(cuid())
   topic          String
   difficulty     String
+  language       String   @default("en")
   question       String
   options        String[]
   correct_answer String

@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 type MCQCounterProps = {
   currentQuestionIndex: number;
   questionsLength: number;
@@ -10,12 +12,13 @@ const MCQCounter = ({
   questionsLength,
 }: MCQCounterProps) => {
   const progress = ((currentQuestionIndex + 1) / questionsLength) * 100;
+  const t = useTranslations("MCQ");
 
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between text-sm text-slate-600 dark:text-slate-300">
         <span>
-          Question {currentQuestionIndex + 1} / {questionsLength}
+          {t("question")} {currentQuestionIndex + 1} / {questionsLength}
         </span>
         <span>{Math.round(progress)}%</span>
       </div>

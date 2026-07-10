@@ -11,6 +11,7 @@ import {
   RotateCcw,
   AlertCircle,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Card, CardContent } from "../ui/card";
 import { cn } from "@/lib/utils";
@@ -38,6 +39,7 @@ const QuizMeCard = ({
   hasMistakes = false,
 }: QuizMeCardProps) => {
   const [randomTopic, setRandomTopic] = React.useState(DEFAULT_TOPIC);
+  const t = useTranslations("QuizMeCard");
 
   React.useEffect(() => {
     const nextTopic =
@@ -47,31 +49,31 @@ const QuizMeCard = ({
 
   const actions = [
     {
-      title: "New quiz",
-      description: "Start a fresh quiz",
+      title: t("newQuiz"),
+      description: t("newQuizDesc"),
       href: "/quiz",
       icon: PlusCircle,
       disabled: false,
     },
     {
-      title: "Random topic",
+      title: t("randomTopic"),
       description: randomTopic,
       href: `/quiz?topic=${encodeURIComponent(randomTopic)}`,
       icon: Shuffle,
       disabled: false,
     },
     {
-      title: "Repeat last topic",
-      description: lastTopic ?? "Not available yet",
+      title: t("repeatLastTopic"),
+      description: lastTopic ?? t("notAvailableYet"),
       href: lastTopic ? `/quiz?topic=${encodeURIComponent(lastTopic)}` : "/quiz",
       icon: RotateCcw,
       disabled: !lastTopic,
     },
     {
-      title: "Practice mistakes",
+      title: t("practiceMistakes"),
       description: hasMistakes
-        ? "Review your incorrect answers"
-        : "No mistakes saved yet",
+        ? t("reviewIncorrectAnswers")
+        : t("noMistakesSaved"),
       href: hasMistakes ? "/quiz/mistakes" : "/quiz",
       icon: AlertCircle,
       disabled: !hasMistakes,
@@ -88,14 +90,13 @@ const QuizMeCard = ({
           <div className="space-y-3 min-w-0">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/60 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur-xl dark:bg-white/5">
               <Sparkles className="h-3.5 w-3.5 text-violet-400" />
-              AI powered
+              {t("aiPowered")}
             </div>
 
             <div className="min-w-0">
-              <h2 className="text-xl font-bold tracking-tight">Quiz me</h2>
+              <h2 className="text-xl font-bold tracking-tight">{t("quizMe")}</h2>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Use quick actions to start a new quiz, explore random topics,
-                revisit previous subjects, and strengthen weak areas.
+                {t("quizMeDesc")}
               </p>
             </div>
           </div>

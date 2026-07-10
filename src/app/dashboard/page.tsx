@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import {
   Brain,
   Clock3,
@@ -34,37 +35,6 @@ function formatSeconds(seconds: number) {
   if (mins > 0) return `${mins}m ${secs}s`;
   return `${secs}s`;
 }
-
-const statCards = [
-  {
-    key: "attempts",
-    title: "Total Quizzes Completed",
-    icon: Brain,
-    accent:
-      "from-violet-500/20 via-fuchsia-500/10 to-transparent text-violet-500 dark:text-violet-300",
-  },
-  {
-    key: "accuracy",
-    title: "Accuracy",
-    icon: Target,
-    accent:
-      "from-cyan-500/20 via-sky-500/10 to-transparent text-cyan-500 dark:text-cyan-300",
-  },
-  {
-    key: "score",
-    title: "Average Score",
-    icon: Trophy,
-    accent:
-      "from-amber-500/20 via-orange-500/10 to-transparent text-amber-500 dark:text-amber-300",
-  },
-  {
-    key: "time",
-    title: "Average Time / Quiz",
-    icon: Clock3,
-    accent:
-      "from-emerald-500/20 via-teal-500/10 to-transparent text-emerald-500 dark:text-emerald-300",
-  },
-] as const;
 
 function StatCard({
   title,
@@ -111,12 +81,44 @@ function StatCard({
 
 export default async function DashboardPage() {
   const session = await getAuthSession();
+  const t = await getTranslations("Dashboard");
 
   if (!session?.user?.id) {
     redirect("/login");
   }
 
   const userId = session.user.id;
+
+  const statCards = [
+    {
+      key: "attempts",
+      title: t("statAttemptsTitle"),
+      icon: Brain,
+      accent:
+        "from-violet-500/20 via-fuchsia-500/10 to-transparent text-violet-500 dark:text-violet-300",
+    },
+    {
+      key: "accuracy",
+      title: t("statAccuracyTitle"),
+      icon: Target,
+      accent:
+        "from-cyan-500/20 via-sky-500/10 to-transparent text-cyan-500 dark:text-cyan-300",
+    },
+    {
+      key: "score",
+      title: t("statScoreTitle"),
+      icon: Trophy,
+      accent:
+        "from-amber-500/20 via-orange-500/10 to-transparent text-amber-500 dark:text-amber-300",
+    },
+    {
+      key: "time",
+      title: t("statTimeTitle"),
+      icon: Clock3,
+      accent:
+        "from-emerald-500/20 via-teal-500/10 to-transparent text-emerald-500 dark:text-emerald-300",
+    },
+  ] as const;
 
   const [
     userProfile,
@@ -213,19 +215,19 @@ export default async function DashboardPage() {
   const stats = {
     attempts: {
       value: attemptsCount.toString(),
-      subtitle: `${gamesCount} quizzes created overall`,
+      subtitle: t("statAttemptsSubtitle", { count: gamesCount }),
     },
     accuracy: {
       value: `${accuracy}%`,
-      subtitle: `${totalCorrect} correct answers out of ${totalAnswered}`,
+      subtitle: t("statAccuracySubtitle", { correct: totalCorrect, total: totalAnswered }),
     },
     score: {
       value: `${averageScore}%`,
-      subtitle: `Best run: ${bestScore !== null ? `${bestScore}%` : "—"}`,
+      subtitle: t("statScoreSubtitle", { best: bestScore !== null ? `${bestScore}%` : "—" }),
     },
     time: {
       value: formatSeconds(averageTimePerQuiz),
-      subtitle: `Total study time: ${formatSeconds(totalTimeSpent)}`,
+      subtitle: t("statTimeSubtitle", { total: formatSeconds(totalTimeSpent) }),
     },
   };
 
@@ -240,38 +242,36 @@ export default async function DashboardPage() {
           <div className="min-w-0 max-w-3xl">
             <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/60 px-3 py-1 text-[11px] font-medium text-muted-foreground backdrop-blur-xl dark:bg-white/5 sm:mb-4 sm:text-xs">
               <Sparkles className="h-3.5 w-3.5 text-violet-400" />
-              Performance overview
+              {t("performanceOverview")}
             </div>
 
             <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               <h1 className="text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
-                Dashboard
+                {t("title")}
               </h1>
               <DetailsDialog />
             </div>
 
             <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
-              Track your progress, review recent quiz results, and keep building
-              momentum with a cleaner, smarter learning workflow.
+              {t("subtitle")}
             </p>
 
             <div className="mt-5 max-w-xl rounded-[1.5rem] border border-white/10 bg-white/60 p-4 shadow-lg shadow-black/5 backdrop-blur-xl dark:bg-white/5">
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-[0.2em] text-violet-500 dark:text-violet-300">
-                    Level Progress
+                    {t("levelProgress")}
                   </p>
                   <h2 className="mt-1 text-xl font-bold text-slate-900 dark:text-white">
-                    Level {currentLevel}
+                    {t("level")} {currentLevel}
                   </h2>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {totalXp} XP total · {levelProgress.xpToNextLevel} XP to
-                    Level {currentLevel + 1}
+                    {t("xpToNextLevel", { xp: totalXp, toGo: levelProgress.xpToNextLevel, nextLevel: currentLevel + 1 })}
                   </p>
                 </div>
 
                 <div className="shrink-0 rounded-2xl border border-white/10 bg-white/70 px-4 py-3 text-center backdrop-blur-xl dark:bg-white/10">
-                  <p className="text-xs text-muted-foreground">XP</p>
+                  <p className="text-xs text-muted-foreground">{t("xp")}</p>
                   <p className="text-lg font-bold text-slate-900 dark:text-white">
                     {totalXp}
                   </p>
@@ -297,7 +297,7 @@ export default async function DashboardPage() {
           <div className="grid w-full grid-cols-2 gap-3 sm:w-auto sm:min-w-[260px]">
             <div className="rounded-2xl border border-white/10 bg-white/50 px-3 py-3 text-sm backdrop-blur-xl dark:bg-white/5 sm:px-4">
               <p className="text-xs text-muted-foreground sm:text-sm">
-                Quizzes done
+                {t("quizzesDone")}
               </p>
               <p className="mt-1 text-lg font-bold sm:text-xl">
                 {attemptsCount}
@@ -306,7 +306,7 @@ export default async function DashboardPage() {
 
             <div className="rounded-2xl border border-white/10 bg-white/50 px-3 py-3 text-sm backdrop-blur-xl dark:bg-white/5 sm:px-4">
               <p className="text-xs text-muted-foreground sm:text-sm">
-                Best score
+                {t("bestScore")}
               </p>
               <p className="mt-1 text-lg font-bold sm:text-xl">
                 {bestScore !== null ? `${bestScore}%` : "—"}
@@ -358,10 +358,10 @@ export default async function DashboardPage() {
                   <Lock className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-violet-300">Free limit reached</p>
-                  <p className="mt-0.5 text-lg font-bold text-white">You are at Level 2 — the free cap</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-violet-300">{t("freeLimitReached")}</p>
+                  <p className="mt-0.5 text-lg font-bold text-white">{t("atLevel2")}</p>
                   <p className="mt-1 text-sm text-white/60">
-                    Upgrade once for $5.99 to unlock unlimited level progression forever.
+                    {t("upgradePrompt")}
                   </p>
                 </div>
               </div>
@@ -370,7 +370,7 @@ export default async function DashboardPage() {
                 className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 px-6 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90"
               >
                 <Zap className="h-4 w-4" />
-                Upgrade to Pro
+                {t("upgradeToPro")}
               </a>
             </div>
           </div>

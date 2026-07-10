@@ -2,6 +2,7 @@ import { prisma } from "@/lib/db";
 import { Clock, CopyCheck, Edit2, Target, Trophy } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { getTranslations } from "next-intl/server";
 import { formatTimeDelta } from "@/lib/utils";
 
 export type AttemptItem = {
@@ -25,6 +26,7 @@ type Props = {
 };
 
 const HistoryComponent = async ({ limit, userId, data }: Props) => {
+  const t = await getTranslations("HistoryComponent");
   const attempts: AttemptItem[] = data ?? await prisma.attempt.findMany({
     where: { userId },
     take: limit,
@@ -43,7 +45,7 @@ const HistoryComponent = async ({ limit, userId, data }: Props) => {
   if (attempts.length === 0) {
     return (
       <div className="flex items-center justify-center py-8 text-sm text-muted-foreground">
-        No quiz attempts yet.
+        {t("noAttemptsYet")}
       </div>
     );
   }
@@ -52,7 +54,7 @@ const HistoryComponent = async ({ limit, userId, data }: Props) => {
     <div className="min-w-0 space-y-3 sm:space-y-4">
       {attempts.map((attempt) => {
         const gameType = attempt.game?.gameType ?? "mcq";
-        const topic = attempt.game?.topic ?? "Untitled quiz";
+        const topic = attempt.game?.topic ?? t("untitledQuiz");
         const gameId = attempt.game?.id;
 
         return (
@@ -97,7 +99,7 @@ const HistoryComponent = async ({ limit, userId, data }: Props) => {
 
                   <p className="inline-flex max-w-full items-center rounded-lg border px-2 py-1 text-[11px] text-muted-foreground sm:text-xs">
                     <span className="truncate">
-                      {gameType === "mcq" ? "MCQ" : "Open Ended"}
+                      {gameType === "mcq" ? t("mcq") : t("openEnded")}
                     </span>
                   </p>
                 </div>
@@ -111,7 +113,7 @@ const HistoryComponent = async ({ limit, userId, data }: Props) => {
                   <p className="inline-flex min-w-0 items-center gap-1">
                     <Target className="h-4 w-4 shrink-0" />
                     <span className="truncate">
-                      {attempt.correctAnswers}/{attempt.totalQuestions} correct
+                      {t("correctCount", { correct: attempt.correctAnswers, total: attempt.totalQuestions })}
                     </span>
                   </p>
 

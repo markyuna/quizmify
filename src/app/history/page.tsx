@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { LucideLayoutDashboard } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 import HistoryComponent from "@/components/HistoryComponent";
 import { getAuthSession } from "@/lib/nextauth";
@@ -14,6 +15,7 @@ export const metadata = {
 
 export default async function HistoryPage() {
   const session = await getAuthSession();
+  const t = await getTranslations("HistoryPage");
 
   if (!session?.user?.id) {
     redirect("/login");
@@ -24,11 +26,11 @@ export default async function HistoryPage() {
       <Card className="w-full">
         <CardHeader>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <CardTitle className="text-2xl font-bold">History</CardTitle>
+            <CardTitle className="text-2xl font-bold">{t("title")}</CardTitle>
 
             <Link href="/dashboard" className={buttonVariants()}>
               <LucideLayoutDashboard className="mr-2 h-4 w-4" />
-              Back to Dashboard
+              {t("backToDashboard")}
             </Link>
           </div>
         </CardHeader>
