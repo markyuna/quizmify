@@ -1,0 +1,167 @@
+import { z } from "zod";
+
+import { openai } from "@/lib/openai";
+import type { Locale } from "@/i18n/locales";
+
+export type Difficulty = "easy" | "medium" | "hard";
+
+export type GeneratedQuestion = {
+  question: string;
+  options: string[];
+  correct_answer: string;
+  explanation: string;
+  country: string | null;
+};
+
+const LANGUAGE_NAMES: Record<Locale, string> = {
+  en: "English",
+  fr: "French",
+  es: "Spanish",
+};
+
+const generatedQuestionsSchema = z.object({
+  questions: z
+    .array(
+      z.object({
+        question: z.string().min(1),
+        options: z.array(z.string().min(1)).min(4).max(4),
+        correct_answer: z.string().min(1),
+        explanation: z.string().min(1),
+        country: z.string().min(1).nullable().optional(),
+      })
+    )
+    .min(1),
+});
+
+export function normalizeTopic(topic: string): string {
+  return topic.trim().replace(/\s+/g, " ");
+}
+
+export function normalizeDifficulty(difficulty: Difficulty): Difficulty {
+  return difficulty.toLowerCase() as Difficulty;
+}
+
+export function shuffleArray<T>(items: T[]): T[] {
+  const result = [...items];
+
+  for (let i = result.length - 1; i > 0; i--) {
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+    [result[i], result[randomIndex]] = [result[randomIndex], result[i]];
+  }
+
+  return result;
+}
+
+export function ensureValidOptions(options: string[], correctAnswer: string): string[] {
+  const normalizedCorrectAnswer = correctAnswer.trim();
+
+  const sanitizedOptions = options
+    .map((option) => option.trim())
+    .filter((option) => option.length > 0);
+
+  const uniqueOptions = Array.from(new Set(sanitizedOptions));
+
+  if (!uniqueOptions.includes(normalizedCorrectAnswer)) {
+    uniqueOptions.unshift(normalizedCorrectAnswer);
+  }
+
+  const finalOptions = Array.from(new Set(uniqueOptions)).slice(0, 4);
+
+  while (finalOptions.length < 4) {
+    finalOptions.push(`Option ${finalOptions.length + 1}`);
+  }
+
+  if (!finalOptions.includes(normalizedCorrectAnswer)) {
+    finalOptions[0] = normalizedCorrectAnswer;
+  }
+
+  return shuffleArray(finalOptions);
+}
+
+export function dedupeQuestions<T extends { question: string }>(questions: T[]): T[] {
+  const seen = new Set<string>();
+  const result: T[] = [];
+
+  for (const q of questions) {
+    const key = q.question.trim().toLowerCase();
+
+    if (!seen.has(key)) {
+      seen.add(key);
+      result.push(q);
+    }
+  }
+
+  return result;
+}
+
+export async function generateQuestionsWithAI(params: {
+  topic: string;
+  difficulty: Difficulty;
+  language: Locale;
+  amount: number;
+  isGeography: boolean;
+}): Promise<GeneratedQuestion[]> {
+  const { topic, difficulty, language, amount, isGeography } = params;
+  const languageName = LANGUAGE_NAMES[language];
+
+  const countryField = isGeography
+    ? `,\n      "country": "string or null -- the real-world country (in English, e.g. \\"France\\", \\"Japan\\") this specific question is about, or null if it isn't about a specific country"`
+    : "";
+
+  const countryRule = isGeography
+    ? "\n- if the question is about a specific country, city, or place, set \"country\" to that country's name in English; otherwise set it to null"
+    : "";
+
+  const response = await openai.chat.completions.create({
+    model: process.env.OPENAI_MODEL || "gpt-4o",
+    messages: [
+      {
+        role: "developer",
+        content: `Generate high-quality multiple-choice quiz questions entirely in ${languageName}. Return only valid JSON. Each question must have exactly 4 options and exactly 1 correct answer. Avoid duplicates.`,
+      },
+      {
+        role: "user",
+        content: `Generate ${amount} multiple-choice quiz questions about "${topic}" with difficulty "${difficulty}". Write the question, options, and explanation entirely in ${languageName}.
+
+Return a JSON object with this exact structure:
+{
+  "questions": [
+    {
+      "question": "string",
+      "options": ["string", "string", "string", "string"],
+      "correct_answer": "string",
+      "explanation": "string"${countryField}
+    }
+  ]
+}
+
+Rules:
+- exactly 4 options per question
+- exactly 1 correct answer
+- the correct answer must appear in options
+- concise and clear ${languageName}
+- no markdown
+- no extra text${countryRule}`,
+      },
+    ],
+    response_format: { type: "json_object" },
+    temperature: 0.7,
+  });
+
+  const content = response.choices[0]?.message?.content;
+
+  if (!content) {
+    throw new Error("OpenAI returned empty content");
+  }
+
+  const parsedJson = JSON.parse(content);
+  const parsed = generatedQuestionsSchema.parse(parsedJson);
+
+  return parsed.questions.map((q) => ({
+    question: q.question.trim(),
+    options: ensureValidOptions(q.options, q.correct_answer),
+    correct_answer: q.correct_answer.trim(),
+    explanation: q.explanation.trim(),
+    country: q.country?.trim() || null,
+  }));
+}

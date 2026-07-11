@@ -5,6 +5,7 @@ export const quizCreationSchema = z.object({
   amount: z.number().int().min(1, "Minimum is 1").max(20, "Maximum is 20"),
   difficulty: z.enum(["easy", "medium", "hard"]),
   type: z.literal("mcq"),
+  isTimed: z.boolean(),
 });
 
 export const checkAnswerSchema = z.object({
@@ -20,6 +21,7 @@ export const submitQuizSchema = z.object({
       z.object({
         questionId: z.string().min(1, "Question ID is required"),
         selectedAnswer: z.string().min(1, "Selected answer is required"),
+        responseTimeMs: z.number().int().min(0).optional(),
       })
     )
     .min(1, "At least one answer is required"),

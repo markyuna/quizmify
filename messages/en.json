@@ -6,6 +6,7 @@
     "dashboard": "Dashboard",
     "quiz": "Quiz",
     "history": "History",
+    "leaderboard": "Leaderboard",
     "myAccount": "My Account",
     "signOut": "Sign out"
   },
@@ -108,6 +109,8 @@
     "amountLabel": "Number of questions",
     "questionSingular": "question",
     "questionPlural": "questions",
+    "timedModeLabel": "Against the clock",
+    "timedModeDesc": "20s per question, with a speed XP bonus",
     "creating": "Creating quiz...",
     "generate": "Generate",
     "errorTitle": "Error",
@@ -176,7 +179,10 @@
     "saving": "Saving...",
     "finishQuiz": "Finish Quiz 🎉",
     "nextQuestion": "Next Question",
-    "home": "Home"
+    "home": "Home",
+    "timeUp": "Time's up — marked incorrect",
+    "speedBonus": "Speed bonus",
+    "timeLeft": "Time left"
   },
   "Dashboard": {
     "statAttemptsTitle": "Total Quizzes Completed",
@@ -345,5 +351,67 @@
     "perfectLabel": "Perfect score",
     "streakLabel": "{count}-day streak",
     "unknownTopic": "Quiz"
+  },
+  "Certificates": {
+    "badge": "Achievements",
+    "title": "Certificates",
+    "countLabel": "{count, plural, one {# certificate earned} other {# certificates earned}}",
+    "emptyTitle": "No certificates yet",
+    "emptySubtitle": "Keep quizzing to unlock certificates",
+    "emptyHint": "Complete 50 quizzes, hit a 7-day streak, or master a category to earn your first certificate.",
+    "proOnly": "Pro only",
+    "download": "Download",
+    "proRequiredTitle": "Pro required",
+    "proRequiredDescription": "Upgrade to Pro to download certificates.",
+    "errorTitle": "Error",
+    "errorDescription": "Unable to download the certificate."
+  },
+  "Recommendation": {
+    "badge": "AI suggestion",
+    "practiceTopic": "Practice {topic}"
+  },
+  "DailyChallenge": {
+    "badge": "Daily challenge",
+    "participantCount": "{count, plural, =0 {No one has played yet} one {# player so far} other {# players so far}}",
+    "playNow": "Play now",
+    "viewResult": "You scored {score}%",
+    "alreadyPlayed": "You already played today's challenge",
+    "yourScore": "Your score",
+    "average": "Average",
+    "aboveAverage": "{diff} pts above average",
+    "belowAverage": "{diff} pts below average",
+    "comeBackTomorrow": "Come back tomorrow for a new challenge",
+    "questionAbbrev": "Question",
+    "error": "Error",
+    "unableToSubmit": "Unable to submit your answers.",
+    "submitting": "Submitting...",
+    "next": "Next",
+    "finish": "Finish",
+    "resultTitle": "Challenge complete!",
+    "xpEarned": "+{xp} XP",
+    "aboveAverageBonus": "Above-average bonus"
+  },
+  "ShareResult": {
+    "downloadImage": "Share image",
+    "share": "Share",
+    "error": "Error",
+    "unableToGenerate": "Unable to generate the image.",
+    "unableToShare": "Unable to share the image.",
+    "shareText": "I scored {score}% on {topic} in Quizmify!"
+  },
+  "Leaderboard": {
+    "badge": "Leaderboard",
+    "title": "Leaderboard",
+    "global": "Global",
+    "yourRank": "You're #{rank}",
+    "notRankedTopic": "Play a quiz in this category to get ranked",
+    "notRankedGlobal": "Play a quiz to get ranked",
+    "empty": "No one has played yet",
+    "you": "(you)",
+    "quizzesPlayed": "{count, plural, one {# quiz played} other {# quizzes played}}",
+    "levelLabel": "Level {level}",
+    "correctCount": "{count, plural, one {# correct} other {# correct}}",
+    "pageOf": "Page {page} of {totalPages}",
+    "viewLeaderboard": "View leaderboard"
   }
 }

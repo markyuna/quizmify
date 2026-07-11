@@ -392,8 +392,13 @@ export const ModelName = {
   Question: 'Question',
   Attempt: 'Attempt',
   AttemptAnswer: 'AttemptAnswer',
+  Certificate: 'Certificate',
+  TopicRecommendation: 'TopicRecommendation',
   Trophy: 'Trophy',
-  UserQuestionProgress: 'UserQuestionProgress'
+  UserQuestionProgress: 'UserQuestionProgress',
+  DailyChallenge: 'DailyChallenge',
+  DailyChallengeQuestion: 'DailyChallengeQuestion',
+  DailyChallengeAttempt: 'DailyChallengeAttempt'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -409,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "trophy" | "userQuestionProgress"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "certificate" | "topicRecommendation" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1005,6 +1010,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Certificate: {
+      payload: Prisma.$CertificatePayload<ExtArgs>
+      fields: Prisma.CertificateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CertificateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CertificateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificatePayload>
+        }
+        findFirst: {
+          args: Prisma.CertificateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CertificateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificatePayload>
+        }
+        findMany: {
+          args: Prisma.CertificateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificatePayload>[]
+        }
+        create: {
+          args: Prisma.CertificateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificatePayload>
+        }
+        createMany: {
+          args: Prisma.CertificateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CertificateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificatePayload>[]
+        }
+        delete: {
+          args: Prisma.CertificateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificatePayload>
+        }
+        update: {
+          args: Prisma.CertificateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificatePayload>
+        }
+        deleteMany: {
+          args: Prisma.CertificateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CertificateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CertificateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificatePayload>[]
+        }
+        upsert: {
+          args: Prisma.CertificateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CertificatePayload>
+        }
+        aggregate: {
+          args: Prisma.CertificateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCertificate>
+        }
+        groupBy: {
+          args: Prisma.CertificateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CertificateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CertificateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CertificateCountAggregateOutputType> | number
+        }
+      }
+    }
+    TopicRecommendation: {
+      payload: Prisma.$TopicRecommendationPayload<ExtArgs>
+      fields: Prisma.TopicRecommendationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TopicRecommendationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicRecommendationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TopicRecommendationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicRecommendationPayload>
+        }
+        findFirst: {
+          args: Prisma.TopicRecommendationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicRecommendationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TopicRecommendationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicRecommendationPayload>
+        }
+        findMany: {
+          args: Prisma.TopicRecommendationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicRecommendationPayload>[]
+        }
+        create: {
+          args: Prisma.TopicRecommendationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicRecommendationPayload>
+        }
+        createMany: {
+          args: Prisma.TopicRecommendationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TopicRecommendationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicRecommendationPayload>[]
+        }
+        delete: {
+          args: Prisma.TopicRecommendationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicRecommendationPayload>
+        }
+        update: {
+          args: Prisma.TopicRecommendationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicRecommendationPayload>
+        }
+        deleteMany: {
+          args: Prisma.TopicRecommendationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TopicRecommendationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TopicRecommendationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicRecommendationPayload>[]
+        }
+        upsert: {
+          args: Prisma.TopicRecommendationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TopicRecommendationPayload>
+        }
+        aggregate: {
+          args: Prisma.TopicRecommendationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTopicRecommendation>
+        }
+        groupBy: {
+          args: Prisma.TopicRecommendationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TopicRecommendationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TopicRecommendationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TopicRecommendationCountAggregateOutputType> | number
+        }
+      }
+    }
     Trophy: {
       payload: Prisma.$TrophyPayload<ExtArgs>
       fields: Prisma.TrophyFieldRefs
@@ -1153,6 +1306,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    DailyChallenge: {
+      payload: Prisma.$DailyChallengePayload<ExtArgs>
+      fields: Prisma.DailyChallengeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DailyChallengeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DailyChallengeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengePayload>
+        }
+        findFirst: {
+          args: Prisma.DailyChallengeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DailyChallengeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengePayload>
+        }
+        findMany: {
+          args: Prisma.DailyChallengeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengePayload>[]
+        }
+        create: {
+          args: Prisma.DailyChallengeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengePayload>
+        }
+        createMany: {
+          args: Prisma.DailyChallengeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DailyChallengeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengePayload>[]
+        }
+        delete: {
+          args: Prisma.DailyChallengeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengePayload>
+        }
+        update: {
+          args: Prisma.DailyChallengeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengePayload>
+        }
+        deleteMany: {
+          args: Prisma.DailyChallengeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DailyChallengeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DailyChallengeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengePayload>[]
+        }
+        upsert: {
+          args: Prisma.DailyChallengeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengePayload>
+        }
+        aggregate: {
+          args: Prisma.DailyChallengeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDailyChallenge>
+        }
+        groupBy: {
+          args: Prisma.DailyChallengeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DailyChallengeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DailyChallengeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DailyChallengeCountAggregateOutputType> | number
+        }
+      }
+    }
+    DailyChallengeQuestion: {
+      payload: Prisma.$DailyChallengeQuestionPayload<ExtArgs>
+      fields: Prisma.DailyChallengeQuestionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DailyChallengeQuestionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeQuestionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DailyChallengeQuestionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeQuestionPayload>
+        }
+        findFirst: {
+          args: Prisma.DailyChallengeQuestionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeQuestionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DailyChallengeQuestionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeQuestionPayload>
+        }
+        findMany: {
+          args: Prisma.DailyChallengeQuestionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeQuestionPayload>[]
+        }
+        create: {
+          args: Prisma.DailyChallengeQuestionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeQuestionPayload>
+        }
+        createMany: {
+          args: Prisma.DailyChallengeQuestionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DailyChallengeQuestionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeQuestionPayload>[]
+        }
+        delete: {
+          args: Prisma.DailyChallengeQuestionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeQuestionPayload>
+        }
+        update: {
+          args: Prisma.DailyChallengeQuestionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeQuestionPayload>
+        }
+        deleteMany: {
+          args: Prisma.DailyChallengeQuestionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DailyChallengeQuestionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DailyChallengeQuestionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeQuestionPayload>[]
+        }
+        upsert: {
+          args: Prisma.DailyChallengeQuestionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeQuestionPayload>
+        }
+        aggregate: {
+          args: Prisma.DailyChallengeQuestionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDailyChallengeQuestion>
+        }
+        groupBy: {
+          args: Prisma.DailyChallengeQuestionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DailyChallengeQuestionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DailyChallengeQuestionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DailyChallengeQuestionCountAggregateOutputType> | number
+        }
+      }
+    }
+    DailyChallengeAttempt: {
+      payload: Prisma.$DailyChallengeAttemptPayload<ExtArgs>
+      fields: Prisma.DailyChallengeAttemptFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DailyChallengeAttemptFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeAttemptPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DailyChallengeAttemptFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeAttemptPayload>
+        }
+        findFirst: {
+          args: Prisma.DailyChallengeAttemptFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeAttemptPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DailyChallengeAttemptFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeAttemptPayload>
+        }
+        findMany: {
+          args: Prisma.DailyChallengeAttemptFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeAttemptPayload>[]
+        }
+        create: {
+          args: Prisma.DailyChallengeAttemptCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeAttemptPayload>
+        }
+        createMany: {
+          args: Prisma.DailyChallengeAttemptCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DailyChallengeAttemptCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeAttemptPayload>[]
+        }
+        delete: {
+          args: Prisma.DailyChallengeAttemptDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeAttemptPayload>
+        }
+        update: {
+          args: Prisma.DailyChallengeAttemptUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeAttemptPayload>
+        }
+        deleteMany: {
+          args: Prisma.DailyChallengeAttemptDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DailyChallengeAttemptUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DailyChallengeAttemptUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeAttemptPayload>[]
+        }
+        upsert: {
+          args: Prisma.DailyChallengeAttemptUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyChallengeAttemptPayload>
+        }
+        aggregate: {
+          args: Prisma.DailyChallengeAttemptAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDailyChallengeAttempt>
+        }
+        groupBy: {
+          args: Prisma.DailyChallengeAttemptGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DailyChallengeAttemptGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DailyChallengeAttemptCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DailyChallengeAttemptCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1253,7 +1628,9 @@ export const GameScalarFieldEnum = {
   difficulty: 'difficulty',
   language: 'language',
   userId: 'userId',
-  score: 'score'
+  score: 'score',
+  isTimed: 'isTimed',
+  timePerQuestionSec: 'timePerQuestionSec'
 } as const
 
 export type GameScalarFieldEnum = (typeof GameScalarFieldEnum)[keyof typeof GameScalarFieldEnum]
@@ -1314,10 +1691,36 @@ export const AttemptAnswerScalarFieldEnum = {
   attemptId: 'attemptId',
   questionId: 'questionId',
   selectedAnswer: 'selectedAnswer',
-  isCorrect: 'isCorrect'
+  isCorrect: 'isCorrect',
+  responseTimeMs: 'responseTimeMs'
 } as const
 
 export type AttemptAnswerScalarFieldEnum = (typeof AttemptAnswerScalarFieldEnum)[keyof typeof AttemptAnswerScalarFieldEnum]
+
+
+export const CertificateScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  kind: 'kind',
+  topic: 'topic',
+  earnedAt: 'earnedAt',
+  metadata: 'metadata'
+} as const
+
+export type CertificateScalarFieldEnum = (typeof CertificateScalarFieldEnum)[keyof typeof CertificateScalarFieldEnum]
+
+
+export const TopicRecommendationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  topic: 'topic',
+  message: 'message',
+  accuracy: 'accuracy',
+  quizCountAtGeneration: 'quizCountAtGeneration',
+  generatedAt: 'generatedAt'
+} as const
+
+export type TopicRecommendationScalarFieldEnum = (typeof TopicRecommendationScalarFieldEnum)[keyof typeof TopicRecommendationScalarFieldEnum]
 
 
 export const TrophyScalarFieldEnum = {
@@ -1346,12 +1749,62 @@ export const UserQuestionProgressScalarFieldEnum = {
 export type UserQuestionProgressScalarFieldEnum = (typeof UserQuestionProgressScalarFieldEnum)[keyof typeof UserQuestionProgressScalarFieldEnum]
 
 
+export const DailyChallengeScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  topic: 'topic',
+  difficulty: 'difficulty',
+  language: 'language',
+  createdAt: 'createdAt'
+} as const
+
+export type DailyChallengeScalarFieldEnum = (typeof DailyChallengeScalarFieldEnum)[keyof typeof DailyChallengeScalarFieldEnum]
+
+
+export const DailyChallengeQuestionScalarFieldEnum = {
+  id: 'id',
+  dailyChallengeId: 'dailyChallengeId',
+  question: 'question',
+  answer: 'answer',
+  options: 'options',
+  explanation: 'explanation',
+  orderIndex: 'orderIndex'
+} as const
+
+export type DailyChallengeQuestionScalarFieldEnum = (typeof DailyChallengeQuestionScalarFieldEnum)[keyof typeof DailyChallengeQuestionScalarFieldEnum]
+
+
+export const DailyChallengeAttemptScalarFieldEnum = {
+  id: 'id',
+  dailyChallengeId: 'dailyChallengeId',
+  userId: 'userId',
+  score: 'score',
+  correctAnswers: 'correctAnswers',
+  totalQuestions: 'totalQuestions',
+  timeSpent: 'timeSpent',
+  baseXp: 'baseXp',
+  aboveAverageBonusXp: 'aboveAverageBonusXp',
+  earnedXp: 'earnedXp',
+  createdAt: 'createdAt'
+} as const
+
+export type DailyChallengeAttemptScalarFieldEnum = (typeof DailyChallengeAttemptScalarFieldEnum)[keyof typeof DailyChallengeAttemptScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -1368,6 +1821,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -1440,16 +1902,30 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'TrophyKind'
+ * Reference to a field of type 'CertificateKind'
  */
-export type EnumTrophyKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TrophyKind'>
+export type EnumCertificateKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CertificateKind'>
     
 
 
 /**
- * Reference to a field of type 'TrophyKind[]'
+ * Reference to a field of type 'CertificateKind[]'
  */
-export type ListEnumTrophyKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TrophyKind[]'>
+export type ListEnumCertificateKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CertificateKind[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -1464,6 +1940,20 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TrophyKind'
+ */
+export type EnumTrophyKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TrophyKind'>
+    
+
+
+/**
+ * Reference to a field of type 'TrophyKind[]'
+ */
+export type ListEnumTrophyKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TrophyKind[]'>
     
 
 /**
@@ -1584,8 +2074,13 @@ export type GlobalOmitConfig = {
   question?: Prisma.QuestionOmit
   attempt?: Prisma.AttemptOmit
   attemptAnswer?: Prisma.AttemptAnswerOmit
+  certificate?: Prisma.CertificateOmit
+  topicRecommendation?: Prisma.TopicRecommendationOmit
   trophy?: Prisma.TrophyOmit
   userQuestionProgress?: Prisma.UserQuestionProgressOmit
+  dailyChallenge?: Prisma.DailyChallengeOmit
+  dailyChallengeQuestion?: Prisma.DailyChallengeQuestionOmit
+  dailyChallengeAttempt?: Prisma.DailyChallengeAttemptOmit
 }
 
 /* Types for Logging */

@@ -3,9 +3,10 @@ import { z } from "zod";
 
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
-import { calculateEarnedXp, calculateLevel } from "@/lib/xp";
+import { calculateEarnedXp, calculateLevel, calculateSpeedBonusXp } from "@/lib/xp";
 import { FREE_XP_CAP, FREE_LEVEL_CAP } from "@/lib/stripe";
 import { registerQuizActivity, getEffectiveStreak, type StreakResult } from "@/lib/streak";
+import { checkAndAwardCertificates } from "@/lib/certificates";
 import { submitQuizSchema } from "@/schemas/form/quiz";
 
 export type TrophyReason = "perfect" | "streak" | null;
@@ -86,6 +87,7 @@ export async function POST(req: Request) {
           correctAnswers: existingAttempt.correctAnswers,
           totalQuestions: existingAttempt.totalQuestions,
           earnedXp: 0,
+          speedBonusXp: 0,
           newXp: currentUser?.xp ?? 0,
           newLevel: level,
           previousLevel: level,
@@ -103,18 +105,21 @@ export async function POST(req: Request) {
       game.questions.map((question) => [question.id, question])
     );
 
-    const uniqueAnswersMap = new Map<string, string>();
+    const uniqueAnswersMap = new Map<string, { selectedAnswer: string; responseTimeMs: number | null }>();
 
     for (const answer of parsedBody.answers) {
       if (!uniqueAnswersMap.has(answer.questionId)) {
-        uniqueAnswersMap.set(answer.questionId, answer.selectedAnswer.trim());
+        uniqueAnswersMap.set(answer.questionId, {
+          selectedAnswer: answer.selectedAnswer.trim(),
+          responseTimeMs: answer.responseTimeMs ?? null,
+        });
       }
     }
 
     let correctAnswers = 0;
 
     const answersToCreate = Array.from(uniqueAnswersMap.entries())
-      .map(([questionId, selectedAnswer]) => {
+      .map(([questionId, { selectedAnswer, responseTimeMs }]) => {
         const question = questionMap.get(questionId);
 
         if (!question) {
@@ -132,6 +137,7 @@ export async function POST(req: Request) {
           questionId,
           selectedAnswer,
           isCorrect,
+          responseTimeMs,
         };
       })
       .filter(
@@ -141,6 +147,7 @@ export async function POST(req: Request) {
           questionId: string;
           selectedAnswer: string;
           isCorrect: boolean;
+          responseTimeMs: number | null;
         } => answer !== null
       );
 
@@ -152,10 +159,19 @@ export async function POST(req: Request) {
       Math.min(parsedBody.timeSpent, 60 * 60 * 3)
     );
 
-    const earnedXp = calculateEarnedXp({
-      correctAnswers,
-      totalQuestions,
+    const timeLimitMs =
+      game.isTimed && game.timePerQuestionSec ? game.timePerQuestionSec * 1000 : 0;
+
+    const speedBonusXp = calculateSpeedBonusXp({
+      answers: answersToCreate,
+      timeLimitMs,
     });
+
+    const earnedXp =
+      calculateEarnedXp({
+        correctAnswers,
+        totalQuestions,
+      }) + speedBonusXp;
 
     const result = await prisma.$transaction(async (tx) => {
       const createdAttempt = await tx.attempt.create({
@@ -211,6 +227,11 @@ export async function POST(req: Request) {
 
       const streak = await registerQuizActivity(tx, userId);
       const trophyReason = computeTrophyReason(score, streak);
+
+      await checkAndAwardCertificates(tx, userId, {
+        topic: game.topic,
+        currentStreak: streak.currentStreak,
+      });
 
       if (trophyReason) {
         await tx.trophy.create({
@@ -273,6 +294,7 @@ export async function POST(req: Request) {
         correctAnswers,
         totalQuestions,
         earnedXp: result.earnedXp,
+        speedBonusXp,
         newXp: result.newXp,
         previousLevel: result.previousLevel,
         newLevel: result.newLevel,

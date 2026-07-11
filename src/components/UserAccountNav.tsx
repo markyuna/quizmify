@@ -5,7 +5,7 @@ import Link from "next/link";
 import React from "react";
 import { signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { History, LayoutDashboard, LogOut, Settings, Sparkles } from "lucide-react";
+import { History, LayoutDashboard, LogOut, Settings, Sparkles, Trophy } from "lucide-react";
 
 import UserAvatar from "./UserAvatar";
 import {
@@ -99,6 +99,16 @@ const UserAccountNav = ({ user }: Props) => {
           <Link href="/history" className="flex items-center gap-3">
             <History className="h-4 w-4" />
             <span>{t("history")}</span>
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem
+          asChild
+          className="cursor-pointer rounded-2xl px-3 py-2.5 text-sm font-medium text-slate-700 outline-none transition hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10"
+        >
+          <Link href="/leaderboard" className="flex items-center gap-3">
+            <Trophy className="h-4 w-4" />
+            <span>{t("leaderboard")}</span>
           </Link>
         </DropdownMenuItem>
 

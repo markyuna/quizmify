@@ -17,6 +17,10 @@ import HistoryCard from "@/components/dashboard/HistoryCard";
 import HotTopicsCard from "@/components/dashboard/HotTopicsCard";
 import QuizMeCard from "@/components/dashboard/QuizMeCard";
 import TrophyCabinetCard from "@/components/dashboard/TrophyCabinetCard";
+import CertificatesCard from "@/components/dashboard/CertificatesCard";
+import RecommendationCard from "@/components/dashboard/RecommendationCard";
+import DailyChallengeCard from "@/components/dashboard/DailyChallengeCard";
+import LeaderboardCard from "@/components/dashboard/LeaderboardCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
@@ -361,6 +365,11 @@ export default async function DashboardPage() {
         </div>
       </section>
 
+      <section className="mt-4 grid grid-cols-1 gap-4 sm:mt-6 lg:grid-cols-2">
+        <DailyChallengeCard userId={userId} />
+        <RecommendationCard userId={userId} />
+      </section>
+
       <section className="mt-4 grid grid-cols-1 gap-4 sm:mt-6 sm:grid-cols-2 xl:grid-cols-4">
         {statCards.map((item) => {
           const stat = stats[item.key];
@@ -381,8 +390,13 @@ export default async function DashboardPage() {
         <HotTopicsCard />
       </section>
 
-      <section className="mt-4 sm:mt-6">
+      <section className="mt-4 grid grid-cols-1 gap-4 sm:mt-6 lg:grid-cols-2">
         <TrophyCabinetCard userId={userId} />
+        <CertificatesCard userId={userId} />
+      </section>
+
+      <section className="mt-4 sm:mt-6">
+        <LeaderboardCard userId={userId} />
       </section>
 
       {isAtFreeLimit && (

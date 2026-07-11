@@ -38,46 +38,53 @@ model Session {
 }
 
 model User {
-  id                    String                 @id @default(cuid())
-  name                  String?
-  email                 String?                @unique
-  emailVerified         DateTime?
-  image                 String?
-  password              String?
-  createdAt             DateTime               @default(now())
-  updatedAt             DateTime               @updatedAt
-  subscriptionStatus    String                 @default("free")
-  stripeCustomerId      String?
-  stripePaymentId       String?                @unique
-  xp                    Int                    @default(0)
-  level                 Int                    @default(1)
-  currentStreak         Int                    @default(0)
-  longestStreak         Int                    @default(0)
-  lastQuizDate          DateTime?
-  streakProtectionsUsed Int                    @default(0)
-  streakProtectionMonth String?
-  accounts              Account[]
-  sessions              Session[]
-  games                 Game[]
-  attempts              Attempt[]
-  questionProgress      UserQuestionProgress[]
-  trophies              Trophy[]
+  id                     String                  @id @default(cuid())
+  name                   String?
+  email                  String?                 @unique
+  emailVerified          DateTime?
+  image                  String?
+  password               String?
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+  subscriptionStatus     String                  @default("free")
+  stripeCustomerId       String?
+  stripePaymentId        String?                 @unique
+  xp                     Int                     @default(0)
+  level                  Int                     @default(1)
+  currentStreak          Int                     @default(0)
+  longestStreak          Int                     @default(0)
+  lastQuizDate           DateTime?
+  streakProtectionsUsed  Int                     @default(0)
+  streakProtectionMonth  String?
+  accounts               Account[]
+  sessions               Session[]
+  games                  Game[]
+  attempts               Attempt[]
+  questionProgress       UserQuestionProgress[]
+  trophies               Trophy[]
+  certificates           Certificate[]
+  topicRecommendation    TopicRecommendation?
+  dailyChallengeAttempts DailyChallengeAttempt[]
+
+  @@index([xp])
 }
 
 model Game {
-  id          String     @id @default(cuid())
-  gameType    GameType
-  timeStarted DateTime   @default(now())
-  timeEnded   DateTime?
-  topic       String
-  difficulty  String?
-  language    String     @default("en")
-  userId      String
-  score       Int        @default(0)
-  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  questions   Question[]
-  attempts    Attempt[]
-  trophies    Trophy[]
+  id                 String     @id @default(cuid())
+  gameType           GameType
+  timeStarted        DateTime   @default(now())
+  timeEnded          DateTime?
+  topic              String
+  difficulty         String?
+  language           String     @default("en")
+  userId             String
+  score              Int        @default(0)
+  isTimed            Boolean    @default(false)
+  timePerQuestionSec Int?
+  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  questions          Question[]
+  attempts           Attempt[]
+  trophies           Trophy[]
 
   @@index([userId])
   @@index([userId, timeStarted])
@@ -145,6 +152,7 @@ model AttemptAnswer {
   questionId     String
   selectedAnswer String
   isCorrect      Boolean
+  responseTimeMs Int?
   attempt        Attempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
 
   @@unique([attemptId, questionId])
@@ -154,6 +162,44 @@ model AttemptAnswer {
 
 enum GameType {
   mcq
+}
+
+model Certificate {
+  id       String          @id @default(cuid())
+  userId   String
+  kind     CertificateKind
+  // Empty string ("") for kinds not scoped to a topic (quizzes_50, streak_7)
+  // rather than null -- Postgres treats NULL as distinct-from-itself in
+  // unique indexes, which would silently defeat @@unique below.
+  topic    String          @default("")
+  earnedAt DateTime        @default(now())
+  metadata Json?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, kind, topic])
+  @@index([userId])
+}
+
+enum CertificateKind {
+  quizzes_50
+  category_mastery
+  streak_7
+}
+
+// Cached AI-generated "practice this topic" suggestion, regenerated only
+// when the user's stats move meaningfully (see src/lib/recommendations.ts)
+// so we don't pay an OpenAI call on every dashboard load.
+model TopicRecommendation {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  topic                 String
+  message               String
+  accuracy              Float
+  quizCountAtGeneration Int
+  generatedAt           DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Trophy {
@@ -194,4 +240,63 @@ model UserQuestionProgress {
   @@index([userId])
   @@index([questionId])
   @@index([userId, needsReview])
+}
+
+// One shared quiz per UTC calendar day *per language*, identical for every
+// user in that language. `date` is a "YYYY-MM-DD" string (not a DateTime)
+// purely so it can be part of a simple composite unique key -- see
+// src/lib/dailyChallenge.ts for generation/lookup.
+model DailyChallenge {
+  id         String   @id @default(cuid())
+  date       String
+  topic      String
+  difficulty String
+  language   String
+  createdAt  DateTime @default(now())
+
+  questions DailyChallengeQuestion[]
+  attempts  DailyChallengeAttempt[]
+
+  @@unique([date, language])
+}
+
+model DailyChallengeQuestion {
+  id               String   @id @default(cuid())
+  dailyChallengeId String
+  question         String
+  answer           String
+  options          String[]
+  explanation      String?
+  orderIndex       Int
+
+  dailyChallenge DailyChallenge @relation(fields: [dailyChallengeId], references: [id], onDelete: Cascade)
+
+  @@index([dailyChallengeId])
+}
+
+model DailyChallengeAttempt {
+  id                  String   @id @default(cuid())
+  dailyChallengeId    String
+  userId              String
+  score               Int
+  correctAnswers      Int
+  totalQuestions      Int
+  timeSpent           Int
+  // XP breakdown, stored (not just returned) so the "already played" view
+  // can show the same numbers on a later page load, not just right after
+  // submit. earnedXp is the actual amount applied to User.xp (may be less
+  // than baseXp + aboveAverageBonusXp if it was clamped by the free-tier cap).
+  baseXp              Int      @default(0)
+  aboveAverageBonusXp Int      @default(0)
+  earnedXp            Int      @default(0)
+  createdAt           DateTime @default(now())
+
+  dailyChallenge DailyChallenge @relation(fields: [dailyChallengeId], references: [id], onDelete: Cascade)
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Enforces "one attempt per user per day" at the database level, not just
+  // in application code.
+  @@unique([dailyChallengeId, userId])
+  @@index([dailyChallengeId])
+  @@index([userId])
 }

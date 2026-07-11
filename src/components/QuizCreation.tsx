@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Sparkles, Minus, Plus } from "lucide-react";
+import { Sparkles, Minus, Plus, Zap } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { quizCreationSchema } from "@/schemas/form/quiz";
@@ -98,6 +98,7 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
       amount: 5,
       difficulty: "easy",
       type: "mcq",
+      isTimed: false,
     },
   });
 
@@ -307,6 +308,63 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
                         <Plus className="h-4 w-4" />
                       </button>
                     </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="isTimed"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <button
+                      type="button"
+                      onClick={() => field.onChange(!field.value)}
+                      className={cn(
+                        "flex w-full items-center justify-between gap-3 rounded-2xl border p-3 text-left transition-all duration-200",
+                        field.value
+                          ? "border-amber-400 bg-amber-50 shadow-sm shadow-amber-200 dark:border-amber-500/50 dark:bg-amber-500/15"
+                          : "border-slate-200 bg-white/60 hover:border-slate-300 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                      )}
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <span
+                          className={cn(
+                            "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl",
+                            field.value
+                              ? "bg-amber-400/20 text-amber-600 dark:text-amber-300"
+                              : "bg-slate-100 text-slate-500 dark:bg-white/10 dark:text-slate-400"
+                          )}
+                        >
+                          <Zap className="h-4.5 w-4.5" />
+                        </span>
+                        <span>
+                          <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">
+                            {t("timedModeLabel")}
+                          </span>
+                          <span className="block text-xs text-slate-400">
+                            {t("timedModeDesc")}
+                          </span>
+                        </span>
+                      </span>
+
+                      <span
+                        className={cn(
+                          "relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200",
+                          field.value ? "bg-amber-500" : "bg-slate-300 dark:bg-white/20"
+                        )}
+                      >
+                        <span
+                          className={cn(
+                            "absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform duration-200",
+                            field.value ? "translate-x-[22px]" : "translate-x-0.5"
+                          )}
+                        />
+                      </span>
+                    </button>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

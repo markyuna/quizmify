@@ -59,8 +59,13 @@ export const ModelName = {
   Question: 'Question',
   Attempt: 'Attempt',
   AttemptAnswer: 'AttemptAnswer',
+  Certificate: 'Certificate',
+  TopicRecommendation: 'TopicRecommendation',
   Trophy: 'Trophy',
-  UserQuestionProgress: 'UserQuestionProgress'
+  UserQuestionProgress: 'UserQuestionProgress',
+  DailyChallenge: 'DailyChallenge',
+  DailyChallengeQuestion: 'DailyChallengeQuestion',
+  DailyChallengeAttempt: 'DailyChallengeAttempt'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -140,7 +145,9 @@ export const GameScalarFieldEnum = {
   difficulty: 'difficulty',
   language: 'language',
   userId: 'userId',
-  score: 'score'
+  score: 'score',
+  isTimed: 'isTimed',
+  timePerQuestionSec: 'timePerQuestionSec'
 } as const
 
 export type GameScalarFieldEnum = (typeof GameScalarFieldEnum)[keyof typeof GameScalarFieldEnum]
@@ -201,10 +208,36 @@ export const AttemptAnswerScalarFieldEnum = {
   attemptId: 'attemptId',
   questionId: 'questionId',
   selectedAnswer: 'selectedAnswer',
-  isCorrect: 'isCorrect'
+  isCorrect: 'isCorrect',
+  responseTimeMs: 'responseTimeMs'
 } as const
 
 export type AttemptAnswerScalarFieldEnum = (typeof AttemptAnswerScalarFieldEnum)[keyof typeof AttemptAnswerScalarFieldEnum]
+
+
+export const CertificateScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  kind: 'kind',
+  topic: 'topic',
+  earnedAt: 'earnedAt',
+  metadata: 'metadata'
+} as const
+
+export type CertificateScalarFieldEnum = (typeof CertificateScalarFieldEnum)[keyof typeof CertificateScalarFieldEnum]
+
+
+export const TopicRecommendationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  topic: 'topic',
+  message: 'message',
+  accuracy: 'accuracy',
+  quizCountAtGeneration: 'quizCountAtGeneration',
+  generatedAt: 'generatedAt'
+} as const
+
+export type TopicRecommendationScalarFieldEnum = (typeof TopicRecommendationScalarFieldEnum)[keyof typeof TopicRecommendationScalarFieldEnum]
 
 
 export const TrophyScalarFieldEnum = {
@@ -233,12 +266,62 @@ export const UserQuestionProgressScalarFieldEnum = {
 export type UserQuestionProgressScalarFieldEnum = (typeof UserQuestionProgressScalarFieldEnum)[keyof typeof UserQuestionProgressScalarFieldEnum]
 
 
+export const DailyChallengeScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  topic: 'topic',
+  difficulty: 'difficulty',
+  language: 'language',
+  createdAt: 'createdAt'
+} as const
+
+export type DailyChallengeScalarFieldEnum = (typeof DailyChallengeScalarFieldEnum)[keyof typeof DailyChallengeScalarFieldEnum]
+
+
+export const DailyChallengeQuestionScalarFieldEnum = {
+  id: 'id',
+  dailyChallengeId: 'dailyChallengeId',
+  question: 'question',
+  answer: 'answer',
+  options: 'options',
+  explanation: 'explanation',
+  orderIndex: 'orderIndex'
+} as const
+
+export type DailyChallengeQuestionScalarFieldEnum = (typeof DailyChallengeQuestionScalarFieldEnum)[keyof typeof DailyChallengeQuestionScalarFieldEnum]
+
+
+export const DailyChallengeAttemptScalarFieldEnum = {
+  id: 'id',
+  dailyChallengeId: 'dailyChallengeId',
+  userId: 'userId',
+  score: 'score',
+  correctAnswers: 'correctAnswers',
+  totalQuestions: 'totalQuestions',
+  timeSpent: 'timeSpent',
+  baseXp: 'baseXp',
+  aboveAverageBonusXp: 'aboveAverageBonusXp',
+  earnedXp: 'earnedXp',
+  createdAt: 'createdAt'
+} as const
+
+export type DailyChallengeAttemptScalarFieldEnum = (typeof DailyChallengeAttemptScalarFieldEnum)[keyof typeof DailyChallengeAttemptScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -255,4 +338,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

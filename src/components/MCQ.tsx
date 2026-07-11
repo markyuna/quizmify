@@ -20,12 +20,15 @@ import {
   Zap,
   Lock,
   LayoutDashboard,
+  Plus,
 } from "lucide-react";
 import { Game, Question } from "@/generated/prisma/client";
 import { useTranslations } from "next-intl";
 
 import MCQCounter from "./MCQCounter";
 import ExportPdfButton from "./ExportPdfButton";
+import ShareResultButton from "./ShareResultButton";
+import IconActionLink from "./IconActionLink";
 import TrophyModal from "./trophy/TrophyModal";
 import Globe3D from "./globe/Globe3D";
 import { Button, buttonVariants } from "./ui/button";
@@ -33,6 +36,7 @@ import { useToast } from "./ui/use-toast";
 import { cn, formatTimeDelta } from "@/lib/utils";
 import { getLevelProgress } from "@/lib/xp";
 import { isGeographyTopic } from "@/lib/geography";
+import { TIMEOUT_ANSWER_SENTINEL } from "@/lib/timedMode";
 import type { TrophyReason } from "@/app/api/quiz/submit/route";
 
 type QuestionWithOptions = Pick<
@@ -55,6 +59,7 @@ type AnswerRecord = {
   questionId: string;
   selectedAnswer: string;
   isCorrect: boolean;
+  responseTimeMs: number | null;
 };
 
 type SubmitQuizResponse = {
@@ -64,6 +69,7 @@ type SubmitQuizResponse = {
   correctAnswers: number;
   totalQuestions: number;
   earnedXp: number;
+  speedBonusXp: number;
   newXp: number;
   previousLevel: number;
   newLevel: number;
@@ -94,13 +100,25 @@ const MCQ = ({ game }: MCQProps) => {
   const [showTrophy, setShowTrophy] = React.useState(false);
   const [litCountries, setLitCountries] = React.useState<string[]>([]);
 
+  const timeLimitMs = game.isTimed && game.timePerQuestionSec ? game.timePerQuestionSec * 1000 : null;
+  const [questionShownAt, setQuestionShownAt] = React.useState(() => new Date().getTime());
+  const [remainingMs, setRemainingMs] = React.useState<number | null>(timeLimitMs);
+  const [timedOut, setTimedOut] = React.useState(false);
+
   const currentQuestion = game.questions[questionIndex];
   const isLastQuestion = questionIndex === game.questions.length - 1;
   const totalQuestions = game.questions.length;
   const isGeography = React.useMemo(() => isGeographyTopic(game.topic), [game.topic]);
 
   const { mutate: checkAnswer, isPending: isCheckingAnswer } = useMutation({
-    mutationFn: async ({ questionId, userAnswer }: { questionId: string; userAnswer: string }) => {
+    mutationFn: async ({
+      questionId,
+      userAnswer,
+    }: {
+      questionId: string;
+      userAnswer: string;
+      responseTimeMs: number | null;
+    }) => {
       const response = await axios.post<CheckAnswerResponse>("/api/checkAnswer", { questionId, userAnswer });
       return response.data;
     },
@@ -127,7 +145,15 @@ const MCQ = ({ game }: MCQProps) => {
 
       setAnswers((prev) => {
         const filtered = prev.filter((a) => a.questionId !== variables.questionId);
-        return [...filtered, { questionId: variables.questionId, selectedAnswer: variables.userAnswer, isCorrect }];
+        return [
+          ...filtered,
+          {
+            questionId: variables.questionId,
+            selectedAnswer: variables.userAnswer,
+            isCorrect,
+            responseTimeMs: variables.responseTimeMs,
+          },
+        ];
       });
     },
     onError: () => {
@@ -136,7 +162,11 @@ const MCQ = ({ game }: MCQProps) => {
   });
 
   const { mutate: submitQuiz, isPending: isSubmittingQuiz } = useMutation({
-    mutationFn: async (payload: { gameId: string; timeSpent: number; answers: { questionId: string; selectedAnswer: string }[] }) => {
+    mutationFn: async (payload: {
+      gameId: string;
+      timeSpent: number;
+      answers: { questionId: string; selectedAnswer: string; responseTimeMs?: number }[];
+    }) => {
       const response = await axios.post<SubmitQuizResponse>("/api/quiz/submit", payload);
       return response.data;
     },
@@ -166,9 +196,41 @@ const MCQ = ({ game }: MCQProps) => {
 
   const handleSelect = (option: string) => {
     if (hasAnswered || isCheckingAnswer || isSubmittingQuiz) return;
+    const responseTimeMs = new Date().getTime() - questionShownAt;
     setSelectedAnswer(option);
-    checkAnswer({ questionId: currentQuestion.id, userAnswer: option });
+    checkAnswer({ questionId: currentQuestion.id, userAnswer: option, responseTimeMs });
   };
+
+  const handleTimeout = React.useCallback(() => {
+    if (hasAnswered || isCheckingAnswer || isSubmittingQuiz || !currentQuestion) return;
+    setTimedOut(true);
+    checkAnswer({
+      questionId: currentQuestion.id,
+      userAnswer: TIMEOUT_ANSWER_SENTINEL,
+      responseTimeMs: timeLimitMs,
+    });
+  }, [hasAnswered, isCheckingAnswer, isSubmittingQuiz, currentQuestion, checkAnswer, timeLimitMs]);
+
+  // Timed-mode per-question countdown: ticks every 200ms while the current
+  // question is unanswered, auto-submits a sentinel wrong answer via the
+  // same /api/checkAnswer path once the limit is reached.
+  React.useEffect(() => {
+    if (!timeLimitMs || hasAnswered || quizFinished) return;
+
+    const interval = setInterval(() => {
+      const remaining = timeLimitMs - (new Date().getTime() - questionShownAt);
+
+      if (remaining <= 0) {
+        setRemainingMs(0);
+        clearInterval(interval);
+        handleTimeout();
+      } else {
+        setRemainingMs(remaining);
+      }
+    }, 200);
+
+    return () => clearInterval(interval);
+  }, [timeLimitMs, hasAnswered, quizFinished, questionShownAt, handleTimeout]);
 
   const handleNext = () => {
     if (!hasAnswered || isSubmittingQuiz) return;
@@ -179,6 +241,9 @@ const MCQ = ({ game }: MCQProps) => {
       setHasAnswered(false);
       setLastCorrectAnswer(null);
       setLastAnswerWasCorrect(null);
+      setTimedOut(false);
+      setQuestionShownAt(new Date().getTime());
+      setRemainingMs(timeLimitMs);
       return;
     }
 
@@ -188,7 +253,11 @@ const MCQ = ({ game }: MCQProps) => {
     submitQuiz({
       gameId: game.id,
       timeSpent: frozenElapsedSeconds,
-      answers: answers.map((a) => ({ questionId: a.questionId, selectedAnswer: a.selectedAnswer })),
+      answers: answers.map((a) => ({
+        questionId: a.questionId,
+        selectedAnswer: a.selectedAnswer,
+        responseTimeMs: a.responseTimeMs ?? undefined,
+      })),
     });
   };
 
@@ -317,6 +386,11 @@ const MCQ = ({ game }: MCQProps) => {
                 <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
                   {t("level")} {finalResult.newLevel} · {t("xpTotal", { xp: finalResult.newXp })}
                 </p>
+                {finalResult.speedBonusXp > 0 && (
+                  <p className="mt-1 flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-300">
+                    <Zap className="h-3.5 w-3.5" />+{finalResult.speedBonusXp} XP {t("speedBonus")}
+                  </p>
+                )}
                 <div className="mt-3">
                   <div className="mb-1.5 flex items-center justify-between text-xs text-slate-400">
                     <span>{levelProgress.xpIntoCurrentLevel}/{levelProgress.xpPerLevel} XP</span>
@@ -375,50 +449,54 @@ const MCQ = ({ game }: MCQProps) => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap"
         >
           <Button
             onClick={handlePlayAgain}
-            className="h-12 rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white shadow-lg shadow-violet-500/20 hover:opacity-95"
+            className="h-12 w-full rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white shadow-lg shadow-violet-500/20 hover:opacity-95"
           >
             <RotateCcw className="mr-2 h-4 w-4" />
             {t("playAgain")}
           </Button>
 
-          <Link
-            href={`/statistics/${game.id}`}
-            className={cn(buttonVariants({ variant: "secondary" }), "h-12 rounded-2xl")}
-          >
-            <BarChart3 className="mr-2 h-4 w-4" />
-            {t("statistics")}
-          </Link>
+          {/* Secondary actions: icon-only row, tooltip on hover (desktop),
+              aria-label carries the accessible name since there's no visible
+              text. Scrolls horizontally on narrow screens instead of
+              wrapping into a cramped grid. TooltipProvider lives in the
+              root layout, not here. */}
+          <div className="no-scrollbar mt-3 flex items-center gap-2 overflow-x-auto sm:flex-wrap sm:justify-center">
+            <IconActionLink
+              href={`/statistics/${game.id}`}
+              label={t("statistics")}
+              icon={<BarChart3 className="h-5 w-5" />}
+            />
 
-          <ExportPdfButton gameId={game.id} />
+            <ExportPdfButton gameId={game.id} compact />
 
-          {finalScore < 100 && (
-            <Link
-              href="/quiz/mistakes"
-              className={cn(buttonVariants({ variant: "outline" }), "h-12 rounded-2xl col-span-2 sm:col-span-1")}
-            >
-              <AlertCircle className="mr-2 h-4 w-4" />
-              {t("practiceMistakes")}
-            </Link>
-          )}
+            <ShareResultButton
+              compact
+              topic={game.topic}
+              score={finalScore}
+              correctAnswers={correctA}
+              totalQuestions={totalQ}
+              currentStreak={finalResult?.currentStreak ?? 0}
+            />
 
-          <Link
-            href="/quiz"
-            className={cn(buttonVariants({ variant: "outline" }), "h-12 rounded-2xl")}
-          >
-            {t("newQuiz")}
-          </Link>
+            {finalScore < 100 && (
+              <IconActionLink
+                href="/quiz/mistakes"
+                label={t("practiceMistakes")}
+                icon={<AlertCircle className="h-5 w-5" />}
+              />
+            )}
 
-          <Link
-            href="/dashboard"
-            className={cn(buttonVariants({ variant: "ghost" }), "h-12 rounded-2xl col-span-2")}
-          >
-            <LayoutDashboard className="mr-2 h-4 w-4" />
-            {t("backToDashboard")}
-          </Link>
+            <IconActionLink href="/quiz" label={t("newQuiz")} icon={<Plus className="h-5 w-5" />} />
+
+            <IconActionLink
+              href="/dashboard"
+              label={t("backToDashboard")}
+              icon={<LayoutDashboard className="h-5 w-5" />}
+            />
+          </div>
         </motion.div>
       </div>
     );
@@ -448,6 +526,30 @@ const MCQ = ({ game }: MCQProps) => {
             </div>
           </div>
         </div>
+
+        {timeLimitMs !== null && remainingMs !== null && !hasAnswered && (
+          <div className="mb-4 rounded-[1.5rem] border border-amber-200/80 bg-amber-50/60 p-3 shadow-sm backdrop-blur-xl dark:border-amber-500/20 dark:bg-amber-500/10">
+            <div className="mb-1.5 flex items-center justify-between text-xs font-semibold text-amber-700 dark:text-amber-300">
+              <span className="flex items-center gap-1">
+                <Timer className="h-3.5 w-3.5" />
+                {t("timeLeft")}
+              </span>
+              <span className="tabular-nums">{Math.ceil(remainingMs / 1000)}s</span>
+            </div>
+            <div className="h-1.5 overflow-hidden rounded-full bg-amber-200/60 dark:bg-amber-500/20">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-amber-500 to-rose-500 transition-[width] duration-200 ease-linear"
+                style={{ width: `${Math.max(0, Math.min(100, (remainingMs / timeLimitMs) * 100))}%` }}
+              />
+            </div>
+          </div>
+        )}
+
+        {timedOut && hasAnswered && (
+          <div className="mb-4 rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm font-semibold text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300">
+            ⏱️ {t("timeUp")}
+          </div>
+        )}
 
         {isGeography && (
           <div className="mb-4 flex flex-col items-center gap-2 rounded-[1.5rem] border border-slate-200/80 bg-white/80 p-4 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/5">

@@ -16,6 +16,15 @@ export const GameType = {
 export type GameType = (typeof GameType)[keyof typeof GameType]
 
 
+export const CertificateKind = {
+  quizzes_50: 'quizzes_50',
+  category_mastery: 'category_mastery',
+  streak_7: 'streak_7'
+} as const
+
+export type CertificateKind = (typeof CertificateKind)[keyof typeof CertificateKind]
+
+
 export const TrophyKind = {
   perfect: 'perfect',
   streak: 'streak'

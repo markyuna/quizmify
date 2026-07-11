@@ -14,6 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { Tooltip, TooltipTrigger, TooltipContent } from "./ui/tooltip";
 import type { ExportVariant } from "@/lib/pdf/quiz-export";
 
 type ExportPdfButtonProps = {
@@ -65,38 +66,43 @@ export default function ExportPdfButton({ gameId, compact = false }: ExportPdfBu
     }
   }
 
+  const trigger = compact ? (
+    <Button
+      variant="outline"
+      size="icon"
+      disabled={loadingVariant !== null}
+      aria-label={t("exportToPdf")}
+      className="h-11 w-11 shrink-0 rounded-2xl"
+    >
+      {loadingVariant ? (
+        <Loader2 className="h-5 w-5 animate-spin" />
+      ) : (
+        <Download className="h-5 w-5" />
+      )}
+    </Button>
+  ) : (
+    <Button variant="outline" disabled={loadingVariant !== null} className="h-12 rounded-2xl">
+      {loadingVariant ? (
+        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+      ) : (
+        <Download className="mr-2 h-4 w-4" />
+      )}
+      {t("exportToPdf")}
+    </Button>
+  );
+
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        {compact ? (
-          <Button
-            variant="ghost"
-            size="icon"
-            disabled={loadingVariant !== null}
-            aria-label={t("exportToPdf")}
-            className="h-8 w-8 shrink-0 rounded-xl"
-          >
-            {loadingVariant ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <Download className="h-4 w-4" />
-            )}
-          </Button>
-        ) : (
-          <Button
-            variant="outline"
-            disabled={loadingVariant !== null}
-            className="h-12 rounded-2xl"
-          >
-            {loadingVariant ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              <Download className="mr-2 h-4 w-4" />
-            )}
-            {t("exportToPdf")}
-          </Button>
-        )}
-      </DropdownMenuTrigger>
+      {compact ? (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
+          </TooltipTrigger>
+          <TooltipContent>{t("exportToPdf")}</TooltipContent>
+        </Tooltip>
+      ) : (
+        <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
+      )}
 
       <DropdownMenuContent
         align="start"

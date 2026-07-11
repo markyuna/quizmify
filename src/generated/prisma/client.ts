@@ -82,6 +82,16 @@ export type Attempt = Prisma.AttemptModel
  */
 export type AttemptAnswer = Prisma.AttemptAnswerModel
 /**
+ * Model Certificate
+ * 
+ */
+export type Certificate = Prisma.CertificateModel
+/**
+ * Model TopicRecommendation
+ * 
+ */
+export type TopicRecommendation = Prisma.TopicRecommendationModel
+/**
  * Model Trophy
  * 
  */
@@ -91,3 +101,18 @@ export type Trophy = Prisma.TrophyModel
  * 
  */
 export type UserQuestionProgress = Prisma.UserQuestionProgressModel
+/**
+ * Model DailyChallenge
+ * 
+ */
+export type DailyChallenge = Prisma.DailyChallengeModel
+/**
+ * Model DailyChallengeQuestion
+ * 
+ */
+export type DailyChallengeQuestion = Prisma.DailyChallengeQuestionModel
+/**
+ * Model DailyChallengeAttempt
+ * 
+ */
+export type DailyChallengeAttempt = Prisma.DailyChallengeAttemptModel

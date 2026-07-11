@@ -28,10 +28,12 @@ export type AggregateGame = {
 
 export type GameAvgAggregateOutputType = {
   score: number | null
+  timePerQuestionSec: number | null
 }
 
 export type GameSumAggregateOutputType = {
   score: number | null
+  timePerQuestionSec: number | null
 }
 
 export type GameMinAggregateOutputType = {
@@ -44,6 +46,8 @@ export type GameMinAggregateOutputType = {
   language: string | null
   userId: string | null
   score: number | null
+  isTimed: boolean | null
+  timePerQuestionSec: number | null
 }
 
 export type GameMaxAggregateOutputType = {
@@ -56,6 +60,8 @@ export type GameMaxAggregateOutputType = {
   language: string | null
   userId: string | null
   score: number | null
+  isTimed: boolean | null
+  timePerQuestionSec: number | null
 }
 
 export type GameCountAggregateOutputType = {
@@ -68,16 +74,20 @@ export type GameCountAggregateOutputType = {
   language: number
   userId: number
   score: number
+  isTimed: number
+  timePerQuestionSec: number
   _all: number
 }
 
 
 export type GameAvgAggregateInputType = {
   score?: true
+  timePerQuestionSec?: true
 }
 
 export type GameSumAggregateInputType = {
   score?: true
+  timePerQuestionSec?: true
 }
 
 export type GameMinAggregateInputType = {
@@ -90,6 +100,8 @@ export type GameMinAggregateInputType = {
   language?: true
   userId?: true
   score?: true
+  isTimed?: true
+  timePerQuestionSec?: true
 }
 
 export type GameMaxAggregateInputType = {
@@ -102,6 +114,8 @@ export type GameMaxAggregateInputType = {
   language?: true
   userId?: true
   score?: true
+  isTimed?: true
+  timePerQuestionSec?: true
 }
 
 export type GameCountAggregateInputType = {
@@ -114,6 +128,8 @@ export type GameCountAggregateInputType = {
   language?: true
   userId?: true
   score?: true
+  isTimed?: true
+  timePerQuestionSec?: true
   _all?: true
 }
 
@@ -213,6 +229,8 @@ export type GameGroupByOutputType = {
   language: string
   userId: string
   score: number
+  isTimed: boolean
+  timePerQuestionSec: number | null
   _count: GameCountAggregateOutputType | null
   _avg: GameAvgAggregateOutputType | null
   _sum: GameSumAggregateOutputType | null
@@ -248,6 +266,8 @@ export type GameWhereInput = {
   language?: Prisma.StringFilter<"Game"> | string
   userId?: Prisma.StringFilter<"Game"> | string
   score?: Prisma.IntFilter<"Game"> | number
+  isTimed?: Prisma.BoolFilter<"Game"> | boolean
+  timePerQuestionSec?: Prisma.IntNullableFilter<"Game"> | number | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   questions?: Prisma.QuestionListRelationFilter
   attempts?: Prisma.AttemptListRelationFilter
@@ -264,6 +284,8 @@ export type GameOrderByWithRelationInput = {
   language?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  isTimed?: Prisma.SortOrder
+  timePerQuestionSec?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   questions?: Prisma.QuestionOrderByRelationAggregateInput
   attempts?: Prisma.AttemptOrderByRelationAggregateInput
@@ -283,6 +305,8 @@ export type GameWhereUniqueInput = Prisma.AtLeast<{
   language?: Prisma.StringFilter<"Game"> | string
   userId?: Prisma.StringFilter<"Game"> | string
   score?: Prisma.IntFilter<"Game"> | number
+  isTimed?: Prisma.BoolFilter<"Game"> | boolean
+  timePerQuestionSec?: Prisma.IntNullableFilter<"Game"> | number | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   questions?: Prisma.QuestionListRelationFilter
   attempts?: Prisma.AttemptListRelationFilter
@@ -299,6 +323,8 @@ export type GameOrderByWithAggregationInput = {
   language?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  isTimed?: Prisma.SortOrder
+  timePerQuestionSec?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.GameCountOrderByAggregateInput
   _avg?: Prisma.GameAvgOrderByAggregateInput
   _max?: Prisma.GameMaxOrderByAggregateInput
@@ -319,6 +345,8 @@ export type GameScalarWhereWithAggregatesInput = {
   language?: Prisma.StringWithAggregatesFilter<"Game"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Game"> | string
   score?: Prisma.IntWithAggregatesFilter<"Game"> | number
+  isTimed?: Prisma.BoolWithAggregatesFilter<"Game"> | boolean
+  timePerQuestionSec?: Prisma.IntNullableWithAggregatesFilter<"Game"> | number | null
 }
 
 export type GameCreateInput = {
@@ -330,6 +358,8 @@ export type GameCreateInput = {
   difficulty?: string | null
   language?: string
   score?: number
+  isTimed?: boolean
+  timePerQuestionSec?: number | null
   user: Prisma.UserCreateNestedOneWithoutGamesInput
   questions?: Prisma.QuestionCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutGameInput
@@ -346,6 +376,8 @@ export type GameUncheckedCreateInput = {
   language?: string
   userId: string
   score?: number
+  isTimed?: boolean
+  timePerQuestionSec?: number | null
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutGameInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutGameInput
@@ -360,6 +392,8 @@ export type GameUpdateInput = {
   difficulty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   user?: Prisma.UserUpdateOneRequiredWithoutGamesNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutGameNestedInput
@@ -376,6 +410,8 @@ export type GameUncheckedUpdateInput = {
   language?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutGameNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutGameNestedInput
@@ -391,6 +427,8 @@ export type GameCreateManyInput = {
   language?: string
   userId: string
   score?: number
+  isTimed?: boolean
+  timePerQuestionSec?: number | null
 }
 
 export type GameUpdateManyMutationInput = {
@@ -402,6 +440,8 @@ export type GameUpdateManyMutationInput = {
   difficulty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type GameUncheckedUpdateManyInput = {
@@ -414,6 +454,8 @@ export type GameUncheckedUpdateManyInput = {
   language?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type GameListRelationFilter = {
@@ -436,10 +478,13 @@ export type GameCountOrderByAggregateInput = {
   language?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  isTimed?: Prisma.SortOrder
+  timePerQuestionSec?: Prisma.SortOrder
 }
 
 export type GameAvgOrderByAggregateInput = {
   score?: Prisma.SortOrder
+  timePerQuestionSec?: Prisma.SortOrder
 }
 
 export type GameMaxOrderByAggregateInput = {
@@ -452,6 +497,8 @@ export type GameMaxOrderByAggregateInput = {
   language?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  isTimed?: Prisma.SortOrder
+  timePerQuestionSec?: Prisma.SortOrder
 }
 
 export type GameMinOrderByAggregateInput = {
@@ -464,10 +511,13 @@ export type GameMinOrderByAggregateInput = {
   language?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   score?: Prisma.SortOrder
+  isTimed?: Prisma.SortOrder
+  timePerQuestionSec?: Prisma.SortOrder
 }
 
 export type GameSumOrderByAggregateInput = {
   score?: Prisma.SortOrder
+  timePerQuestionSec?: Prisma.SortOrder
 }
 
 export type GameScalarRelationFilter = {
@@ -526,6 +576,10 @@ export type EnumGameTypeFieldUpdateOperationsInput = {
   set?: $Enums.GameType
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type GameCreateNestedOneWithoutQuestionsInput = {
   create?: Prisma.XOR<Prisma.GameCreateWithoutQuestionsInput, Prisma.GameUncheckedCreateWithoutQuestionsInput>
   connectOrCreate?: Prisma.GameCreateOrConnectWithoutQuestionsInput
@@ -579,6 +633,8 @@ export type GameCreateWithoutUserInput = {
   difficulty?: string | null
   language?: string
   score?: number
+  isTimed?: boolean
+  timePerQuestionSec?: number | null
   questions?: Prisma.QuestionCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutGameInput
   trophies?: Prisma.TrophyCreateNestedManyWithoutGameInput
@@ -593,6 +649,8 @@ export type GameUncheckedCreateWithoutUserInput = {
   difficulty?: string | null
   language?: string
   score?: number
+  isTimed?: boolean
+  timePerQuestionSec?: number | null
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutGameInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutGameInput
@@ -637,6 +695,8 @@ export type GameScalarWhereInput = {
   language?: Prisma.StringFilter<"Game"> | string
   userId?: Prisma.StringFilter<"Game"> | string
   score?: Prisma.IntFilter<"Game"> | number
+  isTimed?: Prisma.BoolFilter<"Game"> | boolean
+  timePerQuestionSec?: Prisma.IntNullableFilter<"Game"> | number | null
 }
 
 export type GameCreateWithoutQuestionsInput = {
@@ -648,6 +708,8 @@ export type GameCreateWithoutQuestionsInput = {
   difficulty?: string | null
   language?: string
   score?: number
+  isTimed?: boolean
+  timePerQuestionSec?: number | null
   user: Prisma.UserCreateNestedOneWithoutGamesInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutGameInput
   trophies?: Prisma.TrophyCreateNestedManyWithoutGameInput
@@ -663,6 +725,8 @@ export type GameUncheckedCreateWithoutQuestionsInput = {
   language?: string
   userId: string
   score?: number
+  isTimed?: boolean
+  timePerQuestionSec?: number | null
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutGameInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutGameInput
 }
@@ -692,6 +756,8 @@ export type GameUpdateWithoutQuestionsInput = {
   difficulty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   user?: Prisma.UserUpdateOneRequiredWithoutGamesNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutGameNestedInput
   trophies?: Prisma.TrophyUpdateManyWithoutGameNestedInput
@@ -707,6 +773,8 @@ export type GameUncheckedUpdateWithoutQuestionsInput = {
   language?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutGameNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutGameNestedInput
 }
@@ -720,6 +788,8 @@ export type GameCreateWithoutAttemptsInput = {
   difficulty?: string | null
   language?: string
   score?: number
+  isTimed?: boolean
+  timePerQuestionSec?: number | null
   user: Prisma.UserCreateNestedOneWithoutGamesInput
   questions?: Prisma.QuestionCreateNestedManyWithoutGameInput
   trophies?: Prisma.TrophyCreateNestedManyWithoutGameInput
@@ -735,6 +805,8 @@ export type GameUncheckedCreateWithoutAttemptsInput = {
   language?: string
   userId: string
   score?: number
+  isTimed?: boolean
+  timePerQuestionSec?: number | null
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutGameInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutGameInput
 }
@@ -764,6 +836,8 @@ export type GameUpdateWithoutAttemptsInput = {
   difficulty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   user?: Prisma.UserUpdateOneRequiredWithoutGamesNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutGameNestedInput
   trophies?: Prisma.TrophyUpdateManyWithoutGameNestedInput
@@ -779,6 +853,8 @@ export type GameUncheckedUpdateWithoutAttemptsInput = {
   language?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutGameNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutGameNestedInput
 }
@@ -792,6 +868,8 @@ export type GameCreateWithoutTrophiesInput = {
   difficulty?: string | null
   language?: string
   score?: number
+  isTimed?: boolean
+  timePerQuestionSec?: number | null
   user: Prisma.UserCreateNestedOneWithoutGamesInput
   questions?: Prisma.QuestionCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutGameInput
@@ -807,6 +885,8 @@ export type GameUncheckedCreateWithoutTrophiesInput = {
   language?: string
   userId: string
   score?: number
+  isTimed?: boolean
+  timePerQuestionSec?: number | null
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutGameInput
 }
@@ -836,6 +916,8 @@ export type GameUpdateWithoutTrophiesInput = {
   difficulty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   user?: Prisma.UserUpdateOneRequiredWithoutGamesNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutGameNestedInput
@@ -851,6 +933,8 @@ export type GameUncheckedUpdateWithoutTrophiesInput = {
   language?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutGameNestedInput
 }
@@ -864,6 +948,8 @@ export type GameCreateManyUserInput = {
   difficulty?: string | null
   language?: string
   score?: number
+  isTimed?: boolean
+  timePerQuestionSec?: number | null
 }
 
 export type GameUpdateWithoutUserInput = {
@@ -875,6 +961,8 @@ export type GameUpdateWithoutUserInput = {
   difficulty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   questions?: Prisma.QuestionUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutGameNestedInput
   trophies?: Prisma.TrophyUpdateManyWithoutGameNestedInput
@@ -889,6 +977,8 @@ export type GameUncheckedUpdateWithoutUserInput = {
   difficulty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutGameNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutGameNestedInput
@@ -903,6 +993,8 @@ export type GameUncheckedUpdateManyWithoutUserInput = {
   difficulty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   language?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
+  isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -964,6 +1056,8 @@ export type GameSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   language?: boolean
   userId?: boolean
   score?: boolean
+  isTimed?: boolean
+  timePerQuestionSec?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   questions?: boolean | Prisma.Game$questionsArgs<ExtArgs>
   attempts?: boolean | Prisma.Game$attemptsArgs<ExtArgs>
@@ -981,6 +1075,8 @@ export type GameSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   language?: boolean
   userId?: boolean
   score?: boolean
+  isTimed?: boolean
+  timePerQuestionSec?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["game"]>
 
@@ -994,6 +1090,8 @@ export type GameSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   language?: boolean
   userId?: boolean
   score?: boolean
+  isTimed?: boolean
+  timePerQuestionSec?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["game"]>
 
@@ -1007,9 +1105,11 @@ export type GameSelectScalar = {
   language?: boolean
   userId?: boolean
   score?: boolean
+  isTimed?: boolean
+  timePerQuestionSec?: boolean
 }
 
-export type GameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "gameType" | "timeStarted" | "timeEnded" | "topic" | "difficulty" | "language" | "userId" | "score", ExtArgs["result"]["game"]>
+export type GameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "gameType" | "timeStarted" | "timeEnded" | "topic" | "difficulty" | "language" | "userId" | "score" | "isTimed" | "timePerQuestionSec", ExtArgs["result"]["game"]>
 export type GameInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   questions?: boolean | Prisma.Game$questionsArgs<ExtArgs>
@@ -1042,6 +1142,8 @@ export type $GamePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     language: string
     userId: string
     score: number
+    isTimed: boolean
+    timePerQuestionSec: number | null
   }, ExtArgs["result"]["game"]>
   composites: {}
 }
@@ -1478,6 +1580,8 @@ export interface GameFieldRefs {
   readonly language: Prisma.FieldRef<"Game", 'String'>
   readonly userId: Prisma.FieldRef<"Game", 'String'>
   readonly score: Prisma.FieldRef<"Game", 'Int'>
+  readonly isTimed: Prisma.FieldRef<"Game", 'Boolean'>
+  readonly timePerQuestionSec: Prisma.FieldRef<"Game", 'Int'>
 }
     
 

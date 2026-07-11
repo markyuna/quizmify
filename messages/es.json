@@ -6,6 +6,7 @@
     "dashboard": "Panel",
     "quiz": "Quiz",
     "history": "Historial",
+    "leaderboard": "Ranking",
     "myAccount": "Mi cuenta",
     "signOut": "Cerrar sesión"
   },
@@ -108,6 +109,8 @@
     "amountLabel": "Cantidad de preguntas",
     "questionSingular": "pregunta",
     "questionPlural": "preguntas",
+    "timedModeLabel": "Contrarreloj",
+    "timedModeDesc": "20s por pregunta, con bonus de XP por velocidad",
     "creating": "Creando quiz...",
     "generate": "Generar",
     "errorTitle": "Error",
@@ -176,7 +179,10 @@
     "saving": "Guardando...",
     "finishQuiz": "Terminar quiz 🎉",
     "nextQuestion": "Siguiente pregunta",
-    "home": "Inicio"
+    "home": "Inicio",
+    "timeUp": "Se acabó el tiempo — contada como incorrecta",
+    "speedBonus": "Bonus de velocidad",
+    "timeLeft": "Tiempo restante"
   },
   "Dashboard": {
     "statAttemptsTitle": "Quizzes completados en total",
@@ -345,5 +351,67 @@
     "perfectLabel": "Puntaje perfecto",
     "streakLabel": "Racha de {count} días",
     "unknownTopic": "Quiz"
+  },
+  "Certificates": {
+    "badge": "Logros",
+    "title": "Certificados",
+    "countLabel": "{count, plural, one {# certificado obtenido} other {# certificados obtenidos}}",
+    "emptyTitle": "Todavía no hay certificados",
+    "emptySubtitle": "Seguí jugando para desbloquear certificados",
+    "emptyHint": "Completá 50 quizzes, alcanzá una racha de 7 días, o dominá una categoría para ganar tu primer certificado.",
+    "proOnly": "Solo Pro",
+    "download": "Descargar",
+    "proRequiredTitle": "Necesitás Pro",
+    "proRequiredDescription": "Actualizá a Pro para descargar certificados.",
+    "errorTitle": "Error",
+    "errorDescription": "No se pudo descargar el certificado."
+  },
+  "Recommendation": {
+    "badge": "Sugerencia IA",
+    "practiceTopic": "Practicar {topic}"
+  },
+  "DailyChallenge": {
+    "badge": "Desafío diario",
+    "participantCount": "{count, plural, =0 {Todavía nadie jugó} one {# jugador hasta ahora} other {# jugadores hasta ahora}}",
+    "playNow": "Jugar ahora",
+    "viewResult": "Sacaste {score}%",
+    "alreadyPlayed": "Ya jugaste el desafío de hoy",
+    "yourScore": "Tu puntaje",
+    "average": "Promedio",
+    "aboveAverage": "{diff} pts por encima del promedio",
+    "belowAverage": "{diff} pts por debajo del promedio",
+    "comeBackTomorrow": "Volvé mañana para un nuevo desafío",
+    "questionAbbrev": "Pregunta",
+    "error": "Error",
+    "unableToSubmit": "No se pudieron enviar tus respuestas.",
+    "submitting": "Enviando...",
+    "next": "Siguiente",
+    "finish": "Terminar",
+    "resultTitle": "¡Desafío completado!",
+    "xpEarned": "+{xp} XP",
+    "aboveAverageBonus": "Bonus por superar el promedio"
+  },
+  "ShareResult": {
+    "downloadImage": "Compartir imagen",
+    "share": "Compartir",
+    "error": "Error",
+    "unableToGenerate": "No se pudo generar la imagen.",
+    "unableToShare": "No se pudo compartir la imagen.",
+    "shareText": "¡Saqué {score}% en {topic} en Quizmify!"
+  },
+  "Leaderboard": {
+    "badge": "Ranking",
+    "title": "Ranking",
+    "global": "Global",
+    "yourRank": "Estás en el puesto #{rank}",
+    "notRankedTopic": "Jugá un quiz de esta categoría para entrar al ranking",
+    "notRankedGlobal": "Jugá un quiz para entrar al ranking",
+    "empty": "Todavía nadie jugó",
+    "you": "(vos)",
+    "quizzesPlayed": "{count, plural, one {# quiz jugado} other {# quizzes jugados}}",
+    "levelLabel": "Nivel {level}",
+    "correctCount": "{count, plural, one {# correcta} other {# correctas}}",
+    "pageOf": "Página {page} de {totalPages}",
+    "viewLeaderboard": "Ver ranking"
   }
 }

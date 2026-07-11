@@ -6,6 +6,7 @@
     "dashboard": "Tableau de bord",
     "quiz": "Quiz",
     "history": "Historique",
+    "leaderboard": "Classement",
     "myAccount": "Mon compte",
     "signOut": "Se déconnecter"
   },
@@ -108,6 +109,8 @@
     "amountLabel": "Nombre de questions",
     "questionSingular": "question",
     "questionPlural": "questions",
+    "timedModeLabel": "Contre la montre",
+    "timedModeDesc": "20s par question, avec un bonus d'XP de vitesse",
     "creating": "Création du quiz...",
     "generate": "Générer",
     "errorTitle": "Erreur",
@@ -176,7 +179,10 @@
     "saving": "Enregistrement...",
     "finishQuiz": "Terminer le quiz 🎉",
     "nextQuestion": "Question suivante",
-    "home": "Accueil"
+    "home": "Accueil",
+    "timeUp": "Temps écoulé — comptée comme incorrecte",
+    "speedBonus": "Bonus de vitesse",
+    "timeLeft": "Temps restant"
   },
   "Dashboard": {
     "statAttemptsTitle": "Quiz terminés au total",
@@ -345,5 +351,67 @@
     "perfectLabel": "Score parfait",
     "streakLabel": "Série de {count} jours",
     "unknownTopic": "Quiz"
+  },
+  "Certificates": {
+    "badge": "Réussites",
+    "title": "Certificats",
+    "countLabel": "{count, plural, one {# certificat obtenu} other {# certificats obtenus}}",
+    "emptyTitle": "Aucun certificat pour l'instant",
+    "emptySubtitle": "Continuez à jouer pour débloquer des certificats",
+    "emptyHint": "Terminez 50 quiz, atteignez une série de 7 jours, ou maîtrisez une catégorie pour gagner votre premier certificat.",
+    "proOnly": "Pro uniquement",
+    "download": "Télécharger",
+    "proRequiredTitle": "Pro requis",
+    "proRequiredDescription": "Passez à Pro pour télécharger des certificats.",
+    "errorTitle": "Erreur",
+    "errorDescription": "Impossible de télécharger le certificat."
+  },
+  "Recommendation": {
+    "badge": "Suggestion IA",
+    "practiceTopic": "Pratiquer {topic}"
+  },
+  "DailyChallenge": {
+    "badge": "Défi quotidien",
+    "participantCount": "{count, plural, =0 {Personne n'a encore joué} one {# joueur pour l'instant} other {# joueurs pour l'instant}}",
+    "playNow": "Jouer maintenant",
+    "viewResult": "Vous avez obtenu {score} %",
+    "alreadyPlayed": "Vous avez déjà joué au défi d'aujourd'hui",
+    "yourScore": "Votre score",
+    "average": "Moyenne",
+    "aboveAverage": "{diff} pts au-dessus de la moyenne",
+    "belowAverage": "{diff} pts en dessous de la moyenne",
+    "comeBackTomorrow": "Revenez demain pour un nouveau défi",
+    "questionAbbrev": "Question",
+    "error": "Erreur",
+    "unableToSubmit": "Impossible d'envoyer vos réponses.",
+    "submitting": "Envoi...",
+    "next": "Suivant",
+    "finish": "Terminer",
+    "resultTitle": "Défi terminé !",
+    "xpEarned": "+{xp} XP",
+    "aboveAverageBonus": "Bonus au-dessus de la moyenne"
+  },
+  "ShareResult": {
+    "downloadImage": "Partager l'image",
+    "share": "Partager",
+    "error": "Erreur",
+    "unableToGenerate": "Impossible de générer l'image.",
+    "unableToShare": "Impossible de partager l'image.",
+    "shareText": "J'ai obtenu {score} % sur {topic} sur Quizmify !"
+  },
+  "Leaderboard": {
+    "badge": "Classement",
+    "title": "Classement",
+    "global": "Global",
+    "yourRank": "Vous êtes #{rank}",
+    "notRankedTopic": "Jouez un quiz dans cette catégorie pour être classé",
+    "notRankedGlobal": "Jouez un quiz pour être classé",
+    "empty": "Personne n'a encore joué",
+    "you": "(vous)",
+    "quizzesPlayed": "{count, plural, one {# quiz joué} other {# quiz joués}}",
+    "levelLabel": "Niveau {level}",
+    "correctCount": "{count, plural, one {# correcte} other {# correctes}}",
+    "pageOf": "Page {page} sur {totalPages}",
+    "viewLeaderboard": "Voir le classement"
   }
 }

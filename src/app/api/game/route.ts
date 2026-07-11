@@ -4,21 +4,22 @@ import { z } from "zod";
 
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
-import { openai } from "@/lib/openai";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { quizCreationSchema } from "@/schemas/form/quiz";
 import { getRequestLocale } from "@/i18n/get-locale";
 import type { Locale } from "@/i18n/locales";
 import { isUserAtFreeLimit } from "@/lib/paywall";
 import { isGeographyTopic } from "@/lib/geography";
-
-type Difficulty = "easy" | "medium" | "hard";
-
-const LANGUAGE_NAMES: Record<Locale, string> = {
-  en: "English",
-  fr: "French",
-  es: "Spanish",
-};
+import { TIMED_MODE_SECONDS_PER_QUESTION } from "@/lib/timedMode";
+import {
+  type Difficulty,
+  type GeneratedQuestion,
+  normalizeTopic,
+  normalizeDifficulty,
+  dedupeQuestions,
+  generateQuestionsWithAI,
+  shuffleArray,
+} from "@/lib/questionGeneration";
 
 type SupabaseMCQQuestion = {
   id: string;
@@ -35,94 +36,11 @@ type SupabaseMCQQuestion = {
   created_at: string;
 };
 
-type GeneratedQuestion = {
-  question: string;
-  options: string[];
-  correct_answer: string;
-  explanation: string;
-  country: string | null;
-};
-
-const generatedQuestionsSchema = z.object({
-  questions: z
-    .array(
-      z.object({
-        question: z.string().min(1),
-        options: z.array(z.string().min(1)).min(4).max(4),
-        correct_answer: z.string().min(1),
-        explanation: z.string().min(1),
-        country: z.string().min(1).nullable().optional(),
-      })
-    )
-    .min(1),
-});
-
 function jsonError(message: string, status: number, details?: unknown) {
   return NextResponse.json(
     details ? { error: message, details } : { error: message },
     { status }
   );
-}
-
-function normalizeTopic(topic: string): string {
-  return topic.trim().replace(/\s+/g, " ");
-}
-
-function normalizeDifficulty(difficulty: Difficulty): Difficulty {
-  return difficulty.toLowerCase() as Difficulty;
-}
-
-function shuffleArray<T>(items: T[]): T[] {
-  const result = [...items];
-
-  for (let i = result.length - 1; i > 0; i--) {
-    const randomIndex = Math.floor(Math.random() * (i + 1));
-    [result[i], result[randomIndex]] = [result[randomIndex], result[i]];
-  }
-
-  return result;
-}
-
-function ensureValidOptions(options: string[], correctAnswer: string): string[] {
-  const normalizedCorrectAnswer = correctAnswer.trim();
-
-  const sanitizedOptions = options
-    .map((option) => option.trim())
-    .filter((option) => option.length > 0);
-
-  const uniqueOptions = Array.from(new Set(sanitizedOptions));
-
-  if (!uniqueOptions.includes(normalizedCorrectAnswer)) {
-    uniqueOptions.unshift(normalizedCorrectAnswer);
-  }
-
-  const finalOptions = Array.from(new Set(uniqueOptions)).slice(0, 4);
-
-  while (finalOptions.length < 4) {
-    finalOptions.push(`Option ${finalOptions.length + 1}`);
-  }
-
-  if (!finalOptions.includes(normalizedCorrectAnswer)) {
-    finalOptions[0] = normalizedCorrectAnswer;
-  }
-
-  return shuffleArray(finalOptions);
-}
-
-function dedupeQuestions<T extends { question: string }>(questions: T[]): T[] {
-  const seen = new Set<string>();
-  const result: T[] = [];
-
-  for (const q of questions) {
-    const key = q.question.trim().toLowerCase();
-
-    if (!seen.has(key)) {
-      seen.add(key);
-      result.push(q);
-    }
-  }
-
-  return result;
 }
 
 async function fetchExistingMCQQuestions(params: {
@@ -148,78 +66,6 @@ async function fetchExistingMCQQuestions(params: {
   }
 
   return (data ?? []) as SupabaseMCQQuestion[];
-}
-
-async function generateQuestionsWithAI(params: {
-  topic: string;
-  difficulty: Difficulty;
-  language: Locale;
-  amount: number;
-  isGeography: boolean;
-}): Promise<GeneratedQuestion[]> {
-  const { topic, difficulty, language, amount, isGeography } = params;
-  const languageName = LANGUAGE_NAMES[language];
-
-  const countryField = isGeography
-    ? `,\n      "country": "string or null -- the real-world country (in English, e.g. \\"France\\", \\"Japan\\") this specific question is about, or null if it isn't about a specific country"`
-    : "";
-
-  const countryRule = isGeography
-    ? "\n- if the question is about a specific country, city, or place, set \"country\" to that country's name in English; otherwise set it to null"
-    : "";
-
-  const response = await openai.chat.completions.create({
-    model: process.env.OPENAI_MODEL || "gpt-4o",
-    messages: [
-      {
-        role: "developer",
-        content: `Generate high-quality multiple-choice quiz questions entirely in ${languageName}. Return only valid JSON. Each question must have exactly 4 options and exactly 1 correct answer. Avoid duplicates.`,
-      },
-      {
-        role: "user",
-        content: `Generate ${amount} multiple-choice quiz questions about "${topic}" with difficulty "${difficulty}". Write the question, options, and explanation entirely in ${languageName}.
-
-Return a JSON object with this exact structure:
-{
-  "questions": [
-    {
-      "question": "string",
-      "options": ["string", "string", "string", "string"],
-      "correct_answer": "string",
-      "explanation": "string"${countryField}
-    }
-  ]
-}
-
-Rules:
-- exactly 4 options per question
-- exactly 1 correct answer
-- the correct answer must appear in options
-- concise and clear ${languageName}
-- no markdown
-- no extra text${countryRule}`,
-      },
-    ],
-    response_format: { type: "json_object" },
-    temperature: 0.7,
-  });
-
-  const content = response.choices[0]?.message?.content;
-
-  if (!content) {
-    throw new Error("OpenAI returned empty content");
-  }
-
-  const parsedJson = JSON.parse(content);
-  const parsed = generatedQuestionsSchema.parse(parsedJson);
-
-  return parsed.questions.map((q) => ({
-    question: q.question.trim(),
-    options: ensureValidOptions(q.options, q.correct_answer),
-    correct_answer: q.correct_answer.trim(),
-    explanation: q.explanation.trim(),
-    country: q.country?.trim() || null,
-  }));
 }
 
 async function saveGeneratedQuestionsToSupabase(params: {
@@ -285,6 +131,16 @@ export async function POST(req: Request) {
     const type = parsedBody.type;
     const language = await getRequestLocale();
     const isGeography = isGeographyTopic(topic);
+    const isTimed = parsedBody.isTimed;
+
+    // A cache that only ever holds exactly `amount` rows for a given
+    // topic/difficulty/language would serve the *identical* set on every
+    // quiz forever -- nothing below would ever trigger new generation once
+    // the cache already covered `amount`. Pull a pool a few times larger
+    // than one quiz so there's always something to shuffle, and let it grow
+    // by one more `amount`-sized AI batch per visit (same cost profile as a
+    // cold cache) until it reaches that size.
+    const POOL_TARGET = amount * 3;
 
     let cachedQuestions: SupabaseMCQQuestion[] = [];
 
@@ -293,7 +149,7 @@ export async function POST(req: Request) {
         topic,
         difficulty,
         language,
-        amount,
+        amount: POOL_TARGET,
       });
 
     } catch (error) {
@@ -301,25 +157,20 @@ export async function POST(req: Request) {
       cachedQuestions = [];
     }
 
-    let finalQuestions: Array<SupabaseMCQQuestion | GeneratedQuestion> = [
+    let pool: Array<SupabaseMCQQuestion | GeneratedQuestion> = [
       ...cachedQuestions,
     ];
 
-    if (finalQuestions.length < amount) {
-      const missingAmount = amount - finalQuestions.length;
-
+    if (pool.length < POOL_TARGET) {
       const aiQuestions = await generateQuestionsWithAI({
         topic,
         difficulty,
         language,
-        amount: missingAmount,
+        amount,
         isGeography,
       });
 
-      const dedupedAIQuestions = dedupeQuestions(aiQuestions).slice(
-        0,
-        missingAmount
-      );
+      const dedupedAIQuestions = dedupeQuestions(aiQuestions).slice(0, amount);
 
       if (dedupedAIQuestions.length > 0) {
         try {
@@ -334,14 +185,13 @@ export async function POST(req: Request) {
           console.error("Supabase cache write error:", error);
         }
 
-        finalQuestions = dedupeQuestions([
-          ...finalQuestions,
-          ...dedupedAIQuestions,
-        ]);
+        pool = dedupeQuestions([...pool, ...dedupedAIQuestions]);
       }
     }
 
-    finalQuestions = dedupeQuestions(finalQuestions).slice(0, amount);
+    // Randomize which `amount` questions are served this time instead of
+    // always taking the same prefix of the pool.
+    const finalQuestions = shuffleArray(dedupeQuestions(pool)).slice(0, amount);
 
     if (finalQuestions.length === 0) {
       return jsonError("Could not fetch or generate questions.", 500);
@@ -356,6 +206,8 @@ export async function POST(req: Request) {
           topic,
           difficulty,
           language,
+          isTimed,
+          timePerQuestionSec: isTimed ? TIMED_MODE_SECONDS_PER_QUESTION : null,
         },
       });
 
@@ -388,7 +240,7 @@ export async function POST(req: Request) {
         success: true,
         gameId: game.id,
         source:
-          cachedQuestions.length >= amount
+          cachedQuestions.length >= POOL_TARGET
             ? "supabase_cache"
             : cachedQuestions.length > 0
             ? "supabase_plus_ai"
