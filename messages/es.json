@@ -311,5 +311,16 @@
     "deleting": "Eliminando…",
     "yesDeleteEverything": "Sí, eliminar todo",
     "cancel": "Cancelar"
+  },
+  "ExportPdf": {
+    "exportToPdf": "Exportar a PDF",
+    "withAnswers": "Con respuestas",
+    "withAnswersDesc": "Ideal para repasar tus resultados",
+    "withoutAnswers": "Sin respuestas",
+    "withoutAnswersDesc": "Usalo como examen en blanco para otra persona",
+    "proRequiredTitle": "Función Pro",
+    "proRequiredDescription": "Exportar a PDF es una función Pro. Actualizá una vez para desbloquearla.",
+    "errorTitle": "Error",
+    "errorDescription": "No se pudo generar el PDF. Intentalo de nuevo."
   }
 }

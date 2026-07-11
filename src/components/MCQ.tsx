@@ -25,6 +25,7 @@ import { Game, Question } from "@/generated/prisma/client";
 import { useTranslations } from "next-intl";
 
 import MCQCounter from "./MCQCounter";
+import ExportPdfButton from "./ExportPdfButton";
 import { Button, buttonVariants } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import { cn, formatTimeDelta } from "@/lib/utils";
@@ -365,6 +366,8 @@ const MCQ = ({ game }: MCQProps) => {
             <BarChart3 className="mr-2 h-4 w-4" />
             {t("statistics")}
           </Link>
+
+          <ExportPdfButton gameId={game.id} />
 
           {finalScore < 100 && (
             <Link

@@ -311,5 +311,16 @@
     "deleting": "Deleting…",
     "yesDeleteEverything": "Yes, delete everything",
     "cancel": "Cancel"
+  },
+  "ExportPdf": {
+    "exportToPdf": "Export to PDF",
+    "withAnswers": "With answers",
+    "withAnswersDesc": "Great for reviewing your results",
+    "withoutAnswers": "Without answers",
+    "withoutAnswersDesc": "Use it as a blank exam for someone else",
+    "proRequiredTitle": "Pro feature",
+    "proRequiredDescription": "PDF export is a Pro feature. Upgrade once to unlock it.",
+    "errorTitle": "Error",
+    "errorDescription": "Could not generate the PDF. Please try again."
   }
 }

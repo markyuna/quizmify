@@ -311,5 +311,16 @@
     "deleting": "Suppression…",
     "yesDeleteEverything": "Oui, tout supprimer",
     "cancel": "Annuler"
+  },
+  "ExportPdf": {
+    "exportToPdf": "Exporter en PDF",
+    "withAnswers": "Avec les réponses",
+    "withAnswersDesc": "Idéal pour revoir vos résultats",
+    "withoutAnswers": "Sans les réponses",
+    "withoutAnswersDesc": "À utiliser comme examen vierge pour quelqu'un d'autre",
+    "proRequiredTitle": "Fonctionnalité Pro",
+    "proRequiredDescription": "L'export PDF est une fonctionnalité Pro. Passez à Pro une fois pour la débloquer.",
+    "errorTitle": "Erreur",
+    "errorDescription": "Impossible de générer le PDF. Veuillez réessayer."
   }
 }

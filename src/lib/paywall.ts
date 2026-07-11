@@ -23,3 +23,17 @@ export async function isUserAtFreeLimit(userId: string): Promise<boolean> {
   // here would never be true and the cap would never engage.
   return !isPro && user.xp >= FREE_XP_CAP - 1;
 }
+
+/**
+ * Single source of truth for Pro-only features (e.g. PDF export) that
+ * aren't tied to the free XP cap at all -- always reads subscriptionStatus
+ * fresh from the database, never trust a client-supplied value.
+ */
+export async function isUserPro(userId: string): Promise<boolean> {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { subscriptionStatus: true },
+  });
+
+  return user?.subscriptionStatus === "pro";
+}

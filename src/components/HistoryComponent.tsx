@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { getTranslations } from "next-intl/server";
 import { formatTimeDelta } from "@/lib/utils";
+import ExportPdfButton from "./ExportPdfButton";
 
 export type AttemptItem = {
   id: string;
@@ -125,6 +126,12 @@ const HistoryComponent = async ({ limit, userId, data }: Props) => {
                   </p>
                 </div>
               </div>
+
+              {gameId && (
+                <div className="shrink-0">
+                  <ExportPdfButton gameId={gameId} compact />
+                </div>
+              )}
             </div>
           </div>
         );
