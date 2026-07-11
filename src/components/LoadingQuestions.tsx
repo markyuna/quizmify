@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { BrainCircuit, Sparkles, Wand2 } from "lucide-react";
+import { AnimatePresence, motion, MotionConfig } from "framer-motion";
+import { BrainCircuit, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Progress } from "./ui/progress";
 
@@ -48,169 +48,113 @@ export default function LoadingQuestions({
     }, 2200);
 
     return () => clearInterval(interval);
-  }, [finished]);
+  }, [finished, loadingTexts.length, loadingBadges.length]);
 
   const loadingText = loadingTexts[textIndex];
 
+  const statusItems = [
+    { label: t("status"), value: finished ? t("finalizing") : t("generating") },
+    { label: t("engine"), value: t("engineValue") },
+    { label: t("output"), value: t("outputValue") },
+  ];
+
   return (
-    <main className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-4xl items-center justify-center px-4 py-10">
-      <div className="relative w-full max-w-2xl overflow-hidden rounded-[2rem] border border-black/5 bg-white/70 p-8 shadow-2xl shadow-slate-200/60 backdrop-blur-2xl dark:border-white/10 dark:bg-black/40 dark:shadow-violet-950/20">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.12),transparent_30%),radial-gradient(circle_at_top_right,rgba(34,211,238,0.10),transparent_28%),radial-gradient(circle_at_bottom,rgba(217,70,239,0.08),transparent_30%)] dark:bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.16),transparent_30%),radial-gradient(circle_at_top_right,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_bottom,rgba(217,70,239,0.10),transparent_30%)]" />
+    <MotionConfig reducedMotion="user">
+      <main className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-4xl items-center justify-center px-4 py-10">
+        <div className="relative w-full max-w-xl overflow-hidden rounded-[1.75rem] border border-black/5 bg-white/70 p-5 shadow-2xl shadow-slate-200/60 backdrop-blur-2xl dark:border-white/10 dark:bg-black/40 dark:shadow-violet-950/20 sm:p-6">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.10),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.08),transparent_35%)] dark:bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.12),transparent_35%)]" />
 
-        <div className="pointer-events-none absolute left-10 top-10 h-32 w-32 rounded-full bg-violet-500/10 blur-3xl" />
-        <div className="pointer-events-none absolute right-10 top-16 h-32 w-32 rounded-full bg-cyan-500/10 blur-3xl" />
-        <div className="pointer-events-none absolute bottom-8 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-fuchsia-500/10 blur-3xl" />
+          <div className="relative z-10">
+            {/* Badges: single-row chip strip, scrolls on mobile instead of wrapping */}
+            <div className="no-scrollbar mb-5 flex items-center gap-1.5 overflow-x-auto">
+              {loadingBadges.map((badge, index) => {
+                const isActive = index === activeBadge;
 
-        <div className="relative z-10 flex flex-col items-center text-center">
-          <div className="mb-6 flex flex-wrap items-center justify-center gap-2">
-            {loadingBadges.map((badge, index) => {
-              const isActive = index === activeBadge;
+                return (
+                  <motion.span
+                    key={badge}
+                    animate={{ opacity: isActive ? 1 : 0.5, scale: isActive ? 1.03 : 1 }}
+                    transition={{ duration: 0.25 }}
+                    className="shrink-0 whitespace-nowrap rounded-full border border-black/5 bg-white/75 px-2.5 py-1 text-[11px] font-medium text-slate-700 backdrop-blur-xl dark:border-white/10 dark:bg-white/5 dark:text-white/80"
+                  >
+                    {badge}
+                  </motion.span>
+                );
+              })}
+            </div>
 
-              return (
-                <motion.span
-                  key={badge}
-                  animate={{
-                    opacity: isActive ? 1 : 0.5,
-                    scale: isActive ? 1.04 : 1,
-                  }}
-                  transition={{ duration: 0.25 }}
-                  className="rounded-full border border-black/5 bg-white/75 px-3 py-1 text-xs font-medium text-slate-700 backdrop-blur-xl dark:border-white/10 dark:bg-white/5 dark:text-white/80"
+            {/* Icon + status text, side by side instead of a large centered stack */}
+            <div className="flex items-center gap-3.5">
+              <div className="relative shrink-0">
+                <motion.div
+                  animate={{ scale: [1, 1.06, 1] }}
+                  transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                  className="flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-100 dark:bg-violet-500/15"
                 >
-                  {badge}
-                </motion.span>
-              );
-            })}
-          </div>
+                  <BrainCircuit className="h-6 w-6 text-violet-600 dark:text-violet-300" />
+                </motion.div>
 
-          <div className="relative mb-8 flex h-52 w-52 items-center justify-center">
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{
-                duration: 12,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute h-52 w-52 rounded-full border border-violet-400/20"
-            />
+                <motion.div
+                  animate={{ opacity: [0.4, 1, 0.4], scale: [1, 1.15, 1] }}
+                  transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-white shadow dark:bg-slate-900"
+                >
+                  <Sparkles className="h-3 w-3 text-cyan-500 dark:text-cyan-300" />
+                </motion.div>
+              </div>
 
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{
-                duration: 9,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute h-40 w-40 rounded-full border border-cyan-400/20"
-            />
-
-            <motion.div
-              animate={{ scale: [1, 1.06, 1], opacity: [0.7, 1, 0.7] }}
-              transition={{
-                duration: 2.8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute h-28 w-28 rounded-full bg-gradient-to-br from-violet-500/30 via-fuchsia-500/20 to-cyan-400/30 blur-xl"
-            />
-
-            <motion.div
-              animate={{ y: [0, -5, 0], rotate: [0, 4, -4, 0] }}
-              transition={{
-                duration: 3.2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="relative flex h-24 w-24 items-center justify-center rounded-[1.75rem] border border-black/5 bg-white/80 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-white/10"
-            >
-              <BrainCircuit className="h-10 w-10 text-violet-500 dark:text-violet-300" />
-            </motion.div>
-
-            <motion.div
-              animate={{ opacity: [0.3, 1, 0.3], scale: [1, 1.15, 1] }}
-              transition={{
-                duration: 2.4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute left-6 top-10"
-            >
-              <Sparkles className="h-5 w-5 text-cyan-500 dark:text-cyan-300" />
-            </motion.div>
-
-            <motion.div
-              animate={{ opacity: [0.4, 1, 0.4], scale: [1, 1.15, 1] }}
-              transition={{
-                duration: 2.8,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 0.6,
-              }}
-              className="absolute bottom-8 right-8"
-            >
-              <Wand2 className="h-5 w-5 text-fuchsia-500 dark:text-fuchsia-300" />
-            </motion.div>
-          </div>
-
-          <AnimatePresence mode="wait">
-            <motion.h1
-              key={loadingText}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35 }}
-              className="max-w-xl text-balance text-2xl font-semibold tracking-tight text-slate-900 dark:text-white"
-            >
-              {loadingText}
-            </motion.h1>
-          </AnimatePresence>
-
-          <p className="mt-2 text-xs text-slate-500 dark:text-white/40">
-            {t("mayTakeAFewSeconds")}
-          </p>
-
-          <div className="mt-8 w-full max-w-xl">
-            <div className="mb-3 flex items-center justify-between text-sm text-slate-600 dark:text-white/70">
-              <span>{t("preparingYourQuiz")}</span>
-              <span>{Math.round(progress)}%</span>
+              <div className="min-w-0">
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={loadingText}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-balance text-base font-semibold leading-snug text-slate-900 dark:text-white sm:text-lg"
+                  >
+                    {loadingText}
+                  </motion.p>
+                </AnimatePresence>
+                <p className="mt-0.5 text-xs text-slate-500 dark:text-white/40">
+                  {t("engineValue")} · {t("mayTakeAFewSeconds")}
+                </p>
+              </div>
             </div>
 
-            <Progress
-              value={progress}
-              className="h-2.5 w-full bg-slate-200 dark:bg-white/10"
-              indicatorClassName="bg-[length:200%_100%] bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400 shadow-[0_0_20px_rgba(168,85,247,0.35)] animate-[shimmer_2.2s_linear_infinite]"
-            />
-          </div>
+            {/* Progress: thin bar, label + percent on one line above */}
+            <div className="mt-5">
+              <div className="mb-1.5 flex items-center justify-between text-xs text-slate-600 dark:text-white/70">
+                <span>{t("preparingYourQuiz")}</span>
+                <span className="font-semibold tabular-nums">{Math.round(progress)}%</span>
+              </div>
 
-          <div className="mt-6 grid w-full max-w-xl grid-cols-1 gap-3 sm:grid-cols-3">
-            <div className="rounded-2xl border border-black/5 bg-white/75 px-4 py-3 text-left backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
-              <p className="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-white/40">
-                {t("status")}
-              </p>
-              <p className="mt-1 text-sm font-medium text-slate-800 dark:text-white/85">
-                {finished ? t("finalizing") : t("generating")}
-              </p>
+              <Progress
+                value={progress}
+                className="h-1.5 w-full bg-slate-200 dark:bg-white/10"
+                indicatorClassName="animate-shimmer bg-[length:200%_100%] bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400 motion-reduce:animate-none"
+              />
             </div>
 
-            <div className="rounded-2xl border border-black/5 bg-white/75 px-4 py-3 text-left backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
-              <p className="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-white/40">
-                {t("engine")}
-              </p>
-              <p className="mt-1 text-sm font-medium text-slate-800 dark:text-white/85">
-                {t("engineValue")}
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-black/5 bg-white/75 px-4 py-3 text-left backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
-              <p className="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-white/40">
-                {t("output")}
-              </p>
-              <p className="mt-1 text-sm font-medium text-slate-800 dark:text-white/85">
-                {t("outputValue")}
-              </p>
+            {/* Status cards: compact 3-col row */}
+            <div className="mt-4 grid grid-cols-3 gap-2">
+              {statusItems.map((item) => (
+                <div
+                  key={item.label}
+                  className="min-w-0 rounded-xl border border-black/5 bg-white/75 px-2.5 py-2 text-left backdrop-blur-xl dark:border-white/10 dark:bg-white/5"
+                >
+                  <p className="truncate text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400 dark:text-white/40">
+                    {item.label}
+                  </p>
+                  <p className="mt-0.5 truncate text-xs font-medium text-slate-800 dark:text-white/85">
+                    {item.value}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </MotionConfig>
   );
 }

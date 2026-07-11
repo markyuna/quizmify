@@ -40,3 +40,28 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+@theme {
+  --animate-shimmer: shimmer 2.2s linear infinite;
+  --animate-shine: shine 3.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes shine {
+  0%,
+  15% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  40%,
+  100% {
+    transform: translateX(250%) skewX(-20deg);
+  }
+}
