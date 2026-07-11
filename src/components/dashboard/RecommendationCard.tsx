@@ -4,10 +4,12 @@ import { getTranslations } from "next-intl/server";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { getOrGenerateTopicRecommendation } from "@/lib/recommendations";
+import { getRequestLocale } from "@/i18n/get-locale";
 
 export default async function RecommendationCard({ userId }: { userId: string }) {
   const t = await getTranslations("Recommendation");
-  const recommendation = await getOrGenerateTopicRecommendation(userId);
+  const locale = await getRequestLocale();
+  const recommendation = await getOrGenerateTopicRecommendation(userId, locale);
 
   if (!recommendation) return null;
 

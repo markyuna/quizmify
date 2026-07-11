@@ -1713,6 +1713,7 @@ export type CertificateScalarFieldEnum = (typeof CertificateScalarFieldEnum)[key
 export const TopicRecommendationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  language: 'language',
   topic: 'topic',
   message: 'message',
   accuracy: 'accuracy',

@@ -2,6 +2,8 @@ import { z } from "zod";
 
 import { prisma } from "@/lib/db";
 import { openai } from "@/lib/openai";
+import { LANGUAGE_NAMES } from "@/lib/questionGeneration";
+import type { Locale } from "@/i18n/locales";
 
 /** Regenerate the cached recommendation at most once a day... */
 const STALE_AFTER_MS = 24 * 60 * 60 * 1000;
@@ -70,7 +72,22 @@ async function findWeakestTopic(userId: string): Promise<{ topic: string; accura
   return weakest;
 }
 
-async function generateMotivationalMessage(topic: string, accuracyPercent: number): Promise<string> {
+const FALLBACK_MESSAGE_TEMPLATES: Record<Locale, (topic: string, accuracyPercent: number) => string> = {
+  en: (topic, accuracyPercent) =>
+    `Your accuracy in ${topic} is ${accuracyPercent}%. A quick practice round could help.`,
+  es: (topic, accuracyPercent) =>
+    `Tu precisión en ${topic} es del ${accuracyPercent}%. Una ronda rápida de práctica puede ayudarte.`,
+  fr: (topic, accuracyPercent) =>
+    `Votre précision en ${topic} est de ${accuracyPercent}%. Une petite session de pratique pourrait aider.`,
+};
+
+async function generateMotivationalMessage(
+  topic: string,
+  accuracyPercent: number,
+  locale: Locale
+): Promise<string> {
+  const languageName = LANGUAGE_NAMES[locale];
+
   const response = await openai.chat.completions.create({
     model: "gpt-4.1-mini",
     temperature: 0.7,
@@ -78,7 +95,9 @@ async function generateMotivationalMessage(topic: string, accuracyPercent: numbe
       {
         role: "system",
         content:
-          "You are an encouraging quiz coach. Given a topic the user is weakest in, write one short, upbeat, motivating sentence (max 160 characters) suggesting they practice it. No emojis, no markdown. Return valid JSON only.",
+          `You are an encouraging quiz coach. Given a topic the user is weakest in, write one short, ` +
+          `upbeat, motivating sentence (max 160 characters) suggesting they practice it, written entirely ` +
+          `in ${languageName}. No emojis, no markdown. Return valid JSON only, with the message in ${languageName}.`,
       },
       {
         role: "user",
@@ -102,12 +121,14 @@ async function generateMotivationalMessage(topic: string, accuracyPercent: numbe
  * never on every dashboard load, to keep this feature's AI cost bounded.
  */
 export async function getOrGenerateTopicRecommendation(
-  userId: string
+  userId: string,
+  locale: Locale
 ): Promise<TopicRecommendationResult | null> {
   const now = new Date();
+  const cacheKey = { userId_language: { userId, language: locale } };
 
   const [cached, totalQuizzes] = await Promise.all([
-    prisma.topicRecommendation.findUnique({ where: { userId } }),
+    prisma.topicRecommendation.findUnique({ where: cacheKey }),
     prisma.game.count({ where: { userId, timeEnded: { not: null } } }),
   ]);
 
@@ -131,19 +152,21 @@ export async function getOrGenerateTopicRecommendation(
 
   let message: string;
   try {
-    message = await generateMotivationalMessage(weakest.topic, accuracyPercent);
+    message = await generateMotivationalMessage(weakest.topic, accuracyPercent, locale);
   } catch (error) {
     console.error("Topic recommendation generation failed:", error);
     // Fall back to the previous cached message rather than a hard failure
-    // if we already had one; otherwise a plain non-AI message.
+    // if we already had one; otherwise a plain non-AI message in the same
+    // locale.
     if (cached) return { topic: cached.topic, message: cached.message, accuracy: cached.accuracy };
-    message = `Your accuracy in ${weakest.topic} is ${accuracyPercent}%. A quick practice round could help.`;
+    message = FALLBACK_MESSAGE_TEMPLATES[locale](weakest.topic, accuracyPercent);
   }
 
   await prisma.topicRecommendation.upsert({
-    where: { userId },
+    where: cacheKey,
     create: {
       userId,
+      language: locale,
       topic: weakest.topic,
       message,
       accuracy: weakest.accuracy,

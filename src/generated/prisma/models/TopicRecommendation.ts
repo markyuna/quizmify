@@ -39,6 +39,7 @@ export type TopicRecommendationSumAggregateOutputType = {
 export type TopicRecommendationMinAggregateOutputType = {
   id: string | null
   userId: string | null
+  language: string | null
   topic: string | null
   message: string | null
   accuracy: number | null
@@ -49,6 +50,7 @@ export type TopicRecommendationMinAggregateOutputType = {
 export type TopicRecommendationMaxAggregateOutputType = {
   id: string | null
   userId: string | null
+  language: string | null
   topic: string | null
   message: string | null
   accuracy: number | null
@@ -59,6 +61,7 @@ export type TopicRecommendationMaxAggregateOutputType = {
 export type TopicRecommendationCountAggregateOutputType = {
   id: number
   userId: number
+  language: number
   topic: number
   message: number
   accuracy: number
@@ -81,6 +84,7 @@ export type TopicRecommendationSumAggregateInputType = {
 export type TopicRecommendationMinAggregateInputType = {
   id?: true
   userId?: true
+  language?: true
   topic?: true
   message?: true
   accuracy?: true
@@ -91,6 +95,7 @@ export type TopicRecommendationMinAggregateInputType = {
 export type TopicRecommendationMaxAggregateInputType = {
   id?: true
   userId?: true
+  language?: true
   topic?: true
   message?: true
   accuracy?: true
@@ -101,6 +106,7 @@ export type TopicRecommendationMaxAggregateInputType = {
 export type TopicRecommendationCountAggregateInputType = {
   id?: true
   userId?: true
+  language?: true
   topic?: true
   message?: true
   accuracy?: true
@@ -198,6 +204,7 @@ export type TopicRecommendationGroupByArgs<ExtArgs extends runtime.Types.Extensi
 export type TopicRecommendationGroupByOutputType = {
   id: string
   userId: string
+  language: string
   topic: string
   message: string
   accuracy: number
@@ -231,6 +238,7 @@ export type TopicRecommendationWhereInput = {
   NOT?: Prisma.TopicRecommendationWhereInput | Prisma.TopicRecommendationWhereInput[]
   id?: Prisma.StringFilter<"TopicRecommendation"> | string
   userId?: Prisma.StringFilter<"TopicRecommendation"> | string
+  language?: Prisma.StringFilter<"TopicRecommendation"> | string
   topic?: Prisma.StringFilter<"TopicRecommendation"> | string
   message?: Prisma.StringFilter<"TopicRecommendation"> | string
   accuracy?: Prisma.FloatFilter<"TopicRecommendation"> | number
@@ -242,6 +250,7 @@ export type TopicRecommendationWhereInput = {
 export type TopicRecommendationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   accuracy?: Prisma.SortOrder
@@ -252,21 +261,24 @@ export type TopicRecommendationOrderByWithRelationInput = {
 
 export type TopicRecommendationWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  userId?: string
+  userId_language?: Prisma.TopicRecommendationUserIdLanguageCompoundUniqueInput
   AND?: Prisma.TopicRecommendationWhereInput | Prisma.TopicRecommendationWhereInput[]
   OR?: Prisma.TopicRecommendationWhereInput[]
   NOT?: Prisma.TopicRecommendationWhereInput | Prisma.TopicRecommendationWhereInput[]
+  userId?: Prisma.StringFilter<"TopicRecommendation"> | string
+  language?: Prisma.StringFilter<"TopicRecommendation"> | string
   topic?: Prisma.StringFilter<"TopicRecommendation"> | string
   message?: Prisma.StringFilter<"TopicRecommendation"> | string
   accuracy?: Prisma.FloatFilter<"TopicRecommendation"> | number
   quizCountAtGeneration?: Prisma.IntFilter<"TopicRecommendation"> | number
   generatedAt?: Prisma.DateTimeFilter<"TopicRecommendation"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "userId">
+}, "id" | "userId_language">
 
 export type TopicRecommendationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   accuracy?: Prisma.SortOrder
@@ -285,6 +297,7 @@ export type TopicRecommendationScalarWhereWithAggregatesInput = {
   NOT?: Prisma.TopicRecommendationScalarWhereWithAggregatesInput | Prisma.TopicRecommendationScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"TopicRecommendation"> | string
   userId?: Prisma.StringWithAggregatesFilter<"TopicRecommendation"> | string
+  language?: Prisma.StringWithAggregatesFilter<"TopicRecommendation"> | string
   topic?: Prisma.StringWithAggregatesFilter<"TopicRecommendation"> | string
   message?: Prisma.StringWithAggregatesFilter<"TopicRecommendation"> | string
   accuracy?: Prisma.FloatWithAggregatesFilter<"TopicRecommendation"> | number
@@ -294,17 +307,19 @@ export type TopicRecommendationScalarWhereWithAggregatesInput = {
 
 export type TopicRecommendationCreateInput = {
   id?: string
+  language?: string
   topic: string
   message: string
   accuracy: number
   quizCountAtGeneration: number
   generatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutTopicRecommendationInput
+  user: Prisma.UserCreateNestedOneWithoutTopicRecommendationsInput
 }
 
 export type TopicRecommendationUncheckedCreateInput = {
   id?: string
   userId: string
+  language?: string
   topic: string
   message: string
   accuracy: number
@@ -314,17 +329,19 @@ export type TopicRecommendationUncheckedCreateInput = {
 
 export type TopicRecommendationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   accuracy?: Prisma.FloatFieldUpdateOperationsInput | number
   quizCountAtGeneration?: Prisma.IntFieldUpdateOperationsInput | number
   generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutTopicRecommendationNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutTopicRecommendationsNestedInput
 }
 
 export type TopicRecommendationUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   accuracy?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -335,6 +352,7 @@ export type TopicRecommendationUncheckedUpdateInput = {
 export type TopicRecommendationCreateManyInput = {
   id?: string
   userId: string
+  language?: string
   topic: string
   message: string
   accuracy: number
@@ -344,6 +362,7 @@ export type TopicRecommendationCreateManyInput = {
 
 export type TopicRecommendationUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   accuracy?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -354,6 +373,7 @@ export type TopicRecommendationUpdateManyMutationInput = {
 export type TopicRecommendationUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   accuracy?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -361,14 +381,25 @@ export type TopicRecommendationUncheckedUpdateManyInput = {
   generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type TopicRecommendationNullableScalarRelationFilter = {
-  is?: Prisma.TopicRecommendationWhereInput | null
-  isNot?: Prisma.TopicRecommendationWhereInput | null
+export type TopicRecommendationListRelationFilter = {
+  every?: Prisma.TopicRecommendationWhereInput
+  some?: Prisma.TopicRecommendationWhereInput
+  none?: Prisma.TopicRecommendationWhereInput
+}
+
+export type TopicRecommendationOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type TopicRecommendationUserIdLanguageCompoundUniqueInput = {
+  userId: string
+  language: string
 }
 
 export type TopicRecommendationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   accuracy?: Prisma.SortOrder
@@ -384,6 +415,7 @@ export type TopicRecommendationAvgOrderByAggregateInput = {
 export type TopicRecommendationMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   accuracy?: Prisma.SortOrder
@@ -394,6 +426,7 @@ export type TopicRecommendationMaxOrderByAggregateInput = {
 export type TopicRecommendationMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   accuracy?: Prisma.SortOrder
@@ -406,36 +439,46 @@ export type TopicRecommendationSumOrderByAggregateInput = {
   quizCountAtGeneration?: Prisma.SortOrder
 }
 
-export type TopicRecommendationCreateNestedOneWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.TopicRecommendationCreateWithoutUserInput, Prisma.TopicRecommendationUncheckedCreateWithoutUserInput>
-  connectOrCreate?: Prisma.TopicRecommendationCreateOrConnectWithoutUserInput
-  connect?: Prisma.TopicRecommendationWhereUniqueInput
+export type TopicRecommendationCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.TopicRecommendationCreateWithoutUserInput, Prisma.TopicRecommendationUncheckedCreateWithoutUserInput> | Prisma.TopicRecommendationCreateWithoutUserInput[] | Prisma.TopicRecommendationUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.TopicRecommendationCreateOrConnectWithoutUserInput | Prisma.TopicRecommendationCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.TopicRecommendationCreateManyUserInputEnvelope
+  connect?: Prisma.TopicRecommendationWhereUniqueInput | Prisma.TopicRecommendationWhereUniqueInput[]
 }
 
-export type TopicRecommendationUncheckedCreateNestedOneWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.TopicRecommendationCreateWithoutUserInput, Prisma.TopicRecommendationUncheckedCreateWithoutUserInput>
-  connectOrCreate?: Prisma.TopicRecommendationCreateOrConnectWithoutUserInput
-  connect?: Prisma.TopicRecommendationWhereUniqueInput
+export type TopicRecommendationUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.TopicRecommendationCreateWithoutUserInput, Prisma.TopicRecommendationUncheckedCreateWithoutUserInput> | Prisma.TopicRecommendationCreateWithoutUserInput[] | Prisma.TopicRecommendationUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.TopicRecommendationCreateOrConnectWithoutUserInput | Prisma.TopicRecommendationCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.TopicRecommendationCreateManyUserInputEnvelope
+  connect?: Prisma.TopicRecommendationWhereUniqueInput | Prisma.TopicRecommendationWhereUniqueInput[]
 }
 
-export type TopicRecommendationUpdateOneWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.TopicRecommendationCreateWithoutUserInput, Prisma.TopicRecommendationUncheckedCreateWithoutUserInput>
-  connectOrCreate?: Prisma.TopicRecommendationCreateOrConnectWithoutUserInput
-  upsert?: Prisma.TopicRecommendationUpsertWithoutUserInput
-  disconnect?: Prisma.TopicRecommendationWhereInput | boolean
-  delete?: Prisma.TopicRecommendationWhereInput | boolean
-  connect?: Prisma.TopicRecommendationWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TopicRecommendationUpdateToOneWithWhereWithoutUserInput, Prisma.TopicRecommendationUpdateWithoutUserInput>, Prisma.TopicRecommendationUncheckedUpdateWithoutUserInput>
+export type TopicRecommendationUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.TopicRecommendationCreateWithoutUserInput, Prisma.TopicRecommendationUncheckedCreateWithoutUserInput> | Prisma.TopicRecommendationCreateWithoutUserInput[] | Prisma.TopicRecommendationUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.TopicRecommendationCreateOrConnectWithoutUserInput | Prisma.TopicRecommendationCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.TopicRecommendationUpsertWithWhereUniqueWithoutUserInput | Prisma.TopicRecommendationUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.TopicRecommendationCreateManyUserInputEnvelope
+  set?: Prisma.TopicRecommendationWhereUniqueInput | Prisma.TopicRecommendationWhereUniqueInput[]
+  disconnect?: Prisma.TopicRecommendationWhereUniqueInput | Prisma.TopicRecommendationWhereUniqueInput[]
+  delete?: Prisma.TopicRecommendationWhereUniqueInput | Prisma.TopicRecommendationWhereUniqueInput[]
+  connect?: Prisma.TopicRecommendationWhereUniqueInput | Prisma.TopicRecommendationWhereUniqueInput[]
+  update?: Prisma.TopicRecommendationUpdateWithWhereUniqueWithoutUserInput | Prisma.TopicRecommendationUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.TopicRecommendationUpdateManyWithWhereWithoutUserInput | Prisma.TopicRecommendationUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.TopicRecommendationScalarWhereInput | Prisma.TopicRecommendationScalarWhereInput[]
 }
 
-export type TopicRecommendationUncheckedUpdateOneWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.TopicRecommendationCreateWithoutUserInput, Prisma.TopicRecommendationUncheckedCreateWithoutUserInput>
-  connectOrCreate?: Prisma.TopicRecommendationCreateOrConnectWithoutUserInput
-  upsert?: Prisma.TopicRecommendationUpsertWithoutUserInput
-  disconnect?: Prisma.TopicRecommendationWhereInput | boolean
-  delete?: Prisma.TopicRecommendationWhereInput | boolean
-  connect?: Prisma.TopicRecommendationWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TopicRecommendationUpdateToOneWithWhereWithoutUserInput, Prisma.TopicRecommendationUpdateWithoutUserInput>, Prisma.TopicRecommendationUncheckedUpdateWithoutUserInput>
+export type TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.TopicRecommendationCreateWithoutUserInput, Prisma.TopicRecommendationUncheckedCreateWithoutUserInput> | Prisma.TopicRecommendationCreateWithoutUserInput[] | Prisma.TopicRecommendationUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.TopicRecommendationCreateOrConnectWithoutUserInput | Prisma.TopicRecommendationCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.TopicRecommendationUpsertWithWhereUniqueWithoutUserInput | Prisma.TopicRecommendationUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.TopicRecommendationCreateManyUserInputEnvelope
+  set?: Prisma.TopicRecommendationWhereUniqueInput | Prisma.TopicRecommendationWhereUniqueInput[]
+  disconnect?: Prisma.TopicRecommendationWhereUniqueInput | Prisma.TopicRecommendationWhereUniqueInput[]
+  delete?: Prisma.TopicRecommendationWhereUniqueInput | Prisma.TopicRecommendationWhereUniqueInput[]
+  connect?: Prisma.TopicRecommendationWhereUniqueInput | Prisma.TopicRecommendationWhereUniqueInput[]
+  update?: Prisma.TopicRecommendationUpdateWithWhereUniqueWithoutUserInput | Prisma.TopicRecommendationUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.TopicRecommendationUpdateManyWithWhereWithoutUserInput | Prisma.TopicRecommendationUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.TopicRecommendationScalarWhereInput | Prisma.TopicRecommendationScalarWhereInput[]
 }
 
 export type FloatFieldUpdateOperationsInput = {
@@ -448,6 +491,7 @@ export type FloatFieldUpdateOperationsInput = {
 
 export type TopicRecommendationCreateWithoutUserInput = {
   id?: string
+  language?: string
   topic: string
   message: string
   accuracy: number
@@ -457,6 +501,7 @@ export type TopicRecommendationCreateWithoutUserInput = {
 
 export type TopicRecommendationUncheckedCreateWithoutUserInput = {
   id?: string
+  language?: string
   topic: string
   message: string
   accuracy: number
@@ -469,19 +514,54 @@ export type TopicRecommendationCreateOrConnectWithoutUserInput = {
   create: Prisma.XOR<Prisma.TopicRecommendationCreateWithoutUserInput, Prisma.TopicRecommendationUncheckedCreateWithoutUserInput>
 }
 
-export type TopicRecommendationUpsertWithoutUserInput = {
-  update: Prisma.XOR<Prisma.TopicRecommendationUpdateWithoutUserInput, Prisma.TopicRecommendationUncheckedUpdateWithoutUserInput>
-  create: Prisma.XOR<Prisma.TopicRecommendationCreateWithoutUserInput, Prisma.TopicRecommendationUncheckedCreateWithoutUserInput>
-  where?: Prisma.TopicRecommendationWhereInput
+export type TopicRecommendationCreateManyUserInputEnvelope = {
+  data: Prisma.TopicRecommendationCreateManyUserInput | Prisma.TopicRecommendationCreateManyUserInput[]
+  skipDuplicates?: boolean
 }
 
-export type TopicRecommendationUpdateToOneWithWhereWithoutUserInput = {
-  where?: Prisma.TopicRecommendationWhereInput
+export type TopicRecommendationUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.TopicRecommendationWhereUniqueInput
+  update: Prisma.XOR<Prisma.TopicRecommendationUpdateWithoutUserInput, Prisma.TopicRecommendationUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.TopicRecommendationCreateWithoutUserInput, Prisma.TopicRecommendationUncheckedCreateWithoutUserInput>
+}
+
+export type TopicRecommendationUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.TopicRecommendationWhereUniqueInput
   data: Prisma.XOR<Prisma.TopicRecommendationUpdateWithoutUserInput, Prisma.TopicRecommendationUncheckedUpdateWithoutUserInput>
+}
+
+export type TopicRecommendationUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.TopicRecommendationScalarWhereInput
+  data: Prisma.XOR<Prisma.TopicRecommendationUpdateManyMutationInput, Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserInput>
+}
+
+export type TopicRecommendationScalarWhereInput = {
+  AND?: Prisma.TopicRecommendationScalarWhereInput | Prisma.TopicRecommendationScalarWhereInput[]
+  OR?: Prisma.TopicRecommendationScalarWhereInput[]
+  NOT?: Prisma.TopicRecommendationScalarWhereInput | Prisma.TopicRecommendationScalarWhereInput[]
+  id?: Prisma.StringFilter<"TopicRecommendation"> | string
+  userId?: Prisma.StringFilter<"TopicRecommendation"> | string
+  language?: Prisma.StringFilter<"TopicRecommendation"> | string
+  topic?: Prisma.StringFilter<"TopicRecommendation"> | string
+  message?: Prisma.StringFilter<"TopicRecommendation"> | string
+  accuracy?: Prisma.FloatFilter<"TopicRecommendation"> | number
+  quizCountAtGeneration?: Prisma.IntFilter<"TopicRecommendation"> | number
+  generatedAt?: Prisma.DateTimeFilter<"TopicRecommendation"> | Date | string
+}
+
+export type TopicRecommendationCreateManyUserInput = {
+  id?: string
+  language?: string
+  topic: string
+  message: string
+  accuracy: number
+  quizCountAtGeneration: number
+  generatedAt?: Date | string
 }
 
 export type TopicRecommendationUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   accuracy?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -491,6 +571,17 @@ export type TopicRecommendationUpdateWithoutUserInput = {
 
 export type TopicRecommendationUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  topic?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  accuracy?: Prisma.FloatFieldUpdateOperationsInput | number
+  quizCountAtGeneration?: Prisma.IntFieldUpdateOperationsInput | number
+  generatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TopicRecommendationUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   accuracy?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -503,6 +594,7 @@ export type TopicRecommendationUncheckedUpdateWithoutUserInput = {
 export type TopicRecommendationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  language?: boolean
   topic?: boolean
   message?: boolean
   accuracy?: boolean
@@ -514,6 +606,7 @@ export type TopicRecommendationSelect<ExtArgs extends runtime.Types.Extensions.I
 export type TopicRecommendationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  language?: boolean
   topic?: boolean
   message?: boolean
   accuracy?: boolean
@@ -525,6 +618,7 @@ export type TopicRecommendationSelectCreateManyAndReturn<ExtArgs extends runtime
 export type TopicRecommendationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  language?: boolean
   topic?: boolean
   message?: boolean
   accuracy?: boolean
@@ -536,6 +630,7 @@ export type TopicRecommendationSelectUpdateManyAndReturn<ExtArgs extends runtime
 export type TopicRecommendationSelectScalar = {
   id?: boolean
   userId?: boolean
+  language?: boolean
   topic?: boolean
   message?: boolean
   accuracy?: boolean
@@ -543,7 +638,7 @@ export type TopicRecommendationSelectScalar = {
   generatedAt?: boolean
 }
 
-export type TopicRecommendationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "topic" | "message" | "accuracy" | "quizCountAtGeneration" | "generatedAt", ExtArgs["result"]["topicRecommendation"]>
+export type TopicRecommendationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "language" | "topic" | "message" | "accuracy" | "quizCountAtGeneration" | "generatedAt", ExtArgs["result"]["topicRecommendation"]>
 export type TopicRecommendationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -562,6 +657,7 @@ export type $TopicRecommendationPayload<ExtArgs extends runtime.Types.Extensions
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
+    language: string
     topic: string
     message: string
     accuracy: number
@@ -993,6 +1089,7 @@ export interface Prisma__TopicRecommendationClient<T, Null = never, ExtArgs exte
 export interface TopicRecommendationFieldRefs {
   readonly id: Prisma.FieldRef<"TopicRecommendation", 'String'>
   readonly userId: Prisma.FieldRef<"TopicRecommendation", 'String'>
+  readonly language: Prisma.FieldRef<"TopicRecommendation", 'String'>
   readonly topic: Prisma.FieldRef<"TopicRecommendation", 'String'>
   readonly message: Prisma.FieldRef<"TopicRecommendation", 'String'>
   readonly accuracy: Prisma.FieldRef<"TopicRecommendation", 'Float'>

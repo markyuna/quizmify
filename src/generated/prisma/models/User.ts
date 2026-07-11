@@ -343,7 +343,7 @@ export type UserWhereInput = {
   questionProgress?: Prisma.UserQuestionProgressListRelationFilter
   trophies?: Prisma.TrophyListRelationFilter
   certificates?: Prisma.CertificateListRelationFilter
-  topicRecommendation?: Prisma.XOR<Prisma.TopicRecommendationNullableScalarRelationFilter, Prisma.TopicRecommendationWhereInput> | null
+  topicRecommendations?: Prisma.TopicRecommendationListRelationFilter
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptListRelationFilter
 }
 
@@ -373,7 +373,7 @@ export type UserOrderByWithRelationInput = {
   questionProgress?: Prisma.UserQuestionProgressOrderByRelationAggregateInput
   trophies?: Prisma.TrophyOrderByRelationAggregateInput
   certificates?: Prisma.CertificateOrderByRelationAggregateInput
-  topicRecommendation?: Prisma.TopicRecommendationOrderByWithRelationInput
+  topicRecommendations?: Prisma.TopicRecommendationOrderByRelationAggregateInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptOrderByRelationAggregateInput
 }
 
@@ -406,7 +406,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   questionProgress?: Prisma.UserQuestionProgressListRelationFilter
   trophies?: Prisma.TrophyListRelationFilter
   certificates?: Prisma.CertificateListRelationFilter
-  topicRecommendation?: Prisma.XOR<Prisma.TopicRecommendationNullableScalarRelationFilter, Prisma.TopicRecommendationWhereInput> | null
+  topicRecommendations?: Prisma.TopicRecommendationListRelationFilter
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptListRelationFilter
 }, "id" | "email" | "stripePaymentId">
 
@@ -486,7 +486,7 @@ export type UserCreateInput = {
   questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
 }
 
@@ -516,7 +516,7 @@ export type UserUncheckedCreateInput = {
   questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -546,7 +546,7 @@ export type UserUpdateInput = {
   questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
 }
 
@@ -576,7 +576,7 @@ export type UserUncheckedUpdateInput = {
   questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -809,18 +809,18 @@ export type UserUpdateOneRequiredWithoutCertificatesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCertificatesInput, Prisma.UserUpdateWithoutCertificatesInput>, Prisma.UserUncheckedUpdateWithoutCertificatesInput>
 }
 
-export type UserCreateNestedOneWithoutTopicRecommendationInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutTopicRecommendationInput, Prisma.UserUncheckedCreateWithoutTopicRecommendationInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTopicRecommendationInput
+export type UserCreateNestedOneWithoutTopicRecommendationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTopicRecommendationsInput, Prisma.UserUncheckedCreateWithoutTopicRecommendationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTopicRecommendationsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutTopicRecommendationNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutTopicRecommendationInput, Prisma.UserUncheckedCreateWithoutTopicRecommendationInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTopicRecommendationInput
-  upsert?: Prisma.UserUpsertWithoutTopicRecommendationInput
+export type UserUpdateOneRequiredWithoutTopicRecommendationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTopicRecommendationsInput, Prisma.UserUncheckedCreateWithoutTopicRecommendationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTopicRecommendationsInput
+  upsert?: Prisma.UserUpsertWithoutTopicRecommendationsInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTopicRecommendationInput, Prisma.UserUpdateWithoutTopicRecommendationInput>, Prisma.UserUncheckedUpdateWithoutTopicRecommendationInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTopicRecommendationsInput, Prisma.UserUpdateWithoutTopicRecommendationsInput>, Prisma.UserUncheckedUpdateWithoutTopicRecommendationsInput>
 }
 
 export type UserCreateNestedOneWithoutTrophiesInput = {
@@ -890,7 +890,7 @@ export type UserCreateWithoutAccountsInput = {
   questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
 }
 
@@ -919,7 +919,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -964,7 +964,7 @@ export type UserUpdateWithoutAccountsInput = {
   questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
 }
 
@@ -993,7 +993,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1022,7 +1022,7 @@ export type UserCreateWithoutSessionsInput = {
   questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
 }
 
@@ -1051,7 +1051,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -1096,7 +1096,7 @@ export type UserUpdateWithoutSessionsInput = {
   questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
 }
 
@@ -1125,7 +1125,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1154,7 +1154,7 @@ export type UserCreateWithoutGamesInput = {
   questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
 }
 
@@ -1183,7 +1183,7 @@ export type UserUncheckedCreateWithoutGamesInput = {
   questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -1228,7 +1228,7 @@ export type UserUpdateWithoutGamesInput = {
   questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
 }
 
@@ -1257,7 +1257,7 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1286,7 +1286,7 @@ export type UserCreateWithoutAttemptsInput = {
   questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
 }
 
@@ -1315,7 +1315,7 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -1360,7 +1360,7 @@ export type UserUpdateWithoutAttemptsInput = {
   questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
 }
 
@@ -1389,7 +1389,7 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1418,7 +1418,7 @@ export type UserCreateWithoutCertificatesInput = {
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
   questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
 }
 
@@ -1447,7 +1447,7 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -1492,7 +1492,7 @@ export type UserUpdateWithoutCertificatesInput = {
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
 }
 
@@ -1521,11 +1521,11 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutTopicRecommendationInput = {
+export type UserCreateWithoutTopicRecommendationsInput = {
   id?: string
   name?: string | null
   email?: string | null
@@ -1554,7 +1554,7 @@ export type UserCreateWithoutTopicRecommendationInput = {
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutTopicRecommendationInput = {
+export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   id?: string
   name?: string | null
   email?: string | null
@@ -1583,23 +1583,23 @@ export type UserUncheckedCreateWithoutTopicRecommendationInput = {
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutTopicRecommendationInput = {
+export type UserCreateOrConnectWithoutTopicRecommendationsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutTopicRecommendationInput, Prisma.UserUncheckedCreateWithoutTopicRecommendationInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTopicRecommendationsInput, Prisma.UserUncheckedCreateWithoutTopicRecommendationsInput>
 }
 
-export type UserUpsertWithoutTopicRecommendationInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutTopicRecommendationInput, Prisma.UserUncheckedUpdateWithoutTopicRecommendationInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutTopicRecommendationInput, Prisma.UserUncheckedCreateWithoutTopicRecommendationInput>
+export type UserUpsertWithoutTopicRecommendationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTopicRecommendationsInput, Prisma.UserUncheckedUpdateWithoutTopicRecommendationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTopicRecommendationsInput, Prisma.UserUncheckedCreateWithoutTopicRecommendationsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutTopicRecommendationInput = {
+export type UserUpdateToOneWithWhereWithoutTopicRecommendationsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutTopicRecommendationInput, Prisma.UserUncheckedUpdateWithoutTopicRecommendationInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTopicRecommendationsInput, Prisma.UserUncheckedUpdateWithoutTopicRecommendationsInput>
 }
 
-export type UserUpdateWithoutTopicRecommendationInput = {
+export type UserUpdateWithoutTopicRecommendationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1628,7 +1628,7 @@ export type UserUpdateWithoutTopicRecommendationInput = {
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutTopicRecommendationInput = {
+export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1682,7 +1682,7 @@ export type UserCreateWithoutTrophiesInput = {
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
   questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
 }
 
@@ -1711,7 +1711,7 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -1756,7 +1756,7 @@ export type UserUpdateWithoutTrophiesInput = {
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
 }
 
@@ -1785,7 +1785,7 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1814,7 +1814,7 @@ export type UserCreateWithoutQuestionProgressInput = {
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
 }
 
@@ -1843,7 +1843,7 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -1888,7 +1888,7 @@ export type UserUpdateWithoutQuestionProgressInput = {
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
 }
 
@@ -1917,7 +1917,7 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
   dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1947,7 +1947,7 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
@@ -1976,7 +1976,7 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
   certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedCreateNestedOneWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDailyChallengeAttemptsInput = {
@@ -2021,7 +2021,7 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
@@ -2050,7 +2050,7 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
-  topicRecommendation?: Prisma.TopicRecommendationUncheckedUpdateOneWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -2066,6 +2066,7 @@ export type UserCountOutputType = {
   questionProgress: number
   trophies: number
   certificates: number
+  topicRecommendations: number
   dailyChallengeAttempts: number
 }
 
@@ -2077,6 +2078,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   questionProgress?: boolean | UserCountOutputTypeCountQuestionProgressArgs
   trophies?: boolean | UserCountOutputTypeCountTrophiesArgs
   certificates?: boolean | UserCountOutputTypeCountCertificatesArgs
+  topicRecommendations?: boolean | UserCountOutputTypeCountTopicRecommendationsArgs
   dailyChallengeAttempts?: boolean | UserCountOutputTypeCountDailyChallengeAttemptsArgs
 }
 
@@ -2142,6 +2144,13 @@ export type UserCountOutputTypeCountCertificatesArgs<ExtArgs extends runtime.Typ
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountTopicRecommendationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TopicRecommendationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountDailyChallengeAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DailyChallengeAttemptWhereInput
 }
@@ -2173,7 +2182,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   questionProgress?: boolean | Prisma.User$questionProgressArgs<ExtArgs>
   trophies?: boolean | Prisma.User$trophiesArgs<ExtArgs>
   certificates?: boolean | Prisma.User$certificatesArgs<ExtArgs>
-  topicRecommendation?: boolean | Prisma.User$topicRecommendationArgs<ExtArgs>
+  topicRecommendations?: boolean | Prisma.User$topicRecommendationsArgs<ExtArgs>
   dailyChallengeAttempts?: boolean | Prisma.User$dailyChallengeAttemptsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -2250,7 +2259,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   questionProgress?: boolean | Prisma.User$questionProgressArgs<ExtArgs>
   trophies?: boolean | Prisma.User$trophiesArgs<ExtArgs>
   certificates?: boolean | Prisma.User$certificatesArgs<ExtArgs>
-  topicRecommendation?: boolean | Prisma.User$topicRecommendationArgs<ExtArgs>
+  topicRecommendations?: boolean | Prisma.User$topicRecommendationsArgs<ExtArgs>
   dailyChallengeAttempts?: boolean | Prisma.User$dailyChallengeAttemptsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -2267,7 +2276,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     questionProgress: Prisma.$UserQuestionProgressPayload<ExtArgs>[]
     trophies: Prisma.$TrophyPayload<ExtArgs>[]
     certificates: Prisma.$CertificatePayload<ExtArgs>[]
-    topicRecommendation: Prisma.$TopicRecommendationPayload<ExtArgs> | null
+    topicRecommendations: Prisma.$TopicRecommendationPayload<ExtArgs>[]
     dailyChallengeAttempts: Prisma.$DailyChallengeAttemptPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -2690,7 +2699,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   questionProgress<T extends Prisma.User$questionProgressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$questionProgressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserQuestionProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   trophies<T extends Prisma.User$trophiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$trophiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrophyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   certificates<T extends Prisma.User$certificatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$certificatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  topicRecommendation<T extends Prisma.User$topicRecommendationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$topicRecommendationArgs<ExtArgs>>): Prisma.Prisma__TopicRecommendationClient<runtime.Types.Result.GetResult<Prisma.$TopicRecommendationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  topicRecommendations<T extends Prisma.User$topicRecommendationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$topicRecommendationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TopicRecommendationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   dailyChallengeAttempts<T extends Prisma.User$dailyChallengeAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$dailyChallengeAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DailyChallengeAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3300,9 +3309,9 @@ export type User$certificatesArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * User.topicRecommendation
+ * User.topicRecommendations
  */
-export type User$topicRecommendationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$topicRecommendationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the TopicRecommendation
    */
@@ -3316,6 +3325,11 @@ export type User$topicRecommendationArgs<ExtArgs extends runtime.Types.Extension
    */
   include?: Prisma.TopicRecommendationInclude<ExtArgs> | null
   where?: Prisma.TopicRecommendationWhereInput
+  orderBy?: Prisma.TopicRecommendationOrderByWithRelationInput | Prisma.TopicRecommendationOrderByWithRelationInput[]
+  cursor?: Prisma.TopicRecommendationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TopicRecommendationScalarFieldEnum | Prisma.TopicRecommendationScalarFieldEnum[]
 }
 
 /**

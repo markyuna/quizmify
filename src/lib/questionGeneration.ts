@@ -13,7 +13,7 @@ export type GeneratedQuestion = {
   country: string | null;
 };
 
-const LANGUAGE_NAMES: Record<Locale, string> = {
+export const LANGUAGE_NAMES: Record<Locale, string> = {
   en: "English",
   fr: "French",
   es: "Spanish",

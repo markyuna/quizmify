@@ -63,7 +63,7 @@ model User {
   questionProgress       UserQuestionProgress[]
   trophies               Trophy[]
   certificates           Certificate[]
-  topicRecommendation    TopicRecommendation?
+  topicRecommendations   TopicRecommendation[]
   dailyChallengeAttempts DailyChallengeAttempt[]
 
   @@index([xp])
@@ -192,7 +192,11 @@ enum CertificateKind {
 // so we don't pay an OpenAI call on every dashboard load.
 model TopicRecommendation {
   id                    String   @id @default(cuid())
-  userId                String   @unique
+  userId                String
+  // Part of the cache key (not just a display field) so switching the
+  // site's language doesn't keep serving a message generated in the old
+  // one -- each language gets its own cached row per user.
+  language              String   @default("en")
   topic                 String
   message               String
   accuracy              Float
@@ -200,6 +204,8 @@ model TopicRecommendation {
   generatedAt           DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, language])
 }
 
 model Trophy {
