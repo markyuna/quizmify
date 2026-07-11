@@ -14,3 +14,11 @@ export const GameType = {
 } as const
 
 export type GameType = (typeof GameType)[keyof typeof GameType]
+
+
+export const TrophyKind = {
+  perfect: 'perfect',
+  streak: 'streak'
+} as const
+
+export type TrophyKind = (typeof TrophyKind)[keyof typeof TrophyKind]

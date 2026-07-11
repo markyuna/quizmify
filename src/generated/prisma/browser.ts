@@ -58,6 +58,11 @@ export type Attempt = Prisma.AttemptModel
  */
 export type AttemptAnswer = Prisma.AttemptAnswerModel
 /**
+ * Model Trophy
+ * 
+ */
+export type Trophy = Prisma.TrophyModel
+/**
  * Model UserQuestionProgress
  * 
  */

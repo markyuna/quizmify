@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -9,6 +10,7 @@ import { quizCreationSchema } from "@/schemas/form/quiz";
 import { getRequestLocale } from "@/i18n/get-locale";
 import type { Locale } from "@/i18n/locales";
 import { isUserAtFreeLimit } from "@/lib/paywall";
+import { isGeographyTopic } from "@/lib/geography";
 
 type Difficulty = "easy" | "medium" | "hard";
 
@@ -27,6 +29,7 @@ type SupabaseMCQQuestion = {
   options: string[];
   correct_answer: string;
   explanation: string | null;
+  country: string | null;
   is_active: boolean;
   usage_count: number;
   created_at: string;
@@ -37,6 +40,7 @@ type GeneratedQuestion = {
   options: string[];
   correct_answer: string;
   explanation: string;
+  country: string | null;
 };
 
 const generatedQuestionsSchema = z.object({
@@ -47,6 +51,7 @@ const generatedQuestionsSchema = z.object({
         options: z.array(z.string().min(1)).min(4).max(4),
         correct_answer: z.string().min(1),
         explanation: z.string().min(1),
+        country: z.string().min(1).nullable().optional(),
       })
     )
     .min(1),
@@ -150,9 +155,18 @@ async function generateQuestionsWithAI(params: {
   difficulty: Difficulty;
   language: Locale;
   amount: number;
+  isGeography: boolean;
 }): Promise<GeneratedQuestion[]> {
-  const { topic, difficulty, language, amount } = params;
+  const { topic, difficulty, language, amount, isGeography } = params;
   const languageName = LANGUAGE_NAMES[language];
+
+  const countryField = isGeography
+    ? `,\n      "country": "string or null -- the real-world country (in English, e.g. \\"France\\", \\"Japan\\") this specific question is about, or null if it isn't about a specific country"`
+    : "";
+
+  const countryRule = isGeography
+    ? "\n- if the question is about a specific country, city, or place, set \"country\" to that country's name in English; otherwise set it to null"
+    : "";
 
   const response = await openai.chat.completions.create({
     model: process.env.OPENAI_MODEL || "gpt-4o",
@@ -172,7 +186,7 @@ Return a JSON object with this exact structure:
       "question": "string",
       "options": ["string", "string", "string", "string"],
       "correct_answer": "string",
-      "explanation": "string"
+      "explanation": "string"${countryField}
     }
   ]
 }
@@ -183,7 +197,7 @@ Rules:
 - the correct answer must appear in options
 - concise and clear ${languageName}
 - no markdown
-- no extra text`,
+- no extra text${countryRule}`,
       },
     ],
     response_format: { type: "json_object" },
@@ -204,6 +218,7 @@ Rules:
     options: ensureValidOptions(q.options, q.correct_answer),
     correct_answer: q.correct_answer.trim(),
     explanation: q.explanation.trim(),
+    country: q.country?.trim() || null,
   }));
 }
 
@@ -218,6 +233,7 @@ async function saveGeneratedQuestionsToSupabase(params: {
   if (questions.length === 0) return;
 
   const rows = questions.map((q) => ({
+    id: randomUUID(),
     topic,
     difficulty,
     language,
@@ -225,6 +241,7 @@ async function saveGeneratedQuestionsToSupabase(params: {
     options: q.options,
     correct_answer: q.correct_answer,
     explanation: q.explanation,
+    country: q.country,
     is_active: true,
     usage_count: 0,
   }));
@@ -267,6 +284,7 @@ export async function POST(req: Request) {
     const difficulty = normalizeDifficulty(parsedBody.difficulty);
     const type = parsedBody.type;
     const language = await getRequestLocale();
+    const isGeography = isGeographyTopic(topic);
 
     let cachedQuestions: SupabaseMCQQuestion[] = [];
 
@@ -295,6 +313,7 @@ export async function POST(req: Request) {
         difficulty,
         language,
         amount: missingAmount,
+        isGeography,
       });
 
       const dedupedAIQuestions = dedupeQuestions(aiQuestions).slice(
@@ -349,6 +368,7 @@ export async function POST(req: Request) {
             "explanation" in question && question.explanation
               ? question.explanation
               : null,
+          country: question.country ?? null,
           gameId: createdGame.id,
           questionType: "mcq",
         })),

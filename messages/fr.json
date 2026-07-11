@@ -165,6 +165,7 @@
     "practiceMistakes": "Réviser les erreurs",
     "newQuiz": "Nouveau quiz",
     "backToDashboard": "Retour au tableau de bord",
+    "countriesDiscovered": "{count, plural, =0 {Aucun pays découvert} one {# pays découvert} other {# pays découverts}}",
     "questionAbbrev": "Q",
     "question": "Question",
     "correctAnswerLabel": "Bonne réponse :",
@@ -198,7 +199,9 @@
     "freeLimitReached": "Limite gratuite atteinte",
     "atLevel2": "Vous êtes au niveau 2 — le plafond gratuit",
     "upgradePrompt": "Passez à Pro une fois pour 5,99 $ et débloquez une progression de niveau illimitée pour toujours.",
-    "upgradeToPro": "Passer à Pro"
+    "upgradeToPro": "Passer à Pro",
+    "streak": "Série",
+    "protectionsRemaining": "{count} protections de série restantes ce mois-ci"
   },
   "DetailsDialog": {
     "whatIsThis": "Qu'est-ce que c'est",
@@ -322,5 +325,14 @@
     "proRequiredDescription": "L'export PDF est une fonctionnalité Pro. Passez à Pro une fois pour la débloquer.",
     "errorTitle": "Erreur",
     "errorDescription": "Impossible de générer le PDF. Veuillez réessayer."
+  },
+  "Trophy": {
+    "close": "Fermer",
+    "perfectBadge": "Score parfait",
+    "perfectTitle": "100 % ! Sans faute.",
+    "perfectSubtitle": "Vous avez répondu correctement à toutes les questions. Excellent travail.",
+    "streakBadge": "Nouveau record",
+    "streakTitle": "Nouveau record de série !",
+    "streakSubtitle": "{count} jours d'affilée — votre meilleure série à ce jour."
   }
 }

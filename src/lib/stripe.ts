@@ -1,5 +1,7 @@
 import Stripe from "stripe";
 
+import { cumulativeXpForLevel } from "@/lib/xp";
+
 let _stripe: Stripe | null = null;
 
 export function getStripe(): Stripe {
@@ -12,4 +14,7 @@ export function getStripe(): Stripe {
 }
 
 export const FREE_LEVEL_CAP = 2;
-export const FREE_XP_CAP = FREE_LEVEL_CAP * 100;
+// XP needed to reach the level *after* the cap -- i.e. the ceiling free
+// users bump into. Derived from the same curve as display/level-up logic
+// (src/lib/xp.ts) so the paywall and the UI never disagree about costs.
+export const FREE_XP_CAP = cumulativeXpForLevel(FREE_LEVEL_CAP + 1);

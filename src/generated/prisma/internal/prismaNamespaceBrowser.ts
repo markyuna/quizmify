@@ -59,6 +59,7 @@ export const ModelName = {
   Question: 'Question',
   Attempt: 'Attempt',
   AttemptAnswer: 'AttemptAnswer',
+  Trophy: 'Trophy',
   UserQuestionProgress: 'UserQuestionProgress'
 } as const
 
@@ -119,7 +120,12 @@ export const UserScalarFieldEnum = {
   stripeCustomerId: 'stripeCustomerId',
   stripePaymentId: 'stripePaymentId',
   xp: 'xp',
-  level: 'level'
+  level: 'level',
+  currentStreak: 'currentStreak',
+  longestStreak: 'longestStreak',
+  lastQuizDate: 'lastQuizDate',
+  streakProtectionsUsed: 'streakProtectionsUsed',
+  streakProtectionMonth: 'streakProtectionMonth'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -149,6 +155,7 @@ export const McqQuestionScalarFieldEnum = {
   options: 'options',
   correct_answer: 'correct_answer',
   explanation: 'explanation',
+  country: 'country',
   is_active: 'is_active',
   usage_count: 'usage_count',
   created_at: 'created_at'
@@ -167,6 +174,7 @@ export const QuestionScalarFieldEnum = {
   userAnswer: 'userAnswer',
   isCorrect: 'isCorrect',
   orderIndex: 'orderIndex',
+  country: 'country',
   gameId: 'gameId',
   sourceQuestionId: 'sourceQuestionId'
 } as const
@@ -197,6 +205,18 @@ export const AttemptAnswerScalarFieldEnum = {
 } as const
 
 export type AttemptAnswerScalarFieldEnum = (typeof AttemptAnswerScalarFieldEnum)[keyof typeof AttemptAnswerScalarFieldEnum]
+
+
+export const TrophyScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gameId: 'gameId',
+  kind: 'kind',
+  streakCount: 'streakCount',
+  createdAt: 'createdAt'
+} as const
+
+export type TrophyScalarFieldEnum = (typeof TrophyScalarFieldEnum)[keyof typeof TrophyScalarFieldEnum]
 
 
 export const UserQuestionProgressScalarFieldEnum = {

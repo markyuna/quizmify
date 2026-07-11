@@ -232,6 +232,23 @@ export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedBoolNullableFilter<$PrismaModel>
 }
 
+export type EnumTrophyKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.TrophyKind | Prisma.EnumTrophyKindFieldRefInput<$PrismaModel>
+  in?: $Enums.TrophyKind[] | Prisma.ListEnumTrophyKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TrophyKind[] | Prisma.ListEnumTrophyKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTrophyKindFilter<$PrismaModel> | $Enums.TrophyKind
+}
+
+export type EnumTrophyKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TrophyKind | Prisma.EnumTrophyKindFieldRefInput<$PrismaModel>
+  in?: $Enums.TrophyKind[] | Prisma.ListEnumTrophyKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TrophyKind[] | Prisma.ListEnumTrophyKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTrophyKindWithAggregatesFilter<$PrismaModel> | $Enums.TrophyKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTrophyKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTrophyKindFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -461,6 +478,23 @@ export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedBoolNullableFilter<$PrismaModel>
   _max?: Prisma.NestedBoolNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumTrophyKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.TrophyKind | Prisma.EnumTrophyKindFieldRefInput<$PrismaModel>
+  in?: $Enums.TrophyKind[] | Prisma.ListEnumTrophyKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TrophyKind[] | Prisma.ListEnumTrophyKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTrophyKindFilter<$PrismaModel> | $Enums.TrophyKind
+}
+
+export type NestedEnumTrophyKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TrophyKind | Prisma.EnumTrophyKindFieldRefInput<$PrismaModel>
+  in?: $Enums.TrophyKind[] | Prisma.ListEnumTrophyKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TrophyKind[] | Prisma.ListEnumTrophyKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTrophyKindWithAggregatesFilter<$PrismaModel> | $Enums.TrophyKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTrophyKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTrophyKindFilter<$PrismaModel>
 }
 
 

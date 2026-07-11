@@ -165,6 +165,7 @@
     "practiceMistakes": "Practicar errores",
     "newQuiz": "Nuevo quiz",
     "backToDashboard": "Volver al panel",
+    "countriesDiscovered": "{count, plural, =0 {Ningún país descubierto todavía} one {# país descubierto} other {# países descubiertos}}",
     "questionAbbrev": "P",
     "question": "Pregunta",
     "correctAnswerLabel": "Respuesta correcta:",
@@ -198,7 +199,9 @@
     "freeLimitReached": "Límite gratuito alcanzado",
     "atLevel2": "Estás en el nivel 2 — el tope gratuito",
     "upgradePrompt": "Actualizá una sola vez por $5.99 y desbloqueá progresión de nivel ilimitada para siempre.",
-    "upgradeToPro": "Actualizar a Pro"
+    "upgradeToPro": "Actualizar a Pro",
+    "streak": "Racha",
+    "protectionsRemaining": "{count} protecciones de racha disponibles este mes"
   },
   "DetailsDialog": {
     "whatIsThis": "Qué es esto",
@@ -322,5 +325,14 @@
     "proRequiredDescription": "Exportar a PDF es una función Pro. Actualizá una vez para desbloquearla.",
     "errorTitle": "Error",
     "errorDescription": "No se pudo generar el PDF. Intentalo de nuevo."
+  },
+  "Trophy": {
+    "close": "Cerrar",
+    "perfectBadge": "Puntaje perfecto",
+    "perfectTitle": "¡100%! Impecable.",
+    "perfectSubtitle": "Respondiste todas las preguntas correctamente. Excelente trabajo.",
+    "streakBadge": "Nuevo récord",
+    "streakTitle": "¡Nuevo récord de racha!",
+    "streakSubtitle": "{count} días seguidos — tu mejor racha hasta ahora."
   }
 }

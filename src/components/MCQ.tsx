@@ -26,14 +26,18 @@ import { useTranslations } from "next-intl";
 
 import MCQCounter from "./MCQCounter";
 import ExportPdfButton from "./ExportPdfButton";
+import TrophyModal from "./trophy/TrophyModal";
+import Globe3D from "./globe/Globe3D";
 import { Button, buttonVariants } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import { cn, formatTimeDelta } from "@/lib/utils";
 import { getLevelProgress } from "@/lib/xp";
+import { isGeographyTopic } from "@/lib/geography";
+import type { TrophyReason } from "@/app/api/quiz/submit/route";
 
 type QuestionWithOptions = Pick<
   Question,
-  "id" | "question" | "answer" | "options" | "explanation"
+  "id" | "question" | "answer" | "options" | "explanation" | "country"
 >;
 
 type MCQProps = {
@@ -65,6 +69,8 @@ type SubmitQuizResponse = {
   newLevel: number;
   didLevelUp: boolean;
   hitFreeLimit: boolean;
+  currentStreak: number;
+  trophyReason: TrophyReason;
 };
 
 const MCQ = ({ game }: MCQProps) => {
@@ -85,10 +91,13 @@ const MCQ = ({ game }: MCQProps) => {
   const [quizFinished, setQuizFinished] = React.useState(false);
   const [finalResult, setFinalResult] = React.useState<SubmitQuizResponse | null>(null);
   const [showLevelUpOverlay, setShowLevelUpOverlay] = React.useState(false);
+  const [showTrophy, setShowTrophy] = React.useState(false);
+  const [litCountries, setLitCountries] = React.useState<string[]>([]);
 
   const currentQuestion = game.questions[questionIndex];
   const isLastQuestion = questionIndex === game.questions.length - 1;
   const totalQuestions = game.questions.length;
+  const isGeography = React.useMemo(() => isGeographyTopic(game.topic), [game.topic]);
 
   const { mutate: checkAnswer, isPending: isCheckingAnswer } = useMutation({
     mutationFn: async ({ questionId, userAnswer }: { questionId: string; userAnswer: string }) => {
@@ -108,6 +117,12 @@ const MCQ = ({ game }: MCQProps) => {
 
       if (isCorrect) {
         setScore((prev) => prev + 1);
+
+        const answeredQuestion = game.questions.find((q) => q.id === variables.questionId);
+        if (answeredQuestion?.country) {
+          const country = answeredQuestion.country;
+          setLitCountries((prev) => (prev.includes(country) ? prev : [...prev, country]));
+        }
       }
 
       setAnswers((prev) => {
@@ -129,6 +144,7 @@ const MCQ = ({ game }: MCQProps) => {
       setFinalResult(data);
       setQuizFinished(true);
       setShowLevelUpOverlay(data.didLevelUp);
+      setShowTrophy(data.trophyReason !== null);
     },
     onError: () => {
       setFinalElapsedSeconds(null);
@@ -245,6 +261,16 @@ const MCQ = ({ game }: MCQProps) => {
                 </p>
               </motion.div>
             </motion.div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {showTrophy && finalResult?.trophyReason && (
+            <TrophyModal
+              reason={finalResult.trophyReason}
+              streakCount={finalResult.currentStreak}
+              onClose={() => setShowTrophy(false)}
+            />
           )}
         </AnimatePresence>
 
@@ -422,6 +448,15 @@ const MCQ = ({ game }: MCQProps) => {
             </div>
           </div>
         </div>
+
+        {isGeography && (
+          <div className="mb-4 flex flex-col items-center gap-2 rounded-[1.5rem] border border-slate-200/80 bg-white/80 p-4 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+            <Globe3D litCountries={litCountries} size={200} />
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+              {t("countriesDiscovered", { count: litCountries.length })}
+            </p>
+          </div>
+        )}
 
         <div className="mb-3">
           <MCQCounter currentQuestionIndex={questionIndex} questionsLength={totalQuestions} />

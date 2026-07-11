@@ -165,6 +165,7 @@
     "practiceMistakes": "Practice Mistakes",
     "newQuiz": "New Quiz",
     "backToDashboard": "Back to Dashboard",
+    "countriesDiscovered": "{count, plural, =0 {No countries discovered yet} one {# country discovered} other {# countries discovered}}",
     "questionAbbrev": "Q",
     "question": "Question",
     "correctAnswerLabel": "Correct answer:",
@@ -198,7 +199,9 @@
     "freeLimitReached": "Free limit reached",
     "atLevel2": "You are at Level 2 — the free cap",
     "upgradePrompt": "Upgrade once for $5.99 to unlock unlimited level progression forever.",
-    "upgradeToPro": "Upgrade to Pro"
+    "upgradeToPro": "Upgrade to Pro",
+    "streak": "Streak",
+    "protectionsRemaining": "{count} streak saves left this month"
   },
   "DetailsDialog": {
     "whatIsThis": "What is this",
@@ -322,5 +325,14 @@
     "proRequiredDescription": "PDF export is a Pro feature. Upgrade once to unlock it.",
     "errorTitle": "Error",
     "errorDescription": "Could not generate the PDF. Please try again."
+  },
+  "Trophy": {
+    "close": "Close",
+    "perfectBadge": "Perfect score",
+    "perfectTitle": "100%! Flawless.",
+    "perfectSubtitle": "You answered every question correctly. Amazing work.",
+    "streakBadge": "New record",
+    "streakTitle": "New streak record!",
+    "streakSubtitle": "{count} days in a row — your best streak yet."
   }
 }

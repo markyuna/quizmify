@@ -42,6 +42,7 @@ export type McqQuestionMinAggregateOutputType = {
   question: string | null
   correct_answer: string | null
   explanation: string | null
+  country: string | null
   is_active: boolean | null
   usage_count: number | null
   created_at: Date | null
@@ -55,6 +56,7 @@ export type McqQuestionMaxAggregateOutputType = {
   question: string | null
   correct_answer: string | null
   explanation: string | null
+  country: string | null
   is_active: boolean | null
   usage_count: number | null
   created_at: Date | null
@@ -69,6 +71,7 @@ export type McqQuestionCountAggregateOutputType = {
   options: number
   correct_answer: number
   explanation: number
+  country: number
   is_active: number
   usage_count: number
   created_at: number
@@ -92,6 +95,7 @@ export type McqQuestionMinAggregateInputType = {
   question?: true
   correct_answer?: true
   explanation?: true
+  country?: true
   is_active?: true
   usage_count?: true
   created_at?: true
@@ -105,6 +109,7 @@ export type McqQuestionMaxAggregateInputType = {
   question?: true
   correct_answer?: true
   explanation?: true
+  country?: true
   is_active?: true
   usage_count?: true
   created_at?: true
@@ -119,6 +124,7 @@ export type McqQuestionCountAggregateInputType = {
   options?: true
   correct_answer?: true
   explanation?: true
+  country?: true
   is_active?: true
   usage_count?: true
   created_at?: true
@@ -220,6 +226,7 @@ export type McqQuestionGroupByOutputType = {
   options: string[]
   correct_answer: string
   explanation: string | null
+  country: string | null
   is_active: boolean
   usage_count: number
   created_at: Date
@@ -257,6 +264,7 @@ export type McqQuestionWhereInput = {
   options?: Prisma.StringNullableListFilter<"McqQuestion">
   correct_answer?: Prisma.StringFilter<"McqQuestion"> | string
   explanation?: Prisma.StringNullableFilter<"McqQuestion"> | string | null
+  country?: Prisma.StringNullableFilter<"McqQuestion"> | string | null
   is_active?: Prisma.BoolFilter<"McqQuestion"> | boolean
   usage_count?: Prisma.IntFilter<"McqQuestion"> | number
   created_at?: Prisma.DateTimeFilter<"McqQuestion"> | Date | string
@@ -271,6 +279,7 @@ export type McqQuestionOrderByWithRelationInput = {
   options?: Prisma.SortOrder
   correct_answer?: Prisma.SortOrder
   explanation?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
   is_active?: Prisma.SortOrder
   usage_count?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -288,6 +297,7 @@ export type McqQuestionWhereUniqueInput = Prisma.AtLeast<{
   options?: Prisma.StringNullableListFilter<"McqQuestion">
   correct_answer?: Prisma.StringFilter<"McqQuestion"> | string
   explanation?: Prisma.StringNullableFilter<"McqQuestion"> | string | null
+  country?: Prisma.StringNullableFilter<"McqQuestion"> | string | null
   is_active?: Prisma.BoolFilter<"McqQuestion"> | boolean
   usage_count?: Prisma.IntFilter<"McqQuestion"> | number
   created_at?: Prisma.DateTimeFilter<"McqQuestion"> | Date | string
@@ -302,6 +312,7 @@ export type McqQuestionOrderByWithAggregationInput = {
   options?: Prisma.SortOrder
   correct_answer?: Prisma.SortOrder
   explanation?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
   is_active?: Prisma.SortOrder
   usage_count?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -324,6 +335,7 @@ export type McqQuestionScalarWhereWithAggregatesInput = {
   options?: Prisma.StringNullableListFilter<"McqQuestion">
   correct_answer?: Prisma.StringWithAggregatesFilter<"McqQuestion"> | string
   explanation?: Prisma.StringNullableWithAggregatesFilter<"McqQuestion"> | string | null
+  country?: Prisma.StringNullableWithAggregatesFilter<"McqQuestion"> | string | null
   is_active?: Prisma.BoolWithAggregatesFilter<"McqQuestion"> | boolean
   usage_count?: Prisma.IntWithAggregatesFilter<"McqQuestion"> | number
   created_at?: Prisma.DateTimeWithAggregatesFilter<"McqQuestion"> | Date | string
@@ -338,6 +350,7 @@ export type McqQuestionCreateInput = {
   options?: Prisma.McqQuestionCreateoptionsInput | string[]
   correct_answer: string
   explanation?: string | null
+  country?: string | null
   is_active?: boolean
   usage_count?: number
   created_at?: Date | string
@@ -352,6 +365,7 @@ export type McqQuestionUncheckedCreateInput = {
   options?: Prisma.McqQuestionCreateoptionsInput | string[]
   correct_answer: string
   explanation?: string | null
+  country?: string | null
   is_active?: boolean
   usage_count?: number
   created_at?: Date | string
@@ -366,6 +380,7 @@ export type McqQuestionUpdateInput = {
   options?: Prisma.McqQuestionUpdateoptionsInput | string[]
   correct_answer?: Prisma.StringFieldUpdateOperationsInput | string
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   usage_count?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -380,6 +395,7 @@ export type McqQuestionUncheckedUpdateInput = {
   options?: Prisma.McqQuestionUpdateoptionsInput | string[]
   correct_answer?: Prisma.StringFieldUpdateOperationsInput | string
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   usage_count?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -394,6 +410,7 @@ export type McqQuestionCreateManyInput = {
   options?: Prisma.McqQuestionCreateoptionsInput | string[]
   correct_answer: string
   explanation?: string | null
+  country?: string | null
   is_active?: boolean
   usage_count?: number
   created_at?: Date | string
@@ -408,6 +425,7 @@ export type McqQuestionUpdateManyMutationInput = {
   options?: Prisma.McqQuestionUpdateoptionsInput | string[]
   correct_answer?: Prisma.StringFieldUpdateOperationsInput | string
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   usage_count?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -422,6 +440,7 @@ export type McqQuestionUncheckedUpdateManyInput = {
   options?: Prisma.McqQuestionUpdateoptionsInput | string[]
   correct_answer?: Prisma.StringFieldUpdateOperationsInput | string
   explanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   usage_count?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -444,6 +463,7 @@ export type McqQuestionCountOrderByAggregateInput = {
   options?: Prisma.SortOrder
   correct_answer?: Prisma.SortOrder
   explanation?: Prisma.SortOrder
+  country?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
   usage_count?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -461,6 +481,7 @@ export type McqQuestionMaxOrderByAggregateInput = {
   question?: Prisma.SortOrder
   correct_answer?: Prisma.SortOrder
   explanation?: Prisma.SortOrder
+  country?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
   usage_count?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -474,6 +495,7 @@ export type McqQuestionMinOrderByAggregateInput = {
   question?: Prisma.SortOrder
   correct_answer?: Prisma.SortOrder
   explanation?: Prisma.SortOrder
+  country?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
   usage_count?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -507,6 +529,7 @@ export type McqQuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   options?: boolean
   correct_answer?: boolean
   explanation?: boolean
+  country?: boolean
   is_active?: boolean
   usage_count?: boolean
   created_at?: boolean
@@ -521,6 +544,7 @@ export type McqQuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   options?: boolean
   correct_answer?: boolean
   explanation?: boolean
+  country?: boolean
   is_active?: boolean
   usage_count?: boolean
   created_at?: boolean
@@ -535,6 +559,7 @@ export type McqQuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   options?: boolean
   correct_answer?: boolean
   explanation?: boolean
+  country?: boolean
   is_active?: boolean
   usage_count?: boolean
   created_at?: boolean
@@ -549,12 +574,13 @@ export type McqQuestionSelectScalar = {
   options?: boolean
   correct_answer?: boolean
   explanation?: boolean
+  country?: boolean
   is_active?: boolean
   usage_count?: boolean
   created_at?: boolean
 }
 
-export type McqQuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "topic" | "difficulty" | "language" | "question" | "options" | "correct_answer" | "explanation" | "is_active" | "usage_count" | "created_at", ExtArgs["result"]["mcqQuestion"]>
+export type McqQuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "topic" | "difficulty" | "language" | "question" | "options" | "correct_answer" | "explanation" | "country" | "is_active" | "usage_count" | "created_at", ExtArgs["result"]["mcqQuestion"]>
 
 export type $McqQuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "McqQuestion"
@@ -568,6 +594,7 @@ export type $McqQuestionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     options: string[]
     correct_answer: string
     explanation: string | null
+    country: string | null
     is_active: boolean
     usage_count: number
     created_at: Date
@@ -1002,6 +1029,7 @@ export interface McqQuestionFieldRefs {
   readonly options: Prisma.FieldRef<"McqQuestion", 'String[]'>
   readonly correct_answer: Prisma.FieldRef<"McqQuestion", 'String'>
   readonly explanation: Prisma.FieldRef<"McqQuestion", 'String'>
+  readonly country: Prisma.FieldRef<"McqQuestion", 'String'>
   readonly is_active: Prisma.FieldRef<"McqQuestion", 'Boolean'>
   readonly usage_count: Prisma.FieldRef<"McqQuestion", 'Int'>
   readonly created_at: Prisma.FieldRef<"McqQuestion", 'DateTime'>

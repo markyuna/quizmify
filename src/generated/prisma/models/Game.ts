@@ -251,6 +251,7 @@ export type GameWhereInput = {
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   questions?: Prisma.QuestionListRelationFilter
   attempts?: Prisma.AttemptListRelationFilter
+  trophies?: Prisma.TrophyListRelationFilter
 }
 
 export type GameOrderByWithRelationInput = {
@@ -266,6 +267,7 @@ export type GameOrderByWithRelationInput = {
   user?: Prisma.UserOrderByWithRelationInput
   questions?: Prisma.QuestionOrderByRelationAggregateInput
   attempts?: Prisma.AttemptOrderByRelationAggregateInput
+  trophies?: Prisma.TrophyOrderByRelationAggregateInput
 }
 
 export type GameWhereUniqueInput = Prisma.AtLeast<{
@@ -284,6 +286,7 @@ export type GameWhereUniqueInput = Prisma.AtLeast<{
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   questions?: Prisma.QuestionListRelationFilter
   attempts?: Prisma.AttemptListRelationFilter
+  trophies?: Prisma.TrophyListRelationFilter
 }, "id">
 
 export type GameOrderByWithAggregationInput = {
@@ -330,6 +333,7 @@ export type GameCreateInput = {
   user: Prisma.UserCreateNestedOneWithoutGamesInput
   questions?: Prisma.QuestionCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutGameInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutGameInput
 }
 
 export type GameUncheckedCreateInput = {
@@ -344,6 +348,7 @@ export type GameUncheckedCreateInput = {
   score?: number
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutGameInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutGameInput
 }
 
 export type GameUpdateInput = {
@@ -358,6 +363,7 @@ export type GameUpdateInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutGamesNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutGameNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutGameNestedInput
 }
 
 export type GameUncheckedUpdateInput = {
@@ -372,6 +378,7 @@ export type GameUncheckedUpdateInput = {
   score?: Prisma.IntFieldUpdateOperationsInput | number
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutGameNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutGameNestedInput
 }
 
 export type GameCreateManyInput = {
@@ -468,6 +475,11 @@ export type GameScalarRelationFilter = {
   isNot?: Prisma.GameWhereInput
 }
 
+export type GameNullableScalarRelationFilter = {
+  is?: Prisma.GameWhereInput | null
+  isNot?: Prisma.GameWhereInput | null
+}
+
 export type GameCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.GameCreateWithoutUserInput, Prisma.GameUncheckedCreateWithoutUserInput> | Prisma.GameCreateWithoutUserInput[] | Prisma.GameUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.GameCreateOrConnectWithoutUserInput | Prisma.GameCreateOrConnectWithoutUserInput[]
@@ -542,6 +554,22 @@ export type GameUpdateOneRequiredWithoutAttemptsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.GameUpdateToOneWithWhereWithoutAttemptsInput, Prisma.GameUpdateWithoutAttemptsInput>, Prisma.GameUncheckedUpdateWithoutAttemptsInput>
 }
 
+export type GameCreateNestedOneWithoutTrophiesInput = {
+  create?: Prisma.XOR<Prisma.GameCreateWithoutTrophiesInput, Prisma.GameUncheckedCreateWithoutTrophiesInput>
+  connectOrCreate?: Prisma.GameCreateOrConnectWithoutTrophiesInput
+  connect?: Prisma.GameWhereUniqueInput
+}
+
+export type GameUpdateOneWithoutTrophiesNestedInput = {
+  create?: Prisma.XOR<Prisma.GameCreateWithoutTrophiesInput, Prisma.GameUncheckedCreateWithoutTrophiesInput>
+  connectOrCreate?: Prisma.GameCreateOrConnectWithoutTrophiesInput
+  upsert?: Prisma.GameUpsertWithoutTrophiesInput
+  disconnect?: Prisma.GameWhereInput | boolean
+  delete?: Prisma.GameWhereInput | boolean
+  connect?: Prisma.GameWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GameUpdateToOneWithWhereWithoutTrophiesInput, Prisma.GameUpdateWithoutTrophiesInput>, Prisma.GameUncheckedUpdateWithoutTrophiesInput>
+}
+
 export type GameCreateWithoutUserInput = {
   id?: string
   gameType: $Enums.GameType
@@ -553,6 +581,7 @@ export type GameCreateWithoutUserInput = {
   score?: number
   questions?: Prisma.QuestionCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutGameInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutGameInput
 }
 
 export type GameUncheckedCreateWithoutUserInput = {
@@ -566,6 +595,7 @@ export type GameUncheckedCreateWithoutUserInput = {
   score?: number
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutGameInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutGameInput
 }
 
 export type GameCreateOrConnectWithoutUserInput = {
@@ -620,6 +650,7 @@ export type GameCreateWithoutQuestionsInput = {
   score?: number
   user: Prisma.UserCreateNestedOneWithoutGamesInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutGameInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutGameInput
 }
 
 export type GameUncheckedCreateWithoutQuestionsInput = {
@@ -633,6 +664,7 @@ export type GameUncheckedCreateWithoutQuestionsInput = {
   userId: string
   score?: number
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutGameInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutGameInput
 }
 
 export type GameCreateOrConnectWithoutQuestionsInput = {
@@ -662,6 +694,7 @@ export type GameUpdateWithoutQuestionsInput = {
   score?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutGamesNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutGameNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutGameNestedInput
 }
 
 export type GameUncheckedUpdateWithoutQuestionsInput = {
@@ -675,6 +708,7 @@ export type GameUncheckedUpdateWithoutQuestionsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutGameNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutGameNestedInput
 }
 
 export type GameCreateWithoutAttemptsInput = {
@@ -688,6 +722,7 @@ export type GameCreateWithoutAttemptsInput = {
   score?: number
   user: Prisma.UserCreateNestedOneWithoutGamesInput
   questions?: Prisma.QuestionCreateNestedManyWithoutGameInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutGameInput
 }
 
 export type GameUncheckedCreateWithoutAttemptsInput = {
@@ -701,6 +736,7 @@ export type GameUncheckedCreateWithoutAttemptsInput = {
   userId: string
   score?: number
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutGameInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutGameInput
 }
 
 export type GameCreateOrConnectWithoutAttemptsInput = {
@@ -730,6 +766,7 @@ export type GameUpdateWithoutAttemptsInput = {
   score?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutGamesNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutGameNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutGameNestedInput
 }
 
 export type GameUncheckedUpdateWithoutAttemptsInput = {
@@ -743,6 +780,79 @@ export type GameUncheckedUpdateWithoutAttemptsInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.IntFieldUpdateOperationsInput | number
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutGameNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutGameNestedInput
+}
+
+export type GameCreateWithoutTrophiesInput = {
+  id?: string
+  gameType: $Enums.GameType
+  timeStarted?: Date | string
+  timeEnded?: Date | string | null
+  topic: string
+  difficulty?: string | null
+  language?: string
+  score?: number
+  user: Prisma.UserCreateNestedOneWithoutGamesInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutGameInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutGameInput
+}
+
+export type GameUncheckedCreateWithoutTrophiesInput = {
+  id?: string
+  gameType: $Enums.GameType
+  timeStarted?: Date | string
+  timeEnded?: Date | string | null
+  topic: string
+  difficulty?: string | null
+  language?: string
+  userId: string
+  score?: number
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutGameInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutGameInput
+}
+
+export type GameCreateOrConnectWithoutTrophiesInput = {
+  where: Prisma.GameWhereUniqueInput
+  create: Prisma.XOR<Prisma.GameCreateWithoutTrophiesInput, Prisma.GameUncheckedCreateWithoutTrophiesInput>
+}
+
+export type GameUpsertWithoutTrophiesInput = {
+  update: Prisma.XOR<Prisma.GameUpdateWithoutTrophiesInput, Prisma.GameUncheckedUpdateWithoutTrophiesInput>
+  create: Prisma.XOR<Prisma.GameCreateWithoutTrophiesInput, Prisma.GameUncheckedCreateWithoutTrophiesInput>
+  where?: Prisma.GameWhereInput
+}
+
+export type GameUpdateToOneWithWhereWithoutTrophiesInput = {
+  where?: Prisma.GameWhereInput
+  data: Prisma.XOR<Prisma.GameUpdateWithoutTrophiesInput, Prisma.GameUncheckedUpdateWithoutTrophiesInput>
+}
+
+export type GameUpdateWithoutTrophiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  gameType?: Prisma.EnumGameTypeFieldUpdateOperationsInput | $Enums.GameType
+  timeStarted?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  timeEnded?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  topic?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  score?: Prisma.IntFieldUpdateOperationsInput | number
+  user?: Prisma.UserUpdateOneRequiredWithoutGamesNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutGameNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutGameNestedInput
+}
+
+export type GameUncheckedUpdateWithoutTrophiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  gameType?: Prisma.EnumGameTypeFieldUpdateOperationsInput | $Enums.GameType
+  timeStarted?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  timeEnded?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  topic?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  score?: Prisma.IntFieldUpdateOperationsInput | number
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutGameNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutGameNestedInput
 }
 
 export type GameCreateManyUserInput = {
@@ -767,6 +877,7 @@ export type GameUpdateWithoutUserInput = {
   score?: Prisma.IntFieldUpdateOperationsInput | number
   questions?: Prisma.QuestionUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutGameNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutGameNestedInput
 }
 
 export type GameUncheckedUpdateWithoutUserInput = {
@@ -780,6 +891,7 @@ export type GameUncheckedUpdateWithoutUserInput = {
   score?: Prisma.IntFieldUpdateOperationsInput | number
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutGameNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutGameNestedInput
 }
 
 export type GameUncheckedUpdateManyWithoutUserInput = {
@@ -801,11 +913,13 @@ export type GameUncheckedUpdateManyWithoutUserInput = {
 export type GameCountOutputType = {
   questions: number
   attempts: number
+  trophies: number
 }
 
 export type GameCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   questions?: boolean | GameCountOutputTypeCountQuestionsArgs
   attempts?: boolean | GameCountOutputTypeCountAttemptsArgs
+  trophies?: boolean | GameCountOutputTypeCountTrophiesArgs
 }
 
 /**
@@ -832,6 +946,13 @@ export type GameCountOutputTypeCountAttemptsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.AttemptWhereInput
 }
 
+/**
+ * GameCountOutputType without action
+ */
+export type GameCountOutputTypeCountTrophiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TrophyWhereInput
+}
+
 
 export type GameSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -846,6 +967,7 @@ export type GameSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   questions?: boolean | Prisma.Game$questionsArgs<ExtArgs>
   attempts?: boolean | Prisma.Game$attemptsArgs<ExtArgs>
+  trophies?: boolean | Prisma.Game$trophiesArgs<ExtArgs>
   _count?: boolean | Prisma.GameCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["game"]>
 
@@ -892,6 +1014,7 @@ export type GameInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   questions?: boolean | Prisma.Game$questionsArgs<ExtArgs>
   attempts?: boolean | Prisma.Game$attemptsArgs<ExtArgs>
+  trophies?: boolean | Prisma.Game$trophiesArgs<ExtArgs>
   _count?: boolean | Prisma.GameCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GameIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -907,6 +1030,7 @@ export type $GamePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     user: Prisma.$UserPayload<ExtArgs>
     questions: Prisma.$QuestionPayload<ExtArgs>[]
     attempts: Prisma.$AttemptPayload<ExtArgs>[]
+    trophies: Prisma.$TrophyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1315,6 +1439,7 @@ export interface Prisma__GameClient<T, Null = never, ExtArgs extends runtime.Typ
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   questions<T extends Prisma.Game$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Game$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attempts<T extends Prisma.Game$attemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Game$attemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  trophies<T extends Prisma.Game$trophiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Game$trophiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrophyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1799,6 +1924,30 @@ export type Game$attemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.AttemptScalarFieldEnum | Prisma.AttemptScalarFieldEnum[]
+}
+
+/**
+ * Game.trophies
+ */
+export type Game$trophiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Trophy
+   */
+  select?: Prisma.TrophySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Trophy
+   */
+  omit?: Prisma.TrophyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrophyInclude<ExtArgs> | null
+  where?: Prisma.TrophyWhereInput
+  orderBy?: Prisma.TrophyOrderByWithRelationInput | Prisma.TrophyOrderByWithRelationInput[]
+  cursor?: Prisma.TrophyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TrophyScalarFieldEnum | Prisma.TrophyScalarFieldEnum[]
 }
 
 /**

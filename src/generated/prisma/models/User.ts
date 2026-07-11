@@ -29,11 +29,17 @@ export type AggregateUser = {
 export type UserAvgAggregateOutputType = {
   xp: number | null
   level: number | null
+  currentStreak: number | null
+  longestStreak: number | null
+  streakProtectionsUsed: number | null
 }
 
 export type UserSumAggregateOutputType = {
   xp: number | null
   level: number | null
+  currentStreak: number | null
+  longestStreak: number | null
+  streakProtectionsUsed: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -50,6 +56,11 @@ export type UserMinAggregateOutputType = {
   stripePaymentId: string | null
   xp: number | null
   level: number | null
+  currentStreak: number | null
+  longestStreak: number | null
+  lastQuizDate: Date | null
+  streakProtectionsUsed: number | null
+  streakProtectionMonth: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -66,6 +77,11 @@ export type UserMaxAggregateOutputType = {
   stripePaymentId: string | null
   xp: number | null
   level: number | null
+  currentStreak: number | null
+  longestStreak: number | null
+  lastQuizDate: Date | null
+  streakProtectionsUsed: number | null
+  streakProtectionMonth: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -82,6 +98,11 @@ export type UserCountAggregateOutputType = {
   stripePaymentId: number
   xp: number
   level: number
+  currentStreak: number
+  longestStreak: number
+  lastQuizDate: number
+  streakProtectionsUsed: number
+  streakProtectionMonth: number
   _all: number
 }
 
@@ -89,11 +110,17 @@ export type UserCountAggregateOutputType = {
 export type UserAvgAggregateInputType = {
   xp?: true
   level?: true
+  currentStreak?: true
+  longestStreak?: true
+  streakProtectionsUsed?: true
 }
 
 export type UserSumAggregateInputType = {
   xp?: true
   level?: true
+  currentStreak?: true
+  longestStreak?: true
+  streakProtectionsUsed?: true
 }
 
 export type UserMinAggregateInputType = {
@@ -110,6 +137,11 @@ export type UserMinAggregateInputType = {
   stripePaymentId?: true
   xp?: true
   level?: true
+  currentStreak?: true
+  longestStreak?: true
+  lastQuizDate?: true
+  streakProtectionsUsed?: true
+  streakProtectionMonth?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -126,6 +158,11 @@ export type UserMaxAggregateInputType = {
   stripePaymentId?: true
   xp?: true
   level?: true
+  currentStreak?: true
+  longestStreak?: true
+  lastQuizDate?: true
+  streakProtectionsUsed?: true
+  streakProtectionMonth?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -142,6 +179,11 @@ export type UserCountAggregateInputType = {
   stripePaymentId?: true
   xp?: true
   level?: true
+  currentStreak?: true
+  longestStreak?: true
+  lastQuizDate?: true
+  streakProtectionsUsed?: true
+  streakProtectionMonth?: true
   _all?: true
 }
 
@@ -245,6 +287,11 @@ export type UserGroupByOutputType = {
   stripePaymentId: string | null
   xp: number
   level: number
+  currentStreak: number
+  longestStreak: number
+  lastQuizDate: Date | null
+  streakProtectionsUsed: number
+  streakProtectionMonth: string | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -284,11 +331,17 @@ export type UserWhereInput = {
   stripePaymentId?: Prisma.StringNullableFilter<"User"> | string | null
   xp?: Prisma.IntFilter<"User"> | number
   level?: Prisma.IntFilter<"User"> | number
+  currentStreak?: Prisma.IntFilter<"User"> | number
+  longestStreak?: Prisma.IntFilter<"User"> | number
+  lastQuizDate?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFilter<"User"> | number
+  streakProtectionMonth?: Prisma.StringNullableFilter<"User"> | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   games?: Prisma.GameListRelationFilter
   attempts?: Prisma.AttemptListRelationFilter
   questionProgress?: Prisma.UserQuestionProgressListRelationFilter
+  trophies?: Prisma.TrophyListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -305,11 +358,17 @@ export type UserOrderByWithRelationInput = {
   stripePaymentId?: Prisma.SortOrderInput | Prisma.SortOrder
   xp?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  currentStreak?: Prisma.SortOrder
+  longestStreak?: Prisma.SortOrder
+  lastQuizDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  streakProtectionsUsed?: Prisma.SortOrder
+  streakProtectionMonth?: Prisma.SortOrderInput | Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   games?: Prisma.GameOrderByRelationAggregateInput
   attempts?: Prisma.AttemptOrderByRelationAggregateInput
   questionProgress?: Prisma.UserQuestionProgressOrderByRelationAggregateInput
+  trophies?: Prisma.TrophyOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -329,11 +388,17 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   stripeCustomerId?: Prisma.StringNullableFilter<"User"> | string | null
   xp?: Prisma.IntFilter<"User"> | number
   level?: Prisma.IntFilter<"User"> | number
+  currentStreak?: Prisma.IntFilter<"User"> | number
+  longestStreak?: Prisma.IntFilter<"User"> | number
+  lastQuizDate?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFilter<"User"> | number
+  streakProtectionMonth?: Prisma.StringNullableFilter<"User"> | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   games?: Prisma.GameListRelationFilter
   attempts?: Prisma.AttemptListRelationFilter
   questionProgress?: Prisma.UserQuestionProgressListRelationFilter
+  trophies?: Prisma.TrophyListRelationFilter
 }, "id" | "email" | "stripePaymentId">
 
 export type UserOrderByWithAggregationInput = {
@@ -350,6 +415,11 @@ export type UserOrderByWithAggregationInput = {
   stripePaymentId?: Prisma.SortOrderInput | Prisma.SortOrder
   xp?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  currentStreak?: Prisma.SortOrder
+  longestStreak?: Prisma.SortOrder
+  lastQuizDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  streakProtectionsUsed?: Prisma.SortOrder
+  streakProtectionMonth?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -374,6 +444,11 @@ export type UserScalarWhereWithAggregatesInput = {
   stripePaymentId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   xp?: Prisma.IntWithAggregatesFilter<"User"> | number
   level?: Prisma.IntWithAggregatesFilter<"User"> | number
+  currentStreak?: Prisma.IntWithAggregatesFilter<"User"> | number
+  longestStreak?: Prisma.IntWithAggregatesFilter<"User"> | number
+  lastQuizDate?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  streakProtectionsUsed?: Prisma.IntWithAggregatesFilter<"User"> | number
+  streakProtectionMonth?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
 export type UserCreateInput = {
@@ -390,11 +465,17 @@ export type UserCreateInput = {
   stripePaymentId?: string | null
   xp?: number
   level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
   questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -411,11 +492,17 @@ export type UserUncheckedCreateInput = {
   stripePaymentId?: string | null
   xp?: number
   level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -432,11 +519,17 @@ export type UserUpdateInput = {
   stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -453,11 +546,17 @@ export type UserUncheckedUpdateInput = {
   stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -474,6 +573,11 @@ export type UserCreateManyInput = {
   stripePaymentId?: string | null
   xp?: number
   level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -490,6 +594,11 @@ export type UserUpdateManyMutationInput = {
   stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -506,6 +615,11 @@ export type UserUncheckedUpdateManyInput = {
   stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserScalarRelationFilter = {
@@ -527,11 +641,19 @@ export type UserCountOrderByAggregateInput = {
   stripePaymentId?: Prisma.SortOrder
   xp?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  currentStreak?: Prisma.SortOrder
+  longestStreak?: Prisma.SortOrder
+  lastQuizDate?: Prisma.SortOrder
+  streakProtectionsUsed?: Prisma.SortOrder
+  streakProtectionMonth?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
   xp?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  currentStreak?: Prisma.SortOrder
+  longestStreak?: Prisma.SortOrder
+  streakProtectionsUsed?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -548,6 +670,11 @@ export type UserMaxOrderByAggregateInput = {
   stripePaymentId?: Prisma.SortOrder
   xp?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  currentStreak?: Prisma.SortOrder
+  longestStreak?: Prisma.SortOrder
+  lastQuizDate?: Prisma.SortOrder
+  streakProtectionsUsed?: Prisma.SortOrder
+  streakProtectionMonth?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -564,11 +691,19 @@ export type UserMinOrderByAggregateInput = {
   stripePaymentId?: Prisma.SortOrder
   xp?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  currentStreak?: Prisma.SortOrder
+  longestStreak?: Prisma.SortOrder
+  lastQuizDate?: Prisma.SortOrder
+  streakProtectionsUsed?: Prisma.SortOrder
+  streakProtectionMonth?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
   xp?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  currentStreak?: Prisma.SortOrder
+  longestStreak?: Prisma.SortOrder
+  streakProtectionsUsed?: Prisma.SortOrder
 }
 
 export type UserCreateNestedOneWithoutAccountsInput = {
@@ -639,6 +774,20 @@ export type UserUpdateOneRequiredWithoutAttemptsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAttemptsInput, Prisma.UserUpdateWithoutAttemptsInput>, Prisma.UserUncheckedUpdateWithoutAttemptsInput>
 }
 
+export type UserCreateNestedOneWithoutTrophiesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTrophiesInput, Prisma.UserUncheckedCreateWithoutTrophiesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTrophiesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTrophiesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTrophiesInput, Prisma.UserUncheckedCreateWithoutTrophiesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTrophiesInput
+  upsert?: Prisma.UserUpsertWithoutTrophiesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTrophiesInput, Prisma.UserUpdateWithoutTrophiesInput>, Prisma.UserUncheckedUpdateWithoutTrophiesInput>
+}
+
 export type UserCreateNestedOneWithoutQuestionProgressInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutQuestionProgressInput, Prisma.UserUncheckedCreateWithoutQuestionProgressInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutQuestionProgressInput
@@ -667,10 +816,16 @@ export type UserCreateWithoutAccountsInput = {
   stripePaymentId?: string | null
   xp?: number
   level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
   questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -687,10 +842,16 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   stripePaymentId?: string | null
   xp?: number
   level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -723,10 +884,16 @@ export type UserUpdateWithoutAccountsInput = {
   stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -743,10 +910,16 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -763,10 +936,16 @@ export type UserCreateWithoutSessionsInput = {
   stripePaymentId?: string | null
   xp?: number
   level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
   questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -783,10 +962,16 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   stripePaymentId?: string | null
   xp?: number
   level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -819,10 +1004,16 @@ export type UserUpdateWithoutSessionsInput = {
   stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -839,10 +1030,16 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGamesInput = {
@@ -859,10 +1056,16 @@ export type UserCreateWithoutGamesInput = {
   stripePaymentId?: string | null
   xp?: number
   level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
   questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGamesInput = {
@@ -879,10 +1082,16 @@ export type UserUncheckedCreateWithoutGamesInput = {
   stripePaymentId?: string | null
   xp?: number
   level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGamesInput = {
@@ -915,10 +1124,16 @@ export type UserUpdateWithoutGamesInput = {
   stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGamesInput = {
@@ -935,10 +1150,16 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAttemptsInput = {
@@ -955,10 +1176,16 @@ export type UserCreateWithoutAttemptsInput = {
   stripePaymentId?: string | null
   xp?: number
   level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
   questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAttemptsInput = {
@@ -975,10 +1202,16 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   stripePaymentId?: string | null
   xp?: number
   level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAttemptsInput = {
@@ -1011,10 +1244,16 @@ export type UserUpdateWithoutAttemptsInput = {
   stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttemptsInput = {
@@ -1031,9 +1270,135 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutTrophiesInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutTrophiesInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutTrophiesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTrophiesInput, Prisma.UserUncheckedCreateWithoutTrophiesInput>
+}
+
+export type UserUpsertWithoutTrophiesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTrophiesInput, Prisma.UserUncheckedUpdateWithoutTrophiesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTrophiesInput, Prisma.UserUncheckedCreateWithoutTrophiesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTrophiesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTrophiesInput, Prisma.UserUncheckedUpdateWithoutTrophiesInput>
+}
+
+export type UserUpdateWithoutTrophiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTrophiesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1051,10 +1416,16 @@ export type UserCreateWithoutQuestionProgressInput = {
   stripePaymentId?: string | null
   xp?: number
   level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutQuestionProgressInput = {
@@ -1071,10 +1442,16 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   stripePaymentId?: string | null
   xp?: number
   level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutQuestionProgressInput = {
@@ -1107,10 +1484,16 @@ export type UserUpdateWithoutQuestionProgressInput = {
   stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuestionProgressInput = {
@@ -1127,10 +1510,16 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1144,6 +1533,7 @@ export type UserCountOutputType = {
   games: number
   attempts: number
   questionProgress: number
+  trophies: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1152,6 +1542,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   games?: boolean | UserCountOutputTypeCountGamesArgs
   attempts?: boolean | UserCountOutputTypeCountAttemptsArgs
   questionProgress?: boolean | UserCountOutputTypeCountQuestionProgressArgs
+  trophies?: boolean | UserCountOutputTypeCountTrophiesArgs
 }
 
 /**
@@ -1199,6 +1590,13 @@ export type UserCountOutputTypeCountQuestionProgressArgs<ExtArgs extends runtime
   where?: Prisma.UserQuestionProgressWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTrophiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TrophyWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1214,11 +1612,17 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   stripePaymentId?: boolean
   xp?: boolean
   level?: boolean
+  currentStreak?: boolean
+  longestStreak?: boolean
+  lastQuizDate?: boolean
+  streakProtectionsUsed?: boolean
+  streakProtectionMonth?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   games?: boolean | Prisma.User$gamesArgs<ExtArgs>
   attempts?: boolean | Prisma.User$attemptsArgs<ExtArgs>
   questionProgress?: boolean | Prisma.User$questionProgressArgs<ExtArgs>
+  trophies?: boolean | Prisma.User$trophiesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1236,6 +1640,11 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   stripePaymentId?: boolean
   xp?: boolean
   level?: boolean
+  currentStreak?: boolean
+  longestStreak?: boolean
+  lastQuizDate?: boolean
+  streakProtectionsUsed?: boolean
+  streakProtectionMonth?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1252,6 +1661,11 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   stripePaymentId?: boolean
   xp?: boolean
   level?: boolean
+  currentStreak?: boolean
+  longestStreak?: boolean
+  lastQuizDate?: boolean
+  streakProtectionsUsed?: boolean
+  streakProtectionMonth?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -1268,15 +1682,21 @@ export type UserSelectScalar = {
   stripePaymentId?: boolean
   xp?: boolean
   level?: boolean
+  currentStreak?: boolean
+  longestStreak?: boolean
+  lastQuizDate?: boolean
+  streakProtectionsUsed?: boolean
+  streakProtectionMonth?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   games?: boolean | Prisma.User$gamesArgs<ExtArgs>
   attempts?: boolean | Prisma.User$attemptsArgs<ExtArgs>
   questionProgress?: boolean | Prisma.User$questionProgressArgs<ExtArgs>
+  trophies?: boolean | Prisma.User$trophiesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1290,6 +1710,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     games: Prisma.$GamePayload<ExtArgs>[]
     attempts: Prisma.$AttemptPayload<ExtArgs>[]
     questionProgress: Prisma.$UserQuestionProgressPayload<ExtArgs>[]
+    trophies: Prisma.$TrophyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1305,6 +1726,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     stripePaymentId: string | null
     xp: number
     level: number
+    currentStreak: number
+    longestStreak: number
+    lastQuizDate: Date | null
+    streakProtectionsUsed: number
+    streakProtectionMonth: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1704,6 +2130,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   games<T extends Prisma.User$gamesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$gamesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attempts<T extends Prisma.User$attemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$attemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   questionProgress<T extends Prisma.User$questionProgressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$questionProgressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserQuestionProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  trophies<T extends Prisma.User$trophiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$trophiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrophyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1746,6 +2173,11 @@ export interface UserFieldRefs {
   readonly stripePaymentId: Prisma.FieldRef<"User", 'String'>
   readonly xp: Prisma.FieldRef<"User", 'Int'>
   readonly level: Prisma.FieldRef<"User", 'Int'>
+  readonly currentStreak: Prisma.FieldRef<"User", 'Int'>
+  readonly longestStreak: Prisma.FieldRef<"User", 'Int'>
+  readonly lastQuizDate: Prisma.FieldRef<"User", 'DateTime'>
+  readonly streakProtectionsUsed: Prisma.FieldRef<"User", 'Int'>
+  readonly streakProtectionMonth: Prisma.FieldRef<"User", 'String'>
 }
     
 
@@ -2256,6 +2688,30 @@ export type User$questionProgressArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.UserQuestionProgressScalarFieldEnum | Prisma.UserQuestionProgressScalarFieldEnum[]
+}
+
+/**
+ * User.trophies
+ */
+export type User$trophiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Trophy
+   */
+  select?: Prisma.TrophySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Trophy
+   */
+  omit?: Prisma.TrophyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrophyInclude<ExtArgs> | null
+  where?: Prisma.TrophyWhereInput
+  orderBy?: Prisma.TrophyOrderByWithRelationInput | Prisma.TrophyOrderByWithRelationInput[]
+  cursor?: Prisma.TrophyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TrophyScalarFieldEnum | Prisma.TrophyScalarFieldEnum[]
 }
 
 /**

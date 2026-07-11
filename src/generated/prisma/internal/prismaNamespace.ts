@@ -392,6 +392,7 @@ export const ModelName = {
   Question: 'Question',
   Attempt: 'Attempt',
   AttemptAnswer: 'AttemptAnswer',
+  Trophy: 'Trophy',
   UserQuestionProgress: 'UserQuestionProgress'
 } as const
 
@@ -408,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "userQuestionProgress"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "trophy" | "userQuestionProgress"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1004,6 +1005,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Trophy: {
+      payload: Prisma.$TrophyPayload<ExtArgs>
+      fields: Prisma.TrophyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TrophyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrophyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TrophyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrophyPayload>
+        }
+        findFirst: {
+          args: Prisma.TrophyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrophyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TrophyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrophyPayload>
+        }
+        findMany: {
+          args: Prisma.TrophyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrophyPayload>[]
+        }
+        create: {
+          args: Prisma.TrophyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrophyPayload>
+        }
+        createMany: {
+          args: Prisma.TrophyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TrophyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrophyPayload>[]
+        }
+        delete: {
+          args: Prisma.TrophyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrophyPayload>
+        }
+        update: {
+          args: Prisma.TrophyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrophyPayload>
+        }
+        deleteMany: {
+          args: Prisma.TrophyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TrophyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TrophyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrophyPayload>[]
+        }
+        upsert: {
+          args: Prisma.TrophyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrophyPayload>
+        }
+        aggregate: {
+          args: Prisma.TrophyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTrophy>
+        }
+        groupBy: {
+          args: Prisma.TrophyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TrophyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TrophyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TrophyCountAggregateOutputType> | number
+        }
+      }
+    }
     UserQuestionProgress: {
       payload: Prisma.$UserQuestionProgressPayload<ExtArgs>
       fields: Prisma.UserQuestionProgressFieldRefs
@@ -1158,7 +1233,12 @@ export const UserScalarFieldEnum = {
   stripeCustomerId: 'stripeCustomerId',
   stripePaymentId: 'stripePaymentId',
   xp: 'xp',
-  level: 'level'
+  level: 'level',
+  currentStreak: 'currentStreak',
+  longestStreak: 'longestStreak',
+  lastQuizDate: 'lastQuizDate',
+  streakProtectionsUsed: 'streakProtectionsUsed',
+  streakProtectionMonth: 'streakProtectionMonth'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -1188,6 +1268,7 @@ export const McqQuestionScalarFieldEnum = {
   options: 'options',
   correct_answer: 'correct_answer',
   explanation: 'explanation',
+  country: 'country',
   is_active: 'is_active',
   usage_count: 'usage_count',
   created_at: 'created_at'
@@ -1206,6 +1287,7 @@ export const QuestionScalarFieldEnum = {
   userAnswer: 'userAnswer',
   isCorrect: 'isCorrect',
   orderIndex: 'orderIndex',
+  country: 'country',
   gameId: 'gameId',
   sourceQuestionId: 'sourceQuestionId'
 } as const
@@ -1236,6 +1318,18 @@ export const AttemptAnswerScalarFieldEnum = {
 } as const
 
 export type AttemptAnswerScalarFieldEnum = (typeof AttemptAnswerScalarFieldEnum)[keyof typeof AttemptAnswerScalarFieldEnum]
+
+
+export const TrophyScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gameId: 'gameId',
+  kind: 'kind',
+  streakCount: 'streakCount',
+  createdAt: 'createdAt'
+} as const
+
+export type TrophyScalarFieldEnum = (typeof TrophyScalarFieldEnum)[keyof typeof TrophyScalarFieldEnum]
 
 
 export const UserQuestionProgressScalarFieldEnum = {
@@ -1342,6 +1436,20 @@ export type ListEnumGameTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'TrophyKind'
+ */
+export type EnumTrophyKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TrophyKind'>
+    
+
+
+/**
+ * Reference to a field of type 'TrophyKind[]'
+ */
+export type ListEnumTrophyKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TrophyKind[]'>
     
 
 
@@ -1476,6 +1584,7 @@ export type GlobalOmitConfig = {
   question?: Prisma.QuestionOmit
   attempt?: Prisma.AttemptOmit
   attemptAnswer?: Prisma.AttemptAnswerOmit
+  trophy?: Prisma.TrophyOmit
   userQuestionProgress?: Prisma.UserQuestionProgressOmit
 }
 

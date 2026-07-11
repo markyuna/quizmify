@@ -5,7 +5,18 @@ import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { calculateEarnedXp, calculateLevel } from "@/lib/xp";
 import { FREE_XP_CAP, FREE_LEVEL_CAP } from "@/lib/stripe";
+import { registerQuizActivity, getEffectiveStreak, type StreakResult } from "@/lib/streak";
 import { submitQuizSchema } from "@/schemas/form/quiz";
+
+export type TrophyReason = "perfect" | "streak" | null;
+
+function computeTrophyReason(score: number, streak: StreakResult): TrophyReason {
+  if (score === 100) return "perfect";
+  // A brand new account's very first quiz trivially "beats" a longestStreak
+  // of 0 -- require at least a 2-day streak before calling it a record.
+  if (streak.isNewRecord && streak.currentStreak >= 2) return "streak";
+  return null;
+}
 
 export async function POST(req: Request) {
   try {
@@ -62,7 +73,7 @@ export async function POST(req: Request) {
     if (existingAttempt) {
       const currentUser = await prisma.user.findUnique({
         where: { id: userId },
-        select: { xp: true, level: true },
+        select: { xp: true, level: true, currentStreak: true, lastQuizDate: true },
       });
 
       const level = currentUser?.level ?? 1;
@@ -79,6 +90,10 @@ export async function POST(req: Request) {
           newLevel: level,
           previousLevel: level,
           didLevelUp: false,
+          currentStreak: currentUser ? getEffectiveStreak(currentUser) : 0,
+          streakExtended: false,
+          streakProtected: false,
+          trophyReason: null satisfies TrophyReason,
         },
         { status: 200 }
       );
@@ -181,7 +196,31 @@ export async function POST(req: Request) {
           newLevel: 1,
           didLevelUp: false,
           hitFreeLimit: false,
+          streak: {
+            currentStreak: 0,
+            longestStreak: 0,
+            isNewRecord: false,
+            streakExtended: false,
+            streakProtected: false,
+            streakReset: false,
+            protectionsRemaining: 0,
+          } satisfies StreakResult,
+          trophyReason: null satisfies TrophyReason,
         };
+      }
+
+      const streak = await registerQuizActivity(tx, userId);
+      const trophyReason = computeTrophyReason(score, streak);
+
+      if (trophyReason) {
+        await tx.trophy.create({
+          data: {
+            userId,
+            gameId: game.id,
+            kind: trophyReason,
+            streakCount: trophyReason === "streak" ? streak.currentStreak : null,
+          },
+        });
       }
 
       const previousLevel = previousUser.level;
@@ -221,6 +260,8 @@ export async function POST(req: Request) {
         newLevel,
         didLevelUp,
         hitFreeLimit,
+        streak,
+        trophyReason,
       };
     });
 
@@ -237,6 +278,10 @@ export async function POST(req: Request) {
         newLevel: result.newLevel,
         didLevelUp: result.didLevelUp,
         hitFreeLimit: result.hitFreeLimit,
+        currentStreak: result.streak.currentStreak,
+        streakExtended: result.streak.streakExtended,
+        streakProtected: result.streak.streakProtected,
+        trophyReason: result.trophyReason,
       },
       { status: 200 }
     );

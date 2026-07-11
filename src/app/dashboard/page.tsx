@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import {
   Brain,
   Clock3,
+  Flame,
   Sparkles,
   Target,
   Trophy,
@@ -11,6 +12,7 @@ import {
 } from "lucide-react";
 
 import DetailsDialog from "@/components/DetailsDialog";
+import Avatar3D from "@/components/avatar/Avatar3D";
 import HistoryCard from "@/components/dashboard/HistoryCard";
 import HotTopicsCard from "@/components/dashboard/HotTopicsCard";
 import QuizMeCard from "@/components/dashboard/QuizMeCard";
@@ -19,6 +21,7 @@ import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { getLevelProgress } from "@/lib/xp";
 import { FREE_XP_CAP } from "@/lib/stripe";
+import { getEffectiveStreak, getProtectionsRemaining } from "@/lib/streak";
 
 export const metadata = {
   title: "Dashboard | Quizmify",
@@ -47,7 +50,7 @@ function StatCard({
   title: string;
   value: string;
   subtitle: string;
-  icon: React.ElementType;
+  icon: React.ComponentType<{ className?: string }>;
   accent: string;
 }) {
   return (
@@ -136,6 +139,10 @@ export default async function DashboardPage() {
         level: true,
         name: true,
         subscriptionStatus: true,
+        currentStreak: true,
+        lastQuizDate: true,
+        streakProtectionsUsed: true,
+        streakProtectionMonth: true,
       },
     }),
 
@@ -202,6 +209,9 @@ export default async function DashboardPage() {
   const isAtFreeLimit = !isPro && totalXp >= FREE_XP_CAP - 1;
   const levelProgress = getLevelProgress(totalXp);
 
+  const currentStreak = userProfile ? getEffectiveStreak(userProfile) : 0;
+  const protectionsRemaining = isPro && userProfile ? getProtectionsRemaining(userProfile) : 0;
+
   const attemptsCount = attemptsAggregate._count._all;
   const totalCorrect = attemptsAggregate._sum.correctAnswers ?? 0;
   const totalAnswered = attemptsAggregate._sum.totalQuestions ?? 0;
@@ -261,16 +271,19 @@ export default async function DashboardPage() {
 
             <div className="mt-5 max-w-xl rounded-[1.5rem] border border-white/10 bg-white/60 p-4 shadow-lg shadow-black/5 backdrop-blur-xl dark:bg-white/5">
               <div className="flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-violet-500 dark:text-violet-300">
-                    {t("levelProgress")}
-                  </p>
-                  <h2 className="mt-1 text-xl font-bold text-slate-900 dark:text-white">
-                    {t("level")} {currentLevel}
-                  </h2>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {t("xpToNextLevel", { xp: totalXp, toGo: levelProgress.xpToNextLevel, nextLevel: currentLevel + 1 })}
-                  </p>
+                <div className="flex min-w-0 items-center gap-3">
+                  <Avatar3D level={currentLevel} size={72} className="rounded-full" />
+                  <div className="min-w-0">
+                    <p className="text-xs uppercase tracking-[0.2em] text-violet-500 dark:text-violet-300">
+                      {t("levelProgress")}
+                    </p>
+                    <h2 className="mt-1 text-xl font-bold text-slate-900 dark:text-white">
+                      {t("level")} {currentLevel}
+                    </h2>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {t("xpToNextLevel", { xp: totalXp, toGo: levelProgress.xpToNextLevel, nextLevel: currentLevel + 1 })}
+                    </p>
+                  </div>
                 </div>
 
                 <div className="shrink-0 rounded-2xl border border-white/10 bg-white/70 px-4 py-3 text-center backdrop-blur-xl dark:bg-white/10">
@@ -297,7 +310,7 @@ export default async function DashboardPage() {
             </div>
           </div>
 
-          <div className="grid w-full grid-cols-2 gap-3 sm:w-auto sm:min-w-[260px]">
+          <div className="grid w-full grid-cols-3 gap-3 sm:w-auto sm:min-w-[320px]">
             <div className="rounded-2xl border border-white/10 bg-white/50 px-3 py-3 text-sm backdrop-blur-xl dark:bg-white/5 sm:px-4">
               <p className="text-xs text-muted-foreground sm:text-sm">
                 {t("quizzesDone")}
@@ -314,6 +327,21 @@ export default async function DashboardPage() {
               <p className="mt-1 text-lg font-bold sm:text-xl">
                 {bestScore !== null ? `${bestScore}%` : "—"}
               </p>
+            </div>
+
+            <div className="rounded-2xl border border-amber-200/60 bg-amber-50/60 px-3 py-3 text-sm backdrop-blur-xl dark:border-amber-500/20 dark:bg-amber-500/10 sm:px-4">
+              <p className="flex items-center gap-1 text-xs text-muted-foreground sm:text-sm">
+                <Flame className="h-3.5 w-3.5 text-amber-500" />
+                {t("streak")}
+              </p>
+              <p className="mt-1 text-lg font-bold sm:text-xl">
+                {currentStreak}
+              </p>
+              {isPro && (
+                <p className="mt-0.5 text-[11px] text-muted-foreground">
+                  {t("protectionsRemaining", { count: protectionsRemaining })}
+                </p>
+              )}
             </div>
           </div>
         </div>
