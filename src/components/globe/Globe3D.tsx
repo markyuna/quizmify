@@ -26,7 +26,7 @@ export default function Globe3D({ litCountries, size = 240 }: Globe3DProps) {
     return (
       <div
         style={dimension}
-        className="mx-auto flex flex-col items-center justify-center gap-2 rounded-2xl bg-blue-950/5 dark:bg-blue-500/5"
+        className="mx-auto flex flex-col items-center justify-center gap-2 rounded-full bg-blue-950/5 dark:bg-blue-500/5"
       >
         <Globe className="h-12 w-12 text-blue-500" />
         <span className="text-xs font-semibold text-blue-600 dark:text-blue-300">
@@ -37,7 +37,7 @@ export default function Globe3D({ litCountries, size = 240 }: Globe3DProps) {
   }
 
   return (
-    <div style={dimension} className="mx-auto overflow-hidden rounded-2xl">
+    <div style={dimension} className="mx-auto overflow-hidden rounded-full">
       {webglOk !== null && (
         <Globe3DScene litCountries={litCountries} reducedMotion={reducedMotion} />
       )}
