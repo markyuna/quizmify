@@ -1,12 +1,29 @@
 "use client";
 
 import * as React from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { AdditiveBlending, type Group } from "three";
+import { AdditiveBlending, BackSide, Color, type Group } from "three";
 
 import { getCountryCoordinates } from "@/lib/geo-countries";
 import { createWorldMapTexture } from "./worldMapTexture";
+
+const ATMOSPHERE_VERTEX_SHADER = `
+  varying vec3 vNormal;
+  void main() {
+    vNormal = normalize(normalMatrix * normal);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const ATMOSPHERE_FRAGMENT_SHADER = `
+  uniform vec3 glowColor;
+  varying vec3 vNormal;
+  void main() {
+    float intensity = pow(0.7 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 4.0);
+    gl_FragColor = vec4(glowColor, 1.0) * intensity;
+  }
+`;
 
 type Globe3DSceneProps = {
   litCountries: string[];
@@ -62,14 +79,44 @@ function CountryMarker({ lat, lng, reducedMotion }: { lat: number; lng: number; 
   );
 }
 
+function Earth() {
+  const { gl } = useThree();
+  const maxAnisotropy = gl.capabilities.getMaxAnisotropy();
+  const worldMap = React.useMemo(() => createWorldMapTexture(maxAnisotropy), [maxAnisotropy]);
+
+  return (
+    <mesh>
+      <sphereGeometry args={[GLOBE_RADIUS, 64, 64]} />
+      <meshStandardMaterial map={worldMap} roughness={0.75} metalness={0.05} />
+    </mesh>
+  );
+}
+
+function Atmosphere() {
+  const glowColor = React.useMemo(() => ({ value: new Color("#60a5fa") }), []);
+
+  return (
+    <mesh scale={1.16}>
+      <sphereGeometry args={[GLOBE_RADIUS, 48, 48]} />
+      <shaderMaterial
+        vertexShader={ATMOSPHERE_VERTEX_SHADER}
+        fragmentShader={ATMOSPHERE_FRAGMENT_SHADER}
+        uniforms={{ glowColor }}
+        blending={AdditiveBlending}
+        side={BackSide}
+        transparent
+        depthWrite={false}
+      />
+    </mesh>
+  );
+}
+
 export default function Globe3DScene({ litCountries, reducedMotion }: Globe3DSceneProps) {
   const markers = React.useMemo(() => {
     return litCountries
       .map((country) => ({ country, coords: getCountryCoordinates(country) }))
       .filter((m): m is { country: string; coords: { lat: number; lng: number } } => m.coords !== null);
   }, [litCountries]);
-
-  const worldMap = React.useMemo(() => createWorldMapTexture(), []);
 
   return (
     <Canvas
@@ -79,20 +126,20 @@ export default function Globe3DScene({ litCountries, reducedMotion }: Globe3DSce
     >
       <ambientLight intensity={0.8} />
       <directionalLight position={[3, 4, 3]} intensity={1.1} />
+      <pointLight position={[-3, -2, -2]} intensity={0.3} color="#60a5fa" />
 
-      <mesh>
-        <sphereGeometry args={[GLOBE_RADIUS, 48, 48]} />
-        <meshStandardMaterial map={worldMap} roughness={0.7} metalness={0.05} />
-      </mesh>
+      <Earth />
 
       <mesh>
         <sphereGeometry args={[GLOBE_RADIUS + 0.005, 24, 24]} />
-        <meshBasicMaterial color="#60a5fa" wireframe transparent opacity={0.15} />
+        <meshBasicMaterial color="#60a5fa" wireframe transparent opacity={0.12} />
       </mesh>
 
       {markers.map(({ country, coords }) => (
         <CountryMarker key={country} lat={coords.lat} lng={coords.lng} reducedMotion={reducedMotion} />
       ))}
+
+      <Atmosphere />
 
       <OrbitControls
         enableZoom={false}
