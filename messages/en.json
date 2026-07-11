@@ -334,5 +334,16 @@
     "streakBadge": "New record",
     "streakTitle": "New streak record!",
     "streakSubtitle": "{count} days in a row — your best streak yet."
+  },
+  "TrophyCabinet": {
+    "badge": "Trophy room",
+    "title": "Your trophies",
+    "countSingular": "1 trophy earned",
+    "countPlural": "{count} trophies earned",
+    "emptyTitle": "No trophies yet",
+    "emptySubtitle": "Score 100% on a quiz or set a new streak record to earn your first trophy.",
+    "perfectLabel": "Perfect score",
+    "streakLabel": "{count}-day streak",
+    "unknownTopic": "Quiz"
   }
 }

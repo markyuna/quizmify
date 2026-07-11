@@ -334,5 +334,16 @@
     "streakBadge": "Nuevo récord",
     "streakTitle": "¡Nuevo récord de racha!",
     "streakSubtitle": "{count} días seguidos — tu mejor racha hasta ahora."
+  },
+  "TrophyCabinet": {
+    "badge": "Sala de trofeos",
+    "title": "Tus trofeos",
+    "countSingular": "1 trofeo obtenido",
+    "countPlural": "{count} trofeos obtenidos",
+    "emptyTitle": "Todavía no hay trofeos",
+    "emptySubtitle": "Sacá 100% en un quiz o batí tu récord de racha para ganar tu primer trofeo.",
+    "perfectLabel": "Puntaje perfecto",
+    "streakLabel": "Racha de {count} días",
+    "unknownTopic": "Quiz"
   }
 }

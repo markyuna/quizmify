@@ -16,6 +16,7 @@ import Avatar3D from "@/components/avatar/Avatar3D";
 import HistoryCard from "@/components/dashboard/HistoryCard";
 import HotTopicsCard from "@/components/dashboard/HotTopicsCard";
 import QuizMeCard from "@/components/dashboard/QuizMeCard";
+import TrophyCabinetCard from "@/components/dashboard/TrophyCabinetCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
@@ -378,6 +379,10 @@ export default async function DashboardPage() {
 
       <section className="mt-4 sm:mt-6">
         <HotTopicsCard />
+      </section>
+
+      <section className="mt-4 sm:mt-6">
+        <TrophyCabinetCard userId={userId} />
       </section>
 
       {isAtFreeLimit && (

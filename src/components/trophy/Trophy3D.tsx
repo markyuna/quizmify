@@ -14,10 +14,11 @@ const Trophy3DScene = dynamic(() => import("./Trophy3DScene"), {
 
 type Trophy3DProps = {
   reason: TrophyReason;
+  streakCount?: number | null;
   size?: number;
 };
 
-export default function Trophy3D({ reason, size = 220 }: Trophy3DProps) {
+export default function Trophy3D({ reason, streakCount, size = 220 }: Trophy3DProps) {
   const webglOk = useWebGLSupport();
   const reducedMotion = usePrefersReducedMotion();
 
@@ -33,7 +34,9 @@ export default function Trophy3D({ reason, size = 220 }: Trophy3DProps) {
 
   return (
     <div style={dimension} className="mx-auto">
-      {webglOk !== null && <Trophy3DScene reason={reason} reducedMotion={reducedMotion} />}
+      {webglOk !== null && (
+        <Trophy3DScene reason={reason} streakCount={streakCount} reducedMotion={reducedMotion} />
+      )}
     </div>
   );
 }

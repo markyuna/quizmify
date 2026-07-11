@@ -334,5 +334,16 @@
     "streakBadge": "Nouveau record",
     "streakTitle": "Nouveau record de série !",
     "streakSubtitle": "{count} jours d'affilée — votre meilleure série à ce jour."
+  },
+  "TrophyCabinet": {
+    "badge": "Salle des trophées",
+    "title": "Vos trophées",
+    "countSingular": "1 trophée obtenu",
+    "countPlural": "{count} trophées obtenus",
+    "emptyTitle": "Aucun trophée pour l'instant",
+    "emptySubtitle": "Obtenez 100 % à un quiz ou battez votre record de série pour gagner votre premier trophée.",
+    "perfectLabel": "Score parfait",
+    "streakLabel": "Série de {count} jours",
+    "unknownTopic": "Quiz"
   }
 }
