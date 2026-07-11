@@ -16,6 +16,7 @@ export const confidentialiteContent: Record<Locale, LegalContent> = {
         heading: "2. Données collectées",
         paragraphs: [
           "Données de compte via Google OAuth : nom, adresse email, photo de profil",
+          "Données de compte par email : nom, adresse email, mot de passe — le mot de passe n'est jamais stocké en clair, uniquement sous forme hachée (bcrypt), que Quizmify lui-même ne peut pas déchiffrer",
           "Données d'utilisation : thèmes de quiz, réponses, scores, points d'expérience (XP), niveau, historique des parties",
           "Données de paiement : identifiant client Stripe et identifiant de session de paiement — Quizmify ne stocke jamais vos coordonnées bancaires, qui sont traitées directement par Stripe",
         ],
@@ -75,6 +76,7 @@ export const confidentialiteContent: Record<Locale, LegalContent> = {
         heading: "2. Data collected",
         paragraphs: [
           "Account data via Google OAuth: name, email address, profile picture",
+          "Account data via email sign-up: name, email address, password — the password is never stored in plain text, only as a bcrypt hash that Quizmify itself cannot reverse",
           "Usage data: quiz topics, answers, scores, experience points (XP), level, game history",
           "Payment data: Stripe customer ID and checkout session ID — Quizmify never stores your card details, which are processed directly by Stripe",
         ],
@@ -134,6 +136,7 @@ export const confidentialiteContent: Record<Locale, LegalContent> = {
         heading: "2. Datos recopilados",
         paragraphs: [
           "Datos de cuenta vía Google OAuth: nombre, dirección de email, foto de perfil",
+          "Datos de cuenta por email: nombre, dirección de email, contraseña — la contraseña nunca se guarda en texto plano, solo como un hash bcrypt que ni siquiera Quizmify puede revertir",
           "Datos de uso: temas de quiz, respuestas, puntajes, puntos de experiencia (XP), nivel, historial de partidas",
           "Datos de pago: ID de cliente de Stripe e ID de sesión de pago — Quizmify nunca almacena tus datos bancarios, que son procesados directamente por Stripe",
         ],

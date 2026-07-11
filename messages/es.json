@@ -71,6 +71,27 @@
     "connecting": "Conectando...",
     "continueWithGoogle": "Continuar con Google"
   },
+  "Auth": {
+    "errorTitle": "Error",
+    "emailInUse": "Este email ya está registrado.",
+    "registerError": "No se pudo crear tu cuenta. Intentalo de nuevo.",
+    "invalidCredentials": "Email o contraseña incorrectos.",
+    "nameLabel": "Nombre",
+    "emailLabel": "Email",
+    "passwordLabel": "Contraseña",
+    "confirmPasswordLabel": "Confirmar contraseña",
+    "creatingAccount": "Creando cuenta...",
+    "createAccount": "Crear cuenta",
+    "signingIn": "Iniciando sesión...",
+    "signIn": "Iniciar sesión",
+    "or": "o",
+    "noAccount": "¿No tenés una cuenta?",
+    "createAccountLink": "Creá una",
+    "createAccountTitle": "Creá tu cuenta",
+    "createAccountSubtitle": "Empezá tu recorrido de quizzes en segundos",
+    "alreadyHaveAccount": "¿Ya tenés una cuenta?",
+    "signInLink": "Iniciar sesión"
+  },
   "QuizCreation": {
     "badge": "Generador de quizzes con IA",
     "title": "Creá tu quiz",

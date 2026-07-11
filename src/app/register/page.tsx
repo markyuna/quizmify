@@ -1,30 +1,23 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { BrainCircuit, Zap, Trophy, RotateCcw } from "lucide-react";
+import { BrainCircuit } from "lucide-react";
 
+import RegisterForm from "@/components/RegisterForm";
 import LoginButton from "@/components/LoginButton";
-import CredentialsLoginForm from "@/components/CredentialsLoginForm";
 import { getAuthSession } from "@/lib/nextauth";
 
 export const metadata = {
-  title: "Login | Quizmify",
+  title: "Create Account | Quizmify",
 };
 
-export default async function LoginPage() {
+export default async function RegisterPage() {
   const session = await getAuthSession();
-  const t = await getTranslations("Login");
-  const tAuth = await getTranslations("Auth");
+  const t = await getTranslations("Auth");
 
   if (session?.user) {
     redirect("/dashboard");
   }
-
-  const features = [
-    { icon: Zap, label: t("featureAi") },
-    { icon: Trophy, label: t("featureXp") },
-    { icon: RotateCcw, label: t("featureMistakes") },
-  ];
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-violet-50 via-white to-cyan-50 px-4 py-12 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950">
@@ -43,54 +36,33 @@ export default async function LoginPage() {
           <h1 className="text-4xl font-black tracking-tight text-slate-900 dark:text-white">
             Quizmify
           </h1>
-          <p className="mt-2 text-base font-medium text-slate-500 dark:text-slate-400">
-            {t("tagline")}
-          </p>
         </div>
 
         <div className="rounded-[1.75rem] border border-slate-200/80 bg-white/80 p-6 shadow-2xl shadow-slate-200/50 backdrop-blur-xl dark:border-white/10 dark:bg-white/5 dark:shadow-none sm:p-8">
           <h2 className="text-center text-xl font-bold text-slate-900 dark:text-white">
-            {t("cardTitle")}
+            {t("createAccountTitle")}
           </h2>
           <p className="mt-1.5 text-center text-sm text-slate-500 dark:text-slate-400">
-            {t("cardSubtitle")}
+            {t("createAccountSubtitle")}
           </p>
 
           <div className="mt-6">
-            <LoginButton />
+            <RegisterForm />
           </div>
 
           <div className="my-6 flex items-center gap-3">
             <div className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
-            <span className="text-xs font-medium uppercase text-slate-400">{tAuth("or")}</span>
+            <span className="text-xs font-medium uppercase text-slate-400">{t("or")}</span>
             <div className="h-px flex-1 bg-slate-200 dark:bg-white/10" />
           </div>
 
-          <CredentialsLoginForm />
+          <LoginButton />
 
           <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
-            {tAuth("noAccount")}{" "}
-            <Link href="/register" className="font-semibold text-violet-600 hover:underline dark:text-violet-400">
-              {tAuth("createAccountLink")}
+            {t("alreadyHaveAccount")}{" "}
+            <Link href="/login" className="font-semibold text-violet-600 hover:underline dark:text-violet-400">
+              {t("signInLink")}
             </Link>
-          </p>
-
-          <ul className="mt-6 space-y-2.5">
-            {features.map(({ icon: Icon, label }) => (
-              <li
-                key={label}
-                className="flex items-center gap-2.5 text-sm text-slate-600 dark:text-slate-300"
-              >
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-violet-100 dark:bg-violet-500/15">
-                  <Icon className="h-3.5 w-3.5 text-violet-600 dark:text-violet-300" />
-                </div>
-                {label}
-              </li>
-            ))}
-          </ul>
-
-          <p className="mt-6 text-center text-xs text-slate-400 dark:text-slate-500">
-            {t("footNote")}
           </p>
         </div>
       </div>

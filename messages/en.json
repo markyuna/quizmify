@@ -71,6 +71,27 @@
     "connecting": "Connecting...",
     "continueWithGoogle": "Continue with Google"
   },
+  "Auth": {
+    "errorTitle": "Error",
+    "emailInUse": "This email is already registered.",
+    "registerError": "Could not create your account. Please try again.",
+    "invalidCredentials": "Invalid email or password.",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm password",
+    "creatingAccount": "Creating account...",
+    "createAccount": "Create account",
+    "signingIn": "Signing in...",
+    "signIn": "Sign in",
+    "or": "or",
+    "noAccount": "Don't have an account?",
+    "createAccountLink": "Create one",
+    "createAccountTitle": "Create your account",
+    "createAccountSubtitle": "Start your quiz journey in seconds",
+    "alreadyHaveAccount": "Already have an account?",
+    "signInLink": "Sign in"
+  },
   "QuizCreation": {
     "badge": "AI-powered quiz generator",
     "title": "Create your quiz",

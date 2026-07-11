@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 
 import { getAuthSession } from "@/lib/nextauth";
 import Logo from "./Logo";
-import SignInButton from "./SignInButton";
+import { buttonVariants } from "./ui/button";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
 import UserAccountNav from "./UserAccountNav";
@@ -25,7 +25,9 @@ export default async function Navbar() {
           {session?.user ? (
             <UserAccountNav user={session.user} />
           ) : (
-            <SignInButton text={t("signIn")} />
+            <Link href="/login" className={buttonVariants()}>
+              {t("signIn")}
+            </Link>
           )}
         </div>
       </div>
