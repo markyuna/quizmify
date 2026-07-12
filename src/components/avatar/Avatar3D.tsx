@@ -4,6 +4,7 @@ import * as React from "react";
 import dynamic from "next/dynamic";
 
 import { getAvatarTierForLevel } from "@/lib/avatar";
+import { applyAvatarSkin, type AvatarSkin } from "@/lib/avatarSkins";
 import { useWebGLSupport, usePrefersReducedMotion } from "@/lib/webgl";
 import { cn } from "@/lib/utils";
 
@@ -16,10 +17,12 @@ type Avatar3DProps = {
   level: number;
   size?: number;
   className?: string;
+  /** Equipped Pro skin, already resolved by the caller (null/omitted = default level-based look). */
+  skin?: AvatarSkin | null;
 };
 
-export default function Avatar3D({ level, size = 160, className }: Avatar3DProps) {
-  const tier = getAvatarTierForLevel(level);
+export default function Avatar3D({ level, size = 160, className, skin = null }: Avatar3DProps) {
+  const tier = applyAvatarSkin(getAvatarTierForLevel(level), skin);
   const webglOk = useWebGLSupport();
   const reducedMotion = usePrefersReducedMotion();
 

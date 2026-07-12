@@ -64,6 +64,7 @@ export type UserMinAggregateOutputType = {
   timezone: string | null
   premiumUntil: Date | null
   freeTrialUsedAt: Date | null
+  selectedSkinId: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -88,6 +89,7 @@ export type UserMaxAggregateOutputType = {
   timezone: string | null
   premiumUntil: Date | null
   freeTrialUsedAt: Date | null
+  selectedSkinId: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -112,6 +114,7 @@ export type UserCountAggregateOutputType = {
   timezone: number
   premiumUntil: number
   freeTrialUsedAt: number
+  selectedSkinId: number
   _all: number
 }
 
@@ -154,6 +157,7 @@ export type UserMinAggregateInputType = {
   timezone?: true
   premiumUntil?: true
   freeTrialUsedAt?: true
+  selectedSkinId?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -178,6 +182,7 @@ export type UserMaxAggregateInputType = {
   timezone?: true
   premiumUntil?: true
   freeTrialUsedAt?: true
+  selectedSkinId?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -202,6 +207,7 @@ export type UserCountAggregateInputType = {
   timezone?: true
   premiumUntil?: true
   freeTrialUsedAt?: true
+  selectedSkinId?: true
   _all?: true
 }
 
@@ -313,6 +319,7 @@ export type UserGroupByOutputType = {
   timezone: string | null
   premiumUntil: Date | null
   freeTrialUsedAt: Date | null
+  selectedSkinId: string | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -360,6 +367,7 @@ export type UserWhereInput = {
   timezone?: Prisma.StringNullableFilter<"User"> | string | null
   premiumUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   freeTrialUsedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  selectedSkinId?: Prisma.StringNullableFilter<"User"> | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   games?: Prisma.GameListRelationFilter
@@ -399,6 +407,7 @@ export type UserOrderByWithRelationInput = {
   timezone?: Prisma.SortOrderInput | Prisma.SortOrder
   premiumUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  selectedSkinId?: Prisma.SortOrderInput | Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   games?: Prisma.GameOrderByRelationAggregateInput
@@ -441,6 +450,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   timezone?: Prisma.StringNullableFilter<"User"> | string | null
   premiumUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   freeTrialUsedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  selectedSkinId?: Prisma.StringNullableFilter<"User"> | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   games?: Prisma.GameListRelationFilter
@@ -480,6 +490,7 @@ export type UserOrderByWithAggregationInput = {
   timezone?: Prisma.SortOrderInput | Prisma.SortOrder
   premiumUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  selectedSkinId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -512,6 +523,7 @@ export type UserScalarWhereWithAggregatesInput = {
   timezone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   premiumUntil?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   freeTrialUsedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  selectedSkinId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
 export type UserCreateInput = {
@@ -536,6 +548,7 @@ export type UserCreateInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -575,6 +588,7 @@ export type UserUncheckedCreateInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -614,6 +628,7 @@ export type UserUpdateInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -653,6 +668,7 @@ export type UserUncheckedUpdateInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -692,6 +708,7 @@ export type UserCreateManyInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -716,6 +733,7 @@ export type UserUpdateManyMutationInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -740,6 +758,7 @@ export type UserUncheckedUpdateManyInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserScalarRelationFilter = {
@@ -769,6 +788,7 @@ export type UserCountOrderByAggregateInput = {
   timezone?: Prisma.SortOrder
   premiumUntil?: Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrder
+  selectedSkinId?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -801,6 +821,7 @@ export type UserMaxOrderByAggregateInput = {
   timezone?: Prisma.SortOrder
   premiumUntil?: Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrder
+  selectedSkinId?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -825,6 +846,7 @@ export type UserMinOrderByAggregateInput = {
   timezone?: Prisma.SortOrder
   premiumUntil?: Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrder
+  selectedSkinId?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -1079,6 +1101,7 @@ export type UserCreateWithoutAccountsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
@@ -1117,6 +1140,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
@@ -1171,6 +1195,7 @@ export type UserUpdateWithoutAccountsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
@@ -1209,6 +1234,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -1247,6 +1273,7 @@ export type UserCreateWithoutSessionsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
@@ -1285,6 +1312,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
@@ -1339,6 +1367,7 @@ export type UserUpdateWithoutSessionsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
@@ -1377,6 +1406,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -1415,6 +1445,7 @@ export type UserCreateWithoutGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
@@ -1453,6 +1484,7 @@ export type UserUncheckedCreateWithoutGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
@@ -1507,6 +1539,7 @@ export type UserUpdateWithoutGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
@@ -1545,6 +1578,7 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -1583,6 +1617,7 @@ export type UserCreateWithoutAttemptsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -1621,6 +1656,7 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -1675,6 +1711,7 @@ export type UserUpdateWithoutAttemptsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -1713,6 +1750,7 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -1751,6 +1789,7 @@ export type UserCreateWithoutCertificatesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -1789,6 +1828,7 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -1843,6 +1883,7 @@ export type UserUpdateWithoutCertificatesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -1881,6 +1922,7 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -1919,6 +1961,7 @@ export type UserCreateWithoutTopicRecommendationsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -1957,6 +2000,7 @@ export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2011,6 +2055,7 @@ export type UserUpdateWithoutTopicRecommendationsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2049,6 +2094,7 @@ export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2087,6 +2133,7 @@ export type UserCreateWithoutTrophiesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2125,6 +2172,7 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2179,6 +2227,7 @@ export type UserUpdateWithoutTrophiesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2217,6 +2266,7 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2255,6 +2305,7 @@ export type UserCreateWithoutQuestionProgressInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2293,6 +2344,7 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2347,6 +2399,7 @@ export type UserUpdateWithoutQuestionProgressInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2385,6 +2438,7 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2423,6 +2477,7 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2461,6 +2516,7 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2515,6 +2571,7 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2553,6 +2610,7 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2591,6 +2649,7 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2629,6 +2688,7 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2683,6 +2743,7 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2721,6 +2782,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2759,6 +2821,7 @@ export type UserCreateWithoutNotificationLogsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2797,6 +2860,7 @@ export type UserUncheckedCreateWithoutNotificationLogsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2851,6 +2915,7 @@ export type UserUpdateWithoutNotificationLogsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2889,6 +2954,7 @@ export type UserUncheckedUpdateWithoutNotificationLogsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2927,6 +2993,7 @@ export type UserCreateWithoutFriendshipsSentInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2965,6 +3032,7 @@ export type UserUncheckedCreateWithoutFriendshipsSentInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3008,6 +3076,7 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3046,6 +3115,7 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3100,6 +3170,7 @@ export type UserUpdateWithoutFriendshipsSentInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3138,6 +3209,7 @@ export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3187,6 +3259,7 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3225,6 +3298,7 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3263,6 +3337,7 @@ export type UserCreateWithoutReferralsMadeInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3301,6 +3376,7 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3344,6 +3420,7 @@ export type UserCreateWithoutReferralReceivedInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3382,6 +3459,7 @@ export type UserUncheckedCreateWithoutReferralReceivedInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3436,6 +3514,7 @@ export type UserUpdateWithoutReferralsMadeInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3474,6 +3553,7 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3523,6 +3603,7 @@ export type UserUpdateWithoutReferralReceivedInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3561,6 +3642,7 @@ export type UserUncheckedUpdateWithoutReferralReceivedInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3738,6 +3820,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   timezone?: boolean
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
+  selectedSkinId?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   games?: boolean | Prisma.User$gamesArgs<ExtArgs>
@@ -3778,6 +3861,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   timezone?: boolean
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
+  selectedSkinId?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -3802,6 +3886,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   timezone?: boolean
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
+  selectedSkinId?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -3826,9 +3911,10 @@ export type UserSelectScalar = {
   timezone?: boolean
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
+  selectedSkinId?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth" | "timezone" | "premiumUntil" | "freeTrialUsedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth" | "timezone" | "premiumUntil" | "freeTrialUsedAt" | "selectedSkinId", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -3891,6 +3977,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     timezone: string | null
     premiumUntil: Date | null
     freeTrialUsedAt: Date | null
+    selectedSkinId: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -4350,6 +4437,7 @@ export interface UserFieldRefs {
   readonly timezone: Prisma.FieldRef<"User", 'String'>
   readonly premiumUntil: Prisma.FieldRef<"User", 'DateTime'>
   readonly freeTrialUsedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly selectedSkinId: Prisma.FieldRef<"User", 'String'>
 }
     
 

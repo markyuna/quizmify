@@ -148,6 +148,8 @@
     "error": "Erreur",
     "unableToCheckAnswer": "Impossible de vérifier votre réponse.",
     "unableToSaveResult": "Impossible d'enregistrer le résultat final.",
+    "unableToLoadNextQuestions": "Impossible de charger les questions suivantes. Réessayez.",
+    "loadingNextQuestions": "Préparation des questions suivantes...",
     "noQuestionsFound": "Aucune question trouvée",
     "backToQuiz": "Retour au quiz",
     "levelUp": "Niveau supérieur !",
@@ -329,7 +331,12 @@
     "dailyChallengeReminderLabel": "Rappels du défi du jour",
     "dailyChallengeReminderDesc": "Quand vous n'avez pas encore joué au défi du jour",
     "weeklySummaryLabel": "Résumé hebdomadaire",
-    "weeklySummaryDesc": "Vos statistiques et progrès, une fois par semaine"
+    "weeklySummaryDesc": "Vos statistiques et progrès, une fois par semaine",
+    "skinSelectorTitle": "Apparence de l'avatar",
+    "skinSelectorSubtitlePro": "Choisissez un style pour votre avatar -- il s'applique à tout niveau.",
+    "skinSelectorSubtitleFree": "Les membres Pro peuvent débloquer d'autres styles d'avatar. Les membres gratuits peuvent les prévisualiser ici.",
+    "skinDefault": "Par défaut",
+    "skinUnlockCta": "Passez à Pro pour débloquer les styles d'avatar"
   },
   "ExportPdf": {
     "exportToPdf": "Exporter en PDF",
@@ -470,5 +477,12 @@
     "activated": "Essai Pro activé pour {days} jours !",
     "error": "Une erreur est survenue",
     "orUpgrade": "ou passez à Pro maintenant"
+  },
+  "Paywall": {
+    "messageStreakProtection": "Vous avez utilisé une protection de série Pro pendant votre essai -- gardez-la pour qu'une journée chargée ne vous coûte jamais votre série.",
+    "messageTrialUsed": "Vous avez goûté à Pro pendant votre essai. Rendez-le permanent et gardez tout débloqué.",
+    "messageStreak": "Vous avez une série de {streak} jours. Passez à Pro pour la protéger et continuer votre progression sans limites.",
+    "messageQuizCount": "Vous avez déjà joué {count} quiz -- continuez à progresser sans limites.",
+    "messageDefault": "Passez à Pro une fois pour débloquer une progression de niveau illimitée et continuer à gagner de l'XP."
   }
 }

@@ -2,9 +2,12 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
 import { getAuthSession } from "@/lib/nextauth";
+import { prisma } from "@/lib/db";
+import { isEffectivelyPro } from "@/lib/paywall";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DeleteAccountButton from "@/components/DeleteAccountButton";
 import NotificationPreferencesCard from "@/components/NotificationPreferencesCard";
+import AvatarSkinSelector from "@/components/AvatarSkinSelector";
 
 export const metadata = {
   title: "My Account | Quizmify",
@@ -18,6 +21,12 @@ export default async function AccountPage() {
   if (!session?.user?.id) {
     redirect("/login");
   }
+
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { subscriptionStatus: true, premiumUntil: true, selectedSkinId: true },
+  });
+  const isPro = user ? isEffectivelyPro(user) : false;
 
   return (
     <main className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-2xl items-center justify-center px-4 py-10">
@@ -35,6 +44,8 @@ export default async function AccountPage() {
               {session.user.email}
             </p>
           </div>
+
+          <AvatarSkinSelector isPro={isPro} selectedSkinId={user?.selectedSkinId ?? null} />
 
           <NotificationPreferencesCard />
 

@@ -8,6 +8,7 @@ import { FREE_XP_CAP, FREE_LEVEL_CAP } from "@/lib/stripe";
 import { registerQuizActivity, getEffectiveStreak, type StreakResult } from "@/lib/streak";
 import { checkAndAwardCertificates } from "@/lib/certificates";
 import { isEffectivelyPro } from "@/lib/paywall";
+import { resolvePaywallMessage } from "@/lib/paywallMessages";
 import { submitQuizSchema } from "@/schemas/form/quiz";
 
 export type TrophyReason = "perfect" | "streak" | null;
@@ -201,7 +202,13 @@ export async function POST(req: Request) {
 
       const previousUser = await tx.user.findUnique({
         where: { id: userId },
-        select: { level: true, subscriptionStatus: true, premiumUntil: true, freeTrialUsedAt: true },
+        select: {
+          level: true,
+          subscriptionStatus: true,
+          premiumUntil: true,
+          freeTrialUsedAt: true,
+          streakProtectionsUsed: true,
+        },
       });
 
       if (!previousUser) {
@@ -214,6 +221,7 @@ export async function POST(req: Request) {
           didLevelUp: false,
           hitFreeLimit: false,
           trialAvailable: false,
+          paywallMessage: null,
           streak: {
             currentStreak: 0,
             longestStreak: 0,
@@ -275,6 +283,21 @@ export async function POST(req: Request) {
 
       const didLevelUp = !hitFreeLimit && newLevel > previousLevel;
 
+      // Only bother resolving a personalized message on the one submit
+      // that actually crosses into the cap -- every other quiz doesn't
+      // need it, and it's an extra count query.
+      let paywallMessage: { key: string; values: Record<string, string | number> } | null = null;
+      if (hitFreeLimit) {
+        const paywallContext = {
+          quizzesPlayed: await tx.attempt.count({ where: { userId } }),
+          currentStreak: streak.currentStreak,
+          usedFreeTrial: previousUser.freeTrialUsedAt !== null,
+          usedStreakProtection: previousUser.streakProtectionsUsed > 0,
+        };
+        const variant = resolvePaywallMessage(paywallContext);
+        paywallMessage = { key: variant.messageKey, values: variant.values(paywallContext) };
+      }
+
       return {
         attempt: createdAttempt,
         earnedXp: hitFreeLimit ? Math.max(0, FREE_XP_CAP - 1 - (newXp - earnedXp)) : earnedXp,
@@ -284,6 +307,7 @@ export async function POST(req: Request) {
         didLevelUp,
         hitFreeLimit,
         trialAvailable: hitFreeLimit && !previousUser.freeTrialUsedAt,
+        paywallMessage,
         streak,
         trophyReason,
       };
@@ -304,6 +328,7 @@ export async function POST(req: Request) {
         didLevelUp: result.didLevelUp,
         hitFreeLimit: result.hitFreeLimit,
         trialAvailable: result.trialAvailable,
+        paywallMessage: result.paywallMessage,
         currentStreak: result.streak.currentStreak,
         streakExtended: result.streak.streakExtended,
         streakProtected: result.streak.streakProtected,

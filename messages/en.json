@@ -148,6 +148,8 @@
     "error": "Error",
     "unableToCheckAnswer": "Unable to check your answer.",
     "unableToSaveResult": "Unable to save the final result.",
+    "unableToLoadNextQuestions": "Unable to load the next questions. Try again.",
+    "loadingNextQuestions": "Preparing next questions...",
     "noQuestionsFound": "No questions found",
     "backToQuiz": "Back to Quiz",
     "levelUp": "Level Up!",
@@ -329,7 +331,12 @@
     "dailyChallengeReminderLabel": "Daily Challenge reminders",
     "dailyChallengeReminderDesc": "When you haven't played today's challenge",
     "weeklySummaryLabel": "Weekly summary",
-    "weeklySummaryDesc": "Your stats and progress, once a week"
+    "weeklySummaryDesc": "Your stats and progress, once a week",
+    "skinSelectorTitle": "Avatar skin",
+    "skinSelectorSubtitlePro": "Pick a look for your avatar -- it applies at any level.",
+    "skinSelectorSubtitleFree": "Pro members can unlock alternate avatar looks. Free members can preview them here.",
+    "skinDefault": "Default",
+    "skinUnlockCta": "Upgrade to unlock avatar skins"
   },
   "ExportPdf": {
     "exportToPdf": "Export to PDF",
@@ -470,5 +477,12 @@
     "activated": "Pro trial activated for {days} days!",
     "error": "Something went wrong",
     "orUpgrade": "or upgrade to Pro now"
+  },
+  "Paywall": {
+    "messageStreakProtection": "You used a Pro streak protection during your trial -- keep it so a busy day never costs you your streak.",
+    "messageTrialUsed": "You had a taste of Pro during your trial. Make it permanent and keep everything unlocked.",
+    "messageStreak": "You're on a {streak}-day streak. Upgrade to protect it and keep unlimited progress going.",
+    "messageQuizCount": "You've played {count} quizzes already -- keep improving with no limits.",
+    "messageDefault": "Upgrade once to unlock unlimited level progression and keep earning XP."
   }
 }

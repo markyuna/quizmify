@@ -14,6 +14,7 @@ import {
 
 import DetailsDialog from "@/components/DetailsDialog";
 import Avatar3D from "@/components/avatar/Avatar3D";
+import { getAvatarSkinById } from "@/lib/avatarSkins";
 import HistoryCard from "@/components/dashboard/HistoryCard";
 import HotTopicsCard from "@/components/dashboard/HotTopicsCard";
 import QuizMeCard from "@/components/dashboard/QuizMeCard";
@@ -32,6 +33,7 @@ import { getAuthSession } from "@/lib/nextauth";
 import { getLevelProgress } from "@/lib/xp";
 import { FREE_XP_CAP } from "@/lib/stripe";
 import { isEffectivelyPro } from "@/lib/paywall";
+import { resolvePaywallMessage } from "@/lib/paywallMessages";
 import { getEffectiveStreak, getProtectionsRemaining } from "@/lib/streak";
 
 export const metadata = {
@@ -98,6 +100,7 @@ export default async function DashboardPage() {
   const session = await getAuthSession();
   const t = await getTranslations("Dashboard");
   const tTrial = await getTranslations("Trial");
+  const tRoot = await getTranslations();
 
   if (!session?.user?.id) {
     redirect("/login");
@@ -153,6 +156,7 @@ export default async function DashboardPage() {
         subscriptionStatus: true,
         premiumUntil: true,
         freeTrialUsedAt: true,
+        selectedSkinId: true,
         currentStreak: true,
         lastQuizDate: true,
         streakProtectionsUsed: true,
@@ -226,8 +230,25 @@ export default async function DashboardPage() {
 
   const currentStreak = userProfile ? getEffectiveStreak(userProfile) : 0;
   const protectionsRemaining = isPro && userProfile ? getProtectionsRemaining(userProfile) : 0;
+  // Only actually apply the equipped skin while Pro -- selection itself
+  // persists through a lapse, it just stops rendering until they're Pro again.
+  const equippedSkin = isPro ? getAvatarSkinById(userProfile?.selectedSkinId) : null;
 
   const attemptsCount = attemptsAggregate._count._all;
+
+  const resolvedPaywallMessage = isAtFreeLimit
+    ? (() => {
+        const ctx = {
+          quizzesPlayed: attemptsCount,
+          currentStreak,
+          usedFreeTrial: userProfile?.freeTrialUsedAt != null,
+          usedStreakProtection: (userProfile?.streakProtectionsUsed ?? 0) > 0,
+        };
+        const variant = resolvePaywallMessage(ctx);
+        return { key: variant.messageKey, values: variant.values(ctx) };
+      })()
+    : null;
+
   const totalCorrect = attemptsAggregate._sum.correctAnswers ?? 0;
   const totalAnswered = attemptsAggregate._sum.totalQuestions ?? 0;
   const totalTimeSpent = attemptsAggregate._sum.timeSpent ?? 0;
@@ -297,7 +318,7 @@ export default async function DashboardPage() {
             <div className="mt-5 max-w-xl rounded-[1.5rem] border border-white/10 bg-white/60 p-4 shadow-lg shadow-black/5 backdrop-blur-xl dark:bg-white/5">
               <div className="flex items-center justify-between gap-4">
                 <div className="flex min-w-0 items-center gap-3">
-                  <Avatar3D level={currentLevel} size={72} className="rounded-full" />
+                  <Avatar3D level={currentLevel} size={72} className="rounded-full" skin={equippedSkin} />
                   <div className="min-w-0">
                     <p className="text-xs uppercase tracking-[0.2em] text-violet-500 dark:text-violet-300">
                       {t("levelProgress")}
@@ -436,7 +457,7 @@ export default async function DashboardPage() {
                   <p className="text-xs font-bold uppercase tracking-widest text-violet-300">{t("freeLimitReached")}</p>
                   <p className="mt-0.5 text-lg font-bold text-white">{t("atLevel2")}</p>
                   <p className="mt-1 text-sm text-white/60">
-                    {t("upgradePrompt")}
+                    {resolvedPaywallMessage ? tRoot(resolvedPaywallMessage.key, resolvedPaywallMessage.values) : t("upgradePrompt")}
                   </p>
                 </div>
               </div>

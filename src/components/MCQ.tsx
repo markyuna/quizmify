@@ -57,6 +57,13 @@ type CheckAnswerResponse = {
   correctAnswer?: string;
 };
 
+type NextBatchResponse = {
+  success: boolean;
+  difficultyAdjusted: boolean;
+  newDifficulty: "easy" | "medium" | "hard";
+  questions: QuestionWithOptions[];
+};
+
 type AnswerRecord = {
   questionId: string;
   selectedAnswer: string;
@@ -78,6 +85,7 @@ type SubmitQuizResponse = {
   didLevelUp: boolean;
   hitFreeLimit: boolean;
   trialAvailable: boolean;
+  paywallMessage: { key: string; values: Record<string, string | number> } | null;
   currentStreak: number;
   trophyReason: TrophyReason;
 };
@@ -87,7 +95,9 @@ const MCQ = ({ game }: MCQProps) => {
   const { toast } = useToast();
   const t = useTranslations("MCQ");
   const tTrial = useTranslations("Trial");
+  const tRoot = useTranslations();
 
+  const [questions, setQuestions] = React.useState<QuestionWithOptions[]>(game.questions);
   const [questionIndex, setQuestionIndex] = React.useState(0);
   const [selectedAnswer, setSelectedAnswer] = React.useState<string | null>(null);
   const [hasAnswered, setHasAnswered] = React.useState(false);
@@ -109,9 +119,14 @@ const MCQ = ({ game }: MCQProps) => {
   const [remainingMs, setRemainingMs] = React.useState<number | null>(timeLimitMs);
   const [timedOut, setTimedOut] = React.useState(false);
 
-  const currentQuestion = game.questions[questionIndex];
-  const isLastQuestion = questionIndex === game.questions.length - 1;
-  const totalQuestions = game.questions.length;
+  const currentQuestion = questions[questionIndex];
+  // Total the quiz is *planned* to have vs. what's currently loaded --
+  // for an adaptive-difficulty game those differ until the second batch
+  // arrives (see fetchNextBatch below). For a non-adaptive game
+  // plannedQuestionCount is null and they're the same thing.
+  const totalQuestions = game.plannedQuestionCount ?? questions.length;
+  const isLastLoadedQuestion = questionIndex === questions.length - 1;
+  const isLastQuestion = questionIndex === totalQuestions - 1;
   const isGeography = React.useMemo(() => isGeographyTopic(game.topic), [game.topic]);
 
   const { mutate: checkAnswer, isPending: isCheckingAnswer } = useMutation({
@@ -130,7 +145,7 @@ const MCQ = ({ game }: MCQProps) => {
       const isCorrect = data.correct;
       const correctAnswer =
         data.correctAnswer ??
-        game.questions.find((q) => q.id === variables.questionId)?.answer ??
+        questions.find((q) => q.id === variables.questionId)?.answer ??
         "";
 
       setHasAnswered(true);
@@ -140,7 +155,7 @@ const MCQ = ({ game }: MCQProps) => {
       if (isCorrect) {
         setScore((prev) => prev + 1);
 
-        const answeredQuestion = game.questions.find((q) => q.id === variables.questionId);
+        const answeredQuestion = questions.find((q) => q.id === variables.questionId);
         if (answeredQuestion?.country) {
           const country = answeredQuestion.country;
           setLitCountries((prev) => (prev.includes(country) ? prev : [...prev, country]));
@@ -162,6 +177,19 @@ const MCQ = ({ game }: MCQProps) => {
     },
     onError: () => {
       toast({ title: t("error"), description: t("unableToCheckAnswer"), variant: "destructive" });
+    },
+  });
+
+  const { mutateAsync: fetchNextBatch, isPending: isLoadingNextBatch } = useMutation({
+    mutationFn: async () => {
+      const response = await axios.post<NextBatchResponse>(`/api/game/${game.id}/next-batch`);
+      return response.data;
+    },
+    onSuccess: (data) => {
+      setQuestions((prev) => [...prev, ...data.questions]);
+    },
+    onError: () => {
+      toast({ title: t("error"), description: t("unableToLoadNextQuestions"), variant: "destructive" });
     },
   });
 
@@ -236,8 +264,20 @@ const MCQ = ({ game }: MCQProps) => {
     return () => clearInterval(interval);
   }, [timeLimitMs, hasAnswered, quizFinished, questionShownAt, handleTimeout]);
 
-  const handleNext = () => {
-    if (!hasAnswered || isSubmittingQuiz) return;
+  const handleNext = async () => {
+    if (!hasAnswered || isSubmittingQuiz || isLoadingNextBatch) return;
+
+    // Reached the end of the currently-loaded (first) batch, but the quiz
+    // isn't actually done -- fetch the adaptive-difficulty second batch
+    // before advancing. On failure, stay put; the mutation already
+    // toasted, and the button is just clickable again to retry.
+    if (isLastLoadedQuestion && !isLastQuestion) {
+      try {
+        await fetchNextBatch();
+      } catch {
+        return;
+      }
+    }
 
     if (!isLastQuestion) {
       setQuestionIndex((prev) => prev + 1);
@@ -301,7 +341,7 @@ const MCQ = ({ game }: MCQProps) => {
   }
 
   if (quizFinished) {
-    const totalQ = finalResult?.totalQuestions ?? game.questions.length;
+    const totalQ = finalResult?.totalQuestions ?? questions.length;
     const correctA = finalResult?.correctAnswers ?? score;
     const finalScore = finalResult?.score ?? Math.round((score / totalQ) * 100);
     const scoreColor = finalScore >= 80 ? "text-emerald-600 dark:text-emerald-400" : finalScore >= 50 ? "text-amber-600 dark:text-amber-400" : "text-rose-600 dark:text-rose-400";
@@ -434,7 +474,7 @@ const MCQ = ({ game }: MCQProps) => {
                   <p className="text-xs font-bold uppercase tracking-widest text-violet-300">{t("freeLimitReached")}</p>
                   <p className="mt-1 text-lg font-black text-white">{t("reachedLevel2")}</p>
                   <p className="mt-1 text-sm text-white/60">
-                    {t("upgradePrompt")}
+                    {finalResult.paywallMessage ? tRoot(finalResult.paywallMessage.key, finalResult.paywallMessage.values) : t("upgradePrompt")}
                   </p>
                 </div>
               </div>
@@ -669,11 +709,13 @@ const MCQ = ({ game }: MCQProps) => {
       <div className="fixed bottom-0 inset-x-0 z-40 border-t border-slate-200/80 bg-white/90 px-4 py-3 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/90 sm:hidden">
         <Button
           onClick={handleNext}
-          disabled={!hasAnswered || isSubmittingQuiz}
+          disabled={!hasAnswered || isSubmittingQuiz || isLoadingNextBatch}
           className="h-13 w-full rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 text-base font-bold text-white shadow-lg shadow-violet-500/20 disabled:opacity-40"
         >
           {isSubmittingQuiz ? (
             <><Loader2 className="mr-2 h-4 w-4 animate-spin" />{t("saving")}</>
+          ) : isLoadingNextBatch ? (
+            <><Loader2 className="mr-2 h-4 w-4 animate-spin" />{t("loadingNextQuestions")}</>
           ) : (
             <>{isLastQuestion ? t("finishQuiz") : t("nextQuestion")}<ChevronRight className="ml-2 h-4 w-4" /></>
           )}
@@ -685,13 +727,15 @@ const MCQ = ({ game }: MCQProps) => {
         <div className="mx-auto mt-4 hidden w-full max-w-2xl px-4 sm:flex sm:justify-end">
           <Button
             onClick={handleNext}
-            disabled={isSubmittingQuiz}
+            disabled={isSubmittingQuiz || isLoadingNextBatch}
             className="h-12 rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 px-8 text-white shadow-lg shadow-violet-500/20 hover:opacity-95"
           >
             {isSubmittingQuiz ? (
-              <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Saving...</>
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" />{t("saving")}</>
+            ) : isLoadingNextBatch ? (
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" />{t("loadingNextQuestions")}</>
             ) : (
-              <>{isLastQuestion ? "Finish Quiz 🎉" : "Next Question"}<ChevronRight className="ml-2 h-4 w-4" /></>
+              <>{isLastQuestion ? t("finishQuiz") : t("nextQuestion")}<ChevronRight className="ml-2 h-4 w-4" /></>
             )}
           </Button>
         </div>

@@ -1916,7 +1916,8 @@ export const UserScalarFieldEnum = {
   streakProtectionMonth: 'streakProtectionMonth',
   timezone: 'timezone',
   premiumUntil: 'premiumUntil',
-  freeTrialUsedAt: 'freeTrialUsedAt'
+  freeTrialUsedAt: 'freeTrialUsedAt',
+  selectedSkinId: 'selectedSkinId'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -1933,7 +1934,8 @@ export const GameScalarFieldEnum = {
   userId: 'userId',
   score: 'score',
   isTimed: 'isTimed',
-  timePerQuestionSec: 'timePerQuestionSec'
+  timePerQuestionSec: 'timePerQuestionSec',
+  plannedQuestionCount: 'plannedQuestionCount'
 } as const
 
 export type GameScalarFieldEnum = (typeof GameScalarFieldEnum)[keyof typeof GameScalarFieldEnum]

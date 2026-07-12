@@ -148,6 +148,8 @@
     "error": "Error",
     "unableToCheckAnswer": "No se pudo verificar tu respuesta.",
     "unableToSaveResult": "No se pudo guardar el resultado final.",
+    "unableToLoadNextQuestions": "No se pudieron cargar las siguientes preguntas. Probá de nuevo.",
+    "loadingNextQuestions": "Preparando las siguientes preguntas...",
     "noQuestionsFound": "No se encontraron preguntas",
     "backToQuiz": "Volver al quiz",
     "levelUp": "¡Subiste de nivel!",
@@ -329,7 +331,12 @@
     "dailyChallengeReminderLabel": "Recordatorio del Desafío Diario",
     "dailyChallengeReminderDesc": "Cuando todavía no jugaste el desafío de hoy",
     "weeklySummaryLabel": "Resumen semanal",
-    "weeklySummaryDesc": "Tus estadísticas y progreso, una vez por semana"
+    "weeklySummaryDesc": "Tus estadísticas y progreso, una vez por semana",
+    "skinSelectorTitle": "Skin del avatar",
+    "skinSelectorSubtitlePro": "Elegí un look para tu avatar -- se aplica en cualquier nivel.",
+    "skinSelectorSubtitleFree": "Los miembros Pro pueden desbloquear looks alternativos para el avatar. Los miembros gratis pueden previsualizarlos acá.",
+    "skinDefault": "Predeterminado",
+    "skinUnlockCta": "Actualizá para desbloquear skins de avatar"
   },
   "ExportPdf": {
     "exportToPdf": "Exportar a PDF",
@@ -470,5 +477,12 @@
     "activated": "¡Prueba Pro activada por {days} días!",
     "error": "Algo salió mal",
     "orUpgrade": "o actualizá a Pro ahora"
+  },
+  "Paywall": {
+    "messageStreakProtection": "Usaste una protección de racha Pro durante tu prueba -- mantenela para que un día ocupado nunca te cueste la racha.",
+    "messageTrialUsed": "Probaste Pro durante tu prueba gratis. Hacelo permanente y seguí con todo desbloqueado.",
+    "messageStreak": "Llevás una racha de {streak} días. Actualizá para protegerla y seguir progresando sin límites.",
+    "messageQuizCount": "Ya jugaste {count} quizzes -- seguí mejorando sin límites.",
+    "messageDefault": "Actualizá una vez para desbloquear progresión de nivel ilimitada y seguir ganando XP."
   }
 }

@@ -70,6 +70,13 @@ model User {
   // premiumUntil so "already used the trial" stays true even after it
   // expires and premiumUntil is in the past.
   freeTrialUsedAt        DateTime?
+  // References an id in the hardcoded catalog in src/lib/avatarSkins.ts,
+  // not a DB table -- same "visuals live in code, not the database" idiom
+  // already used for avatar tiers and trophy shapes. Selection persists
+  // even if Pro lapses; only *applying* it visually is gated on isPro at
+  // read time (see dashboard/page.tsx), so it comes right back if they
+  // resubscribe.
+  selectedSkinId         String?
   accounts               Account[]
   sessions               Session[]
   games                  Game[]
@@ -101,6 +108,12 @@ model Game {
   score              Int        @default(0)
   isTimed            Boolean    @default(false)
   timePerQuestionSec Int?
+  // Set only for quizzes long enough to split into two adaptive-difficulty
+  // batches (see src/lib/adaptiveDifficulty.ts). Null means "generated
+  // upfront as one batch, no adaptation" -- the pre-existing behavior for
+  // short quizzes and every non-/api/game creation path (daily challenge,
+  // Practice Mistakes).
+  plannedQuestionCount Int?
   user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   questions          Question[]
   attempts           Attempt[]
