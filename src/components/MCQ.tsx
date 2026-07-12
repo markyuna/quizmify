@@ -29,6 +29,7 @@ import MCQCounter from "./MCQCounter";
 import ExportPdfButton from "./ExportPdfButton";
 import ShareResultButton from "./ShareResultButton";
 import IconActionLink from "./IconActionLink";
+import TrialOfferButton from "./TrialOfferButton";
 import TrophyModal from "./trophy/TrophyModal";
 import Globe3D from "./globe/Globe3D";
 import { Button, buttonVariants } from "./ui/button";
@@ -37,6 +38,7 @@ import { cn, formatTimeDelta } from "@/lib/utils";
 import { getLevelProgress } from "@/lib/xp";
 import { isGeographyTopic } from "@/lib/geography";
 import { TIMEOUT_ANSWER_SENTINEL } from "@/lib/timedMode";
+import { FREE_TRIAL_DAYS } from "@/lib/premium";
 import type { TrophyReason } from "@/app/api/quiz/submit/route";
 
 type QuestionWithOptions = Pick<
@@ -75,6 +77,7 @@ type SubmitQuizResponse = {
   newLevel: number;
   didLevelUp: boolean;
   hitFreeLimit: boolean;
+  trialAvailable: boolean;
   currentStreak: number;
   trophyReason: TrophyReason;
 };
@@ -83,6 +86,7 @@ const MCQ = ({ game }: MCQProps) => {
   const router = useRouter();
   const { toast } = useToast();
   const t = useTranslations("MCQ");
+  const tTrial = useTranslations("Trial");
 
   const [questionIndex, setQuestionIndex] = React.useState(0);
   const [selectedAnswer, setSelectedAnswer] = React.useState<string | null>(null);
@@ -434,13 +438,29 @@ const MCQ = ({ game }: MCQProps) => {
                   </p>
                 </div>
               </div>
-              <Link
-                href="/upgrade"
-                className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 py-3 text-sm font-bold text-white hover:opacity-90 transition-opacity"
-              >
-                <Zap className="h-4 w-4" />
-                {t("upgradeToPro")}
-              </Link>
+
+              {finalResult.trialAvailable ? (
+                <>
+                  <TrialOfferButton
+                    days={FREE_TRIAL_DAYS}
+                    className="mt-4 h-12 w-full rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 text-sm font-bold text-white hover:opacity-90"
+                  />
+                  <Link
+                    href="/upgrade"
+                    className="mt-2 block text-center text-xs font-medium text-white/50 hover:text-white/80"
+                  >
+                    {tTrial("orUpgrade")}
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  href="/upgrade"
+                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 py-3 text-sm font-bold text-white hover:opacity-90 transition-opacity"
+                >
+                  <Zap className="h-4 w-4" />
+                  {t("upgradeToPro")}
+                </Link>
+              )}
             </div>
           </motion.div>
         )}

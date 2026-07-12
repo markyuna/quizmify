@@ -92,3 +92,23 @@ export type DailyChallengeQuestion = Prisma.DailyChallengeQuestionModel
  * 
  */
 export type DailyChallengeAttempt = Prisma.DailyChallengeAttemptModel
+/**
+ * Model NotificationPreference
+ * 
+ */
+export type NotificationPreference = Prisma.NotificationPreferenceModel
+/**
+ * Model NotificationLog
+ * 
+ */
+export type NotificationLog = Prisma.NotificationLogModel
+/**
+ * Model Friendship
+ * 
+ */
+export type Friendship = Prisma.FriendshipModel
+/**
+ * Model Referral
+ * 
+ */
+export type Referral = Prisma.ReferralModel

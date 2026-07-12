@@ -195,6 +195,8 @@
     "statTimeSubtitle": "Temps d'étude total : {total}",
     "performanceOverview": "Aperçu des performances",
     "title": "Tableau de bord",
+    "proStatus": "Pro",
+    "freeStatus": "Gratuit",
     "subtitle": "Suivez votre progression, revoyez vos résultats récents et gardez votre élan grâce à un parcours d'apprentissage plus clair et plus intelligent.",
     "levelProgress": "Progression du niveau",
     "level": "Niveau",
@@ -319,7 +321,15 @@
     "areYouSure": "Êtes-vous sûr ? Cette action est irréversible.",
     "deleting": "Suppression…",
     "yesDeleteEverything": "Oui, tout supprimer",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "notificationsTitle": "Notifications par email",
+    "notificationsSubtitle": "Choisissez les rappels que vous souhaitez recevoir.",
+    "streakReminderLabel": "Rappels de série",
+    "streakReminderDesc": "Une alerte quand votre série est sur le point de se terminer",
+    "dailyChallengeReminderLabel": "Rappels du défi du jour",
+    "dailyChallengeReminderDesc": "Quand vous n'avez pas encore joué au défi du jour",
+    "weeklySummaryLabel": "Résumé hebdomadaire",
+    "weeklySummaryDesc": "Vos statistiques et progrès, une fois par semaine"
   },
   "ExportPdf": {
     "exportToPdf": "Exporter en PDF",
@@ -413,5 +423,52 @@
     "correctCount": "{count, plural, one {# correcte} other {# correctes}}",
     "pageOf": "Page {page} sur {totalPages}",
     "viewLeaderboard": "Voir le classement"
+  },
+  "Friends": {
+    "badge": "Amis",
+    "title": "Vos amis",
+    "viewFriends": "Voir les amis",
+    "friendCount": "{count, plural, =0 {Aucun ami pour l'instant} one {# ami} other {# amis}}",
+    "inviteLinkLabel": "Votre lien d'invitation",
+    "copyLink": "Copier le lien",
+    "linkCopied": "Lien copié !",
+    "incomingRequests": "Demandes d'ami",
+    "outgoingRequests": "En attente",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "cancel": "Annuler",
+    "remove": "Retirer",
+    "noFriendsYet": "Vous n'avez pas encore ajouté d'amis.",
+    "noFriendsHint": "Partagez votre lien d'invitation pour que vos amis vous rejoignent et comparent leur progression avec vous.",
+    "levelLabel": "Niveau {level}",
+    "streakDays": "{count, plural, one {# jour de série} other {# jours de série}}",
+    "you": "(vous)",
+    "friendRequestSent": "Demande d'ami envoyée !",
+    "alreadyFriends": "Vous êtes déjà amis",
+    "alreadyPending": "Demande déjà envoyée",
+    "addFriendTitle": "Ajouter {name} comme ami ?",
+    "addFriendCta": "Envoyer une demande d'ami",
+    "goToFriends": "Voir vos amis",
+    "cantAddSelf": "Vous ne pouvez pas vous ajouter vous-même comme ami",
+    "error": "Une erreur est survenue",
+    "userNotFound": "Ce lien d'invitation n'est pas valide"
+  },
+  "Referrals": {
+    "badge": "Parrainage",
+    "title": "Invitez des amis, gagnez du temps Pro",
+    "subtitle": "Vous et votre ami recevez chacun {days} jours de Pro lors de son inscription avec votre lien.",
+    "linkLabel": "Votre lien de parrainage",
+    "copyLink": "Copier le lien",
+    "linkCopied": "Lien copié !",
+    "referralCount": "Amis parrainés",
+    "daysEarned": "Jours Pro gagnés",
+    "premiumActive": "Vous avez Pro pour {days} jours de plus",
+    "noPremiumActive": "Parrainez un ami pour débloquer du temps Pro gratuit"
+  },
+  "Trial": {
+    "startTrial": "Démarrez votre essai gratuit de {days} jours",
+    "activated": "Essai Pro activé pour {days} jours !",
+    "error": "Une erreur est survenue",
+    "orUpgrade": "ou passez à Pro maintenant"
   }
 }

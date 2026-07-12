@@ -2,20 +2,83 @@
 
 import * as React from "react";
 import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { ChevronLeft, ChevronRight, Crown, Loader2 } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Clock, Crown, Loader2, UserPlus } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
+import { useToast } from "./ui/use-toast";
 import { cn } from "@/lib/utils";
 import type { LeaderboardPage } from "@/lib/leaderboard";
 
 type LeaderboardTableProps = {
   initialData: LeaderboardPage;
   topics: Array<{ topic: string; players: number }>;
+  /** These three are optional so this component still works wherever it's
+   * rendered without friend context -- the add-friend button is simply
+   * omitted when currentUserId isn't provided. */
+  currentUserId?: string;
+  friendUserIds?: string[];
+  pendingUserIds?: string[];
 };
 
-export default function LeaderboardTable({ initialData, topics }: LeaderboardTableProps) {
+function AddFriendCell({
+  targetUserId,
+  isFriend,
+  isPending,
+}: {
+  targetUserId: string;
+  isFriend: boolean;
+  isPending: boolean;
+}) {
+  const t = useTranslations("Friends");
+  const { toast } = useToast();
+  const [justSent, setJustSent] = React.useState(false);
+
+  const { mutate: sendRequest, isPending: isSending } = useMutation({
+    mutationFn: async () => axios.post("/api/friends", { targetUserId }),
+    onSuccess: () => setJustSent(true),
+    onError: () => toast({ title: t("error"), variant: "destructive" }),
+  });
+
+  if (isFriend) {
+    return (
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center text-emerald-500" title={t("alreadyFriends")}>
+        <Check className="h-4 w-4" />
+      </span>
+    );
+  }
+
+  if (isPending || justSent) {
+    return (
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center text-slate-300" title={t("alreadyPending")}>
+        <Clock className="h-4 w-4" />
+      </span>
+    );
+  }
+
+  return (
+    <Button
+      size="icon"
+      variant="ghost"
+      disabled={isSending}
+      onClick={() => sendRequest()}
+      aria-label={t("addFriendCta")}
+      className="h-8 w-8 shrink-0 rounded-lg text-slate-400 hover:text-violet-600"
+    >
+      {isSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <UserPlus className="h-4 w-4" />}
+    </Button>
+  );
+}
+
+export default function LeaderboardTable({
+  initialData,
+  topics,
+  currentUserId,
+  friendUserIds = [],
+  pendingUserIds = [],
+}: LeaderboardTableProps) {
   const t = useTranslations("Leaderboard");
 
   const [topic, setTopic] = React.useState<string | null>(initialData.topic);
@@ -158,6 +221,14 @@ export default function LeaderboardTable({ initialData, topics }: LeaderboardTab
                       {topic ? t("correctCount", { count: entry.primaryValue }) : `${entry.primaryValue} XP`}
                     </p>
                   </div>
+
+                  {currentUserId && entry.userId !== currentUserId && (
+                    <AddFriendCell
+                      targetUserId={entry.userId}
+                      isFriend={friendUserIds.includes(entry.userId)}
+                      isPending={pendingUserIds.includes(entry.userId)}
+                    />
+                  )}
                 </li>
               );
             })}

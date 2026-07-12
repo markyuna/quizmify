@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { getAuthSession } from "@/lib/nextauth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DeleteAccountButton from "@/components/DeleteAccountButton";
+import NotificationPreferencesCard from "@/components/NotificationPreferencesCard";
 
 export const metadata = {
   title: "My Account | Quizmify",
@@ -34,6 +35,8 @@ export default async function AccountPage() {
               {session.user.email}
             </p>
           </div>
+
+          <NotificationPreferencesCard />
 
           <div className="rounded-2xl border border-rose-200 bg-rose-50/50 p-4 dark:border-rose-500/20 dark:bg-rose-500/5">
             <p className="text-sm font-semibold text-rose-700 dark:text-rose-400">

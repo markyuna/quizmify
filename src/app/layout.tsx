@@ -10,6 +10,8 @@ import ThemeProvider from "@/components/ThemeProvider";
 import QueryProvider from "@/components/QueryProvider";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import TimezoneSync from "@/components/TimezoneSync";
+import ReferralCapture from "@/components/ReferralCapture";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { cn } from "@/lib/utils";
 
@@ -71,6 +73,8 @@ export default async function RootLayout({
 
                   <Toaster />
                   <SpeedInsights />
+                  <TimezoneSync />
+                  <ReferralCapture />
                 </div>
               </TooltipProvider>
             </QueryProvider>

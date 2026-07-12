@@ -31,3 +31,21 @@ export const TrophyKind = {
 } as const
 
 export type TrophyKind = (typeof TrophyKind)[keyof typeof TrophyKind]
+
+
+export const NotificationType = {
+  streak_reminder: 'streak_reminder',
+  daily_challenge_reminder: 'daily_challenge_reminder',
+  weekly_summary: 'weekly_summary',
+  premium_ending_soon: 'premium_ending_soon'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
+
+
+export const FriendshipStatus = {
+  pending: 'pending',
+  accepted: 'accepted'
+} as const
+
+export type FriendshipStatus = (typeof FriendshipStatus)[keyof typeof FriendshipStatus]

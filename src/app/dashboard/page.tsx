@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import {
   Brain,
   Clock3,
+  Crown,
   Flame,
   Sparkles,
   Target,
@@ -21,11 +22,16 @@ import CertificatesCard from "@/components/dashboard/CertificatesCard";
 import RecommendationCard from "@/components/dashboard/RecommendationCard";
 import DailyChallengeCard from "@/components/dashboard/DailyChallengeCard";
 import LeaderboardCard from "@/components/dashboard/LeaderboardCard";
+import FriendsCard from "@/components/dashboard/FriendsCard";
+import ReferralsCard from "@/components/dashboard/ReferralsCard";
+import TrialOfferButton from "@/components/TrialOfferButton";
+import { FREE_TRIAL_DAYS } from "@/lib/premium";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { getLevelProgress } from "@/lib/xp";
 import { FREE_XP_CAP } from "@/lib/stripe";
+import { isEffectivelyPro } from "@/lib/paywall";
 import { getEffectiveStreak, getProtectionsRemaining } from "@/lib/streak";
 
 export const metadata = {
@@ -91,6 +97,7 @@ function StatCard({
 export default async function DashboardPage() {
   const session = await getAuthSession();
   const t = await getTranslations("Dashboard");
+  const tTrial = await getTranslations("Trial");
 
   if (!session?.user?.id) {
     redirect("/login");
@@ -144,6 +151,8 @@ export default async function DashboardPage() {
         level: true,
         name: true,
         subscriptionStatus: true,
+        premiumUntil: true,
+        freeTrialUsedAt: true,
         currentStreak: true,
         lastQuizDate: true,
         streakProtectionsUsed: true,
@@ -208,10 +217,11 @@ export default async function DashboardPage() {
 
   const totalXp = userProfile?.xp ?? 0;
   const currentLevel = userProfile?.level ?? 1;
-  const isPro = userProfile?.subscriptionStatus === "pro";
+  const isPro = userProfile ? isEffectivelyPro(userProfile) : false;
   // Mirrors isUserAtFreeLimit's threshold: free-tier xp is permanently
   // clamped to FREE_XP_CAP - 1 by /api/quiz/submit, so that's the real cap.
   const isAtFreeLimit = !isPro && totalXp >= FREE_XP_CAP - 1;
+  const trialAvailable = isAtFreeLimit && !userProfile?.freeTrialUsedAt;
   const levelProgress = getLevelProgress(totalXp);
 
   const currentStreak = userProfile ? getEffectiveStreak(userProfile) : 0;
@@ -268,6 +278,16 @@ export default async function DashboardPage() {
                 {t("title")}
               </h1>
               <DetailsDialog />
+              <span
+                className={
+                  isPro
+                    ? "inline-flex items-center gap-1.5 rounded-full border border-amber-300/60 bg-gradient-to-r from-amber-400/15 to-amber-500/15 px-3 py-1 text-xs font-bold text-amber-600 dark:border-amber-400/30 dark:text-amber-300"
+                    : "inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-400"
+                }
+              >
+                <Crown className="h-3.5 w-3.5" />
+                {isPro ? t("proStatus") : t("freeStatus")}
+              </span>
             </div>
 
             <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
@@ -395,8 +415,13 @@ export default async function DashboardPage() {
         <CertificatesCard userId={userId} />
       </section>
 
-      <section className="mt-4 sm:mt-6">
+      <section className="mt-4 grid grid-cols-1 gap-4 sm:mt-6 lg:grid-cols-2">
         <LeaderboardCard userId={userId} />
+        <FriendsCard userId={userId} />
+      </section>
+
+      <section className="mt-4 sm:mt-6">
+        <ReferralsCard userId={userId} />
       </section>
 
       {isAtFreeLimit && (
@@ -415,13 +440,26 @@ export default async function DashboardPage() {
                   </p>
                 </div>
               </div>
-              <a
-                href="/upgrade"
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 px-6 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90"
-              >
-                <Zap className="h-4 w-4" />
-                {t("upgradeToPro")}
-              </a>
+
+              {trialAvailable ? (
+                <div className="flex shrink-0 flex-col items-center gap-1.5">
+                  <TrialOfferButton
+                    days={FREE_TRIAL_DAYS}
+                    className="h-auto rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 px-6 py-3 text-sm font-bold text-white hover:opacity-90"
+                  />
+                  <a href="/upgrade" className="text-xs font-medium text-white/50 hover:text-white/80">
+                    {tTrial("orUpgrade")}
+                  </a>
+                </div>
+              ) : (
+                <a
+                  href="/upgrade"
+                  className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 px-6 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90"
+                >
+                  <Zap className="h-4 w-4" />
+                  {t("upgradeToPro")}
+                </a>
+              )}
             </div>
           </div>
         </section>

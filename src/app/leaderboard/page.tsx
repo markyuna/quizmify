@@ -5,6 +5,7 @@ import { Trophy } from "lucide-react";
 import LeaderboardTable from "@/components/LeaderboardTable";
 import { getAuthSession } from "@/lib/nextauth";
 import { getGlobalLeaderboardPage, getLeaderboardTopics } from "@/lib/leaderboard";
+import { getFriendsOverview } from "@/lib/friends";
 
 export const metadata = {
   title: "Leaderboard | Quizmify",
@@ -19,10 +20,14 @@ export default async function LeaderboardPage() {
     redirect("/login");
   }
 
-  const [initialData, topics] = await Promise.all([
+  const [initialData, topics, friendsOverview] = await Promise.all([
     getGlobalLeaderboardPage({ userId: session.user.id }),
     getLeaderboardTopics(),
+    getFriendsOverview(session.user.id),
   ]);
+
+  const friendUserIds = friendsOverview.friends.map((f) => f.userId);
+  const pendingUserIds = friendsOverview.outgoingRequests.map((r) => r.userId);
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-6 sm:py-8">
@@ -36,7 +41,13 @@ export default async function LeaderboardPage() {
         </h1>
       </div>
 
-      <LeaderboardTable initialData={initialData} topics={topics} />
+      <LeaderboardTable
+        initialData={initialData}
+        topics={topics}
+        currentUserId={session.user.id}
+        friendUserIds={friendUserIds}
+        pendingUserIds={pendingUserIds}
+      />
     </div>
   );
 }

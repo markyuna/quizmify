@@ -65,7 +65,11 @@ export const ModelName = {
   UserQuestionProgress: 'UserQuestionProgress',
   DailyChallenge: 'DailyChallenge',
   DailyChallengeQuestion: 'DailyChallengeQuestion',
-  DailyChallengeAttempt: 'DailyChallengeAttempt'
+  DailyChallengeAttempt: 'DailyChallengeAttempt',
+  NotificationPreference: 'NotificationPreference',
+  NotificationLog: 'NotificationLog',
+  Friendship: 'Friendship',
+  Referral: 'Referral'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -130,7 +134,10 @@ export const UserScalarFieldEnum = {
   longestStreak: 'longestStreak',
   lastQuizDate: 'lastQuizDate',
   streakProtectionsUsed: 'streakProtectionsUsed',
-  streakProtectionMonth: 'streakProtectionMonth'
+  streakProtectionMonth: 'streakProtectionMonth',
+  timezone: 'timezone',
+  premiumUntil: 'premiumUntil',
+  freeTrialUsedAt: 'freeTrialUsedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -307,6 +314,52 @@ export const DailyChallengeAttemptScalarFieldEnum = {
 } as const
 
 export type DailyChallengeAttemptScalarFieldEnum = (typeof DailyChallengeAttemptScalarFieldEnum)[keyof typeof DailyChallengeAttemptScalarFieldEnum]
+
+
+export const NotificationPreferenceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  streakReminderEmail: 'streakReminderEmail',
+  dailyChallengeEmail: 'dailyChallengeEmail',
+  weeklySummaryEmail: 'weeklySummaryEmail',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationPreferenceScalarFieldEnum = (typeof NotificationPreferenceScalarFieldEnum)[keyof typeof NotificationPreferenceScalarFieldEnum]
+
+
+export const NotificationLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  dateKey: 'dateKey',
+  sentAt: 'sentAt'
+} as const
+
+export type NotificationLogScalarFieldEnum = (typeof NotificationLogScalarFieldEnum)[keyof typeof NotificationLogScalarFieldEnum]
+
+
+export const FriendshipScalarFieldEnum = {
+  id: 'id',
+  requesterId: 'requesterId',
+  addresseeId: 'addresseeId',
+  status: 'status',
+  createdAt: 'createdAt',
+  respondedAt: 'respondedAt'
+} as const
+
+export type FriendshipScalarFieldEnum = (typeof FriendshipScalarFieldEnum)[keyof typeof FriendshipScalarFieldEnum]
+
+
+export const ReferralScalarFieldEnum = {
+  id: 'id',
+  referrerId: 'referrerId',
+  referredId: 'referredId',
+  rewardDays: 'rewardDays',
+  createdAt: 'createdAt'
+} as const
+
+export type ReferralScalarFieldEnum = (typeof ReferralScalarFieldEnum)[keyof typeof ReferralScalarFieldEnum]
 
 
 export const SortOrder = {

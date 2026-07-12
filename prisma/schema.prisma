@@ -56,6 +56,20 @@ model User {
   lastQuizDate           DateTime?
   streakProtectionsUsed  Int                     @default(0)
   streakProtectionMonth  String?
+  // IANA timezone (e.g. "America/Argentina/Buenos_Aires"), captured
+  // client-side on login -- see TimezoneSync.tsx. Null until the user's
+  // browser has reported it at least once; notification scheduling treats
+  // that as "unknown, send anyway" rather than skipping them.
+  timezone               String?
+  // Temporary Pro access granted by referrals or the free trial, additive
+  // to (never a substitute for) a real paid subscriptionStatus="pro". See
+  // isEffectivelyPro() in src/lib/paywall.ts -- the single source of truth
+  // for every Pro gate in the app.
+  premiumUntil           DateTime?
+  // Set once, the first time the free trial is activated -- distinct from
+  // premiumUntil so "already used the trial" stays true even after it
+  // expires and premiumUntil is in the past.
+  freeTrialUsedAt        DateTime?
   accounts               Account[]
   sessions               Session[]
   games                  Game[]
@@ -65,6 +79,12 @@ model User {
   certificates           Certificate[]
   topicRecommendations   TopicRecommendation[]
   dailyChallengeAttempts DailyChallengeAttempt[]
+  notificationPreference NotificationPreference?
+  notificationLogs       NotificationLog[]
+  friendshipsSent        Friendship[]            @relation("FriendshipRequester")
+  friendshipsReceived    Friendship[]            @relation("FriendshipAddressee")
+  referralsMade          Referral[]              @relation("ReferralsMade")
+  referralReceived       Referral?               @relation("ReferralReceived")
 
   @@index([xp])
 }
@@ -305,4 +325,81 @@ model DailyChallengeAttempt {
   @@unique([dailyChallengeId, userId])
   @@index([dailyChallengeId])
   @@index([userId])
+}
+
+model NotificationPreference {
+  id                   String   @id @default(cuid())
+  userId               String   @unique
+  streakReminderEmail  Boolean  @default(true)
+  dailyChallengeEmail  Boolean  @default(true)
+  weeklySummaryEmail   Boolean  @default(true)
+  updatedAt            DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum NotificationType {
+  streak_reminder
+  daily_challenge_reminder
+  weekly_summary
+  premium_ending_soon
+}
+
+model NotificationLog {
+  id      String           @id @default(cuid())
+  userId  String
+  type    NotificationType
+  // User's local calendar date ("YYYY-MM-DD") at send time for
+  // streak_reminder/daily_challenge_reminder, or the ISO week ("YYYY-Www")
+  // for weekly_summary. The real anti-duplicate guard is the unique
+  // constraint below, not the application check that precedes it.
+  dateKey String
+  sentAt  DateTime         @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, type, dateKey])
+  @@index([userId])
+}
+
+enum FriendshipStatus {
+  pending
+  accepted
+}
+
+// A pending row means requester -> addressee only; it becomes a mutual
+// friendship the moment addressee accepts. There's deliberately no way to
+// read someone's progress via this relation while status is "pending" --
+// see getFriendIds() in src/lib/friends.ts, which only ever queries
+// status: accepted.
+model Friendship {
+  id          String           @id @default(cuid())
+  requesterId String
+  addresseeId String
+  status      FriendshipStatus @default(pending)
+  createdAt   DateTime         @default(now())
+  respondedAt DateTime?
+
+  requester User @relation("FriendshipRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  addressee User @relation("FriendshipAddressee", fields: [addresseeId], references: [id], onDelete: Cascade)
+
+  @@unique([requesterId, addresseeId])
+  @@index([addresseeId])
+  @@index([requesterId])
+}
+
+// One row per successfully-referred signup. @@unique on referredId means a
+// given account can only ever be counted as "referred" once, by whoever's
+// link they used first.
+model Referral {
+  id         String   @id @default(cuid())
+  referrerId String
+  referredId String   @unique
+  rewardDays Int
+  createdAt  DateTime @default(now())
+
+  referrer User @relation("ReferralsMade", fields: [referrerId], references: [id], onDelete: Cascade)
+  referred User @relation("ReferralReceived", fields: [referredId], references: [id], onDelete: Cascade)
+
+  @@index([referrerId])
 }

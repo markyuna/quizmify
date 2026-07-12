@@ -7,6 +7,7 @@ import { calculateEarnedXp, calculateLevel, calculateSpeedBonusXp } from "@/lib/
 import { FREE_XP_CAP, FREE_LEVEL_CAP } from "@/lib/stripe";
 import { registerQuizActivity, getEffectiveStreak, type StreakResult } from "@/lib/streak";
 import { checkAndAwardCertificates } from "@/lib/certificates";
+import { isEffectivelyPro } from "@/lib/paywall";
 import { submitQuizSchema } from "@/schemas/form/quiz";
 
 export type TrophyReason = "perfect" | "streak" | null;
@@ -200,7 +201,7 @@ export async function POST(req: Request) {
 
       const previousUser = await tx.user.findUnique({
         where: { id: userId },
-        select: { level: true, subscriptionStatus: true },
+        select: { level: true, subscriptionStatus: true, premiumUntil: true, freeTrialUsedAt: true },
       });
 
       if (!previousUser) {
@@ -212,6 +213,7 @@ export async function POST(req: Request) {
           newLevel: 1,
           didLevelUp: false,
           hitFreeLimit: false,
+          trialAvailable: false,
           streak: {
             currentStreak: 0,
             longestStreak: 0,
@@ -245,7 +247,7 @@ export async function POST(req: Request) {
       }
 
       const previousLevel = previousUser.level;
-      const isPro = previousUser.subscriptionStatus === "pro";
+      const isPro = isEffectivelyPro(previousUser);
 
       const updatedUser = await tx.user.update({
         where: { id: userId },
@@ -281,6 +283,7 @@ export async function POST(req: Request) {
         newLevel,
         didLevelUp,
         hitFreeLimit,
+        trialAvailable: hitFreeLimit && !previousUser.freeTrialUsedAt,
         streak,
         trophyReason,
       };
@@ -300,6 +303,7 @@ export async function POST(req: Request) {
         newLevel: result.newLevel,
         didLevelUp: result.didLevelUp,
         hitFreeLimit: result.hitFreeLimit,
+        trialAvailable: result.trialAvailable,
         currentStreak: result.streak.currentStreak,
         streakExtended: result.streak.streakExtended,
         streakProtected: result.streak.streakProtected,

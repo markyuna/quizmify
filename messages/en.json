@@ -195,6 +195,8 @@
     "statTimeSubtitle": "Total study time: {total}",
     "performanceOverview": "Performance overview",
     "title": "Dashboard",
+    "proStatus": "Pro",
+    "freeStatus": "Free",
     "subtitle": "Track your progress, review recent quiz results, and keep building momentum with a cleaner, smarter learning workflow.",
     "levelProgress": "Level Progress",
     "level": "Level",
@@ -319,7 +321,15 @@
     "areYouSure": "Are you sure? This cannot be undone.",
     "deleting": "Deleting…",
     "yesDeleteEverything": "Yes, delete everything",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "notificationsTitle": "Email notifications",
+    "notificationsSubtitle": "Choose which reminders you'd like to receive.",
+    "streakReminderLabel": "Streak reminders",
+    "streakReminderDesc": "A nudge when your streak is about to end",
+    "dailyChallengeReminderLabel": "Daily Challenge reminders",
+    "dailyChallengeReminderDesc": "When you haven't played today's challenge",
+    "weeklySummaryLabel": "Weekly summary",
+    "weeklySummaryDesc": "Your stats and progress, once a week"
   },
   "ExportPdf": {
     "exportToPdf": "Export to PDF",
@@ -413,5 +423,52 @@
     "correctCount": "{count, plural, one {# correct} other {# correct}}",
     "pageOf": "Page {page} of {totalPages}",
     "viewLeaderboard": "View leaderboard"
+  },
+  "Friends": {
+    "badge": "Friends",
+    "title": "Your Friends",
+    "viewFriends": "View friends",
+    "friendCount": "{count, plural, =0 {No friends yet} one {# friend} other {# friends}}",
+    "inviteLinkLabel": "Your invite link",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied!",
+    "incomingRequests": "Friend requests",
+    "outgoingRequests": "Pending",
+    "accept": "Accept",
+    "decline": "Decline",
+    "cancel": "Cancel",
+    "remove": "Remove",
+    "noFriendsYet": "You haven't added any friends yet.",
+    "noFriendsHint": "Share your invite link so friends can join and compare progress with you.",
+    "levelLabel": "Level {level}",
+    "streakDays": "{count, plural, one {# day streak} other {# day streak}}",
+    "you": "(you)",
+    "friendRequestSent": "Friend request sent!",
+    "alreadyFriends": "You're already friends",
+    "alreadyPending": "Request already sent",
+    "addFriendTitle": "Add {name} as a friend?",
+    "addFriendCta": "Send friend request",
+    "goToFriends": "Go to your friends",
+    "cantAddSelf": "You can't add yourself as a friend",
+    "error": "Something went wrong",
+    "userNotFound": "This invite link isn't valid"
+  },
+  "Referrals": {
+    "badge": "Referrals",
+    "title": "Invite friends, earn Pro time",
+    "subtitle": "You and your friend each get {days} days of Pro when they sign up with your link.",
+    "linkLabel": "Your referral link",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied!",
+    "referralCount": "Friends referred",
+    "daysEarned": "Pro days earned",
+    "premiumActive": "You have Pro for {days} more days",
+    "noPremiumActive": "Refer a friend to unlock free Pro time"
+  },
+  "Trial": {
+    "startTrial": "Start your free {days}-day trial",
+    "activated": "Pro trial activated for {days} days!",
+    "error": "Something went wrong",
+    "orUpgrade": "or upgrade to Pro now"
   }
 }

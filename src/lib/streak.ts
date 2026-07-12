@@ -1,4 +1,5 @@
 import type { Prisma, PrismaClient } from "@/generated/prisma/client";
+import { isEffectivelyPro } from "@/lib/paywall";
 
 export const STREAK_PROTECTIONS_PER_MONTH = 2;
 
@@ -7,6 +8,7 @@ type StreakFields = {
   longestStreak: number;
   lastQuizDate: Date | null;
   subscriptionStatus: string;
+  premiumUntil: Date | null;
   streakProtectionsUsed: number;
   streakProtectionMonth: string | null;
 };
@@ -53,6 +55,7 @@ export async function registerQuizActivity(
       longestStreak: true,
       lastQuizDate: true,
       subscriptionStatus: true,
+      premiumUntil: true,
       streakProtectionsUsed: true,
       streakProtectionMonth: true,
     },
@@ -125,7 +128,7 @@ function computeNextStreak(user: StreakFields, now: Date) {
   }
 
   // gapDays >= 2: at least one full day missed.
-  const isPro = user.subscriptionStatus === "pro";
+  const isPro = isEffectivelyPro(user);
   const hasProtectionAvailable = isPro && protectionsUsedThisMonth < STREAK_PROTECTIONS_PER_MONTH;
 
   if (hasProtectionAvailable) {

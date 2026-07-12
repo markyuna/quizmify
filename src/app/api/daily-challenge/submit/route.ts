@@ -7,6 +7,7 @@ import { getDailyChallengeStats } from "@/lib/dailyChallenge";
 import { submitDailyChallengeSchema } from "@/schemas/form/dailyChallenge";
 import { calculateDailyChallengeXp, calculateLevel } from "@/lib/xp";
 import { FREE_XP_CAP, FREE_LEVEL_CAP } from "@/lib/stripe";
+import { isEffectivelyPro } from "@/lib/paywall";
 
 export async function POST(req: Request) {
   try {
@@ -108,7 +109,7 @@ export async function POST(req: Request) {
 
       const previousUser = await tx.user.findUnique({
         where: { id: userId },
-        select: { level: true, subscriptionStatus: true },
+        select: { level: true, subscriptionStatus: true, premiumUntil: true },
       });
 
       if (!previousUser) {
@@ -116,7 +117,7 @@ export async function POST(req: Request) {
       }
 
       const previousLevel = previousUser.level;
-      const isPro = previousUser.subscriptionStatus === "pro";
+      const isPro = isEffectivelyPro(previousUser);
 
       const updatedUser = await tx.user.update({
         where: { id: userId },
