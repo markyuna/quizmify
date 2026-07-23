@@ -12,7 +12,8 @@ export default function Logo() {
       >
         <Image
           src="/logo.png"
-          alt="Quizmify"
+          alt=""
+          aria-hidden="true"
           width={30}
           height={30}
           className="drop-shadow-[0_0_8px_rgba(139,92,246,0.6)]"
@@ -24,7 +25,7 @@ export default function Logo() {
         transition={{ duration: 0.4 }}
         className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-base font-bold tracking-tight text-transparent"
       >
-        uizmify
+        Quizmify
       </motion.span>
     </div>
   );
