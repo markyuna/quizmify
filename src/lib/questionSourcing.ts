@@ -35,6 +35,9 @@ async function fetchExistingMCQQuestions(params: {
 }): Promise<SupabaseMCQQuestion[]> {
   const { topic, difficulty, language, amount } = params;
 
+  // Fetch extra headroom: historical cache rows may contain duplicate
+  // question texts (pre-dedupe-fix inserts), so `amount` raw rows can
+  // collapse into far fewer unique questions.
   const { data, error } = await supabaseAdmin
     .from("mcq_questions")
     .select("*")
@@ -43,7 +46,7 @@ async function fetchExistingMCQQuestions(params: {
     .eq("language", language)
     .eq("is_active", true)
     .order("usage_count", { ascending: true })
-    .limit(amount);
+    .limit(amount * 2);
 
   if (error) {
     throw new Error(`Supabase fetch error: ${error.message}`);
@@ -138,7 +141,11 @@ export async function sourceQuestions(params: {
     cachedQuestions = [];
   }
 
-  let pool: SourcedQuestion[] = [...cachedQuestions];
+  // Measure the pool in UNIQUE questions, not raw rows. Counting rows let
+  // duplicate cache entries satisfy `poolTarget` and permanently shut off
+  // new generation while the deduped serve-set stayed tiny -- the classic
+  // "same questions every quiz" bug.
+  let pool: SourcedQuestion[] = dedupeQuestions(cachedQuestions);
 
   if (pool.length < poolTarget) {
     const aiQuestions = await generateQuestionsWithAI({
@@ -147,24 +154,30 @@ export async function sourceQuestions(params: {
       language,
       amount,
       isGeography,
+      existingQuestions: pool.map((q) => q.question),
     });
 
-    const dedupedAIQuestions = dedupeQuestions(aiQuestions).slice(0, amount);
+    // Drop AI questions that already exist in the cache BEFORE saving, so
+    // duplicates never get persisted as new rows.
+    const existingKeys = new Set(pool.map((q) => q.question.trim().toLowerCase()));
+    const newAIQuestions = dedupeQuestions(aiQuestions)
+      .filter((q) => !existingKeys.has(q.question.trim().toLowerCase()))
+      .slice(0, amount);
 
-    if (dedupedAIQuestions.length > 0) {
+    if (newAIQuestions.length > 0) {
       try {
-        await saveGeneratedQuestionsToSupabase({ topic, difficulty, language, questions: dedupedAIQuestions });
+        await saveGeneratedQuestionsToSupabase({ topic, difficulty, language, questions: newAIQuestions });
       } catch (error) {
         console.error("Supabase cache write error:", error);
       }
 
-      pool = dedupeQuestions([...pool, ...dedupedAIQuestions]);
+      pool = [...pool, ...newAIQuestions];
     }
   }
 
   // Randomize which `amount` questions are served this time instead of
   // always taking the same prefix of the pool.
-  const questions = shuffleArray(dedupeQuestions(pool)).slice(0, amount);
+  const questions = shuffleArray(pool).slice(0, amount);
 
   return { questions, cachedCount: cachedQuestions.length, poolTarget };
 }

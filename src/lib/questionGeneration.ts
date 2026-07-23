@@ -100,9 +100,20 @@ export async function generateQuestionsWithAI(params: {
   language: Locale;
   amount: number;
   isGeography: boolean;
+  /** Questions already in the cache -- the model is told not to repeat them. */
+  existingQuestions?: string[];
 }): Promise<GeneratedQuestion[]> {
-  const { topic, difficulty, language, amount, isGeography } = params;
+  const { topic, difficulty, language, amount, isGeography, existingQuestions = [] } = params;
   const languageName = LANGUAGE_NAMES[language];
+
+  // Cap the avoid-list so the prompt stays small.
+  const avoidList = existingQuestions.slice(0, 60);
+  const avoidBlock =
+    avoidList.length > 0
+      ? `\n\nDo NOT repeat, rephrase, or closely paraphrase any of these existing questions:\n${avoidList
+          .map((q) => `- ${q}`)
+          .join("\n")}`
+      : "";
 
   const countryField = isGeography
     ? `,\n      "country": "string or null -- the real-world country (in English, e.g. \\"France\\", \\"Japan\\") this specific question is about, or null if it isn't about a specific country"`
@@ -141,7 +152,7 @@ Rules:
 - the correct answer must appear in options
 - concise and clear ${languageName}
 - no markdown
-- no extra text${countryRule}`,
+- no extra text${countryRule}${avoidBlock}`,
       },
     ],
     response_format: { type: "json_object" },
