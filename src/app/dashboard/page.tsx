@@ -14,6 +14,7 @@ import {
 
 import DetailsDialog from "@/components/DetailsDialog";
 import LevelUpPaywallWrapper from "@/components/LevelUpPaywallWrapper";
+import ProStatusBanner from "@/components/dashboard/ProStatusBanner";
 import Avatar3D from "@/components/avatar/Avatar3D";
 import { getAvatarSkinById } from "@/lib/avatarSkins";
 import HistoryCard from "@/components/dashboard/HistoryCard";
@@ -31,8 +32,9 @@ import { FREE_TRIAL_DAYS } from "@/lib/premium";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
-import { getLevelProgress } from "@/lib/xp";
-import { FREE_XP_CAP } from "@/lib/stripe";
+import { getLevelProgress, xpRequiredForLevel } from "@/lib/xp";
+import { FREE_XP_CAP, FREE_LEVEL_CAP } from "@/lib/stripe";
+import { getEffectiveLevel, isLevelFrozen } from "@/lib/pro";
 import { isEffectivelyPro } from "@/lib/paywall";
 import { resolvePaywallMessage } from "@/lib/paywallMessages";
 import { getEffectiveStreak, getProtectionsRemaining } from "@/lib/streak";
@@ -221,13 +223,27 @@ export default async function DashboardPage() {
   ]);
 
   const totalXp = userProfile?.xp ?? 0;
-  const currentLevel = userProfile?.level ?? 1;
+  // Derived from xp + Pro status rather than the stored `level` column, so
+  // an upgrade restores the user's real level immediately instead of only
+  // after their next quiz rewrites that column.
+  const currentLevel = userProfile ? getEffectiveLevel(userProfile) : 1;
   const isPro = userProfile ? isEffectivelyPro(userProfile) : false;
   // Mirrors isUserAtFreeLimit's threshold: free-tier xp is permanently
   // clamped to FREE_XP_CAP - 1 by /api/quiz/submit, so that's the real cap.
   const isAtFreeLimit = !isPro && totalXp >= FREE_XP_CAP - 1;
   const trialAvailable = isAtFreeLimit && !userProfile?.freeTrialUsedAt;
-  const levelProgress = getLevelProgress(totalXp);
+  // A user whose Pro lapsed keeps their real level in `xp` but displays at
+  // the cap, so their progress bar has to be pinned to the cap too --
+  // otherwise the header reads "Level 2" next to level-5 progress numbers.
+  // ProStatusBanner is what tells them the real level is still saved.
+  const levelIsFrozen = userProfile ? isLevelFrozen(userProfile) : false;
+  const cappedLevelProgress = {
+    xpIntoCurrentLevel: xpRequiredForLevel(FREE_LEVEL_CAP),
+    xpPerLevel: xpRequiredForLevel(FREE_LEVEL_CAP),
+    xpToNextLevel: 0,
+    progressPercent: 100,
+  };
+  const levelProgress = levelIsFrozen ? cappedLevelProgress : getLevelProgress(totalXp);
 
   const currentStreak = userProfile ? getEffectiveStreak(userProfile) : 0;
   const protectionsRemaining = isPro && userProfile ? getProtectionsRemaining(userProfile) : 0;
@@ -285,6 +301,8 @@ export default async function DashboardPage() {
     <div className="w-full overflow-x-hidden px-0 pb-8 pt-3 sm:pb-10 sm:pt-5">
       {/* Level 3 paywall modal for Free users */}
       <LevelUpPaywallWrapper userXp={totalXp} isPro={isPro} />
+
+      {userProfile && <ProStatusBanner user={userProfile} />}
 
       <section className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/60 p-4 shadow-2xl shadow-black/5 backdrop-blur-xl dark:bg-white/5 sm:rounded-[2rem] sm:p-6 lg:p-8">
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-cyan-500/10" />

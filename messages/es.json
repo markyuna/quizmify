@@ -497,6 +497,13 @@
     "questionAbbrev": "P",
     "saving": "Guardando tus resultados..."
   },
+  "ProStatus": {
+    "activePermanent": "Pro activo",
+    "activeTemporary": "Pro activo hasta el {date} · quedan {days} días",
+    "frozenTitle": "Tu nivel {level} está guardado",
+    "frozenBody": "Tu progreso está pausado en el nivel 2 del plan gratuito. No perdiste nada: pasate a Pro y seguí donde lo dejaste.",
+    "resumeCta": "Retomar progreso"
+  },
   "LevelUpPaywall": {
     "title": "Desbloquea progresión ilimitada",
     "description": "Paga una sola vez $5.99 y sigue subiendo sin límites. Accede a nuevas funciones primero y disfruta de soporte prioritario.",

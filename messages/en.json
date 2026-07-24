@@ -497,6 +497,13 @@
     "questionAbbrev": "Q",
     "saving": "Saving your results..."
   },
+  "ProStatus": {
+    "activePermanent": "Pro active",
+    "activeTemporary": "Pro active until {date} · {days} days left",
+    "frozenTitle": "Level {level} is saved",
+    "frozenBody": "Your progress is paused at level 2 on the free plan. Nothing was lost — go Pro to pick up where you left off.",
+    "resumeCta": "Resume progress"
+  },
   "LevelUpPaywall": {
     "title": "Unlock unlimited progression",
     "description": "Pay once $5.99 and level up without limits. Unlock new features first and enjoy priority support.",

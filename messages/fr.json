@@ -497,6 +497,13 @@
     "questionAbbrev": "Q",
     "saving": "Enregistrement de vos résultats..."
   },
+  "ProStatus": {
+    "activePermanent": "Pro actif",
+    "activeTemporary": "Pro actif jusqu'au {date} · {days} jours restants",
+    "frozenTitle": "Votre niveau {level} est sauvegardé",
+    "frozenBody": "Votre progression est en pause au niveau 2 avec l'offre gratuite. Rien n'est perdu : passez à Pro pour reprendre où vous en étiez.",
+    "resumeCta": "Reprendre la progression"
+  },
   "LevelUpPaywall": {
     "title": "Débloquez la progression illimitée",
     "description": "Payez une seule fois 5,99 € et montez de niveau sans limites. Accédez aux nouvelles fonctionnalités en priorité et bénéficiez d'un support privilégié.",

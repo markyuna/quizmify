@@ -263,25 +263,26 @@ export async function POST(req: Request) {
         select: { xp: true },
       });
 
-      let newXp = updatedUser.xp;
-      let newLevel = calculateLevel(newXp);
+      // xp always keeps accumulating -- it's the permanent record of
+      // everything the user has earned. Only the *level* is capped for
+      // free users, so progress made during a Pro window survives a lapse
+      // and comes straight back on resubscribe. See src/lib/pro.ts.
+      const newXp = updatedUser.xp;
+      const trueLevel = calculateLevel(newXp);
       const hitFreeLimit = !isPro && newXp >= FREE_XP_CAP;
+      const newLevel = isPro ? trueLevel : Math.min(trueLevel, FREE_LEVEL_CAP);
 
-      if (hitFreeLimit) {
-        newXp = FREE_XP_CAP - 1;
-        newLevel = FREE_LEVEL_CAP;
-        await tx.user.update({
-          where: { id: userId },
-          data: { xp: newXp, level: newLevel },
-        });
-      } else if (newLevel !== previousLevel) {
+      if (newLevel !== previousLevel) {
         await tx.user.update({
           where: { id: userId },
           data: { level: newLevel },
         });
       }
 
-      const didLevelUp = !hitFreeLimit && newLevel > previousLevel;
+      const didLevelUp = newLevel > previousLevel;
+      // Real progress sitting behind the paywall, as opposed to merely
+      // being parked at the cap -- drives the "level N is saved" message.
+      const frozenLevel = trueLevel > newLevel ? trueLevel : null;
 
       // Only bother resolving a personalized message on the one submit
       // that actually crosses into the cap -- every other quiz doesn't
@@ -300,10 +301,14 @@ export async function POST(req: Request) {
 
       return {
         attempt: createdAttempt,
-        earnedXp: hitFreeLimit ? Math.max(0, FREE_XP_CAP - 1 - (newXp - earnedXp)) : earnedXp,
+        // The full amount is always banked now that xp is never clamped --
+        // free users past the cap keep earning toward the level they'll
+        // unlock on upgrade.
+        earnedXp,
         newXp,
         previousLevel,
         newLevel,
+        frozenLevel,
         didLevelUp,
         hitFreeLimit,
         trialAvailable: hitFreeLimit && !previousUser.freeTrialUsedAt,
@@ -325,6 +330,7 @@ export async function POST(req: Request) {
         newXp: result.newXp,
         previousLevel: result.previousLevel,
         newLevel: result.newLevel,
+        frozenLevel: result.frozenLevel,
         didLevelUp: result.didLevelUp,
         hitFreeLimit: result.hitFreeLimit,
         trialAvailable: result.trialAvailable,

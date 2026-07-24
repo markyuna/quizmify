@@ -125,28 +125,25 @@ export async function POST(req: Request) {
         select: { xp: true },
       });
 
-      let newXp = updatedUser.xp;
-      let newLevel = calculateLevel(newXp);
+      // Mirrors /api/quiz/submit: xp keeps accumulating permanently, only
+      // the level is capped for free users, so progress earned during a
+      // Pro window survives a lapse. See src/lib/pro.ts.
+      const newXp = updatedUser.xp;
+      const trueLevel = calculateLevel(newXp);
       const hitFreeLimit = !isPro && newXp >= FREE_XP_CAP;
+      const newLevel = isPro ? trueLevel : Math.min(trueLevel, FREE_LEVEL_CAP);
 
-      if (hitFreeLimit) {
-        newXp = FREE_XP_CAP - 1;
-        newLevel = FREE_LEVEL_CAP;
-        await tx.user.update({
-          where: { id: userId },
-          data: { xp: newXp, level: newLevel },
-        });
-      } else if (newLevel !== previousLevel) {
+      if (newLevel !== previousLevel) {
         await tx.user.update({
           where: { id: userId },
           data: { level: newLevel },
         });
       }
 
-      const didLevelUp = !hitFreeLimit && newLevel > previousLevel;
+      const didLevelUp = newLevel > previousLevel;
 
       return {
-        earnedXp: hitFreeLimit ? Math.max(0, FREE_XP_CAP - 1 - (newXp - xp.totalXp)) : xp.totalXp,
+        earnedXp: xp.totalXp,
         newXp,
         previousLevel,
         newLevel,
