@@ -9,7 +9,7 @@ export const mentionsLegalesContent: Record<Locale, LegalContent> = {
       {
         heading: "Éditeur du site",
         paragraphs: [
-          "Le site Quizmify (le « Site ») est édité par :\nMarcos Suarez Romero, entrepreneur individuel (auto-entrepreneur)\nSIREN : 897 513 065\nSIRET : 897 513 065 00010\nAdresse : 2 Rue Pierre Curie, 94270 Le Kremlin-Bicêtre, France\nContact : marcossuarezr88@gmail.com\nDirecteur de la publication : Marcos Suarez Romero",
+          "Le site Quizmify (https://quizmify.com) est édité par :\nMarcos Suarez Romero, entrepreneur individuel (auto-entrepreneur)\nSIREN : 897 513 065\nSIRET : 897 513 065 00010\nAdresse : 2 Rue Pierre Curie, 94270 Le Kremlin-Bicêtre, France\nContact : marcossuarezr88@gmail.com\nDirecteur de la publication : Marcos Suarez Romero",
         ],
       },
       {
@@ -40,7 +40,7 @@ export const mentionsLegalesContent: Record<Locale, LegalContent> = {
       {
         heading: "Site publisher",
         paragraphs: [
-          "The Quizmify website (the \"Site\") is published by:\nMarcos Suarez Romero, sole trader (auto-entrepreneur, France)\nSIREN: 897 513 065\nSIRET: 897 513 065 00010\nAddress: 2 Rue Pierre Curie, 94270 Le Kremlin-Bicêtre, France\nContact: marcossuarezr88@gmail.com\nPublication director: Marcos Suarez Romero",
+          "The Quizmify website (https://quizmify.com) is published by:\nMarcos Suarez Romero, sole trader (auto-entrepreneur, France)\nSIREN: 897 513 065\nSIRET: 897 513 065 00010\nAddress: 2 Rue Pierre Curie, 94270 Le Kremlin-Bicêtre, France\nContact: marcossuarezr88@gmail.com\nPublication director: Marcos Suarez Romero",
         ],
       },
       {
@@ -71,7 +71,7 @@ export const mentionsLegalesContent: Record<Locale, LegalContent> = {
       {
         heading: "Editor del sitio",
         paragraphs: [
-          "El sitio Quizmify (el «Sitio») está editado por:\nMarcos Suarez Romero, autónomo (auto-entrepreneur, Francia)\nSIREN: 897 513 065\nSIRET: 897 513 065 00010\nDirección: 2 Rue Pierre Curie, 94270 Le Kremlin-Bicêtre, Francia\nContacto: marcossuarezr88@gmail.com\nDirector de publicación: Marcos Suarez Romero",
+          "El sitio Quizmify (https://quizmify.com) está editado por:\nMarcos Suarez Romero, autónomo (auto-entrepreneur, Francia)\nSIREN: 897 513 065\nSIRET: 897 513 065 00010\nDirección: 2 Rue Pierre Curie, 94270 Le Kremlin-Bicêtre, Francia\nContacto: marcossuarezr88@gmail.com\nDirector de publicación: Marcos Suarez Romero",
         ],
       },
       {

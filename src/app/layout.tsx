@@ -28,7 +28,10 @@ export const metadata: Metadata = {
     default: "Quizmify",
     template: "%s | Quizmify",
   },
-  description: "Quiz yourself on anything with AI-powered quizzes.",
+  description: "Quizmify is an AI-powered quiz platform that generates quizzes on any topic in seconds, tracks your performance, and turns your mistakes into practice opportunities.",
+  openGraph: {
+    description: "Quizmify is an AI-powered quiz platform that generates quizzes on any topic in seconds, tracks your performance, and turns your mistakes into practice opportunities.",
+  },
 };
 
 export default async function RootLayout({

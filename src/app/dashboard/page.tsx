@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 
 import DetailsDialog from "@/components/DetailsDialog";
+import LevelUpPaywallWrapper from "@/components/LevelUpPaywallWrapper";
 import Avatar3D from "@/components/avatar/Avatar3D";
 import { getAvatarSkinById } from "@/lib/avatarSkins";
 import HistoryCard from "@/components/dashboard/HistoryCard";
@@ -282,6 +283,9 @@ export default async function DashboardPage() {
 
   return (
     <div className="w-full overflow-x-hidden px-0 pb-8 pt-3 sm:pb-10 sm:pt-5">
+      {/* Level 3 paywall modal for Free users */}
+      <LevelUpPaywallWrapper userXp={totalXp} isPro={isPro} />
+
       <section className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/60 p-4 shadow-2xl shadow-black/5 backdrop-blur-xl dark:bg-white/5 sm:rounded-[2rem] sm:p-6 lg:p-8">
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-cyan-500/10" />
         <div className="pointer-events-none absolute -left-10 top-0 h-32 w-32 rounded-full bg-violet-500/15 blur-3xl sm:h-40 sm:w-40" />

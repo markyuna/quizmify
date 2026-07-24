@@ -5,6 +5,7 @@ export default async function Footer() {
   const t = await getTranslations("Footer");
 
   const LEGAL_LINKS = [
+    { href: "/about", label: t("about") },
     { href: "/mentions-legales", label: t("mentionsLegales") },
     { href: "/confidentialite", label: t("confidentialite") },
     { href: "/cgu-cgv", label: t("cguCgv") },

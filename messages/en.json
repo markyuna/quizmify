@@ -12,6 +12,7 @@
   },
   "Footer": {
     "rights": "Quizmify — Marcos Suarez Romero (EI)",
+    "about": "About",
     "mentionsLegales": "Legal Notice",
     "confidentialite": "Privacy Policy",
     "cguCgv": "Terms of Use & Sale"
@@ -202,9 +203,15 @@
   },
   "DetailsDialog": {
     "whatIsThis": "What is this",
-    "welcomeTitle": "Welcome to Quizmify!",
-    "intro": "Are you tired of mundane and repetitive quizzes? Say goodbye to the ordinary and embrace the extraordinary with Quizmify! Our platform is revolutionizing the quiz and trivia experience by harnessing the immense potential of artificial intelligence.",
-    "builtWith": "Built with"
+    "title": "Welcome to Quizmify! 🎯",
+    "intro": "Create quizzes on any topic in seconds with AI, test your knowledge, and track your progress.",
+    "feature1_title": "AI-generated quizzes",
+    "feature1_desc": "Enter a topic and get a personalized quiz instantly.",
+    "feature2_title": "Track your progress",
+    "feature2_desc": "Check your scores, accuracy, and statistics.",
+    "feature3_title": "Earn trophies",
+    "feature3_desc": "Unlock certificates by reaching your goals.",
+    "cta": "Get started →"
   },
   "QuizMeCard": {
     "aiPowered": "AI powered",
@@ -489,5 +496,29 @@
     "playAgain": "Play again",
     "questionAbbrev": "Q",
     "saving": "Saving your results..."
+  },
+  "LevelUpPaywall": {
+    "title": "Unlock unlimited progression",
+    "description": "Pay once $5.99 and level up without limits. Unlock new features first and enjoy priority support.",
+    "proFeatures": "What you get:",
+    "feature1": "Unlimited level progression",
+    "feature2": "Priority question generation",
+    "feature3": "Early access to new features",
+    "price": "$5.99",
+    "oneTimePayment": "One-time payment",
+    "upgradeButton": "Upgrade to Pro",
+    "declineButton": "Not now, thanks"
+  },
+  "About": {
+    "title": "About Quizmify",
+    "intro": "Discover how Quizmify is transforming the way people learn through AI-powered quiz generation and intelligent performance tracking.",
+    "descriptionEnglish": "Quizmify is an AI-powered quiz platform that generates quizzes on any topic in seconds, tracks your performance, and turns your mistakes into practice opportunities.",
+    "descriptionSpanish": "Quizmify es una plataforma de quizzes potenciada por IA que genera preguntas sobre cualquier tema en segundos, registra tu desempeño y convierte tus errores en oportunidades de práctica.",
+    "dataUsageTitle": "How we use your data",
+    "dataUsageDesc": "Quizmify processes your quiz responses and learning data to personalize your experience and improve the platform. Your data is used for:",
+    "dataPoint1": "Generating personalized quizzes tailored to your learning level and interests",
+    "dataPoint2": "Tracking your performance metrics and progress over time",
+    "dataPoint3": "Identifying topics where you need more practice and creating targeted review sessions",
+    "dataPoint4": "Improving our AI models to deliver better quiz generation and recommendations"
   }
 }

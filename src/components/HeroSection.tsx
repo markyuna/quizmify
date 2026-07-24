@@ -113,15 +113,6 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
             <motion.p
               variants={fadeUp}
-              className="mt-4 max-w-2xl text-base text-slate-500 dark:text-slate-400"
-            >
-              Quizmify is an AI-powered quiz platform that generates quizzes
-              on any topic in seconds, tracks your performance, and turns
-              your mistakes into practice opportunities.
-            </motion.p>
-
-            <motion.p
-              variants={fadeUp}
               className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300"
             >
               {t("heroSubtitle")}
