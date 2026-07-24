@@ -1,58 +1,39 @@
-/**
- * Analytics event tracking for conversion optimization.
- * Events are sent to the backend for aggregation and analysis.
- */
+import { track } from "@vercel/analytics";
 
+/**
+ * Conversion-funnel tracking, deliberately limited to the two steps that
+ * leave no trace in Postgres: the paywall impression and the upgrade
+ * click. Everything else in the funnel is already recorded in the database
+ * and should be queried there instead of duplicated here --
+ *
+ *   % reaching the cap   SELECT count(*) FROM "User" WHERE xp >= 250
+ *   quizzes completed    SELECT count(*) FROM "Attempt"
+ *   signups              SELECT count(*) FROM "User" WHERE "createdAt" > ...
+ *   conversions          SELECT count(*) FROM "User"
+ *                          WHERE "subscriptionStatus" = 'pro'
+ *
+ * No user id or other identifier is ever sent. Vercel Analytics already
+ * aggregates by session, which is enough for every funnel percentage we
+ * care about, and keeping identifiers out means this stays covered by the
+ * existing privacy policy (which lists Vercel as a host, not an analytics
+ * processor) instead of turning behavioural events into personal data
+ * shipped outside the EU.
+ */
 export type AnalyticsEvent =
-  | "users_reached_level_2"
-  | "users_attempted_level_3"
-  | "paywall_modal_shown"
+  /** The upgrade modal became visible to a free user blocked at the cap. */
+  | "paywall_shown"
+  /** The user clicked through to /upgrade from the paywall. */
   | "upgrade_clicked"
-  | "upgrade_clicked_from_paywall_modal"
-  | "upgrade_initiated"
-  | "paywall_modal_dismissed"
-  | "paywall_dismissed"
-  | "paywall_modal_closed"
-  | "conversion_at_paywall"
-  | "pro_user_login";
-
-type EventMetadata = Record<string, string | number | boolean>;
+  /** The user closed the paywall without upgrading. */
+  | "paywall_dismissed";
 
 /**
- * Track an analytics event.
- * In development, logs to console. In production, would send to analytics service.
+ * Vercel only accepts flat primitives as event properties -- nested
+ * objects are silently dropped, so the type is enforced here rather than
+ * discovered in a dashboard with missing dimensions.
  */
-export function trackEvent(event: AnalyticsEvent, metadata?: EventMetadata): void {
-  // Log to console in development
-  if (process.env.NODE_ENV === "development") {
-    console.log(`📊 Event: ${event}`, metadata || "");
-  }
+type EventProperties = Record<string, string | number | boolean | null>;
 
-  // TODO: Send to analytics service (Mixpanel, Amplitude, custom backend, etc.)
-  // fetch('/api/analytics', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({ event, metadata, timestamp: new Date().toISOString() })
-  // }).catch(err => console.error('Analytics tracking failed:', err));
-}
-
-/**
- * Track when a user reaches level 2 (free tier max).
- */
-export function trackReachedLevel2(): void {
-  trackEvent("users_reached_level_2");
-}
-
-/**
- * Track when a user attempts to progress to level 3 (paywall trigger).
- */
-export function trackAttemptedLevel3(): void {
-  trackEvent("users_attempted_level_3");
-}
-
-/**
- * Track a successful upgrade conversion from the paywall.
- */
-export function trackUpgradeConversion(): void {
-  trackEvent("conversion_at_paywall");
+export function trackEvent(event: AnalyticsEvent, properties?: EventProperties): void {
+  track(event, properties);
 }

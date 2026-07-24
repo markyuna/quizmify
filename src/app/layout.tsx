@@ -15,6 +15,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import TimezoneSync from "@/components/TimezoneSync";
 import ReferralCapture from "@/components/ReferralCapture";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 import { getThemeInitScript } from "@/lib/themeInitScript";
 import { cn } from "@/lib/utils";
 
@@ -83,6 +84,7 @@ export default async function RootLayout({
 
                     <Toaster />
                     <SpeedInsights />
+                    <Analytics />
                     <TimezoneSync />
                     <ReferralCapture />
                     <IdleTimeoutProvider />

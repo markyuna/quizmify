@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import LevelUpPaywallModal from "./LevelUpPaywallModal";
 import { isPaywallTrigger, calculateLevel } from "@/lib/xpProgression";
-import { trackAttemptedLevel3, trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/analytics";
 
 type LevelUpPaywallWrapperProps = {
   userXp: number;
@@ -32,7 +32,9 @@ export default function LevelUpPaywallWrapper({
 
     if (isPaywallTrigger(nextLevel, isPro)) {
       hasShownRef.current = true;
-      trackAttemptedLevel3();
+      // Fires once per mount, alongside the state flip -- this is the
+      // impression the funnel's conversion rate is measured against.
+      trackEvent("paywall_shown", { blockedAtLevel: currentLevel });
       // Use queueMicrotask to defer setState, avoiding sync setState in effect
       queueMicrotask(() => {
         setShowModal(true);
@@ -41,17 +43,12 @@ export default function LevelUpPaywallWrapper({
   }, [userXp, isPro]);
 
   const handleClose = () => {
-    trackEvent("paywall_dismissed", {
-      method: "close_button",
-      userLevel: calculateLevel(userXp),
-    });
+    trackEvent("paywall_dismissed");
     setShowModal(false);
   };
 
   const handleUpgrade = () => {
-    trackEvent("upgrade_initiated", {
-      source: "level_3_paywall_modal",
-    });
+    trackEvent("upgrade_clicked", { source: "level_up_paywall" });
     router.push("/upgrade");
   };
 

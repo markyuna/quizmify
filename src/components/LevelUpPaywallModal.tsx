@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -11,7 +10,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { trackEvent } from "@/lib/analytics";
 
 type LevelUpPaywallModalProps = {
   open: boolean;
@@ -19,6 +17,11 @@ type LevelUpPaywallModalProps = {
   onUpgrade: () => void;
 };
 
+/**
+ * Presentational only -- analytics live in LevelUpPaywallWrapper, which
+ * owns the open/close decision. Firing events here too would double-count
+ * every dismissal and every upgrade click, since both handlers run.
+ */
 export default function LevelUpPaywallModal({
   open,
   onClose,
@@ -26,37 +29,18 @@ export default function LevelUpPaywallModal({
 }: LevelUpPaywallModalProps) {
   const t = useTranslations("LevelUpPaywall");
 
-  useEffect(() => {
-    if (open) {
-      trackEvent("paywall_modal_shown", {
-        nextLevel: 3,
-        source: "level_up_attempt",
-      });
-    }
-  }, [open]);
-
-  const handleUpgrade = () => {
-    trackEvent("upgrade_clicked", {
-      source: "level_3_paywall",
-      nextLevel: 3,
-    });
-    onUpgrade();
-  };
-
-  const handleClose = () => {
-    trackEvent("paywall_modal_dismissed", {
-      nextLevel: 3,
-      action: "close_button",
-    });
-    onClose();
+  // Routed through a handler so overlay clicks and Esc are counted the
+  // same way as the explicit close buttons.
+  const handleOpenChange = (next: boolean) => {
+    if (!next) onClose();
   };
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader className="relative">
           <button
-            onClick={handleClose}
+            onClick={onClose}
             className="absolute right-0 top-0 p-1 hover:opacity-70"
             aria-label="Close"
           >
@@ -116,7 +100,7 @@ export default function LevelUpPaywallModal({
               asChild
               size="lg"
               className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700"
-              onClick={handleUpgrade}
+              onClick={onUpgrade}
             >
               <Link href="/upgrade">{t("upgradeButton")}</Link>
             </Button>
@@ -125,7 +109,7 @@ export default function LevelUpPaywallModal({
               variant="outline"
               size="lg"
               className="w-full"
-              onClick={handleClose}
+              onClick={onClose}
             >
               {t("declineButton")}
             </Button>
