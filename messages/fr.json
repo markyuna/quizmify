@@ -111,6 +111,8 @@
     "questionPlural": "questions",
     "timedModeLabel": "Contre la montre",
     "timedModeDesc": "20s par question, avec un bonus d'XP de vitesse",
+    "partyModeLabel": "Mode fête",
+    "partyModeDesc": "Couleurs, séries et confettis façon Kahoot",
     "creating": "Création du quiz...",
     "generate": "Générer",
     "errorTitle": "Erreur",
@@ -122,27 +124,12 @@
   },
   "LoadingQuestions": {
     "loadingTexts": [
-      "Génération d'ensembles de questions intelligents...",
-      "Analyse de la profondeur du sujet et de la difficulté...",
-      "Conception d'une expérience d'apprentissage plus pointue...",
-      "Structuration des questions pour une meilleure mémorisation...",
-      "Optimisation de votre prochaine session de quiz..."
+      "Lecture de ton sujet",
+      "On réfléchit à de bonnes questions",
+      "Ajustement de la difficulté",
+      "Presque prêt"
     ],
-    "loadingBadges": [
-      "Raisonnement IA",
-      "Cartographie du sujet",
-      "Génération adaptative",
-      "Prompts de précision"
-    ],
-    "mayTakeAFewSeconds": "Cela peut prendre quelques secondes selon la complexité.",
-    "preparingYourQuiz": "Préparation de votre quiz",
-    "status": "Statut",
-    "finalizing": "Finalisation",
-    "generating": "Génération",
-    "engine": "Moteur",
-    "engineValue": "IA adaptative",
-    "output": "Résultat",
-    "outputValue": "Questions de quiz"
+    "secondaryLine": "Quelques secondes…"
   },
   "MCQ": {
     "error": "Erreur",
@@ -484,5 +471,23 @@
     "messageStreak": "Vous avez une série de {streak} jours. Passez à Pro pour la protéger et continuer votre progression sans limites.",
     "messageQuizCount": "Vous avez déjà joué {count} quiz -- continuez à progresser sans limites.",
     "messageDefault": "Passez à Pro une fois pour débloquer une progression de niveau illimitée et continuer à gagner de l'XP."
+  },
+  "IdleTimeout": {
+    "warningTitle": "Votre session est sur le point d'expirer",
+    "warningBody": "Vous êtes inactif depuis un moment. Pour votre sécurité, vous serez déconnecté sauf si vous prolongez votre session.",
+    "extendSession": "Rester connecté",
+    "loggedOutTitle": "Déconnecté",
+    "loggedOutBody": "Vous avez été déconnecté en raison d'inactivité."
+  },
+  "KahootQuiz": {
+    "title": "Score final",
+    "pointsLabel": "points",
+    "accuracyLabel": "Précision",
+    "correctLabel": "Correctes",
+    "bestStreakLabel": "Meilleure série",
+    "summaryTitle": "Résumé des questions",
+    "playAgain": "Rejouer",
+    "questionAbbrev": "Q",
+    "saving": "Enregistrement de vos résultats..."
   }
 }

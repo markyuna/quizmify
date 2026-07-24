@@ -1,157 +1,129 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
-import { BrainCircuit, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
+
 import { Progress } from "./ui/progress";
+import { cn } from "@/lib/utils";
+
+const PHASE_COUNT = 3;
+const TEXT_ROTATE_MS = 2500;
 
 type LoadingQuestionsProps = {
   finished: boolean;
+  /** Real generation progress (0-100), if the backend ever exposes one.
+   * Falls back to a simulated curve that eases off and never reaches 100%
+   * on its own -- only `finished` can do that. */
+  progress?: number;
 };
 
-export default function LoadingQuestions({
-  finished,
-}: LoadingQuestionsProps) {
+export default function LoadingQuestions({ finished, progress: realProgress }: LoadingQuestionsProps) {
   const t = useTranslations("LoadingQuestions");
   const loadingTexts = t.raw("loadingTexts") as string[];
-  const loadingBadges = t.raw("loadingBadges") as string[];
 
-  const [progress, setProgress] = React.useState(0);
+  const [simulatedProgress, setSimulatedProgress] = React.useState(0);
   const [textIndex, setTextIndex] = React.useState(0);
-  const [activeBadge, setActiveBadge] = React.useState(0);
+
+  const hasRealProgress = typeof realProgress === "number";
+  const progress = finished ? 100 : hasRealProgress ? Math.min(realProgress, 99) : simulatedProgress;
 
   React.useEffect(() => {
-    if (finished) {
-      setProgress(100);
-      return;
-    }
+    if (finished || hasRealProgress) return;
 
     const interval = setInterval(() => {
-      setProgress((prev) => {
-        const step =
-          prev < 35 ? 1.6 : prev < 65 ? 0.9 : prev < 85 ? 0.45 : 0.2;
-
+      setSimulatedProgress((prev) => {
+        const step = prev < 35 ? 1.6 : prev < 65 ? 0.9 : prev < 85 ? 0.45 : 0.2;
         return Math.min(prev + step, 95);
       });
     }, 120);
 
     return () => clearInterval(interval);
-  }, [finished]);
+  }, [finished, hasRealProgress]);
 
   React.useEffect(() => {
     if (finished) return;
 
     const interval = setInterval(() => {
       setTextIndex((prev) => (prev + 1) % loadingTexts.length);
-      setActiveBadge((prev) => (prev + 1) % loadingBadges.length);
-    }, 2200);
+    }, TEXT_ROTATE_MS);
 
     return () => clearInterval(interval);
-  }, [finished, loadingTexts.length, loadingBadges.length]);
+  }, [finished, loadingTexts.length]);
 
   const loadingText = loadingTexts[textIndex];
-
-  const statusItems = [
-    { label: t("status"), value: finished ? t("finalizing") : t("generating") },
-    { label: t("engine"), value: t("engineValue") },
-    { label: t("output"), value: t("outputValue") },
-  ];
+  const litPhases =
+    progress <= 0 ? 0 : Math.min(PHASE_COUNT, Math.ceil(progress / (100 / PHASE_COUNT)));
 
   return (
     <MotionConfig reducedMotion="user">
-      <main className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-4xl items-center justify-center px-4 py-10">
-        <div className="relative w-full max-w-xl overflow-hidden rounded-[1.75rem] border border-black/5 bg-white/70 p-5 shadow-2xl shadow-slate-200/60 backdrop-blur-2xl dark:border-white/10 dark:bg-black/40 dark:shadow-violet-950/20 sm:p-6">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.10),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.08),transparent_35%)] dark:bg-[radial-gradient(circle_at_top_left,rgba(168,85,247,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.12),transparent_35%)]" />
-
-          <div className="relative z-10">
-            {/* Badges: single-row chip strip, scrolls on mobile instead of wrapping */}
-            <div className="no-scrollbar mb-5 flex items-center gap-1.5 overflow-x-auto">
-              {loadingBadges.map((badge, index) => {
-                const isActive = index === activeBadge;
-
-                return (
-                  <motion.span
-                    key={badge}
-                    animate={{ opacity: isActive ? 1 : 0.5, scale: isActive ? 1.03 : 1 }}
-                    transition={{ duration: 0.25 }}
-                    className="shrink-0 whitespace-nowrap rounded-full border border-black/5 bg-white/75 px-2.5 py-1 text-[11px] font-medium text-slate-700 backdrop-blur-xl dark:border-white/10 dark:bg-white/5 dark:text-white/80"
-                  >
-                    {badge}
-                  </motion.span>
-                );
-              })}
-            </div>
-
-            {/* Icon + status text, side by side instead of a large centered stack */}
-            <div className="flex items-center gap-3.5">
-              <div className="relative shrink-0">
-                <motion.div
-                  animate={{ scale: [1, 1.06, 1] }}
-                  transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                  className="flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-100 dark:bg-violet-500/15"
-                >
-                  <BrainCircuit className="h-6 w-6 text-violet-600 dark:text-violet-300" />
-                </motion.div>
-
-                <motion.div
-                  animate={{ opacity: [0.4, 1, 0.4], scale: [1, 1.15, 1] }}
-                  transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-white shadow dark:bg-slate-900"
-                >
-                  <Sparkles className="h-3 w-3 text-cyan-500 dark:text-cyan-300" />
-                </motion.div>
-              </div>
-
-              <div className="min-w-0">
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={loadingText}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 0.3 }}
-                    className="text-balance text-base font-semibold leading-snug text-slate-900 dark:text-white sm:text-lg"
-                  >
-                    {loadingText}
-                  </motion.p>
-                </AnimatePresence>
-                <p className="mt-0.5 text-xs text-slate-500 dark:text-white/40">
-                  {t("engineValue")} · {t("mayTakeAFewSeconds")}
-                </p>
-              </div>
-            </div>
-
-            {/* Progress: thin bar, label + percent on one line above */}
-            <div className="mt-5">
-              <div className="mb-1.5 flex items-center justify-between text-xs text-slate-600 dark:text-white/70">
-                <span>{t("preparingYourQuiz")}</span>
-                <span className="font-semibold tabular-nums">{Math.round(progress)}%</span>
-              </div>
-
-              <Progress
-                value={progress}
-                className="h-1.5 w-full bg-slate-200 dark:bg-white/10"
-                indicatorClassName="animate-shimmer bg-[length:200%_100%] bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400 motion-reduce:animate-none"
+      <main className="flex min-h-[calc(100vh-4rem)] w-full items-center justify-center px-4 py-10">
+        <div className="flex w-full max-w-xs flex-col items-center text-center">
+          {/* Logo: floating focal point with radar-pulse rings */}
+          <div className="relative flex h-28 w-28 items-center justify-center">
+            {[0, 1, 2].map((i) => (
+              <motion.span
+                key={i}
+                className="absolute inset-0 rounded-full border border-violet-400/50 dark:border-violet-400/40"
+                initial={{ scale: 0.6, opacity: 0.5 }}
+                animate={{ scale: [0.6, 1.6], opacity: [0.5, 0] }}
+                transition={{
+                  duration: 2.4,
+                  repeat: Infinity,
+                  ease: "easeOut",
+                  delay: i * 0.8,
+                }}
               />
-            </div>
+            ))}
 
-            {/* Status cards: compact 3-col row */}
-            <div className="mt-4 grid grid-cols-3 gap-2">
-              {statusItems.map((item) => (
-                <div
-                  key={item.label}
-                  className="min-w-0 rounded-xl border border-black/5 bg-white/75 px-2.5 py-2 text-left backdrop-blur-xl dark:border-white/10 dark:bg-white/5"
-                >
-                  <p className="truncate text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400 dark:text-white/40">
-                    {item.label}
-                  </p>
-                  <p className="mt-0.5 truncate text-xs font-medium text-slate-800 dark:text-white/85">
-                    {item.value}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <motion.div
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="relative flex h-20 w-20 items-center justify-center rounded-full border border-black/5 bg-white/80 shadow-xl shadow-violet-500/10 backdrop-blur-xl dark:border-white/10 dark:bg-white/5"
+            >
+              <Image src="/logo.png" alt="" width={44} height={44} priority />
+            </motion.div>
+          </div>
+
+          {/* Status line: single rotating phrase, crossfade */}
+          <div className="mt-7 flex h-6 items-center justify-center">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={loadingText}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.35 }}
+                className="text-base font-semibold text-slate-900 dark:text-white"
+              >
+                {loadingText}
+              </motion.p>
+            </AnimatePresence>
+          </div>
+
+          <p className="mt-1 text-xs text-slate-500 dark:text-white/40">{t("secondaryLine")}</p>
+
+          {/* Progress: thin single-color bar */}
+          <div className="mt-6 w-full">
+            <Progress
+              value={progress}
+              className="h-[5px] w-full bg-slate-200 dark:bg-white/10"
+              indicatorClassName="bg-violet-500 transition-[transform] duration-300 ease-out dark:bg-violet-400"
+            />
+          </div>
+
+          {/* Phase dots */}
+          <div className="mt-3 flex items-center gap-1.5">
+            {Array.from({ length: PHASE_COUNT }).map((_, i) => (
+              <span
+                key={i}
+                className={cn(
+                  "h-1.5 w-1.5 rounded-full transition-colors duration-300",
+                  i < litPhases ? "bg-violet-500 dark:bg-violet-400" : "bg-slate-300 dark:bg-white/15"
+                )}
+              />
+            ))}
           </div>
         </div>
       </main>

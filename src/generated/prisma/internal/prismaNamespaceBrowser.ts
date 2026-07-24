@@ -191,6 +191,7 @@ export const QuestionScalarFieldEnum = {
   isCorrect: 'isCorrect',
   orderIndex: 'orderIndex',
   country: 'country',
+  imageUrl: 'imageUrl',
   gameId: 'gameId',
   sourceQuestionId: 'sourceQuestionId'
 } as const

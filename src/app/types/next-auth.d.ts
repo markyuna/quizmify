@@ -6,11 +6,15 @@ declare module "next-auth" {
     user: {
       id: string;
     } & DefaultSession["user"];
+    /** Epoch ms of the last activity that reset the idle timer. */
+    lastActivity?: number;
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
     id?: string;
+    /** Epoch ms of the last activity that reset the idle timer. */
+    lastActivity?: number;
   }
 }

@@ -151,6 +151,7 @@ model Question {
   isCorrect        Boolean?
   orderIndex       Int?
   country          String?
+  imageUrl         String?
   gameId           String
   sourceQuestionId String?
   game             Game                   @relation(fields: [gameId], references: [id], onDelete: Cascade)

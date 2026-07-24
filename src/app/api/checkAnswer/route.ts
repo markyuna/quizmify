@@ -67,33 +67,58 @@ export async function POST(req: Request) {
 
     const trackedQuestionId = question.sourceQuestionId ?? question.id;
 
-    await prisma.userQuestionProgress.upsert({
-      where: {
-        userId_questionId: {
+    const progressUpdate = correct
+      ? {
+          correctCount: { increment: 1 },
+          needsReview: false,
+          lastAnsweredCorrectly: true,
+        }
+      : {
+          wrongCount: { increment: 1 },
+          needsReview: true,
+          lastAnsweredCorrectly: false,
+        };
+
+    try {
+      await prisma.userQuestionProgress.upsert({
+        where: {
+          userId_questionId: {
+            userId: session.user.id,
+            questionId: trackedQuestionId,
+          },
+        },
+        update: progressUpdate,
+        create: {
           userId: session.user.id,
           questionId: trackedQuestionId,
+          correctCount: correct ? 1 : 0,
+          wrongCount: correct ? 0 : 1,
+          needsReview: !correct,
+          lastAnsweredCorrectly: correct,
         },
-      },
-      update: correct
-        ? {
-            correctCount: { increment: 1 },
-            needsReview: false,
-            lastAnsweredCorrectly: true,
-          }
-        : {
-            wrongCount: { increment: 1 },
-            needsReview: true,
-            lastAnsweredCorrectly: false,
+      });
+    } catch (error) {
+      // Two answers in the same game can share a trackedQuestionId (e.g.
+      // Practice Mistakes re-serving a question, or Kahoot mode's fast
+      // auto-advance overlapping requests) -- the upsert's create/update
+      // isn't atomic against a genuinely concurrent insert, so a race can
+      // still hit the unique constraint after another request just created
+      // the row. Fall back to a plain update instead of failing the answer.
+      const isUniqueConstraintRace =
+        error && typeof error === "object" && "code" in error && (error as { code?: string }).code === "P2002";
+
+      if (!isUniqueConstraintRace) throw error;
+
+      await prisma.userQuestionProgress.update({
+        where: {
+          userId_questionId: {
+            userId: session.user.id,
+            questionId: trackedQuestionId,
           },
-      create: {
-        userId: session.user.id,
-        questionId: trackedQuestionId,
-        correctCount: correct ? 1 : 0,
-        wrongCount: correct ? 0 : 1,
-        needsReview: !correct,
-        lastAnsweredCorrectly: correct,
-      },
-    });
+        },
+        data: progressUpdate,
+      });
+    }
 
     return NextResponse.json(
       {

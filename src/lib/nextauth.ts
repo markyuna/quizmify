@@ -6,6 +6,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcryptjs";
 
 import { prisma } from "@/lib/db";
+import { IDLE_TIMEOUT_MS } from "@/lib/idleTimeoutConfig";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -74,21 +75,46 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger }) {
       if (user) {
         token.id = user.id;
       }
+
+      // Set on sign-in, bumped explicitly by the client's idle-timeout hook
+      // (via useSession().update()) on activity, and backfilled once for
+      // tokens issued before this claim existed.
+      if (user || trigger === "update" || typeof token.lastActivity !== "number") {
+        token.lastActivity = Date.now();
+      }
+
       return token;
     },
     async session({ session, token }) {
       if (session.user && token.id) {
         session.user.id = token.id as string;
       }
+      session.lastActivity =
+        typeof token.lastActivity === "number" ? token.lastActivity : Date.now();
       return session;
     },
   },
 };
 
-export function getAuthSession() {
-  return getServerSession(authOptions);
+// The single choke point every route/page uses to read the current user.
+// Enforces the idle timeout server-side (not just via the client hook) so a
+// stale-but-not-yet-expired JWT can't be replayed after 30 minutes of
+// inactivity -- covers direct API calls just as much as page navigations.
+export async function getAuthSession() {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user) {
+    return null;
+  }
+
+  const lastActivity = session.lastActivity ?? Date.now();
+  if (Date.now() - lastActivity > IDLE_TIMEOUT_MS) {
+    return null;
+  }
+
+  return session;
 }

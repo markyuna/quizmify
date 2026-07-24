@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -5,6 +6,7 @@ import { BrainCircuit, Zap, Trophy, RotateCcw } from "lucide-react";
 
 import LoginButton from "@/components/LoginButton";
 import CredentialsLoginForm from "@/components/CredentialsLoginForm";
+import IdleLogoutNotice from "@/components/IdleLogoutNotice";
 import { getAuthSession } from "@/lib/nextauth";
 
 export const metadata = {
@@ -28,6 +30,10 @@ export default async function LoginPage() {
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-violet-50 via-white to-cyan-50 px-4 py-12 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950">
+      <Suspense fallback={null}>
+        <IdleLogoutNotice />
+      </Suspense>
+
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/4 top-0 h-80 w-80 -translate-x-1/2 rounded-full bg-violet-400/20 blur-3xl dark:bg-violet-500/15" />
         <div className="absolute right-1/4 top-1/4 h-64 w-64 rounded-full bg-cyan-400/20 blur-3xl dark:bg-cyan-500/15" />

@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Sparkles, Minus, Plus, Zap } from "lucide-react";
+import { Sparkles, Minus, Plus, Zap, PartyPopper } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { quizCreationSchema } from "@/schemas/form/quiz";
@@ -51,6 +51,10 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
   const [showLoader, setShowLoader] = React.useState(false);
   const [finished, setFinished] = React.useState(false);
   const [checkingEligibility, setCheckingEligibility] = React.useState(true);
+  // Purely a client-side routing choice (which play screen to land on after
+  // creation) -- not part of quizCreationSchema, so it isn't sent to the
+  // backend and doesn't affect how the game/questions are generated.
+  const [partyMode, setPartyMode] = React.useState(false);
   const navigationTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   React.useEffect(() => {
@@ -123,8 +127,9 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
 
       setFinished(true);
 
+      const destination = partyMode ? `/play/kahoot/${data.gameId}` : `/play/mcq/${data.gameId}`;
       navigationTimeoutRef.current = setTimeout(() => {
-        router.push(`/play/mcq/${data.gameId}`);
+        router.push(destination);
       }, 800);
     },
     onError: (error) => {
@@ -370,6 +375,50 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
                 </FormItem>
               )}
             />
+
+            <button
+              type="button"
+              onClick={() => setPartyMode((prev) => !prev)}
+              className={cn(
+                "flex w-full items-center justify-between gap-3 rounded-2xl border p-3 text-left transition-all duration-200",
+                partyMode
+                  ? "border-fuchsia-400 bg-fuchsia-50 shadow-sm shadow-fuchsia-200 dark:border-fuchsia-500/50 dark:bg-fuchsia-500/15"
+                  : "border-slate-200 bg-white/60 hover:border-slate-300 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+              )}
+            >
+              <span className="flex items-center gap-2.5">
+                <span
+                  className={cn(
+                    "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl",
+                    partyMode
+                      ? "bg-fuchsia-400/20 text-fuchsia-600 dark:text-fuchsia-300"
+                      : "bg-slate-100 text-slate-500 dark:bg-white/10 dark:text-slate-400"
+                  )}
+                >
+                  <PartyPopper className="h-4.5 w-4.5" />
+                </span>
+                <span>
+                  <span className="block text-sm font-bold text-slate-800 dark:text-slate-100">
+                    {t("partyModeLabel")}
+                  </span>
+                  <span className="block text-xs text-slate-400">{t("partyModeDesc")}</span>
+                </span>
+              </span>
+
+              <span
+                className={cn(
+                  "relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200",
+                  partyMode ? "bg-fuchsia-500" : "bg-slate-300 dark:bg-white/20"
+                )}
+              >
+                <span
+                  className={cn(
+                    "absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform duration-200",
+                    partyMode ? "translate-x-[22px]" : "translate-x-0.5"
+                  )}
+                />
+              </span>
+            </button>
 
             <Button
               disabled={isPending}

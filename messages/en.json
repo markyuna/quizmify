@@ -111,6 +111,8 @@
     "questionPlural": "questions",
     "timedModeLabel": "Against the clock",
     "timedModeDesc": "20s per question, with a speed XP bonus",
+    "partyModeLabel": "Party mode",
+    "partyModeDesc": "Kahoot-style colors, streaks, and confetti",
     "creating": "Creating quiz...",
     "generate": "Generate",
     "errorTitle": "Error",
@@ -122,27 +124,12 @@
   },
   "LoadingQuestions": {
     "loadingTexts": [
-      "Generating intelligent question sets...",
-      "Analyzing topic depth and difficulty...",
-      "Designing a sharper learning experience...",
-      "Structuring questions for better recall...",
-      "Optimizing your next quiz session..."
+      "Reading your topic",
+      "Thinking up good questions",
+      "Tuning the difficulty",
+      "Almost ready"
     ],
-    "loadingBadges": [
-      "AI reasoning",
-      "Topic mapping",
-      "Adaptive generation",
-      "Precision prompts"
-    ],
-    "mayTakeAFewSeconds": "This may take a few seconds depending on complexity.",
-    "preparingYourQuiz": "Preparing your quiz",
-    "status": "Status",
-    "finalizing": "Finalizing",
-    "generating": "Generating",
-    "engine": "Engine",
-    "engineValue": "Adaptive AI",
-    "output": "Output",
-    "outputValue": "Quiz questions"
+    "secondaryLine": "Just a few seconds…"
   },
   "MCQ": {
     "error": "Error",
@@ -484,5 +471,23 @@
     "messageStreak": "You're on a {streak}-day streak. Upgrade to protect it and keep unlimited progress going.",
     "messageQuizCount": "You've played {count} quizzes already -- keep improving with no limits.",
     "messageDefault": "Upgrade once to unlock unlimited level progression and keep earning XP."
+  },
+  "IdleTimeout": {
+    "warningTitle": "Your session is about to expire",
+    "warningBody": "You've been inactive for a while. For your security, you'll be signed out soon unless you extend your session.",
+    "extendSession": "Stay signed in",
+    "loggedOutTitle": "Signed out",
+    "loggedOutBody": "You were signed out due to inactivity."
+  },
+  "KahootQuiz": {
+    "title": "Final score",
+    "pointsLabel": "points",
+    "accuracyLabel": "Accuracy",
+    "correctLabel": "Correct",
+    "bestStreakLabel": "Best streak",
+    "summaryTitle": "Question summary",
+    "playAgain": "Play again",
+    "questionAbbrev": "Q",
+    "saving": "Saving your results..."
   }
 }

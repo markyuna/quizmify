@@ -44,6 +44,7 @@ export type QuestionMinAggregateOutputType = {
   isCorrect: boolean | null
   orderIndex: number | null
   country: string | null
+  imageUrl: string | null
   gameId: string | null
   sourceQuestionId: string | null
 }
@@ -58,6 +59,7 @@ export type QuestionMaxAggregateOutputType = {
   isCorrect: boolean | null
   orderIndex: number | null
   country: string | null
+  imageUrl: string | null
   gameId: string | null
   sourceQuestionId: string | null
 }
@@ -73,6 +75,7 @@ export type QuestionCountAggregateOutputType = {
   isCorrect: number
   orderIndex: number
   country: number
+  imageUrl: number
   gameId: number
   sourceQuestionId: number
   _all: number
@@ -97,6 +100,7 @@ export type QuestionMinAggregateInputType = {
   isCorrect?: true
   orderIndex?: true
   country?: true
+  imageUrl?: true
   gameId?: true
   sourceQuestionId?: true
 }
@@ -111,6 +115,7 @@ export type QuestionMaxAggregateInputType = {
   isCorrect?: true
   orderIndex?: true
   country?: true
+  imageUrl?: true
   gameId?: true
   sourceQuestionId?: true
 }
@@ -126,6 +131,7 @@ export type QuestionCountAggregateInputType = {
   isCorrect?: true
   orderIndex?: true
   country?: true
+  imageUrl?: true
   gameId?: true
   sourceQuestionId?: true
   _all?: true
@@ -228,6 +234,7 @@ export type QuestionGroupByOutputType = {
   isCorrect: boolean | null
   orderIndex: number | null
   country: string | null
+  imageUrl: string | null
   gameId: string
   sourceQuestionId: string | null
   _count: QuestionCountAggregateOutputType | null
@@ -266,6 +273,7 @@ export type QuestionWhereInput = {
   isCorrect?: Prisma.BoolNullableFilter<"Question"> | boolean | null
   orderIndex?: Prisma.IntNullableFilter<"Question"> | number | null
   country?: Prisma.StringNullableFilter<"Question"> | string | null
+  imageUrl?: Prisma.StringNullableFilter<"Question"> | string | null
   gameId?: Prisma.StringFilter<"Question"> | string
   sourceQuestionId?: Prisma.StringNullableFilter<"Question"> | string | null
   game?: Prisma.XOR<Prisma.GameScalarRelationFilter, Prisma.GameWhereInput>
@@ -283,6 +291,7 @@ export type QuestionOrderByWithRelationInput = {
   isCorrect?: Prisma.SortOrderInput | Prisma.SortOrder
   orderIndex?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   gameId?: Prisma.SortOrder
   sourceQuestionId?: Prisma.SortOrderInput | Prisma.SortOrder
   game?: Prisma.GameOrderByWithRelationInput
@@ -303,6 +312,7 @@ export type QuestionWhereUniqueInput = Prisma.AtLeast<{
   isCorrect?: Prisma.BoolNullableFilter<"Question"> | boolean | null
   orderIndex?: Prisma.IntNullableFilter<"Question"> | number | null
   country?: Prisma.StringNullableFilter<"Question"> | string | null
+  imageUrl?: Prisma.StringNullableFilter<"Question"> | string | null
   gameId?: Prisma.StringFilter<"Question"> | string
   sourceQuestionId?: Prisma.StringNullableFilter<"Question"> | string | null
   game?: Prisma.XOR<Prisma.GameScalarRelationFilter, Prisma.GameWhereInput>
@@ -320,6 +330,7 @@ export type QuestionOrderByWithAggregationInput = {
   isCorrect?: Prisma.SortOrderInput | Prisma.SortOrder
   orderIndex?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   gameId?: Prisma.SortOrder
   sourceQuestionId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.QuestionCountOrderByAggregateInput
@@ -343,6 +354,7 @@ export type QuestionScalarWhereWithAggregatesInput = {
   isCorrect?: Prisma.BoolNullableWithAggregatesFilter<"Question"> | boolean | null
   orderIndex?: Prisma.IntNullableWithAggregatesFilter<"Question"> | number | null
   country?: Prisma.StringNullableWithAggregatesFilter<"Question"> | string | null
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Question"> | string | null
   gameId?: Prisma.StringWithAggregatesFilter<"Question"> | string
   sourceQuestionId?: Prisma.StringNullableWithAggregatesFilter<"Question"> | string | null
 }
@@ -358,6 +370,7 @@ export type QuestionCreateInput = {
   isCorrect?: boolean | null
   orderIndex?: number | null
   country?: string | null
+  imageUrl?: string | null
   sourceQuestionId?: string | null
   game: Prisma.GameCreateNestedOneWithoutQuestionsInput
   progressEntries?: Prisma.UserQuestionProgressCreateNestedManyWithoutQuestionInput
@@ -374,6 +387,7 @@ export type QuestionUncheckedCreateInput = {
   isCorrect?: boolean | null
   orderIndex?: number | null
   country?: string | null
+  imageUrl?: string | null
   gameId: string
   sourceQuestionId?: string | null
   progressEntries?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutQuestionInput
@@ -390,6 +404,7 @@ export type QuestionUpdateInput = {
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   orderIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   game?: Prisma.GameUpdateOneRequiredWithoutQuestionsNestedInput
   progressEntries?: Prisma.UserQuestionProgressUpdateManyWithoutQuestionNestedInput
@@ -406,6 +421,7 @@ export type QuestionUncheckedUpdateInput = {
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   orderIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gameId?: Prisma.StringFieldUpdateOperationsInput | string
   sourceQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   progressEntries?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutQuestionNestedInput
@@ -422,6 +438,7 @@ export type QuestionCreateManyInput = {
   isCorrect?: boolean | null
   orderIndex?: number | null
   country?: string | null
+  imageUrl?: string | null
   gameId: string
   sourceQuestionId?: string | null
 }
@@ -437,6 +454,7 @@ export type QuestionUpdateManyMutationInput = {
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   orderIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -451,6 +469,7 @@ export type QuestionUncheckedUpdateManyInput = {
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   orderIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gameId?: Prisma.StringFieldUpdateOperationsInput | string
   sourceQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -476,6 +495,7 @@ export type QuestionCountOrderByAggregateInput = {
   isCorrect?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   gameId?: Prisma.SortOrder
   sourceQuestionId?: Prisma.SortOrder
 }
@@ -494,6 +514,7 @@ export type QuestionMaxOrderByAggregateInput = {
   isCorrect?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   gameId?: Prisma.SortOrder
   sourceQuestionId?: Prisma.SortOrder
 }
@@ -508,6 +529,7 @@ export type QuestionMinOrderByAggregateInput = {
   isCorrect?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   gameId?: Prisma.SortOrder
   sourceQuestionId?: Prisma.SortOrder
 }
@@ -601,6 +623,7 @@ export type QuestionCreateWithoutGameInput = {
   isCorrect?: boolean | null
   orderIndex?: number | null
   country?: string | null
+  imageUrl?: string | null
   sourceQuestionId?: string | null
   progressEntries?: Prisma.UserQuestionProgressCreateNestedManyWithoutQuestionInput
 }
@@ -616,6 +639,7 @@ export type QuestionUncheckedCreateWithoutGameInput = {
   isCorrect?: boolean | null
   orderIndex?: number | null
   country?: string | null
+  imageUrl?: string | null
   sourceQuestionId?: string | null
   progressEntries?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutQuestionInput
 }
@@ -660,6 +684,7 @@ export type QuestionScalarWhereInput = {
   isCorrect?: Prisma.BoolNullableFilter<"Question"> | boolean | null
   orderIndex?: Prisma.IntNullableFilter<"Question"> | number | null
   country?: Prisma.StringNullableFilter<"Question"> | string | null
+  imageUrl?: Prisma.StringNullableFilter<"Question"> | string | null
   gameId?: Prisma.StringFilter<"Question"> | string
   sourceQuestionId?: Prisma.StringNullableFilter<"Question"> | string | null
 }
@@ -675,6 +700,7 @@ export type QuestionCreateWithoutProgressEntriesInput = {
   isCorrect?: boolean | null
   orderIndex?: number | null
   country?: string | null
+  imageUrl?: string | null
   sourceQuestionId?: string | null
   game: Prisma.GameCreateNestedOneWithoutQuestionsInput
 }
@@ -690,6 +716,7 @@ export type QuestionUncheckedCreateWithoutProgressEntriesInput = {
   isCorrect?: boolean | null
   orderIndex?: number | null
   country?: string | null
+  imageUrl?: string | null
   gameId: string
   sourceQuestionId?: string | null
 }
@@ -721,6 +748,7 @@ export type QuestionUpdateWithoutProgressEntriesInput = {
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   orderIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   game?: Prisma.GameUpdateOneRequiredWithoutQuestionsNestedInput
 }
@@ -736,6 +764,7 @@ export type QuestionUncheckedUpdateWithoutProgressEntriesInput = {
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   orderIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gameId?: Prisma.StringFieldUpdateOperationsInput | string
   sourceQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -751,6 +780,7 @@ export type QuestionCreateManyGameInput = {
   isCorrect?: boolean | null
   orderIndex?: number | null
   country?: string | null
+  imageUrl?: string | null
   sourceQuestionId?: string | null
 }
 
@@ -765,6 +795,7 @@ export type QuestionUpdateWithoutGameInput = {
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   orderIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   progressEntries?: Prisma.UserQuestionProgressUpdateManyWithoutQuestionNestedInput
 }
@@ -780,6 +811,7 @@ export type QuestionUncheckedUpdateWithoutGameInput = {
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   orderIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   progressEntries?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutQuestionNestedInput
 }
@@ -795,6 +827,7 @@ export type QuestionUncheckedUpdateManyWithoutGameInput = {
   isCorrect?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   orderIndex?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceQuestionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -840,6 +873,7 @@ export type QuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   isCorrect?: boolean
   orderIndex?: boolean
   country?: boolean
+  imageUrl?: boolean
   gameId?: boolean
   sourceQuestionId?: boolean
   game?: boolean | Prisma.GameDefaultArgs<ExtArgs>
@@ -858,6 +892,7 @@ export type QuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   isCorrect?: boolean
   orderIndex?: boolean
   country?: boolean
+  imageUrl?: boolean
   gameId?: boolean
   sourceQuestionId?: boolean
   game?: boolean | Prisma.GameDefaultArgs<ExtArgs>
@@ -874,6 +909,7 @@ export type QuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   isCorrect?: boolean
   orderIndex?: boolean
   country?: boolean
+  imageUrl?: boolean
   gameId?: boolean
   sourceQuestionId?: boolean
   game?: boolean | Prisma.GameDefaultArgs<ExtArgs>
@@ -890,11 +926,12 @@ export type QuestionSelectScalar = {
   isCorrect?: boolean
   orderIndex?: boolean
   country?: boolean
+  imageUrl?: boolean
   gameId?: boolean
   sourceQuestionId?: boolean
 }
 
-export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "question" | "answer" | "options" | "questionType" | "explanation" | "userAnswer" | "isCorrect" | "orderIndex" | "country" | "gameId" | "sourceQuestionId", ExtArgs["result"]["question"]>
+export type QuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "question" | "answer" | "options" | "questionType" | "explanation" | "userAnswer" | "isCorrect" | "orderIndex" | "country" | "imageUrl" | "gameId" | "sourceQuestionId", ExtArgs["result"]["question"]>
 export type QuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   game?: boolean | Prisma.GameDefaultArgs<ExtArgs>
   progressEntries?: boolean | Prisma.Question$progressEntriesArgs<ExtArgs>
@@ -924,6 +961,7 @@ export type $QuestionPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     isCorrect: boolean | null
     orderIndex: number | null
     country: string | null
+    imageUrl: string | null
     gameId: string
     sourceQuestionId: string | null
   }, ExtArgs["result"]["question"]>
@@ -1361,6 +1399,7 @@ export interface QuestionFieldRefs {
   readonly isCorrect: Prisma.FieldRef<"Question", 'Boolean'>
   readonly orderIndex: Prisma.FieldRef<"Question", 'Int'>
   readonly country: Prisma.FieldRef<"Question", 'String'>
+  readonly imageUrl: Prisma.FieldRef<"Question", 'String'>
   readonly gameId: Prisma.FieldRef<"Question", 'String'>
   readonly sourceQuestionId: Prisma.FieldRef<"Question", 'String'>
 }

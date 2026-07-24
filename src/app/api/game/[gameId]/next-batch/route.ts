@@ -100,6 +100,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ gameId:
             options: true,
             explanation: true,
             country: true,
+            imageUrl: true,
           },
         })
       )

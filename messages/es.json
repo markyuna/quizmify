@@ -111,6 +111,8 @@
     "questionPlural": "preguntas",
     "timedModeLabel": "Contrarreloj",
     "timedModeDesc": "20s por pregunta, con bonus de XP por velocidad",
+    "partyModeLabel": "Modo fiesta",
+    "partyModeDesc": "Colores, rachas y confeti estilo Kahoot",
     "creating": "Creando quiz...",
     "generate": "Generar",
     "errorTitle": "Error",
@@ -122,27 +124,12 @@
   },
   "LoadingQuestions": {
     "loadingTexts": [
-      "Generando conjuntos de preguntas inteligentes...",
-      "Analizando la profundidad y dificultad del tema...",
-      "Diseñando una experiencia de aprendizaje más precisa...",
-      "Estructurando preguntas para mejor retención...",
-      "Optimizando tu próxima sesión de quiz..."
+      "Leyendo tu tema",
+      "Pensando buenas preguntas",
+      "Ajustando la dificultad",
+      "Casi listo"
     ],
-    "loadingBadges": [
-      "Razonamiento IA",
-      "Mapeo de temas",
-      "Generación adaptativa",
-      "Prompts de precisión"
-    ],
-    "mayTakeAFewSeconds": "Esto puede tardar unos segundos según la complejidad.",
-    "preparingYourQuiz": "Preparando tu quiz",
-    "status": "Estado",
-    "finalizing": "Finalizando",
-    "generating": "Generando",
-    "engine": "Motor",
-    "engineValue": "IA adaptativa",
-    "output": "Resultado",
-    "outputValue": "Preguntas de quiz"
+    "secondaryLine": "Unos segundos…"
   },
   "MCQ": {
     "error": "Error",
@@ -484,5 +471,23 @@
     "messageStreak": "Llevás una racha de {streak} días. Actualizá para protegerla y seguir progresando sin límites.",
     "messageQuizCount": "Ya jugaste {count} quizzes -- seguí mejorando sin límites.",
     "messageDefault": "Actualizá una vez para desbloquear progresión de nivel ilimitada y seguir ganando XP."
+  },
+  "IdleTimeout": {
+    "warningTitle": "Tu sesión está por expirar",
+    "warningBody": "Estuviste inactivo por un rato. Por tu seguridad, vamos a cerrar tu sesión a menos que la extiendas.",
+    "extendSession": "Mantener sesión iniciada",
+    "loggedOutTitle": "Sesión cerrada",
+    "loggedOutBody": "Cerramos tu sesión por inactividad."
+  },
+  "KahootQuiz": {
+    "title": "Puntaje final",
+    "pointsLabel": "puntos",
+    "accuracyLabel": "Precisión",
+    "correctLabel": "Correctas",
+    "bestStreakLabel": "Mejor racha",
+    "summaryTitle": "Resumen de preguntas",
+    "playAgain": "Jugar de nuevo",
+    "questionAbbrev": "P",
+    "saving": "Guardando tus resultados..."
   }
 }
