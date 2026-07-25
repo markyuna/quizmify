@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
@@ -18,21 +18,49 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { getThemeInitScript } from "@/lib/themeInitScript";
 import { cn } from "@/lib/utils";
+import { getSiteUrl } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
 
+const SITE_NAME = "Quizmify";
+const DESCRIPTION =
+  "Quizmify is an AI-powered quiz platform that generates quizzes on any topic in seconds, tracks your performance, and turns your mistakes into practice opportunities.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(getSiteUrl()),
   title: {
-    default: "Quizmify",
+    default: SITE_NAME,
     template: "%s | Quizmify",
   },
-  description: "Quizmify is an AI-powered quiz platform that generates quizzes on any topic in seconds, tracks your performance, and turns your mistakes into practice opportunities.",
-  openGraph: {
-    description: "Quizmify is an AI-powered quiz platform that generates quizzes on any topic in seconds, tracks your performance, and turns your mistakes into practice opportunities.",
+  description: DESCRIPTION,
+  applicationName: SITE_NAME,
+  alternates: {
+    canonical: "/",
   },
+  icons: {
+    icon: "/favicon.ico",
+  },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: DESCRIPTION,
+    images: [{ url: "/logo.png" }],
+  },
+  twitter: {
+    card: "summary",
+    title: SITE_NAME,
+    description: DESCRIPTION,
+    images: ["/logo.png"],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#7c3aed",
 };
 
 export default async function RootLayout({

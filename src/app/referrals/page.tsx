@@ -5,6 +5,7 @@ import { Gift, Users, Calendar, Crown } from "lucide-react";
 import { getAuthSession } from "@/lib/nextauth";
 import { getReferralStats } from "@/lib/referrals";
 import { REFERRAL_REWARD_DAYS } from "@/lib/premium";
+import { getSiteUrl } from "@/lib/site";
 import ReferralLinkCard from "@/components/ReferralLinkCard";
 
 export const metadata = {
@@ -26,7 +27,7 @@ export default async function ReferralsPage() {
   }
 
   const stats = await getReferralStats(session.user.id);
-  const appUrl = (process.env.NEXTAUTH_URL ?? "http://localhost:3000").replace(/\/$/, "");
+  const appUrl = getSiteUrl();
   const referralLink = `${appUrl}/register?ref=${session.user.id}`;
   const remainingDays = daysRemaining(stats.premiumUntil, new Date());
 

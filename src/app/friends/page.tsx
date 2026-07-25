@@ -4,6 +4,7 @@ import { Users } from "lucide-react";
 
 import { getAuthSession } from "@/lib/nextauth";
 import { getFriendsOverview } from "@/lib/friends";
+import { getSiteUrl } from "@/lib/site";
 import FriendsManager from "@/components/FriendsManager";
 
 export const metadata = {
@@ -20,7 +21,7 @@ export default async function FriendsPage() {
   }
 
   const overview = await getFriendsOverview(session.user.id);
-  const appUrl = (process.env.NEXTAUTH_URL ?? "http://localhost:3000").replace(/\/$/, "");
+  const appUrl = getSiteUrl();
   const inviteLink = `${appUrl}/friends/add/${session.user.id}`;
 
   return (

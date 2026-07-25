@@ -13,6 +13,7 @@ import {
 
 import type { Locale } from "@/i18n/locales";
 import { emailStrings } from "@/emails/i18n";
+import { getSiteUrl } from "@/lib/site";
 
 const BRAND_PURPLE = "#7c3aed";
 
@@ -29,7 +30,7 @@ type EmailLayoutProps = {
  * preferences live.
  */
 export default function EmailLayout({ previewText, locale, children }: EmailLayoutProps) {
-  const appUrl = (process.env.NEXTAUTH_URL ?? "https://quizmify.app").replace(/\/$/, "");
+  const appUrl = getSiteUrl();
   const t = emailStrings[locale];
 
   return (

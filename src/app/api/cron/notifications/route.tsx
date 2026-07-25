@@ -13,6 +13,7 @@ import {
 import { getOrCreateTodaysChallenge } from "@/lib/dailyChallenge";
 import { buildWeeklySummary } from "@/lib/weeklySummary";
 import { TRIAL_EXPIRY_WARNING_HOURS } from "@/lib/premium";
+import { getSiteUrl } from "@/lib/site";
 import { emailStrings } from "@/emails/i18n";
 import StreakReminderEmail from "@/emails/StreakReminderEmail";
 import DailyChallengeReminderEmail from "@/emails/DailyChallengeReminderEmail";
@@ -35,10 +36,6 @@ const STREAK_REMINDER_HOUR_WINDOW = { min: 17, max: 23 };
 const DAILY_CHALLENGE_HOUR_WINDOW = { min: 10, max: 23 };
 const WEEKLY_SUMMARY_DAY_OF_WEEK = 0; // Sunday (UTC)
 
-function getAppUrl() {
-  return (process.env.NEXTAUTH_URL ?? "https://quizmify.app").replace(/\/$/, "");
-}
-
 export async function GET(req: Request) {
   const cronSecret = process.env.CRON_SECRET;
 
@@ -50,7 +47,7 @@ export async function GET(req: Request) {
   }
 
   const now = new Date();
-  const appUrl = getAppUrl();
+  const appUrl = getSiteUrl();
   const results = {
     streakReminders: 0,
     dailyChallengeReminders: 0,

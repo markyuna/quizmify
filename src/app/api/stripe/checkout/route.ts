@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { getStripe } from "@/lib/stripe";
+import { getSiteUrl } from "@/lib/site";
 
 export async function POST(request: Request) {
   try {
@@ -55,7 +56,7 @@ export async function POST(request: Request) {
       });
     }
 
-    const baseUrl = process.env.NEXTAUTH_URL ?? "http://localhost:3000";
+    const baseUrl = getSiteUrl();
 
     const checkoutSession = await getStripe().checkout.sessions.create({
       customer: customerId,
