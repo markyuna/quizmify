@@ -2,6 +2,8 @@
 
 import * as React from "react";
 
+import { THEME_STORAGE_KEY } from "@/lib/themeConfig";
+
 export type Theme = "light" | "dark" | "system";
 type ResolvedTheme = "light" | "dark";
 
@@ -21,8 +23,6 @@ type ThemeContextValue = {
 };
 
 const ThemeContext = React.createContext<ThemeContextValue | undefined>(undefined);
-
-export const DEFAULT_STORAGE_KEY = "theme";
 
 function getSystemTheme(): ResolvedTheme {
   if (typeof window === "undefined") return "light";
@@ -56,11 +56,13 @@ function withTransitionsDisabled(fn: () => void) {
 export default function ThemeProvider({
   children,
   defaultTheme = "system",
-  storageKey = DEFAULT_STORAGE_KEY,
+  storageKey = THEME_STORAGE_KEY,
   disableTransitionOnChange = false,
 }: ThemeProviderProps) {
   const [theme, setThemeState] = React.useState<Theme>(defaultTheme);
-  const [resolvedTheme, setResolvedTheme] = React.useState<ResolvedTheme>("light");
+  const [resolvedTheme, setResolvedTheme] = React.useState<ResolvedTheme>(
+    defaultTheme === "dark" ? "dark" : "light"
+  );
 
   // Reconciles React state with whatever the blocking inline script in
   // <head> (see src/app/layout.tsx) already applied before hydration -- this

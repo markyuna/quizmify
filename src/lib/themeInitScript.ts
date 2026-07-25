@@ -9,6 +9,6 @@
  * the same storage key) so the class it sets before paint always matches
  * what the provider settles on after mount.
  */
-export function getThemeInitScript(storageKey: string): string {
-  return `(function(){try{var s=localStorage.getItem(${JSON.stringify(storageKey)});var t=(s==="light"||s==="dark"||s==="system")?s:"system";var r=t==="system"?(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):t;var d=document.documentElement;if(r==="dark")d.classList.add("dark");else d.classList.remove("dark");d.style.colorScheme=r;}catch(e){}})();`;
+export function getThemeInitScript(storageKey: string, defaultTheme: "light" | "dark" | "system" = "system"): string {
+  return `(function(){try{var s=localStorage.getItem(${JSON.stringify(storageKey)});var t=(s==="light"||s==="dark"||s==="system")?s:${JSON.stringify(defaultTheme)};var r=t==="system"?(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):t;var d=document.documentElement;if(r==="dark")d.classList.add("dark");else d.classList.remove("dark");d.style.colorScheme=r;}catch(e){}})();`;
 }

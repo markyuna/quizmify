@@ -6,7 +6,7 @@ import "./globals.css";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ThemeProvider, { DEFAULT_STORAGE_KEY } from "@/components/ThemeProvider";
+import ThemeProvider from "@/components/ThemeProvider";
 import QueryProvider from "@/components/QueryProvider";
 import AuthSessionProvider from "@/components/AuthSessionProvider";
 import IdleTimeoutProvider from "@/components/IdleTimeoutProvider";
@@ -17,6 +17,7 @@ import ReferralCapture from "@/components/ReferralCapture";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { getThemeInitScript } from "@/lib/themeInitScript";
+import { THEME_STORAGE_KEY } from "@/lib/themeConfig";
 import { cn } from "@/lib/utils";
 import { getSiteUrl } from "@/lib/site";
 
@@ -77,7 +78,7 @@ export default async function RootLayout({
           // Runs before hydration as part of the raw server-rendered HTML,
           // so it prevents a flash of the wrong theme without React ever
           // creating this script node on the client (see ThemeProvider.tsx).
-          dangerouslySetInnerHTML={{ __html: getThemeInitScript(DEFAULT_STORAGE_KEY) }}
+          dangerouslySetInnerHTML={{ __html: getThemeInitScript(THEME_STORAGE_KEY, "dark") }}
         />
       </head>
       <body
@@ -88,7 +89,7 @@ export default async function RootLayout({
         )}
       >
         <NextIntlClientProvider>
-          <ThemeProvider defaultTheme="system" disableTransitionOnChange>
+          <ThemeProvider defaultTheme="dark" disableTransitionOnChange>
             <AuthSessionProvider>
               <QueryProvider>
                 <TooltipProvider delayDuration={200}>
