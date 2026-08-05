@@ -23,6 +23,12 @@ export default function PuzzleReveal({
   progressLabel,
 }: PuzzleRevealProps) {
   const { rows, cols } = getPuzzleGridDimensions(totalPieces);
+  // A near-square grid rarely tiles the question count exactly (5 questions
+  // land in a 3x2), so the grid can hold more cells than there are pieces to
+  // earn. Those leftovers still have to be painted, or the image keeps a
+  // permanent hole no amount of correct answers can fill -- they're rendered
+  // already-revealed, reading as a small head start rather than damage.
+  const cellCount = rows * cols;
 
   return (
     <div className="mb-4 rounded-[1.5rem] border border-slate-200/80 bg-white/80 p-4 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
@@ -40,10 +46,10 @@ export default function PuzzleReveal({
           gridTemplateRows: `repeat(${rows}, 1fr)`,
         }}
       >
-        {Array.from({ length: totalPieces }).map((_, index) => {
+        {Array.from({ length: cellCount }).map((_, index) => {
           const row = Math.floor(index / cols);
           const col = index % cols;
-          const isRevealed = revealedIndices.has(index);
+          const isRevealed = index >= totalPieces || revealedIndices.has(index);
           const bgPosX = cols > 1 ? (col / (cols - 1)) * 100 : 0;
           const bgPosY = rows > 1 ? (row / (rows - 1)) * 100 : 0;
 
