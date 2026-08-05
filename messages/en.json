@@ -114,14 +114,20 @@
     "timedModeDesc": "20s per question, with a speed XP bonus",
     "partyModeLabel": "Party mode",
     "partyModeDesc": "Kahoot-style colors, streaks, and confetti",
+    "puzzleModeLabel": "Puzzle mode",
+    "puzzleModeDesc": "Every correct answer reveals a piece of an image of the topic",
+    "puzzleModeProBadge": "Pro",
     "creating": "Creating quiz...",
     "generate": "Generate",
     "errorTitle": "Error",
     "errorNoGameId": "The server did not return a game ID.",
     "errorUnableToCreate": "Unable to create the quiz.",
     "errorGeneric": "Something went wrong.",
+    "errorPuzzleImageFailed": "Couldn't generate the puzzle image. Please try again.",
     "freeLimitTitle": "Free limit reached",
-    "freeLimitDescription": "You've hit the free level cap. Upgrade to Pro to keep creating quizzes."
+    "freeLimitDescription": "You've hit the free level cap. Upgrade to Pro to keep creating quizzes.",
+    "puzzleRequiresProTitle": "Pro feature",
+    "puzzleRequiresProDescription": "Puzzle mode is Pro-only. Upgrade to unlock it."
   },
   "LoadingQuestions": {
     "loadingTexts": [
@@ -172,7 +178,10 @@
     "home": "Home",
     "timeUp": "Time's up — marked incorrect",
     "speedBonus": "Speed bonus",
-    "timeLeft": "Time left"
+    "timeLeft": "Time left",
+    "puzzleTitle": "Puzzle",
+    "puzzleFinalTitle": "Your puzzle",
+    "puzzlePiecesRevealed": "{revealed}/{total} pieces revealed"
   },
   "Dashboard": {
     "statAttemptsTitle": "Total Quizzes Completed",

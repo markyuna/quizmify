@@ -114,14 +114,20 @@
     "timedModeDesc": "20s par question, avec un bonus d'XP de vitesse",
     "partyModeLabel": "Mode fête",
     "partyModeDesc": "Couleurs, séries et confettis façon Kahoot",
+    "puzzleModeLabel": "Mode puzzle",
+    "puzzleModeDesc": "Chaque bonne réponse révèle une pièce d'une image du sujet",
+    "puzzleModeProBadge": "Pro",
     "creating": "Création du quiz...",
     "generate": "Générer",
     "errorTitle": "Erreur",
     "errorNoGameId": "Le serveur n'a pas renvoyé d'identifiant de partie.",
     "errorUnableToCreate": "Impossible de créer le quiz.",
     "errorGeneric": "Une erreur est survenue.",
+    "errorPuzzleImageFailed": "Impossible de générer l'image du puzzle. Réessayez.",
     "freeLimitTitle": "Limite gratuite atteinte",
-    "freeLimitDescription": "Vous avez atteint le plafond de niveau gratuit. Passez à Pro pour continuer à créer des quiz."
+    "freeLimitDescription": "Vous avez atteint le plafond de niveau gratuit. Passez à Pro pour continuer à créer des quiz.",
+    "puzzleRequiresProTitle": "Fonctionnalité Pro",
+    "puzzleRequiresProDescription": "Le mode puzzle est réservé aux utilisateurs Pro. Passez à Pro pour le débloquer."
   },
   "LoadingQuestions": {
     "loadingTexts": [
@@ -172,7 +178,10 @@
     "home": "Accueil",
     "timeUp": "Temps écoulé — comptée comme incorrecte",
     "speedBonus": "Bonus de vitesse",
-    "timeLeft": "Temps restant"
+    "timeLeft": "Temps restant",
+    "puzzleTitle": "Puzzle",
+    "puzzleFinalTitle": "Votre puzzle",
+    "puzzlePiecesRevealed": "{revealed}/{total} pièces révélées"
   },
   "Dashboard": {
     "statAttemptsTitle": "Quiz terminés au total",

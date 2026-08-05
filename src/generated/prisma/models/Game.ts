@@ -51,6 +51,7 @@ export type GameMinAggregateOutputType = {
   isTimed: boolean | null
   timePerQuestionSec: number | null
   plannedQuestionCount: number | null
+  puzzleImageUrl: string | null
 }
 
 export type GameMaxAggregateOutputType = {
@@ -66,6 +67,7 @@ export type GameMaxAggregateOutputType = {
   isTimed: boolean | null
   timePerQuestionSec: number | null
   plannedQuestionCount: number | null
+  puzzleImageUrl: string | null
 }
 
 export type GameCountAggregateOutputType = {
@@ -81,6 +83,7 @@ export type GameCountAggregateOutputType = {
   isTimed: number
   timePerQuestionSec: number
   plannedQuestionCount: number
+  puzzleImageUrl: number
   _all: number
 }
 
@@ -110,6 +113,7 @@ export type GameMinAggregateInputType = {
   isTimed?: true
   timePerQuestionSec?: true
   plannedQuestionCount?: true
+  puzzleImageUrl?: true
 }
 
 export type GameMaxAggregateInputType = {
@@ -125,6 +129,7 @@ export type GameMaxAggregateInputType = {
   isTimed?: true
   timePerQuestionSec?: true
   plannedQuestionCount?: true
+  puzzleImageUrl?: true
 }
 
 export type GameCountAggregateInputType = {
@@ -140,6 +145,7 @@ export type GameCountAggregateInputType = {
   isTimed?: true
   timePerQuestionSec?: true
   plannedQuestionCount?: true
+  puzzleImageUrl?: true
   _all?: true
 }
 
@@ -242,6 +248,7 @@ export type GameGroupByOutputType = {
   isTimed: boolean
   timePerQuestionSec: number | null
   plannedQuestionCount: number | null
+  puzzleImageUrl: string | null
   _count: GameCountAggregateOutputType | null
   _avg: GameAvgAggregateOutputType | null
   _sum: GameSumAggregateOutputType | null
@@ -280,6 +287,7 @@ export type GameWhereInput = {
   isTimed?: Prisma.BoolFilter<"Game"> | boolean
   timePerQuestionSec?: Prisma.IntNullableFilter<"Game"> | number | null
   plannedQuestionCount?: Prisma.IntNullableFilter<"Game"> | number | null
+  puzzleImageUrl?: Prisma.StringNullableFilter<"Game"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   questions?: Prisma.QuestionListRelationFilter
   attempts?: Prisma.AttemptListRelationFilter
@@ -299,6 +307,7 @@ export type GameOrderByWithRelationInput = {
   isTimed?: Prisma.SortOrder
   timePerQuestionSec?: Prisma.SortOrderInput | Prisma.SortOrder
   plannedQuestionCount?: Prisma.SortOrderInput | Prisma.SortOrder
+  puzzleImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   questions?: Prisma.QuestionOrderByRelationAggregateInput
   attempts?: Prisma.AttemptOrderByRelationAggregateInput
@@ -321,6 +330,7 @@ export type GameWhereUniqueInput = Prisma.AtLeast<{
   isTimed?: Prisma.BoolFilter<"Game"> | boolean
   timePerQuestionSec?: Prisma.IntNullableFilter<"Game"> | number | null
   plannedQuestionCount?: Prisma.IntNullableFilter<"Game"> | number | null
+  puzzleImageUrl?: Prisma.StringNullableFilter<"Game"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   questions?: Prisma.QuestionListRelationFilter
   attempts?: Prisma.AttemptListRelationFilter
@@ -340,6 +350,7 @@ export type GameOrderByWithAggregationInput = {
   isTimed?: Prisma.SortOrder
   timePerQuestionSec?: Prisma.SortOrderInput | Prisma.SortOrder
   plannedQuestionCount?: Prisma.SortOrderInput | Prisma.SortOrder
+  puzzleImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.GameCountOrderByAggregateInput
   _avg?: Prisma.GameAvgOrderByAggregateInput
   _max?: Prisma.GameMaxOrderByAggregateInput
@@ -363,6 +374,7 @@ export type GameScalarWhereWithAggregatesInput = {
   isTimed?: Prisma.BoolWithAggregatesFilter<"Game"> | boolean
   timePerQuestionSec?: Prisma.IntNullableWithAggregatesFilter<"Game"> | number | null
   plannedQuestionCount?: Prisma.IntNullableWithAggregatesFilter<"Game"> | number | null
+  puzzleImageUrl?: Prisma.StringNullableWithAggregatesFilter<"Game"> | string | null
 }
 
 export type GameCreateInput = {
@@ -377,6 +389,7 @@ export type GameCreateInput = {
   isTimed?: boolean
   timePerQuestionSec?: number | null
   plannedQuestionCount?: number | null
+  puzzleImageUrl?: string | null
   user: Prisma.UserCreateNestedOneWithoutGamesInput
   questions?: Prisma.QuestionCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutGameInput
@@ -396,6 +409,7 @@ export type GameUncheckedCreateInput = {
   isTimed?: boolean
   timePerQuestionSec?: number | null
   plannedQuestionCount?: number | null
+  puzzleImageUrl?: string | null
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutGameInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutGameInput
@@ -413,6 +427,7 @@ export type GameUpdateInput = {
   isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   plannedQuestionCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puzzleImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutGamesNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutGameNestedInput
@@ -432,6 +447,7 @@ export type GameUncheckedUpdateInput = {
   isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   plannedQuestionCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puzzleImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutGameNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutGameNestedInput
@@ -450,6 +466,7 @@ export type GameCreateManyInput = {
   isTimed?: boolean
   timePerQuestionSec?: number | null
   plannedQuestionCount?: number | null
+  puzzleImageUrl?: string | null
 }
 
 export type GameUpdateManyMutationInput = {
@@ -464,6 +481,7 @@ export type GameUpdateManyMutationInput = {
   isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   plannedQuestionCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puzzleImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type GameUncheckedUpdateManyInput = {
@@ -479,6 +497,7 @@ export type GameUncheckedUpdateManyInput = {
   isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   plannedQuestionCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puzzleImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type GameListRelationFilter = {
@@ -504,6 +523,7 @@ export type GameCountOrderByAggregateInput = {
   isTimed?: Prisma.SortOrder
   timePerQuestionSec?: Prisma.SortOrder
   plannedQuestionCount?: Prisma.SortOrder
+  puzzleImageUrl?: Prisma.SortOrder
 }
 
 export type GameAvgOrderByAggregateInput = {
@@ -525,6 +545,7 @@ export type GameMaxOrderByAggregateInput = {
   isTimed?: Prisma.SortOrder
   timePerQuestionSec?: Prisma.SortOrder
   plannedQuestionCount?: Prisma.SortOrder
+  puzzleImageUrl?: Prisma.SortOrder
 }
 
 export type GameMinOrderByAggregateInput = {
@@ -540,6 +561,7 @@ export type GameMinOrderByAggregateInput = {
   isTimed?: Prisma.SortOrder
   timePerQuestionSec?: Prisma.SortOrder
   plannedQuestionCount?: Prisma.SortOrder
+  puzzleImageUrl?: Prisma.SortOrder
 }
 
 export type GameSumOrderByAggregateInput = {
@@ -664,6 +686,7 @@ export type GameCreateWithoutUserInput = {
   isTimed?: boolean
   timePerQuestionSec?: number | null
   plannedQuestionCount?: number | null
+  puzzleImageUrl?: string | null
   questions?: Prisma.QuestionCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutGameInput
   trophies?: Prisma.TrophyCreateNestedManyWithoutGameInput
@@ -681,6 +704,7 @@ export type GameUncheckedCreateWithoutUserInput = {
   isTimed?: boolean
   timePerQuestionSec?: number | null
   plannedQuestionCount?: number | null
+  puzzleImageUrl?: string | null
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutGameInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutGameInput
@@ -728,6 +752,7 @@ export type GameScalarWhereInput = {
   isTimed?: Prisma.BoolFilter<"Game"> | boolean
   timePerQuestionSec?: Prisma.IntNullableFilter<"Game"> | number | null
   plannedQuestionCount?: Prisma.IntNullableFilter<"Game"> | number | null
+  puzzleImageUrl?: Prisma.StringNullableFilter<"Game"> | string | null
 }
 
 export type GameCreateWithoutQuestionsInput = {
@@ -742,6 +767,7 @@ export type GameCreateWithoutQuestionsInput = {
   isTimed?: boolean
   timePerQuestionSec?: number | null
   plannedQuestionCount?: number | null
+  puzzleImageUrl?: string | null
   user: Prisma.UserCreateNestedOneWithoutGamesInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutGameInput
   trophies?: Prisma.TrophyCreateNestedManyWithoutGameInput
@@ -760,6 +786,7 @@ export type GameUncheckedCreateWithoutQuestionsInput = {
   isTimed?: boolean
   timePerQuestionSec?: number | null
   plannedQuestionCount?: number | null
+  puzzleImageUrl?: string | null
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutGameInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutGameInput
 }
@@ -792,6 +819,7 @@ export type GameUpdateWithoutQuestionsInput = {
   isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   plannedQuestionCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puzzleImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutGamesNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutGameNestedInput
   trophies?: Prisma.TrophyUpdateManyWithoutGameNestedInput
@@ -810,6 +838,7 @@ export type GameUncheckedUpdateWithoutQuestionsInput = {
   isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   plannedQuestionCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puzzleImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutGameNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutGameNestedInput
 }
@@ -826,6 +855,7 @@ export type GameCreateWithoutAttemptsInput = {
   isTimed?: boolean
   timePerQuestionSec?: number | null
   plannedQuestionCount?: number | null
+  puzzleImageUrl?: string | null
   user: Prisma.UserCreateNestedOneWithoutGamesInput
   questions?: Prisma.QuestionCreateNestedManyWithoutGameInput
   trophies?: Prisma.TrophyCreateNestedManyWithoutGameInput
@@ -844,6 +874,7 @@ export type GameUncheckedCreateWithoutAttemptsInput = {
   isTimed?: boolean
   timePerQuestionSec?: number | null
   plannedQuestionCount?: number | null
+  puzzleImageUrl?: string | null
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutGameInput
   trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutGameInput
 }
@@ -876,6 +907,7 @@ export type GameUpdateWithoutAttemptsInput = {
   isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   plannedQuestionCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puzzleImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutGamesNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutGameNestedInput
   trophies?: Prisma.TrophyUpdateManyWithoutGameNestedInput
@@ -894,6 +926,7 @@ export type GameUncheckedUpdateWithoutAttemptsInput = {
   isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   plannedQuestionCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puzzleImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutGameNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutGameNestedInput
 }
@@ -910,6 +943,7 @@ export type GameCreateWithoutTrophiesInput = {
   isTimed?: boolean
   timePerQuestionSec?: number | null
   plannedQuestionCount?: number | null
+  puzzleImageUrl?: string | null
   user: Prisma.UserCreateNestedOneWithoutGamesInput
   questions?: Prisma.QuestionCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutGameInput
@@ -928,6 +962,7 @@ export type GameUncheckedCreateWithoutTrophiesInput = {
   isTimed?: boolean
   timePerQuestionSec?: number | null
   plannedQuestionCount?: number | null
+  puzzleImageUrl?: string | null
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutGameInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutGameInput
 }
@@ -960,6 +995,7 @@ export type GameUpdateWithoutTrophiesInput = {
   isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   plannedQuestionCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puzzleImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutGamesNestedInput
   questions?: Prisma.QuestionUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutGameNestedInput
@@ -978,6 +1014,7 @@ export type GameUncheckedUpdateWithoutTrophiesInput = {
   isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   plannedQuestionCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puzzleImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutGameNestedInput
 }
@@ -994,6 +1031,7 @@ export type GameCreateManyUserInput = {
   isTimed?: boolean
   timePerQuestionSec?: number | null
   plannedQuestionCount?: number | null
+  puzzleImageUrl?: string | null
 }
 
 export type GameUpdateWithoutUserInput = {
@@ -1008,6 +1046,7 @@ export type GameUpdateWithoutUserInput = {
   isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   plannedQuestionCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puzzleImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   questions?: Prisma.QuestionUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutGameNestedInput
   trophies?: Prisma.TrophyUpdateManyWithoutGameNestedInput
@@ -1025,6 +1064,7 @@ export type GameUncheckedUpdateWithoutUserInput = {
   isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   plannedQuestionCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puzzleImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutGameNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutGameNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutGameNestedInput
@@ -1042,6 +1082,7 @@ export type GameUncheckedUpdateManyWithoutUserInput = {
   isTimed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timePerQuestionSec?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   plannedQuestionCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  puzzleImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1106,6 +1147,7 @@ export type GameSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isTimed?: boolean
   timePerQuestionSec?: boolean
   plannedQuestionCount?: boolean
+  puzzleImageUrl?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   questions?: boolean | Prisma.Game$questionsArgs<ExtArgs>
   attempts?: boolean | Prisma.Game$attemptsArgs<ExtArgs>
@@ -1126,6 +1168,7 @@ export type GameSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isTimed?: boolean
   timePerQuestionSec?: boolean
   plannedQuestionCount?: boolean
+  puzzleImageUrl?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["game"]>
 
@@ -1142,6 +1185,7 @@ export type GameSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isTimed?: boolean
   timePerQuestionSec?: boolean
   plannedQuestionCount?: boolean
+  puzzleImageUrl?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["game"]>
 
@@ -1158,9 +1202,10 @@ export type GameSelectScalar = {
   isTimed?: boolean
   timePerQuestionSec?: boolean
   plannedQuestionCount?: boolean
+  puzzleImageUrl?: boolean
 }
 
-export type GameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "gameType" | "timeStarted" | "timeEnded" | "topic" | "difficulty" | "language" | "userId" | "score" | "isTimed" | "timePerQuestionSec" | "plannedQuestionCount", ExtArgs["result"]["game"]>
+export type GameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "gameType" | "timeStarted" | "timeEnded" | "topic" | "difficulty" | "language" | "userId" | "score" | "isTimed" | "timePerQuestionSec" | "plannedQuestionCount" | "puzzleImageUrl", ExtArgs["result"]["game"]>
 export type GameInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   questions?: boolean | Prisma.Game$questionsArgs<ExtArgs>
@@ -1196,6 +1241,7 @@ export type $GamePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isTimed: boolean
     timePerQuestionSec: number | null
     plannedQuestionCount: number | null
+    puzzleImageUrl: string | null
   }, ExtArgs["result"]["game"]>
   composites: {}
 }
@@ -1635,6 +1681,7 @@ export interface GameFieldRefs {
   readonly isTimed: Prisma.FieldRef<"Game", 'Boolean'>
   readonly timePerQuestionSec: Prisma.FieldRef<"Game", 'Int'>
   readonly plannedQuestionCount: Prisma.FieldRef<"Game", 'Int'>
+  readonly puzzleImageUrl: Prisma.FieldRef<"Game", 'String'>
 }
     
 

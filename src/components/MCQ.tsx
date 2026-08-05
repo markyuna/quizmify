@@ -32,6 +32,7 @@ import IconActionLink from "./IconActionLink";
 import TrialOfferButton from "./TrialOfferButton";
 import TrophyModal from "./trophy/TrophyModal";
 import Globe3D from "./globe/Globe3D";
+import PuzzleReveal from "./PuzzleReveal";
 import { Button, buttonVariants } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import { cn, formatTimeDelta } from "@/lib/utils";
@@ -113,6 +114,7 @@ const MCQ = ({ game }: MCQProps) => {
   const [showLevelUpOverlay, setShowLevelUpOverlay] = React.useState(false);
   const [showTrophy, setShowTrophy] = React.useState(false);
   const [litCountries, setLitCountries] = React.useState<string[]>([]);
+  const [revealedPuzzlePieces, setRevealedPuzzlePieces] = React.useState<Set<number>>(new Set());
 
   const timeLimitMs = game.isTimed && game.timePerQuestionSec ? game.timePerQuestionSec * 1000 : null;
   const [questionShownAt, setQuestionShownAt] = React.useState(() => new Date().getTime());
@@ -155,10 +157,21 @@ const MCQ = ({ game }: MCQProps) => {
       if (isCorrect) {
         setScore((prev) => prev + 1);
 
-        const answeredQuestion = questions.find((q) => q.id === variables.questionId);
+        const answeredQuestionIndex = questions.findIndex((q) => q.id === variables.questionId);
+        const answeredQuestion = questions[answeredQuestionIndex];
+
         if (answeredQuestion?.country) {
           const country = answeredQuestion.country;
           setLitCountries((prev) => (prev.includes(country) ? prev : [...prev, country]));
+        }
+
+        if (game.puzzleImageUrl && answeredQuestionIndex !== -1) {
+          setRevealedPuzzlePieces((prev) => {
+            if (prev.has(answeredQuestionIndex)) return prev;
+            const next = new Set(prev);
+            next.add(answeredQuestionIndex);
+            return next;
+          });
         }
       }
 
@@ -416,6 +429,16 @@ const MCQ = ({ game }: MCQProps) => {
           </div>
         </motion.div>
 
+        {game.puzzleImageUrl && (
+          <PuzzleReveal
+            imageUrl={game.puzzleImageUrl}
+            totalPieces={totalQ}
+            revealedIndices={revealedPuzzlePieces}
+            title={t("puzzleFinalTitle")}
+            progressLabel={t("puzzlePiecesRevealed", { revealed: revealedPuzzlePieces.size, total: totalQ })}
+          />
+        )}
+
         {finalResult && levelProgress && !finalResult.hitFreeLimit && (
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -618,6 +641,16 @@ const MCQ = ({ game }: MCQProps) => {
               {t("countriesDiscovered", { count: litCountries.length })}
             </p>
           </div>
+        )}
+
+        {game.puzzleImageUrl && (
+          <PuzzleReveal
+            imageUrl={game.puzzleImageUrl}
+            totalPieces={totalQuestions}
+            revealedIndices={revealedPuzzlePieces}
+            title={t("puzzleTitle")}
+            progressLabel={t("puzzlePiecesRevealed", { revealed: revealedPuzzlePieces.size, total: totalQuestions })}
+          />
         )}
 
         <div className="mb-3">

@@ -6,6 +6,7 @@ export const quizCreationSchema = z.object({
   difficulty: z.enum(["easy", "medium", "hard"]),
   type: z.literal("mcq"),
   isTimed: z.boolean(),
+  puzzleMode: z.boolean(),
 });
 
 export const checkAnswerSchema = z.object({

@@ -114,6 +114,12 @@ model Game {
   // short quizzes and every non-/api/game creation path (daily challenge,
   // Practice Mistakes).
   plannedQuestionCount Int?
+  // Set only when this game was created with Puzzle Mode (Pro-only): a
+  // DALL-E image generated from the topic, persisted to Supabase Storage
+  // (OpenAI's own URLs expire after about an hour). Its presence is what
+  // drives rendering the jigsaw reveal in MCQ.tsx -- there's no separate
+  // boolean, since a game either has a puzzle image or it doesn't.
+  puzzleImageUrl     String?
   user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   questions          Question[]
   attempts           Attempt[]
