@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 
-import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import {
   type Difficulty,
   type GeneratedQuestion,
@@ -38,7 +38,7 @@ async function fetchExistingMCQQuestions(params: {
   // Fetch extra headroom: historical cache rows may contain duplicate
   // question texts (pre-dedupe-fix inserts), so `amount` raw rows can
   // collapse into far fewer unique questions.
-  const { data, error } = await supabaseAdmin
+  const { data, error } = await getSupabaseAdmin()
     .from("mcq_questions")
     .select("*")
     .ilike("topic", topic)
@@ -79,7 +79,7 @@ async function saveGeneratedQuestionsToSupabase(params: {
     usage_count: 0,
   }));
 
-  const { error } = await supabaseAdmin.from("mcq_questions").insert(rows);
+  const { error } = await getSupabaseAdmin().from("mcq_questions").insert(rows);
 
   if (error) {
     throw new Error(`Supabase insert error: ${error.message}`);
@@ -92,7 +92,7 @@ export async function incrementUsageCount(questions: SourcedQuestion[]) {
   );
 
   const updates = supabaseOrigin.map((question) =>
-    supabaseAdmin
+    getSupabaseAdmin()
       .from("mcq_questions")
       .update({ usage_count: question.usage_count + 1 })
       .eq("id", question.id)

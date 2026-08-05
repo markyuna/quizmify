@@ -1,5 +1,5 @@
 import { openai } from "@/lib/openai";
-import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 const PUZZLE_BUCKET = "puzzle-images";
 const IMAGE_MODEL = process.env.OPENAI_IMAGE_MODEL ?? "dall-e-3";
@@ -9,10 +9,10 @@ const IMAGE_MODEL = process.env.OPENAI_IMAGE_MODEL ?? "dall-e-3";
 // enough for our purposes (a race just means one caller sees "already
 // exists" and moves on).
 async function ensurePuzzleBucketExists() {
-  const { error } = await supabaseAdmin.storage.getBucket(PUZZLE_BUCKET);
+  const { error } = await getSupabaseAdmin().storage.getBucket(PUZZLE_BUCKET);
   if (!error) return;
 
-  const { error: createError } = await supabaseAdmin.storage.createBucket(PUZZLE_BUCKET, {
+  const { error: createError } = await getSupabaseAdmin().storage.createBucket(PUZZLE_BUCKET, {
     public: true,
   });
 
@@ -51,14 +51,14 @@ export async function generatePuzzleImage(topic: string): Promise<string> {
   await ensurePuzzleBucketExists();
 
   const fileName = `${crypto.randomUUID()}.png`;
-  const { error: uploadError } = await supabaseAdmin.storage
-    .from(PUZZLE_BUCKET)
+  const { error: uploadError } = await getSupabaseAdmin()
+    .storage.from(PUZZLE_BUCKET)
     .upload(fileName, imageBuffer, { contentType: "image/png", upsert: false });
 
   if (uploadError) {
     throw new Error(`Failed to store puzzle image: ${uploadError.message}`);
   }
 
-  const { data } = supabaseAdmin.storage.from(PUZZLE_BUCKET).getPublicUrl(fileName);
+  const { data } = getSupabaseAdmin().storage.from(PUZZLE_BUCKET).getPublicUrl(fileName);
   return data.publicUrl;
 }
