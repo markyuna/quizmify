@@ -165,7 +165,10 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
           return;
         }
 
-        if (errorCode === "PUZZLE_IMAGE_GENERATION_FAILED") {
+        if (
+          errorCode === "PUZZLE_IMAGE_GENERATION_FAILED" ||
+          errorCode === "PUZZLE_IMAGE_STORAGE_UNAVAILABLE"
+        ) {
           toast({
             title: t("errorTitle"),
             description: t("errorPuzzleImageFailed"),

@@ -11,7 +11,7 @@ import { TIMED_MODE_SECONDS_PER_QUESTION } from "@/lib/timedMode";
 import { normalizeTopic, normalizeDifficulty } from "@/lib/questionGeneration";
 import { sourceQuestions, incrementUsageCount } from "@/lib/questionSourcing";
 import { MIN_QUESTIONS_FOR_ADAPTIVE_DIFFICULTY, splitIntoBatches } from "@/lib/adaptiveDifficulty";
-import { generatePuzzleImage } from "@/lib/puzzleImage";
+import { generatePuzzleImage, PuzzleImageError } from "@/lib/puzzleImage";
 
 function jsonError(message: string, status: number, details?: unknown) {
   return NextResponse.json(
@@ -73,7 +73,15 @@ export async function POST(req: Request) {
         puzzleImageUrl = await generatePuzzleImage(topic);
       } catch (error) {
         console.error("generatePuzzleImage failed:", error);
-        return jsonError("PUZZLE_IMAGE_GENERATION_FAILED", 500);
+        // Storage misconfiguration and a flaky DALL-E call both break the
+        // same feature, but only one of them is worth retrying -- keep the
+        // codes distinct so logs and clients can tell them apart.
+        return jsonError(
+          error instanceof PuzzleImageError
+            ? error.code
+            : "PUZZLE_IMAGE_GENERATION_FAILED",
+          500
+        );
       }
     }
 
