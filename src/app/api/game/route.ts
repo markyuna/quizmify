@@ -5,12 +5,13 @@ import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { quizCreationSchema } from "@/schemas/form/quiz";
 import { getRequestLocale } from "@/i18n/get-locale";
-import { isUserAtFreeLimit } from "@/lib/paywall";
+import { isUserAtFreeLimit, isUserPro } from "@/lib/paywall";
 import { isGeographyTopic } from "@/lib/geography";
 import { TIMED_MODE_SECONDS_PER_QUESTION } from "@/lib/timedMode";
 import { normalizeTopic, normalizeDifficulty } from "@/lib/questionGeneration";
 import { sourceQuestions, incrementUsageCount } from "@/lib/questionSourcing";
 import { MIN_QUESTIONS_FOR_ADAPTIVE_DIFFICULTY, splitIntoBatches } from "@/lib/adaptiveDifficulty";
+import { generatePuzzleImage, PuzzleImageError } from "@/lib/puzzleImage";
 
 function jsonError(message: string, status: number, details?: unknown) {
   return NextResponse.json(
@@ -40,6 +41,11 @@ export async function POST(req: Request) {
     const language = await getRequestLocale();
     const isGeography = isGeographyTopic(topic);
     const isTimed = parsedBody.isTimed;
+    const puzzleMode = parsedBody.puzzleMode;
+
+    if (puzzleMode && !(await isUserPro(session.user.id))) {
+      return jsonError("PUZZLE_REQUIRES_PRO", 403);
+    }
 
     // Long enough quizzes generate only the first half of questions now,
     // then adjust difficulty from in-quiz performance and generate the
@@ -61,6 +67,24 @@ export async function POST(req: Request) {
       return jsonError("Could not fetch or generate questions.", 500);
     }
 
+    let puzzleImageUrl: string | null = null;
+    if (puzzleMode) {
+      try {
+        puzzleImageUrl = await generatePuzzleImage(topic);
+      } catch (error) {
+        console.error("generatePuzzleImage failed:", error);
+        // Storage misconfiguration and a flaky DALL-E call both break the
+        // same feature, but only one of them is worth retrying -- keep the
+        // codes distinct so logs and clients can tell them apart.
+        return jsonError(
+          error instanceof PuzzleImageError
+            ? error.code
+            : "PUZZLE_IMAGE_GENERATION_FAILED",
+          500
+        );
+      }
+    }
+
     const game = await prisma.$transaction(async (tx) => {
       const createdGame = await tx.game.create({
         data: {
@@ -73,6 +97,7 @@ export async function POST(req: Request) {
           isTimed,
           timePerQuestionSec: isTimed ? TIMED_MODE_SECONDS_PER_QUESTION : null,
           plannedQuestionCount: useAdaptiveDifficulty ? amount : null,
+          puzzleImageUrl,
         },
       });
 

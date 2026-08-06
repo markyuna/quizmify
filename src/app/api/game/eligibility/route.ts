@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { getAuthSession } from "@/lib/nextauth";
-import { isUserAtFreeLimit } from "@/lib/paywall";
+import { isUserAtFreeLimit, isUserPro } from "@/lib/paywall";
 
 export const dynamic = "force-dynamic";
 
@@ -12,10 +12,13 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const atLimit = await isUserAtFreeLimit(session.user.id);
+  const [atLimit, isPro] = await Promise.all([
+    isUserAtFreeLimit(session.user.id),
+    isUserPro(session.user.id),
+  ]);
 
   return NextResponse.json(
-    { eligible: !atLimit },
+    { eligible: !atLimit, isPro },
     { headers: { "Cache-Control": "no-store" } }
   );
 }

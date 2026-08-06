@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Sparkles, Minus, Plus, Zap, PartyPopper } from "lucide-react";
+import { Sparkles, Minus, Plus, Zap, PartyPopper, Puzzle, Lock } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { quizCreationSchema } from "@/schemas/form/quiz";
@@ -51,9 +51,12 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
   const [showLoader, setShowLoader] = React.useState(false);
   const [finished, setFinished] = React.useState(false);
   const [checkingEligibility, setCheckingEligibility] = React.useState(true);
+  const [isPro, setIsPro] = React.useState(false);
   // Purely a client-side routing choice (which play screen to land on after
   // creation) -- not part of quizCreationSchema, so it isn't sent to the
   // backend and doesn't affect how the game/questions are generated.
+  // Mutually exclusive with puzzleMode: party mode always lands on the
+  // Kahoot-style screen, which doesn't render the puzzle reveal.
   const [partyMode, setPartyMode] = React.useState(false);
   const navigationTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -72,13 +75,14 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
     let cancelled = false;
 
     axios
-      .get<{ eligible: boolean }>("/api/game/eligibility")
+      .get<{ eligible: boolean; isPro: boolean }>("/api/game/eligibility")
       .then((res) => {
         if (cancelled) return;
         if (!res.data.eligible) {
           router.replace("/upgrade?limit=true");
           return;
         }
+        setIsPro(res.data.isPro);
         setCheckingEligibility(false);
       })
       .catch(() => {
@@ -103,11 +107,13 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
       difficulty: "easy",
       type: "mcq",
       isTimed: false,
+      puzzleMode: false,
     },
   });
 
   const difficulty = form.watch("difficulty");
   const amount = form.watch("amount");
+  const puzzleMode = form.watch("puzzleMode");
 
   const { mutate: createGame, isPending } = useMutation({
     mutationFn: async (values: QuizCreationInput) => {
@@ -127,7 +133,8 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
 
       setFinished(true);
 
-      const destination = partyMode ? `/play/kahoot/${data.gameId}` : `/play/mcq/${data.gameId}`;
+      const destination =
+        partyMode && !puzzleMode ? `/play/kahoot/${data.gameId}` : `/play/mcq/${data.gameId}`;
       navigationTimeoutRef.current = setTimeout(() => {
         router.push(destination);
       }, 800);
@@ -145,6 +152,28 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
             variant: "destructive",
           });
           router.push("/upgrade");
+          return;
+        }
+
+        if (error.response?.status === 403 && errorCode === "PUZZLE_REQUIRES_PRO") {
+          toast({
+            title: t("puzzleRequiresProTitle"),
+            description: t("puzzleRequiresProDescription"),
+            variant: "destructive",
+          });
+          router.push("/upgrade");
+          return;
+        }
+
+        if (
+          errorCode === "PUZZLE_IMAGE_GENERATION_FAILED" ||
+          errorCode === "PUZZLE_IMAGE_STORAGE_UNAVAILABLE"
+        ) {
+          toast({
+            title: t("errorTitle"),
+            description: t("errorPuzzleImageFailed"),
+            variant: "destructive",
+          });
           return;
         }
 
@@ -378,7 +407,13 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
 
             <button
               type="button"
-              onClick={() => setPartyMode((prev) => !prev)}
+              onClick={() => {
+                setPartyMode((prev) => {
+                  const next = !prev;
+                  if (next) form.setValue("puzzleMode", false);
+                  return next;
+                });
+              }}
               className={cn(
                 "flex w-full items-center justify-between gap-3 rounded-2xl border p-3 text-left transition-all duration-200",
                 partyMode
@@ -419,6 +454,77 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
                 />
               </span>
             </button>
+
+            <FormField
+              control={form.control}
+              name="puzzleMode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (!isPro) {
+                          router.push("/upgrade");
+                          return;
+                        }
+                        const next = !field.value;
+                        field.onChange(next);
+                        if (next) setPartyMode(false);
+                      }}
+                      className={cn(
+                        "flex w-full items-center justify-between gap-3 rounded-2xl border p-3 text-left transition-all duration-200",
+                        !isPro
+                          ? "border-slate-200 bg-slate-50/60 opacity-70 dark:border-white/10 dark:bg-white/5"
+                          : field.value
+                            ? "border-emerald-400 bg-emerald-50 shadow-sm shadow-emerald-200 dark:border-emerald-500/50 dark:bg-emerald-500/15"
+                            : "border-slate-200 bg-white/60 hover:border-slate-300 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                      )}
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <span
+                          className={cn(
+                            "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl",
+                            field.value && isPro
+                              ? "bg-emerald-400/20 text-emerald-600 dark:text-emerald-300"
+                              : "bg-slate-100 text-slate-500 dark:bg-white/10 dark:text-slate-400"
+                          )}
+                        >
+                          <Puzzle className="h-4.5 w-4.5" />
+                        </span>
+                        <span>
+                          <span className="flex items-center gap-1.5 text-sm font-bold text-slate-800 dark:text-slate-100">
+                            {t("puzzleModeLabel")}
+                            {!isPro && (
+                              <span className="inline-flex items-center gap-0.5 rounded-full bg-violet-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-violet-600 dark:bg-violet-500/20 dark:text-violet-300">
+                                <Lock className="h-2.5 w-2.5" />
+                                {t("puzzleModeProBadge")}
+                              </span>
+                            )}
+                          </span>
+                          <span className="block text-xs text-slate-400">{t("puzzleModeDesc")}</span>
+                        </span>
+                      </span>
+
+                      <span
+                        className={cn(
+                          "relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200",
+                          field.value && isPro ? "bg-emerald-500" : "bg-slate-300 dark:bg-white/20"
+                        )}
+                      >
+                        <span
+                          className={cn(
+                            "absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform duration-200",
+                            field.value && isPro ? "translate-x-[22px]" : "translate-x-0.5"
+                          )}
+                        />
+                      </span>
+                    </button>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <Button
               disabled={isPending}

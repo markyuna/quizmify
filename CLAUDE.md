@@ -79,4 +79,9 @@ NEXTAUTH_SECRET           # NextAuth secret
 NEXTAUTH_URL              # App base URL
 OPENAI_API_KEY            # OpenAI API key
 OPENAI_MODEL              # (optional) defaults to gpt-4o
+OPENAI_IMAGE_MODEL        # (optional) Puzzle Mode image model, defaults to gpt-image-1
 ```
+
+`SUPABASE_SERVICE_ROLE_KEY` must be the **secret** key (`sb_secret_…`, or the
+legacy `service_role` JWT). A publishable/anon key is subject to RLS and will
+fail every Storage write — which is how Puzzle Mode's bucket setup breaks.

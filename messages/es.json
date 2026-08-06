@@ -114,14 +114,20 @@
     "timedModeDesc": "20s por pregunta, con bonus de XP por velocidad",
     "partyModeLabel": "Modo fiesta",
     "partyModeDesc": "Colores, rachas y confeti estilo Kahoot",
+    "puzzleModeLabel": "Modo rompecabezas",
+    "puzzleModeDesc": "Cada respuesta correcta destapa una pieza de una imagen del tema",
+    "puzzleModeProBadge": "Pro",
     "creating": "Creando quiz...",
     "generate": "Generar",
     "errorTitle": "Error",
     "errorNoGameId": "El servidor no devolvió un ID de partida.",
     "errorUnableToCreate": "No se pudo crear el quiz.",
     "errorGeneric": "Algo salió mal.",
+    "errorPuzzleImageFailed": "No se pudo generar la imagen del rompecabezas. Probá de nuevo.",
     "freeLimitTitle": "Límite gratuito alcanzado",
-    "freeLimitDescription": "Llegaste al tope de nivel gratuito. Actualizá a Pro para seguir creando quizzes."
+    "freeLimitDescription": "Llegaste al tope de nivel gratuito. Actualizá a Pro para seguir creando quizzes.",
+    "puzzleRequiresProTitle": "Función Pro",
+    "puzzleRequiresProDescription": "El modo rompecabezas es exclusivo para usuarios Pro. Actualizá para desbloquearlo."
   },
   "LoadingQuestions": {
     "loadingTexts": [
@@ -172,7 +178,10 @@
     "home": "Inicio",
     "timeUp": "Se acabó el tiempo — contada como incorrecta",
     "speedBonus": "Bonus de velocidad",
-    "timeLeft": "Tiempo restante"
+    "timeLeft": "Tiempo restante",
+    "puzzleTitle": "Rompecabezas",
+    "puzzleFinalTitle": "Tu rompecabezas",
+    "puzzlePiecesRevealed": "{revealed}/{total} piezas descubiertas"
   },
   "Dashboard": {
     "statAttemptsTitle": "Quizzes completados en total",
