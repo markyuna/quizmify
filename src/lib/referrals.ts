@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db";
+import { isEffectivelyPro } from "@/lib/paywall";
 
 export type ReferralStats = {
   referralCount: number;
@@ -17,6 +18,6 @@ export async function getReferralStats(userId: string): Promise<ReferralStats> {
     referralCount: referrals.length,
     totalDaysEarned: referrals.reduce((sum, r) => sum + r.rewardDays, 0),
     premiumUntil: user?.premiumUntil ?? null,
-    isPro: user?.subscriptionStatus === "pro",
+    isPro: user ? isEffectivelyPro(user) : false,
   };
 }

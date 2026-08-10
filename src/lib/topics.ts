@@ -75,8 +75,6 @@ const LATEST_TOPICS_FETCH_LIMIT = 200;
  * rather than take the page down with it.
  */
 export async function getLatestTopics(language: Locale): Promise<string[]> {
-  console.log(`Fetching latest topics for language: ${language}`);
-
   const { data, error } = await getSupabaseAdmin()
     .from("mcq_questions")
     .select("topic, created_at, language")
@@ -89,8 +87,6 @@ export async function getLatestTopics(language: Locale): Promise<string[]> {
     console.error(`Supabase fetch error for language ${language}: ${error.message}`);
     return [];
   }
-
-  console.log(`Found ${data?.length ?? 0} rows for language ${language}`);
 
   const seen = new Set<string>();
   const topics: string[] = [];
@@ -113,6 +109,5 @@ export async function getLatestTopics(language: Locale): Promise<string[]> {
     if (topics.length === LATEST_TOPICS_LIMIT) break;
   }
 
-  console.log(`Returning ${topics.length} topics for language ${language}:`, topics);
   return topics;
 }

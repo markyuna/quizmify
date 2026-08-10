@@ -177,7 +177,7 @@ export async function sourceQuestions(params: {
 
   // Randomize which `amount` questions are served this time instead of
   // always taking the same prefix of the pool.
-  const questions = shuffleArray(pool).slice(0, amount);
+  const questions = dedupeQuestions(shuffleArray(pool)).slice(0, amount);
 
   return { questions, cachedCount: cachedQuestions.length, poolTarget };
 }
