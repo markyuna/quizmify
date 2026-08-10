@@ -14,6 +14,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import TimezoneSync from "@/components/TimezoneSync";
 import ReferralCapture from "@/components/ReferralCapture";
+import GuestRoundClaim from "@/components/GuestRoundClaim";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { getThemeInitScript } from "@/lib/themeInitScript";
@@ -116,6 +117,7 @@ export default async function RootLayout({
                     <Analytics />
                     <TimezoneSync />
                     <ReferralCapture />
+                    <GuestRoundClaim />
                     <IdleTimeoutProvider />
                   </div>
                 </TooltipProvider>

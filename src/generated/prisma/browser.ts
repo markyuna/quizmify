@@ -112,3 +112,13 @@ export type Friendship = Prisma.FriendshipModel
  * 
  */
 export type Referral = Prisma.ReferralModel
+/**
+ * Model DailyGameChallenge
+ * 
+ */
+export type DailyGameChallenge = Prisma.DailyGameChallengeModel
+/**
+ * Model GuestAttempt
+ * 
+ */
+export type GuestAttempt = Prisma.GuestAttemptModel

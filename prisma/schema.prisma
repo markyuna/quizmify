@@ -92,6 +92,7 @@ model User {
   friendshipsReceived    Friendship[]            @relation("FriendshipAddressee")
   referralsMade          Referral[]              @relation("ReferralsMade")
   referralReceived       Referral?               @relation("ReferralReceived")
+  guestAttemptsClaimed   GuestAttempt[]
 
   @@index([xp])
 }
@@ -422,4 +423,61 @@ model Referral {
   referred User @relation("ReferralReceived", fields: [referredId], references: [id], onDelete: Cascade)
 
   @@index([referrerId])
+}
+
+enum GuestGameKey {
+  word_of_day
+  photo_of_day
+  math_target
+}
+
+// One shared daily challenge per game per calendar day (UTC "YYYY-MM-DD")
+// per language -- same idiom as DailyChallenge, but payload is opaque JSON
+// because each guest game has a completely different challenge shape (a
+// target word vs. a photo+location vs. a target number+operands). Never
+// includes the answer key -- that's derived server-side at submit time by
+// the grader registered for this gameKey in src/lib/guestPlay.ts.
+model DailyGameChallenge {
+  id        String       @id @default(cuid())
+  gameKey   GuestGameKey
+  date      String
+  language  String       @default("en")
+  payload   Json
+  createdAt DateTime     @default(now())
+
+  attempts GuestAttempt[]
+
+  @@unique([gameKey, date, language])
+  @@index([gameKey, date])
+}
+
+// A guest's single daily attempt at one game, before any account exists.
+// guestId is an opaque id minted client-side and stashed in a cookie (same
+// pattern as the quizmify_ref referral cookie) -- never PII. Scored and
+// persisted server-side so the result can't be forged by the client, and so
+// it survives the guest closing the conversion modal and coming back later
+// in the same browser. claimedByUserId/claimedAt are set once, the first
+// time /api/guest/claim successfully migrates this attempt onto a real
+// account; already-claimed rows are never re-applied.
+model GuestAttempt {
+  id              String       @id @default(cuid())
+  challengeId     String
+  gameKey         GuestGameKey
+  date            String
+  guestId         String
+  resultPayload   Json
+  isCorrect       Boolean
+  xpEarned        Int
+  claimedByUserId String?
+  claimedAt       DateTime?
+  createdAt       DateTime     @default(now())
+
+  challenge DailyGameChallenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  claimedBy User?              @relation(fields: [claimedByUserId], references: [id], onDelete: SetNull)
+
+  // One attempt per guest per game per day -- mirrors the
+  // [dailyChallengeId, userId] guard on DailyChallengeAttempt.
+  @@unique([challengeId, guestId])
+  @@index([guestId])
+  @@index([claimedByUserId])
 }

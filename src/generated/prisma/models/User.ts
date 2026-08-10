@@ -383,6 +383,7 @@ export type UserWhereInput = {
   friendshipsReceived?: Prisma.FriendshipListRelationFilter
   referralsMade?: Prisma.ReferralListRelationFilter
   referralReceived?: Prisma.XOR<Prisma.ReferralNullableScalarRelationFilter, Prisma.ReferralWhereInput> | null
+  guestAttemptsClaimed?: Prisma.GuestAttemptListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -423,6 +424,7 @@ export type UserOrderByWithRelationInput = {
   friendshipsReceived?: Prisma.FriendshipOrderByRelationAggregateInput
   referralsMade?: Prisma.ReferralOrderByRelationAggregateInput
   referralReceived?: Prisma.ReferralOrderByWithRelationInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -466,6 +468,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   friendshipsReceived?: Prisma.FriendshipListRelationFilter
   referralsMade?: Prisma.ReferralListRelationFilter
   referralReceived?: Prisma.XOR<Prisma.ReferralNullableScalarRelationFilter, Prisma.ReferralWhereInput> | null
+  guestAttemptsClaimed?: Prisma.GuestAttemptListRelationFilter
 }, "id" | "email" | "stripePaymentId">
 
 export type UserOrderByWithAggregationInput = {
@@ -564,6 +567,7 @@ export type UserCreateInput = {
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -604,6 +608,7 @@ export type UserUncheckedCreateInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUpdateInput = {
@@ -644,6 +649,7 @@ export type UserUpdateInput = {
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -684,6 +690,7 @@ export type UserUncheckedUpdateInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -855,6 +862,11 @@ export type UserSumOrderByAggregateInput = {
   currentStreak?: Prisma.SortOrder
   longestStreak?: Prisma.SortOrder
   streakProtectionsUsed?: Prisma.SortOrder
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type UserCreateNestedOneWithoutAccountsInput = {
@@ -1079,6 +1091,22 @@ export type UserUpdateOneRequiredWithoutReferralReceivedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReferralReceivedInput, Prisma.UserUpdateWithoutReferralReceivedInput>, Prisma.UserUncheckedUpdateWithoutReferralReceivedInput>
 }
 
+export type UserCreateNestedOneWithoutGuestAttemptsClaimedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuestAttemptsClaimedInput, Prisma.UserUncheckedCreateWithoutGuestAttemptsClaimedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuestAttemptsClaimedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutGuestAttemptsClaimedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuestAttemptsClaimedInput, Prisma.UserUncheckedCreateWithoutGuestAttemptsClaimedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuestAttemptsClaimedInput
+  upsert?: Prisma.UserUpsertWithoutGuestAttemptsClaimedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuestAttemptsClaimedInput, Prisma.UserUpdateWithoutGuestAttemptsClaimedInput>, Prisma.UserUncheckedUpdateWithoutGuestAttemptsClaimedInput>
+}
+
 export type UserCreateWithoutAccountsInput = {
   id?: string
   name?: string | null
@@ -1116,6 +1144,7 @@ export type UserCreateWithoutAccountsInput = {
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1155,6 +1184,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1210,6 +1240,7 @@ export type UserUpdateWithoutAccountsInput = {
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1249,6 +1280,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1288,6 +1320,7 @@ export type UserCreateWithoutSessionsInput = {
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1327,6 +1360,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1382,6 +1416,7 @@ export type UserUpdateWithoutSessionsInput = {
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1421,6 +1456,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserCreateWithoutGamesInput = {
@@ -1460,6 +1496,7 @@ export type UserCreateWithoutGamesInput = {
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutGamesInput = {
@@ -1499,6 +1536,7 @@ export type UserUncheckedCreateWithoutGamesInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutGamesInput = {
@@ -1554,6 +1592,7 @@ export type UserUpdateWithoutGamesInput = {
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGamesInput = {
@@ -1593,6 +1632,7 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserCreateWithoutAttemptsInput = {
@@ -1632,6 +1672,7 @@ export type UserCreateWithoutAttemptsInput = {
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutAttemptsInput = {
@@ -1671,6 +1712,7 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutAttemptsInput = {
@@ -1726,6 +1768,7 @@ export type UserUpdateWithoutAttemptsInput = {
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttemptsInput = {
@@ -1765,6 +1808,7 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserCreateWithoutCertificatesInput = {
@@ -1804,6 +1848,7 @@ export type UserCreateWithoutCertificatesInput = {
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutCertificatesInput = {
@@ -1843,6 +1888,7 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutCertificatesInput = {
@@ -1898,6 +1944,7 @@ export type UserUpdateWithoutCertificatesInput = {
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCertificatesInput = {
@@ -1937,6 +1984,7 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserCreateWithoutTopicRecommendationsInput = {
@@ -1976,6 +2024,7 @@ export type UserCreateWithoutTopicRecommendationsInput = {
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
@@ -2015,6 +2064,7 @@ export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutTopicRecommendationsInput = {
@@ -2070,6 +2120,7 @@ export type UserUpdateWithoutTopicRecommendationsInput = {
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
@@ -2109,6 +2160,7 @@ export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserCreateWithoutTrophiesInput = {
@@ -2148,6 +2200,7 @@ export type UserCreateWithoutTrophiesInput = {
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutTrophiesInput = {
@@ -2187,6 +2240,7 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutTrophiesInput = {
@@ -2242,6 +2296,7 @@ export type UserUpdateWithoutTrophiesInput = {
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTrophiesInput = {
@@ -2281,6 +2336,7 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserCreateWithoutQuestionProgressInput = {
@@ -2320,6 +2376,7 @@ export type UserCreateWithoutQuestionProgressInput = {
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutQuestionProgressInput = {
@@ -2359,6 +2416,7 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutQuestionProgressInput = {
@@ -2414,6 +2472,7 @@ export type UserUpdateWithoutQuestionProgressInput = {
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuestionProgressInput = {
@@ -2453,6 +2512,7 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserCreateWithoutDailyChallengeAttemptsInput = {
@@ -2492,6 +2552,7 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
@@ -2531,6 +2592,7 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutDailyChallengeAttemptsInput = {
@@ -2586,6 +2648,7 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
@@ -2625,6 +2688,7 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserCreateWithoutNotificationPreferenceInput = {
@@ -2664,6 +2728,7 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
@@ -2703,6 +2768,7 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationPreferenceInput = {
@@ -2758,6 +2824,7 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
@@ -2797,6 +2864,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserCreateWithoutNotificationLogsInput = {
@@ -2836,6 +2904,7 @@ export type UserCreateWithoutNotificationLogsInput = {
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationLogsInput = {
@@ -2875,6 +2944,7 @@ export type UserUncheckedCreateWithoutNotificationLogsInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationLogsInput = {
@@ -2930,6 +3000,7 @@ export type UserUpdateWithoutNotificationLogsInput = {
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationLogsInput = {
@@ -2969,6 +3040,7 @@ export type UserUncheckedUpdateWithoutNotificationLogsInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserCreateWithoutFriendshipsSentInput = {
@@ -3008,6 +3080,7 @@ export type UserCreateWithoutFriendshipsSentInput = {
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutFriendshipsSentInput = {
@@ -3047,6 +3120,7 @@ export type UserUncheckedCreateWithoutFriendshipsSentInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutFriendshipsSentInput = {
@@ -3091,6 +3165,7 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
@@ -3130,6 +3205,7 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutFriendshipsReceivedInput = {
@@ -3185,6 +3261,7 @@ export type UserUpdateWithoutFriendshipsSentInput = {
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
@@ -3224,6 +3301,7 @@ export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUpsertWithoutFriendshipsReceivedInput = {
@@ -3274,6 +3352,7 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
@@ -3313,6 +3392,7 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserCreateWithoutReferralsMadeInput = {
@@ -3352,6 +3432,7 @@ export type UserCreateWithoutReferralsMadeInput = {
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutReferralsMadeInput = {
@@ -3391,6 +3472,7 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutReferralsMadeInput = {
@@ -3435,6 +3517,7 @@ export type UserCreateWithoutReferralReceivedInput = {
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserUncheckedCreateWithoutReferralReceivedInput = {
@@ -3474,6 +3557,7 @@ export type UserUncheckedCreateWithoutReferralReceivedInput = {
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
 }
 
 export type UserCreateOrConnectWithoutReferralReceivedInput = {
@@ -3529,6 +3613,7 @@ export type UserUpdateWithoutReferralsMadeInput = {
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralsMadeInput = {
@@ -3568,6 +3653,7 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUpsertWithoutReferralReceivedInput = {
@@ -3618,6 +3704,7 @@ export type UserUpdateWithoutReferralReceivedInput = {
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralReceivedInput = {
@@ -3657,6 +3744,183 @@ export type UserUncheckedUpdateWithoutReferralReceivedInput = {
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+}
+
+export type UserCreateWithoutGuestAttemptsClaimedInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+}
+
+export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+}
+
+export type UserCreateOrConnectWithoutGuestAttemptsClaimedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuestAttemptsClaimedInput, Prisma.UserUncheckedCreateWithoutGuestAttemptsClaimedInput>
+}
+
+export type UserUpsertWithoutGuestAttemptsClaimedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGuestAttemptsClaimedInput, Prisma.UserUncheckedUpdateWithoutGuestAttemptsClaimedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuestAttemptsClaimedInput, Prisma.UserUncheckedCreateWithoutGuestAttemptsClaimedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGuestAttemptsClaimedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGuestAttemptsClaimedInput, Prisma.UserUncheckedUpdateWithoutGuestAttemptsClaimedInput>
+}
+
+export type UserUpdateWithoutGuestAttemptsClaimedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
 }
 
 
@@ -3678,6 +3942,7 @@ export type UserCountOutputType = {
   friendshipsSent: number
   friendshipsReceived: number
   referralsMade: number
+  guestAttemptsClaimed: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3694,6 +3959,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   friendshipsSent?: boolean | UserCountOutputTypeCountFriendshipsSentArgs
   friendshipsReceived?: boolean | UserCountOutputTypeCountFriendshipsReceivedArgs
   referralsMade?: boolean | UserCountOutputTypeCountReferralsMadeArgs
+  guestAttemptsClaimed?: boolean | UserCountOutputTypeCountGuestAttemptsClaimedArgs
 }
 
 /**
@@ -3797,6 +4063,13 @@ export type UserCountOutputTypeCountReferralsMadeArgs<ExtArgs extends runtime.Ty
   where?: Prisma.ReferralWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGuestAttemptsClaimedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuestAttemptWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3836,6 +4109,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   friendshipsReceived?: boolean | Prisma.User$friendshipsReceivedArgs<ExtArgs>
   referralsMade?: boolean | Prisma.User$referralsMadeArgs<ExtArgs>
   referralReceived?: boolean | Prisma.User$referralReceivedArgs<ExtArgs>
+  guestAttemptsClaimed?: boolean | Prisma.User$guestAttemptsClaimedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -3931,6 +4205,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   friendshipsReceived?: boolean | Prisma.User$friendshipsReceivedArgs<ExtArgs>
   referralsMade?: boolean | Prisma.User$referralsMadeArgs<ExtArgs>
   referralReceived?: boolean | Prisma.User$referralReceivedArgs<ExtArgs>
+  guestAttemptsClaimed?: boolean | Prisma.User$guestAttemptsClaimedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -3954,6 +4229,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     friendshipsReceived: Prisma.$FriendshipPayload<ExtArgs>[]
     referralsMade: Prisma.$ReferralPayload<ExtArgs>[]
     referralReceived: Prisma.$ReferralPayload<ExtArgs> | null
+    guestAttemptsClaimed: Prisma.$GuestAttemptPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4387,6 +4663,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   friendshipsReceived<T extends Prisma.User$friendshipsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$friendshipsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   referralsMade<T extends Prisma.User$referralsMadeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$referralsMadeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReferralPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   referralReceived<T extends Prisma.User$referralReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$referralReceivedArgs<ExtArgs>>): Prisma.Prisma__ReferralClient<runtime.Types.Result.GetResult<Prisma.$ReferralPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  guestAttemptsClaimed<T extends Prisma.User$guestAttemptsClaimedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guestAttemptsClaimedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuestAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5178,6 +5455,30 @@ export type User$referralReceivedArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   include?: Prisma.ReferralInclude<ExtArgs> | null
   where?: Prisma.ReferralWhereInput
+}
+
+/**
+ * User.guestAttemptsClaimed
+ */
+export type User$guestAttemptsClaimedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuestAttempt
+   */
+  select?: Prisma.GuestAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuestAttempt
+   */
+  omit?: Prisma.GuestAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestAttemptInclude<ExtArgs> | null
+  where?: Prisma.GuestAttemptWhereInput
+  orderBy?: Prisma.GuestAttemptOrderByWithRelationInput | Prisma.GuestAttemptOrderByWithRelationInput[]
+  cursor?: Prisma.GuestAttemptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuestAttemptScalarFieldEnum | Prisma.GuestAttemptScalarFieldEnum[]
 }
 
 /**

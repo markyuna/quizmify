@@ -233,3 +233,27 @@ export function getCountryCoordinates(countryName: string | null | undefined): L
 
   return null;
 }
+
+/** Every canonical country name, for a plain-text autocomplete (Photo du Jour's guess input). */
+export function getAllCountryNames(): string[] {
+  return Object.keys(COUNTRY_COORDINATES);
+}
+
+/**
+ * Resolves a name or known alias ("USA", "UK", "Holland"...) to its
+ * canonical form, so a guess of "USA" correctly matches a target stored as
+ * "United States". Returns null for anything unrecognized rather than
+ * echoing the input back, so callers can't be fooled by a typo that
+ * happens to already look canonical-ish.
+ */
+export function canonicalCountryName(countryName: string | null | undefined): string | null {
+  if (!countryName) return null;
+
+  const trimmed = countryName.trim();
+  if (COUNTRY_COORDINATES[trimmed]) return trimmed;
+
+  const alias = COUNTRY_ALIASES[trimmed];
+  if (alias && COUNTRY_COORDINATES[alias]) return alias;
+
+  return null;
+}

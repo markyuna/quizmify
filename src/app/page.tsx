@@ -1,5 +1,7 @@
 import { getAuthSession } from "@/lib/nextauth";
 import HeroSection from "@/components/HeroSection";
+import TopicCarousel from "@/components/games/TopicCarousel";
+import GameCarousel from "@/components/games/GameCarousel";
 import FeatureCards from "@/components/FeatureCards";
 import WhyQuizmifySection from "@/components/WhyQuizmifySection";
 import FinalCtaSection from "@/components/FinalCtaSection";
@@ -15,6 +17,8 @@ export default async function HomePage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-cyan-50 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950">
       <HeroSection isAuthenticated={isAuthenticated} />
+      <TopicCarousel />
+      <GameCarousel />
       <FeatureCards />
       <WhyQuizmifySection />
       <FinalCtaSection isAuthenticated={isAuthenticated} />

@@ -62,6 +62,78 @@
     "ctaStartNow": "Commencer maintenant",
     "ctaSeeProgress": "Voir votre progression"
   },
+  "GuestGames": {
+    "carouselTitle": "Jouez aux jeux du jour avant de vous inscrire",
+    "carouselSubtitle": "Essayez le Mot du Jour, la Photo du Jour et Le Compte est Bon — pas besoin de compte tant que vous ne voulez pas voir votre résultat.",
+    "comingSoon": "Bientôt disponible",
+    "games": {
+      "wordOfDay": {
+        "title": "Mot du Jour",
+        "teaser": "Devinez un mot de 6 à 8 lettres, façon Wordle, chaque jour renouvelé."
+      },
+      "photoOfDay": {
+        "title": "Photo du Jour",
+        "teaser": "Regardez la photo du jour et devinez où dans le monde elle a été prise."
+      },
+      "mathTarget": {
+        "title": "Le Compte est Bon",
+        "teaser": "Combinez les nombres avec des opérations pour atteindre le compte du jour."
+      }
+    },
+    "conversionModal": {
+      "title": "Créez votre compte pour voir votre résultat",
+      "description": "Vous venez de terminer la partie du jour — inscrivez-vous pour découvrir votre résultat et démarrer votre série.",
+      "createWithEmail": "Créer un compte avec un e-mail",
+      "alreadyHaveAccount": "Vous avez déjà un compte ?",
+      "signInLink": "Se connecter"
+    },
+    "claim": {
+      "toastTitle": "Votre résultat est prêt !",
+      "toastDescription": "Vous avez gagné {xp} XP et démarré votre série."
+    },
+    "wordOfDay": {
+      "wrongLength": "Votre mot doit faire {length} lettres",
+      "genericError": "Une erreur est survenue, réessayez",
+      "comeBackTomorrow": "Vous avez déjà joué aujourd'hui — revenez demain !",
+      "alreadyPlayedGuest": "Vous avez déjà joué au mot du jour.",
+      "seeResultCta": "Voir votre résultat",
+      "youWon": "Bravo, trouvé ! 🎉",
+      "youLost": "Presque ! Le mot du jour était {word}",
+      "xpAwarded": "+{xp} XP gagnés",
+      "inputPlaceholder": "Mot de {length} lettres",
+      "guessesLeft": "{count, plural, one {# essai restant} other {# essais restants}}",
+      "submitting": "Vérification de votre résultat..."
+    },
+    "photoOfDay": {
+      "photoAlt": "La photo mystère du jour",
+      "photoCredit": "Photo : {author}",
+      "inputPlaceholder": "Tapez un pays...",
+      "submitGuess": "Valider ma réponse",
+      "comeBackTomorrow": "Vous avez déjà joué aujourd'hui — revenez demain !",
+      "alreadyPlayedGuest": "Vous avez déjà joué à la photo du jour.",
+      "seeResultCta": "Voir votre résultat",
+      "youWon": "Bravo ! C'est {place}, en {country} 🎉",
+      "youLost": "Presque — c'était {place}, en {country}",
+      "xpAwarded": "+{xp} XP gagnés"
+    },
+    "mathTarget": {
+      "targetLabel": "Objectif",
+      "useThis": "Valider ce nombre",
+      "invalidOperation": "Opération non autorisée (pas de résultat négatif ou décimal)",
+      "submitting": "Vérification de votre résultat...",
+      "comeBackTomorrow": "Vous avez déjà joué aujourd'hui — revenez demain !",
+      "alreadyPlayedGuest": "Vous avez déjà joué au compte du jour.",
+      "seeResultCta": "Voir votre résultat",
+      "youWon": "Le compte est bon ! Vous avez trouvé {target} 🎉",
+      "youLost": "Vous avez atteint {reached}, l'objectif était {target}",
+      "xpAwarded": "+{xp} XP gagnés"
+    }
+  },
+  "TopicCarousel": {
+    "title": "Sujets populaires",
+    "subtitle": "Lancez-vous directement dans un quiz sur ce que tout le monde joue en ce moment.",
+    "cardDescription": "Créez un quiz sur ce sujet avec l'IA."
+  },
   "Login": {
     "tagline": "Faites progresser vos connaissances ⚡",
     "cardTitle": "Prêt à devenir plus malin ?",

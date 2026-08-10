@@ -415,7 +415,9 @@ export const ModelName = {
   NotificationPreference: 'NotificationPreference',
   NotificationLog: 'NotificationLog',
   Friendship: 'Friendship',
-  Referral: 'Referral'
+  Referral: 'Referral',
+  DailyGameChallenge: 'DailyGameChallenge',
+  GuestAttempt: 'GuestAttempt'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -431,7 +433,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "certificate" | "topicRecommendation" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "certificate" | "topicRecommendation" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1841,6 +1843,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    DailyGameChallenge: {
+      payload: Prisma.$DailyGameChallengePayload<ExtArgs>
+      fields: Prisma.DailyGameChallengeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DailyGameChallengeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyGameChallengePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DailyGameChallengeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyGameChallengePayload>
+        }
+        findFirst: {
+          args: Prisma.DailyGameChallengeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyGameChallengePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DailyGameChallengeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyGameChallengePayload>
+        }
+        findMany: {
+          args: Prisma.DailyGameChallengeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyGameChallengePayload>[]
+        }
+        create: {
+          args: Prisma.DailyGameChallengeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyGameChallengePayload>
+        }
+        createMany: {
+          args: Prisma.DailyGameChallengeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DailyGameChallengeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyGameChallengePayload>[]
+        }
+        delete: {
+          args: Prisma.DailyGameChallengeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyGameChallengePayload>
+        }
+        update: {
+          args: Prisma.DailyGameChallengeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyGameChallengePayload>
+        }
+        deleteMany: {
+          args: Prisma.DailyGameChallengeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DailyGameChallengeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DailyGameChallengeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyGameChallengePayload>[]
+        }
+        upsert: {
+          args: Prisma.DailyGameChallengeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DailyGameChallengePayload>
+        }
+        aggregate: {
+          args: Prisma.DailyGameChallengeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDailyGameChallenge>
+        }
+        groupBy: {
+          args: Prisma.DailyGameChallengeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DailyGameChallengeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DailyGameChallengeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DailyGameChallengeCountAggregateOutputType> | number
+        }
+      }
+    }
+    GuestAttempt: {
+      payload: Prisma.$GuestAttemptPayload<ExtArgs>
+      fields: Prisma.GuestAttemptFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GuestAttemptFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestAttemptPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GuestAttemptFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestAttemptPayload>
+        }
+        findFirst: {
+          args: Prisma.GuestAttemptFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestAttemptPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GuestAttemptFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestAttemptPayload>
+        }
+        findMany: {
+          args: Prisma.GuestAttemptFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestAttemptPayload>[]
+        }
+        create: {
+          args: Prisma.GuestAttemptCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestAttemptPayload>
+        }
+        createMany: {
+          args: Prisma.GuestAttemptCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GuestAttemptCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestAttemptPayload>[]
+        }
+        delete: {
+          args: Prisma.GuestAttemptDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestAttemptPayload>
+        }
+        update: {
+          args: Prisma.GuestAttemptUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestAttemptPayload>
+        }
+        deleteMany: {
+          args: Prisma.GuestAttemptDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GuestAttemptUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GuestAttemptUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestAttemptPayload>[]
+        }
+        upsert: {
+          args: Prisma.GuestAttemptUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestAttemptPayload>
+        }
+        aggregate: {
+          args: Prisma.GuestAttemptAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGuestAttempt>
+        }
+        groupBy: {
+          args: Prisma.GuestAttemptGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuestAttemptGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GuestAttemptCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuestAttemptCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2158,6 +2308,35 @@ export const ReferralScalarFieldEnum = {
 export type ReferralScalarFieldEnum = (typeof ReferralScalarFieldEnum)[keyof typeof ReferralScalarFieldEnum]
 
 
+export const DailyGameChallengeScalarFieldEnum = {
+  id: 'id',
+  gameKey: 'gameKey',
+  date: 'date',
+  language: 'language',
+  payload: 'payload',
+  createdAt: 'createdAt'
+} as const
+
+export type DailyGameChallengeScalarFieldEnum = (typeof DailyGameChallengeScalarFieldEnum)[keyof typeof DailyGameChallengeScalarFieldEnum]
+
+
+export const GuestAttemptScalarFieldEnum = {
+  id: 'id',
+  challengeId: 'challengeId',
+  gameKey: 'gameKey',
+  date: 'date',
+  guestId: 'guestId',
+  resultPayload: 'resultPayload',
+  isCorrect: 'isCorrect',
+  xpEarned: 'xpEarned',
+  claimedByUserId: 'claimedByUserId',
+  claimedAt: 'claimedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type GuestAttemptScalarFieldEnum = (typeof GuestAttemptScalarFieldEnum)[keyof typeof GuestAttemptScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2172,6 +2351,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -2351,6 +2537,20 @@ export type EnumFriendshipStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
 export type ListEnumFriendshipStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FriendshipStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'GuestGameKey'
+ */
+export type EnumGuestGameKeyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuestGameKey'>
+    
+
+
+/**
+ * Reference to a field of type 'GuestGameKey[]'
+ */
+export type ListEnumGuestGameKeyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuestGameKey[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -2521,6 +2721,8 @@ export type GlobalOmitConfig = {
   notificationLog?: Prisma.NotificationLogOmit
   friendship?: Prisma.FriendshipOmit
   referral?: Prisma.ReferralOmit
+  dailyGameChallenge?: Prisma.DailyGameChallengeOmit
+  guestAttempt?: Prisma.GuestAttemptOmit
 }
 
 /* Types for Logging */

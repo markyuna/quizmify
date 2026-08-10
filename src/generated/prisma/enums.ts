@@ -49,3 +49,12 @@ export const FriendshipStatus = {
 } as const
 
 export type FriendshipStatus = (typeof FriendshipStatus)[keyof typeof FriendshipStatus]
+
+
+export const GuestGameKey = {
+  word_of_day: 'word_of_day',
+  photo_of_day: 'photo_of_day',
+  math_target: 'math_target'
+} as const
+
+export type GuestGameKey = (typeof GuestGameKey)[keyof typeof GuestGameKey]

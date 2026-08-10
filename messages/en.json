@@ -62,6 +62,78 @@
     "ctaStartNow": "Start now",
     "ctaSeeProgress": "See your progress"
   },
+  "GuestGames": {
+    "carouselTitle": "Play today's games before you sign up",
+    "carouselSubtitle": "Try today's Word of the Day, Photo of the Day, and Make the Target — no account needed until you want to see your result.",
+    "comingSoon": "Coming soon",
+    "games": {
+      "wordOfDay": {
+        "title": "Word of the Day",
+        "teaser": "Guess a 6-8 letter word in a Wordle-style challenge, new every day."
+      },
+      "photoOfDay": {
+        "title": "Photo of the Day",
+        "teaser": "Look at today's photo and guess where in the world it was taken."
+      },
+      "mathTarget": {
+        "title": "Make the Target",
+        "teaser": "Combine the numbers with math operations to hit today's target."
+      }
+    },
+    "conversionModal": {
+      "title": "Create your account to see your result",
+      "description": "You just finished today's round — sign up to reveal your result and start your streak.",
+      "createWithEmail": "Create account with email",
+      "alreadyHaveAccount": "Already have an account?",
+      "signInLink": "Sign in"
+    },
+    "claim": {
+      "toastTitle": "Your result is in!",
+      "toastDescription": "You earned {xp} XP and started your streak."
+    },
+    "wordOfDay": {
+      "wrongLength": "Your guess must be {length} letters",
+      "genericError": "Something went wrong, try again",
+      "comeBackTomorrow": "You already played today — come back tomorrow!",
+      "alreadyPlayedGuest": "You already played today's word.",
+      "seeResultCta": "See your result",
+      "youWon": "You got it! 🎉",
+      "youLost": "So close! Today's word was {word}",
+      "xpAwarded": "+{xp} XP earned",
+      "inputPlaceholder": "{length}-letter word",
+      "guessesLeft": "{count, plural, one {# guess left} other {# guesses left}}",
+      "submitting": "Checking your result..."
+    },
+    "photoOfDay": {
+      "photoAlt": "Today's mystery photo",
+      "photoCredit": "Photo: {author}",
+      "inputPlaceholder": "Type a country...",
+      "submitGuess": "Submit guess",
+      "comeBackTomorrow": "You already played today — come back tomorrow!",
+      "alreadyPlayedGuest": "You already played today's photo.",
+      "seeResultCta": "See your result",
+      "youWon": "Correct! It's the {place} in {country} 🎉",
+      "youLost": "Not quite — it's the {place} in {country}",
+      "xpAwarded": "+{xp} XP earned"
+    },
+    "mathTarget": {
+      "targetLabel": "Target",
+      "useThis": "Use this",
+      "invalidOperation": "That operation isn't allowed (no negative or fractional results)",
+      "submitting": "Checking your result...",
+      "comeBackTomorrow": "You already played today — come back tomorrow!",
+      "alreadyPlayedGuest": "You already played today's target.",
+      "seeResultCta": "See your result",
+      "youWon": "Exact! You hit {target} 🎉",
+      "youLost": "You reached {reached}, target was {target}",
+      "xpAwarded": "+{xp} XP earned"
+    }
+  },
+  "TopicCarousel": {
+    "title": "Popular topics",
+    "subtitle": "Jump straight into a quiz on what everyone else is playing right now.",
+    "cardDescription": "Create a quiz on this topic with AI."
+  },
   "Login": {
     "tagline": "Level up your knowledge ⚡",
     "cardTitle": "Ready to get smarter?",

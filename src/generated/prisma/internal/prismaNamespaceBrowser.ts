@@ -69,7 +69,9 @@ export const ModelName = {
   NotificationPreference: 'NotificationPreference',
   NotificationLog: 'NotificationLog',
   Friendship: 'Friendship',
-  Referral: 'Referral'
+  Referral: 'Referral',
+  DailyGameChallenge: 'DailyGameChallenge',
+  GuestAttempt: 'GuestAttempt'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -366,6 +368,35 @@ export const ReferralScalarFieldEnum = {
 export type ReferralScalarFieldEnum = (typeof ReferralScalarFieldEnum)[keyof typeof ReferralScalarFieldEnum]
 
 
+export const DailyGameChallengeScalarFieldEnum = {
+  id: 'id',
+  gameKey: 'gameKey',
+  date: 'date',
+  language: 'language',
+  payload: 'payload',
+  createdAt: 'createdAt'
+} as const
+
+export type DailyGameChallengeScalarFieldEnum = (typeof DailyGameChallengeScalarFieldEnum)[keyof typeof DailyGameChallengeScalarFieldEnum]
+
+
+export const GuestAttemptScalarFieldEnum = {
+  id: 'id',
+  challengeId: 'challengeId',
+  gameKey: 'gameKey',
+  date: 'date',
+  guestId: 'guestId',
+  resultPayload: 'resultPayload',
+  isCorrect: 'isCorrect',
+  xpEarned: 'xpEarned',
+  claimedByUserId: 'claimedByUserId',
+  claimedAt: 'claimedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type GuestAttemptScalarFieldEnum = (typeof GuestAttemptScalarFieldEnum)[keyof typeof GuestAttemptScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -380,6 +411,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
