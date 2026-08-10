@@ -9,14 +9,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { prisma } from "@/lib/db";
+import { getRequestLocale } from "@/i18n/get-locale";
 
 import HotTopicsCloud from "./HotTopicsCloud";
 
 export default async function HotTopicsCard() {
   const t = await getTranslations("HotTopicsCard");
+  const language = await getRequestLocale();
+
   const topics = await prisma.game.groupBy({
     by: ["topic"],
-    where: { topic: { notIn: ["", "Practice Mistakes"] } },
+    where: {
+      topic: { notIn: ["", "Practice Mistakes"] },
+      language, // Filter by user's language
+    },
     _count: { topic: true },
     orderBy: { _count: { topic: "desc" } },
     take: 12,

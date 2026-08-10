@@ -4,7 +4,7 @@ import * as React from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Sparkles, Minus, Plus, Zap, PartyPopper, Puzzle, Lock } from "lucide-react";
@@ -124,9 +124,8 @@ export default function QuizCreation({ topicParam, isGuest }: QuizCreationProps)
     },
   });
 
-  const difficulty = form.watch("difficulty");
-  const amount = form.watch("amount");
-  const puzzleMode = form.watch("puzzleMode");
+  const amount = useWatch({ control: form.control, name: "amount" });
+  const puzzleMode = useWatch({ control: form.control, name: "puzzleMode" });
 
   const { mutate: createGame, isPending } = useMutation({
     mutationFn: async (values: QuizCreationInput) => {

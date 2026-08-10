@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Search, Loader2 } from "lucide-react";
@@ -89,10 +90,12 @@ export default function QuizSearchHero() {
     >
       {/* Background image with overlay */}
       <div className="absolute inset-0 -z-20">
-        <img
+        <Image
           src="/images/games/quiz-search-bg.webp"
           alt="Quiz search background"
-          className="h-full w-full object-cover"
+          fill
+          className="object-cover"
+          priority
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/50 to-black/60" />
       </div>
