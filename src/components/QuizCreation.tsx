@@ -24,10 +24,14 @@ import {
   FormMessage,
 } from "./ui/form";
 import { cn } from "@/lib/utils";
+import { useGuestId } from "@/hooks/useGuestRound";
 
 type QuizCreationProps = {
   topicParam: string;
+  isGuest: boolean;
 };
+
+const GUEST_MAX_QUESTIONS = 5;
 
 type QuizCreationInput = z.output<typeof quizCreationSchema>;
 
@@ -37,10 +41,14 @@ type CreateGameResponse = {
 
 const TOPIC_SUGGESTIONS = ["JavaScript", "History", "Biology", "Space", "Movies", "Math"];
 
-export default function QuizCreation({ topicParam }: QuizCreationProps) {
+export default function QuizCreation({ topicParam, isGuest }: QuizCreationProps) {
   const router = useRouter();
   const { toast } = useToast();
   const t = useTranslations("QuizCreation");
+  // Mints/reads the quizmify_guest cookie so it exists before the first
+  // POST /api/game -- the server reads it directly from the cookie, this
+  // call is only here to guarantee it's set in time.
+  useGuestId();
 
   const DIFFICULTIES = [
     { value: "easy" as const, label: t("difficultyEasy"), emoji: "🟢", desc: t("difficultyEasyDesc") },
@@ -50,7 +58,10 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
 
   const [showLoader, setShowLoader] = React.useState(false);
   const [finished, setFinished] = React.useState(false);
-  const [checkingEligibility, setCheckingEligibility] = React.useState(true);
+  // Guests skip the eligibility check entirely: that route requires a
+  // session and would 401, which would otherwise leave the form stuck in
+  // "checkingEligibility" forever.
+  const [checkingEligibility, setCheckingEligibility] = React.useState(!isGuest);
   const [isPro, setIsPro] = React.useState(false);
   // Purely a client-side routing choice (which play screen to land on after
   // creation) -- not part of quizCreationSchema, so it isn't sent to the
@@ -72,6 +83,8 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
   // enforcement lives server-side in POST /api/game, this just avoids
   // flashing a form the request would reject anyway.
   React.useEffect(() => {
+    if (isGuest) return;
+
     let cancelled = false;
 
     axios
@@ -92,7 +105,7 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
     return () => {
       cancelled = true;
     };
-  }, [router]);
+  }, [router, isGuest]);
 
   const normalizedTopic =
     topicParam && topicParam !== "undefined" && topicParam !== "null"
@@ -152,6 +165,15 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
             variant: "destructive",
           });
           router.push("/upgrade");
+          return;
+        }
+
+        if (error.response?.status === 403 && errorCode === "GUEST_LIMIT_REACHED") {
+          toast({
+            title: t("guestLimitTitle"),
+            description: t("guestLimitDescription"),
+            variant: "destructive",
+          });
           return;
         }
 
@@ -335,8 +357,12 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
 
                       <button
                         type="button"
-                        onClick={() => field.onChange(Math.min(20, field.value + 1))}
-                        disabled={field.value >= 20}
+                        onClick={() =>
+                          field.onChange(
+                            Math.min(isGuest ? GUEST_MAX_QUESTIONS : 20, field.value + 1)
+                          )
+                        }
+                        disabled={field.value >= (isGuest ? GUEST_MAX_QUESTIONS : 20)}
                         className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-600 transition hover:bg-slate-200 disabled:opacity-30 dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
                       >
                         <Plus className="h-4 w-4" />
@@ -405,6 +431,7 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
               )}
             />
 
+            {!isGuest && (
             <button
               type="button"
               onClick={() => {
@@ -454,7 +481,9 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
                 />
               </span>
             </button>
+            )}
 
+            {!isGuest && (
             <FormField
               control={form.control}
               name="puzzleMode"
@@ -525,6 +554,13 @@ export default function QuizCreation({ topicParam }: QuizCreationProps) {
                 </FormItem>
               )}
             />
+            )}
+
+            {isGuest && (
+              <p className="text-center text-xs font-medium text-slate-500 dark:text-slate-400">
+                {t("guestNotice")}
+              </p>
+            )}
 
             <Button
               disabled={isPending}

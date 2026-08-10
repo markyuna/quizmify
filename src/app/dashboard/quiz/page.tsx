@@ -26,5 +26,5 @@ export default async function QuizPage({ searchParams }: QuizPageProps) {
       ? searchParams.topic
       : "";
 
-  return <QuizCreation topicParam={topicParam} />;
+  return <QuizCreation topicParam={topicParam} isGuest={false} />;
 }

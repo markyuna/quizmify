@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import MCQ from "@/components/MCQ";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
+import { getGuestIdFromCookie } from "@/lib/guestQuiz";
 
 type MCQPageProps = {
   params: Promise<{
@@ -16,8 +17,10 @@ export const metadata = {
 
 export default async function MCQPage({ params }: MCQPageProps) {
   const session = await getAuthSession();
+  const userId = session?.user?.id ?? null;
+  const guestId = userId ? null : await getGuestIdFromCookie();
 
-  if (!session?.user?.id) {
+  if (!userId && !guestId) {
     redirect("/");
   }
 
@@ -30,8 +33,10 @@ export default async function MCQPage({ params }: MCQPageProps) {
   const game = await prisma.game.findFirst({
     where: {
       id: gameId,
-      userId: session.user.id,
       gameType: "mcq",
+      // Owner-scoped either way: a real user's own games, or the specific
+      // still-unclaimed guest game this browser's cookie created.
+      ...(userId ? { userId } : { guestId, userId: null }),
     },
     include: {
       questions: {
@@ -54,5 +59,5 @@ export default async function MCQPage({ params }: MCQPageProps) {
     redirect("/quiz");
   }
 
-  return <MCQ game={game} />;
+  return <MCQ game={game} isGuest={!userId} />;
 }

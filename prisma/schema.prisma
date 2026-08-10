@@ -105,7 +105,21 @@ model Game {
   topic              String
   difficulty         String?
   language           String     @default("en")
-  userId             String
+  // Nullable to support guest-played quizzes (see src/app/api/game/route.ts):
+  // exactly one of userId/guestId is set. userId is set for real users, and
+  // gets backfilled onto a guest's game by /api/guest/claim-quiz the moment
+  // they register -- guestId is left in place after that purely as a claim
+  // audit trail, never re-read for access control once claimedAt is set.
+  userId             String?
+  // Opaque id from the quizmify_guest cookie (same non-PII partition-key
+  // pattern as GuestAttempt.guestId in guestPlay.ts). Set only while a game
+  // has no owning account yet.
+  guestId            String?
+  // Set once, the first time a guest's game is migrated onto a real account
+  // by /api/guest/claim-quiz -- null means "still guest-owned, or always was
+  // a real user's game." Never re-applied once set (mirrors
+  // GuestAttempt.claimedByUserId/claimedAt).
+  claimedAt          DateTime?
   score              Int        @default(0)
   isTimed            Boolean    @default(false)
   timePerQuestionSec Int?
@@ -113,7 +127,7 @@ model Game {
   // batches (see src/lib/adaptiveDifficulty.ts). Null means "generated
   // upfront as one batch, no adaptation" -- the pre-existing behavior for
   // short quizzes and every non-/api/game creation path (daily challenge,
-  // Practice Mistakes).
+  // Practice Mistakes), and always the case for guest-played quizzes.
   plannedQuestionCount Int?
   // Set only when this game was created with Puzzle Mode (Pro-only): a
   // DALL-E image generated from the topic, persisted to Supabase Storage
@@ -121,13 +135,14 @@ model Game {
   // drives rendering the jigsaw reveal in MCQ.tsx -- there's no separate
   // boolean, since a game either has a puzzle image or it doesn't.
   puzzleImageUrl     String?
-  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   questions          Question[]
   attempts           Attempt[]
   trophies           Trophy[]
 
   @@index([userId])
   @@index([userId, timeStarted])
+  @@index([guestId])
 }
 
 model McqQuestion {

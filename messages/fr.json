@@ -65,6 +65,15 @@
   "GuestGames": {
     "carouselTitle": "Jouez aux jeux du jour avant de vous inscrire",
     "carouselSubtitle": "Essayez le Mot du Jour, la Photo du Jour et Le Compte est Bon — pas besoin de compte tant que vous ne voulez pas voir votre résultat.",
+    "quizSearchTitle": "Recherchez N'importe Quel Sujet",
+    "quizSearchSubtitle": "Tapez un sujet que vous voulez apprendre et nous générerons un quiz pour vous instantanément",
+    "quizSearchPlaceholder": "Par ex., Photosynthèse, Histoire de Rome, Machine Learning...",
+    "quizSearchCta": "Créer le quiz",
+    "guestSearchInfo": "Première fois ? Recherchez un sujet pour essayer un aperçu de 5 questions. Inscrivez-vous ensuite pour enregistrer vos résultats et déverrouiller plus de fonctionnalités.",
+    "guestSearchEmptyTopic": "Veuillez entrer un sujet",
+    "guestSearchInitializing": "Initialisation en cours... réessayez",
+    "guestSearchSearching": "Recherche en cours...",
+    "guestSearchNotFound": "Sujet non trouvé dans notre base de données. Inscrivez-vous pour créer un quiz personnalisé sur ce sujet.",
     "comingSoon": "Bientôt disponible",
     "games": {
       "wordOfDay": {
@@ -102,7 +111,26 @@
       "xpAwarded": "+{xp} XP gagnés",
       "inputPlaceholder": "Mot de {length} lettres",
       "guessesLeft": "{count, plural, one {# essai restant} other {# essais restants}}",
-      "submitting": "Vérification de votre résultat..."
+      "submitting": "Vérification de votre résultat...",
+      "guide": {
+        "title": "Comment jouer",
+        "show": "Afficher le guide",
+        "hide": "Masquer le guide",
+        "step1": "Entrez un mot avec les lettres que vous voulez tenter.",
+        "step2": "Observez les couleurs — chaque lettre change selon si elle est dans le mot du jour.",
+        "step3": "Vous avez 5 essais — utilisez ce que chaque essai vous apprend pour vous rapprocher de la réponse.",
+        "colorsTitle": "Signification des couleurs",
+        "legend": {
+          "correctLabel": "Vert",
+          "correctDesc": "Bonne lettre, bonne position",
+          "presentLabel": "Jaune",
+          "presentDesc": "Dans le mot, mauvaise position",
+          "absentLabel": "Gris",
+          "absentDesc": "Pas dans le mot"
+        },
+        "exampleTitle": "Exemple visuel",
+        "exampleCaption": "P et K ne sont pas dans le mot. A et S sont dans le mot, mais à la mauvaise position. L et le second A sont exactement à la bonne position."
+      }
     },
     "photoOfDay": {
       "photoAlt": "La photo mystère du jour",
@@ -199,7 +227,10 @@
     "freeLimitTitle": "Limite gratuite atteinte",
     "freeLimitDescription": "Vous avez atteint le plafond de niveau gratuit. Passez à Pro pour continuer à créer des quiz.",
     "puzzleRequiresProTitle": "Fonctionnalité Pro",
-    "puzzleRequiresProDescription": "Le mode puzzle est réservé aux utilisateurs Pro. Passez à Pro pour le débloquer."
+    "puzzleRequiresProDescription": "Le mode puzzle est réservé aux utilisateurs Pro. Passez à Pro pour le débloquer.",
+    "guestNotice": "Vous pourrez voir votre résultat en créant votre compte.",
+    "guestLimitTitle": "Vous avez déjà joué votre quiz gratuit",
+    "guestLimitDescription": "Créez un compte pour continuer à jouer et sauvegarder votre progression."
   },
   "LoadingQuestions": {
     "loadingTexts": [

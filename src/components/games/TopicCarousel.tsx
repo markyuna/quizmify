@@ -3,27 +3,27 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { Compass } from "lucide-react";
 
-import { getAllTopics } from "@/lib/topics";
+import { getLatestTopics } from "@/lib/topics";
 import { getTopicImage } from "@/lib/topicImages";
 import { getRequestLocale } from "@/i18n/get-locale";
 
 /**
- * A plain Server Component: fetches the full topic catalog directly
+ * A plain Server Component: fetches the latest-topics list directly
  * (rather than round-tripping through GET /api/topics/popular, which serves
- * a different, capped "top 10" list for other callers) so the cards are
+ * a different, usage-ranked list for other callers) so the cards are
  * present in the initial HTML. This route is already dynamically rendered
  * per-request -- HomePage calls getAuthSession(), which reads cookies() and
  * opts the whole tree out of static rendering -- so a freshly created topic
  * shows up on the very next load with no extra cache-invalidation plumbing
  * needed. Renders nothing when the Supabase cache has no active topics yet
- * for this language -- there's no empty-state copy to show for a "trending
- * topics" shelf with zero trends.
+ * for this language -- there's no empty-state copy to show for a "recent
+ * topics" shelf with zero topics.
  */
 export default async function TopicCarousel() {
   const t = await getTranslations("TopicCarousel");
   const locale = await getRequestLocale();
 
-  const topics = await getAllTopics(locale);
+  const topics = await getLatestTopics(locale);
 
   if (topics.length === 0) return null;
 

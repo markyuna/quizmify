@@ -65,6 +65,15 @@
   "GuestGames": {
     "carouselTitle": "Play today's games before you sign up",
     "carouselSubtitle": "Try today's Word of the Day, Photo of the Day, and Make the Target — no account needed until you want to see your result.",
+    "quizSearchTitle": "Search Any Topic",
+    "quizSearchSubtitle": "Type a topic you want to learn about and we'll generate a quiz for you instantly",
+    "quizSearchPlaceholder": "e.g., Photosynthesis, History of Rome, Machine Learning...",
+    "quizSearchCta": "Create quiz",
+    "guestSearchInfo": "First time? Search a topic to try a 5-question preview. Sign up after to save your results and unlock more features.",
+    "guestSearchEmptyTopic": "Please enter a topic",
+    "guestSearchInitializing": "Initializing... please try again",
+    "guestSearchSearching": "Searching...",
+    "guestSearchNotFound": "Topic not found in our database. Please sign up to create a custom quiz for this topic.",
     "comingSoon": "Coming soon",
     "games": {
       "wordOfDay": {
@@ -102,7 +111,26 @@
       "xpAwarded": "+{xp} XP earned",
       "inputPlaceholder": "{length}-letter word",
       "guessesLeft": "{count, plural, one {# guess left} other {# guesses left}}",
-      "submitting": "Checking your result..."
+      "submitting": "Checking your result...",
+      "guide": {
+        "title": "How to play",
+        "show": "Show guide",
+        "hide": "Hide guide",
+        "step1": "Enter a word using the letters you'd guess with.",
+        "step2": "Watch the colors — each letter changes based on whether it's in today's word.",
+        "step3": "You have 5 tries — use what you learn from each guess to close in on the answer.",
+        "colorsTitle": "What the colors mean",
+        "legend": {
+          "correctLabel": "Green",
+          "correctDesc": "Right letter, right spot",
+          "presentLabel": "Yellow",
+          "presentDesc": "In the word, wrong spot",
+          "absentLabel": "Gray",
+          "absentDesc": "Not in the word"
+        },
+        "exampleTitle": "Visual example",
+        "exampleCaption": "P and K aren't in the word. A and S are in the word, but in the wrong spot. L and the second A are in exactly the right spot."
+      }
     },
     "photoOfDay": {
       "photoAlt": "Today's mystery photo",
@@ -199,7 +227,10 @@
     "freeLimitTitle": "Free limit reached",
     "freeLimitDescription": "You've hit the free level cap. Upgrade to Pro to keep creating quizzes.",
     "puzzleRequiresProTitle": "Pro feature",
-    "puzzleRequiresProDescription": "Puzzle mode is Pro-only. Upgrade to unlock it."
+    "puzzleRequiresProDescription": "Puzzle mode is Pro-only. Upgrade to unlock it.",
+    "guestNotice": "You'll be able to see your result once you create an account.",
+    "guestLimitTitle": "You've already played your free quiz",
+    "guestLimitDescription": "Create an account to keep playing and save your progress."
   },
   "LoadingQuestions": {
     "loadingTexts": [

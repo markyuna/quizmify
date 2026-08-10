@@ -915,10 +915,12 @@ export type UserCreateNestedOneWithoutGamesInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutGamesNestedInput = {
+export type UserUpdateOneWithoutGamesNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutGamesInput, Prisma.UserUncheckedCreateWithoutGamesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutGamesInput
   upsert?: Prisma.UserUpsertWithoutGamesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGamesInput, Prisma.UserUpdateWithoutGamesInput>, Prisma.UserUncheckedUpdateWithoutGamesInput>
 }

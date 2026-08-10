@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import { useToast } from "@/components/ui/use-toast";
@@ -18,10 +18,20 @@ function clearCookie(name: string) {
   document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax`;
 }
 
+type ClaimResponse = {
+  reason?: string;
+  success?: boolean;
+  claimedCount?: number;
+  xpAwarded?: number;
+};
+
+type ClaimQuizResponse = ClaimResponse & { gameId?: string | null };
+
 /**
- * Migrates a guest's daily game attempt(s) onto their account the moment
- * they authenticate, however they got there (Google OAuth, email register,
- * or plain login on a device where they already have an account). Mirrors
+ * Migrates a guest's daily game attempt(s) *and* their played-but-unclaimed
+ * quiz (see /api/guest/claim-quiz) onto their account the moment they
+ * authenticate, however they got there (Google OAuth, email register, or
+ * plain login on a device where they already have an account). Mirrors
  * ReferralCapture.tsx's cookie + retry pattern exactly: mounted once in the
  * root layout, which Next.js does not remount on client-side navigation, so
  * this depends on `pathname` (not a one-shot effect) to get a fresh chance
@@ -31,6 +41,7 @@ function clearCookie(name: string) {
  */
 export default function GuestRoundClaim() {
   const pathname = usePathname();
+  const router = useRouter();
   const { toast } = useToast();
   const t = useTranslations("GuestGames.claim");
 
@@ -40,33 +51,51 @@ export default function GuestRoundClaim() {
     const guestId = getCookie(GUEST_ID_COOKIE);
     if (!guestId) return;
 
-    fetch("/api/guest/claim", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ guestId }),
-    })
-      .then(async (res) => {
-        const data = await res.json().catch(() => ({}));
-
-        // Not authenticated yet -- leave the cookie and the flag alone so a
-        // later, authenticated page load retries instead of this premature
-        // attempt permanently swallowing the claim.
-        if (data?.reason === "unauthenticated") return;
+    Promise.all([
+      fetch("/api/guest/claim", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ guestId }),
+      }).then((res) => res.json().catch(() => ({}))) as Promise<ClaimResponse>,
+      fetch("/api/guest/claim-quiz", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ guestId }),
+      }).then((res) => res.json().catch(() => ({}))) as Promise<ClaimQuizResponse>,
+    ])
+      .then(([roundsData, quizData]) => {
+        // Either endpoint reporting "still unauthenticated" means the
+        // account didn't actually exist yet when this fired (e.g. still on
+        // the registration form) -- leave the cookie and the flag alone so
+        // a later, authenticated page load retries both together instead of
+        // this premature attempt permanently swallowing the claim.
+        if (roundsData?.reason === "unauthenticated" || quizData?.reason === "unauthenticated") return;
 
         sessionStorage.setItem(CLAIM_ATTEMPTED_FLAG, "1");
         clearCookie(GUEST_ID_COOKIE);
 
-        if (data?.success && data.claimedCount > 0) {
+        const claimedAnything =
+          (roundsData?.success && (roundsData.claimedCount ?? 0) > 0) ||
+          (quizData?.success && (quizData.claimedCount ?? 0) > 0);
+
+        if (claimedAnything) {
+          const totalXp = (roundsData?.xpAwarded ?? 0) + (quizData?.xpAwarded ?? 0);
           toast({
             title: t("toastTitle"),
-            description: t("toastDescription", { xp: data.xpAwarded }),
+            description: t("toastDescription", { xp: totalXp }),
           });
+        }
+
+        // A claimed quiz has a real result now -- send them straight to it
+        // instead of leaving them on whatever page they registered from.
+        if (quizData?.success && quizData.gameId) {
+          router.push(`/statistics/${quizData.gameId}`);
         }
       })
       .catch(() => {
         /* network hiccup -- leave everything alone, retry on next page */
       });
-  }, [pathname, toast, t]);
+  }, [pathname, toast, t, router]);
 
   return null;
 }

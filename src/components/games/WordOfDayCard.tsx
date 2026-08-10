@@ -10,10 +10,13 @@ import { cn } from "@/lib/utils";
 import { useGuestId, useGuestChallenge, useSubmitGuestAnswer } from "@/hooks/useGuestRound";
 import ConversionModal from "./ConversionModal";
 
-type LetterStatus = "correct" | "present" | "absent";
+export type LetterStatus = "correct" | "present" | "absent";
 type GuessRow = { word: string; feedback: LetterStatus[] };
 
-const TILE_CLASSES: Record<LetterStatus, string> = {
+// Exported so WordOfDayGuide.tsx's color legend/example tiles render with
+// the exact same colors as a real guess row, instead of a second hardcoded
+// copy that could drift out of sync.
+export const TILE_CLASSES: Record<LetterStatus, string> = {
   correct: "bg-emerald-500 border-emerald-500 text-white",
   present: "bg-amber-400 border-amber-400 text-white",
   absent: "bg-slate-300 border-slate-300 text-white dark:bg-slate-600 dark:border-slate-600",

@@ -2095,6 +2095,8 @@ export const GameScalarFieldEnum = {
   difficulty: 'difficulty',
   language: 'language',
   userId: 'userId',
+  guestId: 'guestId',
+  claimedAt: 'claimedAt',
   score: 'score',
   isTimed: 'isTimed',
   timePerQuestionSec: 'timePerQuestionSec',

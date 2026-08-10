@@ -12,6 +12,12 @@ import { normalizeTopic, normalizeDifficulty } from "@/lib/questionGeneration";
 import { sourceQuestions, incrementUsageCount } from "@/lib/questionSourcing";
 import { MIN_QUESTIONS_FOR_ADAPTIVE_DIFFICULTY, splitIntoBatches } from "@/lib/adaptiveDifficulty";
 import { generatePuzzleImage, PuzzleImageError } from "@/lib/puzzleImage";
+import { getGuestIdFromCookie } from "@/lib/guestQuiz";
+
+// A guest is capped well below the adaptive-difficulty threshold and never
+// gets Puzzle Mode (DALL-E generation), so a single unauthenticated request
+// can't be scripted into unbounded OpenAI cost.
+const GUEST_MAX_QUESTIONS = 5;
 
 function jsonError(message: string, status: number, details?: unknown) {
   return NextResponse.json(
@@ -23,17 +29,36 @@ function jsonError(message: string, status: number, details?: unknown) {
 export async function POST(req: Request) {
   try {
     const session = await getAuthSession();
+    const userId = session?.user?.id ?? null;
+    const guestId = userId ? null : await getGuestIdFromCookie();
 
-    if (!session?.user?.id) {
+    if (!userId && !guestId) {
       return jsonError("Unauthorized", 401);
     }
 
-    if (await isUserAtFreeLimit(session.user.id)) {
+    if (userId && (await isUserAtFreeLimit(userId))) {
       return jsonError("FREE_LIMIT_REACHED", 403);
     }
 
     const body = await req.json();
     const parsedBody = quizCreationSchema.parse(body);
+
+    if (guestId) {
+      // Abuse brake: one guest-played quiz per guestId, enforced here (not
+      // just in the UI) since the cookie is client-controlled.
+      const existingGuestGames = await prisma.game.count({
+        where: { guestId, userId: null },
+      });
+      if (existingGuestGames >= 1) {
+        return jsonError("GUEST_LIMIT_REACHED", 403);
+      }
+      if (parsedBody.puzzleMode) {
+        return jsonError("PUZZLE_REQUIRES_PRO", 403);
+      }
+      if (parsedBody.amount > GUEST_MAX_QUESTIONS) {
+        return jsonError("GUEST_AMOUNT_LIMIT", 400);
+      }
+    }
 
     const topic = normalizeTopic(parsedBody.topic);
     const amount = parsedBody.amount;
@@ -43,15 +68,17 @@ export async function POST(req: Request) {
     const isTimed = parsedBody.isTimed;
     const puzzleMode = parsedBody.puzzleMode;
 
-    if (puzzleMode && !(await isUserPro(session.user.id))) {
+    if (puzzleMode && (!userId || !(await isUserPro(userId)))) {
       return jsonError("PUZZLE_REQUIRES_PRO", 403);
     }
 
     // Long enough quizzes generate only the first half of questions now,
     // then adjust difficulty from in-quiz performance and generate the
     // rest via /api/game/[gameId]/next-batch once the user reaches it --
-    // see src/lib/adaptiveDifficulty.ts.
-    const useAdaptiveDifficulty = amount >= MIN_QUESTIONS_FOR_ADAPTIVE_DIFFICULTY;
+    // see src/lib/adaptiveDifficulty.ts. Guests never get adaptive
+    // difficulty (next-batch requires a session), so everything is
+    // generated in one batch for them regardless of amount.
+    const useAdaptiveDifficulty = !guestId && amount >= MIN_QUESTIONS_FOR_ADAPTIVE_DIFFICULTY;
     const { firstBatch } = splitIntoBatches(amount);
     const requestAmount = useAdaptiveDifficulty ? firstBatch : amount;
 
@@ -90,7 +117,8 @@ export async function POST(req: Request) {
         data: {
           gameType: "mcq",
           timeStarted: new Date(),
-          userId: session.user.id,
+          userId,
+          guestId,
           topic,
           difficulty,
           language,

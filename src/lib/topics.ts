@@ -53,38 +53,66 @@ export async function getPopularTopics(language: Locale): Promise<string[]> {
     .map((entry) => entry.topic);
 }
 
+const LATEST_TOPICS_LIMIT = 5;
+// Rows fetched before dedup, not cards shown. Needs to be generous, not just
+// a small multiple of LATEST_TOPICS_LIMIT: sourceQuestions() grows a topic's
+// cache pool a batch at a time (poolTarget = amount * 3 in
+// questionSourcing.ts), so dozens of consecutive rows can belong to the same
+// one or two topics before a genuinely different topic shows up -- a small
+// fetch limit can scan straight through a sparse language's whole recent
+// history without ever finding LATEST_TOPICS_LIMIT distinct topics.
+const LATEST_TOPICS_FETCH_LIMIT = 200;
+
 /**
- * Every distinct quiz topic cached for `language`, alphabetized, with no
- * cap -- unlike getPopularTopics this isn't "top N by usage," it's the full
- * catalog. Grouped case-insensitively for the same reason as above (the
- * cache accumulates whatever casing each request happened to send; a plain
- * Set() over raw strings would list "javascript" and "JavaScript" as two
- * separate entries), keeping whichever casing was seen first per group.
- * Swallows Supabase errors into an empty list rather than throwing, since
- * callers use this for a homepage shelf that should just render nothing on
- * failure rather than take the page down with it.
+ * The most recently created quiz topics for `language`, newest first,
+ * capped at LATEST_TOPICS_LIMIT. Grouped case-insensitively (the cache
+ * accumulates whatever casing each request happened to send; a plain Set()
+ * over raw strings would list "javascript" and "JavaScript" as two separate
+ * cards), keeping whichever casing was seen first -- which, since rows
+ * already arrive newest-first, is also the most recent casing. Swallows
+ * Supabase errors into an empty list rather than throwing, since callers
+ * use this for a homepage shelf that should just render nothing on failure
+ * rather than take the page down with it.
  */
-export async function getAllTopics(language: Locale): Promise<string[]> {
+export async function getLatestTopics(language: Locale): Promise<string[]> {
+  console.log(`Fetching latest topics for language: ${language}`);
+
   const { data, error } = await getSupabaseAdmin()
     .from("mcq_questions")
-    .select("topic")
+    .select("topic, created_at, language")
     .eq("language", language)
-    .eq("is_active", true);
+    .eq("is_active", true)
+    .order("created_at", { ascending: false })
+    .limit(LATEST_TOPICS_FETCH_LIMIT);
 
   if (error) {
-    console.error(`Supabase fetch error: ${error.message}`);
+    console.error(`Supabase fetch error for language ${language}: ${error.message}`);
     return [];
   }
 
-  const byKey = new Map<string, string>();
+  console.log(`Found ${data?.length ?? 0} rows for language ${language}`);
 
-  for (const row of (data ?? []) as { topic: string }[]) {
+  const seen = new Set<string>();
+  const topics: string[] = [];
+
+  for (const row of (data ?? []) as { topic: string; language: string }[]) {
     const topic = row.topic?.trim();
     if (!topic) continue;
 
+    // Extra safety check: ensure language matches
+    if (row.language !== language) {
+      console.warn(`Skipping topic "${topic}" with language ${row.language}, expected ${language}`);
+      continue;
+    }
+
     const key = topic.toLowerCase();
-    if (!byKey.has(key)) byKey.set(key, topic);
+    if (seen.has(key)) continue;
+
+    seen.add(key);
+    topics.push(topic);
+    if (topics.length === LATEST_TOPICS_LIMIT) break;
   }
 
-  return Array.from(byKey.values()).sort((a, b) => a.localeCompare(b));
+  console.log(`Returning ${topics.length} topics for language ${language}:`, topics);
+  return topics;
 }

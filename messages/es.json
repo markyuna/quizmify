@@ -65,6 +65,15 @@
   "GuestGames": {
     "carouselTitle": "Jugá los juegos de hoy antes de registrarte",
     "carouselSubtitle": "Probá la Palabra del Día, la Foto del Día y Cuenta Perfecta — no necesitás una cuenta hasta que quieras ver tu resultado.",
+    "quizSearchTitle": "Buscá Cualquier Tema",
+    "quizSearchSubtitle": "Escribí un tema que quieras aprender y generaremos un quiz para vos al instante",
+    "quizSearchPlaceholder": "Por ej., Fotosíntesis, Historia de Roma, Machine Learning...",
+    "quizSearchCta": "Crear quiz",
+    "guestSearchInfo": "¿Primera vez? Buscá un tema para probar una vista previa de 5 preguntas. Registrate después para guardar tus resultados y desbloquear más funciones.",
+    "guestSearchEmptyTopic": "Ingresá un tema, por favor",
+    "guestSearchInitializing": "Inicializando... intentá de nuevo",
+    "guestSearchSearching": "Buscando...",
+    "guestSearchNotFound": "Tema no encontrado en nuestra base de datos. Registrate para crear un quiz personalizado sobre este tema.",
     "comingSoon": "Próximamente",
     "games": {
       "wordOfDay": {
@@ -102,7 +111,26 @@
       "xpAwarded": "+{xp} XP ganados",
       "inputPlaceholder": "Palabra de {length} letras",
       "guessesLeft": "{count, plural, one {# intento restante} other {# intentos restantes}}",
-      "submitting": "Revisando tu resultado..."
+      "submitting": "Revisando tu resultado...",
+      "guide": {
+        "title": "Cómo jugar",
+        "show": "Mostrar guía",
+        "hide": "Ocultar guía",
+        "step1": "Ingresá una palabra usando las letras con las que querés arriesgar.",
+        "step2": "Observá los colores — cada letra cambia según si está en la palabra de hoy.",
+        "step3": "Tenés 5 intentos — usá lo que aprendés en cada uno para acercarte a la respuesta.",
+        "colorsTitle": "Qué significan los colores",
+        "legend": {
+          "correctLabel": "Verde",
+          "correctDesc": "Letra correcta, en la posición correcta",
+          "presentLabel": "Amarillo",
+          "presentDesc": "Está en la palabra, pero en otra posición",
+          "absentLabel": "Gris",
+          "absentDesc": "No está en la palabra"
+        },
+        "exampleTitle": "Ejemplo visual",
+        "exampleCaption": "P y K no están en la palabra. A y S están en la palabra, pero en otra posición. L y la segunda A están exactamente en su posición correcta."
+      }
     },
     "photoOfDay": {
       "photoAlt": "La foto misteriosa de hoy",
@@ -199,7 +227,10 @@
     "freeLimitTitle": "Límite gratuito alcanzado",
     "freeLimitDescription": "Llegaste al tope de nivel gratuito. Actualizá a Pro para seguir creando quizzes.",
     "puzzleRequiresProTitle": "Función Pro",
-    "puzzleRequiresProDescription": "El modo rompecabezas es exclusivo para usuarios Pro. Actualizá para desbloquearlo."
+    "puzzleRequiresProDescription": "El modo rompecabezas es exclusivo para usuarios Pro. Actualizá para desbloquearlo.",
+    "guestNotice": "Vas a poder ver tu resultado al crear tu cuenta.",
+    "guestLimitTitle": "Ya jugaste tu quiz gratis",
+    "guestLimitDescription": "Creá una cuenta para seguir jugando y guardar tu progreso."
   },
   "LoadingQuestions": {
     "loadingTexts": [

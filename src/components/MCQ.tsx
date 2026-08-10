@@ -33,6 +33,7 @@ import TrialOfferButton from "./TrialOfferButton";
 import TrophyModal from "./trophy/TrophyModal";
 import Globe3D from "./globe/Globe3D";
 import PuzzleReveal from "./PuzzleReveal";
+import ConversionModal from "./games/ConversionModal";
 import { Button, buttonVariants } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import { cn, formatTimeDelta } from "@/lib/utils";
@@ -51,6 +52,14 @@ type MCQProps = {
   game: Game & {
     questions: QuestionWithOptions[];
   };
+  // True when this game has no owning account yet (played via the guestId
+  // cookie, see /app/play/mcq/[gameId]/page.tsx). Guests play the full quiz
+  // normally -- per-question feedback still works -- but the result screen
+  // is replaced by a blocking ConversionModal instead of score/XP, and
+  // POST /api/quiz/submit (which requires a session) is never called.
+  // Registering claims the game via /api/guest/claim-quiz, which applies
+  // the same score/XP after the fact.
+  isGuest: boolean;
 };
 
 type CheckAnswerResponse = {
@@ -91,7 +100,7 @@ type SubmitQuizResponse = {
   trophyReason: TrophyReason;
 };
 
-const MCQ = ({ game }: MCQProps) => {
+const MCQ = ({ game, isGuest }: MCQProps) => {
   const router = useRouter();
   const { toast } = useToast();
   const t = useTranslations("MCQ");
@@ -307,6 +316,15 @@ const MCQ = ({ game }: MCQProps) => {
     const frozenElapsedSeconds = differenceInSeconds(new Date(), timeStartedAt);
     setFinalElapsedSeconds(frozenElapsedSeconds);
 
+    // Guests have no session, so /api/quiz/submit (which requires one) is
+    // never called -- there's no score/XP to save yet. The result stays
+    // behind ConversionModal until /api/guest/claim-quiz applies it on
+    // registration.
+    if (isGuest) {
+      setQuizFinished(true);
+      return;
+    }
+
     submitQuiz({
       gameId: game.id,
       timeSpent: frozenElapsedSeconds,
@@ -349,6 +367,14 @@ const MCQ = ({ game }: MCQProps) => {
           <p className="text-xl font-bold text-slate-900 dark:text-white">{t("noQuestionsFound")}</p>
           <Link href="/quiz" className={cn(buttonVariants(), "mt-4")}>{t("backToQuiz")}</Link>
         </div>
+      </div>
+    );
+  }
+
+  if (quizFinished && isGuest) {
+    return (
+      <div className="flex min-h-[70vh] items-center justify-center px-4">
+        <ConversionModal open onOpenChange={() => {}} />
       </div>
     );
   }
