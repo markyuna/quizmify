@@ -7,8 +7,8 @@ const nextConfig = {
   // pdfkit reads its bundled AFM font metrics via fs.readFileSync relative
   // to its own __dirname; letting Next.js bundle it into the Server
   // Components graph rewrites that path and breaks the lookup. Opting it
-  // out keeps it as a native `require`, which also traces correctly for
-  // `output: standalone`.
+  // out keeps it as a native `require`, which traces correctly under
+  // Vercel's own build output tracing.
   serverExternalPackages: ["pdfkit"],
   images: {
     remotePatterns: [
@@ -30,7 +30,6 @@ const nextConfig = {
       },
     ],
   },
-  output: "standalone",
 };
 
 export default withNextIntl(nextConfig);
