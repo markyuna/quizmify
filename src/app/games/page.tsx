@@ -15,10 +15,10 @@ import { cn } from "@/lib/utils";
 
 type GameKey = "word-of-day" | "photo-of-day" | "math-target";
 
-const GAMES: Array<{ key: GameKey; titleKey: string; teaserKey: string }> = [
-  { key: "word-of-day", titleKey: "games.wordOfDay.title", teaserKey: "games.wordOfDay.teaser" },
-  { key: "photo-of-day", titleKey: "games.photoOfDay.title", teaserKey: "games.photoOfDay.teaser" },
-  { key: "math-target", titleKey: "games.mathTarget.title", teaserKey: "games.mathTarget.teaser" },
+const GAMES: Array<{ key: GameKey; titleKey: string; teaserKey: string; image: string }> = [
+  { key: "word-of-day", titleKey: "games.wordOfDay.title", teaserKey: "games.wordOfDay.teaser", image: "/images/games/mot-du-jour-bg.webp" },
+  { key: "photo-of-day", titleKey: "games.photoOfDay.title", teaserKey: "games.photoOfDay.teaser", image: "/images/games/photo-du-jour-bg.webp" },
+  { key: "math-target", titleKey: "games.mathTarget.title", teaserKey: "games.mathTarget.teaser", image: "/images/games/compte-est-bon-bg.webp" },
 ];
 
 const QUIZ_SEARCH_BACKGROUND = "/images/games/quiz-search-bg.webp";
@@ -76,13 +76,21 @@ function GamesContent() {
                 type="button"
                 onClick={() => setSelectedGame(game.key)}
                 className={cn(
-                  "block w-full rounded-lg px-4 py-3 text-left transition",
+                  "flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left transition",
                   selectedGame === game.key
                     ? "bg-violet-600 font-semibold text-white"
                     : "text-slate-900 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-white/10"
                 )}
               >
-                → {t(game.titleKey)}
+                <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded">
+                  <Image
+                    src={game.image}
+                    alt={t(game.titleKey)}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <span className="truncate">→ {t(game.titleKey)}</span>
               </button>
             ))}
           </div>

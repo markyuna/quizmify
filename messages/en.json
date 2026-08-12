@@ -5,6 +5,7 @@
   "UserMenu": {
     "dashboard": "Dashboard",
     "quiz": "Quiz",
+    "games": "Games",
     "history": "History",
     "leaderboard": "Leaderboard",
     "myAccount": "My Account",

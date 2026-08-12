@@ -5,6 +5,7 @@
   "UserMenu": {
     "dashboard": "Panel",
     "quiz": "Quiz",
+    "games": "Juegos",
     "history": "Historial",
     "leaderboard": "Ranking",
     "myAccount": "Mi cuenta",
