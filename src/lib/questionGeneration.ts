@@ -110,9 +110,9 @@ export async function generateQuestionsWithAI(params: {
   const avoidList = existingQuestions.slice(0, 60);
   const avoidBlock =
     avoidList.length > 0
-      ? `\n\nDo NOT repeat, rephrase, or closely paraphrase any of these existing questions:\n${avoidList
-          .map((q) => `- ${q}`)
-          .join("\n")}`
+      ? `\n\n**CRITICAL: Do NOT repeat, rephrase, or closely paraphrase ANY of these existing questions:**\n${avoidList
+          .map((q, i) => `${i + 1}. ${q}`)
+          .join("\n")}\n\nEach generated question MUST be completely different from all the above.`
       : "";
 
   const countryField = isGeography
@@ -128,11 +128,21 @@ export async function generateQuestionsWithAI(params: {
     messages: [
       {
         role: "developer",
-        content: `Generate high-quality multiple-choice quiz questions entirely in ${languageName}. Return only valid JSON. Each question must have exactly 4 options and exactly 1 correct answer. Avoid duplicates.`,
+        content: `You are a quiz question generator. Generate high-quality, diverse multiple-choice quiz questions entirely in ${languageName}. Return only valid JSON.
+
+CRITICAL RULES:
+1. Each question must have exactly 4 options and exactly 1 correct answer
+2. Each of the ${amount} questions MUST be COMPLETELY UNIQUE - NO DUPLICATES ALLOWED
+3. Each question must ask about a DIFFERENT aspect of the topic
+4. Do NOT repeat, rephrase, or reword any similar questions`,
       },
       {
         role: "user",
-        content: `Generate ${amount} multiple-choice quiz questions about "${topic}" with difficulty "${difficulty}". Write the question, options, and explanation entirely in ${languageName}.
+        content: `Generate ${amount} UNIQUE multiple-choice quiz questions about "${topic}" with difficulty "${difficulty}".
+
+IMPORTANT: Make sure ALL ${amount} questions are COMPLETELY DIFFERENT from each other. Each question should ask about a different aspect, angle, or detail of "${topic}".
+
+Write the question, options, and explanation entirely in ${languageName}.
 
 Return a JSON object with this exact structure:
 {
@@ -152,7 +162,8 @@ Rules:
 - the correct answer must appear in options
 - concise and clear ${languageName}
 - no markdown
-- no extra text${countryRule}${avoidBlock}`,
+- no extra text
+- ALL questions must be unique and non-repetitive${countryRule}${avoidBlock}`,
       },
     ],
     response_format: { type: "json_object" },
@@ -168,11 +179,41 @@ Rules:
   const parsedJson = JSON.parse(content);
   const parsed = generatedQuestionsSchema.parse(parsedJson);
 
-  return parsed.questions.map((q) => ({
+  const questions = parsed.questions.map((q) => ({
     question: q.question.trim(),
     options: ensureValidOptions(q.options, q.correct_answer),
     correct_answer: q.correct_answer.trim(),
     explanation: q.explanation.trim(),
     country: q.country?.trim() || null,
   }));
+
+  // Validate that all generated questions are unique
+  const uniqueQuestions = dedupeQuestions(questions);
+  if (uniqueQuestions.length < questions.length) {
+    console.warn(
+      `⚠️ AI generated ${questions.length} questions but ${uniqueQuestions.length} are unique. ` +
+        `Duplicates detected and removed. Requesting regeneration of ${questions.length - uniqueQuestions.length} questions.`
+    );
+
+    // If we lost questions to deduplication, regenerate the missing ones
+    const missingCount = questions.length - uniqueQuestions.length;
+    const existingAndGenerated = [...existingQuestions, ...uniqueQuestions.map(q => q.question)];
+
+    try {
+      const additionalQuestions = await generateQuestionsWithAI({
+        topic,
+        difficulty,
+        language,
+        amount: missingCount,
+        isGeography,
+        existingQuestions: existingAndGenerated,
+      });
+      return [...uniqueQuestions, ...additionalQuestions];
+    } catch (error) {
+      console.error("Failed to regenerate missing questions:", error);
+      return uniqueQuestions;
+    }
+  }
+
+  return questions;
 }

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { Search } from "lucide-react";
+import { Search, Brain } from "lucide-react";
 
 import WordOfDayCard from "@/components/games/WordOfDayCard";
 import WordOfDayGuide from "@/components/games/WordOfDayGuide";
@@ -13,12 +13,13 @@ import PhotoOfDayCard from "@/components/games/PhotoOfDayCard";
 import MathTargetCard from "@/components/games/MathTargetCard";
 import { cn } from "@/lib/utils";
 
-type GameKey = "word-of-day" | "photo-of-day" | "math-target";
+type GameKey = "word-of-day" | "photo-of-day" | "math-target" | "personality-test";
 
-const GAMES: Array<{ key: GameKey; titleKey: string; teaserKey: string; image: string }> = [
+const GAMES: Array<{ key: GameKey; titleKey: string; teaserKey: string; image?: string; icon?: typeof Brain }> = [
   { key: "word-of-day", titleKey: "games.wordOfDay.title", teaserKey: "games.wordOfDay.teaser", image: "/images/games/mot-du-jour-bg.webp" },
   { key: "photo-of-day", titleKey: "games.photoOfDay.title", teaserKey: "games.photoOfDay.teaser", image: "/images/games/photo-du-jour-bg.webp" },
   { key: "math-target", titleKey: "games.mathTarget.title", teaserKey: "games.mathTarget.teaser", image: "/images/games/compte-est-bon-bg.webp" },
+  { key: "personality-test", titleKey: "games.personalityTest.title", teaserKey: "games.personalityTest.teaser", icon: Brain },
 ];
 
 const QUIZ_SEARCH_BACKGROUND = "/images/games/quiz-search-bg.webp";
@@ -28,6 +29,8 @@ function isGameKey(value: string | null): value is GameKey {
 }
 
 function GameRenderer({ gameKey, isAuthenticated }: { gameKey: GameKey; isAuthenticated: boolean }) {
+  const t = useTranslations("GuestGames");
+
   switch (gameKey) {
     case "word-of-day":
       return <WordOfDayCard isAuthenticated={isAuthenticated} />;
@@ -35,6 +38,18 @@ function GameRenderer({ gameKey, isAuthenticated }: { gameKey: GameKey; isAuthen
       return <PhotoOfDayCard isAuthenticated={isAuthenticated} />;
     case "math-target":
       return <MathTargetCard isAuthenticated={isAuthenticated} />;
+    case "personality-test":
+      return (
+        <div className="text-center py-12">
+          <Brain className="mx-auto mb-4 h-12 w-12 text-violet-600 dark:text-violet-400" />
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+            {t("comingSoon")}
+          </h3>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Personality tests are coming soon!
+          </p>
+        </div>
+      );
     default:
       return null;
   }
@@ -83,12 +98,19 @@ function GamesContent() {
                 )}
               >
                 <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded">
-                  <Image
-                    src={game.image}
-                    alt={t(game.titleKey)}
-                    fill
-                    className="object-cover"
-                  />
+                  {game.image ? (
+                    <Image
+                      src={game.image}
+                      alt={t(game.titleKey)}
+                      fill
+                      className="object-cover"
+                      sizes="32px"
+                    />
+                  ) : game.icon ? (
+                    <div className="flex h-full w-full items-center justify-center">
+                      <game.icon className={cn("h-5 w-5", selectedGame === game.key ? "text-white" : "text-violet-600 dark:text-violet-400")} />
+                    </div>
+                  ) : null}
                 </div>
                 <span className="truncate">→ {t(game.titleKey)}</span>
               </button>
