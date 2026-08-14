@@ -11,6 +11,7 @@ import WordOfDayCard from "@/components/games/WordOfDayCard";
 import WordOfDayGuide from "@/components/games/WordOfDayGuide";
 import PhotoOfDayCard from "@/components/games/PhotoOfDayCard";
 import MathTargetCard from "@/components/games/MathTargetCard";
+import PersonalityTestCard from "@/components/games/PersonalityTestCard";
 import { cn } from "@/lib/utils";
 
 type GameKey = "word-of-day" | "photo-of-day" | "math-target" | "personality-test";
@@ -29,8 +30,6 @@ function isGameKey(value: string | null): value is GameKey {
 }
 
 function GameRenderer({ gameKey, isAuthenticated }: { gameKey: GameKey; isAuthenticated: boolean }) {
-  const t = useTranslations("GuestGames");
-
   switch (gameKey) {
     case "word-of-day":
       return <WordOfDayCard isAuthenticated={isAuthenticated} />;
@@ -39,17 +38,7 @@ function GameRenderer({ gameKey, isAuthenticated }: { gameKey: GameKey; isAuthen
     case "math-target":
       return <MathTargetCard isAuthenticated={isAuthenticated} />;
     case "personality-test":
-      return (
-        <div className="text-center py-12">
-          <Brain className="mx-auto mb-4 h-12 w-12 text-violet-600 dark:text-violet-400" />
-          <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
-            {t("comingSoon")}
-          </h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
-            Personality tests are coming soon!
-          </p>
-        </div>
-      );
+      return <PersonalityTestCard isAuthenticated={isAuthenticated} />;
     default:
       return null;
   }

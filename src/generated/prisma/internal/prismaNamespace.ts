@@ -417,7 +417,8 @@ export const ModelName = {
   Friendship: 'Friendship',
   Referral: 'Referral',
   DailyGameChallenge: 'DailyGameChallenge',
-  GuestAttempt: 'GuestAttempt'
+  GuestAttempt: 'GuestAttempt',
+  PersonalityTestAttempt: 'PersonalityTestAttempt'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -433,7 +434,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "certificate" | "topicRecommendation" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "certificate" | "topicRecommendation" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "personalityTestAttempt"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1991,6 +1992,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PersonalityTestAttempt: {
+      payload: Prisma.$PersonalityTestAttemptPayload<ExtArgs>
+      fields: Prisma.PersonalityTestAttemptFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PersonalityTestAttemptFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalityTestAttemptPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PersonalityTestAttemptFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalityTestAttemptPayload>
+        }
+        findFirst: {
+          args: Prisma.PersonalityTestAttemptFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalityTestAttemptPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PersonalityTestAttemptFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalityTestAttemptPayload>
+        }
+        findMany: {
+          args: Prisma.PersonalityTestAttemptFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalityTestAttemptPayload>[]
+        }
+        create: {
+          args: Prisma.PersonalityTestAttemptCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalityTestAttemptPayload>
+        }
+        createMany: {
+          args: Prisma.PersonalityTestAttemptCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PersonalityTestAttemptCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalityTestAttemptPayload>[]
+        }
+        delete: {
+          args: Prisma.PersonalityTestAttemptDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalityTestAttemptPayload>
+        }
+        update: {
+          args: Prisma.PersonalityTestAttemptUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalityTestAttemptPayload>
+        }
+        deleteMany: {
+          args: Prisma.PersonalityTestAttemptDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PersonalityTestAttemptUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PersonalityTestAttemptUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalityTestAttemptPayload>[]
+        }
+        upsert: {
+          args: Prisma.PersonalityTestAttemptUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PersonalityTestAttemptPayload>
+        }
+        aggregate: {
+          args: Prisma.PersonalityTestAttemptAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePersonalityTestAttempt>
+        }
+        groupBy: {
+          args: Prisma.PersonalityTestAttemptGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PersonalityTestAttemptGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PersonalityTestAttemptCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PersonalityTestAttemptCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2339,6 +2414,21 @@ export const GuestAttemptScalarFieldEnum = {
 export type GuestAttemptScalarFieldEnum = (typeof GuestAttemptScalarFieldEnum)[keyof typeof GuestAttemptScalarFieldEnum]
 
 
+export const PersonalityTestAttemptScalarFieldEnum = {
+  id: 'id',
+  testKey: 'testKey',
+  guestId: 'guestId',
+  answers: 'answers',
+  scores: 'scores',
+  resultKey: 'resultKey',
+  claimedByUserId: 'claimedByUserId',
+  claimedAt: 'claimedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PersonalityTestAttemptScalarFieldEnum = (typeof PersonalityTestAttemptScalarFieldEnum)[keyof typeof PersonalityTestAttemptScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2553,6 +2643,20 @@ export type EnumGuestGameKeyFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
 export type ListEnumGuestGameKeyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuestGameKey[]'>
     
 
+
+/**
+ * Reference to a field of type 'PersonalityTestKey'
+ */
+export type EnumPersonalityTestKeyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PersonalityTestKey'>
+    
+
+
+/**
+ * Reference to a field of type 'PersonalityTestKey[]'
+ */
+export type ListEnumPersonalityTestKeyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PersonalityTestKey[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -2725,6 +2829,7 @@ export type GlobalOmitConfig = {
   referral?: Prisma.ReferralOmit
   dailyGameChallenge?: Prisma.DailyGameChallengeOmit
   guestAttempt?: Prisma.GuestAttemptOmit
+  personalityTestAttempt?: Prisma.PersonalityTestAttemptOmit
 }
 
 /* Types for Logging */

@@ -71,7 +71,8 @@ export const ModelName = {
   Friendship: 'Friendship',
   Referral: 'Referral',
   DailyGameChallenge: 'DailyGameChallenge',
-  GuestAttempt: 'GuestAttempt'
+  GuestAttempt: 'GuestAttempt',
+  PersonalityTestAttempt: 'PersonalityTestAttempt'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -397,6 +398,21 @@ export const GuestAttemptScalarFieldEnum = {
 } as const
 
 export type GuestAttemptScalarFieldEnum = (typeof GuestAttemptScalarFieldEnum)[keyof typeof GuestAttemptScalarFieldEnum]
+
+
+export const PersonalityTestAttemptScalarFieldEnum = {
+  id: 'id',
+  testKey: 'testKey',
+  guestId: 'guestId',
+  answers: 'answers',
+  scores: 'scores',
+  resultKey: 'resultKey',
+  claimedByUserId: 'claimedByUserId',
+  claimedAt: 'claimedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PersonalityTestAttemptScalarFieldEnum = (typeof PersonalityTestAttemptScalarFieldEnum)[keyof typeof PersonalityTestAttemptScalarFieldEnum]
 
 
 export const SortOrder = {

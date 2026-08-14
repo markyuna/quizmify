@@ -93,6 +93,7 @@ model User {
   referralsMade          Referral[]              @relation("ReferralsMade")
   referralReceived       Referral?               @relation("ReferralReceived")
   guestAttemptsClaimed   GuestAttempt[]
+  personalityTestAttemptsClaimed PersonalityTestAttempt[]
 
   @@index([xp])
 }
@@ -495,4 +496,49 @@ model GuestAttempt {
   @@unique([challengeId, guestId])
   @@index([guestId])
   @@index([claimedByUserId])
+}
+
+// Personality tests are evergreen content (not date-rotated like the 3
+// GuestGameKey games) with no correct/incorrect answer -- just an
+// accumulated score per candidate result, so they get their own key enum
+// and attempt model rather than reusing GuestGameKey/GuestAttempt/
+// DailyGameChallenge. Question/option/weight/result-profile content lives
+// in code (src/lib/personalityTests/*.config.ts) + messages/*.json, not in
+// the database -- it's fixed editorial content, not AI-generated or
+// admin-edited, so there's nothing here that needs a content table.
+enum PersonalityTestKey {
+  quel_animal_es_tu
+}
+
+// A guest's (or user's) run through one personality test. Unlike
+// GuestAttempt there is no daily-challenge relation and no unique
+// constraint on [testKey, guestId] -- retaking an evergreen test is
+// expected, not an edge case. guestId/claimedByUserId/claimedAt mirror
+// GuestAttempt exactly: scored and persisted server-side so the result
+// can't be forged by the client and can't be read back before the guest
+// registers (see /api/personality-tests/[testKey]/submit).
+model PersonalityTestAttempt {
+  id              String             @id @default(cuid())
+  testKey         PersonalityTestKey
+  guestId         String
+  // [{ questionId: "q1", optionId: "q1_b" }, ...] -- the guest's raw picks,
+  // kept so a future "see your answers" or re-scoring pass has something
+  // to work from.
+  answers         Json
+  // Final per-animal point totals, e.g. { lion: 4, dolphin: 2, ... } --
+  // computed server-side by computeResult(), never trusted from the client.
+  scores          Json
+  // The winning animal key, e.g. "lion" -- denormalized out of `scores` so
+  // the result page and OG metadata don't need to re-run the tie-break
+  // logic every render.
+  resultKey       String
+  claimedByUserId String?
+  claimedAt       DateTime?
+  createdAt       DateTime           @default(now())
+
+  claimedBy User? @relation(fields: [claimedByUserId], references: [id], onDelete: SetNull)
+
+  @@index([guestId])
+  @@index([claimedByUserId])
+  @@index([testKey, resultKey])
 }

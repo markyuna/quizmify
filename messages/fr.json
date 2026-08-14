@@ -162,6 +162,103 @@
       "xpAwarded": "+{xp} XP gagnés"
     }
   },
+  "PersonalityTests": {
+    "quelAnimalEsTu": {
+      "progress": "Question {current} sur {total}",
+      "submitting": "Calcul de votre résultat...",
+      "yourResult": "Vous êtes un(e) {animal} !",
+      "retakeCta": "Refaire le test",
+      "questions": {
+        "q1": {
+          "prompt": "À une fête où vous ne connaissez personne...",
+          "options": {
+            "q1_a": "Vous allez de groupe en groupe, en discutant avec tout le monde",
+            "q1_b": "Vous observez un moment avant d'aborder quelqu'un",
+            "q1_c": "Vous restez près de votre groupe habituel",
+            "q1_d": "Vous trouvez un coin tranquille et attendez qu'on vienne à vous"
+          }
+        },
+        "q2": {
+          "prompt": "Le projet de votre équipe se complique...",
+          "options": {
+            "q2_a": "Vous prenez les choses en main et organisez l'équipe",
+            "q2_b": "Vous analysez la situation avant de proposer une solution",
+            "q2_c": "Vous improvisez une solution créative",
+            "q2_d": "Vous préférez gérer votre partie seul(e)"
+          }
+        },
+        "q3": {
+          "prompt": "Un week-end libre, sans plans...",
+          "options": {
+            "q3_a": "Vous réunissez vos amis, on verra bien",
+            "q3_b": "Vous partez explorer quelque chose de nouveau, seul(e) ou avec un proche",
+            "q3_c": "Vous organisez quelque chose avec votre groupe habituel",
+            "q3_d": "Vous prenez la journée pour vous, sans agenda"
+          }
+        },
+        "q4": {
+          "prompt": "On vous propose de diriger un nouveau projet...",
+          "options": {
+            "q4_a": "Vous dites oui tout de suite, le défi vous enthousiasme",
+            "q4_b": "Vous demandez du temps pour bien y réfléchir",
+            "q4_c": "Vous acceptez, à condition de le faire à votre façon",
+            "q4_d": "Vous acceptez si vous pouvez choisir votre équipe de confiance"
+          }
+        },
+        "q5": {
+          "prompt": "Deux amis se disputent...",
+          "options": {
+            "q5_a": "Vous intervenez et proposez une solution directe",
+            "q5_b": "Vous écoutez les deux côtés et les aidez à se comprendre",
+            "q5_c": "Vous réfléchissez avant de dire quoi que ce soit",
+            "q5_d": "Vous préférez ne pas vous en mêler"
+          }
+        },
+        "q6": {
+          "prompt": "Au travail ou aux études, qu'est-ce qui vous motive le plus ?",
+          "options": {
+            "q6_a": "Rencontrer des gens intéressants",
+            "q6_b": "Apprendre quelque chose de nouveau en profondeur",
+            "q6_c": "Résoudre des problèmes de façon créative",
+            "q6_d": "Sentir que vous faites partie d'une bonne équipe"
+          }
+        },
+        "q7": {
+          "prompt": "Quand quelque chose ne se passe pas comme prévu...",
+          "options": {
+            "q7_a": "Vous réagissez vite et cherchez une autre approche",
+            "q7_b": "Vous prenez un moment pour comprendre ce qui s'est passé",
+            "q7_c": "Vous cherchez du soutien auprès de vos proches",
+            "q7_d": "Vous préférez le gérer seul(e)"
+          }
+        },
+        "q8": {
+          "prompt": "Si vous deviez choisir un super-pouvoir...",
+          "options": {
+            "q8_a": "Diriger et protéger les vôtres",
+            "q8_b": "Communiquer avec n'importe qui, dans n'importe quelle langue",
+            "q8_c": "Toujours voir la solution que personne d'autre ne voit",
+            "q8_d": "Devenir invisible quand vous voulez être seul(e)"
+          }
+        }
+      },
+      "animals": {
+        "lion": { "name": "Lion", "description": "Un leader naturel : sûr de lui, décidé, toujours prêt à prendre les choses en main. Vous protégez votre entourage et n'avez pas peur des défis." },
+        "dolphin": { "name": "Dauphin", "description": "Joueur/joueuse, sociable et d'une curiosité sans limite. Vous illuminez une pièce et créez du lien sans effort." },
+        "owl": { "name": "Hibou", "description": "Réfléchi(e) et observateur/observatrice. Vous préférez comprendre en profondeur avant d'agir, et on fait confiance à votre jugement." },
+        "fox": { "name": "Renard", "description": "Malin(e) et adaptable. Vous trouvez des solutions créatives là où les autres restent bloqués." },
+        "wolf": { "name": "Loup", "description": "Loyal(e) jusqu'au bout. Vous donnez le meilleur de vous-même au sein d'un petit cercle en qui vous avez une confiance totale." },
+        "cat": { "name": "Chat", "description": "Indépendant(e) et sûr(e) de soi. Vous tenez à votre liberté et choisissez vos combats — et votre compagnie — avec soin." }
+      },
+      "conversionModal": {
+        "title": "Créez votre compte pour voir votre animal",
+        "description": "Vous venez de terminer le test — inscrivez-vous pour découvrir quel animal correspond à votre personnalité.",
+        "createWithEmail": "Créer un compte avec l'email",
+        "alreadyHaveAccount": "Vous avez déjà un compte ?",
+        "signInLink": "Se connecter"
+      }
+    }
+  },
   "TopicCarousel": {
     "title": "Sujets populaires",
     "subtitle": "Lancez-vous directement dans un quiz sur ce que tout le monde joue en ce moment.",

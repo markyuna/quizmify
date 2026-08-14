@@ -58,3 +58,10 @@ export const GuestGameKey = {
 } as const
 
 export type GuestGameKey = (typeof GuestGameKey)[keyof typeof GuestGameKey]
+
+
+export const PersonalityTestKey = {
+  quel_animal_es_tu: 'quel_animal_es_tu'
+} as const
+
+export type PersonalityTestKey = (typeof PersonalityTestKey)[keyof typeof PersonalityTestKey]

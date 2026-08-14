@@ -162,6 +162,103 @@
       "xpAwarded": "+{xp} XP ganados"
     }
   },
+  "PersonalityTests": {
+    "quelAnimalEsTu": {
+      "progress": "Pregunta {current} de {total}",
+      "submitting": "Calculando tu resultado...",
+      "yourResult": "¡Sos un/a {animal}!",
+      "retakeCta": "Volver a hacer el test",
+      "questions": {
+        "q1": {
+          "prompt": "En una fiesta donde no conocés a nadie...",
+          "options": {
+            "q1_a": "Vas de grupo en grupo, presentándote y charlando con todos",
+            "q1_b": "Observás un rato antes de acercarte a alguien",
+            "q1_c": "Te quedás cerca de tu grupo de siempre",
+            "q1_d": "Buscás un rincón tranquilo y esperás que se acerquen a vos"
+          }
+        },
+        "q2": {
+          "prompt": "El proyecto de tu equipo se complica...",
+          "options": {
+            "q2_a": "Tomás la iniciativa y organizás al equipo",
+            "q2_b": "Analizás la situación antes de proponer una solución",
+            "q2_c": "Improvisás una salida creativa",
+            "q2_d": "Preferís encargarte de tu parte a solas"
+          }
+        },
+        "q3": {
+          "prompt": "Un finde libre, sin planes...",
+          "options": {
+            "q3_a": "Juntás a tus amigos y ves qué sale",
+            "q3_b": "Salís a explorar algo nuevo, solo/a o con alguien de confianza",
+            "q3_c": "Organizás algo con tu grupo de siempre",
+            "q3_d": "Te tomás el día para vos, sin agenda"
+          }
+        },
+        "q4": {
+          "prompt": "Te ofrecen liderar un proyecto nuevo...",
+          "options": {
+            "q4_a": "Decís que sí enseguida, el desafío te entusiasma",
+            "q4_b": "Pedís tiempo para pensarlo con calma",
+            "q4_c": "Aceptás, siempre que puedas hacerlo a tu manera",
+            "q4_d": "Aceptás si podés armar tu propio equipo de confianza"
+          }
+        },
+        "q5": {
+          "prompt": "Dos amigos están discutiendo...",
+          "options": {
+            "q5_a": "Te metés y proponés una solución directa",
+            "q5_b": "Escuchás a los dos y ayudás a que se entiendan",
+            "q5_c": "Pensás bien la situación antes de decir algo",
+            "q5_d": "Preferís no meterte, que cada uno resuelva lo suyo"
+          }
+        },
+        "q6": {
+          "prompt": "En el trabajo o el estudio, ¿qué te motiva más?",
+          "options": {
+            "q6_a": "Conectar con gente interesante",
+            "q6_b": "Aprender algo nuevo en profundidad",
+            "q6_c": "Resolver problemas de forma creativa",
+            "q6_d": "Sentir que sos parte de un buen equipo"
+          }
+        },
+        "q7": {
+          "prompt": "Cuando algo no sale como esperabas...",
+          "options": {
+            "q7_a": "Reaccionás rápido y buscás otra estrategia",
+            "q7_b": "Te tomás un momento para entender qué pasó",
+            "q7_c": "Buscás apoyo en tu gente cercana",
+            "q7_d": "Preferís procesarlo en soledad"
+          }
+        },
+        "q8": {
+          "prompt": "Si tuvieras que elegir un superpoder...",
+          "options": {
+            "q8_a": "Liderar y proteger a los tuyos",
+            "q8_b": "Comunicarte con cualquiera, en cualquier idioma",
+            "q8_c": "Ver siempre una solución que nadie más ve",
+            "q8_d": "Ser invisible cuando quieras estar solo/a"
+          }
+        }
+      },
+      "animals": {
+        "lion": { "name": "León", "description": "Un líder nato: seguro, decidido y siempre listo para tomar las riendas. Protegés a los tuyos y no le temés a un buen desafío." },
+        "dolphin": { "name": "Delfín", "description": "Divertido/a, sociable y curioso/a sin límite. Iluminás cualquier lugar y conectás con la gente sin esfuerzo." },
+        "owl": { "name": "Búho", "description": "Reflexivo/a y observador/a. Preferís entender algo a fondo antes de lanzarte, y la gente confía en tu criterio." },
+        "fox": { "name": "Zorro", "description": "Astuto/a y adaptable. Encontrás salidas creativas donde los demás se quedan trabados." },
+        "wolf": { "name": "Lobo", "description": "Leal hasta el final. Das lo mejor de vos trabajando cerca de un círculo pequeño en el que confiás por completo." },
+        "cat": { "name": "Gato", "description": "Independiente y seguro/a de vos mismo/a. Valorás tu libertad y elegís con cuidado tus batallas — y tu compañía." }
+      },
+      "conversionModal": {
+        "title": "Creá tu cuenta para ver tu animal",
+        "description": "Terminaste el test — registrate para descubrir qué animal coincide con tu personalidad.",
+        "createWithEmail": "Crear cuenta con email",
+        "alreadyHaveAccount": "¿Ya tenés una cuenta?",
+        "signInLink": "Iniciar sesión"
+      }
+    }
+  },
   "TopicCarousel": {
     "title": "Temas populares",
     "subtitle": "Entra directo a un quiz sobre lo que todos están jugando ahora mismo.",

@@ -17,6 +17,11 @@ import { Button } from "@/components/ui/button";
 type ConversionModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  // Lets callers outside the 3 daily games (e.g. the personality test,
+  // whose result isn't a streak) point at their own copy instead of
+  // "reveal today's result / start your streak" -- must resolve title,
+  // description, createWithEmail, alreadyHaveAccount, signInLink.
+  namespace?: string;
 };
 
 /**
@@ -29,8 +34,8 @@ type ConversionModalProps = {
  * already-graded GuestAttempt row are both still there next time they
  * register, from this same browser.
  */
-export default function ConversionModal({ open, onOpenChange }: ConversionModalProps) {
-  const t = useTranslations("GuestGames.conversionModal");
+export default function ConversionModal({ open, onOpenChange, namespace = "GuestGames.conversionModal" }: ConversionModalProps) {
+  const t = useTranslations(namespace);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

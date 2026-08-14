@@ -162,6 +162,103 @@
       "xpAwarded": "+{xp} XP earned"
     }
   },
+  "PersonalityTests": {
+    "quelAnimalEsTu": {
+      "progress": "Question {current} of {total}",
+      "submitting": "Calculating your result...",
+      "yourResult": "You're a {animal}!",
+      "retakeCta": "Take the test again",
+      "questions": {
+        "q1": {
+          "prompt": "At a party where you don't know anyone...",
+          "options": {
+            "q1_a": "You go around introducing yourself, chatting with everyone",
+            "q1_b": "You watch the room for a while before approaching anyone",
+            "q1_c": "You stick close to your usual crew",
+            "q1_d": "You find a quiet corner and let people come to you"
+          }
+        },
+        "q2": {
+          "prompt": "Your team's big project hits a snag...",
+          "options": {
+            "q2_a": "You take charge and organize the team",
+            "q2_b": "You analyze the situation before proposing a fix",
+            "q2_c": "You improvise a creative workaround",
+            "q2_d": "You'd rather just handle your part alone"
+          }
+        },
+        "q3": {
+          "prompt": "A free weekend with no plans...",
+          "options": {
+            "q3_a": "You round up friends for whatever comes up",
+            "q3_b": "You go explore something new, alone or with one close friend",
+            "q3_c": "You organize something with your usual group",
+            "q3_d": "You take the day for yourself, no agenda"
+          }
+        },
+        "q4": {
+          "prompt": "You're offered to lead a new project...",
+          "options": {
+            "q4_a": "You say yes right away — the challenge excites you",
+            "q4_b": "You ask for time to think it over carefully",
+            "q4_c": "You accept, as long as you can do it your way",
+            "q4_d": "You accept if you can bring your own trusted team"
+          }
+        },
+        "q5": {
+          "prompt": "Two friends are arguing...",
+          "options": {
+            "q5_a": "You step in and propose a direct solution",
+            "q5_b": "You listen to both sides and help them understand each other",
+            "q5_c": "You think it through before saying anything",
+            "q5_d": "You'd rather stay out of it — let them sort it out"
+          }
+        },
+        "q6": {
+          "prompt": "At work or school, what motivates you most?",
+          "options": {
+            "q6_a": "Connecting with interesting people",
+            "q6_b": "Learning something new, in depth",
+            "q6_c": "Solving problems in creative ways",
+            "q6_d": "Feeling like part of a solid team"
+          }
+        },
+        "q7": {
+          "prompt": "When something doesn't go as planned...",
+          "options": {
+            "q7_a": "You react fast and look for another angle",
+            "q7_b": "You take a moment to understand what happened",
+            "q7_c": "You lean on people close to you for support",
+            "q7_d": "You'd rather process it alone"
+          }
+        },
+        "q8": {
+          "prompt": "If you had to pick a superpower...",
+          "options": {
+            "q8_a": "Leading and protecting the people you care about",
+            "q8_b": "Communicating with anyone, in any language",
+            "q8_c": "Always spotting the solution no one else sees",
+            "q8_d": "Turning invisible whenever you want to be alone"
+          }
+        }
+      },
+      "animals": {
+        "lion": { "name": "Lion", "description": "A natural leader — confident, decisive, and always ready to take charge. You protect the people around you and aren't afraid of a challenge." },
+        "dolphin": { "name": "Dolphin", "description": "Playful, social, and endlessly curious. You light up a room and connect with people effortlessly." },
+        "owl": { "name": "Owl", "description": "Thoughtful and observant. You'd rather understand something deeply than rush into it, and people trust your judgment." },
+        "fox": { "name": "Fox", "description": "Clever and adaptable. You find creative ways around problems that leave everyone else stuck." },
+        "wolf": { "name": "Wolf", "description": "Loyal to the core. You're at your best working closely with a small circle you trust completely." },
+        "cat": { "name": "Cat", "description": "Independent and self-assured. You value your freedom and choose your battles — and your company — carefully." }
+      },
+      "conversionModal": {
+        "title": "Create your account to see your animal",
+        "description": "You just finished the quiz — sign up to find out which animal matches your personality.",
+        "createWithEmail": "Create account with email",
+        "alreadyHaveAccount": "Already have an account?",
+        "signInLink": "Sign in"
+      }
+    }
+  },
   "TopicCarousel": {
     "title": "Popular topics",
     "subtitle": "Jump straight into a quiz on what everyone else is playing right now.",

@@ -446,6 +446,23 @@ export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
   _max?: Prisma.NestedJsonFilter<$PrismaModel>
 }
 
+export type EnumPersonalityTestKeyFilter<$PrismaModel = never> = {
+  equals?: $Enums.PersonalityTestKey | Prisma.EnumPersonalityTestKeyFieldRefInput<$PrismaModel>
+  in?: $Enums.PersonalityTestKey[] | Prisma.ListEnumPersonalityTestKeyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PersonalityTestKey[] | Prisma.ListEnumPersonalityTestKeyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPersonalityTestKeyFilter<$PrismaModel> | $Enums.PersonalityTestKey
+}
+
+export type EnumPersonalityTestKeyWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PersonalityTestKey | Prisma.EnumPersonalityTestKeyFieldRefInput<$PrismaModel>
+  in?: $Enums.PersonalityTestKey[] | Prisma.ListEnumPersonalityTestKeyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PersonalityTestKey[] | Prisma.ListEnumPersonalityTestKeyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPersonalityTestKeyWithAggregatesFilter<$PrismaModel> | $Enums.PersonalityTestKey
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPersonalityTestKeyFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPersonalityTestKeyFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -824,6 +841,23 @@ export type NestedJsonFilterBase<$PrismaModel = never> = {
   gt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   gte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>
   not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter
+}
+
+export type NestedEnumPersonalityTestKeyFilter<$PrismaModel = never> = {
+  equals?: $Enums.PersonalityTestKey | Prisma.EnumPersonalityTestKeyFieldRefInput<$PrismaModel>
+  in?: $Enums.PersonalityTestKey[] | Prisma.ListEnumPersonalityTestKeyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PersonalityTestKey[] | Prisma.ListEnumPersonalityTestKeyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPersonalityTestKeyFilter<$PrismaModel> | $Enums.PersonalityTestKey
+}
+
+export type NestedEnumPersonalityTestKeyWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PersonalityTestKey | Prisma.EnumPersonalityTestKeyFieldRefInput<$PrismaModel>
+  in?: $Enums.PersonalityTestKey[] | Prisma.ListEnumPersonalityTestKeyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PersonalityTestKey[] | Prisma.ListEnumPersonalityTestKeyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPersonalityTestKeyWithAggregatesFilter<$PrismaModel> | $Enums.PersonalityTestKey
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPersonalityTestKeyFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPersonalityTestKeyFilter<$PrismaModel>
 }
 
 
