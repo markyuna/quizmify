@@ -18,6 +18,7 @@ export type CategoryGroup = (typeof CATEGORY_GROUPS)[number];
 export type Category = {
   slug: string;
   name: string;
+  icon: string;
   group: CategoryGroup;
   // Assumed to exist under /public/images/categories/{slug}-hero.webp --
   // this phase only wires up the config, the asset itself isn't generated.
@@ -30,6 +31,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "culture-generale",
     name: "Culture Générale",
+    icon: "📚",
     group: "Culture Générale",
     heroImage: "/images/categories/culture-generale-hero.webp",
     seoDescription:
@@ -40,6 +42,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "histoire",
     name: "Histoire",
+    icon: "👑",
     group: "Culture & Sciences",
     heroImage: "/images/categories/histoire-hero.webp",
     seoDescription:
@@ -50,6 +53,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "geographie",
     name: "Géographie",
+    icon: "🌍",
     group: "Culture & Sciences",
     heroImage: "/images/categories/geographie-hero.webp",
     seoDescription:
@@ -60,6 +64,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "sciences",
     name: "Sciences",
+    icon: "⚛️",
     group: "Culture & Sciences",
     heroImage: "/images/categories/sciences-hero.webp",
     seoDescription:
@@ -70,6 +75,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "arts",
     name: "Arts",
+    icon: "🎨",
     group: "Culture & Sciences",
     heroImage: "/images/categories/arts-hero.webp",
     seoDescription:
@@ -80,6 +86,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "france",
     name: "La France",
+    icon: "🇫🇷",
     group: "Culture & Sciences",
     heroImage: "/images/categories/france-hero.webp",
     seoDescription:
@@ -90,6 +97,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "cinema",
     name: "Cinéma",
+    icon: "🎬",
     group: "Divertissement",
     heroImage: "/images/categories/cinema-hero.webp",
     seoDescription:
@@ -100,6 +108,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "disney",
     name: "Disney",
+    icon: "🏰",
     group: "Divertissement",
     heroImage: "/images/categories/disney-hero.webp",
     seoDescription:
@@ -110,6 +119,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "harry-potter",
     name: "Harry Potter",
+    icon: "⚡",
     group: "Divertissement",
     heroImage: "/images/categories/harry-potter-hero.webp",
     seoDescription:
@@ -120,6 +130,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "tests-de-personnalite",
     name: "Tests de personnalité",
+    icon: "😈",
     group: "Divertissement",
     heroImage: "/images/categories/tests-de-personnalite-hero.webp",
     seoDescription:
@@ -130,6 +141,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "sports",
     name: "Sports",
+    icon: "🏀",
     group: "Sports",
     heroImage: "/images/categories/sports-hero.webp",
     seoDescription:
@@ -140,6 +152,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "football",
     name: "Football",
+    icon: "⚽",
     group: "Sports",
     heroImage: "/images/categories/football-hero.webp",
     seoDescription:
@@ -150,6 +163,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "animaux",
     name: "Animaux",
+    icon: "🦁",
     group: "Nature & Animaux",
     heroImage: "/images/categories/animaux-hero.webp",
     seoDescription:
@@ -160,6 +174,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "nature",
     name: "Nature",
+    icon: "🌱",
     group: "Nature & Animaux",
     heroImage: "/images/categories/nature-hero.webp",
     seoDescription:
@@ -170,6 +185,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "langue-francaise",
     name: "Langue française",
+    icon: "🔤",
     group: "Langues",
     heroImage: "/images/categories/langue-francaise-hero.webp",
     seoDescription:
@@ -180,6 +196,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "alimentation",
     name: "Alimentation",
+    icon: "🍔",
     group: "Vie Quotidienne",
     heroImage: "/images/categories/alimentation-hero.webp",
     seoDescription:
@@ -190,6 +207,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "code-de-la-route",
     name: "Code de la route",
+    icon: "🚗",
     group: "Vie Quotidienne",
     heroImage: "/images/categories/code-de-la-route-hero.webp",
     seoDescription:
@@ -200,6 +218,7 @@ export const CATEGORIES: Category[] = [
   {
     slug: "drapeaux",
     name: "Drapeaux",
+    icon: "🎌",
     group: "Vie Quotidienne",
     heroImage: "/images/categories/drapeaux-hero.webp",
     seoDescription:

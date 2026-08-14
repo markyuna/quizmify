@@ -41,8 +41,9 @@ function CategoryGroupDisclosure({ group, categories }: (typeof GROUPED_CATEGORI
             <li key={category.slug}>
               <Link
                 href={`/quiz/categoria/${category.slug}`}
-                className="block rounded-lg px-2 py-1 text-sm text-slate-600 transition hover:bg-slate-100 hover:text-violet-700 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-violet-300"
+                className="flex items-center gap-2 rounded-lg px-2 py-1 text-sm text-slate-600 transition hover:bg-slate-100 hover:text-violet-700 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-violet-300"
               >
+                <span aria-hidden="true">{category.icon}</span>
                 {category.name}
               </Link>
             </li>

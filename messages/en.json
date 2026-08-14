@@ -264,6 +264,11 @@
     "subtitle": "Jump straight into a quiz on what everyone else is playing right now.",
     "cardDescription": "Create a quiz on this topic with AI."
   },
+  "CategoriesSection": {
+    "title": "Quizzes by theme",
+    "subtitle": "Browse our categories and dive into a quiz on your favorite topic.",
+    "viewAllCta": "View all categories"
+  },
   "Login": {
     "tagline": "Level up your knowledge ⚡",
     "cardTitle": "Ready to get smarter?",
