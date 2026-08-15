@@ -1,6 +1,7 @@
 import QuizCreation from "@/components/QuizCreation";
 import { getAuthSession } from "@/lib/nextauth";
 import { isUserAtFreeLimit } from "@/lib/paywall";
+import { getCategoryBySlug } from "@/lib/categories";
 import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
@@ -12,6 +13,7 @@ export const metadata = {
 type QuizPageProps = {
   searchParams: Promise<{
     topic?: string;
+    category?: string;
   }>;
 };
 
@@ -25,12 +27,24 @@ export default async function QuizPage({ searchParams }: QuizPageProps) {
     redirect("/upgrade?limit=true");
   }
 
-  const { topic } = await searchParams;
+  const { topic, category } = await searchParams;
 
   const topicParam =
     typeof topic === "string" && topic !== "undefined" && topic !== "null"
       ? topic
       : "";
 
-  return <QuizCreation topicParam={topicParam} isGuest={!session?.user?.id} />;
+  // Only a real category slug is trusted through -- anything else (typo'd
+  // or hand-edited URL) just falls back to "unknown topic" behavior in
+  // QuizCreation, same as no category param at all.
+  const categoryParam =
+    typeof category === "string" && getCategoryBySlug(category) ? category : "";
+
+  return (
+    <QuizCreation
+      topicParam={topicParam}
+      categoryParam={categoryParam}
+      isGuest={!session?.user?.id}
+    />
+  );
 }

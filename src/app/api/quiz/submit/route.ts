@@ -9,6 +9,8 @@ import { registerQuizActivity, getEffectiveStreak, type StreakResult } from "@/l
 import { checkAndAwardCertificates } from "@/lib/certificates";
 import { isEffectivelyPro } from "@/lib/paywall";
 import { resolvePaywallMessage } from "@/lib/paywallMessages";
+import { getCategoryBySlug } from "@/lib/categories";
+import { isTopicAllowed } from "@/lib/forbiddenWords";
 import { submitQuizSchema } from "@/schemas/form/quiz";
 
 export type TrophyReason = "perfect" | "streak" | null;
@@ -317,6 +319,31 @@ export async function POST(req: Request) {
         trophyReason,
       };
     });
+
+    // Best-effort, outside the main transaction: publishing to the
+    // community catalog is a nice-to-have, never allowed to break "finish
+    // quiz" for the player who just earned XP for it. See CategoryTopic in
+    // prisma/schema.prisma -- the @@unique constraint is what actually
+    // prevents duplicates, this create() just relies on it and swallows the
+    // conflict along with every other failure mode.
+    if (parsedBody.categorySlug) {
+      try {
+        const category = getCategoryBySlug(parsedBody.categorySlug);
+        if (category && isTopicAllowed(game.topic)) {
+          await prisma.categoryTopic.create({
+            data: {
+              categorySlug: category.slug,
+              topicDisplay: game.topic,
+              topicNormalized: game.topic,
+              difficulty: game.difficulty ?? "medium",
+              createdByGameId: game.id,
+            },
+          });
+        }
+      } catch (error) {
+        console.error("CategoryTopic publish failed (non-fatal):", error);
+      }
+    }
 
     return NextResponse.json(
       {

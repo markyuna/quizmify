@@ -17,6 +17,10 @@ export const checkAnswerSchema = z.object({
 export const submitQuizSchema = z.object({
   gameId: z.string().min(1, "Game ID is required"),
   timeSpent: z.number().int().min(0, "Time spent must be 0 or more"),
+  // Set only when the player chose (or inherited) a category for this topic
+  // in QuizCreation -- see CategoryTopic in prisma/schema.prisma. Validated
+  // against CATEGORIES server-side, not trusted as-is.
+  categorySlug: z.string().optional(),
   answers: z
     .array(
       z.object({

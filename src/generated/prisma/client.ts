@@ -151,3 +151,8 @@ export type GuestAttempt = Prisma.GuestAttemptModel
  * 
  */
 export type PersonalityTestAttempt = Prisma.PersonalityTestAttemptModel
+/**
+ * Model CategoryTopic
+ * 
+ */
+export type CategoryTopic = Prisma.CategoryTopicModel

@@ -15,6 +15,7 @@ import { confettiCorrectAnswer } from "@/lib/confettiBurst";
 import { playQuizSound } from "@/lib/quizSounds";
 import { KAHOOT_DEFAULT_TIME_PER_QUESTION_SEC } from "@/lib/kahootConfig";
 import { TIMEOUT_ANSWER_SENTINEL } from "@/lib/timedMode";
+import { consumeSessionCategoryForGame } from "@/lib/categoryTopicSession";
 import { buttonVariants } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
@@ -87,6 +88,7 @@ export default function QuizGame({ game }: QuizGameProps) {
     mutationFn: async (payload: {
       gameId: string;
       timeSpent: number;
+      categorySlug?: string;
       answers: { questionId: string; selectedAnswer: string; responseTimeMs?: number }[];
     }) => {
       const response = await axios.post<SubmitQuizResponse>("/api/quiz/submit", payload);
@@ -145,6 +147,7 @@ export default function QuizGame({ game }: QuizGameProps) {
       submitQuiz({
         gameId: game.id,
         timeSpent,
+        categorySlug: consumeSessionCategoryForGame(game.id) ?? undefined,
         answers: summary.answers.map((a) => ({
           questionId: a.questionId,
           selectedAnswer: a.selectedAnswer ?? TIMEOUT_ANSWER_SENTINEL,

@@ -542,3 +542,38 @@ model PersonalityTestAttempt {
   @@index([claimedByUserId])
   @@index([testKey, resultKey])
 }
+
+// A free-topic quiz (Game.topic) published into one of the 18 categories in
+// src/lib/categories.ts once its creator (an authenticated user, never a
+// guest -- see POST /api/quiz/submit) finishes it, so other users can play
+// the exact same cached questions without spending new AI tokens. No FK
+// relation to Game (relationMode = "prisma", and this row must outlive the
+// Game it came from) -- createdByGameId is plain traceability, not a join
+// target. Deliberately no play-count/trending counter here: popularity is
+// computed at read time from Game.topic + Game.timeEnded (see
+// src/lib/categoryTopics.ts), so there's nothing here to desync.
+model CategoryTopic {
+  id              String    @id @default(cuid())
+  // Validated against CATEGORIES in src/lib/categories.ts at write time, not
+  // a Prisma enum -- categories are edited in code, not via migration.
+  categorySlug    String
+  // The creator's original text, shown on the catalog card.
+  topicDisplay    String
+  // normalizeTopic(topicDisplay) -- same function /api/game/route.ts already
+  // runs on Game.topic before saving, so the two are directly comparable
+  // without re-normalizing at read time. Case-sensitive (normalizeTopic only
+  // trims/collapses whitespace), so this is the dedup key, not a perfect one.
+  topicNormalized String
+  // The difficulty of the Game that created this entry -- never recomputed
+  // from later plays of the same topic.
+  difficulty      String
+  createdAt       DateTime  @default(now())
+  // Manual moderation switch for a future admin tool -- nothing sets this
+  // yet.
+  hidden          Boolean   @default(false)
+  createdByGameId String?
+
+  @@unique([categorySlug, topicNormalized])
+  @@index([categorySlug])
+  @@index([topicNormalized])
+}

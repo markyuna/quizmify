@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
 import { CATEGORIES, getCategoryBySlug } from "@/lib/categories";
-import { getMockItemsForCategory } from "@/lib/mockCategoryQuizzes";
+import { getCategoryTopics } from "@/lib/categoryTopics";
 import CategoryBreadcrumb from "@/components/category/CategoryBreadcrumb";
 import CategoryQuizList from "@/components/category/CategoryQuizList";
 import CategorySidebar from "@/components/category/CategorySidebar";
@@ -38,7 +38,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
 
-  const items = getMockItemsForCategory(category.slug);
+  const items = await getCategoryTopics(category.slug);
 
   return (
     <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:py-8 md:px-8">
@@ -66,7 +66,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </p>
 
           <div className="mt-6">
-            <CategoryQuizList categoryName={category.name} items={items} />
+            <CategoryQuizList category={category} items={items} />
           </div>
         </div>
 

@@ -72,7 +72,8 @@ export const ModelName = {
   Referral: 'Referral',
   DailyGameChallenge: 'DailyGameChallenge',
   GuestAttempt: 'GuestAttempt',
-  PersonalityTestAttempt: 'PersonalityTestAttempt'
+  PersonalityTestAttempt: 'PersonalityTestAttempt',
+  CategoryTopic: 'CategoryTopic'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -413,6 +414,20 @@ export const PersonalityTestAttemptScalarFieldEnum = {
 } as const
 
 export type PersonalityTestAttemptScalarFieldEnum = (typeof PersonalityTestAttemptScalarFieldEnum)[keyof typeof PersonalityTestAttemptScalarFieldEnum]
+
+
+export const CategoryTopicScalarFieldEnum = {
+  id: 'id',
+  categorySlug: 'categorySlug',
+  topicDisplay: 'topicDisplay',
+  topicNormalized: 'topicNormalized',
+  difficulty: 'difficulty',
+  createdAt: 'createdAt',
+  hidden: 'hidden',
+  createdByGameId: 'createdByGameId'
+} as const
+
+export type CategoryTopicScalarFieldEnum = (typeof CategoryTopicScalarFieldEnum)[keyof typeof CategoryTopicScalarFieldEnum]
 
 
 export const SortOrder = {

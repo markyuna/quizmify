@@ -25,9 +25,16 @@ import {
 } from "./ui/form";
 import { cn } from "@/lib/utils";
 import { useGuestId } from "@/hooks/useGuestRound";
+import { CATEGORIES } from "@/lib/categories";
+import { setSessionCategoryForGame } from "@/lib/categoryTopicSession";
+import type { CategoryTopicLookupResponse } from "@/app/api/category-topics/lookup/route";
 
 type QuizCreationProps = {
   topicParam: string;
+  // A real category slug, only when the user arrived here via a category
+  // catalog card (see /quiz/categoria/[slug]) -- see the categoryKnown
+  // derivation below for why that hides the selector entirely.
+  categoryParam?: string;
   isGuest: boolean;
 };
 
@@ -41,7 +48,7 @@ type CreateGameResponse = {
 
 const TOPIC_SUGGESTIONS = ["JavaScript", "History", "Biology", "Space", "Movies", "Math"];
 
-export default function QuizCreation({ topicParam, isGuest }: QuizCreationProps) {
+export default function QuizCreation({ topicParam, categoryParam = "", isGuest }: QuizCreationProps) {
   const router = useRouter();
   const { toast } = useToast();
   const t = useTranslations("QuizCreation");
@@ -69,6 +76,11 @@ export default function QuizCreation({ topicParam, isGuest }: QuizCreationProps)
   // Mutually exclusive with puzzleMode: party mode always lands on the
   // Kahoot-style screen, which doesn't render the puzzle reveal.
   const [partyMode, setPartyMode] = React.useState(false);
+  const [selectedCategorySlug, setSelectedCategorySlug] = React.useState("");
+  const [categoryLookup, setCategoryLookup] = React.useState<{
+    exists: boolean;
+    categoryName: string | null;
+  } | null>(null);
   const navigationTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   React.useEffect(() => {
@@ -126,6 +138,56 @@ export default function QuizCreation({ topicParam, isGuest }: QuizCreationProps)
 
   const amount = useWatch({ control: form.control, name: "amount" });
   const puzzleMode = useWatch({ control: form.control, name: "puzzleMode" });
+  const topicValue = useWatch({ control: form.control, name: "topic" }) ?? "";
+
+  // True only when the player arrived via a category catalog card (a real
+  // categoryParam) and hasn't since edited the prefilled topic -- we already
+  // know its category, so the selector below stays hidden. Editing the
+  // topic makes it a genuinely different quiz, which falls back to the
+  // normal lookup/selector flow.
+  const categoryKnown = categoryParam !== "" && topicValue === normalizedTopic;
+
+  // Debounced "is this topic already in the catalog?" check that drives the
+  // selector's default selection and its "already in X" hint -- see
+  // /api/category-topics/lookup. Never runs for guests (they never reach
+  // /api/quiz/submit, so a category choice would just be discarded) or once
+  // categoryKnown is true.
+  React.useEffect(() => {
+    if (isGuest || categoryKnown) return;
+
+    const trimmedTopic = topicValue.trim();
+    if (!trimmedTopic) {
+      setCategoryLookup(null);
+      setSelectedCategorySlug("");
+      return;
+    }
+
+    let cancelled = false;
+    const handle = setTimeout(() => {
+      axios
+        .get<CategoryTopicLookupResponse>("/api/category-topics/lookup", {
+          params: { topic: trimmedTopic },
+        })
+        .then((res) => {
+          if (cancelled) return;
+          setCategoryLookup({ exists: res.data.exists, categoryName: res.data.categoryName });
+          setSelectedCategorySlug(res.data.exists && res.data.categorySlug ? res.data.categorySlug : "");
+        })
+        .catch(() => {
+          if (!cancelled) setCategoryLookup(null);
+        });
+    }, 400);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(handle);
+    };
+  }, [topicValue, isGuest, categoryKnown]);
+
+  // What actually gets bridged to /api/quiz/submit via sessionStorage --
+  // either the category we already knew (from the catalog card) or whatever
+  // the player picked/accepted in the selector below.
+  const effectiveCategorySlug = categoryKnown ? categoryParam : selectedCategorySlug;
 
   const { mutate: createGame, isPending } = useMutation({
     mutationFn: async (values: QuizCreationInput) => {
@@ -141,6 +203,15 @@ export default function QuizCreation({ topicParam, isGuest }: QuizCreationProps)
           variant: "destructive",
         });
         return;
+      }
+
+      // Bridges the chosen category to /api/quiz/submit later, from
+      // /play/mcq/[gameId] or /play/kahoot/[gameId] -- see
+      // categoryTopicSession.ts for why this is client-side, not a Game
+      // field. Guests never reach that submit call, so there's nothing to
+      // bridge for them (effectiveCategorySlug is always "" while isGuest).
+      if (!isGuest && effectiveCategorySlug) {
+        setSessionCategoryForGame(data.gameId, effectiveCategorySlug);
       }
 
       setFinished(true);
@@ -277,6 +348,33 @@ export default function QuizCreation({ topicParam, isGuest }: QuizCreationProps)
                 </FormItem>
               )}
             />
+
+            {!isGuest && !categoryKnown && (
+              <FormItem>
+                <FormLabel className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                  {t("categoryLabel")}
+                </FormLabel>
+                <FormControl>
+                  <select
+                    value={selectedCategorySlug}
+                    onChange={(event) => setSelectedCategorySlug(event.target.value)}
+                    className="h-12 w-full rounded-2xl border border-slate-200 bg-white/80 px-3 text-sm text-slate-900 focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-400/20 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                  >
+                    <option value="">{t("categoryNone")}</option>
+                    {CATEGORIES.map((category) => (
+                      <option key={category.slug} value={category.slug}>
+                        {category.icon} {category.name}
+                      </option>
+                    ))}
+                  </select>
+                </FormControl>
+                {categoryLookup?.exists && categoryLookup.categoryName && (
+                  <p className="text-xs text-slate-400 dark:text-slate-500">
+                    {t("categoryAlreadyIn", { category: categoryLookup.categoryName })}
+                  </p>
+                )}
+              </FormItem>
+            )}
 
             <FormField
               control={form.control}

@@ -418,7 +418,8 @@ export const ModelName = {
   Referral: 'Referral',
   DailyGameChallenge: 'DailyGameChallenge',
   GuestAttempt: 'GuestAttempt',
-  PersonalityTestAttempt: 'PersonalityTestAttempt'
+  PersonalityTestAttempt: 'PersonalityTestAttempt',
+  CategoryTopic: 'CategoryTopic'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -434,7 +435,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "certificate" | "topicRecommendation" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "personalityTestAttempt"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "certificate" | "topicRecommendation" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "personalityTestAttempt" | "categoryTopic"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2066,6 +2067,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CategoryTopic: {
+      payload: Prisma.$CategoryTopicPayload<ExtArgs>
+      fields: Prisma.CategoryTopicFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CategoryTopicFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryTopicPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CategoryTopicFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryTopicPayload>
+        }
+        findFirst: {
+          args: Prisma.CategoryTopicFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryTopicPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CategoryTopicFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryTopicPayload>
+        }
+        findMany: {
+          args: Prisma.CategoryTopicFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryTopicPayload>[]
+        }
+        create: {
+          args: Prisma.CategoryTopicCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryTopicPayload>
+        }
+        createMany: {
+          args: Prisma.CategoryTopicCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CategoryTopicCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryTopicPayload>[]
+        }
+        delete: {
+          args: Prisma.CategoryTopicDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryTopicPayload>
+        }
+        update: {
+          args: Prisma.CategoryTopicUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryTopicPayload>
+        }
+        deleteMany: {
+          args: Prisma.CategoryTopicDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CategoryTopicUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CategoryTopicUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryTopicPayload>[]
+        }
+        upsert: {
+          args: Prisma.CategoryTopicUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryTopicPayload>
+        }
+        aggregate: {
+          args: Prisma.CategoryTopicAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCategoryTopic>
+        }
+        groupBy: {
+          args: Prisma.CategoryTopicGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CategoryTopicGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CategoryTopicCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CategoryTopicCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2427,6 +2502,20 @@ export const PersonalityTestAttemptScalarFieldEnum = {
 } as const
 
 export type PersonalityTestAttemptScalarFieldEnum = (typeof PersonalityTestAttemptScalarFieldEnum)[keyof typeof PersonalityTestAttemptScalarFieldEnum]
+
+
+export const CategoryTopicScalarFieldEnum = {
+  id: 'id',
+  categorySlug: 'categorySlug',
+  topicDisplay: 'topicDisplay',
+  topicNormalized: 'topicNormalized',
+  difficulty: 'difficulty',
+  createdAt: 'createdAt',
+  hidden: 'hidden',
+  createdByGameId: 'createdByGameId'
+} as const
+
+export type CategoryTopicScalarFieldEnum = (typeof CategoryTopicScalarFieldEnum)[keyof typeof CategoryTopicScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2830,6 +2919,7 @@ export type GlobalOmitConfig = {
   dailyGameChallenge?: Prisma.DailyGameChallengeOmit
   guestAttempt?: Prisma.GuestAttemptOmit
   personalityTestAttempt?: Prisma.PersonalityTestAttemptOmit
+  categoryTopic?: Prisma.CategoryTopicOmit
 }
 
 /* Types for Logging */
