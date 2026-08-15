@@ -14,76 +14,83 @@ type PhotoEntry = {
   credit: PhotoCredit;
 };
 
-// Locally hosted (public/images/photo-du-jour/), not hotlinked from
-// Wikimedia -- downloaded once and converted to webp. Every entry's
-// license was checked on its Commons file page before inclusion; all are
-// free for commercial reuse with attribution, which is shown on the card
-// (see PhotoOfDayCard.tsx) to satisfy that requirement.
+// Public Supabase Storage bucket "photo-du-jour-images" (see
+// src/lib/photoOfDayImageStorage.ts for the upload helper) -- not
+// /public/images/... on purpose: a new location only needs an upload +
+// adding a PHOTOS entry, no commit/redeploy. Downloaded once from Wikimedia
+// and converted to webp, not hotlinked. Every entry's license was checked
+// on its Commons file page before inclusion; all are free for commercial
+// reuse with attribution, which is shown on the card (see
+// PhotoOfDayCard.tsx) to satisfy that requirement. `credit` is independent
+// of `image` -- it's a sibling field, never derived from the file path/name.
+const PHOTO_IMAGES_BASE_URL =
+  "https://etiohbxjwzclursixjze.supabase.co/storage/v1/object/public/photo-du-jour-images";
+
 const PHOTOS: readonly PhotoEntry[] = [
   {
     country: "France",
     place: "Eiffel Tower",
-    image: "/images/photo-du-jour/france-eiffel-tower.webp",
+    image: PHOTO_IMAGES_BASE_URL + "/france-eiffel-tower.webp",
     credit: { author: "Benh Lieu Song", license: "Public Domain", licenseUrl: "https://en.wikipedia.org/wiki/Public_domain" },
   },
   {
     country: "Brazil",
     place: "Christ the Redeemer",
-    image: "/images/photo-du-jour/brazil-christ-redeemer.webp",
+    image: PHOTO_IMAGES_BASE_URL + "/brazil-christ-redeemer.webp",
     credit: { author: "Laszlo Ilyes", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0/" },
   },
   {
     country: "Egypt",
     place: "Great Pyramid of Giza",
-    image: "/images/photo-du-jour/egypt-great-pyramid.webp",
+    image: PHOTO_IMAGES_BASE_URL + "/egypt-great-pyramid.webp",
     credit: { author: "Kallerna", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
   },
   {
     country: "India",
     place: "Taj Mahal",
-    image: "/images/photo-du-jour/india-taj-mahal.webp",
+    image: PHOTO_IMAGES_BASE_URL + "/india-taj-mahal.webp",
     credit: { author: "Joel Godwin", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
   },
   {
     country: "United States",
     place: "Statue of Liberty",
-    image: "/images/photo-du-jour/usa-statue-of-liberty.webp",
+    image: PHOTO_IMAGES_BASE_URL + "/usa-statue-of-liberty.webp",
     credit: { author: "Iolaire~commonswiki", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
   },
   {
     country: "Australia",
     place: "Sydney Opera House",
-    image: "/images/photo-du-jour/australia-sydney-opera-house.webp",
+    image: PHOTO_IMAGES_BASE_URL + "/australia-sydney-opera-house.webp",
     credit: { author: "Bjarte Sorensen", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
   },
   {
     country: "Peru",
     place: "Machu Picchu",
-    image: "/images/photo-du-jour/peru-machu-picchu.webp",
+    image: PHOTO_IMAGES_BASE_URL + "/peru-machu-picchu.webp",
     credit: { author: "Pedro Szekely", license: "CC BY-SA 2.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0/" },
   },
   {
     country: "China",
     place: "Great Wall of China",
-    image: "/images/photo-du-jour/china-great-wall.webp",
+    image: PHOTO_IMAGES_BASE_URL + "/china-great-wall.webp",
     credit: { author: "Eunice winG", license: "CC BY 2.0", licenseUrl: "https://creativecommons.org/licenses/by/2.0/" },
   },
   {
     country: "Italy",
     place: "Colosseum",
-    image: "/images/photo-du-jour/italy-colosseum.webp",
+    image: PHOTO_IMAGES_BASE_URL + "/italy-colosseum.webp",
     credit: { author: "Silviomerci1971", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
   },
   {
     country: "United Kingdom",
     place: "Big Ben",
-    image: "/images/photo-du-jour/uk-big-ben.webp",
+    image: PHOTO_IMAGES_BASE_URL + "/uk-big-ben.webp",
     credit: { author: "Minielena313", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
   },
   {
     country: "Japan",
     place: "Mount Fuji",
-    image: "/images/photo-du-jour/japan-mount-fuji.webp",
+    image: PHOTO_IMAGES_BASE_URL + "/japan-mount-fuji.webp",
     credit: { author: "Subramaniam K V", license: "CC BY 3.0", licenseUrl: "https://creativecommons.org/licenses/by/3.0/" },
   },
 ];
