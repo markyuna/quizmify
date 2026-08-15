@@ -2,6 +2,9 @@
   "Navbar": {
     "signIn": "Iniciar sesión"
   },
+  "ThemeToggle": {
+    "toggle": "Cambiar de tema"
+  },
   "UserMenu": {
     "dashboard": "Panel",
     "quiz": "Quiz",
@@ -9,7 +12,8 @@
     "history": "Historial",
     "leaderboard": "Ranking",
     "myAccount": "Mi cuenta",
-    "signOut": "Cerrar sesión"
+    "signOut": "Cerrar sesión",
+    "openMenu": "Abrir menú de usuario"
   },
   "Footer": {
     "rights": "Quizmify — Marcos Suarez Romero (EI)",
@@ -268,6 +272,27 @@
     "title": "Quiz por temáticas",
     "subtitle": "Explorá nuestras categorías y lanzate a un quiz sobre tu tema favorito.",
     "viewAllCta": "Ver todas las categorías"
+  },
+  "CategoryQuizList": {
+    "filterPlaceholder": "Filtrar por palabra clave",
+    "trending": "Tendencias",
+    "publishDate": "Fecha de publicación",
+    "emptyState": "Todavía no hay quizzes de la comunidad para esta categoría. ¡Sé el primero en crear uno!",
+    "noResultsFor": "Sin resultados para «{query}».",
+    "notFoundPrompt": "¿No encontrás lo que buscás?",
+    "createCustomQuizCta": "Creá un quiz personalizado sobre este tema"
+  },
+  "CategoryQuizCard": {
+    "publishedOn": "Publicado el {date}"
+  },
+  "CategorySidebar": {
+    "searchPlaceholder": "Buscar un quiz...",
+    "moreCategories": "Más categorías",
+    "allGames": "Todos los juegos"
+  },
+  "CategoryBreadcrumb": {
+    "ariaLabel": "Ruta de navegación",
+    "quizLink": "Quiz"
   },
   "Login": {
     "tagline": "Llevá tu conocimiento al siguiente nivel ⚡",
@@ -630,7 +655,10 @@
     "error": "Error",
     "unableToGenerate": "No se pudo generar la imagen.",
     "unableToShare": "No se pudo compartir la imagen.",
-    "shareText": "¡Saqué {score}% en {topic} en Quizmify!"
+    "shareText": "¡Saqué {score}% en {topic} en Quizmify!",
+    "scoreCorrect": "{correct}/{total} correctas",
+    "quizCompleted": "Quiz completado",
+    "streakDays": "Racha de {days} días"
   },
   "Leaderboard": {
     "badge": "Ranking",
@@ -736,7 +764,8 @@
     "price": "$5.99",
     "oneTimePayment": "Pago único",
     "upgradeButton": "Actualizar a Pro",
-    "declineButton": "Ahora no, gracias"
+    "declineButton": "Ahora no, gracias",
+    "close": "Cerrar"
   },
   "About": {
     "title": "Acerca de Quizmify",

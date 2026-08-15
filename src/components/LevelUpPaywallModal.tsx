@@ -42,7 +42,7 @@ export default function LevelUpPaywallModal({
           <button
             onClick={onClose}
             className="absolute right-0 top-0 p-1 hover:opacity-70"
-            aria-label="Close"
+            aria-label={t("close")}
           >
             <X className="h-5 w-5" />
           </button>

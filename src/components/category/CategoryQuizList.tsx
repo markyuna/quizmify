@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Search, ArrowDownWideNarrow, Flame, Sparkles } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
@@ -16,6 +17,7 @@ type CategoryQuizListProps = {
 };
 
 export default function CategoryQuizList({ category, items }: CategoryQuizListProps) {
+  const t = useTranslations("CategoryQuizList");
   const [query, setQuery] = React.useState("");
   const [sortByTrending, setSortByTrending] = React.useState(false);
 
@@ -44,7 +46,7 @@ export default function CategoryQuizList({ category, items }: CategoryQuizListPr
           <Input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Filtrer par mot-clé"
+            placeholder={t("filterPlaceholder")}
             className="pl-11"
           />
         </div>
@@ -56,7 +58,7 @@ export default function CategoryQuizList({ category, items }: CategoryQuizListPr
           className="shrink-0"
         >
           {sortByTrending ? <Flame className="h-4 w-4" /> : <ArrowDownWideNarrow className="h-4 w-4" />}
-          {sortByTrending ? "Tendances" : "Date de publication"}
+          {sortByTrending ? t("trending") : t("publishDate")}
         </Button>
       </div>
 
@@ -68,22 +70,22 @@ export default function CategoryQuizList({ category, items }: CategoryQuizListPr
         </div>
       ) : items.length === 0 ? (
         <p className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
-          Aucun quiz communautaire pour cette catégorie pour le moment. Soyez le premier à en créer un !
+          {t("emptyState")}
         </p>
       ) : (
         <p className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
-          Aucun résultat pour « {query} ».
+          {t("noResultsFor", { query })}
         </p>
       )}
 
       <div className="mt-8 rounded-2xl border border-dashed border-violet-300 bg-violet-50/60 p-5 text-center dark:border-violet-500/30 dark:bg-violet-500/10">
         <p className="mb-3 text-sm font-medium text-slate-700 dark:text-slate-200">
-          Vous ne trouvez pas ce que vous cherchez ?
+          {t("notFoundPrompt")}
         </p>
         <Button asChild>
           <Link href={`/quiz?category=${category.slug}`}>
             <Sparkles className="h-4 w-4" />
-            Créer un quiz personnalisé sur ce thème
+            {t("createCustomQuizCta")}
           </Link>
         </Button>
       </div>

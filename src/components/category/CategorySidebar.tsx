@@ -56,6 +56,7 @@ function CategoryGroupDisclosure({ group, categories }: (typeof GROUPED_CATEGORI
 
 export default function CategorySidebar() {
   const t = useTranslations("GuestGames");
+  const tSidebar = useTranslations("CategorySidebar");
 
   return (
     <aside className="space-y-6">
@@ -63,14 +64,14 @@ export default function CategorySidebar() {
         <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
         <input
           type="text"
-          placeholder="Rechercher un quiz..."
+          placeholder={tSidebar("searchPlaceholder")}
           className="h-11 w-full rounded-2xl border border-slate-200 bg-white pl-11 pr-4 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus-visible:border-violet-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/30 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-slate-400"
         />
       </div>
 
       <div className="rounded-2xl border border-slate-200/80 bg-white/80 p-4 backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
         <h2 className="mb-1 text-sm font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-          Plus de catégories
+          {tSidebar("moreCategories")}
         </h2>
         <div>
           {GROUPED_CATEGORIES.map((entry) => (
@@ -81,7 +82,7 @@ export default function CategorySidebar() {
 
       <div className="rounded-2xl border border-slate-200/80 bg-white/80 p-4 backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
         <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-          Tous les Jeux
+          {tSidebar("allGames")}
         </h2>
         <div className="grid grid-cols-2 gap-2">
           {GAMES.map((game) => (

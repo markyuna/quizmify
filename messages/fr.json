@@ -2,6 +2,9 @@
   "Navbar": {
     "signIn": "Se connecter"
   },
+  "ThemeToggle": {
+    "toggle": "Changer de thème"
+  },
   "UserMenu": {
     "dashboard": "Tableau de bord",
     "quiz": "Quiz",
@@ -9,7 +12,8 @@
     "history": "Historique",
     "leaderboard": "Classement",
     "myAccount": "Mon compte",
-    "signOut": "Se déconnecter"
+    "signOut": "Se déconnecter",
+    "openMenu": "Ouvrir le menu utilisateur"
   },
   "Footer": {
     "rights": "Quizmify — Marcos Suarez Romero (EI)",
@@ -268,6 +272,27 @@
     "title": "Quiz par thématiques",
     "subtitle": "Explorez nos catégories et lancez-vous dans un quiz sur votre thème préféré.",
     "viewAllCta": "Voir toutes les catégories"
+  },
+  "CategoryQuizList": {
+    "filterPlaceholder": "Filtrer par mot-clé",
+    "trending": "Tendances",
+    "publishDate": "Date de publication",
+    "emptyState": "Aucun quiz communautaire pour cette catégorie pour le moment. Soyez le premier à en créer un !",
+    "noResultsFor": "Aucun résultat pour « {query} ».",
+    "notFoundPrompt": "Vous ne trouvez pas ce que vous cherchez ?",
+    "createCustomQuizCta": "Créer un quiz personnalisé sur ce thème"
+  },
+  "CategoryQuizCard": {
+    "publishedOn": "Publié le {date}"
+  },
+  "CategorySidebar": {
+    "searchPlaceholder": "Rechercher un quiz...",
+    "moreCategories": "Plus de catégories",
+    "allGames": "Tous les Jeux"
+  },
+  "CategoryBreadcrumb": {
+    "ariaLabel": "Fil d'Ariane",
+    "quizLink": "Quiz"
   },
   "Login": {
     "tagline": "Faites progresser vos connaissances ⚡",
@@ -630,7 +655,10 @@
     "error": "Erreur",
     "unableToGenerate": "Impossible de générer l'image.",
     "unableToShare": "Impossible de partager l'image.",
-    "shareText": "J'ai obtenu {score} % sur {topic} sur Quizmify !"
+    "shareText": "J'ai obtenu {score} % sur {topic} sur Quizmify !",
+    "scoreCorrect": "{correct}/{total} bonnes réponses",
+    "quizCompleted": "Quiz terminé",
+    "streakDays": "Série de {days} jours"
   },
   "Leaderboard": {
     "badge": "Classement",
@@ -736,7 +764,8 @@
     "price": "5,99 €",
     "oneTimePayment": "Paiement unique",
     "upgradeButton": "Passer à Pro",
-    "declineButton": "Pas maintenant, merci"
+    "declineButton": "Pas maintenant, merci",
+    "close": "Fermer"
   },
   "About": {
     "title": "À propos de Quizmify",

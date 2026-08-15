@@ -2,6 +2,9 @@
   "Navbar": {
     "signIn": "Sign In"
   },
+  "ThemeToggle": {
+    "toggle": "Toggle theme"
+  },
   "UserMenu": {
     "dashboard": "Dashboard",
     "quiz": "Quiz",
@@ -9,7 +12,8 @@
     "history": "History",
     "leaderboard": "Leaderboard",
     "myAccount": "My Account",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "openMenu": "Open user menu"
   },
   "Footer": {
     "rights": "Quizmify — Marcos Suarez Romero (EI)",
@@ -268,6 +272,27 @@
     "title": "Quizzes by theme",
     "subtitle": "Browse our categories and dive into a quiz on your favorite topic.",
     "viewAllCta": "View all categories"
+  },
+  "CategoryQuizList": {
+    "filterPlaceholder": "Filter by keyword",
+    "trending": "Trending",
+    "publishDate": "Publish date",
+    "emptyState": "No community quizzes for this category yet. Be the first to create one!",
+    "noResultsFor": "No results for \"{query}\".",
+    "notFoundPrompt": "Can't find what you're looking for?",
+    "createCustomQuizCta": "Create a custom quiz on this topic"
+  },
+  "CategoryQuizCard": {
+    "publishedOn": "Published on {date}"
+  },
+  "CategorySidebar": {
+    "searchPlaceholder": "Search for a quiz...",
+    "moreCategories": "More categories",
+    "allGames": "All Games"
+  },
+  "CategoryBreadcrumb": {
+    "ariaLabel": "Breadcrumb",
+    "quizLink": "Quiz"
   },
   "Login": {
     "tagline": "Level up your knowledge ⚡",
@@ -630,7 +655,10 @@
     "error": "Error",
     "unableToGenerate": "Unable to generate the image.",
     "unableToShare": "Unable to share the image.",
-    "shareText": "I scored {score}% on {topic} in Quizmify!"
+    "shareText": "I scored {score}% on {topic} in Quizmify!",
+    "scoreCorrect": "{correct}/{total} correct",
+    "quizCompleted": "Quiz completed",
+    "streakDays": "{days}-day streak"
   },
   "Leaderboard": {
     "badge": "Leaderboard",
@@ -736,7 +764,8 @@
     "price": "$5.99",
     "oneTimePayment": "One-time payment",
     "upgradeButton": "Upgrade to Pro",
-    "declineButton": "Not now, thanks"
+    "declineButton": "Not now, thanks",
+    "close": "Close"
   },
   "About": {
     "title": "About Quizmify",

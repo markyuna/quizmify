@@ -1,6 +1,7 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useTheme } from "./ThemeProvider";
 import { useSyncExternalStore } from "react";
 import { cn } from "@/lib/utils";
@@ -14,6 +15,7 @@ function useMounted() {
 }
 
 export default function ThemeToggle() {
+  const t = useTranslations("ThemeToggle");
   const { resolvedTheme, setTheme } = useTheme();
   const mounted = useMounted();
 
@@ -23,7 +25,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={() => mounted && setTheme(isDark ? "light" : "dark")}
-      aria-label="Toggle theme"
+      aria-label={t("toggle")}
       className={cn(
         "inline-flex h-11 w-11 items-center justify-center rounded-2xl",
         "border border-white/40 bg-white/70 backdrop-blur-md shadow-sm",

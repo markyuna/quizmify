@@ -1,4 +1,7 @@
+"use client";
+
 import * as React from "react";
+import { useTranslations } from "next-intl";
 import { Flame, Sparkles, Trophy } from "lucide-react";
 
 export type ShareResultCardProps = {
@@ -19,6 +22,7 @@ const CARD_HEIGHT = 640;
  */
 const ShareResultCard = React.forwardRef<HTMLDivElement, ShareResultCardProps>(
   ({ topic, score, correctAnswers, totalQuestions, currentStreak }, ref) => {
+    const t = useTranslations("ShareResult");
     const scoreEmoji = score >= 80 ? "🏆" : score >= 50 ? "👍" : "💪";
 
     // Topic is free text (up to 200 chars) -- shrink it for long names so it
@@ -60,7 +64,7 @@ const ShareResultCard = React.forwardRef<HTMLDivElement, ShareResultCardProps>(
           </p>
           <p className="mt-6 text-7xl font-black leading-none">{score}%</p>
           <p className="mt-5 text-lg font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>
-            {correctAnswers}/{totalQuestions} correct
+            {t("scoreCorrect", { correct: correctAnswers, total: totalQuestions })}
           </p>
           <p
             className="mx-auto mt-4 font-semibold leading-snug"
@@ -81,12 +85,12 @@ const ShareResultCard = React.forwardRef<HTMLDivElement, ShareResultCardProps>(
         >
           <div className="flex items-center gap-2">
             <Trophy className="h-5 w-5" style={{ color: "#fcd34d" }} />
-            <span className="text-sm font-semibold">Quiz completed</span>
+            <span className="text-sm font-semibold">{t("quizCompleted")}</span>
           </div>
           {currentStreak > 0 && (
             <div className="flex items-center gap-1.5">
               <Flame className="h-5 w-5" style={{ color: "#fcd34d" }} />
-              <span className="text-sm font-bold">{currentStreak}-day streak</span>
+              <span className="text-sm font-bold">{t("streakDays", { days: currentStreak })}</span>
             </div>
           )}
         </div>

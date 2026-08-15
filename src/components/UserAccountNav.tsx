@@ -29,7 +29,7 @@ const UserAccountNav = ({ user }: Props) => {
         <button
           type="button"
           className="rounded-full outline-none ring-offset-background transition-transform duration-200 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-violet-500/40 focus-visible:ring-offset-2"
-          aria-label="Open user menu"
+          aria-label={t("openMenu")}
         >
           <UserAvatar
             className="h-10 w-10 border border-slate-200 shadow-sm dark:border-white/10 dark:shadow-none"

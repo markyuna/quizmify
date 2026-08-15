@@ -1,14 +1,20 @@
+"use client";
+
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { Flame } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import type { Category } from "@/lib/categories";
 import type { CategoryTopicWithTrending } from "@/lib/categoryTopics";
 
-const DIFFICULTY_LABELS: Record<string, string> = {
-  easy: "Facile",
-  medium: "Moyen",
-  hard: "Difficile",
+// Same 3 difficulty keys/labels as QuizCreation's difficulty picker --
+// reused via the "QuizCreation" namespace instead of a second translated
+// copy of "Facile/Moyen/Difficile" living here.
+const DIFFICULTY_KEYS: Record<string, string> = {
+  easy: "difficultyEasy",
+  medium: "difficultyMedium",
+  hard: "difficultyHard",
 };
 
 const DIFFICULTY_STYLES: Record<string, string> = {
@@ -27,6 +33,10 @@ type CategoryQuizCardProps = {
 // the category's own icon (no per-topic thumbnail/generation in this phase,
 // see CategoryTopic's design note in prisma/schema.prisma).
 export default function CategoryQuizCard({ topic, category }: CategoryQuizCardProps) {
+  const t = useTranslations("CategoryQuizCard");
+  const tDifficulty = useTranslations("QuizCreation");
+  const locale = useLocale();
+
   return (
     <Link
       href={`/quiz?topic=${encodeURIComponent(topic.topicDisplay)}&category=${category.slug}`}
@@ -51,12 +61,12 @@ export default function CategoryQuizCard({ topic, category }: CategoryQuizCardPr
               DIFFICULTY_STYLES[topic.difficulty] ?? DIFFICULTY_STYLES.medium
             )}
           >
-            {DIFFICULTY_LABELS[topic.difficulty] ?? topic.difficulty}
+            {DIFFICULTY_KEYS[topic.difficulty] ? tDifficulty(DIFFICULTY_KEYS[topic.difficulty]) : topic.difficulty}
           </span>
         </div>
 
         <p className="mt-2 text-[11px] text-slate-400 dark:text-slate-500">
-          Publié le {topic.createdAt.toLocaleDateString("fr-FR")}
+          {t("publishedOn", { date: topic.createdAt.toLocaleDateString(locale) })}
         </p>
       </div>
     </Link>
