@@ -273,6 +273,89 @@
     "subtitle": "Explorá nuestras categorías y lanzate a un quiz sobre tu tema favorito.",
     "viewAllCta": "Ver todas las categorías"
   },
+  "CategoryGroups": {
+    "culture-generale": "Cultura General",
+    "culture-sciences": "Cultura y Ciencias",
+    "divertissement": "Entretenimiento",
+    "sports": "Deportes",
+    "nature-animaux": "Naturaleza y Animales",
+    "langues": "Idiomas",
+    "vie-quotidienne": "Vida Cotidiana"
+  },
+  "Categories": {
+    "culture-generale": {
+      "name": "Cultura General",
+      "seoDescription": "Poné a prueba tus conocimientos generales con quizzes variados que cubren historia, geografía, ciencias y mucho más. Ideal para entrenar antes de un programa de preguntas o simplemente por el placer de aprender."
+    },
+    "histoire": {
+      "name": "Historia",
+      "seoDescription": "Quizzes sobre las grandes fechas, personajes destacados y eventos que marcaron al mundo, desde la Antigüedad hasta la época contemporánea."
+    },
+    "geographie": {
+      "name": "Geografía",
+      "seoDescription": "Capitales, países, ríos, relieves... Descubrí el mundo a través de quizzes de geografía para poner a prueba tu sentido de la orientación y tus conocimientos del globo."
+    },
+    "sciences": {
+      "name": "Ciencias",
+      "seoDescription": "Física, química, biología, astronomía... Explorá el universo de las ciencias con quizzes que combinan descubrimientos históricos y nociones fundamentales."
+    },
+    "arts": {
+      "name": "Arte",
+      "seoDescription": "Pintura, escultura, corrientes artísticas y grandes artistas: poné a prueba tu cultura artística a través de los siglos con estos quizzes."
+    },
+    "france": {
+      "name": "Francia",
+      "seoDescription": "Regiones, monumentos, tradiciones y símbolos: (re)descubrí Francia de punta a punta con quizzes 100% dedicados al Hexágono."
+    },
+    "cinema": {
+      "name": "Cine",
+      "seoDescription": "Películas de culto, actores, directores y frases míticas: sumergite en el mundo del séptimo arte con quizzes para todos los cinéfilos."
+    },
+    "disney": {
+      "name": "Disney",
+      "seoDescription": "De los clásicos de animación a los últimos estrenos, poné a prueba tu conocimiento del universo mágico de Disney: personajes, canciones e historias inolvidables."
+    },
+    "harry-potter": {
+      "name": "Harry Potter",
+      "seoDescription": "¡Hogwarts ya no va a tener secretos para vos! Hechizos, personajes, casas y objetos mágicos: quizzes pensados para los fans de la saga."
+    },
+    "tests-de-personnalite": {
+      "name": "Tests de personalidad",
+      "seoDescription": "Descubrí quién sos realmente con nuestros tests de personalidad divertidos: ¿qué animal, qué personaje o qué elemento sos?"
+    },
+    "sports": {
+      "name": "Deportes",
+      "seoDescription": "De los récords olímpicos a las reglas menos conocidas, poné a prueba tu cultura deportiva en todas las disciplinas con estos quizzes para fanáticos."
+    },
+    "football": {
+      "name": "Fútbol",
+      "seoDescription": "Mundiales, clubes legendarios y jugadores míticos: el quiz perfecto para los apasionados de la pelota."
+    },
+    "animaux": {
+      "name": "Animales",
+      "seoDescription": "De las especies más comunes a las más sorprendentes, descubrí el reino animal con quizzes divertidos e instructivos."
+    },
+    "nature": {
+      "name": "Naturaleza",
+      "seoDescription": "Ecosistemas, fenómenos naturales y maravillas de nuestro planeta: quizzes para entender mejor y proteger el mundo que nos rodea."
+    },
+    "langue-francaise": {
+      "name": "Lengua francesa",
+      "seoDescription": "Ortografía, gramática, expresiones y etimología: poné a prueba tus conocimientos de la lengua de Molière."
+    },
+    "alimentation": {
+      "name": "Alimentación",
+      "seoDescription": "Cocinas del mundo, nutrición y anécdotas gastronómicas: quizzes para los curiosos que disfrutan tanto de comer como de aprender."
+    },
+    "code-de-la-route": {
+      "name": "Código de tránsito",
+      "seoDescription": "Señales, prioridades y reglas de circulación: repasá el código de tránsito con quizzes para futuros conductores y conductores experimentados."
+    },
+    "drapeaux": {
+      "name": "Banderas",
+      "seoDescription": "¿Podrías reconocer todas las banderas del mundo? Poné a prueba tu ojo y tu memoria con estos quizzes dedicados a la vexilología."
+    }
+  },
   "CategoryQuizList": {
     "filterPlaceholder": "Filtrar por palabra clave",
     "trending": "Tendencias",

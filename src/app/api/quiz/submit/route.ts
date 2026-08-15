@@ -335,6 +335,7 @@ export async function POST(req: Request) {
               categorySlug: category.slug,
               topicDisplay: game.topic,
               topicNormalized: game.topic,
+              language: game.language,
               difficulty: game.difficulty ?? "medium",
               createdByGameId: game.id,
             },

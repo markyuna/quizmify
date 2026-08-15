@@ -22,6 +22,8 @@ const GROUPED_CATEGORIES = getCategoriesGroupedByGroup();
 
 function CategoryGroupDisclosure({ group, categories }: (typeof GROUPED_CATEGORIES)[number]) {
   const [open, setOpen] = React.useState(false);
+  const tGroups = useTranslations("CategoryGroups");
+  const tCategories = useTranslations("Categories");
 
   return (
     <div className="border-b border-slate-200/80 py-2 last:border-0 dark:border-white/10">
@@ -31,7 +33,7 @@ function CategoryGroupDisclosure({ group, categories }: (typeof GROUPED_CATEGORI
         className="flex w-full items-center justify-between py-1.5 text-left text-sm font-semibold text-slate-800 dark:text-slate-100"
         aria-expanded={open}
       >
-        {group}
+        {tGroups(group)}
         <ChevronDown className={cn("h-4 w-4 shrink-0 text-slate-400 transition-transform", open && "rotate-180")} />
       </button>
 
@@ -44,7 +46,7 @@ function CategoryGroupDisclosure({ group, categories }: (typeof GROUPED_CATEGORI
                 className="flex items-center gap-2 rounded-lg px-2 py-1 text-sm text-slate-600 transition hover:bg-slate-100 hover:text-violet-700 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-violet-300"
               >
                 <span aria-hidden="true">{category.icon}</span>
-                {category.name}
+                {tCategories(`${category.slug}.name`)}
               </Link>
             </li>
           ))}

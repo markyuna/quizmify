@@ -24,7 +24,7 @@ export default function CategoryQuizList({ category, items }: CategoryQuizListPr
   const filteredItems = React.useMemo(() => {
     const normalized = query.trim().toLowerCase();
     const base = normalized
-      ? items.filter((item) => item.topicDisplay.toLowerCase().includes(normalized))
+      ? items.filter((item) => item.displayLabel.toLowerCase().includes(normalized))
       : items;
 
     if (!sortByTrending) return base;

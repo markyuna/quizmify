@@ -29,6 +29,7 @@ export type CategoryTopicMinAggregateOutputType = {
   categorySlug: string | null
   topicDisplay: string | null
   topicNormalized: string | null
+  language: string | null
   difficulty: string | null
   createdAt: Date | null
   hidden: boolean | null
@@ -40,6 +41,7 @@ export type CategoryTopicMaxAggregateOutputType = {
   categorySlug: string | null
   topicDisplay: string | null
   topicNormalized: string | null
+  language: string | null
   difficulty: string | null
   createdAt: Date | null
   hidden: boolean | null
@@ -51,10 +53,12 @@ export type CategoryTopicCountAggregateOutputType = {
   categorySlug: number
   topicDisplay: number
   topicNormalized: number
+  language: number
   difficulty: number
   createdAt: number
   hidden: number
   createdByGameId: number
+  translatedLabels: number
   _all: number
 }
 
@@ -64,6 +68,7 @@ export type CategoryTopicMinAggregateInputType = {
   categorySlug?: true
   topicDisplay?: true
   topicNormalized?: true
+  language?: true
   difficulty?: true
   createdAt?: true
   hidden?: true
@@ -75,6 +80,7 @@ export type CategoryTopicMaxAggregateInputType = {
   categorySlug?: true
   topicDisplay?: true
   topicNormalized?: true
+  language?: true
   difficulty?: true
   createdAt?: true
   hidden?: true
@@ -86,10 +92,12 @@ export type CategoryTopicCountAggregateInputType = {
   categorySlug?: true
   topicDisplay?: true
   topicNormalized?: true
+  language?: true
   difficulty?: true
   createdAt?: true
   hidden?: true
   createdByGameId?: true
+  translatedLabels?: true
   _all?: true
 }
 
@@ -170,10 +178,12 @@ export type CategoryTopicGroupByOutputType = {
   categorySlug: string
   topicDisplay: string
   topicNormalized: string
+  language: string
   difficulty: string
   createdAt: Date
   hidden: boolean
   createdByGameId: string | null
+  translatedLabels: runtime.JsonValue | null
   _count: CategoryTopicCountAggregateOutputType | null
   _min: CategoryTopicMinAggregateOutputType | null
   _max: CategoryTopicMaxAggregateOutputType | null
@@ -202,10 +212,12 @@ export type CategoryTopicWhereInput = {
   categorySlug?: Prisma.StringFilter<"CategoryTopic"> | string
   topicDisplay?: Prisma.StringFilter<"CategoryTopic"> | string
   topicNormalized?: Prisma.StringFilter<"CategoryTopic"> | string
+  language?: Prisma.StringFilter<"CategoryTopic"> | string
   difficulty?: Prisma.StringFilter<"CategoryTopic"> | string
   createdAt?: Prisma.DateTimeFilter<"CategoryTopic"> | Date | string
   hidden?: Prisma.BoolFilter<"CategoryTopic"> | boolean
   createdByGameId?: Prisma.StringNullableFilter<"CategoryTopic"> | string | null
+  translatedLabels?: Prisma.JsonNullableFilter<"CategoryTopic">
 }
 
 export type CategoryTopicOrderByWithRelationInput = {
@@ -213,36 +225,42 @@ export type CategoryTopicOrderByWithRelationInput = {
   categorySlug?: Prisma.SortOrder
   topicDisplay?: Prisma.SortOrder
   topicNormalized?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   hidden?: Prisma.SortOrder
   createdByGameId?: Prisma.SortOrderInput | Prisma.SortOrder
+  translatedLabels?: Prisma.SortOrderInput | Prisma.SortOrder
 }
 
 export type CategoryTopicWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  categorySlug_topicNormalized?: Prisma.CategoryTopicCategorySlugTopicNormalizedCompoundUniqueInput
+  categorySlug_topicNormalized_language?: Prisma.CategoryTopicCategorySlugTopicNormalizedLanguageCompoundUniqueInput
   AND?: Prisma.CategoryTopicWhereInput | Prisma.CategoryTopicWhereInput[]
   OR?: Prisma.CategoryTopicWhereInput[]
   NOT?: Prisma.CategoryTopicWhereInput | Prisma.CategoryTopicWhereInput[]
   categorySlug?: Prisma.StringFilter<"CategoryTopic"> | string
   topicDisplay?: Prisma.StringFilter<"CategoryTopic"> | string
   topicNormalized?: Prisma.StringFilter<"CategoryTopic"> | string
+  language?: Prisma.StringFilter<"CategoryTopic"> | string
   difficulty?: Prisma.StringFilter<"CategoryTopic"> | string
   createdAt?: Prisma.DateTimeFilter<"CategoryTopic"> | Date | string
   hidden?: Prisma.BoolFilter<"CategoryTopic"> | boolean
   createdByGameId?: Prisma.StringNullableFilter<"CategoryTopic"> | string | null
-}, "id" | "categorySlug_topicNormalized">
+  translatedLabels?: Prisma.JsonNullableFilter<"CategoryTopic">
+}, "id" | "categorySlug_topicNormalized_language">
 
 export type CategoryTopicOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   categorySlug?: Prisma.SortOrder
   topicDisplay?: Prisma.SortOrder
   topicNormalized?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   hidden?: Prisma.SortOrder
   createdByGameId?: Prisma.SortOrderInput | Prisma.SortOrder
+  translatedLabels?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.CategoryTopicCountOrderByAggregateInput
   _max?: Prisma.CategoryTopicMaxOrderByAggregateInput
   _min?: Prisma.CategoryTopicMinOrderByAggregateInput
@@ -256,10 +274,12 @@ export type CategoryTopicScalarWhereWithAggregatesInput = {
   categorySlug?: Prisma.StringWithAggregatesFilter<"CategoryTopic"> | string
   topicDisplay?: Prisma.StringWithAggregatesFilter<"CategoryTopic"> | string
   topicNormalized?: Prisma.StringWithAggregatesFilter<"CategoryTopic"> | string
+  language?: Prisma.StringWithAggregatesFilter<"CategoryTopic"> | string
   difficulty?: Prisma.StringWithAggregatesFilter<"CategoryTopic"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CategoryTopic"> | Date | string
   hidden?: Prisma.BoolWithAggregatesFilter<"CategoryTopic"> | boolean
   createdByGameId?: Prisma.StringNullableWithAggregatesFilter<"CategoryTopic"> | string | null
+  translatedLabels?: Prisma.JsonNullableWithAggregatesFilter<"CategoryTopic">
 }
 
 export type CategoryTopicCreateInput = {
@@ -267,10 +287,12 @@ export type CategoryTopicCreateInput = {
   categorySlug: string
   topicDisplay: string
   topicNormalized: string
+  language?: string
   difficulty: string
   createdAt?: Date | string
   hidden?: boolean
   createdByGameId?: string | null
+  translatedLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type CategoryTopicUncheckedCreateInput = {
@@ -278,10 +300,12 @@ export type CategoryTopicUncheckedCreateInput = {
   categorySlug: string
   topicDisplay: string
   topicNormalized: string
+  language?: string
   difficulty: string
   createdAt?: Date | string
   hidden?: boolean
   createdByGameId?: string | null
+  translatedLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type CategoryTopicUpdateInput = {
@@ -289,10 +313,12 @@ export type CategoryTopicUpdateInput = {
   categorySlug?: Prisma.StringFieldUpdateOperationsInput | string
   topicDisplay?: Prisma.StringFieldUpdateOperationsInput | string
   topicNormalized?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdByGameId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  translatedLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type CategoryTopicUncheckedUpdateInput = {
@@ -300,10 +326,12 @@ export type CategoryTopicUncheckedUpdateInput = {
   categorySlug?: Prisma.StringFieldUpdateOperationsInput | string
   topicDisplay?: Prisma.StringFieldUpdateOperationsInput | string
   topicNormalized?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdByGameId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  translatedLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type CategoryTopicCreateManyInput = {
@@ -311,10 +339,12 @@ export type CategoryTopicCreateManyInput = {
   categorySlug: string
   topicDisplay: string
   topicNormalized: string
+  language?: string
   difficulty: string
   createdAt?: Date | string
   hidden?: boolean
   createdByGameId?: string | null
+  translatedLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type CategoryTopicUpdateManyMutationInput = {
@@ -322,10 +352,12 @@ export type CategoryTopicUpdateManyMutationInput = {
   categorySlug?: Prisma.StringFieldUpdateOperationsInput | string
   topicDisplay?: Prisma.StringFieldUpdateOperationsInput | string
   topicNormalized?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdByGameId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  translatedLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type CategoryTopicUncheckedUpdateManyInput = {
@@ -333,15 +365,18 @@ export type CategoryTopicUncheckedUpdateManyInput = {
   categorySlug?: Prisma.StringFieldUpdateOperationsInput | string
   topicDisplay?: Prisma.StringFieldUpdateOperationsInput | string
   topicNormalized?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdByGameId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  translatedLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
-export type CategoryTopicCategorySlugTopicNormalizedCompoundUniqueInput = {
+export type CategoryTopicCategorySlugTopicNormalizedLanguageCompoundUniqueInput = {
   categorySlug: string
   topicNormalized: string
+  language: string
 }
 
 export type CategoryTopicCountOrderByAggregateInput = {
@@ -349,10 +384,12 @@ export type CategoryTopicCountOrderByAggregateInput = {
   categorySlug?: Prisma.SortOrder
   topicDisplay?: Prisma.SortOrder
   topicNormalized?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   hidden?: Prisma.SortOrder
   createdByGameId?: Prisma.SortOrder
+  translatedLabels?: Prisma.SortOrder
 }
 
 export type CategoryTopicMaxOrderByAggregateInput = {
@@ -360,6 +397,7 @@ export type CategoryTopicMaxOrderByAggregateInput = {
   categorySlug?: Prisma.SortOrder
   topicDisplay?: Prisma.SortOrder
   topicNormalized?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   hidden?: Prisma.SortOrder
@@ -371,6 +409,7 @@ export type CategoryTopicMinOrderByAggregateInput = {
   categorySlug?: Prisma.SortOrder
   topicDisplay?: Prisma.SortOrder
   topicNormalized?: Prisma.SortOrder
+  language?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   hidden?: Prisma.SortOrder
@@ -384,10 +423,12 @@ export type CategoryTopicSelect<ExtArgs extends runtime.Types.Extensions.Interna
   categorySlug?: boolean
   topicDisplay?: boolean
   topicNormalized?: boolean
+  language?: boolean
   difficulty?: boolean
   createdAt?: boolean
   hidden?: boolean
   createdByGameId?: boolean
+  translatedLabels?: boolean
 }, ExtArgs["result"]["categoryTopic"]>
 
 export type CategoryTopicSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -395,10 +436,12 @@ export type CategoryTopicSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   categorySlug?: boolean
   topicDisplay?: boolean
   topicNormalized?: boolean
+  language?: boolean
   difficulty?: boolean
   createdAt?: boolean
   hidden?: boolean
   createdByGameId?: boolean
+  translatedLabels?: boolean
 }, ExtArgs["result"]["categoryTopic"]>
 
 export type CategoryTopicSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -406,10 +449,12 @@ export type CategoryTopicSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   categorySlug?: boolean
   topicDisplay?: boolean
   topicNormalized?: boolean
+  language?: boolean
   difficulty?: boolean
   createdAt?: boolean
   hidden?: boolean
   createdByGameId?: boolean
+  translatedLabels?: boolean
 }, ExtArgs["result"]["categoryTopic"]>
 
 export type CategoryTopicSelectScalar = {
@@ -417,13 +462,15 @@ export type CategoryTopicSelectScalar = {
   categorySlug?: boolean
   topicDisplay?: boolean
   topicNormalized?: boolean
+  language?: boolean
   difficulty?: boolean
   createdAt?: boolean
   hidden?: boolean
   createdByGameId?: boolean
+  translatedLabels?: boolean
 }
 
-export type CategoryTopicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "categorySlug" | "topicDisplay" | "topicNormalized" | "difficulty" | "createdAt" | "hidden" | "createdByGameId", ExtArgs["result"]["categoryTopic"]>
+export type CategoryTopicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "categorySlug" | "topicDisplay" | "topicNormalized" | "language" | "difficulty" | "createdAt" | "hidden" | "createdByGameId" | "translatedLabels", ExtArgs["result"]["categoryTopic"]>
 
 export type $CategoryTopicPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CategoryTopic"
@@ -433,10 +480,12 @@ export type $CategoryTopicPayload<ExtArgs extends runtime.Types.Extensions.Inter
     categorySlug: string
     topicDisplay: string
     topicNormalized: string
+    language: string
     difficulty: string
     createdAt: Date
     hidden: boolean
     createdByGameId: string | null
+    translatedLabels: runtime.JsonValue | null
   }, ExtArgs["result"]["categoryTopic"]>
   composites: {}
 }
@@ -864,10 +913,12 @@ export interface CategoryTopicFieldRefs {
   readonly categorySlug: Prisma.FieldRef<"CategoryTopic", 'String'>
   readonly topicDisplay: Prisma.FieldRef<"CategoryTopic", 'String'>
   readonly topicNormalized: Prisma.FieldRef<"CategoryTopic", 'String'>
+  readonly language: Prisma.FieldRef<"CategoryTopic", 'String'>
   readonly difficulty: Prisma.FieldRef<"CategoryTopic", 'String'>
   readonly createdAt: Prisma.FieldRef<"CategoryTopic", 'DateTime'>
   readonly hidden: Prisma.FieldRef<"CategoryTopic", 'Boolean'>
   readonly createdByGameId: Prisma.FieldRef<"CategoryTopic", 'String'>
+  readonly translatedLabels: Prisma.FieldRef<"CategoryTopic", 'Json'>
 }
     
 

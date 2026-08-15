@@ -273,6 +273,89 @@
     "subtitle": "Browse our categories and dive into a quiz on your favorite topic.",
     "viewAllCta": "View all categories"
   },
+  "CategoryGroups": {
+    "culture-generale": "General Knowledge",
+    "culture-sciences": "Culture & Science",
+    "divertissement": "Entertainment",
+    "sports": "Sports",
+    "nature-animaux": "Nature & Animals",
+    "langues": "Languages",
+    "vie-quotidienne": "Everyday Life"
+  },
+  "Categories": {
+    "culture-generale": {
+      "name": "General Knowledge",
+      "seoDescription": "Test your general knowledge with quizzes covering history, geography, science, and more. Perfect for prepping for a trivia night or just for the fun of learning."
+    },
+    "histoire": {
+      "name": "History",
+      "seoDescription": "Quizzes on key dates, notable figures, and the events that shaped the world, from antiquity to the modern era."
+    },
+    "geographie": {
+      "name": "Geography",
+      "seoDescription": "Capitals, countries, rivers, landscapes... Explore the world through geography quizzes that test your sense of direction and knowledge of the globe."
+    },
+    "sciences": {
+      "name": "Science",
+      "seoDescription": "Physics, chemistry, biology, astronomy... Explore the world of science with quizzes blending historical discoveries and core concepts."
+    },
+    "arts": {
+      "name": "Arts",
+      "seoDescription": "Painting, sculpture, art movements, and great artists: test your art knowledge across the centuries with these quizzes."
+    },
+    "france": {
+      "name": "France",
+      "seoDescription": "Regions, monuments, traditions, and symbols: (re)discover France from every angle with quizzes 100% dedicated to the Hexagon."
+    },
+    "cinema": {
+      "name": "Cinema",
+      "seoDescription": "Cult films, actors, directors, and iconic lines: dive into the world of film with quizzes for every movie buff."
+    },
+    "disney": {
+      "name": "Disney",
+      "seoDescription": "From animated classics to the latest releases, test your knowledge of the magical world of Disney: characters, songs, and unforgettable stories."
+    },
+    "harry-potter": {
+      "name": "Harry Potter",
+      "seoDescription": "Hogwarts will hold no more secrets for you! Spells, characters, houses, and magical objects: quizzes made for fans of the saga."
+    },
+    "tests-de-personnalite": {
+      "name": "Personality Tests",
+      "seoDescription": "Discover who you really are with our fun personality tests: which animal, which character, or which element matches you best?"
+    },
+    "sports": {
+      "name": "Sports",
+      "seoDescription": "From Olympic records to lesser-known rules, test your sports knowledge across every discipline with quizzes for true fans."
+    },
+    "football": {
+      "name": "Football",
+      "seoDescription": "World Cups, legendary clubs, and iconic players: the perfect quiz for football fans."
+    },
+    "animaux": {
+      "name": "Animals",
+      "seoDescription": "From the most common to the most surprising, explore the animal kingdom with fun and educational quizzes."
+    },
+    "nature": {
+      "name": "Nature",
+      "seoDescription": "Ecosystems, natural phenomena, and the wonders of our planet: quizzes to help you better understand and protect the world around us."
+    },
+    "langue-francaise": {
+      "name": "French Language",
+      "seoDescription": "Spelling, grammar, expressions, and etymology: put your knowledge of the language of Molière to the test."
+    },
+    "alimentation": {
+      "name": "Food",
+      "seoDescription": "World cuisines, nutrition, and food trivia: quizzes for the curious who love eating as much as learning."
+    },
+    "code-de-la-route": {
+      "name": "Driving Test",
+      "seoDescription": "Signs, right of way, and traffic rules: brush up on the highway code with quizzes for future and experienced drivers alike."
+    },
+    "drapeaux": {
+      "name": "Flags",
+      "seoDescription": "Could you recognize every flag in the world? Test your eye and memory with these quizzes dedicated to vexillology."
+    }
+  },
   "CategoryQuizList": {
     "filterPlaceholder": "Filter by keyword",
     "trending": "Trending",

@@ -2,10 +2,11 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ChevronRight } from "lucide-react";
 
-import type { CategoryGroup } from "@/lib/categories";
-
 type CategoryBreadcrumbProps = {
-  group: CategoryGroup;
+  // Already-translated display text -- the caller resolves both via
+  // getTranslations("CategoryGroups") / ("Categories") before passing them
+  // down, this component just renders.
+  group: string;
   name: string;
 };
 

@@ -273,6 +273,89 @@
     "subtitle": "Explorez nos catégories et lancez-vous dans un quiz sur votre thème préféré.",
     "viewAllCta": "Voir toutes les catégories"
   },
+  "CategoryGroups": {
+    "culture-generale": "Culture Générale",
+    "culture-sciences": "Culture & Sciences",
+    "divertissement": "Divertissement",
+    "sports": "Sports",
+    "nature-animaux": "Nature & Animaux",
+    "langues": "Langues",
+    "vie-quotidienne": "Vie Quotidienne"
+  },
+  "Categories": {
+    "culture-generale": {
+      "name": "Culture Générale",
+      "seoDescription": "Testez vos connaissances générales avec des quiz variés couvrant l'histoire, la géographie, les sciences et bien plus. Idéal pour s'entraîner avant un jeu télévisé ou simplement pour le plaisir d'apprendre."
+    },
+    "histoire": {
+      "name": "Histoire",
+      "seoDescription": "Des quiz sur les grandes dates, les personnages marquants et les événements qui ont façonné le monde, de l'Antiquité à l'époque contemporaine."
+    },
+    "geographie": {
+      "name": "Géographie",
+      "seoDescription": "Capitales, pays, fleuves, reliefs... Partez à la découverte du monde à travers des quiz de géographie pour tester votre sens de l'orientation et vos connaissances du globe."
+    },
+    "sciences": {
+      "name": "Sciences",
+      "seoDescription": "Physique, chimie, biologie, astronomie... Explorez l'univers des sciences avec des quiz qui mêlent découvertes historiques et notions fondamentales."
+    },
+    "arts": {
+      "name": "Arts",
+      "seoDescription": "Peinture, sculpture, courants artistiques et grands artistes : testez votre culture artistique à travers les siècles avec ces quiz dédiés aux arts."
+    },
+    "france": {
+      "name": "La France",
+      "seoDescription": "Régions, monuments, traditions et symboles : (re)découvrez la France sous toutes ses coutures grâce à des quiz 100% dédiés à l'Hexagone."
+    },
+    "cinema": {
+      "name": "Cinéma",
+      "seoDescription": "Films cultes, acteurs, réalisateurs et répliques mythiques : plongez dans l'univers du septième art avec des quiz pour tous les cinéphiles."
+    },
+    "disney": {
+      "name": "Disney",
+      "seoDescription": "Des classiques d'animation aux dernières sorties, testez votre connaissance de l'univers magique de Disney : personnages, chansons et histoires inoubliables."
+    },
+    "harry-potter": {
+      "name": "Harry Potter",
+      "seoDescription": "Poudlard n'aura plus aucun secret pour vous ! Sortilèges, personnages, maisons et objets magiques : des quiz pensés pour les fans de la saga."
+    },
+    "tests-de-personnalite": {
+      "name": "Tests de personnalité",
+      "seoDescription": "Découvrez qui vous êtes vraiment grâce à nos tests de personnalité ludiques : quel animal, quel personnage ou quel élément vous correspond le mieux ?"
+    },
+    "sports": {
+      "name": "Sports",
+      "seoDescription": "Des records olympiques aux règles méconnues, testez votre culture sportive tous sports confondus avec ces quiz pour les passionnés."
+    },
+    "football": {
+      "name": "Football",
+      "seoDescription": "Coupes du monde, clubs légendaires et joueurs mythiques : le quiz parfait pour les passionnés du ballon rond."
+    },
+    "animaux": {
+      "name": "Animaux",
+      "seoDescription": "Des espèces les plus communes aux plus surprenantes, partez à la découverte du règne animal à travers des quiz ludiques et instructifs."
+    },
+    "nature": {
+      "name": "Nature",
+      "seoDescription": "Écosystèmes, phénomènes naturels et merveilles de notre planète : des quiz pour mieux comprendre et protéger le monde qui nous entoure."
+    },
+    "langue-francaise": {
+      "name": "Langue française",
+      "seoDescription": "Orthographe, grammaire, expressions et étymologie : mettez vos connaissances de la langue de Molière à l'épreuve."
+    },
+    "alimentation": {
+      "name": "Alimentation",
+      "seoDescription": "Cuisine du monde, nutrition et anecdotes gourmandes : des quiz pour les curieux qui aiment autant manger qu'apprendre."
+    },
+    "code-de-la-route": {
+      "name": "Code de la route",
+      "seoDescription": "Panneaux, priorités et règles de circulation : révisez le code de la route avec des quiz pour futurs conducteurs et conducteurs confirmés."
+    },
+    "drapeaux": {
+      "name": "Drapeaux",
+      "seoDescription": "Sauriez-vous reconnaître tous les drapeaux du monde ? Testez votre œil et votre mémoire avec ces quiz consacrés à la vexillologie."
+    }
+  },
   "CategoryQuizList": {
     "filterPlaceholder": "Filtrer par mot-clé",
     "trending": "Tendances",

@@ -564,6 +564,13 @@ model CategoryTopic {
   // without re-normalizing at read time. Case-sensitive (normalizeTopic only
   // trims/collapses whitespace), so this is the dedup key, not a perfect one.
   topicNormalized String
+  // Same format/default as Game.language -- the language the topic was
+  // actually played/created in. Part of the uniqueness key: the same topic
+  // played for the first time in a different language gets its own native
+  // row rather than overwriting this one. The default is a push-time safety
+  // net only (same as Game.language) -- every insert already passes
+  // language explicitly, see /api/quiz/submit/route.ts.
+  language        String    @default("fr")
   // The difficulty of the Game that created this entry -- never recomputed
   // from later plays of the same topic.
   difficulty      String
@@ -572,8 +579,15 @@ model CategoryTopic {
   // yet.
   hidden          Boolean   @default(false)
   createdByGameId String?
+  // Lazily-filled cache of { [language]: translatedLabel }, populated only
+  // when getCategoryTopics() has to borrow this row to pad out a thin
+  // native-language result set for another locale (see
+  // src/lib/categoryTopics.ts). Null/missing entries mean "not translated
+  // yet for that language" -- never the questions themselves, just this
+  // short card label.
+  translatedLabels Json?
 
-  @@unique([categorySlug, topicNormalized])
+  @@unique([categorySlug, topicNormalized, language])
   @@index([categorySlug])
-  @@index([topicNormalized])
+  @@index([topicNormalized, language])
 }

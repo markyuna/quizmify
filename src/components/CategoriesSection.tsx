@@ -37,6 +37,7 @@ const FEATURED_CATEGORIES = FEATURED_CATEGORY_SLUGS.map((slug) => getCategoryByS
  */
 export default async function CategoriesSection() {
   const t = await getTranslations("CategoriesSection");
+  const tCategories = await getTranslations("Categories");
 
   return (
     <section className="px-4 pt-10 md:px-8 md:pt-14" aria-labelledby="categories-section-heading">
@@ -63,7 +64,9 @@ export default async function CategoriesSection() {
               </div>
 
               <div className="p-2.5">
-                <h3 className="line-clamp-2 text-xs font-semibold text-slate-900 dark:text-white">{category.name}</h3>
+                <h3 className="line-clamp-2 text-xs font-semibold text-slate-900 dark:text-white">
+                  {tCategories(`${category.slug}.name`)}
+                </h3>
               </div>
             </Link>
           ))}

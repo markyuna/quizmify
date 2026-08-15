@@ -8,7 +8,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Sparkles, Minus, Plus, Zap, PartyPopper, Puzzle, Lock } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { quizCreationSchema } from "@/schemas/form/quiz";
 import { useToast } from "./ui/use-toast";
@@ -52,6 +52,8 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
   const router = useRouter();
   const { toast } = useToast();
   const t = useTranslations("QuizCreation");
+  const tCategories = useTranslations("Categories");
+  const locale = useLocale();
   // Mints/reads the quizmify_guest cookie so it exists before the first
   // POST /api/game -- the server reads it directly from the cookie, this
   // call is only here to guarantee it's set in time.
@@ -166,7 +168,7 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
     const handle = setTimeout(() => {
       axios
         .get<CategoryTopicLookupResponse>("/api/category-topics/lookup", {
-          params: { topic: trimmedTopic },
+          params: { topic: trimmedTopic, locale },
         })
         .then((res) => {
           if (cancelled) return;
@@ -182,7 +184,7 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
       cancelled = true;
       clearTimeout(handle);
     };
-  }, [topicValue, isGuest, categoryKnown]);
+  }, [topicValue, isGuest, categoryKnown, locale]);
 
   // What actually gets bridged to /api/quiz/submit via sessionStorage --
   // either the category we already knew (from the catalog card) or whatever
@@ -363,7 +365,7 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
                     <option value="">{t("categoryNone")}</option>
                     {CATEGORIES.map((category) => (
                       <option key={category.slug} value={category.slug}>
-                        {category.icon} {category.name}
+                        {category.icon} {tCategories(`${category.slug}.name`)}
                       </option>
                     ))}
                   </select>

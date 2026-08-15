@@ -39,7 +39,7 @@ export default function CategoryQuizCard({ topic, category }: CategoryQuizCardPr
 
   return (
     <Link
-      href={`/quiz?topic=${encodeURIComponent(topic.topicDisplay)}&category=${category.slug}`}
+      href={`/quiz?topic=${encodeURIComponent(topic.displayLabel)}&category=${category.slug}`}
       className="group overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-white/5"
     >
       <div className="relative flex h-24 w-full items-center justify-center overflow-hidden bg-slate-100 text-4xl transition duration-300 group-hover:scale-105 dark:bg-white/10">
@@ -52,7 +52,7 @@ export default function CategoryQuizCard({ topic, category }: CategoryQuizCardPr
       </div>
 
       <div className="p-4">
-        <h3 className="line-clamp-2 text-sm font-bold text-slate-900 dark:text-white">{topic.topicDisplay}</h3>
+        <h3 className="line-clamp-2 text-sm font-bold text-slate-900 dark:text-white">{topic.displayLabel}</h3>
 
         <div className="mt-2 flex flex-wrap items-center gap-1.5">
           <span

@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 import { CATEGORIES, getCategoryBySlug } from "@/lib/categories";
 import { getCategoryTopics } from "@/lib/categoryTopics";
+import { getRequestLocale } from "@/i18n/get-locale";
 import CategoryBreadcrumb from "@/components/category/CategoryBreadcrumb";
 import CategoryQuizList from "@/components/category/CategoryQuizList";
 import CategorySidebar from "@/components/category/CategorySidebar";
@@ -24,9 +26,11 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     return { title: "Catégorie introuvable | Quizmify" };
   }
 
+  const t = await getTranslations("Categories");
+
   return {
-    title: `${category.name} | Quizmify`,
-    description: category.seoDescription,
+    title: `${t(`${slug}.name`)} | Quizmify`,
+    description: t(`${slug}.seoDescription`),
   };
 }
 
@@ -38,22 +42,29 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
 
-  const items = await getCategoryTopics(category.slug);
+  const locale = await getRequestLocale();
+  const [items, t, tGroups] = await Promise.all([
+    getCategoryTopics(category.slug, locale),
+    getTranslations("Categories"),
+    getTranslations("CategoryGroups"),
+  ]);
+
+  const name = t(`${category.slug}.name`);
 
   return (
     <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:py-8 md:px-8">
-      <CategoryBreadcrumb group={category.group} name={category.name} />
+      <CategoryBreadcrumb group={tGroups(category.group)} name={name} />
 
       <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
         <div>
           <h1 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white sm:text-3xl">
-            {category.name}
+            {name}
           </h1>
 
           <div className="relative mt-4 h-48 w-full overflow-hidden rounded-3xl bg-slate-100 dark:bg-white/10 sm:h-64">
             <Image
               src={category.heroImage}
-              alt={category.name}
+              alt={name}
               fill
               priority
               className="object-cover"
@@ -62,7 +73,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
 
           <p className="mt-4 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300 sm:text-base">
-            {category.seoDescription}
+            {t(`${category.slug}.seoDescription`)}
           </p>
 
           <div className="mt-6">

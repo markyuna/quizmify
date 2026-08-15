@@ -2509,10 +2509,12 @@ export const CategoryTopicScalarFieldEnum = {
   categorySlug: 'categorySlug',
   topicDisplay: 'topicDisplay',
   topicNormalized: 'topicNormalized',
+  language: 'language',
   difficulty: 'difficulty',
   createdAt: 'createdAt',
   hidden: 'hidden',
-  createdByGameId: 'createdByGameId'
+  createdByGameId: 'createdByGameId',
+  translatedLabels: 'translatedLabels'
 } as const
 
 export type CategoryTopicScalarFieldEnum = (typeof CategoryTopicScalarFieldEnum)[keyof typeof CategoryTopicScalarFieldEnum]
