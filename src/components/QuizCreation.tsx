@@ -289,7 +289,7 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
 
   const onSubmit = (values: QuizCreationInput) => {
     setShowLoader(true);
-    createGame(values);
+    createGame({ ...values, categorySlug: effectiveCategorySlug || undefined });
   };
 
   if (showLoader) {

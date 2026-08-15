@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { getTranslations } from "next-intl/server";
 
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
@@ -7,6 +8,7 @@ import { quizCreationSchema } from "@/schemas/form/quiz";
 import { getRequestLocale } from "@/i18n/get-locale";
 import { isUserAtFreeLimit, isUserPro } from "@/lib/paywall";
 import { isGeographyTopic } from "@/lib/geography";
+import { getCategoryBySlug } from "@/lib/categories";
 import { TIMED_MODE_SECONDS_PER_QUESTION } from "@/lib/timedMode";
 import { normalizeTopic, normalizeDifficulty } from "@/lib/questionGeneration";
 import { sourceQuestions, incrementUsageCount } from "@/lib/questionSourcing";
@@ -68,6 +70,19 @@ export async function POST(req: Request) {
     const isTimed = parsedBody.isTimed;
     const puzzleMode = parsedBody.puzzleMode;
 
+    // When the player already knows (or inherited) a category for this
+    // topic, scope question generation to it -- see the CRITICAL SCOPE
+    // CONSTRAINT block in generateQuestionsWithAI. Resolved the same way
+    // /api/category-topics/lookup resolves it for the UI hint.
+    let categoryName: string | null = null;
+    if (parsedBody.categorySlug) {
+      const category = getCategoryBySlug(parsedBody.categorySlug);
+      if (category) {
+        const t = await getTranslations({ locale: language, namespace: "Categories" });
+        categoryName = t(`${category.slug}.name`);
+      }
+    }
+
     if (puzzleMode && (!userId || !(await isUserPro(userId)))) {
       return jsonError("PUZZLE_REQUIRES_PRO", 403);
     }
@@ -88,6 +103,7 @@ export async function POST(req: Request) {
       language,
       amount: requestAmount,
       isGeography,
+      categoryName,
     });
 
     if (sourced.length === 0) {

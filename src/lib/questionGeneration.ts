@@ -100,11 +100,17 @@ export async function generateQuestionsWithAI(params: {
   language: Locale;
   amount: number;
   isGeography: boolean;
+  /** Parent category display name (already localized), if the topic was created/played under one. */
+  categoryName?: string | null;
   /** Questions already in the cache -- the model is told not to repeat them. */
   existingQuestions?: string[];
 }): Promise<GeneratedQuestion[]> {
-  const { topic, difficulty, language, amount, isGeography, existingQuestions = [] } = params;
+  const { topic, difficulty, language, amount, isGeography, categoryName = null, existingQuestions = [] } = params;
   const languageName = LANGUAGE_NAMES[language];
+
+  const categoryScopeBlock = categoryName
+    ? `\n\nCRITICAL SCOPE CONSTRAINT: These questions are for the category "${categoryName}". Every question MUST be directly related to "${categoryName}". If "${topic}" is ambiguous or could be read with a broader/international scope (e.g. "rivers" meaning rivers anywhere in the world), restrict it EXCLUSIVELY to what is relevant to "${categoryName}" (e.g. rivers located in or otherwise relevant to ${categoryName}). Do NOT generate questions about anything outside that context, even if factually valid in general terms.`
+    : "";
 
   // Cap the avoid-list so the prompt stays small.
   const avoidList = existingQuestions.slice(0, 60);
@@ -163,7 +169,7 @@ Rules:
 - concise and clear ${languageName}
 - no markdown
 - no extra text
-- ALL questions must be unique and non-repetitive${countryRule}${avoidBlock}`,
+- ALL questions must be unique and non-repetitive${countryRule}${categoryScopeBlock}${avoidBlock}`,
       },
     ],
     response_format: { type: "json_object" },
@@ -206,6 +212,7 @@ Rules:
         language,
         amount: missingCount,
         isGeography,
+        categoryName,
         existingQuestions: existingAndGenerated,
       });
       return [...uniqueQuestions, ...additionalQuestions];

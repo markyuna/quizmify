@@ -38,6 +38,17 @@ async function fetchExistingMCQQuestions(params: {
   // Fetch extra headroom: historical cache rows may contain duplicate
   // question texts (pre-dedupe-fix inserts), so `amount` raw rows can
   // collapse into far fewer unique questions.
+  //
+  // NOTE: this cache is keyed by topic+difficulty+language only -- it has
+  // no notion of the parent category that generateQuestionsWithAI's
+  // categoryName scope constraint (see /api/game route.ts) was generated
+  // under. Fine today, since a given topic string only ever gets created
+  // under one category in practice. If the same topic name is ever created
+  // under two different categories (e.g. "Fleuves" under both "La France"
+  // and "Geographie"), this read would serve either category's cached rows
+  // to the other, regardless of which category's scope they were actually
+  // generated for -- revisit by keying the cache on categorySlug too if
+  // that scenario becomes real.
   const { data, error } = await getSupabaseAdmin()
     .from("mcq_questions")
     .select("*")
@@ -115,8 +126,13 @@ export async function sourceQuestions(params: {
   language: Locale;
   amount: number;
   isGeography: boolean;
+  // Parent category context (display name, already localized), if the
+  // player chose/inherited one in QuizCreation -- forwarded to AI generation
+  // only, never used to key or filter the cache read below. See the pool
+  // caching note further down for the consequence of that.
+  categoryName?: string | null;
 }): Promise<{ questions: SourcedQuestion[]; cachedCount: number; poolTarget: number }> {
-  const { topic, difficulty, language, amount, isGeography } = params;
+  const { topic, difficulty, language, amount, isGeography, categoryName = null } = params;
 
   // A cache that only ever holds exactly `amount` rows for a given
   // topic/difficulty/language would serve the *identical* set on every
@@ -154,6 +170,7 @@ export async function sourceQuestions(params: {
       language,
       amount,
       isGeography,
+      categoryName,
       existingQuestions: pool.map((q) => q.question),
     });
 

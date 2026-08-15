@@ -7,6 +7,12 @@ export const quizCreationSchema = z.object({
   type: z.literal("mcq"),
   isTimed: z.boolean(),
   puzzleMode: z.boolean(),
+  // Optional: the category the player already knows this topic belongs to
+  // (chosen in QuizCreation before generation) -- lets question generation
+  // scope itself to that category's context instead of only learning about
+  // it after the quiz is submitted (see submitQuizSchema.categorySlug below).
+  // Validated against CATEGORIES server-side in /api/game.
+  categorySlug: z.string().optional(),
 });
 
 export const checkAnswerSchema = z.object({
