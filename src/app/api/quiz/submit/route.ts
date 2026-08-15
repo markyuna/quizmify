@@ -12,6 +12,7 @@ import { isEffectivelyPro } from "@/lib/paywall";
 import { resolvePaywallMessage } from "@/lib/paywallMessages";
 import { getCategoryBySlug } from "@/lib/categories";
 import { isTopicAllowed } from "@/lib/forbiddenWords";
+import { normalizeTopic } from "@/lib/questionGeneration";
 import { submitQuizSchema } from "@/schemas/form/quiz";
 
 export type TrophyReason = "perfect" | "streak" | null;
@@ -338,17 +339,41 @@ export async function POST(req: Request) {
       try {
         const category = getCategoryBySlug(game.categorySlug);
         if (category && isTopicAllowed(game.topic)) {
-          await prisma.categoryTopic.create({
-            data: {
-              categorySlug: category.slug,
-              topicDisplay: game.topic,
-              topicNormalized: game.topic,
-              language: game.language,
-              difficulty: game.difficulty ?? "medium",
-              createdByGameId: game.id,
-            },
+          const normalizedTopic = normalizeTopic(game.topic);
+
+          // The (categorySlug, topicNormalized, language) unique constraint
+          // below only catches an exact same-language repeat. It can't
+          // catch replaying a topic that's already cataloged under a
+          // *different* language and was only being shown here as a
+          // translated/padded card (see resolveDisplayLabel's
+          // translatedLabels cache in categoryTopics.ts) -- that always
+          // produces a legitimately distinct key. Check translatedLabels
+          // for an existing row that was already translated into
+          // game.language and matches this topic, so replaying a
+          // translated card doesn't mint a second entry for the same
+          // underlying topic.
+          const existingViaTranslation = await prisma.categoryTopic.findMany({
+            where: { categorySlug: category.slug },
+            select: { translatedLabels: true },
           });
-          revalidatePath(`/quiz/categoria/${category.slug}`);
+          const alreadyCatalogedViaTranslation = existingViaTranslation.some((row) => {
+            const translated = (row.translatedLabels as Record<string, string> | null)?.[game.language];
+            return translated !== undefined && normalizeTopic(translated) === normalizedTopic;
+          });
+
+          if (!alreadyCatalogedViaTranslation) {
+            await prisma.categoryTopic.create({
+              data: {
+                categorySlug: category.slug,
+                topicDisplay: game.topic,
+                topicNormalized: game.topic,
+                language: game.language,
+                difficulty: game.difficulty ?? "medium",
+                createdByGameId: game.id,
+              },
+            });
+            revalidatePath(`/quiz/categoria/${category.slug}`);
+          }
         }
       } catch (error) {
         console.error("CategoryTopic publish failed (non-fatal):", error);
