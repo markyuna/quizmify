@@ -244,11 +244,11 @@
       },
       "animals": {
         "lion": { "name": "Lion", "description": "A natural leader — confident, decisive, and always ready to take charge. You protect the people around you and aren't afraid of a challenge." },
-        "dolphin": { "name": "Dolphin", "description": "Playful, social, and endlessly curious. You light up a room and connect with people effortlessly." },
-        "owl": { "name": "Owl", "description": "Thoughtful and observant. You'd rather understand something deeply than rush into it, and people trust your judgment." },
-        "fox": { "name": "Fox", "description": "Clever and adaptable. You find creative ways around problems that leave everyone else stuck." },
-        "wolf": { "name": "Wolf", "description": "Loyal to the core. You're at your best working closely with a small circle you trust completely." },
-        "cat": { "name": "Cat", "description": "Independent and self-assured. You value your freedom and choose your battles — and your company — carefully." }
+        "dauphin": { "name": "Dolphin", "description": "Playful, social, and endlessly curious. You light up a room and connect with people effortlessly." },
+        "hibou": { "name": "Owl", "description": "Thoughtful and observant. You'd rather understand something deeply than rush into it, and people trust your judgment." },
+        "renard": { "name": "Fox", "description": "Clever and adaptable. You find creative ways around problems that leave everyone else stuck." },
+        "loup": { "name": "Wolf", "description": "Loyal to the core. You're at your best working closely with a small circle you trust completely." },
+        "ours": { "name": "Bear", "description": "Calm and powerful, you move at your own pace and refuse to be rushed. Behind that easygoing exterior is a quiet strength the people close to you can always count on." }
       },
       "conversionModal": {
         "title": "Create your account to see your animal",

@@ -3,6 +3,13 @@
 // copy per category, and `aiPrompt` is defined now so a future generator can
 // read it directly without a schema change, even though nothing calls it yet.
 
+// Public Supabase Storage bucket "category-images" (see
+// src/lib/categoryImageStorage.ts for the upload helper + how-to-add-a-new-
+// image instructions). Not /public/images/... on purpose: a new hero image
+// only needs an upload + updating the URL below, no commit/redeploy.
+const CATEGORY_IMAGES_BASE_URL =
+  "https://etiohbxjwzclursixjze.supabase.co/storage/v1/object/public/category-images";
+
 export const CATEGORY_GROUPS = [
   "Culture Générale",
   "Culture & Sciences",
@@ -20,8 +27,7 @@ export type Category = {
   name: string;
   icon: string;
   group: CategoryGroup;
-  // Assumed to exist under /public/images/categories/{slug}-hero.webp --
-  // this phase only wires up the config, the asset itself isn't generated.
+  // Public URL in the "category-images" Supabase Storage bucket.
   heroImage: string;
   seoDescription: string;
   aiPrompt: string;
@@ -33,7 +39,7 @@ export const CATEGORIES: Category[] = [
     name: "Culture Générale",
     icon: "📚",
     group: "Culture Générale",
-    heroImage: "/images/categories/culture-generale-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/culture-generale-hero.webp",
     seoDescription:
       "Testez vos connaissances générales avec des quiz variés couvrant l'histoire, la géographie, les sciences et bien plus. Idéal pour s'entraîner avant un jeu télévisé ou simplement pour le plaisir d'apprendre.",
     aiPrompt:
@@ -44,7 +50,7 @@ export const CATEGORIES: Category[] = [
     name: "Histoire",
     icon: "👑",
     group: "Culture & Sciences",
-    heroImage: "/images/categories/histoire-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/histoire-hero.webp",
     seoDescription:
       "Des quiz sur les grandes dates, les personnages marquants et les événements qui ont façonné le monde, de l'Antiquité à l'époque contemporaine.",
     aiPrompt:
@@ -55,7 +61,7 @@ export const CATEGORIES: Category[] = [
     name: "Géographie",
     icon: "🌍",
     group: "Culture & Sciences",
-    heroImage: "/images/categories/geographie-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/geographie-hero.webp",
     seoDescription:
       "Capitales, pays, fleuves, reliefs... Partez à la découverte du monde à travers des quiz de géographie pour tester votre sens de l'orientation et vos connaissances du globe.",
     aiPrompt:
@@ -66,7 +72,7 @@ export const CATEGORIES: Category[] = [
     name: "Sciences",
     icon: "⚛️",
     group: "Culture & Sciences",
-    heroImage: "/images/categories/sciences-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/sciences-hero.webp",
     seoDescription:
       "Physique, chimie, biologie, astronomie... Explorez l'univers des sciences avec des quiz qui mêlent découvertes historiques et notions fondamentales.",
     aiPrompt:
@@ -77,7 +83,7 @@ export const CATEGORIES: Category[] = [
     name: "Arts",
     icon: "🎨",
     group: "Culture & Sciences",
-    heroImage: "/images/categories/arts-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/arts-hero.webp",
     seoDescription:
       "Peinture, sculpture, courants artistiques et grands artistes : testez votre culture artistique à travers les siècles avec ces quiz dédiés aux arts.",
     aiPrompt:
@@ -88,7 +94,7 @@ export const CATEGORIES: Category[] = [
     name: "La France",
     icon: "🇫🇷",
     group: "Culture & Sciences",
-    heroImage: "/images/categories/france-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/france-hero.webp",
     seoDescription:
       "Régions, monuments, traditions et symboles : (re)découvrez la France sous toutes ses coutures grâce à des quiz 100% dédiés à l'Hexagone.",
     aiPrompt:
@@ -99,7 +105,7 @@ export const CATEGORIES: Category[] = [
     name: "Cinéma",
     icon: "🎬",
     group: "Divertissement",
-    heroImage: "/images/categories/cinema-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/cinema-hero.webp",
     seoDescription:
       "Films cultes, acteurs, réalisateurs et répliques mythiques : plongez dans l'univers du septième art avec des quiz pour tous les cinéphiles.",
     aiPrompt:
@@ -110,7 +116,7 @@ export const CATEGORIES: Category[] = [
     name: "Disney",
     icon: "🏰",
     group: "Divertissement",
-    heroImage: "/images/categories/disney-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/disney-hero.webp",
     seoDescription:
       "Des classiques d'animation aux dernières sorties, testez votre connaissance de l'univers magique de Disney : personnages, chansons et histoires inoubliables.",
     aiPrompt:
@@ -121,7 +127,7 @@ export const CATEGORIES: Category[] = [
     name: "Harry Potter",
     icon: "⚡",
     group: "Divertissement",
-    heroImage: "/images/categories/harry-potter-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/harry-potter-hero.webp",
     seoDescription:
       "Poudlard n'aura plus aucun secret pour vous ! Sortilèges, personnages, maisons et objets magiques : des quiz pensés pour les fans de la saga.",
     aiPrompt:
@@ -132,7 +138,7 @@ export const CATEGORIES: Category[] = [
     name: "Tests de personnalité",
     icon: "😈",
     group: "Divertissement",
-    heroImage: "/images/categories/tests-de-personnalite-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/tests-de-personnalite-hero.webp",
     seoDescription:
       "Découvrez qui vous êtes vraiment grâce à nos tests de personnalité ludiques : quel animal, quel personnage ou quel élément vous correspond le mieux ?",
     aiPrompt:
@@ -143,7 +149,7 @@ export const CATEGORIES: Category[] = [
     name: "Sports",
     icon: "🏀",
     group: "Sports",
-    heroImage: "/images/categories/sports-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/sports-hero.webp",
     seoDescription:
       "Des records olympiques aux règles méconnues, testez votre culture sportive tous sports confondus avec ces quiz pour les passionnés.",
     aiPrompt:
@@ -154,7 +160,7 @@ export const CATEGORIES: Category[] = [
     name: "Football",
     icon: "⚽",
     group: "Sports",
-    heroImage: "/images/categories/football-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/football-hero.webp",
     seoDescription:
       "Coupes du monde, clubs légendaires et joueurs mythiques : le quiz parfait pour les passionnés du ballon rond.",
     aiPrompt:
@@ -165,7 +171,7 @@ export const CATEGORIES: Category[] = [
     name: "Animaux",
     icon: "🦁",
     group: "Nature & Animaux",
-    heroImage: "/images/categories/animaux-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/animaux-hero.webp",
     seoDescription:
       "Des espèces les plus communes aux plus surprenantes, partez à la découverte du règne animal à travers des quiz ludiques et instructifs.",
     aiPrompt:
@@ -176,7 +182,7 @@ export const CATEGORIES: Category[] = [
     name: "Nature",
     icon: "🌱",
     group: "Nature & Animaux",
-    heroImage: "/images/categories/nature-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/nature-hero.webp",
     seoDescription:
       "Écosystèmes, phénomènes naturels et merveilles de notre planète : des quiz pour mieux comprendre et protéger le monde qui nous entoure.",
     aiPrompt:
@@ -187,7 +193,7 @@ export const CATEGORIES: Category[] = [
     name: "Langue française",
     icon: "🔤",
     group: "Langues",
-    heroImage: "/images/categories/langue-francaise-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/langue-francaise-hero.webp",
     seoDescription:
       "Orthographe, grammaire, expressions et étymologie : mettez vos connaissances de la langue de Molière à l'épreuve.",
     aiPrompt:
@@ -198,7 +204,7 @@ export const CATEGORIES: Category[] = [
     name: "Alimentation",
     icon: "🍔",
     group: "Vie Quotidienne",
-    heroImage: "/images/categories/alimentation-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/alimentation-hero.webp",
     seoDescription:
       "Cuisine du monde, nutrition et anecdotes gourmandes : des quiz pour les curieux qui aiment autant manger qu'apprendre.",
     aiPrompt:
@@ -209,7 +215,7 @@ export const CATEGORIES: Category[] = [
     name: "Code de la route",
     icon: "🚗",
     group: "Vie Quotidienne",
-    heroImage: "/images/categories/code-de-la-route-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/code-de-la-route-hero.webp",
     seoDescription:
       "Panneaux, priorités et règles de circulation : révisez le code de la route avec des quiz pour futurs conducteurs et conducteurs confirmés.",
     aiPrompt:
@@ -220,7 +226,7 @@ export const CATEGORIES: Category[] = [
     name: "Drapeaux",
     icon: "🎌",
     group: "Vie Quotidienne",
-    heroImage: "/images/categories/drapeaux-hero.webp",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/drapeaux-hero.webp",
     seoDescription:
       "Sauriez-vous reconnaître tous les drapeaux du monde ? Testez votre œil et votre mémoire avec ces quiz consacrés à la vexillologie.",
     aiPrompt:

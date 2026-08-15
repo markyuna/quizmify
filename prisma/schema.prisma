@@ -525,7 +525,7 @@ model PersonalityTestAttempt {
   // kept so a future "see your answers" or re-scoring pass has something
   // to work from.
   answers         Json
-  // Final per-animal point totals, e.g. { lion: 4, dolphin: 2, ... } --
+  // Final per-animal point totals, e.g. { lion: 4, dauphin: 2, ... } --
   // computed server-side by computeResult(), never trusted from the client.
   scores          Json
   // The winning animal key, e.g. "lion" -- denormalized out of `scores` so

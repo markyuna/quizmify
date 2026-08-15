@@ -244,11 +244,11 @@
       },
       "animals": {
         "lion": { "name": "Lion", "description": "Un leader naturel : sûr de lui, décidé, toujours prêt à prendre les choses en main. Vous protégez votre entourage et n'avez pas peur des défis." },
-        "dolphin": { "name": "Dauphin", "description": "Joueur/joueuse, sociable et d'une curiosité sans limite. Vous illuminez une pièce et créez du lien sans effort." },
-        "owl": { "name": "Hibou", "description": "Réfléchi(e) et observateur/observatrice. Vous préférez comprendre en profondeur avant d'agir, et on fait confiance à votre jugement." },
-        "fox": { "name": "Renard", "description": "Malin(e) et adaptable. Vous trouvez des solutions créatives là où les autres restent bloqués." },
-        "wolf": { "name": "Loup", "description": "Loyal(e) jusqu'au bout. Vous donnez le meilleur de vous-même au sein d'un petit cercle en qui vous avez une confiance totale." },
-        "cat": { "name": "Chat", "description": "Indépendant(e) et sûr(e) de soi. Vous tenez à votre liberté et choisissez vos combats — et votre compagnie — avec soin." }
+        "dauphin": { "name": "Dauphin", "description": "Joueur/joueuse, sociable et d'une curiosité sans limite. Vous illuminez une pièce et créez du lien sans effort." },
+        "hibou": { "name": "Hibou", "description": "Réfléchi(e) et observateur/observatrice. Vous préférez comprendre en profondeur avant d'agir, et on fait confiance à votre jugement." },
+        "renard": { "name": "Renard", "description": "Malin(e) et adaptable. Vous trouvez des solutions créatives là où les autres restent bloqués." },
+        "loup": { "name": "Loup", "description": "Loyal(e) jusqu'au bout. Vous donnez le meilleur de vous-même au sein d'un petit cercle en qui vous avez une confiance totale." },
+        "ours": { "name": "Ours", "description": "Calme et imposant(e), vous avancez à votre rythme sans jamais vous laisser bousculer. Sous vos airs tranquilles se cache une force sur laquelle vos proches peuvent toujours compter." }
       },
       "conversionModal": {
         "title": "Créez votre compte pour voir votre animal",

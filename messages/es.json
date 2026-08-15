@@ -244,11 +244,11 @@
       },
       "animals": {
         "lion": { "name": "León", "description": "Un líder nato: seguro, decidido y siempre listo para tomar las riendas. Protegés a los tuyos y no le temés a un buen desafío." },
-        "dolphin": { "name": "Delfín", "description": "Divertido/a, sociable y curioso/a sin límite. Iluminás cualquier lugar y conectás con la gente sin esfuerzo." },
-        "owl": { "name": "Búho", "description": "Reflexivo/a y observador/a. Preferís entender algo a fondo antes de lanzarte, y la gente confía en tu criterio." },
-        "fox": { "name": "Zorro", "description": "Astuto/a y adaptable. Encontrás salidas creativas donde los demás se quedan trabados." },
-        "wolf": { "name": "Lobo", "description": "Leal hasta el final. Das lo mejor de vos trabajando cerca de un círculo pequeño en el que confiás por completo." },
-        "cat": { "name": "Gato", "description": "Independiente y seguro/a de vos mismo/a. Valorás tu libertad y elegís con cuidado tus batallas — y tu compañía." }
+        "dauphin": { "name": "Delfín", "description": "Divertido/a, sociable y curioso/a sin límite. Iluminás cualquier lugar y conectás con la gente sin esfuerzo." },
+        "hibou": { "name": "Búho", "description": "Reflexivo/a y observador/a. Preferís entender algo a fondo antes de lanzarte, y la gente confía en tu criterio." },
+        "renard": { "name": "Zorro", "description": "Astuto/a y adaptable. Encontrás salidas creativas donde los demás se quedan trabados." },
+        "loup": { "name": "Lobo", "description": "Leal hasta el final. Das lo mejor de vos trabajando cerca de un círculo pequeño en el que confiás por completo." },
+        "ours": { "name": "Oso", "description": "Tranquilo/a e imponente, avanzás a tu propio ritmo sin dejarte apurar por nadie. Detrás de esa calma hay una fuerza silenciosa en la que los tuyos siempre pueden confiar." }
       },
       "conversionModal": {
         "title": "Creá tu cuenta para ver tu animal",

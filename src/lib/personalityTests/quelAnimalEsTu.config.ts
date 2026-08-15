@@ -1,4 +1,4 @@
-export const ANIMAL_KEYS = ["lion", "dolphin", "owl", "fox", "wolf", "cat"] as const;
+export const ANIMAL_KEYS = ["lion", "dauphin", "hibou", "renard", "loup", "ours"] as const;
 export type AnimalKey = (typeof ANIMAL_KEYS)[number];
 
 export function isAnimalKey(value: string): value is AnimalKey {
@@ -36,82 +36,89 @@ export const QUESTIONS: PersonalityTestQuestion[] = [
   {
     id: "q1",
     options: [
-      { id: "q1_a", weights: { dolphin: 3, fox: 1 } },
-      { id: "q1_b", weights: { owl: 3, cat: 1 } },
-      { id: "q1_c", weights: { wolf: 3, lion: 1 } },
-      { id: "q1_d", weights: { cat: 3, owl: 1 } },
+      { id: "q1_a", weights: { dauphin: 3, renard: 1 } },
+      { id: "q1_b", weights: { hibou: 3, ours: 1 } },
+      { id: "q1_c", weights: { loup: 3, lion: 1 } },
+      { id: "q1_d", weights: { ours: 3, hibou: 1 } },
     ],
   },
   {
     id: "q2",
     options: [
-      { id: "q2_a", weights: { lion: 3, wolf: 1 } },
-      { id: "q2_b", weights: { owl: 3, fox: 1 } },
-      { id: "q2_c", weights: { fox: 3, dolphin: 1 } },
-      { id: "q2_d", weights: { cat: 3, lion: 1 } },
+      { id: "q2_a", weights: { lion: 3, loup: 1 } },
+      { id: "q2_b", weights: { hibou: 3, renard: 1 } },
+      { id: "q2_c", weights: { renard: 3, dauphin: 1 } },
+      { id: "q2_d", weights: { ours: 3, lion: 1 } },
     ],
   },
   {
     id: "q3",
     options: [
-      { id: "q3_a", weights: { dolphin: 3, owl: 1 } },
-      { id: "q3_b", weights: { fox: 3, wolf: 1 } },
-      { id: "q3_c", weights: { wolf: 3, lion: 1 } },
-      { id: "q3_d", weights: { cat: 3, dolphin: 1 } },
+      { id: "q3_a", weights: { dauphin: 3, hibou: 1 } },
+      { id: "q3_b", weights: { renard: 3, loup: 1 } },
+      { id: "q3_c", weights: { loup: 3, lion: 1 } },
+      { id: "q3_d", weights: { ours: 3, dauphin: 1 } },
     ],
   },
   {
     id: "q4",
     options: [
-      { id: "q4_a", weights: { lion: 3, dolphin: 1 } },
-      { id: "q4_b", weights: { owl: 3, cat: 1 } },
-      { id: "q4_c", weights: { fox: 3, cat: 1 } },
-      { id: "q4_d", weights: { wolf: 3, dolphin: 1 } },
+      { id: "q4_a", weights: { lion: 3, dauphin: 1 } },
+      { id: "q4_b", weights: { hibou: 3, ours: 1 } },
+      { id: "q4_c", weights: { renard: 3, ours: 1 } },
+      { id: "q4_d", weights: { loup: 3, dauphin: 1 } },
     ],
   },
   {
     id: "q5",
     options: [
-      { id: "q5_a", weights: { lion: 3, fox: 1 } },
-      { id: "q5_b", weights: { dolphin: 3, wolf: 1 } },
-      { id: "q5_c", weights: { owl: 3, fox: 1 } },
-      { id: "q5_d", weights: { cat: 3, owl: 1 } },
+      { id: "q5_a", weights: { lion: 3, renard: 1 } },
+      { id: "q5_b", weights: { dauphin: 3, loup: 1 } },
+      { id: "q5_c", weights: { hibou: 3, renard: 1 } },
+      { id: "q5_d", weights: { ours: 3, hibou: 1 } },
     ],
   },
   {
     id: "q6",
     options: [
-      { id: "q6_a", weights: { dolphin: 3, cat: 1 } },
-      { id: "q6_b", weights: { owl: 3, lion: 1 } },
-      { id: "q6_c", weights: { fox: 3, cat: 1 } },
-      { id: "q6_d", weights: { wolf: 3, dolphin: 1 } },
+      { id: "q6_a", weights: { dauphin: 3, ours: 1 } },
+      { id: "q6_b", weights: { hibou: 3, lion: 1 } },
+      { id: "q6_c", weights: { renard: 3, ours: 1 } },
+      { id: "q6_d", weights: { loup: 3, dauphin: 1 } },
     ],
   },
   {
     id: "q7",
     options: [
-      { id: "q7_a", weights: { lion: 3, fox: 1 } },
-      { id: "q7_b", weights: { owl: 3, fox: 1 } },
-      { id: "q7_c", weights: { wolf: 3, dolphin: 1 } },
-      { id: "q7_d", weights: { cat: 3, owl: 1 } },
+      { id: "q7_a", weights: { lion: 3, renard: 1 } },
+      { id: "q7_b", weights: { hibou: 3, renard: 1 } },
+      { id: "q7_c", weights: { loup: 3, dauphin: 1 } },
+      { id: "q7_d", weights: { ours: 3, hibou: 1 } },
     ],
   },
   {
     id: "q8",
     options: [
-      { id: "q8_a", weights: { lion: 3, wolf: 1 } },
-      { id: "q8_b", weights: { dolphin: 3, wolf: 1 } },
-      { id: "q8_c", weights: { fox: 3, owl: 1 } },
-      { id: "q8_d", weights: { cat: 3, owl: 1 } },
+      { id: "q8_a", weights: { lion: 3, loup: 1 } },
+      { id: "q8_b", weights: { dauphin: 3, loup: 1 } },
+      { id: "q8_c", weights: { renard: 3, hibou: 1 } },
+      { id: "q8_d", weights: { ours: 3, hibou: 1 } },
     ],
   },
 ];
 
+// Public Supabase Storage bucket "category-images" -- shares the bucket
+// with categories.ts's hero images rather than a dedicated one, since these
+// are the same kind of static, rarely-changing asset. See
+// src/lib/categoryImageStorage.ts for the upload helper.
+const CATEGORY_IMAGES_BASE_URL =
+  "https://etiohbxjwzclursixjze.supabase.co/storage/v1/object/public/category-images";
+
 export const QUEL_ANIMAL_ES_TU_IMAGES: Record<AnimalKey, string> = {
-  lion: "/images/tests-personnalite/animal-lion.webp",
-  dolphin: "/images/tests-personnalite/animal-dolphin.webp",
-  owl: "/images/tests-personnalite/animal-owl.webp",
-  fox: "/images/tests-personnalite/animal-fox.webp",
-  wolf: "/images/tests-personnalite/animal-wolf.webp",
-  cat: "/images/tests-personnalite/animal-cat.webp",
+  lion: CATEGORY_IMAGES_BASE_URL + "/animal-lion.webp",
+  dauphin: CATEGORY_IMAGES_BASE_URL + "/animal-dauphin.webp",
+  hibou: CATEGORY_IMAGES_BASE_URL + "/animal-hibou.webp",
+  renard: CATEGORY_IMAGES_BASE_URL + "/animal-renard.webp",
+  loup: CATEGORY_IMAGES_BASE_URL + "/animal-loup.webp",
+  ours: CATEGORY_IMAGES_BASE_URL + "/animal-ours.webp",
 };
