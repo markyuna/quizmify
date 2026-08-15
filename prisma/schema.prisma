@@ -136,6 +136,15 @@ model Game {
   // drives rendering the jigsaw reveal in MCQ.tsx -- there's no separate
   // boolean, since a game either has a puzzle image or it doesn't.
   puzzleImageUrl     String?
+  // Set at creation time (POST /api/game) when the player already knew --
+  // explicitly picked, or inherited from a category catalog page -- which
+  // category this topic belongs to. Validated against CATEGORIES in
+  // src/lib/categories.ts at write time, not a Prisma enum. This is the
+  // server-authoritative source /api/quiz/submit reads from to publish a
+  // CategoryTopic row -- deliberately not re-trusted from the client at
+  // submit time, so a hidden category selector (see QuizCreation.tsx) can't
+  // be worked around by tampering with the submit request.
+  categorySlug       String?
   user               User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   questions          Question[]
   attempts           Attempt[]

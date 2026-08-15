@@ -41,7 +41,6 @@ import { getLevelProgress } from "@/lib/xp";
 import { isGeographyTopic } from "@/lib/geography";
 import { TIMEOUT_ANSWER_SENTINEL } from "@/lib/timedMode";
 import { FREE_TRIAL_DAYS } from "@/lib/premium";
-import { consumeSessionCategoryForGame } from "@/lib/categoryTopicSession";
 import type { TrophyReason } from "@/app/api/quiz/submit/route";
 
 type QuestionWithOptions = Pick<
@@ -220,7 +219,6 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
     mutationFn: async (payload: {
       gameId: string;
       timeSpent: number;
-      categorySlug?: string;
       answers: { questionId: string; selectedAnswer: string; responseTimeMs?: number }[];
     }) => {
       const response = await axios.post<SubmitQuizResponse>("/api/quiz/submit", payload);
@@ -330,7 +328,6 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
     submitQuiz({
       gameId: game.id,
       timeSpent: frozenElapsedSeconds,
-      categorySlug: consumeSessionCategoryForGame(game.id) ?? undefined,
       answers: answers.map((a) => ({
         questionId: a.questionId,
         selectedAnswer: a.selectedAnswer,

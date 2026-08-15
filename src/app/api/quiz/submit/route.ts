@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { prisma } from "@/lib/db";
@@ -326,9 +327,16 @@ export async function POST(req: Request) {
     // prisma/schema.prisma -- the @@unique constraint is what actually
     // prevents duplicates, this create() just relies on it and swallows the
     // conflict along with every other failure mode.
-    if (parsedBody.categorySlug) {
+    //
+    // Reads game.categorySlug (set server-side at POST /api/game, see
+    // Game.categorySlug in prisma/schema.prisma) rather than trusting a
+    // client-supplied value on this request -- the category picker is
+    // hidden in QuizCreation.tsx whenever a category was inherited from a
+    // catalog page, so there's no client state here that should be treated
+    // as authoritative.
+    if (game.categorySlug) {
       try {
-        const category = getCategoryBySlug(parsedBody.categorySlug);
+        const category = getCategoryBySlug(game.categorySlug);
         if (category && isTopicAllowed(game.topic)) {
           await prisma.categoryTopic.create({
             data: {
@@ -340,6 +348,7 @@ export async function POST(req: Request) {
               createdByGameId: game.id,
             },
           });
+          revalidatePath(`/quiz/categoria/${category.slug}`);
         }
       } catch (error) {
         console.error("CategoryTopic publish failed (non-fatal):", error);

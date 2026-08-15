@@ -2251,7 +2251,8 @@ export const GameScalarFieldEnum = {
   isTimed: 'isTimed',
   timePerQuestionSec: 'timePerQuestionSec',
   plannedQuestionCount: 'plannedQuestionCount',
-  puzzleImageUrl: 'puzzleImageUrl'
+  puzzleImageUrl: 'puzzleImageUrl',
+  categorySlug: 'categorySlug'
 } as const
 
 export type GameScalarFieldEnum = (typeof GameScalarFieldEnum)[keyof typeof GameScalarFieldEnum]

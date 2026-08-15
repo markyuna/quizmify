@@ -9,9 +9,10 @@ export const quizCreationSchema = z.object({
   puzzleMode: z.boolean(),
   // Optional: the category the player already knows this topic belongs to
   // (chosen in QuizCreation before generation) -- lets question generation
-  // scope itself to that category's context instead of only learning about
-  // it after the quiz is submitted (see submitQuizSchema.categorySlug below).
-  // Validated against CATEGORIES server-side in /api/game.
+  // scope itself to that category's context. Validated against CATEGORIES
+  // server-side in /api/game, which also persists it onto Game.categorySlug
+  // -- the source /api/quiz/submit later reads to publish a CategoryTopic
+  // row (see prisma/schema.prisma).
   categorySlug: z.string().optional(),
 });
 
@@ -23,10 +24,6 @@ export const checkAnswerSchema = z.object({
 export const submitQuizSchema = z.object({
   gameId: z.string().min(1, "Game ID is required"),
   timeSpent: z.number().int().min(0, "Time spent must be 0 or more"),
-  // Set only when the player chose (or inherited) a category for this topic
-  // in QuizCreation -- see CategoryTopic in prisma/schema.prisma. Validated
-  // against CATEGORIES server-side, not trusted as-is.
-  categorySlug: z.string().optional(),
   answers: z
     .array(
       z.object({

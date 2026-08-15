@@ -26,7 +26,6 @@ import {
 import { cn } from "@/lib/utils";
 import { useGuestId } from "@/hooks/useGuestRound";
 import { CATEGORIES } from "@/lib/categories";
-import { setSessionCategoryForGame } from "@/lib/categoryTopicSession";
 import type { CategoryTopicLookupResponse } from "@/app/api/category-topics/lookup/route";
 
 type QuizCreationProps = {
@@ -142,12 +141,21 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
   const puzzleMode = useWatch({ control: form.control, name: "puzzleMode" });
   const topicValue = useWatch({ control: form.control, name: "topic" }) ?? "";
 
-  // True only when the player arrived via a category catalog card (a real
-  // categoryParam) and hasn't since edited the prefilled topic -- we already
-  // know its category, so the selector below stays hidden. Editing the
-  // topic makes it a genuinely different quiz, which falls back to the
-  // normal lookup/selector flow.
-  const categoryKnown = categoryParam !== "" && topicValue === normalizedTopic;
+  // True whenever the player arrived via a category context (a real
+  // categoryParam) -- we already know its category, so the selector below
+  // stays hidden and the category is associated automatically. Two arrival
+  // shapes share this flag:
+  //  - CategoryQuizCard prefills both topic and category (an existing
+  //    catalog topic): editing the prefilled topic away makes it a
+  //    genuinely different quiz, so it falls back to the normal
+  //    lookup/selector flow.
+  //  - CategoryQuizList's "create a custom quiz about this topic" CTA
+  //    prefills only category, no topic -- the player is meant to type a
+  //    brand new topic within that category, so typing must not undo
+  //    categoryKnown.
+  const hasPrefilledTopic = normalizedTopic !== "";
+  const categoryKnown =
+    categoryParam !== "" && (!hasPrefilledTopic || topicValue === normalizedTopic);
 
   // Debounced "is this topic already in the catalog?" check that drives the
   // selector's default selection and its "already in X" hint -- see
@@ -186,9 +194,11 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
     };
   }, [topicValue, isGuest, categoryKnown, locale]);
 
-  // What actually gets bridged to /api/quiz/submit via sessionStorage --
-  // either the category we already knew (from the catalog card) or whatever
-  // the player picked/accepted in the selector below.
+  // What gets sent to POST /api/game -- either the category we already knew
+  // (from category context) or whatever the player picked/accepted in the
+  // selector below. /api/game persists this onto the Game row, which is what
+  // /api/quiz/submit later reads back to publish the CategoryTopic -- see
+  // Game.categorySlug in prisma/schema.prisma.
   const effectiveCategorySlug = categoryKnown ? categoryParam : selectedCategorySlug;
 
   const { mutate: createGame, isPending } = useMutation({
@@ -205,15 +215,6 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
           variant: "destructive",
         });
         return;
-      }
-
-      // Bridges the chosen category to /api/quiz/submit later, from
-      // /play/mcq/[gameId] or /play/kahoot/[gameId] -- see
-      // categoryTopicSession.ts for why this is client-side, not a Game
-      // field. Guests never reach that submit call, so there's nothing to
-      // bridge for them (effectiveCategorySlug is always "" while isGuest).
-      if (!isGuest && effectiveCategorySlug) {
-        setSessionCategoryForGame(data.gameId, effectiveCategorySlug);
       }
 
       setFinished(true);

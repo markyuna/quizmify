@@ -75,11 +75,13 @@ export async function POST(req: Request) {
     // CONSTRAINT block in generateQuestionsWithAI. Resolved the same way
     // /api/category-topics/lookup resolves it for the UI hint.
     let categoryName: string | null = null;
+    let categorySlug: string | null = null;
     if (parsedBody.categorySlug) {
       const category = getCategoryBySlug(parsedBody.categorySlug);
       if (category) {
         const t = await getTranslations({ locale: language, namespace: "Categories" });
         categoryName = t(`${category.slug}.name`);
+        categorySlug = category.slug;
       }
     }
 
@@ -142,6 +144,7 @@ export async function POST(req: Request) {
           timePerQuestionSec: isTimed ? TIMED_MODE_SECONDS_PER_QUESTION : null,
           plannedQuestionCount: useAdaptiveDifficulty ? amount : null,
           puzzleImageUrl,
+          categorySlug,
         },
       });
 
