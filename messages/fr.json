@@ -504,6 +504,35 @@
     "puzzleFinalTitle": "Votre puzzle",
     "puzzlePiecesRevealed": "{revealed}/{total} pièces révélées"
   },
+  "CuratedQuizzes": {
+    "QuiEstLePeintre": {
+      "questionTemplate": "Qui a peint « {title} » ?",
+      "titles": {
+        "nuit-etoilee": "La Nuit étoilée",
+        "joconde": "La Joconde",
+        "le-cri": "Le Cri",
+        "naissance-de-venus": "La Naissance de Vénus",
+        "nympheas": "Les Nymphéas",
+        "liberte-guidant-le-peuple": "La Liberté guidant le peuple",
+        "dejeuner-sur-l-herbe": "Le Déjeuner sur l'herbe",
+        "jeune-fille-a-la-perle": "La Jeune Fille à la perle",
+        "le-baiser": "Le Baiser",
+        "american-gothic": "American Gothic"
+      },
+      "explanations": {
+        "nuit-etoilee": "Vincent van Gogh peint « La Nuit étoilée » en 1889, depuis la fenêtre de sa chambre à l'asile de Saint-Rémy-de-Provence.",
+        "joconde": "Léonard de Vinci peint « La Joconde » au début du XVIe siècle ; le tableau est exposé au musée du Louvre.",
+        "le-cri": "Edvard Munch peint « Le Cri » en 1893, une œuvre emblématique de l'expressionnisme.",
+        "naissance-de-venus": "Sandro Botticelli peint « La Naissance de Vénus » vers 1485, une œuvre majeure de la Renaissance italienne.",
+        "nympheas": "Claude Monet peint la série des « Nymphéas » depuis le jardin de sa maison à Giverny, un sommet de l'impressionnisme.",
+        "liberte-guidant-le-peuple": "Eugène Delacroix peint « La Liberté guidant le peuple » en 1830, pour commémorer la révolution de Juillet.",
+        "dejeuner-sur-l-herbe": "Édouard Manet peint « Le Déjeuner sur l'herbe » en 1863 ; le tableau fait scandale au Salon des Refusés.",
+        "jeune-fille-a-la-perle": "Johannes Vermeer peint « La Jeune Fille à la perle » vers 1665, surnommée la « Joconde du Nord ».",
+        "le-baiser": "Gustav Klimt peint « Le Baiser » entre 1907 et 1908, œuvre phare de sa période dorée et de la Sécession viennoise.",
+        "american-gothic": "Grant Wood peint « American Gothic » en 1930, devenu une icône du régionalisme américain."
+      }
+    }
+  },
   "Dashboard": {
     "statAttemptsTitle": "Quiz terminés au total",
     "statAccuracyTitle": "Précision",

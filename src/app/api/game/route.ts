@@ -19,6 +19,11 @@ import { MIN_QUESTIONS_FOR_ADAPTIVE_DIFFICULTY, splitIntoBatches } from "@/lib/a
 import { generatePuzzleImage, PuzzleImageError } from "@/lib/puzzleImage";
 import { getGuestIdFromCookie } from "@/lib/guestQuiz";
 
+// CuratedQuizQuestion.titleKey resolved into actual sentences (see the
+// curated branch below) -- the rest of this route (createMany, the
+// incrementUsageCount cast) only ever needs the resolved shape.
+type ResolvedCuratedQuestion = Omit<CuratedQuizQuestion, "titleKey"> & { question: string; explanation: string };
+
 // A guest is capped well below the adaptive-difficulty threshold and never
 // gets Puzzle Mode (DALL-E generation), so a single unauthenticated request
 // can't be scripted into unbounded OpenAI cost.
@@ -117,18 +122,28 @@ export async function POST(req: Request) {
     const { firstBatch } = splitIntoBatches(amount);
     const requestAmount = useAdaptiveDifficulty ? firstBatch : amount;
 
-    let sourced: (SourcedQuestion | CuratedQuizQuestion)[];
+    let sourced: (SourcedQuestion | ResolvedCuratedQuestion)[];
     let cachedCount = 0;
     let poolTarget = 0;
 
     if (curated) {
       // Fixed, hand-curated order -- not shuffled. Only each question's own
       // 4 options get shuffled (ensureValidOptions), same as every other
-      // quiz's options.
-      sourced = curated.questions.map((question) => ({
-        ...question,
-        options: ensureValidOptions(question.options, question.correct_answer),
-      }));
+      // quiz's options. The question sentence and explanation are both
+      // resolved from titleKey through this request's own locale
+      // (`language`, not curated.language -- see translationNamespace's
+      // comment in curatedQuizzes/types.ts), so the same curated set reads
+      // correctly for every UI language.
+      const tCurated = await getTranslations({ locale: language, namespace: curated.translationNamespace });
+      sourced = curated.questions.map((question) => {
+        const title = tCurated(`titles.${question.titleKey}`);
+        return {
+          ...question,
+          question: tCurated("questionTemplate", { title }),
+          explanation: tCurated(`explanations.${question.titleKey}`),
+          options: ensureValidOptions(question.options, question.correct_answer),
+        };
+      });
     } else {
       const result = await sourceQuestions({
         topic,

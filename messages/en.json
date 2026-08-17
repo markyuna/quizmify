@@ -504,6 +504,35 @@
     "puzzleFinalTitle": "Your puzzle",
     "puzzlePiecesRevealed": "{revealed}/{total} pieces revealed"
   },
+  "CuratedQuizzes": {
+    "QuiEstLePeintre": {
+      "questionTemplate": "Who painted \"{title}\"?",
+      "titles": {
+        "nuit-etoilee": "The Starry Night",
+        "joconde": "Mona Lisa",
+        "le-cri": "The Scream",
+        "naissance-de-venus": "The Birth of Venus",
+        "nympheas": "Water Lilies",
+        "liberte-guidant-le-peuple": "Liberty Leading the People",
+        "dejeuner-sur-l-herbe": "Luncheon on the Grass",
+        "jeune-fille-a-la-perle": "Girl with a Pearl Earring",
+        "le-baiser": "The Kiss",
+        "american-gothic": "American Gothic"
+      },
+      "explanations": {
+        "nuit-etoilee": "Vincent van Gogh painted 'The Starry Night' in 1889, from the window of his room at the asylum in Saint-Rémy-de-Provence.",
+        "joconde": "Léonard de Vinci painted the 'Mona Lisa' in the early 16th century; the painting is displayed at the Louvre Museum.",
+        "le-cri": "Edvard Munch painted 'The Scream' in 1893, an iconic work of Expressionism.",
+        "naissance-de-venus": "Sandro Botticelli painted 'The Birth of Venus' around 1485, a major work of the Italian Renaissance.",
+        "nympheas": "Claude Monet painted his 'Water Lilies' series from the garden of his home in Giverny, a high point of Impressionism.",
+        "liberte-guidant-le-peuple": "Eugène Delacroix painted 'Liberty Leading the People' in 1830, to commemorate the July Revolution.",
+        "dejeuner-sur-l-herbe": "Édouard Manet painted 'Luncheon on the Grass' in 1863; the painting caused a scandal at the Salon des Refusés.",
+        "jeune-fille-a-la-perle": "Johannes Vermeer painted 'Girl with a Pearl Earring' around 1665, nicknamed the 'Mona Lisa of the North.'",
+        "le-baiser": "Gustav Klimt painted 'The Kiss' between 1907 and 1908, a signature work of his Golden Phase and the Vienna Secession.",
+        "american-gothic": "Grant Wood painted 'American Gothic' in 1930, which became an icon of American Regionalism."
+      }
+    }
+  },
   "Dashboard": {
     "statAttemptsTitle": "Total Quizzes Completed",
     "statAccuracyTitle": "Accuracy",

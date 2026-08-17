@@ -504,6 +504,35 @@
     "puzzleFinalTitle": "Tu rompecabezas",
     "puzzlePiecesRevealed": "{revealed}/{total} piezas descubiertas"
   },
+  "CuratedQuizzes": {
+    "QuiEstLePeintre": {
+      "questionTemplate": "¿Quién pintó «{title}»?",
+      "titles": {
+        "nuit-etoilee": "La noche estrellada",
+        "joconde": "La Gioconda",
+        "le-cri": "El grito",
+        "naissance-de-venus": "El nacimiento de Venus",
+        "nympheas": "Los nenúfares",
+        "liberte-guidant-le-peuple": "La libertad guiando al pueblo",
+        "dejeuner-sur-l-herbe": "El almuerzo sobre la hierba",
+        "jeune-fille-a-la-perle": "La joven de la perla",
+        "le-baiser": "El beso",
+        "american-gothic": "American Gothic"
+      },
+      "explanations": {
+        "nuit-etoilee": "Vincent van Gogh pintó «La noche estrellada» en 1889, desde la ventana de su habitación en el asilo de Saint-Rémy-de-Provence.",
+        "joconde": "Léonard de Vinci pintó «La Gioconda» a comienzos del siglo XVI; la obra se exhibe en el Museo del Louvre.",
+        "le-cri": "Edvard Munch pintó «El grito» en 1893, una obra emblemática del expresionismo.",
+        "naissance-de-venus": "Sandro Botticelli pintó «El nacimiento de Venus» hacia 1485, una obra clave del Renacimiento italiano.",
+        "nympheas": "Claude Monet pintó la serie de «Los nenúfares» desde el jardín de su casa en Giverny, una cumbre del impresionismo.",
+        "liberte-guidant-le-peuple": "Eugène Delacroix pintó «La libertad guiando al pueblo» en 1830, para conmemorar la revolución de Julio.",
+        "dejeuner-sur-l-herbe": "Édouard Manet pintó «El almuerzo sobre la hierba» en 1863; la obra causó escándalo en el Salón de los Rechazados.",
+        "jeune-fille-a-la-perle": "Johannes Vermeer pintó «La joven de la perla» hacia 1665, apodada la «Gioconda del Norte».",
+        "le-baiser": "Gustav Klimt pintó «El beso» entre 1907 y 1908, obra emblemática de su período dorado y de la Secesión vienesa.",
+        "american-gothic": "Grant Wood pintó «American Gothic» en 1930, convertida en un ícono del regionalismo estadounidense."
+      }
+    }
+  },
   "Dashboard": {
     "statAttemptsTitle": "Quizzes completados en total",
     "statAccuracyTitle": "Precisión",
