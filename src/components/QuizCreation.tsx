@@ -404,9 +404,23 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
                     onChange={(event) => setSelectedCategorySlug(event.target.value)}
                     className="h-12 w-full rounded-2xl border border-slate-200 bg-white/80 px-3 text-sm text-slate-900 focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-400/20 dark:border-white/10 dark:bg-white/5 dark:text-white"
                   >
-                    <option value="">{t("categoryNone")}</option>
+                    {/* Solid (non-alpha) colors, not the select's own
+                        dark:bg-white/5 -- a native <option> popup is
+                        rendered by the OS/browser chrome, not composited
+                        over the page background, so a translucent bg
+                        resolves against a light popup surface regardless
+                        of theme: dark:text-white then renders white-on-
+                        near-white until the browser's own hover highlight
+                        kicks in. */}
+                    <option value="" className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">
+                      {t("categoryNone")}
+                    </option>
                     {CATEGORIES.map((category) => (
-                      <option key={category.slug} value={category.slug}>
+                      <option
+                        key={category.slug}
+                        value={category.slug}
+                        className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white"
+                      >
                         {category.icon} {tCategories(`${category.slug}.name`)}
                       </option>
                     ))}

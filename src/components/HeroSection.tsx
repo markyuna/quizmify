@@ -31,7 +31,10 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
   return (
     <MotionConfig reducedMotion="user">
-      <section className="relative overflow-hidden px-4 pb-16 pt-24 md:px-8 md:pb-24 md:pt-32">
+      {/* pt-6/md:pt-10 here, not pt-24/pt-32 -- layout.tsx's <main> already
+          adds pt-24 to clear the fixed Navbar; stacking this section's own
+          pt-24/pt-32 on top of that doubled the gap under the navbar. */}
+      <section className="relative overflow-hidden px-4 pb-16 pt-6 md:px-8 md:pb-24 md:pt-10">
         {/* Background depth: subtle dot grid + slow-drifting blurred blobs,
             all behind the content and never competing with it. */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
