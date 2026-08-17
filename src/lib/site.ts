@@ -1,4 +1,4 @@
-const PRODUCTION_SITE_URL = "https://quizmify.com";
+const PRODUCTION_SITE_URL = "https://www.quizmify.com";
 
 /**
  * Base URL used for absolute links (emails, referral links, Stripe
