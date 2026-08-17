@@ -6,6 +6,8 @@ import { getAuthSession } from "@/lib/nextauth";
 import { calculateEarnedXp, calculateLevel } from "@/lib/xp";
 import { FREE_LEVEL_CAP } from "@/lib/stripe";
 import { registerQuizActivity } from "@/lib/streak";
+import { findCuratedQuiz } from "@/lib/curatedQuizzes/registry";
+import { normalizeTopic } from "@/lib/topicUtils";
 import { guestIdSchema } from "@/schemas/form/guestGame";
 
 const claimQuizSchema = z.object({ guestId: guestIdSchema });
@@ -120,7 +122,47 @@ export async function POST(req: Request) {
           });
         }
 
-        xpAwarded += calculateEarnedXp({ correctAnswers, totalQuestions });
+        // Curated topics (see src/lib/curatedQuizzes) grant XP once per
+        // user, ever, same guard as /api/quiz/submit's curatedMatch check
+        // -- claiming a guest play of a curated topic the user already has
+        // XP for (e.g. an already-completed topic replayed under a fresh
+        // guestId before signing back in) still claims/records the game,
+        // just without a second XP grant. Check-then-create, not
+        // create-and-catch -- see the comment on the equivalent check in
+        // /api/quiz/submit for why catching a unique-constraint hit
+        // mid-transaction doesn't work under Postgres.
+        const curatedMatch = findCuratedQuiz(game.categorySlug, normalizeTopic(game.topic));
+        let awardXpForThisGame = true;
+
+        if (curatedMatch) {
+          const existingCompletion = await tx.curatedQuizCompletion.findUnique({
+            where: {
+              userId_categorySlug_topicNormalized: {
+                userId,
+                categorySlug: curatedMatch.categorySlug,
+                topicNormalized: curatedMatch.topicNormalized,
+              },
+            },
+            select: { id: true },
+          });
+
+          if (existingCompletion) {
+            awardXpForThisGame = false;
+          } else {
+            await tx.curatedQuizCompletion.create({
+              data: {
+                userId,
+                categorySlug: curatedMatch.categorySlug,
+                topicNormalized: curatedMatch.topicNormalized,
+                gameId: game.id,
+              },
+            });
+          }
+        }
+
+        if (awardXpForThisGame) {
+          xpAwarded += calculateEarnedXp({ correctAnswers, totalQuestions });
+        }
         claimedGameIds.push(game.id);
       }
 

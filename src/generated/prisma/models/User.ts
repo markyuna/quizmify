@@ -385,6 +385,7 @@ export type UserWhereInput = {
   referralReceived?: Prisma.XOR<Prisma.ReferralNullableScalarRelationFilter, Prisma.ReferralWhereInput> | null
   guestAttemptsClaimed?: Prisma.GuestAttemptListRelationFilter
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptListRelationFilter
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -427,6 +428,7 @@ export type UserOrderByWithRelationInput = {
   referralReceived?: Prisma.ReferralOrderByWithRelationInput
   guestAttemptsClaimed?: Prisma.GuestAttemptOrderByRelationAggregateInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptOrderByRelationAggregateInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -472,6 +474,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   referralReceived?: Prisma.XOR<Prisma.ReferralNullableScalarRelationFilter, Prisma.ReferralWhereInput> | null
   guestAttemptsClaimed?: Prisma.GuestAttemptListRelationFilter
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptListRelationFilter
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionListRelationFilter
 }, "id" | "email" | "stripePaymentId">
 
 export type UserOrderByWithAggregationInput = {
@@ -572,6 +575,7 @@ export type UserCreateInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -614,6 +618,7 @@ export type UserUncheckedCreateInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -656,6 +661,7 @@ export type UserUpdateInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -698,6 +704,7 @@ export type UserUncheckedUpdateInput = {
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -946,6 +953,20 @@ export type UserUpdateOneRequiredWithoutAttemptsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAttemptsInput, Prisma.UserUpdateWithoutAttemptsInput>, Prisma.UserUncheckedUpdateWithoutAttemptsInput>
 }
 
+export type UserCreateNestedOneWithoutCuratedQuizCompletionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCuratedQuizCompletionsInput, Prisma.UserUncheckedCreateWithoutCuratedQuizCompletionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCuratedQuizCompletionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCuratedQuizCompletionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCuratedQuizCompletionsInput, Prisma.UserUncheckedCreateWithoutCuratedQuizCompletionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCuratedQuizCompletionsInput
+  upsert?: Prisma.UserUpsertWithoutCuratedQuizCompletionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCuratedQuizCompletionsInput, Prisma.UserUpdateWithoutCuratedQuizCompletionsInput>, Prisma.UserUncheckedUpdateWithoutCuratedQuizCompletionsInput>
+}
+
 export type UserCreateNestedOneWithoutCertificatesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCertificatesInput, Prisma.UserUncheckedCreateWithoutCertificatesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCertificatesInput
@@ -1171,6 +1192,7 @@ export type UserCreateWithoutAccountsInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1212,6 +1234,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1269,6 +1292,7 @@ export type UserUpdateWithoutAccountsInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1310,6 +1334,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1351,6 +1376,7 @@ export type UserCreateWithoutSessionsInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1392,6 +1418,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1449,6 +1476,7 @@ export type UserUpdateWithoutSessionsInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1490,6 +1518,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGamesInput = {
@@ -1531,6 +1560,7 @@ export type UserCreateWithoutGamesInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGamesInput = {
@@ -1572,6 +1602,7 @@ export type UserUncheckedCreateWithoutGamesInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGamesInput = {
@@ -1629,6 +1660,7 @@ export type UserUpdateWithoutGamesInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGamesInput = {
@@ -1670,6 +1702,7 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAttemptsInput = {
@@ -1711,6 +1744,7 @@ export type UserCreateWithoutAttemptsInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAttemptsInput = {
@@ -1752,6 +1786,7 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAttemptsInput = {
@@ -1809,6 +1844,7 @@ export type UserUpdateWithoutAttemptsInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttemptsInput = {
@@ -1837,6 +1873,191 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCuratedQuizCompletionsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+}
+
+export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+}
+
+export type UserCreateOrConnectWithoutCuratedQuizCompletionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCuratedQuizCompletionsInput, Prisma.UserUncheckedCreateWithoutCuratedQuizCompletionsInput>
+}
+
+export type UserUpsertWithoutCuratedQuizCompletionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCuratedQuizCompletionsInput, Prisma.UserUncheckedUpdateWithoutCuratedQuizCompletionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCuratedQuizCompletionsInput, Prisma.UserUncheckedCreateWithoutCuratedQuizCompletionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCuratedQuizCompletionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCuratedQuizCompletionsInput, Prisma.UserUncheckedUpdateWithoutCuratedQuizCompletionsInput>
+}
+
+export type UserUpdateWithoutCuratedQuizCompletionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
   questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
   trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
   certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
@@ -1891,6 +2112,7 @@ export type UserCreateWithoutCertificatesInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCertificatesInput = {
@@ -1932,6 +2154,7 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCertificatesInput = {
@@ -1989,6 +2212,7 @@ export type UserUpdateWithoutCertificatesInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCertificatesInput = {
@@ -2030,6 +2254,7 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTopicRecommendationsInput = {
@@ -2071,6 +2296,7 @@ export type UserCreateWithoutTopicRecommendationsInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
@@ -2112,6 +2338,7 @@ export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTopicRecommendationsInput = {
@@ -2169,6 +2396,7 @@ export type UserUpdateWithoutTopicRecommendationsInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
@@ -2210,6 +2438,7 @@ export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTrophiesInput = {
@@ -2251,6 +2480,7 @@ export type UserCreateWithoutTrophiesInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTrophiesInput = {
@@ -2292,6 +2522,7 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTrophiesInput = {
@@ -2349,6 +2580,7 @@ export type UserUpdateWithoutTrophiesInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTrophiesInput = {
@@ -2390,6 +2622,7 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutQuestionProgressInput = {
@@ -2431,6 +2664,7 @@ export type UserCreateWithoutQuestionProgressInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutQuestionProgressInput = {
@@ -2472,6 +2706,7 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutQuestionProgressInput = {
@@ -2529,6 +2764,7 @@ export type UserUpdateWithoutQuestionProgressInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuestionProgressInput = {
@@ -2570,6 +2806,7 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDailyChallengeAttemptsInput = {
@@ -2611,6 +2848,7 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
@@ -2652,6 +2890,7 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDailyChallengeAttemptsInput = {
@@ -2709,6 +2948,7 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
@@ -2750,6 +2990,7 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationPreferenceInput = {
@@ -2791,6 +3032,7 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
@@ -2832,6 +3074,7 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationPreferenceInput = {
@@ -2889,6 +3132,7 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
@@ -2930,6 +3174,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationLogsInput = {
@@ -2971,6 +3216,7 @@ export type UserCreateWithoutNotificationLogsInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationLogsInput = {
@@ -3012,6 +3258,7 @@ export type UserUncheckedCreateWithoutNotificationLogsInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationLogsInput = {
@@ -3069,6 +3316,7 @@ export type UserUpdateWithoutNotificationLogsInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationLogsInput = {
@@ -3110,6 +3358,7 @@ export type UserUncheckedUpdateWithoutNotificationLogsInput = {
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFriendshipsSentInput = {
@@ -3151,6 +3400,7 @@ export type UserCreateWithoutFriendshipsSentInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFriendshipsSentInput = {
@@ -3192,6 +3442,7 @@ export type UserUncheckedCreateWithoutFriendshipsSentInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFriendshipsSentInput = {
@@ -3238,6 +3489,7 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
@@ -3279,6 +3531,7 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFriendshipsReceivedInput = {
@@ -3336,6 +3589,7 @@ export type UserUpdateWithoutFriendshipsSentInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
@@ -3377,6 +3631,7 @@ export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutFriendshipsReceivedInput = {
@@ -3429,6 +3684,7 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
@@ -3470,6 +3726,7 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReferralsMadeInput = {
@@ -3511,6 +3768,7 @@ export type UserCreateWithoutReferralsMadeInput = {
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralsMadeInput = {
@@ -3552,6 +3810,7 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralsMadeInput = {
@@ -3598,6 +3857,7 @@ export type UserCreateWithoutReferralReceivedInput = {
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralReceivedInput = {
@@ -3639,6 +3899,7 @@ export type UserUncheckedCreateWithoutReferralReceivedInput = {
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralReceivedInput = {
@@ -3696,6 +3957,7 @@ export type UserUpdateWithoutReferralsMadeInput = {
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralsMadeInput = {
@@ -3737,6 +3999,7 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReferralReceivedInput = {
@@ -3789,6 +4052,7 @@ export type UserUpdateWithoutReferralReceivedInput = {
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralReceivedInput = {
@@ -3830,6 +4094,7 @@ export type UserUncheckedUpdateWithoutReferralReceivedInput = {
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGuestAttemptsClaimedInput = {
@@ -3871,6 +4136,7 @@ export type UserCreateWithoutGuestAttemptsClaimedInput = {
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
@@ -3912,6 +4178,7 @@ export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGuestAttemptsClaimedInput = {
@@ -3969,6 +4236,7 @@ export type UserUpdateWithoutGuestAttemptsClaimedInput = {
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
@@ -4010,6 +4278,7 @@ export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
@@ -4051,6 +4320,7 @@ export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
@@ -4092,6 +4362,7 @@ export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPersonalityTestAttemptsClaimedInput = {
@@ -4149,6 +4420,7 @@ export type UserUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
@@ -4190,6 +4462,7 @@ export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -4213,6 +4486,7 @@ export type UserCountOutputType = {
   referralsMade: number
   guestAttemptsClaimed: number
   personalityTestAttemptsClaimed: number
+  curatedQuizCompletions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4231,6 +4505,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   referralsMade?: boolean | UserCountOutputTypeCountReferralsMadeArgs
   guestAttemptsClaimed?: boolean | UserCountOutputTypeCountGuestAttemptsClaimedArgs
   personalityTestAttemptsClaimed?: boolean | UserCountOutputTypeCountPersonalityTestAttemptsClaimedArgs
+  curatedQuizCompletions?: boolean | UserCountOutputTypeCountCuratedQuizCompletionsArgs
 }
 
 /**
@@ -4348,6 +4623,13 @@ export type UserCountOutputTypeCountPersonalityTestAttemptsClaimedArgs<ExtArgs e
   where?: Prisma.PersonalityTestAttemptWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCuratedQuizCompletionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CuratedQuizCompletionWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4389,6 +4671,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   referralReceived?: boolean | Prisma.User$referralReceivedArgs<ExtArgs>
   guestAttemptsClaimed?: boolean | Prisma.User$guestAttemptsClaimedArgs<ExtArgs>
   personalityTestAttemptsClaimed?: boolean | Prisma.User$personalityTestAttemptsClaimedArgs<ExtArgs>
+  curatedQuizCompletions?: boolean | Prisma.User$curatedQuizCompletionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -4486,6 +4769,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   referralReceived?: boolean | Prisma.User$referralReceivedArgs<ExtArgs>
   guestAttemptsClaimed?: boolean | Prisma.User$guestAttemptsClaimedArgs<ExtArgs>
   personalityTestAttemptsClaimed?: boolean | Prisma.User$personalityTestAttemptsClaimedArgs<ExtArgs>
+  curatedQuizCompletions?: boolean | Prisma.User$curatedQuizCompletionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -4511,6 +4795,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     referralReceived: Prisma.$ReferralPayload<ExtArgs> | null
     guestAttemptsClaimed: Prisma.$GuestAttemptPayload<ExtArgs>[]
     personalityTestAttemptsClaimed: Prisma.$PersonalityTestAttemptPayload<ExtArgs>[]
+    curatedQuizCompletions: Prisma.$CuratedQuizCompletionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4946,6 +5231,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   referralReceived<T extends Prisma.User$referralReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$referralReceivedArgs<ExtArgs>>): Prisma.Prisma__ReferralClient<runtime.Types.Result.GetResult<Prisma.$ReferralPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   guestAttemptsClaimed<T extends Prisma.User$guestAttemptsClaimedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guestAttemptsClaimedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuestAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   personalityTestAttemptsClaimed<T extends Prisma.User$personalityTestAttemptsClaimedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$personalityTestAttemptsClaimedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PersonalityTestAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  curatedQuizCompletions<T extends Prisma.User$curatedQuizCompletionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$curatedQuizCompletionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CuratedQuizCompletionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5785,6 +6071,30 @@ export type User$personalityTestAttemptsClaimedArgs<ExtArgs extends runtime.Type
   take?: number
   skip?: number
   distinct?: Prisma.PersonalityTestAttemptScalarFieldEnum | Prisma.PersonalityTestAttemptScalarFieldEnum[]
+}
+
+/**
+ * User.curatedQuizCompletions
+ */
+export type User$curatedQuizCompletionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CuratedQuizCompletion
+   */
+  select?: Prisma.CuratedQuizCompletionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CuratedQuizCompletion
+   */
+  omit?: Prisma.CuratedQuizCompletionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CuratedQuizCompletionInclude<ExtArgs> | null
+  where?: Prisma.CuratedQuizCompletionWhereInput
+  orderBy?: Prisma.CuratedQuizCompletionOrderByWithRelationInput | Prisma.CuratedQuizCompletionOrderByWithRelationInput[]
+  cursor?: Prisma.CuratedQuizCompletionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CuratedQuizCompletionScalarFieldEnum | Prisma.CuratedQuizCompletionScalarFieldEnum[]
 }
 
 /**

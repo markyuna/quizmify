@@ -460,6 +460,7 @@
     "secondaryLine": "Quelques secondes…"
   },
   "MCQ": {
+    "curatedPracticeOnly": "Vous avez déjà gagné de l'XP pour ce quiz la première fois que vous l'avez terminé. Cette nouvelle partie est juste pour vous entraîner — pas d'XP supplémentaire cette fois-ci.",
     "error": "Erreur",
     "unableToCheckAnswer": "Impossible de vérifier votre réponse.",
     "unableToSaveResult": "Impossible d'enregistrer le résultat final.",
@@ -506,6 +507,7 @@
   },
   "CuratedQuizzes": {
     "QuiEstLePeintre": {
+      "title": "Qui est le peintre ?",
       "questionTemplate": "Qui a peint « {title} » ?",
       "titles": {
         "nuit-etoilee": "La Nuit étoilée",

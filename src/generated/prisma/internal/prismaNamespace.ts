@@ -405,6 +405,7 @@ export const ModelName = {
   Question: 'Question',
   Attempt: 'Attempt',
   AttemptAnswer: 'AttemptAnswer',
+  CuratedQuizCompletion: 'CuratedQuizCompletion',
   Certificate: 'Certificate',
   TopicRecommendation: 'TopicRecommendation',
   Trophy: 'Trophy',
@@ -435,7 +436,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "certificate" | "topicRecommendation" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "personalityTestAttempt" | "categoryTopic"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "personalityTestAttempt" | "categoryTopic"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1028,6 +1029,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.AttemptAnswerCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.AttemptAnswerCountAggregateOutputType> | number
+        }
+      }
+    }
+    CuratedQuizCompletion: {
+      payload: Prisma.$CuratedQuizCompletionPayload<ExtArgs>
+      fields: Prisma.CuratedQuizCompletionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CuratedQuizCompletionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CuratedQuizCompletionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CuratedQuizCompletionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CuratedQuizCompletionPayload>
+        }
+        findFirst: {
+          args: Prisma.CuratedQuizCompletionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CuratedQuizCompletionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CuratedQuizCompletionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CuratedQuizCompletionPayload>
+        }
+        findMany: {
+          args: Prisma.CuratedQuizCompletionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CuratedQuizCompletionPayload>[]
+        }
+        create: {
+          args: Prisma.CuratedQuizCompletionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CuratedQuizCompletionPayload>
+        }
+        createMany: {
+          args: Prisma.CuratedQuizCompletionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CuratedQuizCompletionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CuratedQuizCompletionPayload>[]
+        }
+        delete: {
+          args: Prisma.CuratedQuizCompletionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CuratedQuizCompletionPayload>
+        }
+        update: {
+          args: Prisma.CuratedQuizCompletionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CuratedQuizCompletionPayload>
+        }
+        deleteMany: {
+          args: Prisma.CuratedQuizCompletionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CuratedQuizCompletionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CuratedQuizCompletionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CuratedQuizCompletionPayload>[]
+        }
+        upsert: {
+          args: Prisma.CuratedQuizCompletionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CuratedQuizCompletionPayload>
+        }
+        aggregate: {
+          args: Prisma.CuratedQuizCompletionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCuratedQuizCompletion>
+        }
+        groupBy: {
+          args: Prisma.CuratedQuizCompletionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CuratedQuizCompletionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CuratedQuizCompletionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CuratedQuizCompletionCountAggregateOutputType> | number
         }
       }
     }
@@ -2321,6 +2396,18 @@ export const AttemptAnswerScalarFieldEnum = {
 export type AttemptAnswerScalarFieldEnum = (typeof AttemptAnswerScalarFieldEnum)[keyof typeof AttemptAnswerScalarFieldEnum]
 
 
+export const CuratedQuizCompletionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  categorySlug: 'categorySlug',
+  topicNormalized: 'topicNormalized',
+  gameId: 'gameId',
+  createdAt: 'createdAt'
+} as const
+
+export type CuratedQuizCompletionScalarFieldEnum = (typeof CuratedQuizCompletionScalarFieldEnum)[keyof typeof CuratedQuizCompletionScalarFieldEnum]
+
+
 export const CertificateScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -2908,6 +2995,7 @@ export type GlobalOmitConfig = {
   question?: Prisma.QuestionOmit
   attempt?: Prisma.AttemptOmit
   attemptAnswer?: Prisma.AttemptAnswerOmit
+  curatedQuizCompletion?: Prisma.CuratedQuizCompletionOmit
   certificate?: Prisma.CertificateOmit
   topicRecommendation?: Prisma.TopicRecommendationOmit
   trophy?: Prisma.TrophyOmit

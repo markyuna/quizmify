@@ -460,6 +460,7 @@
     "secondaryLine": "Just a few seconds…"
   },
   "MCQ": {
+    "curatedPracticeOnly": "You already earned XP for this quiz the first time you completed it. This replay is just for practice — no extra XP this time.",
     "error": "Error",
     "unableToCheckAnswer": "Unable to check your answer.",
     "unableToSaveResult": "Unable to save the final result.",
@@ -506,6 +507,7 @@
   },
   "CuratedQuizzes": {
     "QuiEstLePeintre": {
+      "title": "Who's the painter?",
       "questionTemplate": "Who painted \"{title}\"?",
       "titles": {
         "nuit-etoilee": "The Starry Night",

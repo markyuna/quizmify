@@ -82,6 +82,11 @@ export type Attempt = Prisma.AttemptModel
  */
 export type AttemptAnswer = Prisma.AttemptAnswerModel
 /**
+ * Model CuratedQuizCompletion
+ * 
+ */
+export type CuratedQuizCompletion = Prisma.CuratedQuizCompletionModel
+/**
  * Model Certificate
  * 
  */

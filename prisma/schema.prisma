@@ -94,6 +94,7 @@ model User {
   referralReceived       Referral?               @relation("ReferralReceived")
   guestAttemptsClaimed   GuestAttempt[]
   personalityTestAttemptsClaimed PersonalityTestAttempt[]
+  curatedQuizCompletions CuratedQuizCompletion[]
 
   @@index([xp])
 }
@@ -224,6 +225,32 @@ model AttemptAnswer {
   @@unique([attemptId, questionId])
   @@index([attemptId])
   @@index([questionId])
+}
+
+// One row per (user, curated topic) the user has ever earned XP for --
+// the anti-grinding guard for curated quizzes (see quiEstLePeintre.ts):
+// unlike AI-generated topics, a curated quiz's question pool is fixed, so
+// nothing stops a user from creating a fresh Game for the same topic over
+// and over and collecting XP every time. /api/quiz/submit and
+// /api/guest/claim-quiz both attempt to create this row before crediting
+// XP for a curated-topic game; a unique constraint violation means this
+// user already has XP for that topic, so that submit/claim grants no
+// additional XP (the game itself, streak, certificates and trophies are
+// never gated -- replaying is still allowed and still full-featured for
+// practice, only the XP grant is one-time). Mirrors NotificationLog's
+// unique-constraint-is-the-real-guard pattern.
+model CuratedQuizCompletion {
+  id              String   @id @default(cuid())
+  userId          String
+  categorySlug    String
+  topicNormalized String
+  gameId          String
+  createdAt       DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, categorySlug, topicNormalized])
+  @@index([userId])
 }
 
 enum GameType {

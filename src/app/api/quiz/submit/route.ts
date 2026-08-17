@@ -65,6 +65,13 @@ export async function POST(req: Request) {
       );
     }
 
+    // Curated quizzes (see src/lib/curatedQuizzes) reuse a fixed question
+    // pool, unlike AI-generated topics, which are regenerated per play --
+    // so unlimited replays would otherwise mean unlimited XP for the same
+    // content. Matched the same locale-independent way findCuratedQuiz is
+    // matched everywhere else (normalizeTopic(game.topic), not game.language).
+    const curatedMatch = findCuratedQuiz(game.categorySlug, normalizeTopic(game.topic));
+
     const existingAttempt = await prisma.attempt.findFirst({
       where: {
         gameId: game.id,
@@ -86,6 +93,25 @@ export async function POST(req: Request) {
 
       const level = currentUser?.level ?? 1;
 
+      // A resubmit of the same game that already earned XP (e.g. a page
+      // refresh after finishing) shouldn't relabel itself as "practice
+      // only" -- only flag it when a *different* game already claimed this
+      // curated topic's one-time XP (see CuratedQuizCompletion).
+      let curatedPracticeOnly = false;
+      if (curatedMatch) {
+        const completion = await prisma.curatedQuizCompletion.findUnique({
+          where: {
+            userId_categorySlug_topicNormalized: {
+              userId,
+              categorySlug: curatedMatch.categorySlug,
+              topicNormalized: curatedMatch.topicNormalized,
+            },
+          },
+          select: { gameId: true },
+        });
+        curatedPracticeOnly = completion !== null && completion.gameId !== game.id;
+      }
+
       return NextResponse.json(
         {
           success: true,
@@ -94,6 +120,7 @@ export async function POST(req: Request) {
           correctAnswers: existingAttempt.correctAnswers,
           totalQuestions: existingAttempt.totalQuestions,
           earnedXp: 0,
+          curatedPracticeOnly,
           speedBonusXp: 0,
           newXp: currentUser?.xp ?? 0,
           newLevel: level,
@@ -220,6 +247,7 @@ export async function POST(req: Request) {
         return {
           attempt: createdAttempt,
           earnedXp: 0,
+          curatedPracticeOnly: false,
           newXp: 0,
           previousLevel: 1,
           newLevel: 1,
@@ -259,12 +287,55 @@ export async function POST(req: Request) {
         });
       }
 
+      // Curated topics grant XP once per user, ever -- check-then-create
+      // rather than create-and-catch: Postgres aborts the *whole*
+      // transaction the instant one statement errors (a unique-constraint
+      // hit included), so catching a P2002 here and continuing to the xp
+      // increment below would still fail every later statement with
+      // "current transaction is aborted". A pre-check has a race window
+      // (two concurrent submits for the same brand-new topic), but that's
+      // rare enough to just let the create() throw uncaught in that case --
+      // the whole submit rolls back and the client can retry, at which
+      // point this same check now finds the row. Streak/certificates/
+      // trophy above are never gated -- replaying stays fully playable,
+      // only the XP grant is one-time (see CuratedQuizCompletion in
+      // prisma/schema.prisma).
+      let xpToAward = earnedXp;
+      let curatedPracticeOnly = false;
+
+      if (curatedMatch) {
+        const existingCompletion = await tx.curatedQuizCompletion.findUnique({
+          where: {
+            userId_categorySlug_topicNormalized: {
+              userId,
+              categorySlug: curatedMatch.categorySlug,
+              topicNormalized: curatedMatch.topicNormalized,
+            },
+          },
+          select: { id: true },
+        });
+
+        if (existingCompletion) {
+          xpToAward = 0;
+          curatedPracticeOnly = true;
+        } else {
+          await tx.curatedQuizCompletion.create({
+            data: {
+              userId,
+              categorySlug: curatedMatch.categorySlug,
+              topicNormalized: curatedMatch.topicNormalized,
+              gameId: game.id,
+            },
+          });
+        }
+      }
+
       const previousLevel = previousUser.level;
       const isPro = isEffectivelyPro(previousUser);
 
       const updatedUser = await tx.user.update({
         where: { id: userId },
-        data: { xp: { increment: earnedXp } },
+        data: { xp: { increment: xpToAward } },
         select: { xp: true },
       });
 
@@ -308,8 +379,9 @@ export async function POST(req: Request) {
         attempt: createdAttempt,
         // The full amount is always banked now that xp is never clamped --
         // free users past the cap keep earning toward the level they'll
-        // unlock on upgrade.
-        earnedXp,
+        // unlock on upgrade. 0 instead when curatedPracticeOnly (see above).
+        earnedXp: xpToAward,
+        curatedPracticeOnly,
         newXp,
         previousLevel,
         newLevel,
@@ -405,7 +477,11 @@ export async function POST(req: Request) {
         correctAnswers,
         totalQuestions,
         earnedXp: result.earnedXp,
-        speedBonusXp,
+        curatedPracticeOnly: result.curatedPracticeOnly,
+        // Zeroed alongside earnedXp when curatedPracticeOnly, so the
+        // results screen never shows a "+N XP speed bonus" sub-line next to
+        // a "+0 XP" headline.
+        speedBonusXp: result.curatedPracticeOnly ? 0 : speedBonusXp,
         newXp: result.newXp,
         previousLevel: result.previousLevel,
         newLevel: result.newLevel,

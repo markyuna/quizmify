@@ -25,6 +25,9 @@ import {
 import { Game, Question } from "@/generated/prisma/client";
 import { useTranslations } from "next-intl";
 
+import { findCuratedQuiz } from "@/lib/curatedQuizzes/registry";
+import { normalizeTopic } from "@/lib/topicUtils";
+
 import MCQCounter from "./MCQCounter";
 import ExportPdfButton from "./ExportPdfButton";
 import ShareResultButton from "./ShareResultButton";
@@ -114,6 +117,7 @@ type SubmitQuizResponse = {
   paywallMessage: { key: string; values: Record<string, string | number> } | null;
   currentStreak: number;
   trophyReason: TrophyReason;
+  curatedPracticeOnly: boolean;
 };
 
 const MCQ = ({ game, isGuest }: MCQProps) => {
@@ -122,6 +126,30 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
   const t = useTranslations("MCQ");
   const tTrial = useTranslations("Trial");
   const tRoot = useTranslations();
+
+  // Curated quizzes (see src/lib/curatedQuizzes) always follow the LIVE UI
+  // locale for title/question/explanation -- switching the language
+  // selector mid-quiz re-translates immediately, current question included,
+  // not just later ones. Deliberately NOT anchored to game.language/
+  // creation time: that was tried to avoid a mid-switch mismatch, but
+  // produced a worse result (chrome in one language, question content stuck
+  // in another) than just keeping everything live and consistent with the
+  // selector at all times.
+  const curated = React.useMemo(
+    () => findCuratedQuiz(game.categorySlug, normalizeTopic(game.topic)),
+    [game.categorySlug, game.topic]
+  );
+  const tCurated = useTranslations(curated?.translationNamespace);
+  // Question rows store the text resolved at creation time, not the
+  // titleKey itself (see the curated branch in /api/game/route.ts) -- join
+  // back to it via imageUrl, which is unique per curated question and never
+  // changes. Curated quizzes are never shuffled (registry.ts), but this
+  // doesn't depend on that -- it's a lookup by value, not by position.
+  const curatedTitleKeyByImage = React.useMemo(() => {
+    if (!curated) return null;
+    return new Map(curated.questions.map((q) => [q.imageUrl, q.titleKey]));
+  }, [curated]);
+  const displayTopic = curated ? tCurated("title") : game.topic;
 
   const [questions, setQuestions] = React.useState<QuestionWithOptions[]>(game.questions);
   const [questionIndex, setQuestionIndex] = React.useState(0);
@@ -147,6 +175,16 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
   const [timedOut, setTimedOut] = React.useState(false);
 
   const currentQuestion = questions[questionIndex];
+  // Live-translated question/explanation for a curated quiz, overriding
+  // the creation-time-baked currentQuestion.question/explanation -- see the
+  // comment on curatedTitleKeyByImage above. Falls back to the stored text
+  // for a non-curated (AI-generated) question, which has no titleKey to
+  // look up and isn't meant to retranslate live anyway.
+  const curatedTitleKey = curatedTitleKeyByImage?.get(currentQuestion.imageUrl ?? "");
+  const displayQuestionText = curatedTitleKey
+    ? tCurated("questionTemplate", { title: tCurated(`titles.${curatedTitleKey}`) })
+    : currentQuestion.question;
+  const displayExplanation = curatedTitleKey ? tCurated(`explanations.${curatedTitleKey}`) : currentQuestion.explanation;
   // Total the quiz is *planned* to have vs. what's currently loaded --
   // for an adaptive-difficulty game those differ until the second batch
   // arrives (see fetchNextBatch below). For a non-adaptive game
@@ -450,7 +488,7 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-xs font-bold uppercase tracking-widest text-violet-500 dark:text-violet-300">{t("quizCompleted")}</p>
-              <h1 className="mt-1 text-2xl font-black text-slate-900 dark:text-white sm:text-3xl">{game.topic}</h1>
+              <h1 className="mt-1 text-2xl font-black text-slate-900 dark:text-white sm:text-3xl">{displayTopic}</h1>
             </div>
             <span className="text-4xl">{scoreEmoji}</span>
           </div>
@@ -479,6 +517,16 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
             title={t("puzzleFinalTitle")}
             progressLabel={t("puzzlePiecesRevealed", { revealed: revealedPuzzlePieces.size, total: totalQ })}
           />
+        )}
+
+        {finalResult?.curatedPracticeOnly && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="rounded-[1.75rem] border border-slate-200/80 bg-slate-50 p-4 text-sm text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
+          >
+            {t("curatedPracticeOnly")}
+          </motion.div>
         )}
 
         {finalResult && levelProgress && !finalResult.hitFreeLimit && (
@@ -640,7 +688,7 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
       <div className={cn("mx-auto w-full px-4 pt-2", cardMaxWidthClass)}>
         <div className="mb-4 flex items-center justify-between gap-4 rounded-[1.5rem] border border-slate-200/80 bg-white/80 px-4 py-3 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
           <div className="min-w-0">
-            <p className="truncate text-xs font-medium text-slate-500 dark:text-slate-400">{game.topic}</p>
+            <p className="truncate text-xs font-medium text-slate-500 dark:text-slate-400">{displayTopic}</p>
             <p className="text-sm font-bold text-slate-900 dark:text-white">
               {t("questionAbbrev")}{questionIndex + 1} <span className="font-normal text-slate-400">/ {totalQuestions}</span>
             </p>
@@ -754,9 +802,9 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
                       ✓ {t("correctKeepGoing")}
                     </div>
                   )}
-                  {currentQuestion.explanation && (
+                  {displayExplanation && (
                     <div className="rounded-2xl border border-cyan-200 bg-cyan-50 px-4 py-3 text-sm leading-6 text-cyan-700 dark:border-cyan-500/20 dark:bg-cyan-500/10 dark:text-cyan-200">
-                      <span className="font-semibold">{t("explanationLabel")}</span> {currentQuestion.explanation}
+                      <span className="font-semibold">{t("explanationLabel")}</span> {displayExplanation}
                     </div>
                   )}
                 </motion.div>
@@ -818,7 +866,7 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
                           {t("question")} {questionIndex + 1}
                         </p>
                         <h2 className="text-lg font-bold leading-snug text-slate-900 dark:text-white sm:text-xl">
-                          {currentQuestion.question}
+                          {displayQuestionText}
                         </h2>
                       </div>
                       <div className="space-y-2">
@@ -840,7 +888,7 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
                     {t("question")} {questionIndex + 1}
                   </p>
                   <h2 className="text-lg font-bold leading-snug text-slate-900 dark:text-white sm:text-xl">
-                    {currentQuestion.question}
+                    {displayQuestionText}
                   </h2>
                 </div>
                 <div className="space-y-2.5 px-5 pb-5 sm:px-6 sm:pb-6">
@@ -871,18 +919,28 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
         </Button>
       </div>
 
-      {/* Desktop: inline next button */}
-      {hasAnswered && (
-        <div
-          className={cn(
-            "mx-auto hidden w-full px-4 sm:flex sm:justify-end",
-            currentQuestion.imageUrl ? "mt-2" : "mt-4",
-            cardMaxWidthClass
-          )}
+      {/* Desktop: home link + inline next button share one row (Home left,
+          Next right) -- the button's wrapper is always mounted (space
+          reserved via `invisible`) so its h-12 height doesn't pop in and
+          push Home out of line the instant the user answers. */}
+      <div
+        className={cn(
+          "mx-auto hidden w-full items-center justify-between px-4 sm:flex",
+          currentQuestion.imageUrl ? "mt-2" : "mt-4",
+          cardMaxWidthClass
+        )}
+      >
+        <Link
+          href="/"
+          className={cn(buttonVariants({ variant: "ghost" }), "text-slate-500 hover:text-slate-900 dark:hover:text-white")}
         >
+          ← {t("home")}
+        </Link>
+
+        <div className={cn(!hasAnswered && "invisible")}>
           <Button
             onClick={handleNext}
-            disabled={isSubmittingQuiz || isLoadingNextBatch}
+            disabled={!hasAnswered || isSubmittingQuiz || isLoadingNextBatch}
             className="h-12 rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 px-8 text-white shadow-lg shadow-violet-500/20 hover:opacity-95"
           >
             {isSubmittingQuiz ? (
@@ -894,15 +952,6 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
             )}
           </Button>
         </div>
-      )}
-
-      <div className={cn("mx-auto mt-4 hidden w-full px-4 sm:flex sm:justify-start", cardMaxWidthClass)}>
-        <Link
-          href="/"
-          className={cn(buttonVariants({ variant: "ghost" }), "text-slate-500 hover:text-slate-900 dark:hover:text-white")}
-        >
-          ← {t("home")}
-        </Link>
       </div>
     </div>
   );
