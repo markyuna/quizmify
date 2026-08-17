@@ -13,6 +13,7 @@ import { resolvePaywallMessage } from "@/lib/paywallMessages";
 import { getCategoryBySlug } from "@/lib/categories";
 import { isTopicAllowed } from "@/lib/forbiddenWords";
 import { normalizeTopic } from "@/lib/questionGeneration";
+import { findCuratedQuiz } from "@/lib/curatedQuizzes/registry";
 import { submitQuizSchema } from "@/schemas/form/quiz";
 
 export type TrophyReason = "perfect" | "streak" | null;
@@ -341,6 +342,18 @@ export async function POST(req: Request) {
         if (category && isTopicAllowed(game.topic)) {
           const normalizedTopic = normalizeTopic(game.topic);
 
+          // A curated topic (see src/lib/curatedQuizzes) already has its one
+          // canonical row seeded by hand -- matched by (categorySlug, topic)
+          // only, deliberately ignoring game.language (same rule
+          // findCuratedQuiz itself applies when routing a play request, see
+          // its comment). Without this check, playing the same curated quiz
+          // in a different UI locale would mint a second CategoryTopic row
+          // for what is actually identical, fixed, French-only content --
+          // that's exactly what happened before this check existed (a
+          // completed es-locale playthrough published a duplicate "Qui est
+          // le peintre?" row under language "es").
+          const isCuratedTopic = findCuratedQuiz(category.slug, normalizedTopic) !== null;
+
           // The (categorySlug, topicNormalized, language) unique constraint
           // below only catches an exact same-language repeat. It can't
           // catch replaying a topic that's already cataloged under a
@@ -351,17 +364,21 @@ export async function POST(req: Request) {
           // for an existing row that was already translated into
           // game.language and matches this topic, so replaying a
           // translated card doesn't mint a second entry for the same
-          // underlying topic.
-          const existingViaTranslation = await prisma.categoryTopic.findMany({
-            where: { categorySlug: category.slug },
-            select: { translatedLabels: true },
-          });
-          const alreadyCatalogedViaTranslation = existingViaTranslation.some((row) => {
-            const translated = (row.translatedLabels as Record<string, string> | null)?.[game.language];
-            return translated !== undefined && normalizeTopic(translated) === normalizedTopic;
-          });
+          // underlying topic. Skipped entirely for a curated topic -- the
+          // isCuratedTopic check above already covers it, no need to query.
+          const alreadyCatalogedViaTranslation =
+            !isCuratedTopic &&
+            (
+              await prisma.categoryTopic.findMany({
+                where: { categorySlug: category.slug },
+                select: { translatedLabels: true },
+              })
+            ).some((row) => {
+              const translated = (row.translatedLabels as Record<string, string> | null)?.[game.language];
+              return translated !== undefined && normalizeTopic(translated) === normalizedTopic;
+            });
 
-          if (!alreadyCatalogedViaTranslation) {
+          if (!isCuratedTopic && !alreadyCatalogedViaTranslation) {
             await prisma.categoryTopic.create({
               data: {
                 categorySlug: category.slug,
