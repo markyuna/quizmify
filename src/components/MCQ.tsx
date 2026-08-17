@@ -45,8 +45,24 @@ import type { TrophyReason } from "@/app/api/quiz/submit/route";
 
 type QuestionWithOptions = Pick<
   Question,
-  "id" | "question" | "answer" | "options" | "explanation" | "country"
+  "id" | "question" | "answer" | "options" | "explanation" | "country" | "imageUrl"
 >;
+
+/**
+ * A small, stable "wobble" per curated (image) question, for the polaroid-
+ * style frame -- deterministic from the question's own id rather than
+ * Math.random(), so server-rendered and hydrated markup always agree (a
+ * random value picked at render time would mismatch between the two and
+ * trip a hydration warning). Mirrors the same char-code hash idiom already
+ * used by pickPhotoForDate in src/lib/games/photoOfDay.ts.
+ */
+function polaroidRotationDeg(questionId: string): number {
+  let hash = 0;
+  for (let i = 0; i < questionId.length; i++) {
+    hash = (hash * 31 + questionId.charCodeAt(i)) % 1000;
+  }
+  return (hash % 7) - 3; // -3..3
+}
 
 type MCQProps = {
   game: Game & {
@@ -611,9 +627,17 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
     );
   }
 
+  // Wider only for image-based (curated) questions, and only from sm: up --
+  // below that the viewport itself is already narrower than max-w-2xl, so
+  // this never affects the mobile stacked layout. AI-generated (no
+  // imageUrl) quizzes keep max-w-2xl at every breakpoint, unchanged. Shared
+  // by the card, the desktop "next question" button row, and the home link
+  // row below it so all three stay aligned under the wider card.
+  const cardMaxWidthClass = currentQuestion.imageUrl ? "max-w-2xl sm:max-w-5xl" : "max-w-2xl";
+
   return (
     <div className="flex w-full flex-col pb-24 sm:pb-8">
-      <div className="mx-auto w-full max-w-2xl px-4 pt-2">
+      <div className={cn("mx-auto w-full px-4 pt-2", cardMaxWidthClass)}>
         <div className="mb-4 flex items-center justify-between gap-4 rounded-[1.5rem] border border-slate-200/80 bg-white/80 px-4 py-3 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
           <div className="min-w-0">
             <p className="truncate text-xs font-medium text-slate-500 dark:text-slate-400">{game.topic}</p>
@@ -684,17 +708,8 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
         </div>
 
         <div className="rounded-[1.75rem] border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-xl dark:border-white/10 dark:bg-white/5 dark:shadow-none">
-          <div className="p-5 sm:p-6">
-            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-violet-500 dark:text-violet-300">
-              {t("question")} {questionIndex + 1}
-            </p>
-            <h2 className="text-lg font-bold leading-snug text-slate-900 dark:text-white sm:text-xl">
-              {currentQuestion.question}
-            </h2>
-          </div>
-
-          <div className="space-y-2.5 px-5 pb-5 sm:px-6 sm:pb-6">
-            {currentQuestion.options.map((option, index) => {
+          {(() => {
+            const renderedOptions = currentQuestion.options.map((option, index) => {
               const isCorrect = option === currentQuestion.answer;
               const isSelected = option === selectedAnswer;
 
@@ -720,9 +735,9 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
                   )}
                 </button>
               );
-            })}
+            });
 
-            {hasAnswered && (
+            const answeredFeedback = hasAnswered && (
               <AnimatePresence>
                 <motion.div
                   initial={{ opacity: 0, y: 6 }}
@@ -746,9 +761,9 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
                   )}
                 </motion.div>
               </AnimatePresence>
-            )}
+            );
 
-            {!hasAnswered && (
+            const unansweredHint = !hasAnswered && (
               <div className="flex items-center gap-2 rounded-2xl border border-slate-200/60 bg-slate-50/60 px-4 py-3 text-sm text-slate-500 dark:border-white/5 dark:bg-white/3 dark:text-slate-400">
                 {isCheckingAnswer ? (
                   <>
@@ -759,8 +774,83 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
                   `👆 ${t("tapAnAnswer")}`
                 )}
               </div>
-            )}
-          </div>
+            );
+
+            if (currentQuestion.imageUrl) {
+              // Curated (image-based) questions only, e.g. "Qui est le
+              // peintre?" -- the 10 curated artworks span very different
+              // aspect ratios (portrait to landscape). Polaroid/frame style
+              // (culturequizz.com reference): a plain <img>, not next/image
+              // with `fill`, so the browser sizes it to its own natural
+              // aspect ratio -- capped by max-h/max-w, never forced into a
+              // fixed box -- instead of letterboxing inside one shared
+              // shape. The correct/explanation block stays a separate
+              // full-width section below the image+options row (unchanged
+              // from before), so it never affects the frame's size either.
+              return (
+                <div className="p-5 sm:p-6">
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-[1.15fr_1fr] sm:gap-6">
+                    {/* items-start is the actual fix for the "empty space
+                        below the frame" bug: without it, this flex
+                        container's default align-items:stretch stretches
+                        the polaroid frame to match the grid row's height
+                        (driven by the taller text column) regardless of the
+                        image's own size -- no CSS on the frame or image
+                        itself could ever fix that, the flex parent was
+                        overriding it. */}
+                    <div className="flex items-start justify-center sm:justify-start">
+                      <div
+                        className="inline-flex rounded-md border-[10px] border-white bg-white shadow-xl"
+                        style={{ transform: `rotate(${polaroidRotationDeg(currentQuestion.id)}deg)` }}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element -- natural aspect ratio, not a fixed box; see comment above */}
+                        <img
+                          src={currentQuestion.imageUrl}
+                          alt=""
+                          className="block max-h-64 max-w-full rounded-sm object-contain sm:max-h-80 sm:max-w-[420px]"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col justify-center gap-3">
+                      <div>
+                        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-violet-500 dark:text-violet-300">
+                          {t("question")} {questionIndex + 1}
+                        </p>
+                        <h2 className="text-lg font-bold leading-snug text-slate-900 dark:text-white sm:text-xl">
+                          {currentQuestion.question}
+                        </h2>
+                      </div>
+                      <div className="space-y-2">
+                        {renderedOptions}
+                        {unansweredHint}
+                      </div>
+                    </div>
+                  </div>
+
+                  {answeredFeedback && <div className="mt-4">{answeredFeedback}</div>}
+                </div>
+              );
+            }
+
+            return (
+              <>
+                <div className="p-5 sm:p-6">
+                  <p className="mb-3 text-xs font-bold uppercase tracking-widest text-violet-500 dark:text-violet-300">
+                    {t("question")} {questionIndex + 1}
+                  </p>
+                  <h2 className="text-lg font-bold leading-snug text-slate-900 dark:text-white sm:text-xl">
+                    {currentQuestion.question}
+                  </h2>
+                </div>
+                <div className="space-y-2.5 px-5 pb-5 sm:px-6 sm:pb-6">
+                  {renderedOptions}
+                  {answeredFeedback}
+                  {unansweredHint}
+                </div>
+              </>
+            );
+          })()}
         </div>
       </div>
 
@@ -783,7 +873,13 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
 
       {/* Desktop: inline next button */}
       {hasAnswered && (
-        <div className="mx-auto mt-4 hidden w-full max-w-2xl px-4 sm:flex sm:justify-end">
+        <div
+          className={cn(
+            "mx-auto hidden w-full px-4 sm:flex sm:justify-end",
+            currentQuestion.imageUrl ? "mt-2" : "mt-4",
+            cardMaxWidthClass
+          )}
+        >
           <Button
             onClick={handleNext}
             disabled={isSubmittingQuiz || isLoadingNextBatch}
@@ -800,7 +896,7 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
         </div>
       )}
 
-      <div className="mx-auto mt-4 hidden w-full max-w-2xl px-4 sm:flex sm:justify-start">
+      <div className={cn("mx-auto mt-4 hidden w-full px-4 sm:flex sm:justify-start", cardMaxWidthClass)}>
         <Link
           href="/"
           className={cn(buttonVariants({ variant: "ghost" }), "text-slate-500 hover:text-slate-900 dark:hover:text-white")}

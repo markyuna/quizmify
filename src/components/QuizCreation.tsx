@@ -26,6 +26,8 @@ import {
 import { cn } from "@/lib/utils";
 import { useGuestId } from "@/hooks/useGuestRound";
 import { CATEGORIES } from "@/lib/categories";
+import { findCuratedQuiz } from "@/lib/curatedQuizzes/registry";
+import { normalizeTopic } from "@/lib/topicUtils";
 import type { CategoryTopicLookupResponse } from "@/app/api/category-topics/lookup/route";
 
 type QuizCreationProps = {
@@ -83,6 +85,10 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
     categoryName: string | null;
   } | null>(null);
   const navigationTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Guards the curated auto-start effect below so it fires createGame at
+  // most once, even though isCuratedTopic stays true across re-renders
+  // while the mutation is in flight.
+  const hasAutoStartedRef = React.useRef(false);
 
   React.useEffect(() => {
     return () => {
@@ -201,6 +207,20 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
   // Game.categorySlug in prisma/schema.prisma.
   const effectiveCategorySlug = categoryKnown ? categoryParam : selectedCategorySlug;
 
+  // True when the effective topic+category matches a hand-curated quiz (see
+  // src/lib/curatedQuizzes) -- those are always served as a fixed, whole
+  // set with no meaningful "difficulty" or "amount" to choose, so the whole
+  // configuration panel is skipped in favor of auto-starting the quiz (see
+  // the effect below). Resolves synchronously on first render when arriving
+  // via CategoryQuizCard (topicParam/categoryParam come from the URL), so
+  // there's no flash of the panel before it's hidden. Deliberately NOT
+  // gated on the active UI locale (see findCuratedQuiz's comment) --
+  // CategoryQuizCard.tsx is responsible for putting the curated topic's
+  // canonical (untranslated) text in topicParam in the first place, so this
+  // match works the same regardless of what language the UI chrome is in.
+  const curatedQuiz = findCuratedQuiz(effectiveCategorySlug, normalizeTopic(topicValue));
+  const isCuratedTopic = curatedQuiz !== null;
+
   const { mutate: createGame, isPending } = useMutation({
     mutationFn: async (values: QuizCreationInput) => {
       const response = await axios.post<CreateGameResponse>("/api/game", values);
@@ -293,7 +313,28 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
     createGame({ ...values, categorySlug: effectiveCategorySlug || undefined });
   };
 
-  if (showLoader) {
+  // Curated topics skip the configuration panel entirely: fire the same
+  // createGame the form's onSubmit would, with the curated quiz's own fixed
+  // values, the moment the topic+category match is known. Waits on
+  // checkingEligibility so this doesn't race the free-limit/guest-cap check
+  // that already gates the normal panel.
+  React.useEffect(() => {
+    if (!isCuratedTopic || !curatedQuiz || checkingEligibility || hasAutoStartedRef.current) return;
+
+    hasAutoStartedRef.current = true;
+    setShowLoader(true);
+    createGame({
+      topic: curatedQuiz.topicDisplay,
+      amount: curatedQuiz.questions.length,
+      difficulty: curatedQuiz.difficulty,
+      type: "mcq",
+      isTimed: false,
+      puzzleMode: false,
+      categorySlug: effectiveCategorySlug || undefined,
+    });
+  }, [isCuratedTopic, curatedQuiz, checkingEligibility, effectiveCategorySlug, createGame]);
+
+  if (showLoader || isCuratedTopic) {
     return <LoadingQuestions finished={finished} />;
   }
 

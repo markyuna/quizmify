@@ -10,8 +10,11 @@ import { isUserAtFreeLimit, isUserPro } from "@/lib/paywall";
 import { isGeographyTopic } from "@/lib/geography";
 import { getCategoryBySlug } from "@/lib/categories";
 import { TIMED_MODE_SECONDS_PER_QUESTION } from "@/lib/timedMode";
-import { normalizeTopic, normalizeDifficulty } from "@/lib/questionGeneration";
+import { normalizeTopic, normalizeDifficulty, ensureValidOptions } from "@/lib/questionGeneration";
 import { sourceQuestions, incrementUsageCount } from "@/lib/questionSourcing";
+import { findCuratedQuiz } from "@/lib/curatedQuizzes/registry";
+import type { CuratedQuizQuestion } from "@/lib/curatedQuizzes/types";
+import type { SourcedQuestion } from "@/lib/questionSourcing";
 import { MIN_QUESTIONS_FOR_ADAPTIVE_DIFFICULTY, splitIntoBatches } from "@/lib/adaptiveDifficulty";
 import { generatePuzzleImage, PuzzleImageError } from "@/lib/puzzleImage";
 import { getGuestIdFromCookie } from "@/lib/guestQuiz";
@@ -45,23 +48,6 @@ export async function POST(req: Request) {
     const body = await req.json();
     const parsedBody = quizCreationSchema.parse(body);
 
-    if (guestId) {
-      // Abuse brake: one guest-played quiz per guestId, enforced here (not
-      // just in the UI) since the cookie is client-controlled.
-      const existingGuestGames = await prisma.game.count({
-        where: { guestId, userId: null },
-      });
-      if (existingGuestGames >= 1) {
-        return jsonError("GUEST_LIMIT_REACHED", 403);
-      }
-      if (parsedBody.puzzleMode) {
-        return jsonError("PUZZLE_REQUIRES_PRO", 403);
-      }
-      if (parsedBody.amount > GUEST_MAX_QUESTIONS) {
-        return jsonError("GUEST_AMOUNT_LIMIT", 400);
-      }
-    }
-
     const topic = normalizeTopic(parsedBody.topic);
     const amount = parsedBody.amount;
     const difficulty = normalizeDifficulty(parsedBody.difficulty);
@@ -85,6 +71,36 @@ export async function POST(req: Request) {
       }
     }
 
+    // A curated topic (hand-picked questions, e.g. image-based) always
+    // bypasses AI generation entirely -- see src/lib/curatedQuizzes. Matched
+    // by (categorySlug, normalized topic) only, NOT the request's language --
+    // the curated content is fixed regardless of the visitor's locale (see
+    // findCuratedQuiz's own comment). Resolved before the guest checks below
+    // because a curated topic is exempt from the guest amount cap (see the
+    // comment on that check) -- it costs nothing to generate, there's
+    // nothing to rate-limit.
+    const curated = findCuratedQuiz(categorySlug, topic);
+
+    if (guestId) {
+      // Abuse brake: one guest-played quiz per guestId, enforced here (not
+      // just in the UI) since the cookie is client-controlled.
+      const existingGuestGames = await prisma.game.count({
+        where: { guestId, userId: null },
+      });
+      if (existingGuestGames >= 1) {
+        return jsonError("GUEST_LIMIT_REACHED", 403);
+      }
+      if (parsedBody.puzzleMode) {
+        return jsonError("PUZZLE_REQUIRES_PRO", 403);
+      }
+      // The cap exists to bound OpenAI generation cost (see
+      // GUEST_MAX_QUESTIONS above) -- a curated topic never calls OpenAI, so
+      // it's exempt regardless of its fixed question count.
+      if (!curated && parsedBody.amount > GUEST_MAX_QUESTIONS) {
+        return jsonError("GUEST_AMOUNT_LIMIT", 400);
+      }
+    }
+
     if (puzzleMode && (!userId || !(await isUserPro(userId)))) {
       return jsonError("PUZZLE_REQUIRES_PRO", 403);
     }
@@ -94,19 +110,38 @@ export async function POST(req: Request) {
     // rest via /api/game/[gameId]/next-batch once the user reaches it --
     // see src/lib/adaptiveDifficulty.ts. Guests never get adaptive
     // difficulty (next-batch requires a session), so everything is
-    // generated in one batch for them regardless of amount.
-    const useAdaptiveDifficulty = !guestId && amount >= MIN_QUESTIONS_FOR_ADAPTIVE_DIFFICULTY;
+    // generated in one batch for them regardless of amount. A curated topic
+    // is always served whole, in one batch -- there's no "adjust difficulty"
+    // to do on a fixed hand-picked set, and `amount` is ignored entirely.
+    const useAdaptiveDifficulty = !curated && !guestId && amount >= MIN_QUESTIONS_FOR_ADAPTIVE_DIFFICULTY;
     const { firstBatch } = splitIntoBatches(amount);
     const requestAmount = useAdaptiveDifficulty ? firstBatch : amount;
 
-    const { questions: sourced, cachedCount, poolTarget } = await sourceQuestions({
-      topic,
-      difficulty,
-      language,
-      amount: requestAmount,
-      isGeography,
-      categoryName,
-    });
+    let sourced: (SourcedQuestion | CuratedQuizQuestion)[];
+    let cachedCount = 0;
+    let poolTarget = 0;
+
+    if (curated) {
+      // Fixed, hand-curated order -- not shuffled. Only each question's own
+      // 4 options get shuffled (ensureValidOptions), same as every other
+      // quiz's options.
+      sourced = curated.questions.map((question) => ({
+        ...question,
+        options: ensureValidOptions(question.options, question.correct_answer),
+      }));
+    } else {
+      const result = await sourceQuestions({
+        topic,
+        difficulty,
+        language,
+        amount: requestAmount,
+        isGeography,
+        categoryName,
+      });
+      sourced = result.questions;
+      cachedCount = result.cachedCount;
+      poolTarget = result.poolTarget;
+    }
 
     if (sourced.length === 0) {
       return jsonError("Could not fetch or generate questions.", 500);
@@ -157,7 +192,8 @@ export async function POST(req: Request) {
             "explanation" in question && question.explanation
               ? question.explanation
               : null,
-          country: question.country ?? null,
+          country: "country" in question && question.country ? question.country : null,
+          imageUrl: "imageUrl" in question && question.imageUrl ? question.imageUrl : null,
           gameId: createdGame.id,
           questionType: "mcq",
         })),
@@ -166,13 +202,23 @@ export async function POST(req: Request) {
       return createdGame;
     });
 
-    await incrementUsageCount(sourced);
+    // Safe even though `sourced` is a union: curated questions never carry
+    // an `id`, so incrementUsageCount's internal SupabaseMCQQuestion filter
+    // (`"id" in q`) already excludes them at runtime -- this cast just tells
+    // TS what's already true.
+    await incrementUsageCount(sourced as SourcedQuestion[]);
 
     return NextResponse.json(
       {
         success: true,
         gameId: game.id,
-        source: cachedCount >= poolTarget ? "supabase_cache" : cachedCount > 0 ? "supabase_plus_ai" : "ai",
+        source: curated
+          ? "curated"
+          : cachedCount >= poolTarget
+            ? "supabase_cache"
+            : cachedCount > 0
+              ? "supabase_plus_ai"
+              : "ai",
       },
       { status: 200 }
     );

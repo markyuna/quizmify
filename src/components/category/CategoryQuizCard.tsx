@@ -7,6 +7,7 @@ import { Flame } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Category } from "@/lib/categories";
 import type { CategoryTopicWithTrending } from "@/lib/categoryTopics";
+import { findCuratedQuiz } from "@/lib/curatedQuizzes/registry";
 
 // Same 3 difficulty keys/labels as QuizCreation's difficulty picker --
 // reused via the "QuizCreation" namespace instead of a second translated
@@ -37,9 +38,20 @@ export default function CategoryQuizCard({ topic, category }: CategoryQuizCardPr
   const tDifficulty = useTranslations("QuizCreation");
   const locale = useLocale();
 
+  // topic.topicNormalized/topic.language are the CategoryTopic row's own
+  // native fields -- never translated, unlike topic.displayLabel (see
+  // resolveDisplayLabel in categoryTopics.ts). A curated quiz's content only
+  // exists in one language, so its link must always carry the canonical
+  // topicDisplay regardless of the viewer's locale, or QuizCreation's
+  // findCuratedQuiz match (also locale-independent, see its comment) would
+  // never fire for a non-native-language visitor. Every other (AI-generated)
+  // topic keeps using the translated displayLabel as before.
+  const curated = findCuratedQuiz(category.slug, topic.topicNormalized);
+  const linkTopic = curated ? curated.topicDisplay : topic.displayLabel;
+
   return (
     <Link
-      href={`/quiz?topic=${encodeURIComponent(topic.displayLabel)}&category=${category.slug}`}
+      href={`/quiz?topic=${encodeURIComponent(linkTopic)}&category=${category.slug}`}
       className="group overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-white/5"
     >
       <div className="relative flex h-24 w-full items-center justify-center overflow-hidden bg-slate-100 text-4xl transition duration-300 group-hover:scale-105 dark:bg-white/10">

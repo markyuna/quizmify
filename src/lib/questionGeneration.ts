@@ -2,8 +2,13 @@ import { z } from "zod";
 
 import { openai } from "@/lib/openai";
 import type { Locale } from "@/i18n/locales";
+import { normalizeTopic, normalizeDifficulty, type Difficulty } from "@/lib/topicUtils";
 
-export type Difficulty = "easy" | "medium" | "hard";
+// Re-exported for every existing importer of these from this module (routes,
+// questionSourcing.ts, etc.) -- the canonical definitions live in
+// topicUtils.ts now, see the comment there for why.
+export { normalizeTopic, normalizeDifficulty };
+export type { Difficulty };
 
 export type GeneratedQuestion = {
   question: string;
@@ -32,14 +37,6 @@ const generatedQuestionsSchema = z.object({
     )
     .min(1),
 });
-
-export function normalizeTopic(topic: string): string {
-  return topic.trim().replace(/\s+/g, " ");
-}
-
-export function normalizeDifficulty(difficulty: Difficulty): Difficulty {
-  return difficulty.toLowerCase() as Difficulty;
-}
 
 export function shuffleArray<T>(items: T[]): T[] {
   const result = [...items];
