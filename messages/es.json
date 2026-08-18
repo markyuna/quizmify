@@ -299,9 +299,26 @@
         "loup": { "name": "Lobo", "description": "Leal hasta el final. Das lo mejor de vos trabajando cerca de un círculo pequeño en el que confiás por completo." },
         "ours": { "name": "Oso", "description": "Tranquilo/a e imponente, avanzás a tu propio ritmo sin dejarte apurar por nadie. Detrás de esa calma hay una fuerza silenciosa en la que los tuyos siempre pueden confiar." }
       },
+      "resultModal": {
+        "recommendationsTitle": "Esto también te puede gustar",
+        "confirmCta": "Confirmar",
+        "confirming": "Confirmando...",
+        "confirmedTitle": "¡Tu mascota quedó fija!",
+        "confirmedDescription": "Ahora sos oficialmente un/a {animal}. Encontrá tu mascota y tus recomendaciones en tu panel.",
+        "confirmErrorTitle": "Error",
+        "confirmError": "No pudimos confirmar tu resultado. Intentá de nuevo.",
+        "retryErrorTitle": "Error",
+        "retryError": "No pudimos reiniciar el test. Intentá de nuevo.",
+        "reopenPrompt": "Tu resultado te está esperando.",
+        "reopenCta": "Ver mi resultado"
+      },
+      "alreadyAssigned": {
+        "title": "¡Ya tenés tu mascota!",
+        "description": "Este test solo se puede hacer una vez. Encontrá tu mascota en tu panel."
+      },
       "conversionModal": {
-        "title": "Creá tu cuenta para ver tu animal",
-        "description": "Terminaste el test — registrate para descubrir qué animal coincide con tu personalidad.",
+        "title": "Creá tu cuenta para quedarte con tu mascota",
+        "description": "Confirmá tu registro para fijar definitivamente tu animal y desbloquear tus recomendaciones.",
         "createWithEmail": "Crear cuenta con email",
         "alreadyHaveAccount": "¿Ya tenés una cuenta?",
         "signInLink": "Iniciar sesión"

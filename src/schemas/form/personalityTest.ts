@@ -23,3 +23,16 @@ export const submitPersonalityTestSchema = z.object({
 export const claimPersonalityTestAttemptsSchema = z.object({
   guestId: guestIdSchema,
 });
+
+const attemptIdSchema = z.string().min(1, "Attempt ID is required").max(50);
+
+export const confirmPersonalityTestAttemptSchema = z.object({
+  attemptId: attemptIdSchema,
+});
+
+// guestId is always sent (same "client always includes it, server only
+// actually uses it when unauthenticated" contract as submitPersonalityTestSchema).
+export const retryPersonalityTestAttemptSchema = z.object({
+  attemptId: attemptIdSchema,
+  guestId: guestIdSchema,
+});

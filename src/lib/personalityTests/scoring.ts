@@ -28,10 +28,15 @@ export class InvalidPersonalityTestAnswersError extends Error {}
 export function computeResult(answers: PersonalityTestAnswer[]): {
   scores: Record<AnimalKey, number>;
   resultKey: AnimalKey;
-  // Top 3 categories with score > 0, from the Q9-13 thematic axis --
-  // independent of scores/resultKey above. Empty object if every
-  // categoryWeights option scored 0 (shouldn't happen given the fixed
-  // question set, but not assumed).
+  // Every category with score > 0, from the Q9-13 thematic axis --
+  // independent of scores/resultKey above, highest first (ties broken by
+  // catalog order in CATEGORY_SLUGS). Not trimmed to a top N here: which
+  // categories end up recommended also depends on which ones have
+  // CategoryTopic content, decided later by getRecommendedCategorySlugs()
+  // in recommendations.ts -- trimming here would throw away categories a
+  // future seed makes eligible. Empty object if every categoryWeights
+  // option scored 0 (shouldn't happen given the fixed question set, but not
+  // assumed).
   categoryScores: Partial<Record<CategorySlug, number>>;
 } {
   if (answers.length !== QUESTIONS.length) {
@@ -77,7 +82,6 @@ export function computeResult(answers: PersonalityTestAnswer[]): {
     CATEGORY_SLUGS.map((slug) => ({ slug, score: categoryTotals[slug] }))
       .filter((entry) => entry.score > 0)
       .sort((a, b) => b.score - a.score)
-      .slice(0, 3)
       .map(({ slug, score }) => [slug, score])
   ) as Partial<Record<CategorySlug, number>>;
 

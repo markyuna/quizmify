@@ -3,12 +3,13 @@ import { z } from "zod";
 
 import {
   createPersonalityTestAttempt,
-  createOfficialPersonalityTestAttemptForUser,
   isPersonalityTestKey,
   PersonalityAnimalAlreadyAssignedError,
   type PersonalityTestKey,
 } from "@/lib/personalityTests/attempts";
 import { InvalidPersonalityTestAnswersError } from "@/lib/personalityTests/scoring";
+import { getRecommendedCategorySlugs } from "@/lib/personalityTests/recommendations";
+import type { CategorySlug } from "@/lib/personalityTests/quelAnimalEsTu.config";
 import { personalityTestKeySchema, submitPersonalityTestSchema } from "@/schemas/form/personalityTest";
 import { getAuthSession } from "@/lib/nextauth";
 
@@ -26,32 +27,32 @@ export async function POST(req: Request, { params }: { params: Promise<{ testKey
     const body = await req.json();
     const { guestId, answers } = submitPersonalityTestSchema.parse(body);
 
-    // Already signed in: this is specifically a first-time test for this
-    // account, not a guest result to migrate, so it's written directly as
-    // official rather than going through the unclaimed-row + claim
-    // mechanism below (that mechanism is guest -> account only).
+    // The result (animal + recommendations) is shown to guest and logged-in
+    // callers alike -- neither branch fixes anything on User yet, that only
+    // happens on explicit confirmation (see /confirm and /claim). `claimed`
+    // just tells the client which confirm path applies: already-claimed
+    // (logged-in) calls /confirm directly, unclaimed (guest) opens the
+    // registration flow and lets the existing guest -> account claim fix it.
     const session = await getAuthSession();
-    if (session?.user?.id) {
-      const attempt = await createOfficialPersonalityTestAttemptForUser({
-        testKey,
-        userId: session.user.id,
-        guestId,
-        answers,
-      });
-      return NextResponse.json({
-        success: true,
-        attemptId: attempt.id,
-        claimed: true,
-        resultKey: attempt.resultKey,
-        scores: attempt.scores,
-      });
-    }
+    const attempt = await createPersonalityTestAttempt({
+      testKey,
+      guestId,
+      answers,
+      userId: session?.user?.id,
+    });
 
-    // Deliberately never returns resultKey/scores for a guest -- withheld
-    // until they register, same as the 3 daily games. Stays unclaimed until
-    // /api/personality-tests/claim picks a winner at account-claim time.
-    const attempt = await createPersonalityTestAttempt({ testKey, guestId, answers });
-    return NextResponse.json({ success: true, attemptId: attempt.id, claimed: false });
+    const recommendations = await getRecommendedCategorySlugs(
+      attempt.categoryScores as Partial<Record<CategorySlug, number>>
+    );
+
+    return NextResponse.json({
+      success: true,
+      attemptId: attempt.id,
+      claimed: !!session?.user?.id,
+      resultKey: attempt.resultKey,
+      scores: attempt.scores,
+      recommendations,
+    });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: "Invalid data", details: error.flatten() }, { status: 400 });

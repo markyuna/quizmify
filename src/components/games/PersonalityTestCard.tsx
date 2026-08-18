@@ -1,39 +1,41 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useGuestId } from "@/hooks/useGuestRound";
-import { useSubmitPersonalityTest } from "@/hooks/usePersonalityTest";
-import { QUESTIONS, QUEL_ANIMAL_ES_TU_IMAGES, type AnimalKey } from "@/lib/personalityTests/quelAnimalEsTu.config";
-import ConversionModal from "./ConversionModal";
+import { useSubmitPersonalityTest, usePersonalityAnimalStatus } from "@/hooks/usePersonalityTest";
+import { QUESTIONS, type AnimalKey, type CategorySlug } from "@/lib/personalityTests/quelAnimalEsTu.config";
+import PersonalityResultModal from "./PersonalityResultModal";
 
 type PersonalityTestAnswer = { questionId: string; optionId: string };
 
-type RevealedResult = {
+type SubmittedResult = {
+  attemptId: string;
   resultKey: AnimalKey;
-  scores: Record<string, number>;
+  claimed: boolean;
+  recommendations: CategorySlug[];
 };
 
 type PersonalityTestCardProps = {
   isAuthenticated: boolean;
 };
 
-// isAuthenticated is accepted for parity with the other GameRenderer cards
-// but unused here -- an evergreen personality test has no "already played
-// today" gate to special-case for signed-in users.
-export default function PersonalityTestCard({}: PersonalityTestCardProps) {
+export default function PersonalityTestCard({ isAuthenticated }: PersonalityTestCardProps) {
   const t = useTranslations("PersonalityTests.quelAnimalEsTu");
   const guestId = useGuestId();
   const submitTest = useSubmitPersonalityTest();
+  const animalStatus = usePersonalityAnimalStatus(isAuthenticated);
 
   const [answers, setAnswers] = React.useState<PersonalityTestAnswer[]>([]);
-  const [showModal, setShowModal] = React.useState(false);
-  const [revealedResult, setRevealedResult] = React.useState<RevealedResult | null>(null);
+  const [result, setResult] = React.useState<SubmittedResult | null>(null);
+  // True once the result modal was closed without a decision (X / click
+  // outside) -- the attempt stays alive unconfirmed, this just hides the
+  // modal and offers a way back into it instead of leaving a blank card.
+  const [dismissed, setDismissed] = React.useState(false);
 
   const currentQuestion = QUESTIONS[answers.length];
 
@@ -45,57 +47,55 @@ export default function PersonalityTestCard({}: PersonalityTestCardProps) {
 
     if (nextAnswers.length < QUESTIONS.length) return;
 
-    const result = await submitTest.mutateAsync({
+    const response = await submitTest.mutateAsync({
       testKey: "quel_animal_es_tu",
       guestId,
       answers: nextAnswers,
     });
 
-    if (result.claimed && result.resultKey && result.scores) {
-      setRevealedResult({ resultKey: result.resultKey as AnimalKey, scores: result.scores });
-    } else {
-      setShowModal(true);
-    }
+    setResult({
+      attemptId: response.attemptId,
+      resultKey: response.resultKey as AnimalKey,
+      claimed: response.claimed,
+      recommendations: response.recommendations as CategorySlug[],
+    });
+    setDismissed(false);
   }
 
-  function handleRetake() {
+  function handleRetried() {
     setAnswers([]);
-    setRevealedResult(null);
-    setShowModal(false);
+    setResult(null);
+    setDismissed(false);
   }
 
-  // The ConversionModal must stay mounted across every branch below -- it's
-  // how a guest's result is revealed post-registration, so hiding it behind
-  // an early return (e.g. while showModal is true but we're also mid-render
-  // of the "calculating" state) would strand them on a spinner forever.
   let body: React.ReactNode;
 
-  if (!guestId) {
+  if (isAuthenticated && animalStatus.data?.hasAnimal) {
+    body = (
+      <div className="rounded-2xl bg-slate-100 px-4 py-10 text-center dark:bg-white/10">
+        <p className="text-base font-bold text-slate-900 dark:text-white">{t("alreadyAssigned.title")}</p>
+        <p className="mx-auto mt-2 max-w-sm text-sm text-slate-600 dark:text-slate-400">
+          {t("alreadyAssigned.description")}
+        </p>
+      </div>
+    );
+  } else if (!guestId || (isAuthenticated && animalStatus.isPending)) {
     body = (
       <div className="flex h-32 items-center justify-center">
         <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
       </div>
     );
-  } else if (revealedResult) {
-    const animalImage = QUEL_ANIMAL_ES_TU_IMAGES[revealedResult.resultKey];
-    body = (
-      <div className="rounded-2xl bg-slate-100 px-4 py-6 text-center dark:bg-white/10">
-        <div className="relative mx-auto mb-4 h-32 w-32 overflow-hidden rounded-full border-4 border-white shadow-lg dark:border-white/20">
-          <Image src={animalImage} alt={t(`animals.${revealedResult.resultKey}.name`)} fill className="object-cover" sizes="128px" />
-        </div>
-        <p className="text-lg font-black text-slate-900 dark:text-white">
-          {t("yourResult", { animal: t(`animals.${revealedResult.resultKey}.name`) })}
-        </p>
-        <p className="mx-auto mt-2 max-w-sm text-sm text-slate-600 dark:text-slate-400">
-          {t(`animals.${revealedResult.resultKey}.description`)}
-        </p>
-        <Button className="mt-4" size="sm" variant="outline" onClick={handleRetake}>
-          {t("retakeCta")}
+  } else if (result) {
+    body = dismissed ? (
+      <div className="flex flex-col items-center gap-3 py-10 text-center">
+        <p className="text-sm text-slate-600 dark:text-slate-400">{t("resultModal.reopenPrompt")}</p>
+        <Button size="sm" onClick={() => setDismissed(false)}>
+          {t("resultModal.reopenCta")}
         </Button>
       </div>
-    );
+    ) : null;
   } else if (submitTest.isPending || !currentQuestion) {
-    // The !currentQuestion case also covers the render right after the 8th
+    // The !currentQuestion case also covers the render right after the 13th
     // answer: setAnswers(nextAnswers) and submitTest's isPending flag don't
     // land in the same React batch, so there's a tick where answers.length
     // === QUESTIONS.length but isPending is still false.
@@ -139,7 +139,20 @@ export default function PersonalityTestCard({}: PersonalityTestCardProps) {
   return (
     <div>
       {body}
-      <ConversionModal open={showModal} onOpenChange={setShowModal} namespace="PersonalityTests.quelAnimalEsTu.conversionModal" />
+      {result && (
+        <PersonalityResultModal
+          open={!dismissed}
+          onOpenChange={(open) => {
+            if (!open) setDismissed(true);
+          }}
+          resultKey={result.resultKey}
+          recommendations={result.recommendations}
+          attemptId={result.attemptId}
+          guestId={guestId}
+          claimed={result.claimed}
+          onRetried={handleRetried}
+        />
+      )}
     </div>
   );
 }

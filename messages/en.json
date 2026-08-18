@@ -299,9 +299,26 @@
         "loup": { "name": "Wolf", "description": "Loyal to the core. You're at your best working closely with a small circle you trust completely." },
         "ours": { "name": "Bear", "description": "Calm and powerful, you move at your own pace and refuse to be rushed. Behind that easygoing exterior is a quiet strength the people close to you can always count on." }
       },
+      "resultModal": {
+        "recommendationsTitle": "You might also like",
+        "confirmCta": "Confirm",
+        "confirming": "Confirming...",
+        "confirmedTitle": "Your pet is set!",
+        "confirmedDescription": "You're officially a {animal}. Find your pet and your recommendations on your dashboard.",
+        "confirmErrorTitle": "Error",
+        "confirmError": "We couldn't confirm your result. Please try again.",
+        "retryErrorTitle": "Error",
+        "retryError": "We couldn't restart the test. Please try again.",
+        "reopenPrompt": "Your result is waiting for you.",
+        "reopenCta": "View my result"
+      },
+      "alreadyAssigned": {
+        "title": "You already have your pet!",
+        "description": "This test can only be taken once. Find your pet on your dashboard."
+      },
       "conversionModal": {
-        "title": "Create your account to see your animal",
-        "description": "You just finished the quiz — sign up to find out which animal matches your personality.",
+        "title": "Create your account to keep your pet",
+        "description": "Finish signing up to permanently lock in your animal and unlock your recommendations.",
         "createWithEmail": "Create account with email",
         "alreadyHaveAccount": "Already have an account?",
         "signInLink": "Sign in"

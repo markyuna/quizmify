@@ -299,9 +299,26 @@
         "loup": { "name": "Loup", "description": "Loyal(e) jusqu'au bout. Vous donnez le meilleur de vous-même au sein d'un petit cercle en qui vous avez une confiance totale." },
         "ours": { "name": "Ours", "description": "Calme et imposant(e), vous avancez à votre rythme sans jamais vous laisser bousculer. Sous vos airs tranquilles se cache une force sur laquelle vos proches peuvent toujours compter." }
       },
+      "resultModal": {
+        "recommendationsTitle": "Ça pourrait aussi vous plaire",
+        "confirmCta": "Confirmer",
+        "confirming": "Confirmation...",
+        "confirmedTitle": "Votre mascotte est fixée !",
+        "confirmedDescription": "Vous êtes officiellement un(e) {animal}. Retrouvez votre mascotte et vos recommandations sur votre tableau de bord.",
+        "confirmErrorTitle": "Erreur",
+        "confirmError": "Impossible de confirmer votre résultat. Réessayez.",
+        "retryErrorTitle": "Erreur",
+        "retryError": "Impossible de recommencer le test. Réessayez.",
+        "reopenPrompt": "Votre résultat vous attend.",
+        "reopenCta": "Voir mon résultat"
+      },
+      "alreadyAssigned": {
+        "title": "Vous avez déjà votre mascotte !",
+        "description": "Vous ne pouvez faire ce test qu'une seule fois. Retrouvez votre mascotte sur votre tableau de bord."
+      },
       "conversionModal": {
-        "title": "Créez votre compte pour voir votre animal",
-        "description": "Vous venez de terminer le test — inscrivez-vous pour découvrir quel animal correspond à votre personnalité.",
+        "title": "Créez votre compte pour garder votre mascotte",
+        "description": "Confirmez votre inscription pour fixer définitivement votre animal et débloquer vos recommandations.",
         "createWithEmail": "Créer un compte avec l'email",
         "alreadyHaveAccount": "Vous avez déjà un compte ?",
         "signInLink": "Se connecter"
