@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { Crown, Lock } from "lucide-react";
+import { Lock } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
-import { getFrozenLevel, getProDaysRemaining, isEffectivelyPro, isLevelFrozen } from "@/lib/pro";
+import { getFrozenLevel, isEffectivelyPro, isLevelFrozen } from "@/lib/pro";
 
 type ProStatusBannerProps = {
   user: {
@@ -13,38 +13,23 @@ type ProStatusBannerProps = {
 };
 
 /**
- * Surfaces the two states worth calling out about Pro: an active grant
- * (with its countdown, when it's temporary) and level progress sitting
- * frozen behind the free cap.
+ * Surfaces level progress sitting frozen behind the free cap. The "Pro
+ * actif" active-grant banner was deliberately removed -- a Pro user gets
+ * no banner here at all now.
  *
  * Note the frozen case covers more than lapsed subscribers: because xp now
  * accumulates past the cap for everyone (see src/lib/pro.ts), any free user
  * who keeps playing eventually banks enough for a level they can't use yet,
  * and gets told so. That's deliberate -- "level 7 is already yours, unlock
  * it" is a stronger and more honest prompt than a generic upgrade nag.
- * Renders nothing for a free user still under the cap.
+ * Renders nothing for a free user still under the cap, and nothing for a
+ * Pro user either.
  */
 export default async function ProStatusBanner({ user }: ProStatusBannerProps) {
   const t = await getTranslations("ProStatus");
   const isPro = isEffectivelyPro(user);
 
-  if (isPro) {
-    const daysRemaining = getProDaysRemaining(user);
-
-    return (
-      <div className="mb-4 flex flex-col gap-2 rounded-2xl border border-amber-300/60 bg-gradient-to-r from-amber-400/10 to-amber-500/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between dark:border-amber-400/30">
-        <p className="flex items-center gap-2 text-sm font-semibold text-amber-700 dark:text-amber-300">
-          <Crown className="h-4 w-4 shrink-0" />
-          {daysRemaining !== null
-            ? t("activeTemporary", {
-                date: user.premiumUntil!.toLocaleDateString(),
-                days: daysRemaining,
-              })
-            : t("activePermanent")}
-        </p>
-      </div>
-    );
-  }
+  if (isPro) return null;
 
   if (!isLevelFrozen(user)) return null;
 
