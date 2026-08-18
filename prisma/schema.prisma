@@ -106,6 +106,7 @@ model User {
   guestAttemptsClaimed   GuestAttempt[]
   personalityTestAttemptsClaimed PersonalityTestAttempt[]
   curatedQuizCompletions CuratedQuizCompletion[]
+  categoryRecommendation CategoryRecommendationMascota?
 
   @@index([xp])
 }
@@ -310,6 +311,37 @@ model TopicRecommendation {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, language])
+}
+
+// Server-computed "qué categoría practicar/explorar" para un usuario con
+// cuenta -- reemplaza por completo el cold-start de categoryScores
+// (PersonalityTestAttempt, Fase 2) una vez que hay cuenta creada, sin
+// esperar ningún umbral de actividad (a diferencia de TopicRecommendation).
+// Una sola fila por usuario -- a diferencia de TopicRecommendation, no
+// depende del idioma: es una lista de slugs de categoría, no texto
+// generado, así que no hay nada que traducir acá (el widget que la
+// consuma resuelve slug -> nombre/ícono localizado en el momento de
+// renderizar, igual que ya hace PersonalityResultModal).
+// See getOrGenerateCategoryRecommendation() in src/lib/categoryRecommendations.ts.
+model CategoryRecommendationMascota {
+  id                       String   @id @default(cuid())
+  userId                   String   @unique
+  // Array ordenado de hasta 3 CategorySlug (string, catálogo en código --
+  // ver CATEGORY_SLUGS en src/lib/personalityTests/quelAnimalEsTu.config.ts,
+  // mismo patrón "catálogo vive en código" que resultKey/categoryScores),
+  // p.ej. ["geographie", "arts", "cinema"]. Débiles primero, luego no
+  // exploradas por orden de catálogo -- ver rankCategoriesForUser().
+  recommendedSlugs         Json
+  // Cantidad de Attempts de este usuario con Game.categorySlug no-nulo al
+  // momento de generar -- comparado contra un conteo en vivo en cada
+  // lectura para decidir staleness (mismo patrón que isStale() en
+  // src/lib/recommendations.ts). A diferencia de TopicRecommendation,
+  // CUALQUIER delta (>=1) dispara recálculo -- no hay umbral de actividad
+  // para este motor.
+  attemptCountAtGeneration Int
+  generatedAt              DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Trophy {

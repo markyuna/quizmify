@@ -408,6 +408,7 @@ export const ModelName = {
   CuratedQuizCompletion: 'CuratedQuizCompletion',
   Certificate: 'Certificate',
   TopicRecommendation: 'TopicRecommendation',
+  CategoryRecommendationMascota: 'CategoryRecommendationMascota',
   Trophy: 'Trophy',
   UserQuestionProgress: 'UserQuestionProgress',
   DailyChallenge: 'DailyChallenge',
@@ -436,7 +437,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "personalityTestAttempt" | "categoryTopic"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "personalityTestAttempt" | "categoryTopic"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1251,6 +1252,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.TopicRecommendationCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.TopicRecommendationCountAggregateOutputType> | number
+        }
+      }
+    }
+    CategoryRecommendationMascota: {
+      payload: Prisma.$CategoryRecommendationMascotaPayload<ExtArgs>
+      fields: Prisma.CategoryRecommendationMascotaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CategoryRecommendationMascotaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryRecommendationMascotaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CategoryRecommendationMascotaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryRecommendationMascotaPayload>
+        }
+        findFirst: {
+          args: Prisma.CategoryRecommendationMascotaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryRecommendationMascotaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CategoryRecommendationMascotaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryRecommendationMascotaPayload>
+        }
+        findMany: {
+          args: Prisma.CategoryRecommendationMascotaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryRecommendationMascotaPayload>[]
+        }
+        create: {
+          args: Prisma.CategoryRecommendationMascotaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryRecommendationMascotaPayload>
+        }
+        createMany: {
+          args: Prisma.CategoryRecommendationMascotaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CategoryRecommendationMascotaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryRecommendationMascotaPayload>[]
+        }
+        delete: {
+          args: Prisma.CategoryRecommendationMascotaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryRecommendationMascotaPayload>
+        }
+        update: {
+          args: Prisma.CategoryRecommendationMascotaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryRecommendationMascotaPayload>
+        }
+        deleteMany: {
+          args: Prisma.CategoryRecommendationMascotaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CategoryRecommendationMascotaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CategoryRecommendationMascotaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryRecommendationMascotaPayload>[]
+        }
+        upsert: {
+          args: Prisma.CategoryRecommendationMascotaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryRecommendationMascotaPayload>
+        }
+        aggregate: {
+          args: Prisma.CategoryRecommendationMascotaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCategoryRecommendationMascota>
+        }
+        groupBy: {
+          args: Prisma.CategoryRecommendationMascotaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CategoryRecommendationMascotaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CategoryRecommendationMascotaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CategoryRecommendationMascotaCountAggregateOutputType> | number
         }
       }
     }
@@ -2436,6 +2511,17 @@ export const TopicRecommendationScalarFieldEnum = {
 export type TopicRecommendationScalarFieldEnum = (typeof TopicRecommendationScalarFieldEnum)[keyof typeof TopicRecommendationScalarFieldEnum]
 
 
+export const CategoryRecommendationMascotaScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  recommendedSlugs: 'recommendedSlugs',
+  attemptCountAtGeneration: 'attemptCountAtGeneration',
+  generatedAt: 'generatedAt'
+} as const
+
+export type CategoryRecommendationMascotaScalarFieldEnum = (typeof CategoryRecommendationMascotaScalarFieldEnum)[keyof typeof CategoryRecommendationMascotaScalarFieldEnum]
+
+
 export const TrophyScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -3002,6 +3088,7 @@ export type GlobalOmitConfig = {
   curatedQuizCompletion?: Prisma.CuratedQuizCompletionOmit
   certificate?: Prisma.CertificateOmit
   topicRecommendation?: Prisma.TopicRecommendationOmit
+  categoryRecommendationMascota?: Prisma.CategoryRecommendationMascotaOmit
   trophy?: Prisma.TrophyOmit
   userQuestionProgress?: Prisma.UserQuestionProgressOmit
   dailyChallenge?: Prisma.DailyChallengeOmit

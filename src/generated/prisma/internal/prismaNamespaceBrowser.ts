@@ -62,6 +62,7 @@ export const ModelName = {
   CuratedQuizCompletion: 'CuratedQuizCompletion',
   Certificate: 'Certificate',
   TopicRecommendation: 'TopicRecommendation',
+  CategoryRecommendationMascota: 'CategoryRecommendationMascota',
   Trophy: 'Trophy',
   UserQuestionProgress: 'UserQuestionProgress',
   DailyChallenge: 'DailyChallenge',
@@ -272,6 +273,17 @@ export const TopicRecommendationScalarFieldEnum = {
 } as const
 
 export type TopicRecommendationScalarFieldEnum = (typeof TopicRecommendationScalarFieldEnum)[keyof typeof TopicRecommendationScalarFieldEnum]
+
+
+export const CategoryRecommendationMascotaScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  recommendedSlugs: 'recommendedSlugs',
+  attemptCountAtGeneration: 'attemptCountAtGeneration',
+  generatedAt: 'generatedAt'
+} as const
+
+export type CategoryRecommendationMascotaScalarFieldEnum = (typeof CategoryRecommendationMascotaScalarFieldEnum)[keyof typeof CategoryRecommendationMascotaScalarFieldEnum]
 
 
 export const TrophyScalarFieldEnum = {

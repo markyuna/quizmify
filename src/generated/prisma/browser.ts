@@ -73,6 +73,11 @@ export type Certificate = Prisma.CertificateModel
  */
 export type TopicRecommendation = Prisma.TopicRecommendationModel
 /**
+ * Model CategoryRecommendationMascota
+ * 
+ */
+export type CategoryRecommendationMascota = Prisma.CategoryRecommendationMascotaModel
+/**
  * Model Trophy
  * 
  */

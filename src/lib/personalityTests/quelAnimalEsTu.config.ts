@@ -33,6 +33,10 @@ export const CATEGORY_SLUGS = [
 ] as const;
 export type CategorySlug = (typeof CATEGORY_SLUGS)[number];
 
+export function isCategorySlug(value: string): value is CategorySlug {
+  return (CATEGORY_SLUGS as readonly string[]).includes(value);
+}
+
 export type PersonalityTestOption = {
   id: string;
   // 2-3 animals per option, primary weight 3 / secondary weight 1 -- see
