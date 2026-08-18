@@ -244,6 +244,51 @@
             "q8_c": "Ver siempre una solución que nadie más ve",
             "q8_d": "Ser invisible cuando quieras estar solo/a"
           }
+        },
+        "q9": {
+          "prompt": "En tu tiempo libre preferís...",
+          "options": {
+            "q9_a": "Ver documentales de animales",
+            "q9_b": "Ver películas y series",
+            "q9_c": "Seguir deportes y competencias",
+            "q9_d": "Leer o aprender historia"
+          }
+        },
+        "q10": {
+          "prompt": "Si pudieras viajar...",
+          "options": {
+            "q10_a": "Explorar capitales y países del mundo",
+            "q10_b": "Visitar monumentos y lugares históricos",
+            "q10_c": "Observar animales en su hábitat natural",
+            "q10_d": "Descubrir la gastronomía local"
+          }
+        },
+        "q11": {
+          "prompt": "¿Qué tipo de película te copa más?",
+          "options": {
+            "q11_a": "Terror y fantástico",
+            "q11_b": "Dibujos animados y mundos mágicos",
+            "q11_c": "Sagas de superhéroes y blockbusters",
+            "q11_d": "Historias basadas en hechos reales"
+          }
+        },
+        "q12": {
+          "prompt": "¿Qué te apasiona?",
+          "options": {
+            "q12_a": "El fútbol y las grandes competencias",
+            "q12_b": "Las expresiones y curiosidades del francés",
+            "q12_c": "Las banderas y símbolos de países",
+            "q12_d": "El código de tránsito y la conducción"
+          }
+        },
+        "q13": {
+          "prompt": "¿Qué te inspira?",
+          "options": {
+            "q13_a": "Los grandes pintores y obras de arte",
+            "q13_b": "El universo mágico de Harry Potter",
+            "q13_c": "Las ciencias y los grandes descubrimientos",
+            "q13_d": "La naturaleza y los paisajes"
+          }
         }
       },
       "animals": {

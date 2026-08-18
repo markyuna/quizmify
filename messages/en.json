@@ -244,6 +244,51 @@
             "q8_c": "Always spotting the solution no one else sees",
             "q8_d": "Turning invisible whenever you want to be alone"
           }
+        },
+        "q9": {
+          "prompt": "In your free time you'd rather...",
+          "options": {
+            "q9_a": "Watch animal documentaries",
+            "q9_b": "Watch movies and shows",
+            "q9_c": "Follow sports and competitions",
+            "q9_d": "Read or learn about history"
+          }
+        },
+        "q10": {
+          "prompt": "If you could travel anywhere...",
+          "options": {
+            "q10_a": "Explore capitals and countries around the world",
+            "q10_b": "Visit monuments and historical landmarks",
+            "q10_c": "Watch animals in their natural habitat",
+            "q10_d": "Discover the local food"
+          }
+        },
+        "q11": {
+          "prompt": "What kind of movie gets you excited?",
+          "options": {
+            "q11_a": "Horror and fantasy",
+            "q11_b": "Animated films and magical worlds",
+            "q11_c": "Superhero sagas and blockbusters",
+            "q11_d": "Stories based on true events"
+          }
+        },
+        "q12": {
+          "prompt": "What are you passionate about?",
+          "options": {
+            "q12_a": "Football/soccer and big competitions",
+            "q12_b": "French language quirks and expressions",
+            "q12_c": "Flags and symbols of countries",
+            "q12_d": "The rules of the road and driving"
+          }
+        },
+        "q13": {
+          "prompt": "What inspires you?",
+          "options": {
+            "q13_a": "Great painters and works of art",
+            "q13_b": "The magical world of Harry Potter",
+            "q13_c": "Science and great discoveries",
+            "q13_d": "Nature and landscapes"
+          }
         }
       },
       "animals": {

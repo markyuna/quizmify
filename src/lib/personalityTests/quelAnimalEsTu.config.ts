@@ -5,12 +5,46 @@ export function isAnimalKey(value: string): value is AnimalKey {
   return (ANIMAL_KEYS as readonly string[]).includes(value);
 }
 
+// The 17 real quiz-topic category slugs from src/lib/categories.ts, minus
+// "tests-de-personnalite" (that's this test's own entry point, not a topic
+// someone can be recommended). Kept as its own literal list rather than
+// derived from CATEGORIES (whose `slug` is typed as plain `string`) --
+// order matters here: it's the tie-break catalog order for categoryScores,
+// same role ANIMAL_KEYS plays for the animal axis. Must stay in sync with
+// categories.ts by hand.
+export const CATEGORY_SLUGS = [
+  "culture-generale",
+  "histoire",
+  "geographie",
+  "sciences",
+  "arts",
+  "france",
+  "cinema",
+  "disney",
+  "harry-potter",
+  "sports",
+  "football",
+  "animaux",
+  "nature",
+  "langue-francaise",
+  "alimentation",
+  "code-de-la-route",
+  "drapeaux",
+] as const;
+export type CategorySlug = (typeof CATEGORY_SLUGS)[number];
+
 export type PersonalityTestOption = {
   id: string;
   // 2-3 animals per option, primary weight 3 / secondary weight 1 -- see
   // the design notes in scoring.ts for how the primary animal is spread
   // across questions so no single animal (or fixed pair) dominates.
   weights: Partial<Record<AnimalKey, number>>;
+  // Only present on Q9-13 (the thematic/interest axis added for cold-start
+  // recommendations) -- primary weight 3 / secondary weight 1, same scale
+  // as `weights` but on a completely separate axis: these questions'
+  // `weights` are deliberately empty so they don't affect the animal
+  // result. Feeds PersonalityTestAttempt.categoryScores, not `scores`.
+  categoryWeights?: Partial<Record<CategorySlug, number>>;
 };
 
 export type PersonalityTestQuestion = {
@@ -103,6 +137,55 @@ export const QUESTIONS: PersonalityTestQuestion[] = [
       { id: "q8_b", weights: { dauphin: 3, loup: 1 } },
       { id: "q8_c", weights: { renard: 3, hibou: 1 } },
       { id: "q8_d", weights: { ours: 3, hibou: 1 } },
+    ],
+  },
+  // Q9-13: thematic/interest axis for cold-start topic recommendations
+  // (Phase 1 of the "mascot + recommendations" feature). `weights` is
+  // deliberately empty on every option here -- these questions must not
+  // move the animal result, only categoryWeights.
+  {
+    id: "q9",
+    options: [
+      { id: "q9_a", weights: {}, categoryWeights: { animaux: 3, sciences: 1 } },
+      { id: "q9_b", weights: {}, categoryWeights: { cinema: 3, disney: 1 } },
+      { id: "q9_c", weights: {}, categoryWeights: { sports: 3, football: 1 } },
+      { id: "q9_d", weights: {}, categoryWeights: { histoire: 3, "culture-generale": 1 } },
+    ],
+  },
+  {
+    id: "q10",
+    options: [
+      { id: "q10_a", weights: {}, categoryWeights: { geographie: 3, drapeaux: 1 } },
+      { id: "q10_b", weights: {}, categoryWeights: { histoire: 3, france: 1 } },
+      { id: "q10_c", weights: {}, categoryWeights: { animaux: 3, nature: 1 } },
+      { id: "q10_d", weights: {}, categoryWeights: { alimentation: 3, "culture-generale": 1 } },
+    ],
+  },
+  {
+    id: "q11",
+    options: [
+      { id: "q11_a", weights: {}, categoryWeights: { cinema: 3 } },
+      { id: "q11_b", weights: {}, categoryWeights: { disney: 3, cinema: 1 } },
+      { id: "q11_c", weights: {}, categoryWeights: { cinema: 3, "harry-potter": 1 } },
+      { id: "q11_d", weights: {}, categoryWeights: { histoire: 3, cinema: 1 } },
+    ],
+  },
+  {
+    id: "q12",
+    options: [
+      { id: "q12_a", weights: {}, categoryWeights: { football: 3, sports: 1 } },
+      { id: "q12_b", weights: {}, categoryWeights: { "langue-francaise": 3 } },
+      { id: "q12_c", weights: {}, categoryWeights: { drapeaux: 3, geographie: 1 } },
+      { id: "q12_d", weights: {}, categoryWeights: { "code-de-la-route": 3 } },
+    ],
+  },
+  {
+    id: "q13",
+    options: [
+      { id: "q13_a", weights: {}, categoryWeights: { arts: 3, "culture-generale": 1 } },
+      { id: "q13_b", weights: {}, categoryWeights: { "harry-potter": 3, cinema: 1 } },
+      { id: "q13_c", weights: {}, categoryWeights: { sciences: 3, histoire: 1 } },
+      { id: "q13_d", weights: {}, categoryWeights: { nature: 3, animaux: 1 } },
     ],
   },
 ];

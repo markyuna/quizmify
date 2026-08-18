@@ -77,6 +77,17 @@ model User {
   // read time (see dashboard/page.tsx), so it comes right back if they
   // resubscribe.
   selectedSkinId         String?
+  // The permanently-assigned "Quel animal es-tu?" result once claimed as
+  // official (see PersonalityTestAttempt.isOfficial). Validated against
+  // AnimalKey in src/lib/personalityTests/quelAnimalEsTu.config.ts rather
+  // than a Prisma enum -- same "catalog lives in code" pattern as
+  // PersonalityTestAttempt.resultKey. Set once and never overwritten:
+  // /api/personality-tests/[testKey]/submit rejects a new attempt for a
+  // user who already has one.
+  personalityAnimal      String?
+  // Set alongside personalityAnimal, in the same write -- null exactly
+  // when personalityAnimal is null.
+  personalityAnimalSetAt DateTime?
   accounts               Account[]
   sessions               Session[]
   games                  Game[]
@@ -568,8 +579,22 @@ model PersonalityTestAttempt {
   // the result page and OG metadata don't need to re-run the tie-break
   // logic every render.
   resultKey       String
+  // Per-category interest totals from the Q9-13 thematic axis (top 3,
+  // scores > 0 only) -- see computeResult() in scoring.ts. Independent of
+  // scores/resultKey (the animal axis); unused in this phase, feeds the
+  // future recommendation engine (Phase 3).
+  categoryScores  Json?
   claimedByUserId String?
   claimedAt       DateTime?
+  // True for exactly one attempt per user across all time -- the one whose
+  // resultKey was written to User.personalityAnimal, either at claim time
+  // (guest -> account, most-recent-unclaimed-attempt wins) or directly at
+  // submit time for an already-authenticated user's first attempt. Never
+  // moved to a different row or flipped back to false once set, since
+  // personalityAnimal itself is permanent. Enforced only in application
+  // logic (claimPersonalityTestAttempts / the direct-submit path), not by
+  // a DB constraint.
+  isOfficial      Boolean            @default(false)
   createdAt       DateTime           @default(now())
 
   claimedBy User? @relation(fields: [claimedByUserId], references: [id], onDelete: SetNull)

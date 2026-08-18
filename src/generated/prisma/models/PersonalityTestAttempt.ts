@@ -31,6 +31,7 @@ export type PersonalityTestAttemptMinAggregateOutputType = {
   resultKey: string | null
   claimedByUserId: string | null
   claimedAt: Date | null
+  isOfficial: boolean | null
   createdAt: Date | null
 }
 
@@ -41,6 +42,7 @@ export type PersonalityTestAttemptMaxAggregateOutputType = {
   resultKey: string | null
   claimedByUserId: string | null
   claimedAt: Date | null
+  isOfficial: boolean | null
   createdAt: Date | null
 }
 
@@ -51,8 +53,10 @@ export type PersonalityTestAttemptCountAggregateOutputType = {
   answers: number
   scores: number
   resultKey: number
+  categoryScores: number
   claimedByUserId: number
   claimedAt: number
+  isOfficial: number
   createdAt: number
   _all: number
 }
@@ -65,6 +69,7 @@ export type PersonalityTestAttemptMinAggregateInputType = {
   resultKey?: true
   claimedByUserId?: true
   claimedAt?: true
+  isOfficial?: true
   createdAt?: true
 }
 
@@ -75,6 +80,7 @@ export type PersonalityTestAttemptMaxAggregateInputType = {
   resultKey?: true
   claimedByUserId?: true
   claimedAt?: true
+  isOfficial?: true
   createdAt?: true
 }
 
@@ -85,8 +91,10 @@ export type PersonalityTestAttemptCountAggregateInputType = {
   answers?: true
   scores?: true
   resultKey?: true
+  categoryScores?: true
   claimedByUserId?: true
   claimedAt?: true
+  isOfficial?: true
   createdAt?: true
   _all?: true
 }
@@ -170,8 +178,10 @@ export type PersonalityTestAttemptGroupByOutputType = {
   answers: runtime.JsonValue
   scores: runtime.JsonValue
   resultKey: string
+  categoryScores: runtime.JsonValue | null
   claimedByUserId: string | null
   claimedAt: Date | null
+  isOfficial: boolean
   createdAt: Date
   _count: PersonalityTestAttemptCountAggregateOutputType | null
   _min: PersonalityTestAttemptMinAggregateOutputType | null
@@ -203,8 +213,10 @@ export type PersonalityTestAttemptWhereInput = {
   answers?: Prisma.JsonFilter<"PersonalityTestAttempt">
   scores?: Prisma.JsonFilter<"PersonalityTestAttempt">
   resultKey?: Prisma.StringFilter<"PersonalityTestAttempt"> | string
+  categoryScores?: Prisma.JsonNullableFilter<"PersonalityTestAttempt">
   claimedByUserId?: Prisma.StringNullableFilter<"PersonalityTestAttempt"> | string | null
   claimedAt?: Prisma.DateTimeNullableFilter<"PersonalityTestAttempt"> | Date | string | null
+  isOfficial?: Prisma.BoolFilter<"PersonalityTestAttempt"> | boolean
   createdAt?: Prisma.DateTimeFilter<"PersonalityTestAttempt"> | Date | string
   claimedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
@@ -216,8 +228,10 @@ export type PersonalityTestAttemptOrderByWithRelationInput = {
   answers?: Prisma.SortOrder
   scores?: Prisma.SortOrder
   resultKey?: Prisma.SortOrder
+  categoryScores?: Prisma.SortOrderInput | Prisma.SortOrder
   claimedByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   claimedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  isOfficial?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   claimedBy?: Prisma.UserOrderByWithRelationInput
 }
@@ -232,8 +246,10 @@ export type PersonalityTestAttemptWhereUniqueInput = Prisma.AtLeast<{
   answers?: Prisma.JsonFilter<"PersonalityTestAttempt">
   scores?: Prisma.JsonFilter<"PersonalityTestAttempt">
   resultKey?: Prisma.StringFilter<"PersonalityTestAttempt"> | string
+  categoryScores?: Prisma.JsonNullableFilter<"PersonalityTestAttempt">
   claimedByUserId?: Prisma.StringNullableFilter<"PersonalityTestAttempt"> | string | null
   claimedAt?: Prisma.DateTimeNullableFilter<"PersonalityTestAttempt"> | Date | string | null
+  isOfficial?: Prisma.BoolFilter<"PersonalityTestAttempt"> | boolean
   createdAt?: Prisma.DateTimeFilter<"PersonalityTestAttempt"> | Date | string
   claimedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
@@ -245,8 +261,10 @@ export type PersonalityTestAttemptOrderByWithAggregationInput = {
   answers?: Prisma.SortOrder
   scores?: Prisma.SortOrder
   resultKey?: Prisma.SortOrder
+  categoryScores?: Prisma.SortOrderInput | Prisma.SortOrder
   claimedByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   claimedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  isOfficial?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.PersonalityTestAttemptCountOrderByAggregateInput
   _max?: Prisma.PersonalityTestAttemptMaxOrderByAggregateInput
@@ -263,8 +281,10 @@ export type PersonalityTestAttemptScalarWhereWithAggregatesInput = {
   answers?: Prisma.JsonWithAggregatesFilter<"PersonalityTestAttempt">
   scores?: Prisma.JsonWithAggregatesFilter<"PersonalityTestAttempt">
   resultKey?: Prisma.StringWithAggregatesFilter<"PersonalityTestAttempt"> | string
+  categoryScores?: Prisma.JsonNullableWithAggregatesFilter<"PersonalityTestAttempt">
   claimedByUserId?: Prisma.StringNullableWithAggregatesFilter<"PersonalityTestAttempt"> | string | null
   claimedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PersonalityTestAttempt"> | Date | string | null
+  isOfficial?: Prisma.BoolWithAggregatesFilter<"PersonalityTestAttempt"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PersonalityTestAttempt"> | Date | string
 }
 
@@ -275,7 +295,9 @@ export type PersonalityTestAttemptCreateInput = {
   answers: Prisma.JsonNullValueInput | runtime.InputJsonValue
   scores: Prisma.JsonNullValueInput | runtime.InputJsonValue
   resultKey: string
+  categoryScores?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   claimedAt?: Date | string | null
+  isOfficial?: boolean
   createdAt?: Date | string
   claimedBy?: Prisma.UserCreateNestedOneWithoutPersonalityTestAttemptsClaimedInput
 }
@@ -287,8 +309,10 @@ export type PersonalityTestAttemptUncheckedCreateInput = {
   answers: Prisma.JsonNullValueInput | runtime.InputJsonValue
   scores: Prisma.JsonNullValueInput | runtime.InputJsonValue
   resultKey: string
+  categoryScores?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
+  isOfficial?: boolean
   createdAt?: Date | string
 }
 
@@ -299,7 +323,9 @@ export type PersonalityTestAttemptUpdateInput = {
   answers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   scores?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   resultKey?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryScores?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isOfficial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   claimedBy?: Prisma.UserUpdateOneWithoutPersonalityTestAttemptsClaimedNestedInput
 }
@@ -311,8 +337,10 @@ export type PersonalityTestAttemptUncheckedUpdateInput = {
   answers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   scores?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   resultKey?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryScores?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isOfficial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -323,8 +351,10 @@ export type PersonalityTestAttemptCreateManyInput = {
   answers: Prisma.JsonNullValueInput | runtime.InputJsonValue
   scores: Prisma.JsonNullValueInput | runtime.InputJsonValue
   resultKey: string
+  categoryScores?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
+  isOfficial?: boolean
   createdAt?: Date | string
 }
 
@@ -335,7 +365,9 @@ export type PersonalityTestAttemptUpdateManyMutationInput = {
   answers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   scores?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   resultKey?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryScores?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isOfficial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -346,8 +378,10 @@ export type PersonalityTestAttemptUncheckedUpdateManyInput = {
   answers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   scores?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   resultKey?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryScores?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isOfficial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -368,8 +402,10 @@ export type PersonalityTestAttemptCountOrderByAggregateInput = {
   answers?: Prisma.SortOrder
   scores?: Prisma.SortOrder
   resultKey?: Prisma.SortOrder
+  categoryScores?: Prisma.SortOrder
   claimedByUserId?: Prisma.SortOrder
   claimedAt?: Prisma.SortOrder
+  isOfficial?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -380,6 +416,7 @@ export type PersonalityTestAttemptMaxOrderByAggregateInput = {
   resultKey?: Prisma.SortOrder
   claimedByUserId?: Prisma.SortOrder
   claimedAt?: Prisma.SortOrder
+  isOfficial?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -390,6 +427,7 @@ export type PersonalityTestAttemptMinOrderByAggregateInput = {
   resultKey?: Prisma.SortOrder
   claimedByUserId?: Prisma.SortOrder
   claimedAt?: Prisma.SortOrder
+  isOfficial?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -446,7 +484,9 @@ export type PersonalityTestAttemptCreateWithoutClaimedByInput = {
   answers: Prisma.JsonNullValueInput | runtime.InputJsonValue
   scores: Prisma.JsonNullValueInput | runtime.InputJsonValue
   resultKey: string
+  categoryScores?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   claimedAt?: Date | string | null
+  isOfficial?: boolean
   createdAt?: Date | string
 }
 
@@ -457,7 +497,9 @@ export type PersonalityTestAttemptUncheckedCreateWithoutClaimedByInput = {
   answers: Prisma.JsonNullValueInput | runtime.InputJsonValue
   scores: Prisma.JsonNullValueInput | runtime.InputJsonValue
   resultKey: string
+  categoryScores?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   claimedAt?: Date | string | null
+  isOfficial?: boolean
   createdAt?: Date | string
 }
 
@@ -497,8 +539,10 @@ export type PersonalityTestAttemptScalarWhereInput = {
   answers?: Prisma.JsonFilter<"PersonalityTestAttempt">
   scores?: Prisma.JsonFilter<"PersonalityTestAttempt">
   resultKey?: Prisma.StringFilter<"PersonalityTestAttempt"> | string
+  categoryScores?: Prisma.JsonNullableFilter<"PersonalityTestAttempt">
   claimedByUserId?: Prisma.StringNullableFilter<"PersonalityTestAttempt"> | string | null
   claimedAt?: Prisma.DateTimeNullableFilter<"PersonalityTestAttempt"> | Date | string | null
+  isOfficial?: Prisma.BoolFilter<"PersonalityTestAttempt"> | boolean
   createdAt?: Prisma.DateTimeFilter<"PersonalityTestAttempt"> | Date | string
 }
 
@@ -509,7 +553,9 @@ export type PersonalityTestAttemptCreateManyClaimedByInput = {
   answers: Prisma.JsonNullValueInput | runtime.InputJsonValue
   scores: Prisma.JsonNullValueInput | runtime.InputJsonValue
   resultKey: string
+  categoryScores?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   claimedAt?: Date | string | null
+  isOfficial?: boolean
   createdAt?: Date | string
 }
 
@@ -520,7 +566,9 @@ export type PersonalityTestAttemptUpdateWithoutClaimedByInput = {
   answers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   scores?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   resultKey?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryScores?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isOfficial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -531,7 +579,9 @@ export type PersonalityTestAttemptUncheckedUpdateWithoutClaimedByInput = {
   answers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   scores?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   resultKey?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryScores?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isOfficial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -542,7 +592,9 @@ export type PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByInput = {
   answers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   scores?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   resultKey?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryScores?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isOfficial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -555,8 +607,10 @@ export type PersonalityTestAttemptSelect<ExtArgs extends runtime.Types.Extension
   answers?: boolean
   scores?: boolean
   resultKey?: boolean
+  categoryScores?: boolean
   claimedByUserId?: boolean
   claimedAt?: boolean
+  isOfficial?: boolean
   createdAt?: boolean
   claimedBy?: boolean | Prisma.PersonalityTestAttempt$claimedByArgs<ExtArgs>
 }, ExtArgs["result"]["personalityTestAttempt"]>
@@ -568,8 +622,10 @@ export type PersonalityTestAttemptSelectCreateManyAndReturn<ExtArgs extends runt
   answers?: boolean
   scores?: boolean
   resultKey?: boolean
+  categoryScores?: boolean
   claimedByUserId?: boolean
   claimedAt?: boolean
+  isOfficial?: boolean
   createdAt?: boolean
   claimedBy?: boolean | Prisma.PersonalityTestAttempt$claimedByArgs<ExtArgs>
 }, ExtArgs["result"]["personalityTestAttempt"]>
@@ -581,8 +637,10 @@ export type PersonalityTestAttemptSelectUpdateManyAndReturn<ExtArgs extends runt
   answers?: boolean
   scores?: boolean
   resultKey?: boolean
+  categoryScores?: boolean
   claimedByUserId?: boolean
   claimedAt?: boolean
+  isOfficial?: boolean
   createdAt?: boolean
   claimedBy?: boolean | Prisma.PersonalityTestAttempt$claimedByArgs<ExtArgs>
 }, ExtArgs["result"]["personalityTestAttempt"]>
@@ -594,12 +652,14 @@ export type PersonalityTestAttemptSelectScalar = {
   answers?: boolean
   scores?: boolean
   resultKey?: boolean
+  categoryScores?: boolean
   claimedByUserId?: boolean
   claimedAt?: boolean
+  isOfficial?: boolean
   createdAt?: boolean
 }
 
-export type PersonalityTestAttemptOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "testKey" | "guestId" | "answers" | "scores" | "resultKey" | "claimedByUserId" | "claimedAt" | "createdAt", ExtArgs["result"]["personalityTestAttempt"]>
+export type PersonalityTestAttemptOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "testKey" | "guestId" | "answers" | "scores" | "resultKey" | "categoryScores" | "claimedByUserId" | "claimedAt" | "isOfficial" | "createdAt", ExtArgs["result"]["personalityTestAttempt"]>
 export type PersonalityTestAttemptInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   claimedBy?: boolean | Prisma.PersonalityTestAttempt$claimedByArgs<ExtArgs>
 }
@@ -622,8 +682,10 @@ export type $PersonalityTestAttemptPayload<ExtArgs extends runtime.Types.Extensi
     answers: runtime.JsonValue
     scores: runtime.JsonValue
     resultKey: string
+    categoryScores: runtime.JsonValue | null
     claimedByUserId: string | null
     claimedAt: Date | null
+    isOfficial: boolean
     createdAt: Date
   }, ExtArgs["result"]["personalityTestAttempt"]>
   composites: {}
@@ -1055,8 +1117,10 @@ export interface PersonalityTestAttemptFieldRefs {
   readonly answers: Prisma.FieldRef<"PersonalityTestAttempt", 'Json'>
   readonly scores: Prisma.FieldRef<"PersonalityTestAttempt", 'Json'>
   readonly resultKey: Prisma.FieldRef<"PersonalityTestAttempt", 'String'>
+  readonly categoryScores: Prisma.FieldRef<"PersonalityTestAttempt", 'Json'>
   readonly claimedByUserId: Prisma.FieldRef<"PersonalityTestAttempt", 'String'>
   readonly claimedAt: Prisma.FieldRef<"PersonalityTestAttempt", 'DateTime'>
+  readonly isOfficial: Prisma.FieldRef<"PersonalityTestAttempt", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"PersonalityTestAttempt", 'DateTime'>
 }
     

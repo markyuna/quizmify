@@ -143,7 +143,9 @@ export const UserScalarFieldEnum = {
   timezone: 'timezone',
   premiumUntil: 'premiumUntil',
   freeTrialUsedAt: 'freeTrialUsedAt',
-  selectedSkinId: 'selectedSkinId'
+  selectedSkinId: 'selectedSkinId',
+  personalityAnimal: 'personalityAnimal',
+  personalityAnimalSetAt: 'personalityAnimalSetAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -422,8 +424,10 @@ export const PersonalityTestAttemptScalarFieldEnum = {
   answers: 'answers',
   scores: 'scores',
   resultKey: 'resultKey',
+  categoryScores: 'categoryScores',
   claimedByUserId: 'claimedByUserId',
   claimedAt: 'claimedAt',
+  isOfficial: 'isOfficial',
   createdAt: 'createdAt'
 } as const
 

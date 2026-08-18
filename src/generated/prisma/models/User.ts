@@ -65,6 +65,8 @@ export type UserMinAggregateOutputType = {
   premiumUntil: Date | null
   freeTrialUsedAt: Date | null
   selectedSkinId: string | null
+  personalityAnimal: string | null
+  personalityAnimalSetAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -90,6 +92,8 @@ export type UserMaxAggregateOutputType = {
   premiumUntil: Date | null
   freeTrialUsedAt: Date | null
   selectedSkinId: string | null
+  personalityAnimal: string | null
+  personalityAnimalSetAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -115,6 +119,8 @@ export type UserCountAggregateOutputType = {
   premiumUntil: number
   freeTrialUsedAt: number
   selectedSkinId: number
+  personalityAnimal: number
+  personalityAnimalSetAt: number
   _all: number
 }
 
@@ -158,6 +164,8 @@ export type UserMinAggregateInputType = {
   premiumUntil?: true
   freeTrialUsedAt?: true
   selectedSkinId?: true
+  personalityAnimal?: true
+  personalityAnimalSetAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -183,6 +191,8 @@ export type UserMaxAggregateInputType = {
   premiumUntil?: true
   freeTrialUsedAt?: true
   selectedSkinId?: true
+  personalityAnimal?: true
+  personalityAnimalSetAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -208,6 +218,8 @@ export type UserCountAggregateInputType = {
   premiumUntil?: true
   freeTrialUsedAt?: true
   selectedSkinId?: true
+  personalityAnimal?: true
+  personalityAnimalSetAt?: true
   _all?: true
 }
 
@@ -320,6 +332,8 @@ export type UserGroupByOutputType = {
   premiumUntil: Date | null
   freeTrialUsedAt: Date | null
   selectedSkinId: string | null
+  personalityAnimal: string | null
+  personalityAnimalSetAt: Date | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -368,6 +382,8 @@ export type UserWhereInput = {
   premiumUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   freeTrialUsedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   selectedSkinId?: Prisma.StringNullableFilter<"User"> | string | null
+  personalityAnimal?: Prisma.StringNullableFilter<"User"> | string | null
+  personalityAnimalSetAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   games?: Prisma.GameListRelationFilter
@@ -411,6 +427,8 @@ export type UserOrderByWithRelationInput = {
   premiumUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrderInput | Prisma.SortOrder
+  personalityAnimal?: Prisma.SortOrderInput | Prisma.SortOrder
+  personalityAnimalSetAt?: Prisma.SortOrderInput | Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   games?: Prisma.GameOrderByRelationAggregateInput
@@ -457,6 +475,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   premiumUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   freeTrialUsedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   selectedSkinId?: Prisma.StringNullableFilter<"User"> | string | null
+  personalityAnimal?: Prisma.StringNullableFilter<"User"> | string | null
+  personalityAnimalSetAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   games?: Prisma.GameListRelationFilter
@@ -500,6 +520,8 @@ export type UserOrderByWithAggregationInput = {
   premiumUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrderInput | Prisma.SortOrder
+  personalityAnimal?: Prisma.SortOrderInput | Prisma.SortOrder
+  personalityAnimalSetAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -533,6 +555,8 @@ export type UserScalarWhereWithAggregatesInput = {
   premiumUntil?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   freeTrialUsedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   selectedSkinId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  personalityAnimal?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  personalityAnimalSetAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
 
 export type UserCreateInput = {
@@ -558,6 +582,8 @@ export type UserCreateInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -601,6 +627,8 @@ export type UserUncheckedCreateInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -644,6 +672,8 @@ export type UserUpdateInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -687,6 +717,8 @@ export type UserUncheckedUpdateInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -730,6 +762,8 @@ export type UserCreateManyInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -755,6 +789,8 @@ export type UserUpdateManyMutationInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -780,6 +816,8 @@ export type UserUncheckedUpdateManyInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserScalarRelationFilter = {
@@ -810,6 +848,8 @@ export type UserCountOrderByAggregateInput = {
   premiumUntil?: Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrder
+  personalityAnimal?: Prisma.SortOrder
+  personalityAnimalSetAt?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -843,6 +883,8 @@ export type UserMaxOrderByAggregateInput = {
   premiumUntil?: Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrder
+  personalityAnimal?: Prisma.SortOrder
+  personalityAnimalSetAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -868,6 +910,8 @@ export type UserMinOrderByAggregateInput = {
   premiumUntil?: Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrder
+  personalityAnimal?: Prisma.SortOrder
+  personalityAnimalSetAt?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -1176,6 +1220,8 @@ export type UserCreateWithoutAccountsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
@@ -1218,6 +1264,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
@@ -1276,6 +1324,8 @@ export type UserUpdateWithoutAccountsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
@@ -1318,6 +1368,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -1360,6 +1412,8 @@ export type UserCreateWithoutSessionsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
@@ -1402,6 +1456,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
@@ -1460,6 +1516,8 @@ export type UserUpdateWithoutSessionsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
@@ -1502,6 +1560,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -1544,6 +1604,8 @@ export type UserCreateWithoutGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
@@ -1586,6 +1648,8 @@ export type UserUncheckedCreateWithoutGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
@@ -1644,6 +1708,8 @@ export type UserUpdateWithoutGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
@@ -1686,6 +1752,8 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -1728,6 +1796,8 @@ export type UserCreateWithoutAttemptsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -1770,6 +1840,8 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -1828,6 +1900,8 @@ export type UserUpdateWithoutAttemptsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -1870,6 +1944,8 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -1912,6 +1988,8 @@ export type UserCreateWithoutCuratedQuizCompletionsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -1954,6 +2032,8 @@ export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2012,6 +2092,8 @@ export type UserUpdateWithoutCuratedQuizCompletionsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2054,6 +2136,8 @@ export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2096,6 +2180,8 @@ export type UserCreateWithoutCertificatesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2138,6 +2224,8 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2196,6 +2284,8 @@ export type UserUpdateWithoutCertificatesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2238,6 +2328,8 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2280,6 +2372,8 @@ export type UserCreateWithoutTopicRecommendationsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2322,6 +2416,8 @@ export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2380,6 +2476,8 @@ export type UserUpdateWithoutTopicRecommendationsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2422,6 +2520,8 @@ export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2464,6 +2564,8 @@ export type UserCreateWithoutTrophiesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2506,6 +2608,8 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2564,6 +2668,8 @@ export type UserUpdateWithoutTrophiesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2606,6 +2712,8 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2648,6 +2756,8 @@ export type UserCreateWithoutQuestionProgressInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2690,6 +2800,8 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2748,6 +2860,8 @@ export type UserUpdateWithoutQuestionProgressInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2790,6 +2904,8 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2832,6 +2948,8 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2874,6 +2992,8 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2932,6 +3052,8 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2974,6 +3096,8 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3016,6 +3140,8 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3058,6 +3184,8 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3116,6 +3244,8 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3158,6 +3288,8 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3200,6 +3332,8 @@ export type UserCreateWithoutNotificationLogsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3242,6 +3376,8 @@ export type UserUncheckedCreateWithoutNotificationLogsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3300,6 +3436,8 @@ export type UserUpdateWithoutNotificationLogsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3342,6 +3480,8 @@ export type UserUncheckedUpdateWithoutNotificationLogsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3384,6 +3524,8 @@ export type UserCreateWithoutFriendshipsSentInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3426,6 +3568,8 @@ export type UserUncheckedCreateWithoutFriendshipsSentInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3473,6 +3617,8 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3515,6 +3661,8 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3573,6 +3721,8 @@ export type UserUpdateWithoutFriendshipsSentInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3615,6 +3765,8 @@ export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3668,6 +3820,8 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3710,6 +3864,8 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3752,6 +3908,8 @@ export type UserCreateWithoutReferralsMadeInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3794,6 +3952,8 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3841,6 +4001,8 @@ export type UserCreateWithoutReferralReceivedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3883,6 +4045,8 @@ export type UserUncheckedCreateWithoutReferralReceivedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3941,6 +4105,8 @@ export type UserUpdateWithoutReferralsMadeInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3983,6 +4149,8 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -4036,6 +4204,8 @@ export type UserUpdateWithoutReferralReceivedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -4078,6 +4248,8 @@ export type UserUncheckedUpdateWithoutReferralReceivedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -4120,6 +4292,8 @@ export type UserCreateWithoutGuestAttemptsClaimedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -4162,6 +4336,8 @@ export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -4220,6 +4396,8 @@ export type UserUpdateWithoutGuestAttemptsClaimedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -4262,6 +4440,8 @@ export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -4304,6 +4484,8 @@ export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -4346,6 +4528,8 @@ export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -4404,6 +4588,8 @@ export type UserUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -4446,6 +4632,8 @@ export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -4654,6 +4842,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
   selectedSkinId?: boolean
+  personalityAnimal?: boolean
+  personalityAnimalSetAt?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   games?: boolean | Prisma.User$gamesArgs<ExtArgs>
@@ -4698,6 +4888,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
   selectedSkinId?: boolean
+  personalityAnimal?: boolean
+  personalityAnimalSetAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -4723,6 +4915,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
   selectedSkinId?: boolean
+  personalityAnimal?: boolean
+  personalityAnimalSetAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -4748,9 +4942,11 @@ export type UserSelectScalar = {
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
   selectedSkinId?: boolean
+  personalityAnimal?: boolean
+  personalityAnimalSetAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth" | "timezone" | "premiumUntil" | "freeTrialUsedAt" | "selectedSkinId", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth" | "timezone" | "premiumUntil" | "freeTrialUsedAt" | "selectedSkinId" | "personalityAnimal" | "personalityAnimalSetAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -4820,6 +5016,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     premiumUntil: Date | null
     freeTrialUsedAt: Date | null
     selectedSkinId: string | null
+    personalityAnimal: string | null
+    personalityAnimalSetAt: Date | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -5283,6 +5481,8 @@ export interface UserFieldRefs {
   readonly premiumUntil: Prisma.FieldRef<"User", 'DateTime'>
   readonly freeTrialUsedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly selectedSkinId: Prisma.FieldRef<"User", 'String'>
+  readonly personalityAnimal: Prisma.FieldRef<"User", 'String'>
+  readonly personalityAnimalSetAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 

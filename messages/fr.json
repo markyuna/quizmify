@@ -244,6 +244,51 @@
             "q8_c": "Toujours voir la solution que personne d'autre ne voit",
             "q8_d": "Devenir invisible quand vous voulez être seul(e)"
           }
+        },
+        "q9": {
+          "prompt": "Pendant votre temps libre, vous préférez...",
+          "options": {
+            "q9_a": "Regarder des documentaires animaliers",
+            "q9_b": "Regarder des films et des séries",
+            "q9_c": "Suivre du sport et des compétitions",
+            "q9_d": "Lire ou apprendre l'histoire"
+          }
+        },
+        "q10": {
+          "prompt": "Si vous pouviez voyager...",
+          "options": {
+            "q10_a": "Explorer les capitales et les pays du monde",
+            "q10_b": "Visiter des monuments et des lieux historiques",
+            "q10_c": "Observer des animaux dans leur habitat naturel",
+            "q10_d": "Découvrir la gastronomie locale"
+          }
+        },
+        "q11": {
+          "prompt": "Quel genre de film vous fait vibrer ?",
+          "options": {
+            "q11_a": "L'horreur et le fantastique",
+            "q11_b": "Les dessins animés et les mondes magiques",
+            "q11_c": "Les sagas de super-héros et les blockbusters",
+            "q11_d": "Les histoires basées sur des faits réels"
+          }
+        },
+        "q12": {
+          "prompt": "Qu'est-ce qui vous passionne ?",
+          "options": {
+            "q12_a": "Le football et les grandes compétitions",
+            "q12_b": "Les expressions et curiosités de la langue française",
+            "q12_c": "Les drapeaux et symboles des pays",
+            "q12_d": "Le code de la route et la conduite"
+          }
+        },
+        "q13": {
+          "prompt": "Qu'est-ce qui vous inspire ?",
+          "options": {
+            "q13_a": "Les grands peintres et les œuvres d'art",
+            "q13_b": "L'univers magique de Harry Potter",
+            "q13_c": "Les sciences et les grandes découvertes",
+            "q13_d": "La nature et les paysages"
+          }
         }
       },
       "animals": {

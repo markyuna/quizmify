@@ -3,8 +3,9 @@ import { z } from "zod";
 
 import {
   createPersonalityTestAttempt,
-  claimPersonalityTestAttempts,
+  createOfficialPersonalityTestAttemptForUser,
   isPersonalityTestKey,
+  PersonalityAnimalAlreadyAssignedError,
   type PersonalityTestKey,
 } from "@/lib/personalityTests/attempts";
 import { InvalidPersonalityTestAnswersError } from "@/lib/personalityTests/scoring";
@@ -25,13 +26,18 @@ export async function POST(req: Request, { params }: { params: Promise<{ testKey
     const body = await req.json();
     const { guestId, answers } = submitPersonalityTestSchema.parse(body);
 
-    const attempt = await createPersonalityTestAttempt({ testKey, guestId, answers });
-
-    // Same "already signed in, no conversion gate to clear" shortcut as
-    // /api/guest/[gameKey]/submit.
+    // Already signed in: this is specifically a first-time test for this
+    // account, not a guest result to migrate, so it's written directly as
+    // official rather than going through the unclaimed-row + claim
+    // mechanism below (that mechanism is guest -> account only).
     const session = await getAuthSession();
     if (session?.user?.id) {
-      await claimPersonalityTestAttempts(session.user.id, guestId);
+      const attempt = await createOfficialPersonalityTestAttemptForUser({
+        testKey,
+        userId: session.user.id,
+        guestId,
+        answers,
+      });
       return NextResponse.json({
         success: true,
         attemptId: attempt.id,
@@ -42,7 +48,9 @@ export async function POST(req: Request, { params }: { params: Promise<{ testKey
     }
 
     // Deliberately never returns resultKey/scores for a guest -- withheld
-    // until they register, same as the 3 daily games.
+    // until they register, same as the 3 daily games. Stays unclaimed until
+    // /api/personality-tests/claim picks a winner at account-claim time.
+    const attempt = await createPersonalityTestAttempt({ testKey, guestId, answers });
     return NextResponse.json({ success: true, attemptId: attempt.id, claimed: false });
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -50,6 +58,9 @@ export async function POST(req: Request, { params }: { params: Promise<{ testKey
     }
     if (error instanceof InvalidPersonalityTestAnswersError) {
       return NextResponse.json({ error: "Invalid answers", details: error.message }, { status: 400 });
+    }
+    if (error instanceof PersonalityAnimalAlreadyAssignedError) {
+      return NextResponse.json({ error: "personality_animal_already_assigned" }, { status: 409 });
     }
 
     console.error("POST /api/personality-tests/[testKey]/submit error:", error);
