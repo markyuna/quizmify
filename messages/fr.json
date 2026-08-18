@@ -804,6 +804,14 @@
     "badge": "Suggestion IA",
     "practiceTopic": "Pratiquer {topic}"
   },
+  "PersonalityMascot": {
+    "badge": "Votre mascotte",
+    "mascotLabel": "Votre mascotte",
+    "recommendationsTitle": "Recommandé pour vous",
+    "emptyTitle": "Découvrez votre mascotte",
+    "emptyDescription": "Faites le test \"Quel animal es-tu ?\" pour révéler votre mascotte et débloquer des recommandations personnalisées.",
+    "ctaLabel": "Faire le test"
+  },
   "DailyChallenge": {
     "badge": "Défi quotidien",
     "participantCount": "{count, plural, =0 {Personne n'a encore joué} one {# joueur pour l'instant} other {# joueurs pour l'instant}}",

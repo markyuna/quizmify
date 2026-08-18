@@ -23,6 +23,7 @@ import QuizMeCard from "@/components/dashboard/QuizMeCard";
 import TrophyCabinetCard from "@/components/dashboard/TrophyCabinetCard";
 import CertificatesCard from "@/components/dashboard/CertificatesCard";
 import RecommendationCard from "@/components/dashboard/RecommendationCard";
+import PersonalityMascotCard from "@/components/dashboard/PersonalityMascotCard";
 import DailyChallengeCard from "@/components/dashboard/DailyChallengeCard";
 import LeaderboardCard from "@/components/dashboard/LeaderboardCard";
 import FriendsCard from "@/components/dashboard/FriendsCard";
@@ -386,25 +387,7 @@ export default async function DashboardPage() {
             </div>
           </div>
 
-          <div className="grid w-full grid-cols-3 gap-3 sm:w-auto sm:min-w-[320px]">
-            <div className="rounded-2xl border border-white/10 bg-white/50 px-3 py-3 text-sm backdrop-blur-xl dark:bg-white/5 sm:px-4">
-              <p className="text-xs text-muted-foreground sm:text-sm">
-                {t("quizzesDone")}
-              </p>
-              <p className="mt-1 text-lg font-bold sm:text-xl">
-                {attemptsCount}
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-white/10 bg-white/50 px-3 py-3 text-sm backdrop-blur-xl dark:bg-white/5 sm:px-4">
-              <p className="text-xs text-muted-foreground sm:text-sm">
-                {t("bestScore")}
-              </p>
-              <p className="mt-1 text-lg font-bold sm:text-xl">
-                {bestScore !== null ? `${bestScore}%` : "—"}
-              </p>
-            </div>
-
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:min-w-[320px]">
             <div className="rounded-2xl border border-amber-200/60 bg-amber-50/60 px-3 py-3 text-sm backdrop-blur-xl dark:border-amber-500/20 dark:bg-amber-500/10 sm:px-4">
               <p className="flex items-center gap-1 text-xs text-muted-foreground sm:text-sm">
                 <Flame className="h-3.5 w-3.5 text-amber-500" />
@@ -419,6 +402,8 @@ export default async function DashboardPage() {
                 </p>
               )}
             </div>
+
+            <PersonalityMascotCard userId={userId} />
           </div>
         </div>
       </section>

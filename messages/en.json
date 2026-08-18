@@ -804,6 +804,14 @@
     "badge": "AI suggestion",
     "practiceTopic": "Practice {topic}"
   },
+  "PersonalityMascot": {
+    "badge": "Your pet",
+    "mascotLabel": "Your pet",
+    "recommendationsTitle": "Recommended for you",
+    "emptyTitle": "Discover your pet",
+    "emptyDescription": "Take the \"What animal are you?\" test to reveal your pet and unlock personalized recommendations.",
+    "ctaLabel": "Take the test"
+  },
   "DailyChallenge": {
     "badge": "Daily challenge",
     "participantCount": "{count, plural, =0 {No one has played yet} one {# player so far} other {# players so far}}",
