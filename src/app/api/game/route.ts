@@ -83,6 +83,10 @@ export async function POST(req: Request) {
         const t = await getTranslations({ locale: language, namespace: "Categories" });
         categoryName = t(`${category.slug}.name`);
         categorySlug = category.slug;
+
+        if (puzzleMode && category.puzzleModeDisabled) {
+          return jsonError("PUZZLE_NOT_AVAILABLE_FOR_CATEGORY", 403);
+        }
       }
     }
 

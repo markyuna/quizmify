@@ -37,6 +37,14 @@ export type Category = {
   // Public URL in the "category-images" Supabase Storage bucket.
   heroImage: string;
   aiPrompt: string;
+  // Puzzle Mode renders a DALL-E/gpt-image illustration built directly from
+  // the raw topic text (see renderTopicImage() in src/lib/puzzleImage.ts) --
+  // a topic under a real-world branded/IP category can trip OpenAI's
+  // moderation_blocked just by including the brand name. Categories that
+  // are inherently about a specific brand/franchise set this to keep
+  // Puzzle Mode off entirely (checked client + server, see QuizCreation.tsx
+  // and /api/game/route.ts) instead of relying on per-request failures.
+  puzzleModeDisabled?: boolean;
 };
 
 export const CATEGORIES: Category[] = [
@@ -82,7 +90,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     slug: "france",
-    icon: "🇫🇷",
+    icon: "🗼",
     group: "culture-sciences",
     heroImage: CATEGORY_IMAGES_BASE_URL + "/france-hero.webp",
     aiPrompt:
@@ -103,6 +111,7 @@ export const CATEGORIES: Category[] = [
     heroImage: CATEGORY_IMAGES_BASE_URL + "/disney-hero.webp",
     aiPrompt:
       "Génère des questions sur l'univers Disney : films d'animation, personnages, chansons et parcs à thème.",
+    puzzleModeDisabled: true,
   },
   {
     slug: "harry-potter",
@@ -111,6 +120,7 @@ export const CATEGORIES: Category[] = [
     heroImage: CATEGORY_IMAGES_BASE_URL + "/harry-potter-hero.webp",
     aiPrompt:
       "Génère des questions sur l'univers Harry Potter : personnages, sortilèges, maisons de Poudlard et intrigue des livres/films.",
+    puzzleModeDisabled: true,
   },
   {
     slug: "tests-de-personnalite",

@@ -25,7 +25,7 @@ import {
 } from "./ui/form";
 import { cn } from "@/lib/utils";
 import { useGuestId } from "@/hooks/useGuestRound";
-import { CATEGORIES } from "@/lib/categories";
+import { CATEGORIES, getCategoryBySlug } from "@/lib/categories";
 import { findCuratedQuiz } from "@/lib/curatedQuizzes/registry";
 import { normalizeTopic } from "@/lib/topicUtils";
 import type { CategoryTopicLookupResponse } from "@/app/api/category-topics/lookup/route";
@@ -206,6 +206,17 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
   // /api/quiz/submit later reads back to publish the CategoryTopic -- see
   // Game.categorySlug in prisma/schema.prisma.
   const effectiveCategorySlug = categoryKnown ? categoryParam : selectedCategorySlug;
+
+  const puzzleModeDisabledForCategory =
+    effectiveCategorySlug !== "" && getCategoryBySlug(effectiveCategorySlug)?.puzzleModeDisabled === true;
+
+  // Mirrors the partyMode/puzzleMode mutual-exclusivity reset elsewhere in
+  // this form -- if the effective category resolves (or changes) after the
+  // toggle was already on, force it back off instead of silently submitting
+  // a request the server will reject.
+  React.useEffect(() => {
+    if (puzzleModeDisabledForCategory) form.setValue("puzzleMode", false);
+  }, [puzzleModeDisabledForCategory, form]);
 
   // True when the effective topic+category matches a hand-curated quiz (see
   // src/lib/curatedQuizzes) -- those are always served as a fixed, whole
@@ -638,7 +649,7 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
             </button>
             )}
 
-            {!isGuest && (
+            {!isGuest && !puzzleModeDisabledForCategory && (
             <FormField
               control={form.control}
               name="puzzleMode"
