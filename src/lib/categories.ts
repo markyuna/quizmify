@@ -45,6 +45,14 @@ export type Category = {
   // Puzzle Mode off entirely (checked client + server, see QuizCreation.tsx
   // and /api/game/route.ts) instead of relying on per-request failures.
   puzzleModeDisabled?: boolean;
+  // Set when the category's entire real-world referent is one specific
+  // country's system/institution (not just France-leaning content mixed
+  // with world topics, like cinema/histoire/sports) but categoryName
+  // doesn't say so in every locale -- appended to categoryScopeBlock in
+  // generateQuestionsWithAI so the AI doesn't drift to a generic/other-
+  // country interpretation in es/en. See categories.ts's own audit: no
+  // other category needs this today.
+  countryScope?: string;
 };
 
 export const CATEGORIES: Category[] = [
@@ -185,6 +193,7 @@ export const CATEGORIES: Category[] = [
     heroImage: CATEGORY_IMAGES_BASE_URL + "/code-de-la-route-hero.webp",
     aiPrompt:
       "Génère des questions de type examen du code de la route : panneaux, priorités, règles de circulation et sécurité routière.",
+    countryScope: "France",
   },
   {
     slug: "drapeaux",

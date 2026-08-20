@@ -154,6 +154,10 @@ export async function sourceQuestions(params: {
   // only, never used to key or filter the cache read below. See the pool
   // caching note further down for the consequence of that.
   categoryName?: string | null;
+  // Category.countryScope (see categories.ts), forwarded the same way as
+  // categoryName -- only /api/game passes this today, not next-batch (see
+  // that route's own TODO on categoryName being entirely absent there).
+  countryScope?: string | null;
 }): Promise<{
   questions: SourcedQuestion[];
   cachedCount: number;
@@ -164,7 +168,7 @@ export async function sourceQuestions(params: {
   // deactivate these, never a reused row's id.
   newlyCreatedIds: string[];
 }> {
-  const { topic, difficulty, language, amount, isGeography, categoryName = null } = params;
+  const { topic, difficulty, language, amount, isGeography, categoryName = null, countryScope = null } = params;
 
   // A cache that only ever holds exactly `amount` rows for a given
   // topic/difficulty/language would serve the *identical* set on every
@@ -204,6 +208,7 @@ export async function sourceQuestions(params: {
       amount,
       isGeography,
       categoryName,
+      countryScope,
       existingQuestions: pool.map((q) => q.question),
     });
 

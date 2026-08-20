@@ -77,12 +77,14 @@ export async function POST(req: Request) {
     // /api/category-topics/lookup resolves it for the UI hint.
     let categoryName: string | null = null;
     let categorySlug: string | null = null;
+    let countryScope: string | null = null;
     if (parsedBody.categorySlug) {
       const category = getCategoryBySlug(parsedBody.categorySlug);
       if (category) {
         const t = await getTranslations({ locale: language, namespace: "Categories" });
         categoryName = t(`${category.slug}.name`);
         categorySlug = category.slug;
+        countryScope = category.countryScope ?? null;
 
         if (puzzleMode && category.puzzleModeDisabled) {
           return jsonError("PUZZLE_NOT_AVAILABLE_FOR_CATEGORY", 403);
@@ -166,6 +168,7 @@ export async function POST(req: Request) {
         amount: requestAmount,
         isGeography,
         categoryName,
+        countryScope,
       });
       sourced = result.questions;
       cachedCount = result.cachedCount;
