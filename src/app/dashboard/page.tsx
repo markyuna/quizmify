@@ -306,13 +306,7 @@ export default async function DashboardPage() {
       {userProfile && <ProStatusBanner user={userProfile} />}
 
       <section
-        className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/60 p-4 shadow-2xl shadow-black/5 backdrop-blur-xl dark:bg-white/5 sm:rounded-[2rem] sm:p-6 lg:p-8"
-        style={{
-          backgroundImage: "url('/images/dashboard_background.webp')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
-        }}
+        className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/60 bg-[url('/images/dashboard_background_light.webp')] bg-cover bg-center bg-fixed p-4 shadow-2xl shadow-black/5 backdrop-blur-xl dark:bg-[url('/images/dashboard_background.webp')] dark:bg-white/5 sm:rounded-[2rem] sm:p-6 lg:p-8"
       >
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-cyan-500/10" />
         <div className="pointer-events-none absolute -left-10 top-0 h-32 w-32 rounded-full bg-violet-500/15 blur-3xl sm:h-40 sm:w-40" />
