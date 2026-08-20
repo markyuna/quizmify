@@ -25,7 +25,7 @@ export default function Logo() {
         transition={{ duration: 0.4 }}
         className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-base font-bold tracking-tight text-transparent"
       >
-        Quizmify
+        uizmify
       </motion.span>
     </div>
   );
