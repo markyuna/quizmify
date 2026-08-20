@@ -71,10 +71,10 @@ async function saveGeneratedQuestionsToSupabase(params: {
   difficulty: Difficulty;
   language: Locale;
   questions: GeneratedQuestion[];
-}) {
+}): Promise<string[]> {
   const { topic, difficulty, language, questions } = params;
 
-  if (questions.length === 0) return;
+  if (questions.length === 0) return [];
 
   const rows = questions.map((q) => ({
     id: randomUUID(),
@@ -95,6 +95,8 @@ async function saveGeneratedQuestionsToSupabase(params: {
   if (error) {
     throw new Error(`Supabase insert error: ${error.message}`);
   }
+
+  return rows.map((row) => row.id);
 }
 
 export async function incrementUsageCount(questions: SourcedQuestion[]) {
@@ -110,6 +112,27 @@ export async function incrementUsageCount(questions: SourcedQuestion[]) {
   );
 
   await Promise.allSettled(updates);
+}
+
+/**
+ * Deactivates cache rows by id -- used when a request that generated new
+ * questions (via sourceQuestions) fails before a Game ever gets created for
+ * them, e.g. Puzzle Mode image generation or the Game/Question DB write
+ * itself. Only ever pass newlyCreatedIds from sourceQuestions()'s result,
+ * never ids of reused/pre-existing cache rows: those may already back other,
+ * successful games and must stay active.
+ */
+export async function deactivateQuestions(ids: string[]) {
+  if (ids.length === 0) return;
+
+  const { error } = await getSupabaseAdmin()
+    .from("mcq_questions")
+    .update({ is_active: false })
+    .in("id", ids);
+
+  if (error) {
+    console.error("Supabase deactivate error:", error);
+  }
 }
 
 /**
@@ -131,7 +154,16 @@ export async function sourceQuestions(params: {
   // only, never used to key or filter the cache read below. See the pool
   // caching note further down for the consequence of that.
   categoryName?: string | null;
-}): Promise<{ questions: SourcedQuestion[]; cachedCount: number; poolTarget: number }> {
+}): Promise<{
+  questions: SourcedQuestion[];
+  cachedCount: number;
+  poolTarget: number;
+  // Ids of rows this call inserted into the cache (empty if the pool was
+  // already big enough, or if generation ran but produced no new rows) --
+  // see deactivateQuestions()'s doc comment for why callers must only ever
+  // deactivate these, never a reused row's id.
+  newlyCreatedIds: string[];
+}> {
   const { topic, difficulty, language, amount, isGeography, categoryName = null } = params;
 
   // A cache that only ever holds exactly `amount` rows for a given
@@ -162,6 +194,7 @@ export async function sourceQuestions(params: {
   // new generation while the deduped serve-set stayed tiny -- the classic
   // "same questions every quiz" bug.
   let pool: SourcedQuestion[] = dedupeQuestions(cachedQuestions);
+  let newlyCreatedIds: string[] = [];
 
   if (pool.length < poolTarget) {
     const aiQuestions = await generateQuestionsWithAI({
@@ -183,7 +216,12 @@ export async function sourceQuestions(params: {
 
     if (newAIQuestions.length > 0) {
       try {
-        await saveGeneratedQuestionsToSupabase({ topic, difficulty, language, questions: newAIQuestions });
+        newlyCreatedIds = await saveGeneratedQuestionsToSupabase({
+          topic,
+          difficulty,
+          language,
+          questions: newAIQuestions,
+        });
       } catch (error) {
         console.error("Supabase cache write error:", error);
       }
@@ -196,5 +234,5 @@ export async function sourceQuestions(params: {
   // always taking the same prefix of the pool.
   const questions = dedupeQuestions(shuffleArray(pool)).slice(0, amount);
 
-  return { questions, cachedCount: cachedQuestions.length, poolTarget };
+  return { questions, cachedCount: cachedQuestions.length, poolTarget, newlyCreatedIds };
 }

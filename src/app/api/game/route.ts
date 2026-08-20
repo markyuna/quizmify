@@ -11,7 +11,7 @@ import { isGeographyTopic } from "@/lib/geography";
 import { getCategoryBySlug } from "@/lib/categories";
 import { TIMED_MODE_SECONDS_PER_QUESTION } from "@/lib/timedMode";
 import { normalizeTopic, normalizeDifficulty, ensureValidOptions } from "@/lib/questionGeneration";
-import { sourceQuestions, incrementUsageCount } from "@/lib/questionSourcing";
+import { sourceQuestions, incrementUsageCount, deactivateQuestions } from "@/lib/questionSourcing";
 import { findCuratedQuiz } from "@/lib/curatedQuizzes/registry";
 import type { CuratedQuizQuestion } from "@/lib/curatedQuizzes/types";
 import type { SourcedQuestion } from "@/lib/questionSourcing";
@@ -37,6 +37,16 @@ function jsonError(message: string, status: number, details?: unknown) {
 }
 
 export async function POST(req: Request) {
+  // Declared outside the try block (not just the `sourced`/`sourceQuestions`
+  // scope below) so the catch clause can still see them: sourceQuestions()
+  // may already have inserted new mcq_questions cache rows before a later
+  // failure -- Puzzle Mode generation or the Game/Question transaction --
+  // aborts the request. Those rows would otherwise sit there as if a real
+  // game had been created from them (see e.g. TopicCarousel's "latest
+  // topics" shelf, which has no notion of "did this ever become a Game").
+  let newlyCreatedIds: string[] = [];
+  let gameCreated = false;
+
   try {
     const session = await getAuthSession();
     const userId = session?.user?.id ?? null;
@@ -156,6 +166,7 @@ export async function POST(req: Request) {
       sourced = result.questions;
       cachedCount = result.cachedCount;
       poolTarget = result.poolTarget;
+      newlyCreatedIds = result.newlyCreatedIds;
     }
 
     if (sourced.length === 0) {
@@ -168,6 +179,7 @@ export async function POST(req: Request) {
         puzzleImageUrl = await generatePuzzleImage(topic);
       } catch (error) {
         console.error("generatePuzzleImage failed:", error);
+        await deactivateQuestions(newlyCreatedIds);
         // Storage misconfiguration and a flaky DALL-E call both break the
         // same feature, but only one of them is worth retrying -- keep the
         // codes distinct so logs and clients can tell them apart.
@@ -216,6 +228,7 @@ export async function POST(req: Request) {
 
       return createdGame;
     });
+    gameCreated = true;
 
     // Safe even though `sourced` is a union: curated questions never carry
     // an `id`, so incrementUsageCount's internal SupabaseMCQQuestion filter
@@ -239,6 +252,10 @@ export async function POST(req: Request) {
     );
   } catch (error) {
     console.error("POST /api/game error:", error);
+
+    if (!gameCreated) {
+      await deactivateQuestions(newlyCreatedIds);
+    }
 
     if (error instanceof z.ZodError) {
       return jsonError("Invalid data", 400, error.flatten());
