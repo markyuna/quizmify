@@ -5,6 +5,9 @@ import { getRequestLocale } from "@/i18n/get-locale";
 export const metadata = {
   title: "Mentions légales | Quizmify",
   description: "Mentions légales de Quizmify.",
+  alternates: {
+    canonical: "/mentions-legales",
+  },
 };
 
 export default async function MentionsLegalesPage() {

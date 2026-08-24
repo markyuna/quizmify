@@ -9,6 +9,9 @@ import { getAuthSession } from "@/lib/nextauth";
 
 export const metadata = {
   title: "Create Account | Quizmify",
+  alternates: {
+    canonical: "/register",
+  },
 };
 
 export default async function RegisterPage() {

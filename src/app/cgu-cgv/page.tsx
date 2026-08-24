@@ -6,6 +6,9 @@ export const metadata = {
   title: "CGU / CGV | Quizmify",
   description:
     "Conditions générales d'utilisation et de vente de Quizmify.",
+  alternates: {
+    canonical: "/cgu-cgv",
+  },
 };
 
 export default async function CguCgvPage() {

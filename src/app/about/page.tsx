@@ -4,6 +4,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About Quizmify | AI Quiz Generator",
   description: "Learn about Quizmify, an AI-powered platform that generates personalized quizzes and tracks your learning progress.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 export default async function AboutPage() {

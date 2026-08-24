@@ -11,6 +11,9 @@ import { getAuthSession } from "@/lib/nextauth";
 
 export const metadata = {
   title: "Login | Quizmify",
+  alternates: {
+    canonical: "/login",
+  },
 };
 
 export default async function LoginPage() {

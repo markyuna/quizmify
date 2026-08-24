@@ -31,6 +31,9 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   return {
     title: `${t(`${slug}.name`)} | Quizmify`,
     description: t(`${slug}.seoDescription`),
+    alternates: {
+      canonical: `/quiz/categoria/${category.slug}`,
+    },
   };
 }
 

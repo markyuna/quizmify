@@ -5,6 +5,9 @@ import { getRequestLocale } from "@/i18n/get-locale";
 export const metadata = {
   title: "Politique de confidentialité | Quizmify",
   description: "Comment Quizmify collecte, utilise et protège vos données personnelles.",
+  alternates: {
+    canonical: "/confidentialite",
+  },
 };
 
 export default async function ConfidentialitePage() {
