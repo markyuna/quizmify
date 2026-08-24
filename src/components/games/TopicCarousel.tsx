@@ -3,8 +3,9 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { Compass } from "lucide-react";
 
-import { getLatestTopics } from "@/lib/topics";
+import { getLatestTopics, getTopicCategorySlugs } from "@/lib/topics";
 import { getTopicImage } from "@/lib/topicImages";
+import { getCategoryBySlug } from "@/lib/categories";
 import { getRequestLocale } from "@/i18n/get-locale";
 
 /**
@@ -27,6 +28,8 @@ export default async function TopicCarousel() {
 
   if (topics.length === 0) return null;
 
+  const categorySlugByTopic = await getTopicCategorySlugs(topics, locale);
+
   return (
     <section className="px-4 pt-4 md:px-8" aria-labelledby="topic-carousel-heading">
       <div className="mx-auto max-w-7xl">
@@ -41,6 +44,10 @@ export default async function TopicCarousel() {
         <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0">
           {topics.map((topic) => {
             const { image, accent } = getTopicImage(topic);
+            const categorySlug = categorySlugByTopic.get(topic);
+            const category = categorySlug ? getCategoryBySlug(categorySlug) : undefined;
+            const backgroundImage = category?.heroImage ?? image;
+
             return (
               <Link
                 key={topic}
@@ -48,7 +55,7 @@ export default async function TopicCarousel() {
                 className="relative min-w-[260px] shrink-0 snap-center overflow-hidden rounded-3xl border border-slate-200/80 bg-white/80 shadow-sm backdrop-blur-xl transition hover:scale-[1.02] hover:shadow-lg dark:border-white/10 dark:bg-white/5 md:min-w-0"
               >
                 <div className="absolute inset-0 -z-10">
-                  <Image src={image} alt="" fill className="object-cover opacity-20 dark:opacity-15" sizes="320px" />
+                  <Image src={backgroundImage} alt="" fill className="object-cover opacity-20 dark:opacity-15" sizes="320px" />
                   <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/80 to-white dark:from-transparent dark:via-slate-950/60 dark:to-slate-950" />
                 </div>
 

@@ -1,4 +1,5 @@
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
+import { prisma } from "@/lib/db";
 import type { Locale } from "@/i18n/locales";
 
 const POPULAR_TOPICS_LIMIT = 10;
@@ -110,4 +111,54 @@ export async function getLatestTopics(language: Locale): Promise<string[]> {
   }
 
   return topics;
+}
+
+/**
+ * Best-effort topic -> categorySlug lookup for TopicCarousel's card
+ * background art (see getTopicImage in topicImages.ts). `topics` are plain
+ * strings from the mcq_questions cache -- it carries no categorySlug of its
+ * own -- so this tries CategoryTopic.topicNormalized first (exact match,
+ * same normalizeTopic() casing used everywhere else), then falls back to
+ * the most recent Game.categorySlug for any topic that missed, since a
+ * topic can be played under a category without ever getting a CategoryTopic
+ * row. Topics with neither never make it into the returned map -- callers
+ * fall back to their own generic image for those, same as before this
+ * lookup existed.
+ */
+export async function getTopicCategorySlugs(
+  topics: string[],
+  language: Locale
+): Promise<Map<string, string>> {
+  if (topics.length === 0) return new Map();
+
+  const result = new Map<string, string>();
+
+  const categoryTopics = await prisma.categoryTopic.findMany({
+    where: { topicNormalized: { in: topics }, language },
+    select: { topicNormalized: true, categorySlug: true },
+  });
+
+  for (const row of categoryTopics) {
+    if (!result.has(row.topicNormalized)) {
+      result.set(row.topicNormalized, row.categorySlug);
+    }
+  }
+
+  const stillMissing = topics.filter((topic) => !result.has(topic));
+
+  if (stillMissing.length > 0) {
+    const games = await prisma.game.findMany({
+      where: { topic: { in: stillMissing }, language, categorySlug: { not: null } },
+      orderBy: { timeStarted: "desc" },
+      select: { topic: true, categorySlug: true },
+    });
+
+    for (const game of games) {
+      if (!result.has(game.topic) && game.categorySlug) {
+        result.set(game.topic, game.categorySlug);
+      }
+    }
+  }
+
+  return result;
 }
