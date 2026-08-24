@@ -158,6 +158,15 @@ export async function sourceQuestions(params: {
   // categoryName -- only /api/game passes this today, not next-batch (see
   // that route's own TODO on categoryName being entirely absent there).
   countryScope?: string | null;
+  // Question texts to treat as already served -- e.g. next-batch passes the
+  // first batch's own Question rows for this same game, so the second batch
+  // can't re-serve them even when the topic's cache pool is thin (see the
+  // Photographie bug: pool near `amount` in size + independent shuffles per
+  // batch meant batch 2 could re-draw batch 1's own questions). Filtered out
+  // of the cache pool before the AI top-up decision AND the final slice, and
+  // folded into the AI avoid-list -- excluding only from the prompt wouldn't
+  // fix this, the bug was in the slice of old cache + new AI rows.
+  excludeTexts?: string[];
 }): Promise<{
   questions: SourcedQuestion[];
   cachedCount: number;
@@ -168,7 +177,16 @@ export async function sourceQuestions(params: {
   // deactivate these, never a reused row's id.
   newlyCreatedIds: string[];
 }> {
-  const { topic, difficulty, language, amount, isGeography, categoryName = null, countryScope = null } = params;
+  const {
+    topic,
+    difficulty,
+    language,
+    amount,
+    isGeography,
+    categoryName = null,
+    countryScope = null,
+    excludeTexts = [],
+  } = params;
 
   // A cache that only ever holds exactly `amount` rows for a given
   // topic/difficulty/language would serve the *identical* set on every
@@ -178,6 +196,7 @@ export async function sourceQuestions(params: {
   // by one more `amount`-sized AI batch per visit (same cost profile as a
   // cold cache) until it reaches that size.
   const poolTarget = amount * 3;
+  const excludeKeys = new Set(excludeTexts.map((q) => q.trim().toLowerCase()));
 
   let cachedQuestions: SupabaseMCQQuestion[] = [];
 
@@ -197,7 +216,9 @@ export async function sourceQuestions(params: {
   // duplicate cache entries satisfy `poolTarget` and permanently shut off
   // new generation while the deduped serve-set stayed tiny -- the classic
   // "same questions every quiz" bug.
-  let pool: SourcedQuestion[] = dedupeQuestions(cachedQuestions);
+  let pool: SourcedQuestion[] = dedupeQuestions(cachedQuestions).filter(
+    (q) => !excludeKeys.has(q.question.trim().toLowerCase())
+  );
   let newlyCreatedIds: string[] = [];
 
   if (pool.length < poolTarget) {
@@ -209,12 +230,15 @@ export async function sourceQuestions(params: {
       isGeography,
       categoryName,
       countryScope,
-      existingQuestions: pool.map((q) => q.question),
+      existingQuestions: [...excludeTexts, ...pool.map((q) => q.question)],
     });
 
     // Drop AI questions that already exist in the cache BEFORE saving, so
     // duplicates never get persisted as new rows.
-    const existingKeys = new Set(pool.map((q) => q.question.trim().toLowerCase()));
+    const existingKeys = new Set([
+      ...pool.map((q) => q.question.trim().toLowerCase()),
+      ...excludeKeys,
+    ]);
     const newAIQuestions = dedupeQuestions(aiQuestions)
       .filter((q) => !existingKeys.has(q.question.trim().toLowerCase()))
       .slice(0, amount);

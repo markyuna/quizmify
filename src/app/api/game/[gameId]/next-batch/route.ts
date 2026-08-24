@@ -53,7 +53,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ gameId:
 
     const existingQuestions = await prisma.question.findMany({
       where: { gameId },
-      select: { isCorrect: true },
+      select: { question: true, isCorrect: true },
     });
 
     const remaining = game.plannedQuestionCount - existingQuestions.length;
@@ -74,6 +74,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ gameId:
       language: game.language as Locale,
       amount: remaining,
       isGeography,
+      excludeTexts: existingQuestions.map((q) => q.question),
     });
 
     if (sourced.length === 0) {
