@@ -565,7 +565,9 @@
     "timeLeft": "Time left",
     "puzzleTitle": "Puzzle",
     "puzzleFinalTitle": "Your puzzle",
-    "puzzlePiecesRevealed": "{revealed}/{total} pieces revealed"
+    "puzzlePiecesRevealed": "{revealed}/{total} pieces revealed",
+    "puzzleCompleteTitle": "Puzzle completed!",
+    "puzzleCompleteLabel": "All pieces revealed"
   },
   "CuratedQuizzes": {
     "QuiEstLePeintre": {

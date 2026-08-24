@@ -509,13 +509,13 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
           </div>
         </motion.div>
 
-        {game.puzzleImageUrl && (
+        {game.puzzleImageUrl && revealedPuzzlePieces.size === totalQ && (
           <PuzzleReveal
             imageUrl={game.puzzleImageUrl}
             totalPieces={totalQ}
             revealedIndices={revealedPuzzlePieces}
-            title={t("puzzleFinalTitle")}
-            progressLabel={t("puzzlePiecesRevealed", { revealed: revealedPuzzlePieces.size, total: totalQ })}
+            title={t("puzzleCompleteTitle")}
+            progressLabel={t("puzzleCompleteLabel")}
           />
         )}
 
