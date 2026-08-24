@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
+import { getTranslations } from "next-intl/server";
 
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { isGeographyTopic } from "@/lib/geography";
+import { getCategoryBySlug } from "@/lib/categories";
 import { normalizeDifficulty, type Difficulty } from "@/lib/questionGeneration";
 import { sourceQuestions, incrementUsageCount } from "@/lib/questionSourcing";
 import { adjustDifficulty } from "@/lib/adaptiveDifficulty";
@@ -40,6 +42,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ gameId:
         difficulty: true,
         language: true,
         plannedQuestionCount: true,
+        categorySlug: true,
       },
     });
 
@@ -68,12 +71,31 @@ export async function POST(req: Request, { params }: { params: Promise<{ gameId:
     const nextDifficulty = adjustDifficulty(currentDifficulty, correctCount, answered.length);
     const isGeography = isGeographyTopic(game.topic);
 
+    // Same categoryName/countryScope resolution as api/game/route.ts's own
+    // block -- categorySlug is already persisted on Game at creation time,
+    // so this just re-derives the two values from it (never a fresh
+    // lookup). Without this, this batch's AI generation was missing the
+    // CRITICAL SCOPE CONSTRAINT the first batch got, e.g. a topic like "Les
+    // fleuves" under "La France" drifting to rivers anywhere in the world.
+    let categoryName: string | null = null;
+    let countryScope: string | null = null;
+    if (game.categorySlug) {
+      const category = getCategoryBySlug(game.categorySlug);
+      if (category) {
+        const t = await getTranslations({ locale: game.language as Locale, namespace: "Categories" });
+        categoryName = t(`${category.slug}.name`);
+        countryScope = category.countryScope ?? null;
+      }
+    }
+
     const { questions: sourced } = await sourceQuestions({
       topic: game.topic,
       difficulty: nextDifficulty,
       language: game.language as Locale,
       amount: remaining,
       isGeography,
+      categoryName,
+      countryScope,
       excludeTexts: existingQuestions.map((q) => q.question),
     });
 
