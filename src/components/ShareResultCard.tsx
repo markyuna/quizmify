@@ -4,12 +4,19 @@ import * as React from "react";
 import { useTranslations } from "next-intl";
 import { Flame, Sparkles, Trophy } from "lucide-react";
 
+import { cn } from "@/lib/utils";
+
 export type ShareResultCardProps = {
   topic: string;
   score: number;
   correctAnswers: number;
   totalQuestions: number;
   currentStreak: number;
+  // Only set when Puzzle Mode was played AND every question was answered
+  // correctly (the puzzle image is fully revealed) -- see the completeness
+  // check at the call site in MCQ.tsx. Anything else (no puzzle, or an
+  // incomplete one) passes null and the card renders exactly as before.
+  puzzleImageUrl?: string | null;
 };
 
 const CARD_WIDTH = 480;
@@ -21,9 +28,10 @@ const CARD_HEIGHT = 640;
  * off-screen to be rasterized, never shown directly in the page layout.
  */
 const ShareResultCard = React.forwardRef<HTMLDivElement, ShareResultCardProps>(
-  ({ topic, score, correctAnswers, totalQuestions, currentStreak }, ref) => {
+  ({ topic, score, correctAnswers, totalQuestions, currentStreak, puzzleImageUrl }, ref) => {
     const t = useTranslations("ShareResult");
     const scoreEmoji = score >= 80 ? "🏆" : score >= 50 ? "👍" : "💪";
+    const hasPuzzleImage = Boolean(puzzleImageUrl);
 
     // Topic is free text (up to 200 chars) -- shrink it for long names so it
     // wraps within 2 lines instead of relying on text-overflow: ellipsis,
@@ -55,19 +63,49 @@ const ShareResultCard = React.forwardRef<HTMLDivElement, ShareResultCardProps>(
         </div>
 
         <div className="text-center">
-          {/* Emoji glyphs render taller than a text line-height:1 box
-              accounts for, especially under html2canvas's own font metrics
-              -- the extra line-height here keeps that overflow from
-              crowding the score line below it. */}
-          <p className="text-7xl" style={{ lineHeight: 1.3 }}>
-            {scoreEmoji}
+          {hasPuzzleImage ? (
+            // Puzzle-complete layout: a large image block replaces the
+            // trophy emoji (fixed height, ~1/3 of the card, cropped to fit
+            // via object-fit rather than sized to the square DALL-E output),
+            // and everything below it uses tighter vertical spacing than
+            // the default layout so the card still fits 480x640 without
+            // overflow -- font sizes are untouched, only the gaps shrank.
+            <div
+              style={{
+                width: "100%",
+                height: 210,
+                borderRadius: 24,
+                overflow: "hidden",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element -- rasterized by html2canvas, not rendered by Next's image pipeline */}
+              <img
+                src={puzzleImageUrl ?? undefined}
+                alt=""
+                crossOrigin="anonymous"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
+          ) : (
+            // Emoji glyphs render taller than a text line-height:1 box
+            // accounts for, especially under html2canvas's own font metrics
+            // -- the extra line-height here keeps that overflow from
+            // crowding the score line below it.
+            <p className="text-7xl" style={{ lineHeight: 1.3 }}>
+              {scoreEmoji}
+            </p>
+          )}
+          <p className={cn("text-7xl font-black leading-none", hasPuzzleImage ? "mt-4" : "mt-6")}>
+            {score}%
           </p>
-          <p className="mt-6 text-7xl font-black leading-none">{score}%</p>
-          <p className="mt-5 text-lg font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>
+          <p
+            className={cn("text-lg font-semibold", hasPuzzleImage ? "mt-2" : "mt-5")}
+            style={{ color: "rgba(255,255,255,0.9)" }}
+          >
             {t("scoreCorrect", { correct: correctAnswers, total: totalQuestions })}
           </p>
           <p
-            className="mx-auto mt-4 font-semibold leading-snug"
+            className={cn("mx-auto font-semibold leading-snug", hasPuzzleImage ? "mt-2" : "mt-4")}
             style={{
               color: "rgba(255,255,255,0.75)",
               fontSize: topicFontSize,

@@ -37,7 +37,7 @@ export default function ShareResultButton({ compact = false, ...props }: ShareRe
   async function captureCanvas() {
     const { default: html2canvas } = await import("html2canvas");
     if (!cardRef.current) throw new Error("Share card not ready");
-    return html2canvas(cardRef.current, { scale: 2, backgroundColor: null });
+    return html2canvas(cardRef.current, { scale: 2, backgroundColor: null, useCORS: true });
   }
 
   async function handleDownload() {

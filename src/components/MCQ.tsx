@@ -652,6 +652,9 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
               correctAnswers={correctA}
               totalQuestions={totalQ}
               currentStreak={finalResult?.currentStreak ?? 0}
+              puzzleImageUrl={
+                game.puzzleImageUrl && revealedPuzzlePieces.size === totalQ ? game.puzzleImageUrl : null
+              }
             />
 
             {finalScore < 100 && (
