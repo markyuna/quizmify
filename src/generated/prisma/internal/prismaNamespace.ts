@@ -420,6 +420,7 @@ export const ModelName = {
   Referral: 'Referral',
   DailyGameChallenge: 'DailyGameChallenge',
   GuestAttempt: 'GuestAttempt',
+  UserDailyAttempt: 'UserDailyAttempt',
   PersonalityTestAttempt: 'PersonalityTestAttempt',
   CategoryTopic: 'CategoryTopic'
 } as const
@@ -437,7 +438,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "personalityTestAttempt" | "categoryTopic"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2143,6 +2144,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    UserDailyAttempt: {
+      payload: Prisma.$UserDailyAttemptPayload<ExtArgs>
+      fields: Prisma.UserDailyAttemptFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserDailyAttemptFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyAttemptPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserDailyAttemptFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyAttemptPayload>
+        }
+        findFirst: {
+          args: Prisma.UserDailyAttemptFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyAttemptPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserDailyAttemptFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyAttemptPayload>
+        }
+        findMany: {
+          args: Prisma.UserDailyAttemptFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyAttemptPayload>[]
+        }
+        create: {
+          args: Prisma.UserDailyAttemptCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyAttemptPayload>
+        }
+        createMany: {
+          args: Prisma.UserDailyAttemptCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserDailyAttemptCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyAttemptPayload>[]
+        }
+        delete: {
+          args: Prisma.UserDailyAttemptDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyAttemptPayload>
+        }
+        update: {
+          args: Prisma.UserDailyAttemptUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyAttemptPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserDailyAttemptDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserDailyAttemptUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserDailyAttemptUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyAttemptPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserDailyAttemptUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyAttemptPayload>
+        }
+        aggregate: {
+          args: Prisma.UserDailyAttemptAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserDailyAttempt>
+        }
+        groupBy: {
+          args: Prisma.UserDailyAttemptGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserDailyAttemptGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserDailyAttemptCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserDailyAttemptCountAggregateOutputType> | number
+        }
+      }
+    }
     PersonalityTestAttempt: {
       payload: Prisma.$PersonalityTestAttemptPayload<ExtArgs>
       fields: Prisma.PersonalityTestAttemptFieldRefs
@@ -2665,6 +2740,21 @@ export const GuestAttemptScalarFieldEnum = {
 export type GuestAttemptScalarFieldEnum = (typeof GuestAttemptScalarFieldEnum)[keyof typeof GuestAttemptScalarFieldEnum]
 
 
+export const UserDailyAttemptScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gameKey: 'gameKey',
+  date: 'date',
+  challengeId: 'challengeId',
+  guestAttemptId: 'guestAttemptId',
+  isCorrect: 'isCorrect',
+  xpEarned: 'xpEarned',
+  createdAt: 'createdAt'
+} as const
+
+export type UserDailyAttemptScalarFieldEnum = (typeof UserDailyAttemptScalarFieldEnum)[keyof typeof UserDailyAttemptScalarFieldEnum]
+
+
 export const PersonalityTestAttemptScalarFieldEnum = {
   id: 'id',
   testKey: 'testKey',
@@ -3100,6 +3190,7 @@ export type GlobalOmitConfig = {
   referral?: Prisma.ReferralOmit
   dailyGameChallenge?: Prisma.DailyGameChallengeOmit
   guestAttempt?: Prisma.GuestAttemptOmit
+  userDailyAttempt?: Prisma.UserDailyAttemptOmit
   personalityTestAttempt?: Prisma.PersonalityTestAttemptOmit
   categoryTopic?: Prisma.CategoryTopicOmit
 }

@@ -74,6 +74,7 @@ export const ModelName = {
   Referral: 'Referral',
   DailyGameChallenge: 'DailyGameChallenge',
   GuestAttempt: 'GuestAttempt',
+  UserDailyAttempt: 'UserDailyAttempt',
   PersonalityTestAttempt: 'PersonalityTestAttempt',
   CategoryTopic: 'CategoryTopic'
 } as const
@@ -427,6 +428,21 @@ export const GuestAttemptScalarFieldEnum = {
 } as const
 
 export type GuestAttemptScalarFieldEnum = (typeof GuestAttemptScalarFieldEnum)[keyof typeof GuestAttemptScalarFieldEnum]
+
+
+export const UserDailyAttemptScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gameKey: 'gameKey',
+  date: 'date',
+  challengeId: 'challengeId',
+  guestAttemptId: 'guestAttemptId',
+  isCorrect: 'isCorrect',
+  xpEarned: 'xpEarned',
+  createdAt: 'createdAt'
+} as const
+
+export type UserDailyAttemptScalarFieldEnum = (typeof UserDailyAttemptScalarFieldEnum)[keyof typeof UserDailyAttemptScalarFieldEnum]
 
 
 export const PersonalityTestAttemptScalarFieldEnum = {

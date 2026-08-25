@@ -157,6 +157,11 @@ export type DailyGameChallenge = Prisma.DailyGameChallengeModel
  */
 export type GuestAttempt = Prisma.GuestAttemptModel
 /**
+ * Model UserDailyAttempt
+ * 
+ */
+export type UserDailyAttempt = Prisma.UserDailyAttemptModel
+/**
  * Model PersonalityTestAttempt
  * 
  */

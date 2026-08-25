@@ -38,45 +38,45 @@ model Session {
 }
 
 model User {
-  id                     String                  @id @default(cuid())
-  name                   String?
-  email                  String?                 @unique
-  emailVerified          DateTime?
-  image                  String?
-  password               String?
-  createdAt              DateTime                @default(now())
-  updatedAt              DateTime                @updatedAt
-  subscriptionStatus     String                  @default("free")
-  stripeCustomerId       String?
-  stripePaymentId        String?                 @unique
-  xp                     Int                     @default(0)
-  level                  Int                     @default(1)
-  currentStreak          Int                     @default(0)
-  longestStreak          Int                     @default(0)
-  lastQuizDate           DateTime?
-  streakProtectionsUsed  Int                     @default(0)
-  streakProtectionMonth  String?
+  id                             String                         @id @default(cuid())
+  name                           String?
+  email                          String?                        @unique
+  emailVerified                  DateTime?
+  image                          String?
+  password                       String?
+  createdAt                      DateTime                       @default(now())
+  updatedAt                      DateTime                       @updatedAt
+  subscriptionStatus             String                         @default("free")
+  stripeCustomerId               String?
+  stripePaymentId                String?                        @unique
+  xp                             Int                            @default(0)
+  level                          Int                            @default(1)
+  currentStreak                  Int                            @default(0)
+  longestStreak                  Int                            @default(0)
+  lastQuizDate                   DateTime?
+  streakProtectionsUsed          Int                            @default(0)
+  streakProtectionMonth          String?
   // IANA timezone (e.g. "America/Argentina/Buenos_Aires"), captured
   // client-side on login -- see TimezoneSync.tsx. Null until the user's
   // browser has reported it at least once; notification scheduling treats
   // that as "unknown, send anyway" rather than skipping them.
-  timezone               String?
+  timezone                       String?
   // Temporary Pro access granted by referrals or the free trial, additive
   // to (never a substitute for) a real paid subscriptionStatus="pro". See
   // isEffectivelyPro() in src/lib/paywall.ts -- the single source of truth
   // for every Pro gate in the app.
-  premiumUntil           DateTime?
+  premiumUntil                   DateTime?
   // Set once, the first time the free trial is activated -- distinct from
   // premiumUntil so "already used the trial" stays true even after it
   // expires and premiumUntil is in the past.
-  freeTrialUsedAt        DateTime?
+  freeTrialUsedAt                DateTime?
   // References an id in the hardcoded catalog in src/lib/avatarSkins.ts,
   // not a DB table -- same "visuals live in code, not the database" idiom
   // already used for avatar tiers and trophy shapes. Selection persists
   // even if Pro lapses; only *applying* it visually is gated on isPro at
   // read time (see dashboard/page.tsx), so it comes right back if they
   // resubscribe.
-  selectedSkinId         String?
+  selectedSkinId                 String?
   // The permanently-assigned "Quel animal es-tu?" result once claimed as
   // official (see PersonalityTestAttempt.isOfficial). Validated against
   // AnimalKey in src/lib/personalityTests/quelAnimalEsTu.config.ts rather
@@ -84,59 +84,60 @@ model User {
   // PersonalityTestAttempt.resultKey. Set once and never overwritten:
   // /api/personality-tests/[testKey]/submit rejects a new attempt for a
   // user who already has one.
-  personalityAnimal      String?
+  personalityAnimal              String?
   // Set alongside personalityAnimal, in the same write -- null exactly
   // when personalityAnimal is null.
-  personalityAnimalSetAt DateTime?
-  accounts               Account[]
-  sessions               Session[]
-  games                  Game[]
-  attempts               Attempt[]
-  questionProgress       UserQuestionProgress[]
-  trophies               Trophy[]
-  certificates           Certificate[]
-  topicRecommendations   TopicRecommendation[]
-  dailyChallengeAttempts DailyChallengeAttempt[]
-  notificationPreference NotificationPreference?
-  notificationLogs       NotificationLog[]
-  friendshipsSent        Friendship[]            @relation("FriendshipRequester")
-  friendshipsReceived    Friendship[]            @relation("FriendshipAddressee")
-  referralsMade          Referral[]              @relation("ReferralsMade")
-  referralReceived       Referral?               @relation("ReferralReceived")
-  guestAttemptsClaimed   GuestAttempt[]
+  personalityAnimalSetAt         DateTime?
+  accounts                       Account[]
+  sessions                       Session[]
+  games                          Game[]
+  attempts                       Attempt[]
+  questionProgress               UserQuestionProgress[]
+  trophies                       Trophy[]
+  certificates                   Certificate[]
+  topicRecommendations           TopicRecommendation[]
+  dailyChallengeAttempts         DailyChallengeAttempt[]
+  notificationPreference         NotificationPreference?
+  notificationLogs               NotificationLog[]
+  friendshipsSent                Friendship[]                   @relation("FriendshipRequester")
+  friendshipsReceived            Friendship[]                   @relation("FriendshipAddressee")
+  referralsMade                  Referral[]                     @relation("ReferralsMade")
+  referralReceived               Referral?                      @relation("ReferralReceived")
+  guestAttemptsClaimed           GuestAttempt[]
+  dailyAttempts                  UserDailyAttempt[]
   personalityTestAttemptsClaimed PersonalityTestAttempt[]
-  curatedQuizCompletions CuratedQuizCompletion[]
-  categoryRecommendation CategoryRecommendationMascota?
+  curatedQuizCompletions         CuratedQuizCompletion[]
+  categoryRecommendation         CategoryRecommendationMascota?
 
   @@index([xp])
 }
 
 model Game {
-  id                 String     @id @default(cuid())
-  gameType           GameType
-  timeStarted        DateTime   @default(now())
-  timeEnded          DateTime?
-  topic              String
-  difficulty         String?
-  language           String     @default("en")
+  id                   String     @id @default(cuid())
+  gameType             GameType
+  timeStarted          DateTime   @default(now())
+  timeEnded            DateTime?
+  topic                String
+  difficulty           String?
+  language             String     @default("en")
   // Nullable to support guest-played quizzes (see src/app/api/game/route.ts):
   // exactly one of userId/guestId is set. userId is set for real users, and
   // gets backfilled onto a guest's game by /api/guest/claim-quiz the moment
   // they register -- guestId is left in place after that purely as a claim
   // audit trail, never re-read for access control once claimedAt is set.
-  userId             String?
+  userId               String?
   // Opaque id from the quizmify_guest cookie (same non-PII partition-key
   // pattern as GuestAttempt.guestId in guestPlay.ts). Set only while a game
   // has no owning account yet.
-  guestId            String?
+  guestId              String?
   // Set once, the first time a guest's game is migrated onto a real account
   // by /api/guest/claim-quiz -- null means "still guest-owned, or always was
   // a real user's game." Never re-applied once set (mirrors
   // GuestAttempt.claimedByUserId/claimedAt).
-  claimedAt          DateTime?
-  score              Int        @default(0)
-  isTimed            Boolean    @default(false)
-  timePerQuestionSec Int?
+  claimedAt            DateTime?
+  score                Int        @default(0)
+  isTimed              Boolean    @default(false)
+  timePerQuestionSec   Int?
   // Set only for quizzes long enough to split into two adaptive-difficulty
   // batches (see src/lib/adaptiveDifficulty.ts). Null means "generated
   // upfront as one batch, no adaptation" -- the pre-existing behavior for
@@ -148,7 +149,7 @@ model Game {
   // (OpenAI's own URLs expire after about an hour). Its presence is what
   // drives rendering the jigsaw reveal in MCQ.tsx -- there's no separate
   // boolean, since a game either has a puzzle image or it doesn't.
-  puzzleImageUrl     String?
+  puzzleImageUrl       String?
   // Set at creation time (POST /api/game) when the player already knew --
   // explicitly picked, or inherited from a category catalog page -- which
   // category this topic belongs to. Validated against CATEGORIES in
@@ -157,11 +158,11 @@ model Game {
   // CategoryTopic row -- deliberately not re-trusted from the client at
   // submit time, so a hidden category selector (see QuizCreation.tsx) can't
   // be worked around by tampering with the submit request.
-  categorySlug       String?
-  user               User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  questions          Question[]
-  attempts           Attempt[]
-  trophies           Trophy[]
+  categorySlug         String?
+  user                 User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  questions            Question[]
+  attempts             Attempt[]
+  trophies             Trophy[]
 
   @@index([userId])
   @@index([userId, timeStarted])
@@ -444,12 +445,12 @@ model DailyChallengeAttempt {
 }
 
 model NotificationPreference {
-  id                   String   @id @default(cuid())
-  userId               String   @unique
-  streakReminderEmail  Boolean  @default(true)
-  dailyChallengeEmail  Boolean  @default(true)
-  weeklySummaryEmail   Boolean  @default(true)
-  updatedAt            DateTime @updatedAt
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  streakReminderEmail Boolean  @default(true)
+  dailyChallengeEmail Boolean  @default(true)
+  weeklySummaryEmail  Boolean  @default(true)
+  updatedAt           DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -540,7 +541,8 @@ model DailyGameChallenge {
   payload   Json
   createdAt DateTime     @default(now())
 
-  attempts GuestAttempt[]
+  attempts     GuestAttempt[]
+  userAttempts UserDailyAttempt[]
 
   @@unique([gameKey, date, language])
   @@index([gameKey, date])
@@ -567,14 +569,59 @@ model GuestAttempt {
   claimedAt       DateTime?
   createdAt       DateTime     @default(now())
 
-  challenge DailyGameChallenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
-  claimedBy User?              @relation(fields: [claimedByUserId], references: [id], onDelete: SetNull)
+  challenge        DailyGameChallenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  claimedBy        User?              @relation(fields: [claimedByUserId], references: [id], onDelete: SetNull)
+  // Set only on the one GuestAttempt (across possibly several guestIds/
+  // languages for the same userId+gameKey+day) that actually won the
+  // UserDailyAttempt race -- see that model's own comment. A claimed
+  // GuestAttempt with no userDailyAttempt is a same-day duplicate that got
+  // claimedByUserId set for audit purposes but was never credited.
+  userDailyAttempt UserDailyAttempt?
 
   // One attempt per guest per game per day -- mirrors the
-  // [dailyChallengeId, userId] guard on DailyChallengeAttempt.
+  // [dailyChallengeId, userId] guard on DailyChallengeAttempt. This is a
+  // per-guestId guard only -- UserDailyAttempt is the per-userId one,
+  // independent of which guestId/language produced the winning attempt.
   @@unique([challengeId, guestId])
   @@index([guestId])
   @@index([claimedByUserId])
+}
+
+// Ledger of "one attempt per user, per game, per calendar day" for the 3
+// guest games (word_of_day/photo_of_day/math_target) once played by an
+// authenticated account -- the real fix for the guestId-based guard above
+// only ever knowing about the current browser's cookie, never the actual
+// account (see the investigation that led here: a Pro user could replay a
+// daily game and double-earn XP just by switching device/clearing the
+// cookie while still logged in). Doesn't duplicate the graded result --
+// guestAttemptId points at whichever GuestAttempt actually won the day,
+// same content as always lived there. GuestAttempt itself is untouched:
+// still the per-guestId tracking and the only place resultPayload lives.
+model UserDailyAttempt {
+  id             String       @id @default(cuid())
+  userId         String
+  gameKey        GuestGameKey
+  // UTC calendar day "YYYY-MM-DD" -- same format/timezone as
+  // DailyGameChallenge.date and GuestAttempt.date (getTodayDateKey()).
+  // Deliberately not keyed by language/challengeId: the guard is "one per
+  // day regardless of which language you played it in" -- see the
+  // colateral finding in the investigation this table closes.
+  date           String
+  // Denormalized from guestAttempt.challengeId -- same convenience
+  // pattern GuestAttempt itself already uses for date/gameKey.
+  challengeId    String
+  guestAttemptId String       @unique
+  isCorrect      Boolean
+  xpEarned       Int
+  createdAt      DateTime     @default(now())
+
+  user         User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  challenge    DailyGameChallenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  guestAttempt GuestAttempt       @relation(fields: [guestAttemptId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, gameKey, date])
+  @@index([userId])
+  @@index([challengeId])
 }
 
 // Personality tests are evergreen content (not date-rotated like the 3
@@ -646,32 +693,32 @@ model PersonalityTestAttempt {
 // computed at read time from Game.topic + Game.timeEnded (see
 // src/lib/categoryTopics.ts), so there's nothing here to desync.
 model CategoryTopic {
-  id              String    @id @default(cuid())
+  id               String   @id @default(cuid())
   // Validated against CATEGORIES in src/lib/categories.ts at write time, not
   // a Prisma enum -- categories are edited in code, not via migration.
-  categorySlug    String
+  categorySlug     String
   // The creator's original text, shown on the catalog card.
-  topicDisplay    String
+  topicDisplay     String
   // normalizeTopic(topicDisplay) -- same function /api/game/route.ts already
   // runs on Game.topic before saving, so the two are directly comparable
   // without re-normalizing at read time. Case-sensitive (normalizeTopic only
   // trims/collapses whitespace), so this is the dedup key, not a perfect one.
-  topicNormalized String
+  topicNormalized  String
   // Same format/default as Game.language -- the language the topic was
   // actually played/created in. Part of the uniqueness key: the same topic
   // played for the first time in a different language gets its own native
   // row rather than overwriting this one. The default is a push-time safety
   // net only (same as Game.language) -- every insert already passes
   // language explicitly, see /api/quiz/submit/route.ts.
-  language        String    @default("fr")
+  language         String   @default("fr")
   // The difficulty of the Game that created this entry -- never recomputed
   // from later plays of the same topic.
-  difficulty      String
-  createdAt       DateTime  @default(now())
+  difficulty       String
+  createdAt        DateTime @default(now())
   // Manual moderation switch for a future admin tool -- nothing sets this
   // yet.
-  hidden          Boolean   @default(false)
-  createdByGameId String?
+  hidden           Boolean  @default(false)
+  createdByGameId  String?
   // Lazily-filled cache of { [language]: translatedLabel }, populated only
   // when getCategoryTopics() has to borrow this row to pad out a thin
   // native-language result set for another locale (see

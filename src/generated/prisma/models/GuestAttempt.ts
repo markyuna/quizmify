@@ -262,6 +262,7 @@ export type GuestAttemptWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"GuestAttempt"> | Date | string
   challenge?: Prisma.XOR<Prisma.DailyGameChallengeScalarRelationFilter, Prisma.DailyGameChallengeWhereInput>
   claimedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  userDailyAttempt?: Prisma.XOR<Prisma.UserDailyAttemptNullableScalarRelationFilter, Prisma.UserDailyAttemptWhereInput> | null
 }
 
 export type GuestAttemptOrderByWithRelationInput = {
@@ -278,6 +279,7 @@ export type GuestAttemptOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   challenge?: Prisma.DailyGameChallengeOrderByWithRelationInput
   claimedBy?: Prisma.UserOrderByWithRelationInput
+  userDailyAttempt?: Prisma.UserDailyAttemptOrderByWithRelationInput
 }
 
 export type GuestAttemptWhereUniqueInput = Prisma.AtLeast<{
@@ -298,6 +300,7 @@ export type GuestAttemptWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"GuestAttempt"> | Date | string
   challenge?: Prisma.XOR<Prisma.DailyGameChallengeScalarRelationFilter, Prisma.DailyGameChallengeWhereInput>
   claimedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  userDailyAttempt?: Prisma.XOR<Prisma.UserDailyAttemptNullableScalarRelationFilter, Prisma.UserDailyAttemptWhereInput> | null
 }, "id" | "challengeId_guestId">
 
 export type GuestAttemptOrderByWithAggregationInput = {
@@ -348,6 +351,7 @@ export type GuestAttemptCreateInput = {
   createdAt?: Date | string
   challenge: Prisma.DailyGameChallengeCreateNestedOneWithoutAttemptsInput
   claimedBy?: Prisma.UserCreateNestedOneWithoutGuestAttemptsClaimedInput
+  userDailyAttempt?: Prisma.UserDailyAttemptCreateNestedOneWithoutGuestAttemptInput
 }
 
 export type GuestAttemptUncheckedCreateInput = {
@@ -362,6 +366,7 @@ export type GuestAttemptUncheckedCreateInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   createdAt?: Date | string
+  userDailyAttempt?: Prisma.UserDailyAttemptUncheckedCreateNestedOneWithoutGuestAttemptInput
 }
 
 export type GuestAttemptUpdateInput = {
@@ -376,6 +381,7 @@ export type GuestAttemptUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenge?: Prisma.DailyGameChallengeUpdateOneRequiredWithoutAttemptsNestedInput
   claimedBy?: Prisma.UserUpdateOneWithoutGuestAttemptsClaimedNestedInput
+  userDailyAttempt?: Prisma.UserDailyAttemptUpdateOneWithoutGuestAttemptNestedInput
 }
 
 export type GuestAttemptUncheckedUpdateInput = {
@@ -390,6 +396,7 @@ export type GuestAttemptUncheckedUpdateInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userDailyAttempt?: Prisma.UserDailyAttemptUncheckedUpdateOneWithoutGuestAttemptNestedInput
 }
 
 export type GuestAttemptCreateManyInput = {
@@ -495,6 +502,11 @@ export type GuestAttemptSumOrderByAggregateInput = {
   xpEarned?: Prisma.SortOrder
 }
 
+export type GuestAttemptScalarRelationFilter = {
+  is?: Prisma.GuestAttemptWhereInput
+  isNot?: Prisma.GuestAttemptWhereInput
+}
+
 export type GuestAttemptCreateNestedManyWithoutClaimedByInput = {
   create?: Prisma.XOR<Prisma.GuestAttemptCreateWithoutClaimedByInput, Prisma.GuestAttemptUncheckedCreateWithoutClaimedByInput> | Prisma.GuestAttemptCreateWithoutClaimedByInput[] | Prisma.GuestAttemptUncheckedCreateWithoutClaimedByInput[]
   connectOrCreate?: Prisma.GuestAttemptCreateOrConnectWithoutClaimedByInput | Prisma.GuestAttemptCreateOrConnectWithoutClaimedByInput[]
@@ -579,6 +591,20 @@ export type GuestAttemptUncheckedUpdateManyWithoutChallengeNestedInput = {
   deleteMany?: Prisma.GuestAttemptScalarWhereInput | Prisma.GuestAttemptScalarWhereInput[]
 }
 
+export type GuestAttemptCreateNestedOneWithoutUserDailyAttemptInput = {
+  create?: Prisma.XOR<Prisma.GuestAttemptCreateWithoutUserDailyAttemptInput, Prisma.GuestAttemptUncheckedCreateWithoutUserDailyAttemptInput>
+  connectOrCreate?: Prisma.GuestAttemptCreateOrConnectWithoutUserDailyAttemptInput
+  connect?: Prisma.GuestAttemptWhereUniqueInput
+}
+
+export type GuestAttemptUpdateOneRequiredWithoutUserDailyAttemptNestedInput = {
+  create?: Prisma.XOR<Prisma.GuestAttemptCreateWithoutUserDailyAttemptInput, Prisma.GuestAttemptUncheckedCreateWithoutUserDailyAttemptInput>
+  connectOrCreate?: Prisma.GuestAttemptCreateOrConnectWithoutUserDailyAttemptInput
+  upsert?: Prisma.GuestAttemptUpsertWithoutUserDailyAttemptInput
+  connect?: Prisma.GuestAttemptWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuestAttemptUpdateToOneWithWhereWithoutUserDailyAttemptInput, Prisma.GuestAttemptUpdateWithoutUserDailyAttemptInput>, Prisma.GuestAttemptUncheckedUpdateWithoutUserDailyAttemptInput>
+}
+
 export type GuestAttemptCreateWithoutClaimedByInput = {
   id?: string
   gameKey: $Enums.GuestGameKey
@@ -590,6 +616,7 @@ export type GuestAttemptCreateWithoutClaimedByInput = {
   claimedAt?: Date | string | null
   createdAt?: Date | string
   challenge: Prisma.DailyGameChallengeCreateNestedOneWithoutAttemptsInput
+  userDailyAttempt?: Prisma.UserDailyAttemptCreateNestedOneWithoutGuestAttemptInput
 }
 
 export type GuestAttemptUncheckedCreateWithoutClaimedByInput = {
@@ -603,6 +630,7 @@ export type GuestAttemptUncheckedCreateWithoutClaimedByInput = {
   xpEarned: number
   claimedAt?: Date | string | null
   createdAt?: Date | string
+  userDailyAttempt?: Prisma.UserDailyAttemptUncheckedCreateNestedOneWithoutGuestAttemptInput
 }
 
 export type GuestAttemptCreateOrConnectWithoutClaimedByInput = {
@@ -659,6 +687,7 @@ export type GuestAttemptCreateWithoutChallengeInput = {
   claimedAt?: Date | string | null
   createdAt?: Date | string
   claimedBy?: Prisma.UserCreateNestedOneWithoutGuestAttemptsClaimedInput
+  userDailyAttempt?: Prisma.UserDailyAttemptCreateNestedOneWithoutGuestAttemptInput
 }
 
 export type GuestAttemptUncheckedCreateWithoutChallengeInput = {
@@ -672,6 +701,7 @@ export type GuestAttemptUncheckedCreateWithoutChallengeInput = {
   claimedByUserId?: string | null
   claimedAt?: Date | string | null
   createdAt?: Date | string
+  userDailyAttempt?: Prisma.UserDailyAttemptUncheckedCreateNestedOneWithoutGuestAttemptInput
 }
 
 export type GuestAttemptCreateOrConnectWithoutChallengeInput = {
@@ -700,6 +730,78 @@ export type GuestAttemptUpdateManyWithWhereWithoutChallengeInput = {
   data: Prisma.XOR<Prisma.GuestAttemptUpdateManyMutationInput, Prisma.GuestAttemptUncheckedUpdateManyWithoutChallengeInput>
 }
 
+export type GuestAttemptCreateWithoutUserDailyAttemptInput = {
+  id?: string
+  gameKey: $Enums.GuestGameKey
+  date: string
+  guestId: string
+  resultPayload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isCorrect: boolean
+  xpEarned: number
+  claimedAt?: Date | string | null
+  createdAt?: Date | string
+  challenge: Prisma.DailyGameChallengeCreateNestedOneWithoutAttemptsInput
+  claimedBy?: Prisma.UserCreateNestedOneWithoutGuestAttemptsClaimedInput
+}
+
+export type GuestAttemptUncheckedCreateWithoutUserDailyAttemptInput = {
+  id?: string
+  challengeId: string
+  gameKey: $Enums.GuestGameKey
+  date: string
+  guestId: string
+  resultPayload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isCorrect: boolean
+  xpEarned: number
+  claimedByUserId?: string | null
+  claimedAt?: Date | string | null
+  createdAt?: Date | string
+}
+
+export type GuestAttemptCreateOrConnectWithoutUserDailyAttemptInput = {
+  where: Prisma.GuestAttemptWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuestAttemptCreateWithoutUserDailyAttemptInput, Prisma.GuestAttemptUncheckedCreateWithoutUserDailyAttemptInput>
+}
+
+export type GuestAttemptUpsertWithoutUserDailyAttemptInput = {
+  update: Prisma.XOR<Prisma.GuestAttemptUpdateWithoutUserDailyAttemptInput, Prisma.GuestAttemptUncheckedUpdateWithoutUserDailyAttemptInput>
+  create: Prisma.XOR<Prisma.GuestAttemptCreateWithoutUserDailyAttemptInput, Prisma.GuestAttemptUncheckedCreateWithoutUserDailyAttemptInput>
+  where?: Prisma.GuestAttemptWhereInput
+}
+
+export type GuestAttemptUpdateToOneWithWhereWithoutUserDailyAttemptInput = {
+  where?: Prisma.GuestAttemptWhereInput
+  data: Prisma.XOR<Prisma.GuestAttemptUpdateWithoutUserDailyAttemptInput, Prisma.GuestAttemptUncheckedUpdateWithoutUserDailyAttemptInput>
+}
+
+export type GuestAttemptUpdateWithoutUserDailyAttemptInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  gameKey?: Prisma.EnumGuestGameKeyFieldUpdateOperationsInput | $Enums.GuestGameKey
+  date?: Prisma.StringFieldUpdateOperationsInput | string
+  guestId?: Prisma.StringFieldUpdateOperationsInput | string
+  resultPayload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpEarned?: Prisma.IntFieldUpdateOperationsInput | number
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  challenge?: Prisma.DailyGameChallengeUpdateOneRequiredWithoutAttemptsNestedInput
+  claimedBy?: Prisma.UserUpdateOneWithoutGuestAttemptsClaimedNestedInput
+}
+
+export type GuestAttemptUncheckedUpdateWithoutUserDailyAttemptInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  challengeId?: Prisma.StringFieldUpdateOperationsInput | string
+  gameKey?: Prisma.EnumGuestGameKeyFieldUpdateOperationsInput | $Enums.GuestGameKey
+  date?: Prisma.StringFieldUpdateOperationsInput | string
+  guestId?: Prisma.StringFieldUpdateOperationsInput | string
+  resultPayload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpEarned?: Prisma.IntFieldUpdateOperationsInput | number
+  claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type GuestAttemptCreateManyClaimedByInput = {
   id?: string
   challengeId: string
@@ -724,6 +826,7 @@ export type GuestAttemptUpdateWithoutClaimedByInput = {
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenge?: Prisma.DailyGameChallengeUpdateOneRequiredWithoutAttemptsNestedInput
+  userDailyAttempt?: Prisma.UserDailyAttemptUpdateOneWithoutGuestAttemptNestedInput
 }
 
 export type GuestAttemptUncheckedUpdateWithoutClaimedByInput = {
@@ -737,6 +840,7 @@ export type GuestAttemptUncheckedUpdateWithoutClaimedByInput = {
   xpEarned?: Prisma.IntFieldUpdateOperationsInput | number
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userDailyAttempt?: Prisma.UserDailyAttemptUncheckedUpdateOneWithoutGuestAttemptNestedInput
 }
 
 export type GuestAttemptUncheckedUpdateManyWithoutClaimedByInput = {
@@ -776,6 +880,7 @@ export type GuestAttemptUpdateWithoutChallengeInput = {
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   claimedBy?: Prisma.UserUpdateOneWithoutGuestAttemptsClaimedNestedInput
+  userDailyAttempt?: Prisma.UserDailyAttemptUpdateOneWithoutGuestAttemptNestedInput
 }
 
 export type GuestAttemptUncheckedUpdateWithoutChallengeInput = {
@@ -789,6 +894,7 @@ export type GuestAttemptUncheckedUpdateWithoutChallengeInput = {
   claimedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   claimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userDailyAttempt?: Prisma.UserDailyAttemptUncheckedUpdateOneWithoutGuestAttemptNestedInput
 }
 
 export type GuestAttemptUncheckedUpdateManyWithoutChallengeInput = {
@@ -820,6 +926,7 @@ export type GuestAttemptSelect<ExtArgs extends runtime.Types.Extensions.Internal
   createdAt?: boolean
   challenge?: boolean | Prisma.DailyGameChallengeDefaultArgs<ExtArgs>
   claimedBy?: boolean | Prisma.GuestAttempt$claimedByArgs<ExtArgs>
+  userDailyAttempt?: boolean | Prisma.GuestAttempt$userDailyAttemptArgs<ExtArgs>
 }, ExtArgs["result"]["guestAttempt"]>
 
 export type GuestAttemptSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -872,6 +979,7 @@ export type GuestAttemptOmit<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type GuestAttemptInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   challenge?: boolean | Prisma.DailyGameChallengeDefaultArgs<ExtArgs>
   claimedBy?: boolean | Prisma.GuestAttempt$claimedByArgs<ExtArgs>
+  userDailyAttempt?: boolean | Prisma.GuestAttempt$userDailyAttemptArgs<ExtArgs>
 }
 export type GuestAttemptIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   challenge?: boolean | Prisma.DailyGameChallengeDefaultArgs<ExtArgs>
@@ -887,6 +995,7 @@ export type $GuestAttemptPayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {
     challenge: Prisma.$DailyGameChallengePayload<ExtArgs>
     claimedBy: Prisma.$UserPayload<ExtArgs> | null
+    userDailyAttempt: Prisma.$UserDailyAttemptPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1296,6 +1405,7 @@ export interface Prisma__GuestAttemptClient<T, Null = never, ExtArgs extends run
   readonly [Symbol.toStringTag]: "PrismaPromise"
   challenge<T extends Prisma.DailyGameChallengeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DailyGameChallengeDefaultArgs<ExtArgs>>): Prisma.Prisma__DailyGameChallengeClient<runtime.Types.Result.GetResult<Prisma.$DailyGameChallengePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   claimedBy<T extends Prisma.GuestAttempt$claimedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuestAttempt$claimedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  userDailyAttempt<T extends Prisma.GuestAttempt$userDailyAttemptArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuestAttempt$userDailyAttemptArgs<ExtArgs>>): Prisma.Prisma__UserDailyAttemptClient<runtime.Types.Result.GetResult<Prisma.$UserDailyAttemptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1753,6 +1863,25 @@ export type GuestAttempt$claimedByArgs<ExtArgs extends runtime.Types.Extensions.
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * GuestAttempt.userDailyAttempt
+ */
+export type GuestAttempt$userDailyAttemptArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserDailyAttempt
+   */
+  select?: Prisma.UserDailyAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserDailyAttempt
+   */
+  omit?: Prisma.UserDailyAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserDailyAttemptInclude<ExtArgs> | null
+  where?: Prisma.UserDailyAttemptWhereInput
 }
 
 /**
