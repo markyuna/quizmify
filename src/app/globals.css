@@ -59,6 +59,9 @@ body {
   --animate-badge-glow: badge-glow 2.4s ease-in-out infinite;
   --animate-thinking-dot: thinking-dot 1.2s ease-in-out infinite;
   --animate-tear-drop: tear-drop 2.6s ease-in-out infinite;
+  --animate-mascot-lean-right: mascot-lean-right 1.6s ease-in-out infinite;
+  --animate-mascot-tap: mascot-tap 6s ease-in-out infinite;
+  --animate-mascot-ripple: mascot-ripple 6s ease-out infinite;
 }
 
 @keyframes shimmer {
@@ -184,5 +187,52 @@ body {
   100% {
     opacity: 0;
     transform: translateY(14px);
+  }
+}
+
+@keyframes mascot-lean-right {
+  0%,
+  100% {
+    transform: rotate(4deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+}
+
+@keyframes mascot-tap {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  4% {
+    transform: translateX(6px);
+  }
+  8% {
+    transform: translateX(0);
+  }
+  12% {
+    transform: translateX(6px);
+  }
+  16% {
+    transform: translateX(0);
+  }
+  /* 16%-100%: still -- the long pause between attempts. */
+}
+
+@keyframes mascot-ripple {
+  0%,
+  3%,
+  100% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  6% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  16% {
+    opacity: 0;
+    transform: scale(1.8);
   }
 }

@@ -7,31 +7,41 @@ import { cn } from "@/lib/utils";
 type HeroMascotProps = {
   thinking: boolean;
   notFound: boolean;
+  attention: boolean;
   className?: string;
 };
 
-type MascotPose = "idle" | "thinking" | "notFound";
+type MascotPose = "idle" | "thinking" | "notFound" | "attention";
 
 // Head/eye-row/torso anchor points below are hand-tuned to the 220x260
 // viewBox -- keep transform-origin values in sync with the shapes if the
 // SVG geometry ever changes.
-export default function HeroMascot({ thinking, notFound, className }: HeroMascotProps) {
+export default function HeroMascot({ thinking, notFound, attention, className }: HeroMascotProps) {
   const t = useTranslations("GuestGames");
 
   // Derived once so no element can ever render a combination its caller
-  // didn't intend (e.g. both thinking and notFound true at once) --
-  // notFound wins if somehow both are set.
-  const pose: MascotPose = notFound ? "notFound" : thinking ? "thinking" : "idle";
+  // didn't intend (e.g. attention and notFound both true at once) --
+  // notFound wins over thinking, which wins over attention.
+  const pose: MascotPose = notFound ? "notFound" : thinking ? "thinking" : attention ? "attention" : "idle";
 
   return (
     <div
       className={cn(
         "relative aspect-[220/260] origin-bottom",
-        pose === "notFound" ? "animate-mascot-sway-subtle" : "animate-mascot-sway",
+        pose === "notFound"
+          ? "animate-mascot-sway-subtle"
+          : pose === "attention"
+            ? "animate-mascot-lean-right"
+            : "animate-mascot-sway",
         className
       )}
     >
-      <svg viewBox="0 0 220 260" className="h-full w-full" aria-hidden="true">
+      {/* overflow-visible: lets the attention-pose arm/hand reach past the
+          viewBox's right edge without being clipped, without having to
+          widen the viewBox itself (which would shift every %-based overlay
+          below -- the AI badge, thinking bubble -- off the head/torso they're
+          centered on). */}
+      <svg viewBox="0 0 220 260" className="h-full w-full overflow-visible" aria-hidden="true">
         {/* Torso -- top edge deliberately overlaps the head circle (which is
             painted after this, on top) so the two shapes read as one body
             instead of a snowman with a visible neck seam. */}
@@ -164,6 +174,52 @@ export default function HeroMascot({ thinking, notFound, className }: HeroMascot
               strokeLinecap="round"
             />
           </g>
+        </g>
+
+        {/* Attention: arm reaches for the card's edge and taps twice, with
+            a ripple pair at the contact point. Always mounted, opacity-
+            toggled like the sad-face group above -- the tap/ripple keyframes
+            keep running underneath even while hidden, which is cheaper than
+            gating each one's animation class on top of the group opacity. */}
+        <g
+          className={cn(
+            "transition-opacity duration-500",
+            pose === "attention" ? "opacity-100" : "opacity-0"
+          )}
+        >
+          <g className="animate-mascot-tap">
+            <line
+              x1="172"
+              y1="185"
+              x2="212"
+              y2="165"
+              className="stroke-violet-400 dark:stroke-violet-500"
+              strokeWidth="8"
+              strokeLinecap="round"
+            />
+            <circle
+              cx="212"
+              cy="165"
+              r="9"
+              className="fill-violet-200 stroke-violet-400 dark:fill-violet-800 dark:stroke-violet-500"
+              strokeWidth="2"
+            />
+          </g>
+          <circle
+            cx="212"
+            cy="165"
+            r="12"
+            className="animate-mascot-ripple fill-none stroke-cyan-400 dark:stroke-cyan-300"
+            strokeWidth="2"
+          />
+          <circle
+            cx="212"
+            cy="165"
+            r="12"
+            className="animate-mascot-ripple fill-none stroke-cyan-400 dark:stroke-cyan-300"
+            strokeWidth="2"
+            style={{ animationDelay: "0.35s" }}
+          />
         </g>
       </svg>
 

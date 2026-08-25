@@ -20,6 +20,12 @@ const THINKING_IDLE_MS = 1000;
 // Typeahead debounce -- short enough to feel live, long enough not to hit
 // the search endpoint on every keystroke while the user is still typing.
 const SUGGESTIONS_DEBOUNCE_MS = 275;
+// How long with zero interaction before the mascot taps the card edge to
+// get the visitor's attention. The tap-tap-then-long-pause rhythm itself
+// lives entirely in the mascot-tap/mascot-ripple CSS keyframes (globals.css)
+// -- this timer only flips `attention` on, so there's a single on/off
+// source of truth here instead of a chain of nested setTimeouts.
+const ATTENTION_IDLE_MS = 9000;
 
 type QuizSearchHeroProps = {
   popularTopics?: string[];
@@ -39,16 +45,35 @@ export default function QuizSearchHero({ popularTopics = [] }: QuizSearchHeroPro
   const [isSearchingSuggestions, setIsSearchingSuggestions] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [notFoundTopic, setNotFoundTopic] = useState<string | null>(null);
+  const [attention, setAttention] = useState(false);
 
   const thinkingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const suggestionsDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const suggestionsAbortRef = useRef<AbortController | null>(null);
+  const attentionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     return () => {
       if (thinkingTimeoutRef.current) clearTimeout(thinkingTimeoutRef.current);
       if (suggestionsDebounceRef.current) clearTimeout(suggestionsDebounceRef.current);
       suggestionsAbortRef.current?.abort();
+    };
+  }, []);
+
+  // Single source of truth for the attention timer: cancels attention
+  // immediately and reschedules it ATTENTION_IDLE_MS out. Called from every
+  // interaction point (typing, focus, any click in the widget, submitting)
+  // so there's no separate "cancel" path to keep in sync with this one.
+  const resetAttentionTimer = () => {
+    setAttention(false);
+    if (attentionTimeoutRef.current) clearTimeout(attentionTimeoutRef.current);
+    attentionTimeoutRef.current = setTimeout(() => setAttention(true), ATTENTION_IDLE_MS);
+  };
+
+  useEffect(() => {
+    resetAttentionTimer();
+    return () => {
+      if (attentionTimeoutRef.current) clearTimeout(attentionTimeoutRef.current);
     };
   }, []);
 
@@ -90,6 +115,7 @@ export default function QuizSearchHero({ popularTopics = [] }: QuizSearchHeroPro
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
+    resetAttentionTimer();
     const topic = searchTopic.trim();
 
     if (!topic) {
@@ -150,13 +176,19 @@ export default function QuizSearchHero({ popularTopics = [] }: QuizSearchHeroPro
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.2 }}
       className="relative z-10 overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(124,58,237,0.3)]"
+      onClick={resetAttentionTimer}
     >
       {/* Gradient background (replaces the old dark photo) */}
       <div className="absolute inset-0 -z-20 bg-gradient-to-br from-violet-100 via-white to-cyan-100 dark:from-violet-950 dark:via-slate-950 dark:to-cyan-950" />
 
       {/* Content */}
       <div className="relative flex flex-col items-center justify-center gap-6 px-6 py-16 md:px-8 md:py-24">
-        <HeroMascot thinking={isThinking} notFound={!!notFoundTopic} className="w-36 sm:w-44" />
+        <HeroMascot
+          thinking={isThinking}
+          notFound={!!notFoundTopic}
+          attention={attention}
+          className="w-36 sm:w-44"
+        />
 
         <div className="max-w-xl text-center">
           <h2 className="text-3xl font-bold text-slate-900 md:text-4xl mb-3 dark:text-white">
@@ -181,6 +213,7 @@ export default function QuizSearchHero({ popularTopics = [] }: QuizSearchHeroPro
                   setSearchTopic(value);
                   setError(null);
                   setNotFoundTopic(null);
+                  resetAttentionTimer();
 
                   setIsThinking(true);
                   if (thinkingTimeoutRef.current) clearTimeout(thinkingTimeoutRef.current);
@@ -192,7 +225,10 @@ export default function QuizSearchHero({ popularTopics = [] }: QuizSearchHeroPro
                     SUGGESTIONS_DEBOUNCE_MS
                   );
                 }}
-                onFocus={() => setIsInputFocused(true)}
+                onFocus={() => {
+                  setIsInputFocused(true);
+                  resetAttentionTimer();
+                }}
                 onBlur={() => setIsInputFocused(false)}
                 disabled={isLoading}
                 className="pl-10 h-12"
