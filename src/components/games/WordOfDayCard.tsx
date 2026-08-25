@@ -40,12 +40,17 @@ export default function WordOfDayCard({ isAuthenticated }: WordOfDayCardProps) {
     word: string;
     xpAwarded: number;
   } | null>(null);
+  // Set when a submit comes back alreadyPlayedByUser -- this account
+  // already completed today's round under a different guestId/session,
+  // discovered only at submit time (challengeData.attempted was stale).
+  // Forces the same already-played state challengeData.attempted drives.
+  const [forcedAlreadyPlayed, setForcedAlreadyPlayed] = React.useState(false);
 
   const submitAnswer = useSubmitGuestAnswer();
 
   const wordLength = challengeData?.challenge.wordLength as number | undefined;
   const maxGuesses = (challengeData?.challenge.maxGuesses as number | undefined) ?? 6;
-  const alreadyPlayed = challengeData?.attempted ?? false;
+  const alreadyPlayed = (challengeData?.attempted ?? false) || forcedAlreadyPlayed;
 
   const [isGuessing, setIsGuessing] = React.useState(false);
   const roundOver = revealedResult !== null || guesses.some((g) => g.feedback.every((s) => s === "correct"));
@@ -61,7 +66,9 @@ export default function WordOfDayCard({ isAuthenticated }: WordOfDayCardProps) {
       answer: { guesses: finalGuesses.map((g) => g.word) },
     });
 
-    if (result.claimed) {
+    if (result.alreadyPlayedByUser) {
+      setForcedAlreadyPlayed(true);
+    } else if (result.claimed) {
       const payload = result.resultPayload as { word?: string } | undefined;
       setRevealedResult({
         isCorrect: result.isCorrect ?? false,

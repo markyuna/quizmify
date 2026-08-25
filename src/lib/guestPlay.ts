@@ -1,4 +1,4 @@
-import type { Prisma } from "@/generated/prisma/client";
+import type { Prisma, GuestAttempt } from "@/generated/prisma/client";
 import { GuestGameKey } from "@/generated/prisma/client";
 
 import { prisma } from "@/lib/db";
@@ -143,28 +143,62 @@ export type SubmitGuestAttemptParams = {
   guestId: string;
   answer: unknown;
   challengeId?: string;
+  // The authenticated userId at submit time, if any -- lets this reject a
+  // replay of a gameKey+day this account already completed under a
+  // *different* guestId (new device, cleared cookie, private window). The
+  // guestId-scoped [challengeId, guestId] constraint below never caught
+  // this, since a fresh guestId always looks unplayed to it. See
+  // UserDailyAttempt's schema comment for the full incident this closes.
+  userId?: string | null;
   now?: Date;
 };
+
+export type SubmitGuestAttemptResult =
+  // This exact account already has a UserDailyAttempt for this
+  // gameKey+day (from this or a different guestId) -- no new GuestAttempt
+  // was created, nothing to grade again. Callers surface the same generic
+  // "already played" response a guest gets, never the real past result.
+  | { alreadyPlayedByUser: true; attemptId: string }
+  | { alreadyPlayedByUser: false; attempt: GuestAttempt; alreadyPlayed: boolean };
 
 /**
  * Grades a guest's answer server-side (the client never sees the answer key
  * ahead of time) and persists the attempt. The [challengeId, guestId]
- * unique constraint is the real one-attempt-per-day guard; an already-
- * existing attempt is returned as-is rather than re-graded, so a guest
- * can't retry by resubmitting.
+ * unique constraint is the real one-attempt-per-day guard *for a given
+ * guestId*; an already-existing attempt is returned as-is rather than
+ * re-graded, so a guest can't retry by resubmitting. When `userId` is
+ * known, UserDailyAttempt is checked first -- that's the per-account guard
+ * that guestId alone can't provide.
  */
-export async function submitGuestAttempt({ gameKey, language, guestId, answer, challengeId, now = new Date() }: SubmitGuestAttemptParams) {
+export async function submitGuestAttempt({
+  gameKey,
+  language,
+  guestId,
+  answer,
+  challengeId,
+  userId,
+  now = new Date(),
+}: SubmitGuestAttemptParams): Promise<SubmitGuestAttemptResult> {
   const challenge = await resolveGuestChallenge(gameKey, language, now, challengeId);
   // The attempt's own date always matches the challenge it was actually
   // graded against, not the server clock at submit time -- see
   // resolveGuestChallenge's comment for why those can differ.
   const dateKey = challenge.date;
 
+  if (userId) {
+    const existingForUser = await prisma.userDailyAttempt.findUnique({
+      where: { userId_gameKey_date: { userId, gameKey, date: dateKey } },
+    });
+    if (existingForUser) {
+      return { alreadyPlayedByUser: true, attemptId: existingForUser.guestAttemptId };
+    }
+  }
+
   const existing = await prisma.guestAttempt.findUnique({
     where: { challengeId_guestId: { challengeId: challenge.id, guestId } },
   });
   if (existing) {
-    return { attempt: existing, alreadyPlayed: true as const };
+    return { alreadyPlayedByUser: false, attempt: existing, alreadyPlayed: true };
   }
 
   const definition = getGuestGame(gameKey);
@@ -183,14 +217,14 @@ export async function submitGuestAttempt({ gameKey, language, guestId, answer, c
         xpEarned,
       },
     });
-    return { attempt, alreadyPlayed: false as const };
+    return { alreadyPlayedByUser: false, attempt, alreadyPlayed: false };
   } catch {
     // Two submits raced (double-click, retry) -- the loser just reads the winner's row.
     const winner = await prisma.guestAttempt.findUnique({
       where: { challengeId_guestId: { challengeId: challenge.id, guestId } },
     });
     if (!winner) throw new Error("Failed to create or fetch guest attempt");
-    return { attempt: winner, alreadyPlayed: true as const };
+    return { alreadyPlayedByUser: false, attempt: winner, alreadyPlayed: true };
   }
 }
 
@@ -198,22 +232,29 @@ export async function getTodaysClientChallenge(
   gameKey: GuestGameKey,
   language: Locale,
   guestId: string | null,
+  userId: string | null = null,
   now: Date = new Date()
 ) {
   const challenge = await getOrCreateTodaysGuestChallenge(gameKey, language, now);
   const definition = getGuestGame(gameKey);
 
-  const attempted = guestId
-    ? (await prisma.guestAttempt.count({
-        where: { challengeId: challenge.id, guestId },
-      })) > 0
-    : false;
+  const [attemptedByGuest, attemptedByUser] = await Promise.all([
+    guestId
+      ? prisma.guestAttempt.count({ where: { challengeId: challenge.id, guestId } })
+      : Promise.resolve(0),
+    // The per-account guard -- catches "already played today, but this
+    // browser's guestId cookie is new" (see submitGuestAttempt's own
+    // comment), which the guestId count above can never see.
+    userId
+      ? prisma.userDailyAttempt.count({ where: { userId, gameKey, date: challenge.date } })
+      : Promise.resolve(0),
+  ]);
 
   return {
     challengeId: challenge.id,
     date: challenge.date,
     challenge: definition.toClientChallenge(challenge.payload as JsonRecord),
-    attempted,
+    attempted: attemptedByGuest > 0 || attemptedByUser > 0,
   };
 }
 
@@ -236,6 +277,30 @@ export type ClaimGuestAttemptsResult = {
  * scoped to claimedByUserId: null, so Postgres row locking guarantees only
  * one transaction can flip a given row from null, and XP is summed only
  * over the rows this call actually won.
+ *
+ * Per-row, this is also the other UserDailyAttempt integration point (see
+ * submitGuestAttempt's for the first one): a guestId can carry a pending
+ * attempt for a gameKey+day this userId already completed via a *different*
+ * guestId (played anonymously, then logged into an account that already
+ * played today elsewhere) -- submitGuestAttempt's own guard can't catch
+ * that, since userId wasn't known yet when this row was created. Every
+ * candidate still gets claimedByUserId set (never left orphaned), but only
+ * the first one for a given gameKey+day is credited with XP and gets a
+ * UserDailyAttempt row.
+ *
+ * Deliberately check-then-create (tx.userDailyAttempt.findUnique() before
+ * create()) rather than relying on the unique constraint as the decision
+ * mechanism: a constraint violation mid-$transaction aborts every later
+ * statement in it ("current transaction is aborted"), which would also
+ * tank legitimate rows claimed earlier in the same loop. Two candidates in
+ * *this* loop for the same gameKey+day (e.g. the fr and es challenge both
+ * played the same UTC day) are still handled safely -- a transaction sees
+ * its own uncommitted writes, so the second candidate's findUnique sees
+ * the first candidate's create. A genuinely concurrent second
+ * claimGuestAttempts call landing at the exact same instant can still hit
+ * the constraint and abort that whole call -- an accepted, safe failure
+ * mode (nothing partially commits) that the next retry (GuestRoundClaim
+ * already retries on every page load) resolves cleanly.
  */
 export async function claimGuestAttempts(
   userId: string,
@@ -263,11 +328,34 @@ export async function claimGuestAttempts(
       return { claimedCount: 0, xpAwarded: 0 };
     }
 
+    // Only rows this call actually won the claim on (see the updateMany's
+    // claimedByUserId: null scoping) are eligible to be credited below.
     const claimedRows = await tx.guestAttempt.findMany({
       where: { id: { in: ids }, claimedByUserId: userId },
-      select: { xpEarned: true },
+      select: { id: true, gameKey: true, date: true, challengeId: true, isCorrect: true, xpEarned: true },
     });
-    const xpAwarded = claimedRows.reduce((sum, row) => sum + row.xpEarned, 0);
+
+    let xpAwarded = 0;
+    for (const row of claimedRows) {
+      const existingForDay = await tx.userDailyAttempt.findUnique({
+        where: { userId_gameKey_date: { userId, gameKey: row.gameKey, date: row.date } },
+      });
+
+      if (existingForDay) continue;
+
+      await tx.userDailyAttempt.create({
+        data: {
+          userId,
+          gameKey: row.gameKey,
+          date: row.date,
+          challengeId: row.challengeId,
+          guestAttemptId: row.id,
+          isCorrect: row.isCorrect,
+          xpEarned: row.xpEarned,
+        },
+      });
+      xpAwarded += row.xpEarned;
+    }
 
     const previousUser = await tx.user.findUniqueOrThrow({
       where: { id: userId },

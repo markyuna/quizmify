@@ -56,7 +56,6 @@ export default function MathTargetCard({ isAuthenticated }: MathTargetCardProps)
 
   const target = challengeData?.challenge.target as number | undefined;
   const operands = challengeData?.challenge.operands as number[] | undefined;
-  const alreadyPlayed = challengeData?.attempted ?? false;
 
   const [tiles, setTiles] = React.useState<Tile[] | null>(null);
   const [steps, setSteps] = React.useState<MathStep[]>([]);
@@ -65,7 +64,14 @@ export default function MathTargetCard({ isAuthenticated }: MathTargetCardProps)
   const [error, setError] = React.useState<string | null>(null);
   const [showModal, setShowModal] = React.useState(false);
   const [revealedResult, setRevealedResult] = React.useState<RevealedResult | null>(null);
+  // Set when a submit comes back alreadyPlayedByUser -- this account
+  // already completed today's round under a different guestId/session,
+  // discovered only at submit time (challengeData.attempted was stale).
+  // Forces the same already-played state challengeData.attempted drives.
+  const [forcedAlreadyPlayed, setForcedAlreadyPlayed] = React.useState(false);
   const nextIdRef = React.useRef(0);
+
+  const alreadyPlayed = (challengeData?.attempted ?? false) || forcedAlreadyPlayed;
 
   React.useEffect(() => {
     if (!operands || tiles !== null) return;
@@ -120,7 +126,9 @@ export default function MathTargetCard({ isAuthenticated }: MathTargetCardProps)
       answer: { steps, finalValue: tile.value },
     });
 
-    if (result.claimed) {
+    if (result.alreadyPlayedByUser) {
+      setForcedAlreadyPlayed(true);
+    } else if (result.claimed) {
       const payload = result.resultPayload as { target?: number; reachedValue?: number | null } | undefined;
       setRevealedResult({
         isCorrect: result.isCorrect ?? false,

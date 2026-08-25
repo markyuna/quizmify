@@ -4,6 +4,7 @@ import "@/lib/games/registerAll";
 import { getTodaysClientChallenge, isGuestGameImplemented, type GuestGameKey } from "@/lib/guestPlay";
 import { guestGameKeySchema } from "@/schemas/form/guestGame";
 import { getRequestLocale } from "@/i18n/get-locale";
+import { getAuthSession } from "@/lib/nextauth";
 
 export async function GET(req: Request, { params }: { params: Promise<{ gameKey: string }> }) {
   const { gameKey: rawGameKey } = await params;
@@ -24,7 +25,12 @@ export async function GET(req: Request, { params }: { params: Promise<{ gameKey:
 
   const guestId = new URL(req.url).searchParams.get("guestId");
   const locale = await getRequestLocale();
-  const { challengeId, date, challenge, attempted } = await getTodaysClientChallenge(gameKey, locale, guestId);
+  // Authenticated userId, if any -- see getTodaysClientChallenge's own
+  // comment: this is what lets "already played" survive a fresh guestId
+  // cookie (new device, cleared cookie, private window).
+  const session = await getAuthSession();
+  const userId = session?.user?.id ?? null;
+  const { challengeId, date, challenge, attempted } = await getTodaysClientChallenge(gameKey, locale, guestId, userId);
 
   return NextResponse.json({ challengeId, date, challenge, attempted });
 }

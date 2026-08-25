@@ -36,12 +36,17 @@ export default function PhotoOfDayCard({ isAuthenticated }: PhotoOfDayCardProps)
   const [showSuggestions, setShowSuggestions] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
   const [revealedResult, setRevealedResult] = React.useState<RevealedResult | null>(null);
+  // Set when a submit comes back alreadyPlayedByUser -- this account
+  // already completed today's round under a different guestId/session,
+  // discovered only at submit time (challengeData.attempted was stale).
+  // Forces the same already-played state challengeData.attempted drives.
+  const [forcedAlreadyPlayed, setForcedAlreadyPlayed] = React.useState(false);
 
   const submitAnswer = useSubmitGuestAnswer();
 
   const image = challengeData?.challenge.image as string | undefined;
   const credit = challengeData?.challenge.credit as { author: string; license: string; licenseUrl: string } | undefined;
-  const alreadyPlayed = challengeData?.attempted ?? false;
+  const alreadyPlayed = (challengeData?.attempted ?? false) || forcedAlreadyPlayed;
 
   const suggestions = React.useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -59,7 +64,9 @@ export default function PhotoOfDayCard({ isAuthenticated }: PhotoOfDayCardProps)
       answer: { guess: selected },
     });
 
-    if (result.claimed) {
+    if (result.alreadyPlayedByUser) {
+      setForcedAlreadyPlayed(true);
+    } else if (result.claimed) {
       const payload = result.resultPayload as { country?: string; place?: string } | undefined;
       setRevealedResult({
         isCorrect: result.isCorrect ?? false,

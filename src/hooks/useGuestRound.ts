@@ -95,6 +95,14 @@ type SubmitGuestAnswerResponse = {
   success: boolean;
   attemptId: string;
   alreadyPlayed: boolean;
+  // True only for an authenticated user who already completed this
+  // gameKey today under a *different* guestId/session -- distinct from a
+  // guest re-submitting (alreadyPlayed alone), which should still show
+  // ConversionModal. When true, isCorrect/resultPayload/xpAwarded are
+  // never sent (confirmed decision: generic "already played" message,
+  // never the real past result) -- callers should render the same
+  // already-played state the challengeData.attempted gate shows.
+  alreadyPlayedByUser?: boolean;
   // True only when the browser was already signed in at submit time -- the
   // server claims immediately in that case and includes the real result
   // below instead of gating it behind ConversionModal. Absent/false for an

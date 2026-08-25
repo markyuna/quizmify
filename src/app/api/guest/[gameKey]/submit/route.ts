@@ -26,16 +26,35 @@ export async function POST(req: Request, { params }: { params: Promise<{ gameKey
     const { guestId, answer, challengeId } = submitGuestAttemptSchema.parse(body);
 
     const locale = await getRequestLocale();
-    const { attempt, alreadyPlayed } = await submitGuestAttempt({ gameKey, language: locale, guestId, answer, challengeId });
+    const session = await getAuthSession();
+    const userId = session?.user?.id ?? null;
+    const result = await submitGuestAttempt({ gameKey, language: locale, guestId, answer, challengeId, userId });
+
+    // This exact account already completed this gameKey today via a
+    // different guestId/session (see submitGuestAttempt's own comment) --
+    // no fresh attempt was graded. Same generic "already played" shape a
+    // guest gets; deliberately never the real past result here (confirmed
+    // decision -- avoids a second guestId being usable to peek at today's
+    // answer/result for an account that already played).
+    if (result.alreadyPlayedByUser) {
+      return NextResponse.json({
+        success: true,
+        attemptId: result.attemptId,
+        alreadyPlayed: true,
+        alreadyPlayedByUser: true,
+        claimed: false,
+      });
+    }
+
+    const { attempt, alreadyPlayed } = result;
 
     // If the browser is already signed in (e.g. they played this "guest"
     // round without realizing they're logged in, or on a device where
     // they already have an account), there's no conversion gate to clear
     // -- claim immediately and hand back the real result instead of
     // making them go through ConversionModal for nothing.
-    const session = await getAuthSession();
-    if (session?.user?.id) {
-      const { xpAwarded } = await claimGuestAttempts(session.user.id, guestId);
+    if (userId) {
+      const { xpAwarded } = await claimGuestAttempts(userId, guestId);
       return NextResponse.json({
         success: true,
         attemptId: attempt.id,
