@@ -85,6 +85,10 @@ type SubmitGuestAnswerParams = {
   gameKey: GuestGameKeyValue;
   guestId: string;
   answer: unknown;
+  // The challengeId from this game's useGuestChallenge() data -- see
+  // submitGuestAttemptSchema's comment for why this matters (grades
+  // against the challenge actually played, not "today" at submit time).
+  challengeId?: string;
 };
 
 type SubmitGuestAnswerResponse = {
@@ -112,10 +116,11 @@ type SubmitGuestAnswerResponse = {
  */
 export function useSubmitGuestAnswer() {
   return useMutation({
-    mutationFn: async ({ gameKey, guestId, answer }: SubmitGuestAnswerParams) => {
+    mutationFn: async ({ gameKey, guestId, answer, challengeId }: SubmitGuestAnswerParams) => {
       const { data } = await axios.post<SubmitGuestAnswerResponse>(`/api/guest/${gameKey}/submit`, {
         guestId,
         answer,
+        challengeId,
       });
       return data;
     },

@@ -57,6 +57,7 @@ export default function WordOfDayCard({ isAuthenticated }: WordOfDayCardProps) {
     const result = await submitAnswer.mutateAsync({
       gameKey: "word_of_day",
       guestId,
+      challengeId: challengeData.challengeId,
       answer: { guesses: finalGuesses.map((g) => g.word) },
     });
 

@@ -116,6 +116,7 @@ export default function MathTargetCard({ isAuthenticated }: MathTargetCardProps)
     const result = await submitAnswer.mutateAsync({
       gameKey: "math_target",
       guestId,
+      challengeId: challengeData.challengeId,
       answer: { steps, finalValue: tile.value },
     });
 

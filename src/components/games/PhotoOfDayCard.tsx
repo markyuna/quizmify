@@ -55,6 +55,7 @@ export default function PhotoOfDayCard({ isAuthenticated }: PhotoOfDayCardProps)
     const result = await submitAnswer.mutateAsync({
       gameKey: "photo_of_day",
       guestId,
+      challengeId: challengeData.challengeId,
       answer: { guess: selected },
     });
 
