@@ -14,6 +14,7 @@ import QuizSearchHero from "@/components/QuizSearchHero";
 
 type HeroSectionProps = {
   isAuthenticated: boolean;
+  popularTopics?: string[];
 };
 
 const fadeUp: Variants = {
@@ -26,7 +27,7 @@ const staggerContainer: Variants = {
   show: { transition: { staggerChildren: 0.1 } },
 };
 
-export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
+export default function HeroSection({ isAuthenticated, popularTopics }: HeroSectionProps) {
   const t = useTranslations("Home");
 
   return (
@@ -142,7 +143,7 @@ export default function HeroSection({ isAuthenticated }: HeroSectionProps) {
 
           {/* Right — Quiz search */}
           <motion.div variants={fadeUp} className="relative z-10">
-            <QuizSearchHero />
+            <QuizSearchHero popularTopics={popularTopics} />
           </motion.div>
         </motion.div>
       </section>
