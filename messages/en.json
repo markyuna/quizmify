@@ -74,6 +74,7 @@
     "quizSearchSubtitle": "Type a topic you want to learn about and we'll generate a quiz for you instantly",
     "quizSearchPlaceholder": "e.g., Photosynthesis, History of Rome, Machine Learning...",
     "quizSearchCta": "Create quiz",
+    "mascotAiLabel": "AI",
     "guestSearchInfo": "First time? Search a topic to try a 5-question preview. Sign up after to save your results and unlock more features.",
     "guestSearchEmptyTopic": "Please enter a topic",
     "guestSearchInitializing": "Initializing... please try again",

@@ -74,6 +74,7 @@
     "quizSearchSubtitle": "Tapez un sujet que vous voulez apprendre et nous générerons un quiz pour vous instantanément",
     "quizSearchPlaceholder": "Par ex., Photosynthèse, Histoire de Rome, Machine Learning...",
     "quizSearchCta": "Créer le quiz",
+    "mascotAiLabel": "IA",
     "guestSearchInfo": "Première fois ? Recherchez un sujet pour essayer un aperçu de 5 questions. Inscrivez-vous ensuite pour enregistrer vos résultats et déverrouiller plus de fonctionnalités.",
     "guestSearchEmptyTopic": "Veuillez entrer un sujet",
     "guestSearchInitializing": "Initialisation en cours... réessayez",

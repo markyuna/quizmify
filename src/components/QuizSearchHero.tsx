@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Search, Loader2 } from "lucide-react";
@@ -11,6 +10,10 @@ import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useGuestId } from "@/hooks/useGuestRound";
+import HeroMascot from "@/components/HeroMascot";
+
+// How long the mascot stays in "thinking" pose after the user stops typing.
+const THINKING_IDLE_MS = 1000;
 
 export default function QuizSearchHero() {
   const t = useTranslations("GuestGames");
@@ -20,7 +23,15 @@ export default function QuizSearchHero() {
   const [searchTopic, setSearchTopic] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isThinking, setIsThinking] = useState(false);
+  const thinkingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isAuthenticated = !!session?.user;
+
+  useEffect(() => {
+    return () => {
+      if (thinkingTimeoutRef.current) clearTimeout(thinkingTimeoutRef.current);
+    };
+  }, []);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,25 +99,18 @@ export default function QuizSearchHero() {
       transition={{ duration: 0.6, delay: 0.2 }}
       className="relative z-10 overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(124,58,237,0.3)]"
     >
-      {/* Background image with overlay */}
-      <div className="absolute inset-0 -z-20">
-        <Image
-          src="/images/games/quiz-search-bg.webp"
-          alt="Quiz search background"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/50 to-black/60" />
-      </div>
+      {/* Gradient background (replaces the old dark photo) */}
+      <div className="absolute inset-0 -z-20 bg-gradient-to-br from-violet-100 via-white to-cyan-100 dark:from-violet-950 dark:via-slate-950 dark:to-cyan-950" />
 
       {/* Content */}
       <div className="relative flex flex-col items-center justify-center gap-6 px-6 py-16 md:px-8 md:py-24">
+        <HeroMascot thinking={isThinking} className="w-36 sm:w-44" />
+
         <div className="max-w-xl text-center">
-          <h2 className="text-3xl font-bold text-white md:text-4xl mb-3">
+          <h2 className="text-3xl font-bold text-slate-900 md:text-4xl mb-3 dark:text-white">
             {t("quizSearchTitle")}
           </h2>
-          <p className="text-white/80 text-sm md:text-base">
+          <p className="text-slate-600 text-sm md:text-base dark:text-slate-300">
             {t("quizSearchSubtitle")}
           </p>
         </div>
@@ -123,9 +127,13 @@ export default function QuizSearchHero() {
                 onChange={(e) => {
                   setSearchTopic(e.target.value);
                   setError(null);
+
+                  setIsThinking(true);
+                  if (thinkingTimeoutRef.current) clearTimeout(thinkingTimeoutRef.current);
+                  thinkingTimeoutRef.current = setTimeout(() => setIsThinking(false), THINKING_IDLE_MS);
                 }}
                 disabled={isLoading}
-                className="pl-10 h-12 bg-white/95 dark:bg-slate-900/95 border border-white/20 text-white placeholder:text-slate-500 dark:placeholder:text-slate-400"
+                className="pl-10 h-12"
               />
             </div>
             <Button
@@ -152,7 +160,7 @@ export default function QuizSearchHero() {
             <motion.div
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-lg bg-red-500/20 border border-red-500/40 px-4 py-3 text-sm text-red-200"
+              className="rounded-lg bg-red-500/10 border border-red-500/30 px-4 py-3 text-sm text-red-600 dark:bg-red-500/20 dark:border-red-500/40 dark:text-red-200"
             >
               {error}
             </motion.div>
@@ -160,7 +168,7 @@ export default function QuizSearchHero() {
         </form>
 
         {/* Info message */}
-        <p className="text-xs text-white/60 max-w-xl text-center">
+        <p className="text-xs text-slate-500 dark:text-white/60 max-w-xl text-center">
           💡 {t("guestSearchInfo", { defaultValue: "First time? Search a topic to try a 5-question preview. Sign up after to save your results and unlock more features." })}
         </p>
       </div>
