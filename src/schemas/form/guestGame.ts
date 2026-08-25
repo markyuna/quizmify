@@ -15,6 +15,13 @@ export const guestIdSchema = z.string().regex(/^[a-zA-Z0-9_-]{8,64}$/, "Invalid 
 export const submitGuestAttemptSchema = z.object({
   guestId: guestIdSchema,
   answer: z.unknown(),
+  // The DailyGameChallenge id the client actually played against (from
+  // useGuestChallenge's GET response) -- lets submitGuestAttempt() grade
+  // against that exact challenge instead of re-resolving "today" by date,
+  // which broke for any round that crossed the UTC day boundary between
+  // its first guess and its final submit. Optional so an unrefreshed
+  // client (or any other caller) still falls back to the by-date lookup.
+  challengeId: z.string().min(1).optional(),
 });
 
 export const claimGuestAttemptsSchema = z.object({

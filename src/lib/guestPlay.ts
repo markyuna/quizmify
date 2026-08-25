@@ -108,11 +108,41 @@ function computeGuestXp(isCorrect: boolean): number {
   return calculateEarnedXpBreakdown({ correctAnswers: isCorrect ? 1 : 0, totalQuestions: 1 }).totalXp;
 }
 
+/**
+ * Resolves the challenge a submit should grade against. Prefers the exact
+ * row the client actually played (challengeId, from its original GET) over
+ * re-deriving "today" from the server clock -- a round that started before
+ * midnight UTC and submitted after it would otherwise get graded against a
+ * different day's challenge than the one its guesses were scored against
+ * live (see /api/guest/word_of_day/guess, which was already correct: it
+ * always looks up by challengeId, never by date). Falls back to the by-date
+ * lookup when no challengeId is given (older client) or it doesn't resolve
+ * to a real challenge for this exact gameKey+language (stale id, tampered
+ * value, deleted row) -- never a fatal error, just the pre-existing
+ * behavior.
+ */
+async function resolveGuestChallenge(
+  gameKey: GuestGameKey,
+  language: Locale,
+  now: Date,
+  challengeId?: string
+) {
+  if (challengeId) {
+    const byId = await prisma.dailyGameChallenge.findUnique({ where: { id: challengeId } });
+    if (byId && byId.gameKey === gameKey && byId.language === language) {
+      return byId;
+    }
+  }
+
+  return getOrCreateTodaysGuestChallenge(gameKey, language, now);
+}
+
 export type SubmitGuestAttemptParams = {
   gameKey: GuestGameKey;
   language: Locale;
   guestId: string;
   answer: unknown;
+  challengeId?: string;
   now?: Date;
 };
 
@@ -123,9 +153,12 @@ export type SubmitGuestAttemptParams = {
  * existing attempt is returned as-is rather than re-graded, so a guest
  * can't retry by resubmitting.
  */
-export async function submitGuestAttempt({ gameKey, language, guestId, answer, now = new Date() }: SubmitGuestAttemptParams) {
-  const dateKey = getTodayDateKey(now);
-  const challenge = await getOrCreateTodaysGuestChallenge(gameKey, language, now);
+export async function submitGuestAttempt({ gameKey, language, guestId, answer, challengeId, now = new Date() }: SubmitGuestAttemptParams) {
+  const challenge = await resolveGuestChallenge(gameKey, language, now, challengeId);
+  // The attempt's own date always matches the challenge it was actually
+  // graded against, not the server clock at submit time -- see
+  // resolveGuestChallenge's comment for why those can differ.
+  const dateKey = challenge.date;
 
   const existing = await prisma.guestAttempt.findUnique({
     where: { challengeId_guestId: { challengeId: challenge.id, guestId } },

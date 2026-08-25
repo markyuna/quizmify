@@ -23,10 +23,10 @@ export async function POST(req: Request, { params }: { params: Promise<{ gameKey
     }
 
     const body = await req.json();
-    const { guestId, answer } = submitGuestAttemptSchema.parse(body);
+    const { guestId, answer, challengeId } = submitGuestAttemptSchema.parse(body);
 
     const locale = await getRequestLocale();
-    const { attempt, alreadyPlayed } = await submitGuestAttempt({ gameKey, language: locale, guestId, answer });
+    const { attempt, alreadyPlayed } = await submitGuestAttempt({ gameKey, language: locale, guestId, answer, challengeId });
 
     // If the browser is already signed in (e.g. they played this "guest"
     // round without realizing they're logged in, or on a device where
