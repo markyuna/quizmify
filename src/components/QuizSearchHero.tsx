@@ -156,7 +156,7 @@ export default function QuizSearchHero({ popularTopics = [] }: QuizSearchHeroPro
 
       {/* Content */}
       <div className="relative flex flex-col items-center justify-center gap-6 px-6 py-16 md:px-8 md:py-24">
-        <HeroMascot thinking={isThinking} className="w-36 sm:w-44" />
+        <HeroMascot thinking={isThinking} notFound={!!notFoundTopic} className="w-36 sm:w-44" />
 
         <div className="max-w-xl text-center">
           <h2 className="text-3xl font-bold text-slate-900 md:text-4xl mb-3 dark:text-white">

@@ -51,12 +51,14 @@ body {
   --animate-shimmer: shimmer 2.2s linear infinite;
   --animate-shine: shine 3.5s ease-in-out infinite;
   --animate-mascot-sway: mascot-sway 6s ease-in-out infinite;
+  --animate-mascot-sway-subtle: mascot-sway-subtle 6s ease-in-out infinite;
   --animate-mascot-blink: mascot-blink 4.5s ease-in-out infinite;
   --animate-magnifier-orbit: magnifier-orbit 7s linear infinite;
   --animate-magnifier-tremble: magnifier-tremble 1.4s ease-in-out infinite;
   --animate-antenna-pulse: antenna-pulse 2s ease-in-out infinite;
   --animate-badge-glow: badge-glow 2.4s ease-in-out infinite;
   --animate-thinking-dot: thinking-dot 1.2s ease-in-out infinite;
+  --animate-tear-drop: tear-drop 2.6s ease-in-out infinite;
 }
 
 @keyframes shimmer {
@@ -151,5 +153,36 @@ body {
   30% {
     transform: translateY(-4px);
     opacity: 1;
+  }
+}
+
+@keyframes mascot-sway-subtle {
+  0%,
+  100% {
+    transform: rotate(-0.75deg);
+  }
+  50% {
+    transform: rotate(0.75deg);
+  }
+}
+
+@keyframes tear-drop {
+  0%,
+  15% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(14px);
+  }
+  85%,
+  100% {
+    opacity: 0;
+    transform: translateY(14px);
   }
 }

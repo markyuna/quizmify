@@ -6,19 +6,28 @@ import { cn } from "@/lib/utils";
 
 type HeroMascotProps = {
   thinking: boolean;
+  notFound: boolean;
   className?: string;
 };
+
+type MascotPose = "idle" | "thinking" | "notFound";
 
 // Head/eye-row/torso anchor points below are hand-tuned to the 220x260
 // viewBox -- keep transform-origin values in sync with the shapes if the
 // SVG geometry ever changes.
-export default function HeroMascot({ thinking, className }: HeroMascotProps) {
+export default function HeroMascot({ thinking, notFound, className }: HeroMascotProps) {
   const t = useTranslations("GuestGames");
+
+  // Derived once so no element can ever render a combination its caller
+  // didn't intend (e.g. both thinking and notFound true at once) --
+  // notFound wins if somehow both are set.
+  const pose: MascotPose = notFound ? "notFound" : thinking ? "thinking" : "idle";
 
   return (
     <div
       className={cn(
-        "animate-mascot-sway relative aspect-[220/260] origin-bottom",
+        "relative aspect-[220/260] origin-bottom",
+        pose === "notFound" ? "animate-mascot-sway-subtle" : "animate-mascot-sway",
         className
       )}
     >
@@ -36,7 +45,8 @@ export default function HeroMascot({ thinking, className }: HeroMascotProps) {
           strokeWidth="2"
         />
 
-        {/* Antenna */}
+        {/* Antenna -- tip dims (opacity multiplier on the same pulse) in the
+            notFound pose, full intensity otherwise. */}
         <line
           x1="110"
           y1="10"
@@ -46,13 +56,18 @@ export default function HeroMascot({ thinking, className }: HeroMascotProps) {
           strokeWidth="3"
           strokeLinecap="round"
         />
-        <circle
-          cx="110"
-          cy="8"
-          r="6"
-          className="animate-antenna-pulse fill-cyan-400 drop-shadow-[0_0_6px_rgba(34,211,238,0.8)] dark:fill-cyan-300"
-          style={{ transformOrigin: "110px 8px" }}
-        />
+        <g
+          className="transition-opacity duration-500"
+          style={{ opacity: pose === "notFound" ? 0.5 : 1 }}
+        >
+          <circle
+            cx="110"
+            cy="8"
+            r="6"
+            className="animate-antenna-pulse fill-cyan-400 drop-shadow-[0_0_6px_rgba(34,211,238,0.8)] dark:fill-cyan-300"
+            style={{ transformOrigin: "110px 8px" }}
+          />
+        </g>
 
         {/* Head */}
         <circle
@@ -66,30 +81,56 @@ export default function HeroMascot({ thinking, className }: HeroMascotProps) {
         {/* Eyebrows */}
         <line
           x1="70"
-          y1={thinking ? 62 : 68}
+          y1={pose === "thinking" ? 62 : pose === "notFound" ? 66 : 68}
           x2="95"
-          y2={thinking ? 76 : 64}
+          y2={pose === "thinking" ? 76 : pose === "notFound" ? 80 : 64}
           className="stroke-slate-700 transition-all duration-500 dark:stroke-slate-200"
           strokeWidth="4"
           strokeLinecap="round"
         />
         <line
           x1="125"
-          y1={thinking ? 76 : 64}
+          y1={pose === "thinking" ? 76 : pose === "notFound" ? 80 : 64}
           x2="150"
-          y2={thinking ? 62 : 68}
+          y2={pose === "thinking" ? 62 : pose === "notFound" ? 66 : 68}
           className="stroke-slate-700 transition-all duration-500 dark:stroke-slate-200"
           strokeWidth="4"
           strokeLinecap="round"
         />
 
-        {/* Eyes (blink) */}
+        {/* Eyes -- blink in idle/thinking, squint (static, no blink) in notFound */}
         <g
-          className="animate-mascot-blink"
+          className={cn(
+            "transition-transform duration-500",
+            pose === "notFound" ? "scale-y-50" : "animate-mascot-blink"
+          )}
           style={{ transformOrigin: "110px 92px" }}
         >
           <circle cx="85" cy="92" r="8" className="fill-slate-800 dark:fill-slate-100" />
           <circle cx="135" cy="92" r="8" className="fill-slate-800 dark:fill-slate-100" />
+        </g>
+
+        {/* Sad-face extras (frown + falling tear) -- always mounted, opacity-
+            toggled like the thinking bubble below, never mount/unmount. */}
+        <g
+          className={cn(
+            "transition-opacity duration-500",
+            pose === "notFound" ? "opacity-100" : "opacity-0"
+          )}
+        >
+          <path
+            d="M 85 132 Q 110 120 135 132"
+            className="stroke-slate-700 dark:stroke-slate-200"
+            strokeWidth="4"
+            strokeLinecap="round"
+            fill="none"
+          />
+          <circle
+            cx="85"
+            cy="104"
+            r="3.5"
+            className="animate-tear-drop fill-cyan-400 dark:fill-cyan-300"
+          />
         </g>
 
         {/* Magnifying glass: orbits the head in idle, parks at the temple
@@ -98,14 +139,14 @@ export default function HeroMascot({ thinking, className }: HeroMascotProps) {
         <g
           className={cn(
             "transition-transform duration-500",
-            !thinking && "animate-magnifier-orbit"
+            pose !== "thinking" && "animate-magnifier-orbit"
           )}
           style={{
             transformOrigin: "110px 95px",
-            transform: thinking ? "translate(150px, 70px) rotate(-15deg)" : undefined,
+            transform: pose === "thinking" ? "translate(150px, 70px) rotate(-15deg)" : undefined,
           }}
         >
-          <g className={thinking ? "animate-magnifier-tremble" : undefined}>
+          <g className={pose === "thinking" ? "animate-magnifier-tremble" : undefined}>
             <circle
               cx="0"
               cy="0"
@@ -142,7 +183,7 @@ export default function HeroMascot({ thinking, className }: HeroMascotProps) {
         className={cn(
           "pointer-events-none absolute -right-1 top-2 flex items-center gap-1 rounded-2xl rounded-bl-sm border px-3 py-2 shadow-md transition-all duration-300",
           "border-violet-200 bg-white dark:border-violet-800 dark:bg-slate-900",
-          thinking ? "translate-y-0 scale-100 opacity-100" : "-translate-y-2 scale-75 opacity-0"
+          pose === "thinking" ? "translate-y-0 scale-100 opacity-100" : "-translate-y-2 scale-75 opacity-0"
         )}
       >
         <span
