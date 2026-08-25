@@ -43,7 +43,7 @@ export default async function TopicCarousel() {
 
         <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0">
           {topics.map((topic) => {
-            const { image, accent } = getTopicImage(topic);
+            const { image } = getTopicImage(topic);
             const categorySlug = categorySlugByTopic.get(topic);
             const category = categorySlug ? getCategoryBySlug(categorySlug) : undefined;
             const backgroundImage = category?.heroImage ?? image;
@@ -55,14 +55,12 @@ export default async function TopicCarousel() {
                 className="relative min-w-[260px] shrink-0 snap-center overflow-hidden rounded-3xl border border-slate-200/80 bg-white/80 shadow-sm backdrop-blur-xl transition hover:scale-[1.02] hover:shadow-lg dark:border-white/10 dark:bg-white/5 md:min-w-0"
               >
                 <div className="absolute inset-0 -z-10">
-                  <Image src={backgroundImage} alt="" fill className="object-cover opacity-20 dark:opacity-15" sizes="320px" />
-                  <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/80 to-white dark:from-transparent dark:via-slate-950/60 dark:to-slate-950" />
+                  <Image src={backgroundImage} alt="" fill className="object-cover opacity-20 dark:opacity-25" sizes="320px" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-white/50 to-white dark:from-transparent dark:via-slate-950/40 dark:to-slate-950" />
                 </div>
 
                 <div className="p-5">
-                  <div
-                    className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br ${accent} text-white shadow-lg`}
-                  >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 via-fuchsia-500 to-cyan-500 text-white shadow-lg">
                     <Compass className="h-5 w-5" />
                   </div>
 

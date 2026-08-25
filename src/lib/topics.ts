@@ -54,7 +54,7 @@ export async function getPopularTopics(language: Locale): Promise<string[]> {
     .map((entry) => entry.topic);
 }
 
-const LATEST_TOPICS_LIMIT = 5;
+const LATEST_TOPICS_LIMIT = 6;
 // Rows fetched before dedup, not cards shown. Needs to be generous, not just
 // a small multiple of LATEST_TOPICS_LIMIT: sourceQuestions() grows a topic's
 // cache pool a batch at a time (poolTarget = amount * 3 in
