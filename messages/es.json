@@ -341,6 +341,16 @@
     "subtitle": "Explorá nuestras categorías y lanzate a un quiz sobre tu tema favorito.",
     "viewAllCta": "Ver todas las categorías"
   },
+  "CategoriesPage": {
+    "metaTitle": "Todas las categorías | Quizmify",
+    "metaDescription": "Explorá todas las categorías de quiz de Quizmify: cultura general, historia, ciencias, cine, deportes y mucho más. Encontrá tu tema favorito y lanzá un quiz.",
+    "heading": "Todas las categorías",
+    "subtitle": "Explorá todas nuestras categorías de quiz, organizadas por temática, y encontrá tu próximo tema favorito.",
+    "topicCount": "{count, plural, =0 {Próximamente} one {# tema} other {# temas}}",
+    "gamesHeading": "Todos los juegos",
+    "breadcrumbHome": "Inicio",
+    "breadcrumbCurrent": "Categorías"
+  },
   "CategoryGroups": {
     "culture-generale": "Cultura General",
     "culture-sciences": "Cultura y Ciencias",

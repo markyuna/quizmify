@@ -187,3 +187,19 @@ export async function getCategoryTopics(
     return b.createdAt.getTime() - a.createdAt.getTime();
   });
 }
+
+/**
+ * One-shot topic count per category for `locale`, for the /categories
+ * overview grid -- a single groupBy instead of one count() per category.
+ * A category with zero rows in this locale is simply absent from the
+ * result; callers treat a missing key as 0.
+ */
+export async function getCategoryTopicCountsByLocale(locale: Locale): Promise<Record<string, number>> {
+  const rows = await prisma.categoryTopic.groupBy({
+    by: ["categorySlug"],
+    where: { hidden: false, language: locale },
+    _count: { _all: true },
+  });
+
+  return Object.fromEntries(rows.map((row) => [row.categorySlug, row._count._all]));
+}
