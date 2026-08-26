@@ -62,6 +62,8 @@ body {
   --animate-mascot-lean-right: mascot-lean-right 1.6s ease-in-out infinite;
   --animate-mascot-tap: mascot-tap 6s ease-in-out infinite;
   --animate-mascot-ripple: mascot-ripple 6s ease-out infinite;
+  --animate-mascot-hand-squash: mascot-hand-squash 6s ease-in-out infinite;
+  --animate-mascot-impact: mascot-impact 6s ease-out infinite;
 }
 
 @keyframes shimmer {
@@ -234,5 +236,41 @@ body {
   16% {
     opacity: 0;
     transform: scale(1.8);
+  }
+}
+
+@keyframes mascot-hand-squash {
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+  4% {
+    transform: scaleX(0.8);
+  }
+  8% {
+    transform: scaleX(1);
+  }
+  12% {
+    transform: scaleX(0.8);
+  }
+  16% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes mascot-impact {
+  0%,
+  2%,
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  4% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  9% {
+    opacity: 0;
+    transform: scale(1.15);
   }
 }
