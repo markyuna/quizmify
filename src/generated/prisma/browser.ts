@@ -147,3 +147,8 @@ export type PersonalityTestAttempt = Prisma.PersonalityTestAttemptModel
  * 
  */
 export type CategoryTopic = Prisma.CategoryTopicModel
+/**
+ * Model PuzzleDuJourGame
+ * 
+ */
+export type PuzzleDuJourGame = Prisma.PuzzleDuJourGameModel

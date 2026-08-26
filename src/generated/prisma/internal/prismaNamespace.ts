@@ -422,7 +422,8 @@ export const ModelName = {
   GuestAttempt: 'GuestAttempt',
   UserDailyAttempt: 'UserDailyAttempt',
   PersonalityTestAttempt: 'PersonalityTestAttempt',
-  CategoryTopic: 'CategoryTopic'
+  CategoryTopic: 'CategoryTopic',
+  PuzzleDuJourGame: 'PuzzleDuJourGame'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -438,7 +439,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2366,6 +2367,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PuzzleDuJourGame: {
+      payload: Prisma.$PuzzleDuJourGamePayload<ExtArgs>
+      fields: Prisma.PuzzleDuJourGameFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PuzzleDuJourGameFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PuzzleDuJourGamePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PuzzleDuJourGameFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PuzzleDuJourGamePayload>
+        }
+        findFirst: {
+          args: Prisma.PuzzleDuJourGameFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PuzzleDuJourGamePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PuzzleDuJourGameFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PuzzleDuJourGamePayload>
+        }
+        findMany: {
+          args: Prisma.PuzzleDuJourGameFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PuzzleDuJourGamePayload>[]
+        }
+        create: {
+          args: Prisma.PuzzleDuJourGameCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PuzzleDuJourGamePayload>
+        }
+        createMany: {
+          args: Prisma.PuzzleDuJourGameCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PuzzleDuJourGameCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PuzzleDuJourGamePayload>[]
+        }
+        delete: {
+          args: Prisma.PuzzleDuJourGameDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PuzzleDuJourGamePayload>
+        }
+        update: {
+          args: Prisma.PuzzleDuJourGameUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PuzzleDuJourGamePayload>
+        }
+        deleteMany: {
+          args: Prisma.PuzzleDuJourGameDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PuzzleDuJourGameUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PuzzleDuJourGameUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PuzzleDuJourGamePayload>[]
+        }
+        upsert: {
+          args: Prisma.PuzzleDuJourGameUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PuzzleDuJourGamePayload>
+        }
+        aggregate: {
+          args: Prisma.PuzzleDuJourGameAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePuzzleDuJourGame>
+        }
+        groupBy: {
+          args: Prisma.PuzzleDuJourGameGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PuzzleDuJourGameGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PuzzleDuJourGameCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PuzzleDuJourGameCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2788,6 +2863,26 @@ export const CategoryTopicScalarFieldEnum = {
 export type CategoryTopicScalarFieldEnum = (typeof CategoryTopicScalarFieldEnum)[keyof typeof CategoryTopicScalarFieldEnum]
 
 
+export const PuzzleDuJourGameScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  topic: 'topic',
+  topicNormalized: 'topicNormalized',
+  language: 'language',
+  difficulty: 'difficulty',
+  gridCols: 'gridCols',
+  gridRows: 'gridRows',
+  imageUrl: 'imageUrl',
+  status: 'status',
+  completedAt: 'completedAt',
+  xpEarned: 'xpEarned',
+  createdAt: 'createdAt'
+} as const
+
+export type PuzzleDuJourGameScalarFieldEnum = (typeof PuzzleDuJourGameScalarFieldEnum)[keyof typeof PuzzleDuJourGameScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3016,6 +3111,34 @@ export type EnumPersonalityTestKeyFieldRefInput<$PrismaModel> = FieldRefInputTyp
 export type ListEnumPersonalityTestKeyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PersonalityTestKey[]'>
     
 
+
+/**
+ * Reference to a field of type 'PuzzleDuJourDifficulty'
+ */
+export type EnumPuzzleDuJourDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PuzzleDuJourDifficulty'>
+    
+
+
+/**
+ * Reference to a field of type 'PuzzleDuJourDifficulty[]'
+ */
+export type ListEnumPuzzleDuJourDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PuzzleDuJourDifficulty[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PuzzleDuJourStatus'
+ */
+export type EnumPuzzleDuJourStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PuzzleDuJourStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PuzzleDuJourStatus[]'
+ */
+export type ListEnumPuzzleDuJourStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PuzzleDuJourStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -3193,6 +3316,7 @@ export type GlobalOmitConfig = {
   userDailyAttempt?: Prisma.UserDailyAttemptOmit
   personalityTestAttempt?: Prisma.PersonalityTestAttemptOmit
   categoryTopic?: Prisma.CategoryTopicOmit
+  puzzleDuJourGame?: Prisma.PuzzleDuJourGameOmit
 }
 
 /* Types for Logging */

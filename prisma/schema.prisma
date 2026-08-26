@@ -108,6 +108,7 @@ model User {
   personalityTestAttemptsClaimed PersonalityTestAttempt[]
   curatedQuizCompletions         CuratedQuizCompletion[]
   categoryRecommendation         CategoryRecommendationMascota?
+  puzzleDuJourGames              PuzzleDuJourGame[]
 
   @@index([xp])
 }
@@ -729,5 +730,58 @@ model CategoryTopic {
 
   @@unique([categorySlug, topicNormalized, language])
   @@index([categorySlug])
+  @@index([topicNormalized, language])
+}
+
+enum PuzzleDuJourDifficulty {
+  easy
+  medium
+  hard
+}
+
+enum PuzzleDuJourStatus {
+  in_progress
+  completed
+}
+
+// Pro-only, on-demand daily puzzle: each row is one user's own free-topic
+// image jigsaw, not a shared daily challenge -- deliberately NOT reusing
+// UserDailyAttempt/GuestAttempt/DailyGameChallenge, which all model "one
+// shared challenge per calendar day." See the investigation that ruled out
+// that reuse (guestAttemptId there is a required FK, and there's no
+// concept of a global "today's puzzle" here).
+//
+// A row is only ever inserted after image generation succeeds -- a
+// content-moderation-rejected topic never gets a row, so it doesn't count
+// against the daily cap. See POST /api/puzzle-du-jour.
+model PuzzleDuJourGame {
+  id              String                 @id @default(cuid())
+  userId          String
+  // UTC calendar day "YYYY-MM-DD" -- same convention as
+  // UserDailyAttempt.date. Only used to COUNT today's rows against the
+  // 2/day cap -- NOT part of a uniqueness constraint, since a user can
+  // have up to 2 rows for the same date.
+  date            String
+  // Exactly what the user typed (trimmed), for display in the puzzle
+  // title/history -- never overwritten with the normalized form.
+  topic           String
+  // normalizeTopic(topic) -- same convention CategoryTopic/
+  // CuratedQuizCompletion use. Paired with `language` to find a cacheable
+  // image for this topic before spending money generating a new one,
+  // regardless of difficulty or which user asked for it first.
+  topicNormalized String
+  language        String                 @default("en")
+  difficulty      PuzzleDuJourDifficulty
+  gridCols        Int
+  gridRows        Int
+  imageUrl        String
+  status          PuzzleDuJourStatus     @default(in_progress)
+  completedAt     DateTime?
+  xpEarned        Int                    @default(0)
+  createdAt       DateTime               @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, date])
   @@index([topicNormalized, language])
 }

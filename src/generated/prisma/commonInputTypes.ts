@@ -463,6 +463,40 @@ export type EnumPersonalityTestKeyWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumPersonalityTestKeyFilter<$PrismaModel>
 }
 
+export type EnumPuzzleDuJourDifficultyFilter<$PrismaModel = never> = {
+  equals?: $Enums.PuzzleDuJourDifficulty | Prisma.EnumPuzzleDuJourDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.PuzzleDuJourDifficulty[] | Prisma.ListEnumPuzzleDuJourDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PuzzleDuJourDifficulty[] | Prisma.ListEnumPuzzleDuJourDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPuzzleDuJourDifficultyFilter<$PrismaModel> | $Enums.PuzzleDuJourDifficulty
+}
+
+export type EnumPuzzleDuJourStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.PuzzleDuJourStatus | Prisma.EnumPuzzleDuJourStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PuzzleDuJourStatus[] | Prisma.ListEnumPuzzleDuJourStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PuzzleDuJourStatus[] | Prisma.ListEnumPuzzleDuJourStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPuzzleDuJourStatusFilter<$PrismaModel> | $Enums.PuzzleDuJourStatus
+}
+
+export type EnumPuzzleDuJourDifficultyWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PuzzleDuJourDifficulty | Prisma.EnumPuzzleDuJourDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.PuzzleDuJourDifficulty[] | Prisma.ListEnumPuzzleDuJourDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PuzzleDuJourDifficulty[] | Prisma.ListEnumPuzzleDuJourDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPuzzleDuJourDifficultyWithAggregatesFilter<$PrismaModel> | $Enums.PuzzleDuJourDifficulty
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPuzzleDuJourDifficultyFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPuzzleDuJourDifficultyFilter<$PrismaModel>
+}
+
+export type EnumPuzzleDuJourStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PuzzleDuJourStatus | Prisma.EnumPuzzleDuJourStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PuzzleDuJourStatus[] | Prisma.ListEnumPuzzleDuJourStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PuzzleDuJourStatus[] | Prisma.ListEnumPuzzleDuJourStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPuzzleDuJourStatusWithAggregatesFilter<$PrismaModel> | $Enums.PuzzleDuJourStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPuzzleDuJourStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPuzzleDuJourStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -858,6 +892,40 @@ export type NestedEnumPersonalityTestKeyWithAggregatesFilter<$PrismaModel = neve
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPersonalityTestKeyFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPersonalityTestKeyFilter<$PrismaModel>
+}
+
+export type NestedEnumPuzzleDuJourDifficultyFilter<$PrismaModel = never> = {
+  equals?: $Enums.PuzzleDuJourDifficulty | Prisma.EnumPuzzleDuJourDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.PuzzleDuJourDifficulty[] | Prisma.ListEnumPuzzleDuJourDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PuzzleDuJourDifficulty[] | Prisma.ListEnumPuzzleDuJourDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPuzzleDuJourDifficultyFilter<$PrismaModel> | $Enums.PuzzleDuJourDifficulty
+}
+
+export type NestedEnumPuzzleDuJourStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.PuzzleDuJourStatus | Prisma.EnumPuzzleDuJourStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PuzzleDuJourStatus[] | Prisma.ListEnumPuzzleDuJourStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PuzzleDuJourStatus[] | Prisma.ListEnumPuzzleDuJourStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPuzzleDuJourStatusFilter<$PrismaModel> | $Enums.PuzzleDuJourStatus
+}
+
+export type NestedEnumPuzzleDuJourDifficultyWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PuzzleDuJourDifficulty | Prisma.EnumPuzzleDuJourDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.PuzzleDuJourDifficulty[] | Prisma.ListEnumPuzzleDuJourDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PuzzleDuJourDifficulty[] | Prisma.ListEnumPuzzleDuJourDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPuzzleDuJourDifficultyWithAggregatesFilter<$PrismaModel> | $Enums.PuzzleDuJourDifficulty
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPuzzleDuJourDifficultyFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPuzzleDuJourDifficultyFilter<$PrismaModel>
+}
+
+export type NestedEnumPuzzleDuJourStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PuzzleDuJourStatus | Prisma.EnumPuzzleDuJourStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PuzzleDuJourStatus[] | Prisma.ListEnumPuzzleDuJourStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PuzzleDuJourStatus[] | Prisma.ListEnumPuzzleDuJourStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPuzzleDuJourStatusWithAggregatesFilter<$PrismaModel> | $Enums.PuzzleDuJourStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPuzzleDuJourStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPuzzleDuJourStatusFilter<$PrismaModel>
 }
 
 

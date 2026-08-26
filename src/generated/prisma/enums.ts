@@ -65,3 +65,20 @@ export const PersonalityTestKey = {
 } as const
 
 export type PersonalityTestKey = (typeof PersonalityTestKey)[keyof typeof PersonalityTestKey]
+
+
+export const PuzzleDuJourDifficulty = {
+  easy: 'easy',
+  medium: 'medium',
+  hard: 'hard'
+} as const
+
+export type PuzzleDuJourDifficulty = (typeof PuzzleDuJourDifficulty)[keyof typeof PuzzleDuJourDifficulty]
+
+
+export const PuzzleDuJourStatus = {
+  in_progress: 'in_progress',
+  completed: 'completed'
+} as const
+
+export type PuzzleDuJourStatus = (typeof PuzzleDuJourStatus)[keyof typeof PuzzleDuJourStatus]

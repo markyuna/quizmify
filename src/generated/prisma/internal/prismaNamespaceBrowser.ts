@@ -76,7 +76,8 @@ export const ModelName = {
   GuestAttempt: 'GuestAttempt',
   UserDailyAttempt: 'UserDailyAttempt',
   PersonalityTestAttempt: 'PersonalityTestAttempt',
-  CategoryTopic: 'CategoryTopic'
+  CategoryTopic: 'CategoryTopic',
+  PuzzleDuJourGame: 'PuzzleDuJourGame'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -476,6 +477,26 @@ export const CategoryTopicScalarFieldEnum = {
 } as const
 
 export type CategoryTopicScalarFieldEnum = (typeof CategoryTopicScalarFieldEnum)[keyof typeof CategoryTopicScalarFieldEnum]
+
+
+export const PuzzleDuJourGameScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  topic: 'topic',
+  topicNormalized: 'topicNormalized',
+  language: 'language',
+  difficulty: 'difficulty',
+  gridCols: 'gridCols',
+  gridRows: 'gridRows',
+  imageUrl: 'imageUrl',
+  status: 'status',
+  completedAt: 'completedAt',
+  xpEarned: 'xpEarned',
+  createdAt: 'createdAt'
+} as const
+
+export type PuzzleDuJourGameScalarFieldEnum = (typeof PuzzleDuJourGameScalarFieldEnum)[keyof typeof PuzzleDuJourGameScalarFieldEnum]
 
 
 export const SortOrder = {
