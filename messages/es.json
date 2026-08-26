@@ -852,7 +852,13 @@
     "unlockCta": "Desbloquear con Pro",
     "errorTopicBlocked": "Ese tema no se puede usar -- probá con otro.",
     "errorDailyLimit": "Ya usaste tus 2 creaciones de hoy -- volvé mañana.",
-    "errorGeneric": "Algo salió mal. Probá de nuevo."
+    "errorGeneric": "Algo salió mal. Probá de nuevo.",
+    "piecesPlaced": "{placed}/{total} piezas colocadas",
+    "dragPieceHint": "Arrastrá cada pieza a su lugar",
+    "selectPieceHint": "Tocá una pieza y después su lugar",
+    "completedTitle": "¡Puzzle resuelto!",
+    "completedXp": "+{xp} XP ganados",
+    "alreadyCompletedMessage": "Ya resolviste este puzzle (+{xp} XP ganados)."
   },
   "DailyChallenge": {
     "badge": "Desafío diario",

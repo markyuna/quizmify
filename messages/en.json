@@ -852,7 +852,13 @@
     "unlockCta": "Unlock with Pro",
     "errorTopicBlocked": "That topic can't be used -- try a different one.",
     "errorDailyLimit": "You've used today's 2 creations -- come back tomorrow.",
-    "errorGeneric": "Something went wrong. Try again."
+    "errorGeneric": "Something went wrong. Try again.",
+    "piecesPlaced": "{placed}/{total} pieces placed",
+    "dragPieceHint": "Drag each piece to its spot",
+    "selectPieceHint": "Tap a piece, then tap its spot",
+    "completedTitle": "Puzzle solved!",
+    "completedXp": "+{xp} XP earned",
+    "alreadyCompletedMessage": "You already solved this puzzle (+{xp} XP earned)."
   },
   "DailyChallenge": {
     "badge": "Daily challenge",

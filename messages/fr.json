@@ -852,7 +852,13 @@
     "unlockCta": "Débloquer avec Pro",
     "errorTopicBlocked": "Ce thème ne peut pas être utilisé -- essaie un autre.",
     "errorDailyLimit": "Tu as utilisé tes 2 créations du jour -- reviens demain.",
-    "errorGeneric": "Une erreur est survenue. Réessaie."
+    "errorGeneric": "Une erreur est survenue. Réessaie.",
+    "piecesPlaced": "{placed}/{total} pièces placées",
+    "dragPieceHint": "Fais glisser chaque pièce à sa place",
+    "selectPieceHint": "Touche une pièce, puis touche sa place",
+    "completedTitle": "Puzzle résolu !",
+    "completedXp": "+{xp} XP gagnés",
+    "alreadyCompletedMessage": "Tu as déjà résolu ce puzzle (+{xp} XP gagnés)."
   },
   "DailyChallenge": {
     "badge": "Défi quotidien",
