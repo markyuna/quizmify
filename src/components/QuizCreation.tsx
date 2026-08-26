@@ -140,6 +140,7 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
       type: "mcq",
       isTimed: false,
       puzzleMode: false,
+      categorySlug: "",
     },
   });
 
@@ -165,11 +166,11 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
 
   // Debounced "is this topic already in the catalog?" check that drives the
   // selector's default selection and its "already in X" hint -- see
-  // /api/category-topics/lookup. Never runs for guests (they never reach
-  // /api/quiz/submit, so a category choice would just be discarded) or once
-  // categoryKnown is true.
+  // /api/category-topics/lookup. Runs for guests too (category is now
+  // required for every quiz, not just for the CategoryTopic-publish side
+  // effect at /api/quiz/submit) -- skipped only once categoryKnown is true.
   React.useEffect(() => {
-    if (isGuest || categoryKnown) return;
+    if (categoryKnown) return;
 
     const trimmedTopic = topicValue.trim();
     if (!trimmedTopic) {
@@ -209,6 +210,20 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
 
   const puzzleModeDisabledForCategory =
     effectiveCategorySlug !== "" && getCategoryBySlug(effectiveCategorySlug)?.puzzleModeDisabled === true;
+
+  // categorySlug isn't a real registered <FormField> below (the <select> is
+  // driven by the plain selectedCategorySlug/categoryParam state above, not
+  // form.control) -- sync it into RHF's own tracked value here so
+  // zodResolver's required-categorySlug check actually has something to
+  // validate against on submit, instead of always seeing undefined.
+  // shouldValidate only once the form's already been submitted at least
+  // once -- otherwise a plain setValue() never clears the "required" error
+  // it left behind (picking a category after a blocked submit wouldn't make
+  // the hint go away), but validating from the very first render would nag
+  // the player before they've even tried to submit.
+  React.useEffect(() => {
+    form.setValue("categorySlug", effectiveCategorySlug, { shouldValidate: form.formState.isSubmitted });
+  }, [effectiveCategorySlug, form]);
 
   // Mirrors the partyMode/puzzleMode mutual-exclusivity reset elsewhere in
   // this form -- if the effective category resolves (or changes) after the
@@ -321,7 +336,7 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
 
   const onSubmit = (values: QuizCreationInput) => {
     setShowLoader(true);
-    createGame({ ...values, categorySlug: effectiveCategorySlug || undefined });
+    createGame({ ...values, categorySlug: effectiveCategorySlug });
   };
 
   // Curated topics skip the configuration panel entirely: fire the same
@@ -341,7 +356,7 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
       type: "mcq",
       isTimed: false,
       puzzleMode: false,
-      categorySlug: effectiveCategorySlug || undefined,
+      categorySlug: effectiveCategorySlug,
     });
   }, [isCuratedTopic, curatedQuiz, checkingEligibility, effectiveCategorySlug, createGame]);
 
@@ -404,7 +419,7 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
               )}
             />
 
-            {!isGuest && !categoryKnown && (
+            {!categoryKnown && (
               <FormItem>
                 <FormLabel className="text-sm font-semibold text-slate-700 dark:text-slate-200">
                   {t("categoryLabel")}
@@ -423,8 +438,8 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
                         of theme: dark:text-white then renders white-on-
                         near-white until the browser's own hover highlight
                         kicks in. */}
-                    <option value="" className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">
-                      {t("categoryNone")}
+                    <option value="" disabled className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">
+                      {t("categoryPlaceholder")}
                     </option>
                     {CATEGORIES.map((category) => (
                       <option
@@ -440,6 +455,11 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
                 {categoryLookup?.exists && categoryLookup.categoryName && (
                   <p className="text-xs text-slate-400 dark:text-slate-500">
                     {t("categoryAlreadyIn", { category: categoryLookup.categoryName })}
+                  </p>
+                )}
+                {form.formState.errors.categorySlug && (
+                  <p className="text-xs font-medium text-red-500 dark:text-red-400">
+                    {t("categoryRequiredHint")}
                   </p>
                 )}
               </FormItem>

@@ -7,13 +7,16 @@ export const quizCreationSchema = z.object({
   type: z.literal("mcq"),
   isTimed: z.boolean(),
   puzzleMode: z.boolean(),
-  // Optional: the category the player already knows this topic belongs to
-  // (chosen in QuizCreation before generation) -- lets question generation
-  // scope itself to that category's context. Validated against CATEGORIES
-  // server-side in /api/game, which also persists it onto Game.categorySlug
-  // -- the source /api/quiz/submit later reads to publish a CategoryTopic
-  // row (see prisma/schema.prisma).
-  categorySlug: z.string().optional(),
+  // Required (as of the category-mandatory change): every quiz, guest or
+  // authenticated, must be tied to a real category before it can be
+  // created -- lets question generation scope itself to that category's
+  // context. Validated against CATEGORIES server-side in /api/game, which
+  // also persists it onto Game.categorySlug -- the source /api/quiz/submit
+  // later reads to publish a CategoryTopic row (see prisma/schema.prisma).
+  // POST /api/game re-parses this exact schema against the raw request
+  // body, so this alone is already the server-side guard -- no separate
+  // check needed there.
+  categorySlug: z.string().min(1, "categoryRequired"),
 });
 
 export const checkAnswerSchema = z.object({
