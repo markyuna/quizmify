@@ -45,12 +45,19 @@ export default async function CategoriesPage() {
         <span className="font-semibold text-slate-900 dark:text-white">{t("breadcrumbCurrent")}</span>
       </nav>
 
-      <h1 className="mt-4 text-2xl font-black tracking-tight text-slate-900 dark:text-white sm:text-3xl">
-        {t("heading")}
-      </h1>
-      <p className="mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-300 sm:text-base">{t("subtitle")}</p>
+      <section className="relative mt-4 overflow-hidden rounded-3xl border border-white/10 bg-[url('/images/dashboard_background.webp')] bg-cover bg-center px-6 py-12 shadow-2xl shadow-black/10 sm:px-10 sm:py-16">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-violet-950/80 via-slate-950/70 to-cyan-950/70" />
+        <div className="pointer-events-none absolute -left-10 top-0 h-40 w-40 rounded-full bg-violet-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 rounded-full bg-cyan-500/20 blur-3xl" />
 
-      <div className="mt-6">
+        <div className="relative z-10 mx-auto max-w-2xl text-center">
+          <span aria-hidden="true" className="text-4xl">🗂️</span>
+          <h1 className="mt-3 text-2xl font-black tracking-tight text-white sm:text-3xl">{t("heading")}</h1>
+          <p className="mt-2 text-sm text-slate-200 sm:text-base">{t("subtitle")}</p>
+        </div>
+      </section>
+
+      <div className="mt-8">
         <QuizSearchHero />
       </div>
 
