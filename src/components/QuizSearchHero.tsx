@@ -9,17 +9,12 @@ import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import HeroMascot from "@/components/HeroMascot";
+import { useTopicSuggestions } from "@/hooks/useTopicSuggestions";
 import type { CategoryTopicLookupResponse } from "@/app/api/category-topics/lookup/route";
-import type {
-  CategoryTopicSearchResponse,
-  CategoryTopicSearchResult,
-} from "@/app/api/category-topics/search/route";
+import type { CategoryTopicSearchResult } from "@/app/api/category-topics/search/route";
 
 // How long the mascot stays in "thinking" pose after the user stops typing.
 const THINKING_IDLE_MS = 1000;
-// Typeahead debounce -- short enough to feel live, long enough not to hit
-// the search endpoint on every keystroke while the user is still typing.
-const SUGGESTIONS_DEBOUNCE_MS = 275;
 // How long with zero interaction before the mascot taps the card edge to
 // get the visitor's attention. The tap-tap-then-long-pause rhythm itself
 // lives entirely in the mascot-tap/mascot-ripple CSS keyframes (globals.css)
@@ -41,22 +36,17 @@ export default function QuizSearchHero({ popularTopics = [] }: QuizSearchHeroPro
   const [error, setError] = useState<string | null>(null);
   const [isThinking, setIsThinking] = useState(false);
 
-  const [suggestions, setSuggestions] = useState<CategoryTopicSearchResult[]>([]);
-  const [isSearchingSuggestions, setIsSearchingSuggestions] = useState(false);
+  const { suggestions, isSearchingSuggestions, queueSuggestions, clearSuggestions } = useTopicSuggestions();
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [notFoundTopic, setNotFoundTopic] = useState<string | null>(null);
   const [attention, setAttention] = useState(false);
 
   const thinkingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const suggestionsDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const suggestionsAbortRef = useRef<AbortController | null>(null);
   const attentionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     return () => {
       if (thinkingTimeoutRef.current) clearTimeout(thinkingTimeoutRef.current);
-      if (suggestionsDebounceRef.current) clearTimeout(suggestionsDebounceRef.current);
-      suggestionsAbortRef.current?.abort();
     };
   }, []);
 
@@ -77,38 +67,6 @@ export default function QuizSearchHero({ popularTopics = [] }: QuizSearchHeroPro
     };
   }, []);
 
-  const fetchSuggestions = (value: string) => {
-    suggestionsAbortRef.current?.abort();
-
-    const trimmed = value.trim();
-    if (!trimmed) {
-      suggestionsAbortRef.current = null;
-      setSuggestions([]);
-      setIsSearchingSuggestions(false);
-      return;
-    }
-
-    const controller = new AbortController();
-    suggestionsAbortRef.current = controller;
-    setIsSearchingSuggestions(true);
-
-    fetch(`/api/category-topics/search?q=${encodeURIComponent(trimmed)}&language=${locale}`, {
-      signal: controller.signal,
-    })
-      .then((res) => res.json())
-      .then((data: CategoryTopicSearchResponse) => {
-        if (suggestionsAbortRef.current !== controller) return;
-        setSuggestions(data.results ?? []);
-        setIsSearchingSuggestions(false);
-      })
-      .catch((err) => {
-        if (controller.signal.aborted || suggestionsAbortRef.current !== controller) return;
-        console.error("Suggestion fetch error:", err);
-        setSuggestions([]);
-        setIsSearchingSuggestions(false);
-      });
-  };
-
   const selectSuggestion = (suggestion: CategoryTopicSearchResult) => {
     router.push(`/quiz?topic=${encodeURIComponent(suggestion.topicDisplay)}&category=${suggestion.categorySlug}`);
   };
@@ -123,9 +81,7 @@ export default function QuizSearchHero({ popularTopics = [] }: QuizSearchHeroPro
       return;
     }
 
-    suggestionsAbortRef.current?.abort();
-    setSuggestions([]);
-    setIsSearchingSuggestions(false);
+    clearSuggestions();
     setIsLoading(true);
     setError(null);
     setNotFoundTopic(null);
@@ -218,11 +174,7 @@ export default function QuizSearchHero({ popularTopics = [] }: QuizSearchHeroPro
                   if (thinkingTimeoutRef.current) clearTimeout(thinkingTimeoutRef.current);
                   thinkingTimeoutRef.current = setTimeout(() => setIsThinking(false), THINKING_IDLE_MS);
 
-                  if (suggestionsDebounceRef.current) clearTimeout(suggestionsDebounceRef.current);
-                  suggestionsDebounceRef.current = setTimeout(
-                    () => fetchSuggestions(value),
-                    SUGGESTIONS_DEBOUNCE_MS
-                  );
+                  queueSuggestions(value);
                 }}
                 onFocus={() => {
                   setIsInputFocused(true);
