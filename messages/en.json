@@ -836,6 +836,24 @@
     "emptyDescription": "Take the \"What animal are you?\" test to reveal your pet and unlock personalized recommendations.",
     "ctaLabel": "Take the test"
   },
+  "PuzzleDuJour": {
+    "title": "Puzzle du Jour",
+    "description": "Pick any topic, we'll generate an image, you solve the puzzle.",
+    "proBadge": "Pro",
+    "topicPlaceholder": "e.g. Tokyo at night",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "remainingToday": "{count, plural, =0 {No creations left today} =1 {1 creation left today} other {# creations left today}}",
+    "generateCta": "Generate puzzle",
+    "generating": "Generating...",
+    "unlockCta": "Unlock with Pro",
+    "errorTopicBlocked": "That topic can't be used -- try a different one.",
+    "errorDailyLimit": "You've used today's 2 creations -- come back tomorrow.",
+    "errorGeneric": "Something went wrong. Try again."
+  },
   "DailyChallenge": {
     "badge": "Daily challenge",
     "participantCount": "{count, plural, =0 {No one has played yet} one {# player so far} other {# players so far}}",

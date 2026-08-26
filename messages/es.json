@@ -836,6 +836,24 @@
     "emptyDescription": "Hacé el test \"¿Qué animal sos?\" para revelar tu mascota y desbloquear recomendaciones personalizadas.",
     "ctaLabel": "Hacer el test"
   },
+  "PuzzleDuJour": {
+    "title": "Puzzle du Jour",
+    "description": "Elegí cualquier tema, generamos una imagen y armás el rompecabezas.",
+    "proBadge": "Pro",
+    "topicPlaceholder": "ej. Tokio de noche",
+    "difficulty": {
+      "easy": "Fácil",
+      "medium": "Media",
+      "hard": "Difícil"
+    },
+    "remainingToday": "{count, plural, =0 {No te quedan creaciones hoy} =1 {Te queda 1 creación hoy} other {Te quedan # creaciones hoy}}",
+    "generateCta": "Generar puzzle",
+    "generating": "Generando...",
+    "unlockCta": "Desbloquear con Pro",
+    "errorTopicBlocked": "Ese tema no se puede usar -- probá con otro.",
+    "errorDailyLimit": "Ya usaste tus 2 creaciones de hoy -- volvé mañana.",
+    "errorGeneric": "Algo salió mal. Probá de nuevo."
+  },
   "DailyChallenge": {
     "badge": "Desafío diario",
     "participantCount": "{count, plural, =0 {Todavía nadie jugó} one {# jugador hasta ahora} other {# jugadores hasta ahora}}",
