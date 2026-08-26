@@ -132,7 +132,6 @@ export default function QuizSearchHero({ popularTopics = [] }: QuizSearchHeroPro
 
     try {
       // Search-first: does this topic already exist in the catalog?
-      // TODO: verificar si /api/guest-quiz-search tiene otros consumidores antes de removerlo
       const response = await fetch(
         `/api/category-topics/lookup?topic=${encodeURIComponent(topic)}&locale=${locale}`
       );
