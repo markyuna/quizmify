@@ -115,7 +115,7 @@ export async function getLatestTopics(language: Locale): Promise<string[]> {
 
 /**
  * Best-effort topic -> categorySlug lookup for TopicCarousel's card
- * background art (see getTopicImage in topicImages.ts). `topics` are plain
+ * background art (see getTopicAccent in topicImages.ts). `topics` are plain
  * strings from the mcq_questions cache -- it carries no categorySlug of its
  * own -- so this tries CategoryTopic.topicNormalized first (exact match,
  * same normalizeTopic() casing used everywhere else), then falls back to
