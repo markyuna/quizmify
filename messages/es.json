@@ -488,6 +488,7 @@
     "categoryRequiredHint": "Elegí una categoría para poder crear el quiz",
     "categoryNone": "Ninguna",
     "categoryAlreadyIn": "Ya está en «{category}»",
+    "categorySuggestedHint": "Sugerido según tu tema — cambiala si no es la correcta",
     "difficultyLabel": "Dificultad",
     "difficultyEasy": "Fácil",
     "difficultyEasyDesc": "Principiante",

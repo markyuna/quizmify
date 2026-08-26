@@ -29,6 +29,7 @@ import { CATEGORIES, getCategoryBySlug } from "@/lib/categories";
 import { findCuratedQuiz } from "@/lib/curatedQuizzes/registry";
 import { normalizeTopic } from "@/lib/topicUtils";
 import type { CategoryTopicLookupResponse } from "@/app/api/category-topics/lookup/route";
+import type { CategoryTopicSuggestResponse } from "@/app/api/category-topics/suggest/route";
 
 type QuizCreationProps = {
   topicParam: string;
@@ -80,6 +81,10 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
   // Kahoot-style screen, which doesn't render the puzzle reveal.
   const [partyMode, setPartyMode] = React.useState(false);
   const [selectedCategorySlug, setSelectedCategorySlug] = React.useState("");
+  // True only while selectedCategorySlug came from the similarity fallback
+  // below, not a real catalog match or a manual pick -- drives the
+  // "suggested" hint, and clears the instant the player touches the select.
+  const [isSuggestedCategory, setIsSuggestedCategory] = React.useState(false);
   const [categoryLookup, setCategoryLookup] = React.useState<{
     exists: boolean;
     categoryName: string | null;
@@ -176,6 +181,7 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
     if (!trimmedTopic) {
       setCategoryLookup(null);
       setSelectedCategorySlug("");
+      setIsSuggestedCategory(false);
       return;
     }
 
@@ -188,7 +194,32 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
         .then((res) => {
           if (cancelled) return;
           setCategoryLookup({ exists: res.data.exists, categoryName: res.data.categoryName });
-          setSelectedCategorySlug(res.data.exists && res.data.categorySlug ? res.data.categorySlug : "");
+
+          if (res.data.exists && res.data.categorySlug) {
+            setSelectedCategorySlug(res.data.categorySlug);
+            setIsSuggestedCategory(false);
+            return;
+          }
+
+          // No exact catalog match -- try a similarity-based guess instead
+          // of leaving the selector empty. Separate endpoint from the exact
+          // lookup above on purpose, see /api/category-topics/suggest's
+          // doc comment.
+          axios
+            .get<CategoryTopicSuggestResponse>("/api/category-topics/suggest", {
+              params: { topic: trimmedTopic, locale },
+            })
+            .then((suggestRes) => {
+              if (cancelled) return;
+              setSelectedCategorySlug(suggestRes.data.categorySlug ?? "");
+              setIsSuggestedCategory(suggestRes.data.categorySlug !== null);
+            })
+            .catch(() => {
+              if (!cancelled) {
+                setSelectedCategorySlug("");
+                setIsSuggestedCategory(false);
+              }
+            });
         })
         .catch(() => {
           if (!cancelled) setCategoryLookup(null);
@@ -427,7 +458,10 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
                 <FormControl>
                   <select
                     value={selectedCategorySlug}
-                    onChange={(event) => setSelectedCategorySlug(event.target.value)}
+                    onChange={(event) => {
+                      setSelectedCategorySlug(event.target.value);
+                      setIsSuggestedCategory(false);
+                    }}
                     className="h-12 w-full rounded-2xl border border-slate-200 bg-white/80 px-3 text-sm text-slate-900 focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-400/20 dark:border-white/10 dark:bg-white/5 dark:text-white"
                   >
                     {/* Solid (non-alpha) colors, not the select's own
@@ -455,6 +489,11 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
                 {categoryLookup?.exists && categoryLookup.categoryName && (
                   <p className="text-xs text-slate-400 dark:text-slate-500">
                     {t("categoryAlreadyIn", { category: categoryLookup.categoryName })}
+                  </p>
+                )}
+                {isSuggestedCategory && selectedCategorySlug !== "" && (
+                  <p className="text-xs text-violet-500 dark:text-violet-400">
+                    {t("categorySuggestedHint")}
                   </p>
                 )}
                 {form.formState.errors.categorySlug && (
