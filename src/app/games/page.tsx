@@ -5,28 +5,20 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { Search, Brain } from "lucide-react";
+import { Search } from "lucide-react";
 
 import WordOfDayCard from "@/components/games/WordOfDayCard";
 import WordOfDayGuide from "@/components/games/WordOfDayGuide";
 import PhotoOfDayCard from "@/components/games/PhotoOfDayCard";
 import MathTargetCard from "@/components/games/MathTargetCard";
 import PersonalityTestCard from "@/components/games/PersonalityTestCard";
+import { GAMES_CATALOG, type GameKey } from "@/lib/games/catalog";
 import { cn } from "@/lib/utils";
-
-type GameKey = "word-of-day" | "photo-of-day" | "math-target" | "personality-test";
-
-const GAMES: Array<{ key: GameKey; titleKey: string; teaserKey: string; image?: string; icon?: typeof Brain }> = [
-  { key: "word-of-day", titleKey: "games.wordOfDay.title", teaserKey: "games.wordOfDay.teaser", image: "/images/games/mot-du-jour-bg.webp" },
-  { key: "photo-of-day", titleKey: "games.photoOfDay.title", teaserKey: "games.photoOfDay.teaser", image: "/images/games/photo-du-jour-bg.webp" },
-  { key: "math-target", titleKey: "games.mathTarget.title", teaserKey: "games.mathTarget.teaser", image: "/images/games/compte-est-bon-bg.webp" },
-  { key: "personality-test", titleKey: "games.personalityTest.title", teaserKey: "games.personalityTest.teaser", icon: Brain },
-];
 
 const QUIZ_SEARCH_BACKGROUND = "/images/games/quiz-search-bg.webp";
 
 function isGameKey(value: string | null): value is GameKey {
-  return GAMES.some((game) => game.key === value);
+  return GAMES_CATALOG.some((game) => game.key === value);
 }
 
 function GameRenderer({ gameKey, isAuthenticated }: { gameKey: GameKey; isAuthenticated: boolean }) {
@@ -55,7 +47,7 @@ function GamesContent() {
   const [selectedGame, setSelectedGame] = useState<GameKey | null>(isGameKey(gameParam) ? gameParam : null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const selectedGameData = selectedGame ? GAMES.find((game) => game.key === selectedGame) : undefined;
+  const selectedGameData = selectedGame ? GAMES_CATALOG.find((game) => game.key === selectedGame) : undefined;
 
   function handleSearchSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -74,7 +66,7 @@ function GamesContent() {
               {t("carouselTitle")}
             </h3>
 
-            {GAMES.map((game) => (
+            {GAMES_CATALOG.map((game) => (
               <button
                 key={game.key}
                 type="button"

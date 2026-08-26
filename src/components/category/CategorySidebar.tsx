@@ -4,19 +4,11 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { Search, ChevronDown, Brain } from "lucide-react";
+import { Search, ChevronDown } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { getCategoriesGroupedByGroup } from "@/lib/categories";
-
-// Same 4 games as GameCarousel.tsx / games/page.tsx -- same routes (the
-// `game` query param on /games) and same images/icon, not reinvented here.
-const GAMES = [
-  { gameParam: "word-of-day", titleKey: "games.wordOfDay.title", image: "/images/games/mot-du-jour-bg.webp" },
-  { gameParam: "photo-of-day", titleKey: "games.photoOfDay.title", image: "/images/games/photo-du-jour-bg.webp" },
-  { gameParam: "math-target", titleKey: "games.mathTarget.title", image: "/images/games/compte-est-bon-bg.webp" },
-  { gameParam: "personality-test", titleKey: "games.personalityTest.title", icon: Brain },
-] as const;
+import { GAMES_CATALOG } from "@/lib/games/catalog";
 
 const GROUPED_CATEGORIES = getCategoriesGroupedByGroup();
 
@@ -87,20 +79,20 @@ export default function CategorySidebar() {
           {tSidebar("allGames")}
         </h2>
         <div className="grid grid-cols-2 gap-2">
-          {GAMES.map((game) => (
+          {GAMES_CATALOG.map((game) => (
             <Link
-              key={game.gameParam}
-              href={`/games?game=${game.gameParam}`}
+              key={game.key}
+              href={`/games?game=${game.key}`}
               className="flex flex-col items-center gap-1.5 rounded-xl border border-slate-200 bg-white p-3 text-center transition hover:border-violet-300 hover:bg-violet-50 dark:border-white/10 dark:bg-white/5 dark:hover:border-violet-500/30 dark:hover:bg-violet-500/10"
             >
               <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                {"image" in game ? (
+                {game.image ? (
                   <Image src={game.image} alt="" fill className="object-cover" sizes="32px" />
-                ) : (
+                ) : game.icon ? (
                   <div className="flex h-full w-full items-center justify-center text-violet-600 dark:text-violet-400">
                     <game.icon className="h-5 w-5" />
                   </div>
-                )}
+                ) : null}
               </div>
               <span className="text-xs font-medium text-slate-700 dark:text-slate-200">{t(game.titleKey)}</span>
             </Link>
