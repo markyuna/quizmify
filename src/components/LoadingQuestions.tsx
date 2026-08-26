@@ -17,11 +17,24 @@ type LoadingQuestionsProps = {
    * Falls back to a simulated curve that eases off and never reaches 100%
    * on its own -- only `finished` can do that. */
   progress?: number;
+  /** Rotating status phrases. Defaults to the LoadingQuestions translation
+   * namespace's own array -- pass this to reuse the logo/progress chrome
+   * for a different kind of generation (e.g. an image, not questions)
+   * without that context's copy reading like a quiz is being built. */
+  loadingTexts?: string[];
+  /** Defaults to the LoadingQuestions namespace's own secondary line. */
+  secondaryLine?: string;
 };
 
-export default function LoadingQuestions({ finished, progress: realProgress }: LoadingQuestionsProps) {
+export default function LoadingQuestions({
+  finished,
+  progress: realProgress,
+  loadingTexts: loadingTextsProp,
+  secondaryLine: secondaryLineProp,
+}: LoadingQuestionsProps) {
   const t = useTranslations("LoadingQuestions");
-  const loadingTexts = t.raw("loadingTexts") as string[];
+  const loadingTexts = loadingTextsProp ?? (t.raw("loadingTexts") as string[]);
+  const secondaryLine = secondaryLineProp ?? t("secondaryLine");
 
   const [simulatedProgress, setSimulatedProgress] = React.useState(0);
   const [textIndex, setTextIndex] = React.useState(0);
@@ -102,7 +115,7 @@ export default function LoadingQuestions({ finished, progress: realProgress }: L
             </AnimatePresence>
           </div>
 
-          <p className="mt-1 text-xs text-slate-500 dark:text-white/40">{t("secondaryLine")}</p>
+          <p className="mt-1 text-xs text-slate-500 dark:text-white/40">{secondaryLine}</p>
 
           {/* Progress: thin single-color bar */}
           <div className="mt-6 w-full">

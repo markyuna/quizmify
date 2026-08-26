@@ -838,6 +838,14 @@
   },
   "PuzzleDuJour": {
     "title": "Puzzle du Jour",
+    "errorTitle": "Error",
+    "loadingTexts": [
+      "Generando tu imagen",
+      "Mezclando los colores",
+      "Preparando las piezas",
+      "Casi listo"
+    ],
+    "loadingSecondaryLine": "Solo unos segundos…",
     "description": "Elegí cualquier tema, generamos una imagen y armás el rompecabezas.",
     "proBadge": "Pro",
     "topicPlaceholder": "ej. Tokio de noche",

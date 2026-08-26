@@ -7,6 +7,8 @@ import { useTranslations } from "next-intl";
 import { Lock, Sparkles } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { useToast } from "./ui/use-toast";
+import LoadingQuestions from "./LoadingQuestions";
 import type { PuzzleDuJourDifficulty } from "@/lib/puzzleDuJour";
 
 const DIFFICULTIES: PuzzleDuJourDifficulty[] = ["easy", "medium", "hard"];
@@ -14,14 +16,22 @@ const DIFFICULTIES: PuzzleDuJourDifficulty[] = ["easy", "medium", "hard"];
 export default function PuzzleDuJourCreation() {
   const t = useTranslations("PuzzleDuJour");
   const router = useRouter();
+  const { toast } = useToast();
 
   const [isPro, setIsPro] = React.useState(false);
   const [remainingToday, setRemainingToday] = React.useState<number | null>(null);
   const [checking, setChecking] = React.useState(true);
   const [topic, setTopic] = React.useState("");
   const [difficulty, setDifficulty] = React.useState<PuzzleDuJourDifficulty>("easy");
-  const [submitting, setSubmitting] = React.useState(false);
-  const [error, setError] = React.useState<string | null>(null);
+  const [showLoader, setShowLoader] = React.useState(false);
+  const [finished, setFinished] = React.useState(false);
+  const navigationTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  React.useEffect(() => {
+    return () => {
+      if (navigationTimeoutRef.current) clearTimeout(navigationTimeoutRef.current);
+    };
+  }, []);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -49,25 +59,39 @@ export default function PuzzleDuJourCreation() {
       router.push("/upgrade");
       return;
     }
-    if (atLimit || submitting || !topic.trim()) return;
+    if (atLimit || showLoader || !topic.trim()) return;
 
-    setSubmitting(true);
-    setError(null);
+    setShowLoader(true);
     try {
       const res = await axios.post<{ gameId: string }>("/api/puzzle-du-jour", { topic, difficulty });
-      router.push(`/puzzle-du-jour/${res.data.gameId}`);
+      setFinished(true);
+      navigationTimeoutRef.current = setTimeout(() => {
+        router.push(`/puzzle-du-jour/${res.data.gameId}`);
+      }, 800);
     } catch (err) {
+      setShowLoader(false);
       const code = axios.isAxiosError(err) ? (err.response?.data as { error?: string } | undefined)?.error : null;
-      setError(
-        code === "PUZZLE_DU_JOUR_TOPIC_BLOCKED"
-          ? t("errorTopicBlocked")
-          : code === "PUZZLE_DU_JOUR_DAILY_LIMIT_REACHED"
-            ? t("errorDailyLimit")
-            : t("errorGeneric")
-      );
-    } finally {
-      setSubmitting(false);
+      toast({
+        title: t("errorTitle"),
+        description:
+          code === "PUZZLE_DU_JOUR_TOPIC_BLOCKED"
+            ? t("errorTopicBlocked")
+            : code === "PUZZLE_DU_JOUR_DAILY_LIMIT_REACHED"
+              ? t("errorDailyLimit")
+              : t("errorGeneric"),
+        variant: "destructive",
+      });
     }
+  }
+
+  if (showLoader) {
+    return (
+      <LoadingQuestions
+        finished={finished}
+        loadingTexts={t.raw("loadingTexts") as string[]}
+        secondaryLine={t("loadingSecondaryLine")}
+      />
+    );
   }
 
   if (checking) return null;
@@ -126,16 +150,15 @@ export default function PuzzleDuJourCreation() {
         {isPro && remainingToday !== null && (
           <p className="mt-2 text-xs text-slate-400">{t("remainingToday", { count: remainingToday })}</p>
         )}
-        {error && <p className="mt-2 text-xs text-rose-500">{error}</p>}
       </div>
 
       <button
         type="submit"
-        disabled={submitting || atLimit}
+        disabled={atLimit}
         className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 px-4 py-3 text-sm font-bold text-white transition-opacity disabled:opacity-50"
       >
         <Sparkles className="h-4 w-4" />
-        {locked ? t("unlockCta") : submitting ? t("generating") : t("generateCta")}
+        {locked ? t("unlockCta") : t("generateCta")}
       </button>
     </form>
   );

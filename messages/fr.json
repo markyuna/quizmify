@@ -838,6 +838,14 @@
   },
   "PuzzleDuJour": {
     "title": "Puzzle du Jour",
+    "errorTitle": "Erreur",
+    "loadingTexts": [
+      "Génération de ton image",
+      "Mélange des couleurs",
+      "Préparation des pièces",
+      "Presque prêt"
+    ],
+    "loadingSecondaryLine": "Encore quelques secondes…",
     "description": "Choisis un thème, on génère une image, tu assembles le puzzle.",
     "proBadge": "Pro",
     "topicPlaceholder": "ex. Tokyo la nuit",

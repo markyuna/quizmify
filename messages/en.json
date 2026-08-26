@@ -838,6 +838,14 @@
   },
   "PuzzleDuJour": {
     "title": "Puzzle du Jour",
+    "errorTitle": "Error",
+    "loadingTexts": [
+      "Generating your image",
+      "Mixing the colors",
+      "Preparing the pieces",
+      "Almost ready"
+    ],
+    "loadingSecondaryLine": "Just a few seconds…",
     "description": "Pick any topic, we'll generate an image, you solve the puzzle.",
     "proBadge": "Pro",
     "topicPlaceholder": "e.g. Tokyo at night",
