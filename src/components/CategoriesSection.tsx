@@ -4,9 +4,9 @@ import { LayoutGrid, ArrowRight } from "lucide-react";
 
 import { getCategoryBySlug } from "@/lib/categories";
 
-// Editorial pick spanning all 7 CATEGORY_GROUPS -- 16 of the 18 categories,
-// excluding "tests-de-personnalite" (has its own entry point via /games) and
-// "football" (redundant with "sports" at this size). Full list is /categories.
+// Editorial pick spanning all 7 CATEGORY_GROUPS -- 16 of the 17 categories,
+// excluding "tests-de-personnalite" (has its own entry point via /games).
+// Full list is /categories.
 const FEATURED_CATEGORY_SLUGS = [
   "culture-generale",
   "histoire",

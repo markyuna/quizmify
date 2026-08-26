@@ -147,14 +147,6 @@ export const CATEGORIES: Category[] = [
       "Génère des questions sur le sport en général : records, règles, compétitions et athlètes emblématiques.",
   },
   {
-    slug: "football",
-    icon: "⚽",
-    group: "sports",
-    heroImage: CATEGORY_IMAGES_BASE_URL + "/football-hero.webp",
-    aiPrompt:
-      "Génère des questions sur le football : Coupe du monde, clubs, joueurs, records et règles du jeu.",
-  },
-  {
     slug: "animaux",
     icon: "🦁",
     group: "nature-animaux",
