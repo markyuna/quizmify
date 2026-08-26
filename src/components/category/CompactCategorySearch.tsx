@@ -77,7 +77,7 @@ export default function CompactCategorySearch() {
   };
 
   return (
-    <div className="rounded-2xl border border-slate-200/80 bg-white/80 p-4 backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+    <div className="relative z-20 rounded-2xl border border-slate-200/80 bg-white/80 p-4 backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
       <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">
         {t("searchHeading")}
       </h2>
