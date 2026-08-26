@@ -9,7 +9,7 @@ import { getCategoryTopicCountsByLocale } from "@/lib/categoryTopics";
 import { getRequestLocale } from "@/i18n/get-locale";
 import { GAMES_CATALOG } from "@/lib/games/catalog";
 import CategoryGroupSection from "@/components/category/CategoryGroupSection";
-import QuizSearchHero from "@/components/QuizSearchHero";
+import CompactCategorySearch from "@/components/category/CompactCategorySearch";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("CategoriesPage");
@@ -57,10 +57,6 @@ export default async function CategoriesPage() {
         </div>
       </section>
 
-      <div className="mt-8">
-        <QuizSearchHero />
-      </div>
-
       <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
         <div className="space-y-10">
           {groupedCategories.map((entry) => (
@@ -68,7 +64,9 @@ export default async function CategoriesPage() {
           ))}
         </div>
 
-        <aside className="lg:sticky lg:top-6 lg:self-start">
+        <aside className="lg:sticky lg:top-6 lg:self-start space-y-4">
+          <CompactCategorySearch />
+
           <div className="rounded-2xl border border-slate-200/80 bg-white/80 p-4 backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
             <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">
               {t("gamesHeading")}

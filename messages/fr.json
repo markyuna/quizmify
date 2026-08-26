@@ -349,7 +349,10 @@
     "topicCount": "{count, plural, =0 {Bientôt disponible} one {# sujet} other {# sujets}}",
     "gamesHeading": "Tous les Jeux",
     "breadcrumbHome": "Accueil",
-    "breadcrumbCurrent": "Catégories"
+    "breadcrumbCurrent": "Catégories",
+    "searchHeading": "Rechercher un sujet",
+    "searchPlaceholder": "Ex. Photosynthèse...",
+    "searchFailed": "Échec de la recherche. Réessayez."
   },
   "CategoryGroups": {
     "culture-generale": "Culture Générale",

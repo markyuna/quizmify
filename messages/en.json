@@ -349,7 +349,10 @@
     "topicCount": "{count, plural, =0 {Coming soon} one {# topic} other {# topics}}",
     "gamesHeading": "All Games",
     "breadcrumbHome": "Home",
-    "breadcrumbCurrent": "Categories"
+    "breadcrumbCurrent": "Categories",
+    "searchHeading": "Search a topic",
+    "searchPlaceholder": "E.g. Photosynthesis...",
+    "searchFailed": "Search failed. Please try again."
   },
   "CategoryGroups": {
     "culture-generale": "General Knowledge",
