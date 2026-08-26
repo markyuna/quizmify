@@ -5,6 +5,7 @@ import { prisma } from "@/lib/db";
 import { registerQuizActivity } from "@/lib/streak";
 import { calculateEarnedXpBreakdown, calculateLevel } from "@/lib/xp";
 import { FREE_LEVEL_CAP } from "@/lib/stripe";
+import { isEffectivelyPro } from "@/lib/pro";
 import type { Locale } from "@/i18n/locales";
 
 export { GuestGameKey };
@@ -368,11 +369,14 @@ export async function claimGuestAttempts(
       select: { xp: true },
     });
 
-    // Mirrors /api/daily-challenge/submit and /api/quiz/submit: a brand-new
-    // account is never Pro, so its level is capped the same as any other
-    // free user's -- xp itself is never clamped.
+    // Mirrors /api/daily-challenge/submit and /api/quiz/submit: this runs
+    // for any already-authenticated user claiming guest attempts (not just
+    // at signup -- see the [gameKey]/submit and claim routes), so Pro
+    // status has to be checked here too -- xp itself is never clamped.
     const trueLevel = calculateLevel(updatedUser.xp);
-    const newLevel = Math.min(trueLevel, FREE_LEVEL_CAP);
+    const newLevel = isEffectivelyPro(previousUser, now)
+      ? trueLevel
+      : Math.min(trueLevel, FREE_LEVEL_CAP);
     if (newLevel !== previousUser.level) {
       await tx.user.update({ where: { id: userId }, data: { level: newLevel } });
     }
