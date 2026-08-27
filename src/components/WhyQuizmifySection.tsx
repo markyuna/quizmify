@@ -7,7 +7,7 @@ const STATS = [
   { labelKey: "statSetupLabel", valueKey: "statSetupValue" },
   { labelKey: "statReviewLabel", valueKey: "statReviewValue" },
   { labelKey: "statPracticeLabel", valueKey: "statPracticeValue" },
-  { labelKey: "statExperienceLabel", valueKey: "statExperienceValue" },
+  { labelKey: "statRewardsLabel", valueKey: "statRewardsValue" },
 ] as const;
 
 const container: Variants = {
@@ -48,6 +48,9 @@ export default function WhyQuizmifySection() {
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-8 text-slate-600 dark:text-slate-300">
                 {t("whyBody")}
+              </p>
+              <p className="mt-4 inline-flex max-w-2xl items-center rounded-full border border-violet-200 bg-gradient-to-r from-violet-50 to-fuchsia-50 px-4 py-2 text-sm font-medium text-violet-700 dark:border-violet-500/20 dark:from-violet-500/10 dark:to-fuchsia-500/10 dark:text-violet-300">
+                {t("whyNeuronsHighlight")}
               </p>
             </motion.div>
 

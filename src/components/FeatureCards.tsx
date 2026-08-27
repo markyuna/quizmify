@@ -1,12 +1,25 @@
 "use client";
 
+import Image from "next/image";
 import { motion, MotionConfig, type Variants } from "framer-motion";
-import { BrainCircuit, BarChart3, RefreshCcw } from "lucide-react";
+import { BrainCircuit, BarChart3, RefreshCcw, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Card, CardContent } from "@/components/ui/card";
 
-const FEATURES = [
+type Feature = {
+  titleKey: string;
+  bodyKey: string;
+  // Either a lucide icon (rendered inside the colored iconBg circle) or a
+  // standalone image (rendered as-is, no circle -- see the Neurons entry's
+  // own comment below for why).
+  icon?: LucideIcon;
+  iconBg?: string;
+  iconText?: string;
+  image?: string;
+};
+
+const FEATURES: Feature[] = [
   {
     icon: BrainCircuit,
     titleKey: "featureAiTitle",
@@ -28,7 +41,19 @@ const FEATURES = [
     iconBg: "bg-emerald-100 dark:bg-emerald-500/15",
     iconText: "text-emerald-600 dark:text-emerald-300",
   },
-] as const;
+  {
+    // The Neurons medal (public/icono-neurona/) is already a complete,
+    // self-contained badge -- gold border, violet fill, its own icon --
+    // unlike the plain-stroke lucide icons above. Putting it inside
+    // another iconBg circle would double-frame it (hexagon inside
+    // circle), so this entry renders the PNG directly at the same 44px
+    // footprint instead. PNG, not the .svg in the same folder --
+    // next.config.ts doesn't allow next/image to optimize SVG sources.
+    image: "/icono-neurona/neurona-hex-48.png",
+    titleKey: "featureNeuronsTitle",
+    bodyKey: "featureNeuronsBody",
+  },
+];
 
 const container: Variants = {
   hidden: {},
@@ -51,9 +76,9 @@ export default function FeatureCards() {
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
           variants={container}
-          className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3"
+          className="mx-auto grid max-w-7xl gap-5 sm:grid-cols-2 lg:grid-cols-4"
         >
-          {FEATURES.map(({ icon: Icon, titleKey, bodyKey, iconBg, iconText }) => (
+          {FEATURES.map(({ icon: Icon, image, titleKey, bodyKey, iconBg, iconText }) => (
             <motion.div
               key={titleKey}
               variants={item}
@@ -61,11 +86,17 @@ export default function FeatureCards() {
             >
               <Card className="h-full border-slate-200/80 shadow-sm transition-shadow duration-300 group-hover:shadow-xl dark:border-white/10">
                 <CardContent className="p-5">
-                  <div
-                    className={`flex h-11 w-11 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${iconBg} ${iconText}`}
-                  >
-                    <Icon className="h-5 w-5" />
-                  </div>
+                  {Icon ? (
+                    <div
+                      className={`flex h-11 w-11 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${iconBg} ${iconText}`}
+                    >
+                      <Icon className="h-5 w-5" />
+                    </div>
+                  ) : image ? (
+                    <div className="flex h-11 w-11 items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                      <Image src={image} alt="" width={44} height={44} />
+                    </div>
+                  ) : null}
                   <h3 className="mt-3 text-lg font-semibold text-slate-900 dark:text-white">{t(titleKey)}</h3>
                   <p className="mt-1.5 text-sm leading-6 text-slate-600 dark:text-slate-300">{t(bodyKey)}</p>
                 </CardContent>
