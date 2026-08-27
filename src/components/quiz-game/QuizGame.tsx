@@ -54,6 +54,7 @@ type SubmitQuizResponse = {
   newXp: number;
   newLevel: number;
   hitFreeLimit: boolean;
+  neuronsProgress: { neuronsEarned: number; correctTowardNext: number; neededForNext: number } | null;
 };
 
 export default function QuizGame({ game }: QuizGameProps) {
@@ -210,6 +211,8 @@ export default function QuizGame({ game }: QuizGameProps) {
                 earnedXp: submitResult.earnedXp,
                 newLevel: submitResult.newLevel,
                 hitFreeLimit: submitResult.hitFreeLimit,
+                correctAnswers: submitResult.correctAnswers,
+                neuronsProgress: submitResult.neuronsProgress,
               }
             : null
         }

@@ -590,7 +590,9 @@
     "puzzleFinalTitle": "Votre puzzle",
     "puzzlePiecesRevealed": "{revealed}/{total} pièces révélées",
     "puzzleCompleteTitle": "Puzzle complété !",
-    "puzzleCompleteLabel": "Toutes les pièces révélées"
+    "puzzleCompleteLabel": "Toutes les pièces révélées",
+    "neuronsBatchProgress": "+{correctAnswers} bonnes réponses vers vos prochains 50 Neurones ({correctTowardNext}/10)",
+    "neuronsBatchEarned": "Vous avez gagné {neuronsEarned} Neurones ! ({correctTowardNext}/10 vers votre prochain lot)"
   },
   "CuratedQuizzes": {
     "QuiEstLePeintre": {
@@ -643,6 +645,7 @@
     "neurons": "Neurones",
     "neuronsTooltip": "Gagne des Neurones en répondant correctement en difficulté moyenne ou difficile. Utilise-les pour débloquer des parties de jeux premium.",
     "neuronsTooltipPro": "Avec Pro, tu as un accès illimité, donc tu n'as pas besoin de dépenser tes Neurones — mais tu continues d'en gagner.",
+    "neuronsProgress": "{correct}/{needed} vers ton prochain lot",
     "quizzesDone": "Quiz réalisés",
     "bestScore": "Meilleur score",
     "freeLimitReached": "Limite gratuite atteinte",
@@ -1026,7 +1029,9 @@
     "summaryTitle": "Résumé des questions",
     "playAgain": "Rejouer",
     "questionAbbrev": "Q",
-    "saving": "Enregistrement de vos résultats..."
+    "saving": "Enregistrement de vos résultats...",
+    "neuronsBatchProgress": "+{correctAnswers} bonnes réponses vers vos prochains 50 Neurones ({correctTowardNext}/10)",
+    "neuronsBatchEarned": "Vous avez gagné {neuronsEarned} Neurones ! ({correctTowardNext}/10 vers votre prochain lot)"
   },
   "ProStatus": {
     "activePermanent": "Pro actif",

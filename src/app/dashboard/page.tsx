@@ -40,6 +40,7 @@ import { getEffectiveLevel, isLevelFrozen } from "@/lib/pro";
 import { isEffectivelyPro } from "@/lib/paywall";
 import { resolvePaywallMessage } from "@/lib/paywallMessages";
 import { getEffectiveStreak, getProtectionsRemaining } from "@/lib/streak";
+import { getNeuronsProgress } from "@/lib/neurons";
 import { cn } from "@/lib/utils";
 
 export const metadata = {
@@ -152,6 +153,7 @@ export default async function DashboardPage() {
     recentAttempts,
     lastGame,
     mistakesCount,
+    neuronsProgress,
   ] = await Promise.all([
     prisma.user.findUnique({
       where: { id: userId },
@@ -224,6 +226,8 @@ export default async function DashboardPage() {
     prisma.userQuestionProgress.count({
       where: { userId, needsReview: true },
     }),
+
+    getNeuronsProgress(prisma, userId),
   ]);
 
   const totalXp = userProfile?.xp ?? 0;
@@ -386,6 +390,20 @@ export default async function DashboardPage() {
                     <p className="flex items-center justify-center gap-1.5 text-lg font-bold text-slate-900 dark:text-white">
                       <Image src="/icono-neurona/neurona-hex-48.png" alt="" width={20} height={20} />
                       {neuronsBalance}
+                    </p>
+                    <div className="mt-1.5 h-1 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
+                      <div
+                        className="h-full rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 transition-all duration-500"
+                        style={{
+                          width: `${(neuronsProgress.correctTowardNext / neuronsProgress.neededForNext) * 100}%`,
+                        }}
+                      />
+                    </div>
+                    <p className="mt-1 text-[11px] text-muted-foreground">
+                      {t("neuronsProgress", {
+                        correct: neuronsProgress.correctTowardNext,
+                        needed: neuronsProgress.neededForNext,
+                      })}
                     </p>
                   </div>
                 </div>

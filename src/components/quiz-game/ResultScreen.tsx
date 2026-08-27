@@ -15,6 +15,8 @@ type SubmitOutcome = {
   earnedXp: number;
   newLevel: number;
   hitFreeLimit: boolean;
+  correctAnswers: number;
+  neuronsProgress: { neuronsEarned: number; correctTowardNext: number; neededForNext: number } | null;
 };
 
 type ResultScreenProps = {
@@ -99,6 +101,20 @@ export default function ResultScreen({
           </>
         ) : null}
       </div>
+
+      {submitOutcome?.neuronsProgress && submitOutcome.correctAnswers > 0 && (
+        <div className="flex items-center justify-center rounded-2xl border border-violet-200/60 bg-white/80 px-4 py-3 text-center text-sm font-semibold text-violet-700 backdrop-blur-xl dark:border-violet-500/20 dark:bg-white/5 dark:text-violet-300">
+          {submitOutcome.neuronsProgress.neuronsEarned > 0
+            ? t("neuronsBatchEarned", {
+                neuronsEarned: submitOutcome.neuronsProgress.neuronsEarned,
+                correctTowardNext: submitOutcome.neuronsProgress.correctTowardNext,
+              })
+            : t("neuronsBatchProgress", {
+                correctAnswers: submitOutcome.correctAnswers,
+                correctTowardNext: submitOutcome.neuronsProgress.correctTowardNext,
+              })}
+        </div>
+      )}
 
       <Button
         onClick={onPlayAgain}

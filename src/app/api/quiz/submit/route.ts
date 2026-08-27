@@ -8,7 +8,7 @@ import { calculateEarnedXp, calculateLevel, calculateSpeedBonusXp } from "@/lib/
 import { FREE_XP_CAP, FREE_LEVEL_CAP } from "@/lib/stripe";
 import { registerQuizActivity, getEffectiveStreak, type StreakResult } from "@/lib/streak";
 import { checkAndAwardCertificates } from "@/lib/certificates";
-import { creditNeuronsForQuiz } from "@/lib/neurons";
+import { creditNeuronsForQuiz, isNeuronsEligibleDifficulty } from "@/lib/neurons";
 import { isEffectivelyPro } from "@/lib/paywall";
 import { resolvePaywallMessage } from "@/lib/paywallMessages";
 import { getCategoryBySlug } from "@/lib/categories";
@@ -131,6 +131,9 @@ export async function POST(req: Request) {
           streakExtended: false,
           streakProtected: false,
           trophyReason: null satisfies TrophyReason,
+          // A resubmit credits no new correct answers, so there's no new
+          // progress to report -- the original submit already showed it.
+          neuronsProgress: null,
         },
         { status: 200 }
       );
@@ -266,6 +269,7 @@ export async function POST(req: Request) {
             protectionsRemaining: 0,
           } satisfies StreakResult,
           trophyReason: null satisfies TrophyReason,
+          neuronsProgress: null,
         };
       }
 
@@ -344,7 +348,7 @@ export async function POST(req: Request) {
       // Never merged into the xp increment above on purpose (see
       // src/lib/neurons.ts's own comment on why these two systems must
       // stay decoupled).
-      await creditNeuronsForQuiz(tx, {
+      const neuronsResult = await creditNeuronsForQuiz(tx, {
         userId,
         gameId: game.id,
         difficulty: game.difficulty,
@@ -404,6 +408,12 @@ export async function POST(req: Request) {
         paywallMessage,
         streak,
         trophyReason,
+        // null for an easy-difficulty game -- creditNeuronsForQuiz short-
+        // circuits before querying, so correctTowardNext/neededForNext
+        // there wouldn't reflect real state. The result screen only
+        // renders this for medium/hard anyway (it already has
+        // game.difficulty client-side), but null keeps the contract honest.
+        neuronsProgress: isNeuronsEligibleDifficulty(game.difficulty) ? neuronsResult : null,
       };
     });
 
@@ -506,6 +516,7 @@ export async function POST(req: Request) {
         streakExtended: result.streak.streakExtended,
         streakProtected: result.streak.streakProtected,
         trophyReason: result.trophyReason,
+        neuronsProgress: result.neuronsProgress,
       },
       { status: 200 }
     );

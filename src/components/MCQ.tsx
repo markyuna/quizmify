@@ -118,6 +118,7 @@ type SubmitQuizResponse = {
   currentStreak: number;
   trophyReason: TrophyReason;
   curatedPracticeOnly: boolean;
+  neuronsProgress: { neuronsEarned: number; correctTowardNext: number; neededForNext: number } | null;
 };
 
 const MCQ = ({ game, isGuest }: MCQProps) => {
@@ -568,6 +569,25 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
                 <p className="text-2xl font-black text-slate-900 dark:text-white">{finalResult.newLevel}</p>
               </div>
             </div>
+          </motion.div>
+        )}
+
+        {finalResult?.neuronsProgress && correctA > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            className="rounded-[1.75rem] border border-violet-200/60 bg-white/80 p-4 text-center text-sm font-semibold text-violet-700 backdrop-blur-xl dark:border-violet-500/20 dark:bg-white/5 dark:text-violet-300"
+          >
+            {finalResult.neuronsProgress.neuronsEarned > 0
+              ? t("neuronsBatchEarned", {
+                  neuronsEarned: finalResult.neuronsProgress.neuronsEarned,
+                  correctTowardNext: finalResult.neuronsProgress.correctTowardNext,
+                })
+              : t("neuronsBatchProgress", {
+                  correctAnswers: correctA,
+                  correctTowardNext: finalResult.neuronsProgress.correctTowardNext,
+                })}
           </motion.div>
         )}
 

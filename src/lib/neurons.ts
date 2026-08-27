@@ -10,6 +10,48 @@ const NEURONS_PER_BATCH = 50;
 const CORRECT_ANSWERS_PER_BATCH = 10;
 const ELIGIBLE_DIFFICULTIES: Difficulty[] = ["medium", "hard"];
 
+// Exported so callers (e.g. /api/quiz/submit, deciding whether to include
+// neuronsProgress in its response) can check eligibility without
+// duplicating this list.
+export function isNeuronsEligibleDifficulty(difficulty: string | null): boolean {
+  return ELIGIBLE_DIFFICULTIES.includes(difficulty as Difficulty);
+}
+
+// Shared by creditNeuronsForQuiz and getNeuronsProgress so there is exactly
+// one query that defines "how many eligible correct answers has this user
+// ever banked" -- neither caller recomputes it independently.
+async function getEligibleCorrectAnswersTotal(
+  client: Prisma.TransactionClient | PrismaClient,
+  userId: string
+): Promise<number> {
+  const correctTotal = await client.attempt.aggregate({
+    where: {
+      userId,
+      game: { difficulty: { in: ELIGIBLE_DIFFICULTIES } },
+    },
+    _sum: { correctAnswers: true },
+  });
+  return correctTotal._sum.correctAnswers ?? 0;
+}
+
+/**
+ * Derives how far the user is toward their next 50-Neuron batch, purely
+ * from the current Attempt history -- no ledger read needed, since the
+ * remainder toward the next batch is always totalCorrect % 10 regardless
+ * of how many batches have already been credited. Safe to call outside a
+ * submit transaction (dashboard header reads); pass `prisma` directly.
+ */
+export async function getNeuronsProgress(
+  client: Prisma.TransactionClient | PrismaClient,
+  userId: string
+): Promise<{ correctTowardNext: number; neededForNext: number }> {
+  const totalCorrectCount = await getEligibleCorrectAnswersTotal(client, userId);
+  return {
+    correctTowardNext: totalCorrectCount % CORRECT_ANSWERS_PER_BATCH,
+    neededForNext: CORRECT_ANSWERS_PER_BATCH,
+  };
+}
+
 /**
  * Credits Neurons for a just-submitted AI quiz, 50 per 10 accumulated
  * correct answers across every medium/hard game this user has ever played
@@ -37,20 +79,14 @@ export async function creditNeuronsForQuiz(
     difficulty: string | null;
     correctAnswers: number;
   }
-): Promise<{ neuronsEarned: number }> {
+): Promise<{ neuronsEarned: number; correctTowardNext: number; neededForNext: number }> {
   if (!ELIGIBLE_DIFFICULTIES.includes(params.difficulty as Difficulty)) {
-    return { neuronsEarned: 0 };
+    return { neuronsEarned: 0, correctTowardNext: 0, neededForNext: CORRECT_ANSWERS_PER_BATCH };
   }
 
-  const correctTotal = await tx.attempt.aggregate({
-    where: {
-      userId: params.userId,
-      game: { difficulty: { in: ELIGIBLE_DIFFICULTIES } },
-    },
-    _sum: { correctAnswers: true },
-  });
-  const totalCorrectCount = correctTotal._sum.correctAnswers ?? 0;
+  const totalCorrectCount = await getEligibleCorrectAnswersTotal(tx, params.userId);
   const totalBatchesEarnable = Math.floor(totalCorrectCount / CORRECT_ANSWERS_PER_BATCH);
+  const correctTowardNext = totalCorrectCount % CORRECT_ANSWERS_PER_BATCH;
 
   const creditedTotal = await tx.neuronTransaction.aggregate({
     where: { userId: params.userId, type: "earn_quiz" },
@@ -61,7 +97,9 @@ export async function creditNeuronsForQuiz(
   const alreadyCreditedBatches = (creditedTotal._sum.amount ?? 0) / NEURONS_PER_BATCH;
 
   const newBatches = totalBatchesEarnable - alreadyCreditedBatches;
-  if (newBatches <= 0) return { neuronsEarned: 0 };
+  if (newBatches <= 0) {
+    return { neuronsEarned: 0, correctTowardNext, neededForNext: CORRECT_ANSWERS_PER_BATCH };
+  }
 
   const neuronsEarned = newBatches * NEURONS_PER_BATCH;
 
@@ -78,7 +116,7 @@ export async function creditNeuronsForQuiz(
     data: { neuronsBalance: { increment: neuronsEarned } },
   });
 
-  return { neuronsEarned };
+  return { neuronsEarned, correctTowardNext, neededForNext: CORRECT_ANSWERS_PER_BATCH };
 }
 
 const PERSONALITY_BONUS_AMOUNT = 50;
