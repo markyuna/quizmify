@@ -7,7 +7,9 @@ import { Loader2, X, Plus, Minus, Divide } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useGuestId, useGuestChallenge, useSubmitGuestAnswer } from "@/hooks/useGuestRound";
+import { usePersonalityAnimalStatus } from "@/hooks/usePersonalityTest";
 import ConversionModal from "./ConversionModal";
+import MascotDiscoveryNudge from "./MascotDiscoveryNudge";
 
 type MathOp = "+" | "-" | "*" | "/";
 type MathStep = { a: number; b: number; op: MathOp; result: number };
@@ -80,6 +82,7 @@ export default function MathTargetCard({ isAuthenticated }: MathTargetCardProps)
   }, [operands, tiles]);
 
   const submitAnswer = useSubmitGuestAnswer();
+  const animalStatus = usePersonalityAnimalStatus(isAuthenticated);
 
   function handleTileClick(tile: Tile) {
     setError(null);
@@ -174,6 +177,11 @@ export default function MathTargetCard({ isAuthenticated }: MathTargetCardProps)
         <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
           {t("xpAwarded", { xp: revealedResult.xpAwarded })}
         </p>
+        <MascotDiscoveryNudge
+          isAuthenticated={isAuthenticated}
+          hasMascot={!!animalStatus.data?.hasAnimal}
+          lastDismissedAt={animalStatus.data?.lastMascotNudgeDismissedAt ?? null}
+        />
       </div>
     );
   }

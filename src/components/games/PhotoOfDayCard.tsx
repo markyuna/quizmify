@@ -10,7 +10,9 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { getAllCountryNames } from "@/lib/geo-countries";
 import { useGuestId, useGuestChallenge, useSubmitGuestAnswer } from "@/hooks/useGuestRound";
+import { usePersonalityAnimalStatus } from "@/hooks/usePersonalityTest";
 import ConversionModal from "./ConversionModal";
+import MascotDiscoveryNudge from "./MascotDiscoveryNudge";
 
 const ALL_COUNTRIES = getAllCountryNames();
 const MAX_SUGGESTIONS = 6;
@@ -43,6 +45,7 @@ export default function PhotoOfDayCard({ isAuthenticated }: PhotoOfDayCardProps)
   const [forcedAlreadyPlayed, setForcedAlreadyPlayed] = React.useState(false);
 
   const submitAnswer = useSubmitGuestAnswer();
+  const animalStatus = usePersonalityAnimalStatus(isAuthenticated);
 
   const image = challengeData?.challenge.image as string | undefined;
   const credit = challengeData?.challenge.credit as { author: string; license: string; licenseUrl: string } | undefined;
@@ -112,6 +115,11 @@ export default function PhotoOfDayCard({ isAuthenticated }: PhotoOfDayCardProps)
         <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
           {t("xpAwarded", { xp: revealedResult.xpAwarded })}
         </p>
+        <MascotDiscoveryNudge
+          isAuthenticated={isAuthenticated}
+          hasMascot={!!animalStatus.data?.hasAnimal}
+          lastDismissedAt={animalStatus.data?.lastMascotNudgeDismissedAt ?? null}
+        />
       </div>
     );
   }

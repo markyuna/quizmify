@@ -8,7 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useGuestId, useGuestChallenge, useSubmitGuestAnswer } from "@/hooks/useGuestRound";
+import { usePersonalityAnimalStatus } from "@/hooks/usePersonalityTest";
 import ConversionModal from "./ConversionModal";
+import MascotDiscoveryNudge from "./MascotDiscoveryNudge";
 
 export type LetterStatus = "correct" | "present" | "absent";
 type GuessRow = { word: string; feedback: LetterStatus[] };
@@ -47,6 +49,7 @@ export default function WordOfDayCard({ isAuthenticated }: WordOfDayCardProps) {
   const [forcedAlreadyPlayed, setForcedAlreadyPlayed] = React.useState(false);
 
   const submitAnswer = useSubmitGuestAnswer();
+  const animalStatus = usePersonalityAnimalStatus(isAuthenticated);
 
   const wordLength = challengeData?.challenge.wordLength as number | undefined;
   const maxGuesses = (challengeData?.challenge.maxGuesses as number | undefined) ?? 6;
@@ -149,6 +152,11 @@ export default function WordOfDayCard({ isAuthenticated }: WordOfDayCardProps) {
         <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
           {t("xpAwarded", { xp: revealedResult.xpAwarded })}
         </p>
+        <MascotDiscoveryNudge
+          isAuthenticated={isAuthenticated}
+          hasMascot={!!animalStatus.data?.hasAnimal}
+          lastDismissedAt={animalStatus.data?.lastMascotNudgeDismissedAt ?? null}
+        />
       </div>
     );
   }
