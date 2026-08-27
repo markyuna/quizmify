@@ -68,7 +68,9 @@ export async function generateCertificatePdf(data: CertificateData): Promise<Buf
     doc.rect(0, 0, width, height).fill(gradient);
 
     // Watermark: the real logo, very low opacity, centered behind everything.
-    doc.opacity(0.05);
+    // 0.05 still read as visually competing with the rest of the
+    // certificate in a manual smoke test -- dropped to barely-there.
+    doc.opacity(0.02);
     const watermarkSize = height * 0.55;
     tryDrawImage(doc, LOGO_PATH, width / 2 - watermarkSize / 2, height / 2 - watermarkSize / 2, {
       width: watermarkSize,
@@ -124,7 +126,10 @@ export async function generateCertificatePdf(data: CertificateData): Promise<Buf
       { width: medalSize }
     );
 
-    const titleY = medalDrawn ? 278 + medalSize + 10 : 288;
+    // 10pt of clearance overlapped the title's first line in a manual smoke
+    // test (fr/es/en) -- fontSize 24 Times-Bold needs real room for its
+    // ascent, not just a token gap.
+    const titleY = medalDrawn ? 278 + medalSize + 28 : 288;
 
     doc
       .fillColor(COLORS.accent)
