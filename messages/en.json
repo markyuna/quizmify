@@ -863,7 +863,7 @@
     "dismissLabel": "Not now"
   },
   "PuzzleDuJour": {
-    "title": "Puzzle du Jour",
+    "title": "Puzzle of the Day",
     "errorTitle": "Error",
     "loadingTexts": [
       "Generating your image",
