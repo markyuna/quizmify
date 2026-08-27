@@ -820,7 +820,26 @@
     "proRequiredTitle": "Necesitás Pro",
     "proRequiredDescription": "Actualizá a Pro para descargar certificados.",
     "errorTitle": "Error",
-    "errorDescription": "No se pudo descargar el certificado."
+    "errorDescription": "No se pudo descargar el certificado.",
+    "pdf": {
+      "badgeLabel": "Certificado de Logro",
+      "certifiesThat": "Esto certifica que",
+      "hasEarned": "obtuvo el logro"
+    },
+    "kinds": {
+      "streak7": {
+        "title": "Racha de 7 días",
+        "description": "Otorgado por jugar en Quizmify {days} días seguidos."
+      },
+      "quizzes50": {
+        "title": "50 Quizzes Completados",
+        "description": "Otorgado por completar {count} quizzes en Quizmify."
+      },
+      "categoryMastery": {
+        "title": "Dominio de Categoría",
+        "description": "Otorgado por alcanzar {accuracy}%+ de precisión en \"{topic}\" en al menos {minQuizzes} quizzes."
+      }
+    }
   },
   "Recommendation": {
     "badge": "Sugerencia IA",

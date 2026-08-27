@@ -820,7 +820,26 @@
     "proRequiredTitle": "Pro requis",
     "proRequiredDescription": "Passez à Pro pour télécharger des certificats.",
     "errorTitle": "Erreur",
-    "errorDescription": "Impossible de télécharger le certificat."
+    "errorDescription": "Impossible de télécharger le certificat.",
+    "pdf": {
+      "badgeLabel": "Certificat de Réussite",
+      "certifiesThat": "Ceci certifie que",
+      "hasEarned": "a obtenu la réussite"
+    },
+    "kinds": {
+      "streak7": {
+        "title": "Série de 7 jours",
+        "description": "Décerné pour avoir joué à Quizmify {days} jours d'affilée."
+      },
+      "quizzes50": {
+        "title": "50 Quiz Complétés",
+        "description": "Décerné pour avoir complété {count} quiz sur Quizmify."
+      },
+      "categoryMastery": {
+        "title": "Maîtrise de Catégorie",
+        "description": "Décerné pour avoir atteint {accuracy}%+ de précision dans « {topic} » sur au moins {minQuizzes} quiz."
+      }
+    }
   },
   "Recommendation": {
     "badge": "Suggestion IA",
