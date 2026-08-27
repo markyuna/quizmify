@@ -849,6 +849,7 @@
     "description": "Pick any topic, we'll generate an image, you solve the puzzle.",
     "proBadge": "Pro",
     "topicPlaceholder": "e.g. Tokyo at night",
+    "suggestionsLabel": "Popular topics",
     "difficulty": {
       "easy": "Easy",
       "medium": "Medium",

@@ -849,6 +849,7 @@
     "description": "Elegí cualquier tema, generamos una imagen y armás el rompecabezas.",
     "proBadge": "Pro",
     "topicPlaceholder": "ej. Tokio de noche",
+    "suggestionsLabel": "Temas populares",
     "difficulty": {
       "easy": "Fácil",
       "medium": "Media",

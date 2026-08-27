@@ -849,6 +849,7 @@
     "description": "Choisis un thème, on génère une image, tu assembles le puzzle.",
     "proBadge": "Pro",
     "topicPlaceholder": "ex. Tokyo la nuit",
+    "suggestionsLabel": "Thèmes populaires",
     "difficulty": {
       "easy": "Facile",
       "medium": "Moyen",

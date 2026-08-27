@@ -13,6 +13,8 @@ import type { PuzzleDuJourDifficulty } from "@/lib/puzzleDuJour";
 
 const DIFFICULTIES: PuzzleDuJourDifficulty[] = ["easy", "medium", "hard"];
 
+type TopicSuggestion = { topic: string; topicNormalized: string };
+
 export default function PuzzleDuJourCreation() {
   const t = useTranslations("PuzzleDuJour");
   const router = useRouter();
@@ -23,6 +25,7 @@ export default function PuzzleDuJourCreation() {
   const [checking, setChecking] = React.useState(true);
   const [topic, setTopic] = React.useState("");
   const [difficulty, setDifficulty] = React.useState<PuzzleDuJourDifficulty>("easy");
+  const [suggestions, setSuggestions] = React.useState<TopicSuggestion[]>([]);
   const [showLoader, setShowLoader] = React.useState(false);
   const [finished, setFinished] = React.useState(false);
   const navigationTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -45,6 +48,19 @@ export default function PuzzleDuJourCreation() {
       .finally(() => {
         if (!cancelled) setChecking(false);
       });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    axios
+      .get<{ suggestions: TopicSuggestion[] }>("/api/puzzle-du-jour/suggestions")
+      .then((res) => {
+        if (!cancelled) setSuggestions(res.data.suggestions);
+      })
+      .catch(() => {});
     return () => {
       cancelled = true;
     };
@@ -127,6 +143,30 @@ export default function PuzzleDuJourCreation() {
           maxLength={200}
           className="mt-3 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 disabled:opacity-60 dark:border-white/10 dark:bg-white/5 dark:text-slate-100"
         />
+
+        {/* Nudges picks toward already-cached topics (see the
+            topicNormalized+language cache lookup in POST /api/puzzle-du-jour)
+            -- clicking only fills the input, it never submits on its own. */}
+        {suggestions.length > 0 && (
+          <div className="mt-2">
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+              {t("suggestionsLabel")}
+            </p>
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
+              {suggestions.map((s) => (
+                <button
+                  key={s.topicNormalized}
+                  type="button"
+                  disabled={locked}
+                  onClick={() => setTopic(s.topic)}
+                  className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-600 transition-colors hover:border-violet-300 hover:bg-violet-50 hover:text-violet-700 disabled:opacity-60 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-violet-500/30 dark:hover:bg-violet-500/10 dark:hover:text-violet-300"
+                >
+                  {s.topic}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="mt-3 grid grid-cols-3 gap-2">
           {DIFFICULTIES.map((d) => (
