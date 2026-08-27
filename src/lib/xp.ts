@@ -5,7 +5,12 @@ export function calculateEarnedXpBreakdown({
   correctAnswers: number;
   totalQuestions: number;
 }) {
-  const completionXp = 10;
+  // No completion reward for a 0-correct run -- previously flat/
+  // unconditional, which let a quiz (or a guest daily game's single
+  // question, via computeGuestXp in guestPlay.ts) with zero right answers
+  // still earn 10 XP. Applies everywhere this function is used, on
+  // purpose: failing/abandoning shouldn't pay out just for showing up.
+  const completionXp = correctAnswers > 0 ? 10 : 0;
   const correctAnswersXp = correctAnswers * 5;
   const perfectScoreBonus =
     totalQuestions > 0 && correctAnswers === totalQuestions ? 20 : 0;
