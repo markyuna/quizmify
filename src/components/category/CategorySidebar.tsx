@@ -1,10 +1,11 @@
 "use client";
 
 import * as React from "react";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { Search, ChevronDown } from "lucide-react";
+import { Search, ChevronDown, Lock } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { getCategoriesGroupedByGroup } from "@/lib/categories";
@@ -51,6 +52,26 @@ function CategoryGroupDisclosure({ group, categories }: (typeof GROUPED_CATEGORI
 export default function CategorySidebar() {
   const t = useTranslations("GuestGames");
   const tSidebar = useTranslations("CategorySidebar");
+  const tPuzzleDuJour = useTranslations("PuzzleDuJour");
+
+  // Client-side only (this is a "use client" component) -- same isPro
+  // fetch QuizCreation.tsx already does for its own Pro badge, reused here
+  // rather than adding a second endpoint. 401s for guests/logged-out
+  // visitors are swallowed: isPro just stays false, which is the correct
+  // "show the badge" state for them anyway.
+  const [isPro, setIsPro] = React.useState(false);
+  React.useEffect(() => {
+    let cancelled = false;
+    axios
+      .get<{ isPro: boolean }>("/api/game/eligibility")
+      .then((res) => {
+        if (!cancelled) setIsPro(res.data.isPro);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <aside className="space-y-6">
@@ -97,6 +118,29 @@ export default function CategorySidebar() {
               <span className="text-xs font-medium text-slate-700 dark:text-slate-200">{t(game.titleKey)}</span>
             </Link>
           ))}
+
+          {/* Not a GAMES_CATALOG entry on purpose -- that type/registry is
+              specifically for guest games (no login, played via
+              /games?game=X). Puzzle du Jour requires auth + Pro and lives
+              at its own route, so it's a one-off card here and in
+              GameCarousel.tsx rather than forcing it into that shape. */}
+          <Link
+            href="/puzzle-du-jour"
+            className="flex flex-col items-center gap-1.5 rounded-xl border border-slate-200 bg-white p-3 text-center transition hover:border-violet-300 hover:bg-violet-50 dark:border-white/10 dark:bg-white/5 dark:hover:border-violet-500/30 dark:hover:bg-violet-500/10"
+          >
+            <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg">
+              <Image src="/images/puzzle-du-jour-icon.png" alt="" fill className="object-cover" sizes="32px" />
+            </div>
+            <span className="text-xs font-medium text-slate-700 dark:text-slate-200">
+              {tPuzzleDuJour("title")}
+            </span>
+            {!isPro && (
+              <span className="inline-flex items-center gap-0.5 rounded-full bg-violet-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-violet-600 dark:bg-violet-500/20 dark:text-violet-300">
+                <Lock className="h-2.5 w-2.5" />
+                {tPuzzleDuJour("proBadge")}
+              </span>
+            )}
+          </Link>
         </div>
       </div>
     </aside>
