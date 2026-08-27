@@ -8,6 +8,7 @@ import { calculateEarnedXp, calculateLevel, calculateSpeedBonusXp } from "@/lib/
 import { FREE_XP_CAP, FREE_LEVEL_CAP } from "@/lib/stripe";
 import { registerQuizActivity, getEffectiveStreak, type StreakResult } from "@/lib/streak";
 import { checkAndAwardCertificates } from "@/lib/certificates";
+import { creditNeuronsForQuiz } from "@/lib/neurons";
 import { isEffectivelyPro } from "@/lib/paywall";
 import { resolvePaywallMessage } from "@/lib/paywallMessages";
 import { getCategoryBySlug } from "@/lib/categories";
@@ -337,6 +338,17 @@ export async function POST(req: Request) {
         where: { id: userId },
         data: { xp: { increment: xpToAward } },
         select: { xp: true },
+      });
+
+      // Neurons -- separate currency, separate calculation, separate call.
+      // Never merged into the xp increment above on purpose (see
+      // src/lib/neurons.ts's own comment on why these two systems must
+      // stay decoupled).
+      await creditNeuronsForQuiz(tx, {
+        userId,
+        gameId: game.id,
+        difficulty: game.difficulty,
+        correctAnswers,
       });
 
       // xp always keeps accumulating -- it's the permanent record of
