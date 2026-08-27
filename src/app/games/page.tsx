@@ -11,7 +11,6 @@ import WordOfDayCard from "@/components/games/WordOfDayCard";
 import WordOfDayGuide from "@/components/games/WordOfDayGuide";
 import PhotoOfDayCard from "@/components/games/PhotoOfDayCard";
 import MathTargetCard from "@/components/games/MathTargetCard";
-import PersonalityTestCard from "@/components/games/PersonalityTestCard";
 import { GAMES_CATALOG, type GameKey } from "@/lib/games/catalog";
 import { cn } from "@/lib/utils";
 
@@ -29,8 +28,6 @@ function GameRenderer({ gameKey, isAuthenticated }: { gameKey: GameKey; isAuthen
       return <PhotoOfDayCard isAuthenticated={isAuthenticated} />;
     case "math-target":
       return <MathTargetCard isAuthenticated={isAuthenticated} />;
-    case "personality-test":
-      return <PersonalityTestCard isAuthenticated={isAuthenticated} />;
     default:
       return null;
   }

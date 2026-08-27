@@ -98,10 +98,6 @@
       "mathTarget": {
         "title": "Make the Target",
         "teaser": "Combine the numbers with math operations to hit today's target."
-      },
-      "personalityTest": {
-        "title": "Personality Tests",
-        "teaser": "Discover your personality type and character traits through fun, engaging tests."
       }
     },
     "conversionModal": {
