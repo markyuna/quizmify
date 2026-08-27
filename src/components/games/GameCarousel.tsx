@@ -83,7 +83,7 @@ export default async function GameCarousel() {
             >
               <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded">
                 <Image
-                  src="/images/puzzle-du-jour-icon.png"
+                  src="/images/games/puzzle-du-jour-icon.png"
                   alt={tPuzzleDuJour("title")}
                   fill
                   className="object-cover"

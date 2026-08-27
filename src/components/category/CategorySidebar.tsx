@@ -129,7 +129,7 @@ export default function CategorySidebar() {
             className="flex flex-col items-center gap-1.5 rounded-xl border border-slate-200 bg-white p-3 text-center transition hover:border-violet-300 hover:bg-violet-50 dark:border-white/10 dark:bg-white/5 dark:hover:border-violet-500/30 dark:hover:bg-violet-500/10"
           >
             <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-              <Image src="/images/puzzle-du-jour-icon.png" alt="" fill className="object-cover" sizes="32px" />
+              <Image src="/images/games/puzzle-du-jour-icon.png" alt="" fill className="object-cover" sizes="32px" />
             </div>
             <span className="text-xs font-medium text-slate-700 dark:text-slate-200">
               {tPuzzleDuJour("title")}
