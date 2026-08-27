@@ -61,10 +61,11 @@
     "statPracticeValue": "Inteligente",
     "statExperienceLabel": "Experiencia",
     "statExperienceValue": "Premium",
-    "ctaTitle": "¿Listo para estudiar más inteligente?",
-    "ctaBody": "Empezá a generar quizzes, seguí tu rendimiento y convertí tus errores en progreso con Quizmify.",
-    "ctaCreateNext": "Crear tu próximo quiz",
-    "ctaStartNow": "Empezar ahora",
+    "ctaBadge": "Nuevo",
+    "ctaMascotTitle": "Descubrí tu mascota inteligente",
+    "ctaMascotBody": "Temas y juegos recomendados a tu medida, elegidos por tu mascota.",
+    "ctaViewMascot": "Ver mi mascota",
+    "ctaCreateMascot": "Crear mi mascota",
     "ctaSeeProgress": "Ver tu progreso"
   },
   "GuestGames": {
