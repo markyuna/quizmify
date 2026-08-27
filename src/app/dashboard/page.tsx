@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import {
   Brain,
@@ -39,6 +40,7 @@ import { getEffectiveLevel, isLevelFrozen } from "@/lib/pro";
 import { isEffectivelyPro } from "@/lib/paywall";
 import { resolvePaywallMessage } from "@/lib/paywallMessages";
 import { getEffectiveStreak, getProtectionsRemaining } from "@/lib/streak";
+import { cn } from "@/lib/utils";
 
 export const metadata = {
   title: "Dashboard | Quizmify",
@@ -160,6 +162,7 @@ export default async function DashboardPage() {
         subscriptionStatus: true,
         premiumUntil: true,
         freeTrialUsedAt: true,
+        neuronsBalance: true,
         selectedSkinId: true,
         currentStreak: true,
         lastQuizDate: true,
@@ -224,6 +227,7 @@ export default async function DashboardPage() {
   ]);
 
   const totalXp = userProfile?.xp ?? 0;
+  const neuronsBalance = userProfile?.neuronsBalance ?? 0;
   // Derived from xp + Pro status rather than the stored `level` column, so
   // an upgrade restores the user's real level immediately instead of only
   // after their next quiz rewrites that column.
@@ -357,11 +361,33 @@ export default async function DashboardPage() {
                   </div>
                 </div>
 
-                <div className="shrink-0 rounded-2xl border border-white/10 bg-white/70 px-4 py-3 text-center backdrop-blur-xl dark:bg-white/10">
-                  <p className="text-xs text-muted-foreground">{t("xp")}</p>
-                  <p className="text-lg font-bold text-slate-900 dark:text-white">
-                    {totalXp}
-                  </p>
+                <div className="flex shrink-0 items-center gap-3">
+                  <div className="shrink-0 rounded-2xl border border-white/10 bg-white/70 px-4 py-3 text-center backdrop-blur-xl dark:bg-white/10">
+                    <p className="text-xs text-muted-foreground">{t("xp")}</p>
+                    <p className="text-lg font-bold text-slate-900 dark:text-white">
+                      {totalXp}
+                    </p>
+                  </div>
+
+                  {/* Neurons keep accruing even for Pro (earning has no Pro
+                      check), so the card always renders -- just dimmed and
+                      neutral-toned for Pro, since they don't currently need
+                      to spend the balance. */}
+                  <div
+                    className={cn(
+                      "shrink-0 rounded-2xl border px-4 py-3 text-center backdrop-blur-xl",
+                      isPro
+                        ? "border-white/10 bg-white/40 opacity-60 dark:bg-white/5"
+                        : "border-white/10 bg-white/70 dark:bg-white/10"
+                    )}
+                    title={isPro ? t("neuronsTooltipPro") : t("neuronsTooltip")}
+                  >
+                    <p className="text-xs text-muted-foreground">{t("neurons")}</p>
+                    <p className="flex items-center justify-center gap-1.5 text-lg font-bold text-slate-900 dark:text-white">
+                      <Image src="/icono-neurona/neurona-hex-48.png" alt="" width={20} height={20} />
+                      {neuronsBalance}
+                    </p>
+                  </div>
                 </div>
               </div>
 
