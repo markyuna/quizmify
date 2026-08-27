@@ -820,7 +820,26 @@
     "proRequiredTitle": "Pro required",
     "proRequiredDescription": "Upgrade to Pro to download certificates.",
     "errorTitle": "Error",
-    "errorDescription": "Unable to download the certificate."
+    "errorDescription": "Unable to download the certificate.",
+    "pdf": {
+      "badgeLabel": "Certificate of Achievement",
+      "certifiesThat": "This certifies that",
+      "hasEarned": "has earned the achievement"
+    },
+    "kinds": {
+      "streak7": {
+        "title": "7-Day Streak",
+        "description": "Awarded for playing Quizmify {days} days in a row."
+      },
+      "quizzes50": {
+        "title": "50 Quizzes Completed",
+        "description": "Awarded for completing {count} quizzes on Quizmify."
+      },
+      "categoryMastery": {
+        "title": "Category Mastery",
+        "description": "Awarded for reaching {accuracy}%+ accuracy in \"{topic}\" across at least {minQuizzes} quizzes."
+      }
+    }
   },
   "Recommendation": {
     "badge": "AI suggestion",

@@ -3,8 +3,9 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { isUserPro } from "@/lib/paywall";
-import { CERTIFICATE_INFO } from "@/lib/certificates";
+import { getCertificateInfo } from "@/lib/certificates";
 import { generateCertificatePdf } from "@/lib/pdf/certificate-export";
+import { getRequestLocale } from "@/i18n/get-locale";
 
 export const runtime = "nodejs";
 
@@ -45,13 +46,16 @@ export async function GET(_req: Request, { params }: RouteParams) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  const info = CERTIFICATE_INFO[certificate.kind];
+  const locale = await getRequestLocale();
+  const info = await getCertificateInfo(certificate.kind, certificate.topic, locale);
 
   const pdfBuffer = await generateCertificatePdf({
     userName: session.user.name?.trim() || "Quizmify Learner",
     achievementTitle: info.title,
-    achievementDescription: info.description(certificate.topic),
+    achievementDescription: info.description,
+    achievementKind: certificate.kind,
     earnedAt: certificate.earnedAt,
+    locale,
   });
 
   const filename = `quizmify-certificate-${slugify(certificate.kind)}.pdf`;

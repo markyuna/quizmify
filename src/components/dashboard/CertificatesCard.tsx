@@ -11,10 +11,12 @@ import {
 import CertificateDownloadButton from "@/components/CertificateDownloadButton";
 import { prisma } from "@/lib/db";
 import { isUserPro } from "@/lib/paywall";
-import { CERTIFICATE_INFO } from "@/lib/certificates";
+import { getCertificateInfo } from "@/lib/certificates";
+import { getRequestLocale } from "@/i18n/get-locale";
 
 export default async function CertificatesCard({ userId }: { userId: string }) {
   const t = await getTranslations("Certificates");
+  const locale = await getRequestLocale();
 
   const [certificates, isPro] = await Promise.all([
     prisma.certificate.findMany({
@@ -23,6 +25,10 @@ export default async function CertificatesCard({ userId }: { userId: string }) {
     }),
     isUserPro(userId),
   ]);
+
+  const certificateInfos = await Promise.all(
+    certificates.map((certificate) => getCertificateInfo(certificate.kind, certificate.topic, locale))
+  );
 
   return (
     <Card className="relative h-full overflow-hidden rounded-[1.75rem] border-white/10 bg-white/60 shadow-xl shadow-black/5 transition-all duration-300 hover:scale-[1.01] dark:bg-white/5">
@@ -58,8 +64,8 @@ export default async function CertificatesCard({ userId }: { userId: string }) {
           </div>
         ) : (
           <div className="space-y-2.5">
-            {certificates.map((certificate) => {
-              const info = CERTIFICATE_INFO[certificate.kind];
+            {certificates.map((certificate, index) => {
+              const info = certificateInfos[index];
               return (
                 <div
                   key={certificate.id}
@@ -74,7 +80,7 @@ export default async function CertificatesCard({ userId }: { userId: string }) {
                         {info.title}
                       </p>
                       <p className="truncate text-xs text-muted-foreground">
-                        {info.description(certificate.topic)}
+                        {info.description}
                       </p>
                     </div>
                   </div>

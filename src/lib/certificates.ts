@@ -1,5 +1,8 @@
+import { getTranslations } from "next-intl/server";
+
 import type { Prisma, PrismaClient } from "@/generated/prisma/client";
 import type { CertificateKind } from "@/generated/prisma/client";
+import type { Locale } from "@/i18n/locales";
 
 /** Minimum quizzes in a topic before "category mastery" can be considered. */
 const CATEGORY_MASTERY_MIN_QUIZZES = 10;
@@ -7,24 +10,42 @@ const CATEGORY_MASTERY_MIN_ACCURACY = 0.9;
 const QUIZZES_MILESTONE = 50;
 const STREAK_MILESTONE_DAYS = 7;
 
-export const CERTIFICATE_INFO: Record<
-  CertificateKind,
-  { title: string; description: (topic: string) => string }
-> = {
-  quizzes_50: {
-    title: "50 Quizzes Completed",
-    description: () => `Awarded for completing ${QUIZZES_MILESTONE} quizzes on Quizmify.`,
-  },
-  category_mastery: {
-    title: "Category Mastery",
-    description: (topic) =>
-      `Awarded for reaching ${Math.round(CATEGORY_MASTERY_MIN_ACCURACY * 100)}%+ accuracy in "${topic}" across at least ${CATEGORY_MASTERY_MIN_QUIZZES} quizzes.`,
-  },
-  streak_7: {
-    title: "7-Day Streak",
-    description: () => `Awarded for playing Quizmify ${STREAK_MILESTONE_DAYS} days in a row.`,
-  },
-};
+/**
+ * Locale-aware title/description for a certificate -- async because it goes
+ * through next-intl's server-side getTranslations, same as any other
+ * server-only (non-React) caller of it elsewhere in the app (e.g.
+ * /api/game/route.ts's Categories lookup). Replaces the old synchronous
+ * CERTIFICATE_INFO record, which was English-only.
+ */
+export async function getCertificateInfo(
+  kind: CertificateKind,
+  topic: string,
+  locale: Locale
+): Promise<{ title: string; description: string }> {
+  const t = await getTranslations({ locale, namespace: "Certificates.kinds" });
+
+  switch (kind) {
+    case "quizzes_50":
+      return {
+        title: t("quizzes50.title"),
+        description: t("quizzes50.description", { count: QUIZZES_MILESTONE }),
+      };
+    case "category_mastery":
+      return {
+        title: t("categoryMastery.title"),
+        description: t("categoryMastery.description", {
+          accuracy: Math.round(CATEGORY_MASTERY_MIN_ACCURACY * 100),
+          topic,
+          minQuizzes: CATEGORY_MASTERY_MIN_QUIZZES,
+        }),
+      };
+    case "streak_7":
+      return {
+        title: t("streak7.title"),
+        description: t("streak7.description", { days: STREAK_MILESTONE_DAYS }),
+      };
+  }
+}
 
 /**
  * Checks the milestones we can award from data that just changed after a
