@@ -1,4 +1,5 @@
 import { getAuthSession } from "@/lib/nextauth";
+import { prisma } from "@/lib/db";
 import HeroSection from "@/components/HeroSection";
 import CategoriesSection from "@/components/CategoriesSection";
 import TopicCarousel from "@/components/games/TopicCarousel";
@@ -18,6 +19,18 @@ export default async function HomePage() {
   const isAuthenticated = !!session?.user;
   const locale = await getRequestLocale();
 
+  // Guests always read as hasMascot: false -- there's no User row to check
+  // yet, and the guest->account claim (claimPersonalityTestAttempts) only
+  // resolves this after they actually sign up, never before.
+  let hasMascot = false;
+  if (session?.user?.id) {
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { personalityAnimal: true },
+    });
+    hasMascot = !!user?.personalityAnimal;
+  }
+
   // getPopularTopics() throws on a Supabase read error -- caught here so a
   // decorative Hero placeholder can never take the whole homepage down with
   // it (same defensive stance as GET /api/topics/popular).
@@ -36,7 +49,7 @@ export default async function HomePage() {
       <GameCarousel />
       <FeatureCards />
       <WhyQuizmifySection />
-      <FinalCtaSection isAuthenticated={isAuthenticated} />
+      <FinalCtaSection hasMascot={hasMascot} />
     </main>
   );
 }
