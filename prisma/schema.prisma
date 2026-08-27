@@ -88,6 +88,11 @@ model User {
   // Set alongside personalityAnimal, in the same write -- null exactly
   // when personalityAnimal is null.
   personalityAnimalSetAt         DateTime?
+  // Set each time the mascot-discovery nudge (MascotDiscoveryNudge.tsx, on
+  // the 3 daily-game result screens) is dismissed by a logged-in visitor --
+  // the nudge stays hidden for 7 days from this timestamp. Guests use
+  // localStorage instead (no User row to persist it against yet).
+  lastMascotNudgeDismissedAt     DateTime?
   accounts                       Account[]
   sessions                       Session[]
   games                          Game[]

@@ -2532,7 +2532,8 @@ export const UserScalarFieldEnum = {
   freeTrialUsedAt: 'freeTrialUsedAt',
   selectedSkinId: 'selectedSkinId',
   personalityAnimal: 'personalityAnimal',
-  personalityAnimalSetAt: 'personalityAnimalSetAt'
+  personalityAnimalSetAt: 'personalityAnimalSetAt',
+  lastMascotNudgeDismissedAt: 'lastMascotNudgeDismissedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
