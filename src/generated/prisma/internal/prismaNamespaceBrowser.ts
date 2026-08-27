@@ -77,7 +77,9 @@ export const ModelName = {
   UserDailyAttempt: 'UserDailyAttempt',
   PersonalityTestAttempt: 'PersonalityTestAttempt',
   CategoryTopic: 'CategoryTopic',
-  PuzzleDuJourGame: 'PuzzleDuJourGame'
+  PuzzleDuJourGame: 'PuzzleDuJourGame',
+  NeuronTransaction: 'NeuronTransaction',
+  NeuronUnlock: 'NeuronUnlock'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -149,7 +151,8 @@ export const UserScalarFieldEnum = {
   selectedSkinId: 'selectedSkinId',
   personalityAnimal: 'personalityAnimal',
   personalityAnimalSetAt: 'personalityAnimalSetAt',
-  lastMascotNudgeDismissedAt: 'lastMascotNudgeDismissedAt'
+  lastMascotNudgeDismissedAt: 'lastMascotNudgeDismissedAt',
+  neuronsBalance: 'neuronsBalance'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -498,6 +501,31 @@ export const PuzzleDuJourGameScalarFieldEnum = {
 } as const
 
 export type PuzzleDuJourGameScalarFieldEnum = (typeof PuzzleDuJourGameScalarFieldEnum)[keyof typeof PuzzleDuJourGameScalarFieldEnum]
+
+
+export const NeuronTransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  amount: 'amount',
+  gameKey: 'gameKey',
+  relatedGameId: 'relatedGameId',
+  createdAt: 'createdAt'
+} as const
+
+export type NeuronTransactionScalarFieldEnum = (typeof NeuronTransactionScalarFieldEnum)[keyof typeof NeuronTransactionScalarFieldEnum]
+
+
+export const NeuronUnlockScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gameKey: 'gameKey',
+  status: 'status',
+  purchasedAt: 'purchasedAt',
+  usedAt: 'usedAt'
+} as const
+
+export type NeuronUnlockScalarFieldEnum = (typeof NeuronUnlockScalarFieldEnum)[keyof typeof NeuronUnlockScalarFieldEnum]
 
 
 export const SortOrder = {

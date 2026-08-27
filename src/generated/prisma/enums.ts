@@ -82,3 +82,20 @@ export const PuzzleDuJourStatus = {
 } as const
 
 export type PuzzleDuJourStatus = (typeof PuzzleDuJourStatus)[keyof typeof PuzzleDuJourStatus]
+
+
+export const NeuronTransactionType = {
+  earn_quiz: 'earn_quiz',
+  spend_unlock: 'spend_unlock',
+  bonus_personality: 'bonus_personality'
+} as const
+
+export type NeuronTransactionType = (typeof NeuronTransactionType)[keyof typeof NeuronTransactionType]
+
+
+export const NeuronUnlockStatus = {
+  available: 'available',
+  used: 'used'
+} as const
+
+export type NeuronUnlockStatus = (typeof NeuronUnlockStatus)[keyof typeof NeuronUnlockStatus]

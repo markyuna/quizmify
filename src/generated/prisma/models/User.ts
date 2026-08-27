@@ -32,6 +32,7 @@ export type UserAvgAggregateOutputType = {
   currentStreak: number | null
   longestStreak: number | null
   streakProtectionsUsed: number | null
+  neuronsBalance: number | null
 }
 
 export type UserSumAggregateOutputType = {
@@ -40,6 +41,7 @@ export type UserSumAggregateOutputType = {
   currentStreak: number | null
   longestStreak: number | null
   streakProtectionsUsed: number | null
+  neuronsBalance: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -68,6 +70,7 @@ export type UserMinAggregateOutputType = {
   personalityAnimal: string | null
   personalityAnimalSetAt: Date | null
   lastMascotNudgeDismissedAt: Date | null
+  neuronsBalance: number | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -96,6 +99,7 @@ export type UserMaxAggregateOutputType = {
   personalityAnimal: string | null
   personalityAnimalSetAt: Date | null
   lastMascotNudgeDismissedAt: Date | null
+  neuronsBalance: number | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -124,6 +128,7 @@ export type UserCountAggregateOutputType = {
   personalityAnimal: number
   personalityAnimalSetAt: number
   lastMascotNudgeDismissedAt: number
+  neuronsBalance: number
   _all: number
 }
 
@@ -134,6 +139,7 @@ export type UserAvgAggregateInputType = {
   currentStreak?: true
   longestStreak?: true
   streakProtectionsUsed?: true
+  neuronsBalance?: true
 }
 
 export type UserSumAggregateInputType = {
@@ -142,6 +148,7 @@ export type UserSumAggregateInputType = {
   currentStreak?: true
   longestStreak?: true
   streakProtectionsUsed?: true
+  neuronsBalance?: true
 }
 
 export type UserMinAggregateInputType = {
@@ -170,6 +177,7 @@ export type UserMinAggregateInputType = {
   personalityAnimal?: true
   personalityAnimalSetAt?: true
   lastMascotNudgeDismissedAt?: true
+  neuronsBalance?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -198,6 +206,7 @@ export type UserMaxAggregateInputType = {
   personalityAnimal?: true
   personalityAnimalSetAt?: true
   lastMascotNudgeDismissedAt?: true
+  neuronsBalance?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -226,6 +235,7 @@ export type UserCountAggregateInputType = {
   personalityAnimal?: true
   personalityAnimalSetAt?: true
   lastMascotNudgeDismissedAt?: true
+  neuronsBalance?: true
   _all?: true
 }
 
@@ -341,6 +351,7 @@ export type UserGroupByOutputType = {
   personalityAnimal: string | null
   personalityAnimalSetAt: Date | null
   lastMascotNudgeDismissedAt: Date | null
+  neuronsBalance: number
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -392,6 +403,7 @@ export type UserWhereInput = {
   personalityAnimal?: Prisma.StringNullableFilter<"User"> | string | null
   personalityAnimalSetAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  neuronsBalance?: Prisma.IntFilter<"User"> | number
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   games?: Prisma.GameListRelationFilter
@@ -413,6 +425,8 @@ export type UserWhereInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionListRelationFilter
   categoryRecommendation?: Prisma.XOR<Prisma.CategoryRecommendationMascotaNullableScalarRelationFilter, Prisma.CategoryRecommendationMascotaWhereInput> | null
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameListRelationFilter
+  neuronTransactions?: Prisma.NeuronTransactionListRelationFilter
+  neuronUnlocks?: Prisma.NeuronUnlockListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -441,6 +455,7 @@ export type UserOrderByWithRelationInput = {
   personalityAnimal?: Prisma.SortOrderInput | Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastMascotNudgeDismissedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  neuronsBalance?: Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   games?: Prisma.GameOrderByRelationAggregateInput
@@ -462,6 +477,8 @@ export type UserOrderByWithRelationInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionOrderByRelationAggregateInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaOrderByWithRelationInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameOrderByRelationAggregateInput
+  neuronTransactions?: Prisma.NeuronTransactionOrderByRelationAggregateInput
+  neuronUnlocks?: Prisma.NeuronUnlockOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -493,6 +510,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   personalityAnimal?: Prisma.StringNullableFilter<"User"> | string | null
   personalityAnimalSetAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  neuronsBalance?: Prisma.IntFilter<"User"> | number
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   games?: Prisma.GameListRelationFilter
@@ -514,6 +532,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionListRelationFilter
   categoryRecommendation?: Prisma.XOR<Prisma.CategoryRecommendationMascotaNullableScalarRelationFilter, Prisma.CategoryRecommendationMascotaWhereInput> | null
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameListRelationFilter
+  neuronTransactions?: Prisma.NeuronTransactionListRelationFilter
+  neuronUnlocks?: Prisma.NeuronUnlockListRelationFilter
 }, "id" | "email" | "stripePaymentId">
 
 export type UserOrderByWithAggregationInput = {
@@ -542,6 +562,7 @@ export type UserOrderByWithAggregationInput = {
   personalityAnimal?: Prisma.SortOrderInput | Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastMascotNudgeDismissedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  neuronsBalance?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -578,6 +599,7 @@ export type UserScalarWhereWithAggregatesInput = {
   personalityAnimal?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   personalityAnimalSetAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  neuronsBalance?: Prisma.IntWithAggregatesFilter<"User"> | number
 }
 
 export type UserCreateInput = {
@@ -606,6 +628,7 @@ export type UserCreateInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -627,6 +650,8 @@ export type UserCreateInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -655,6 +680,7 @@ export type UserUncheckedCreateInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -676,6 +702,8 @@ export type UserUncheckedCreateInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -704,6 +732,7 @@ export type UserUpdateInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -725,6 +754,8 @@ export type UserUpdateInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -753,6 +784,7 @@ export type UserUncheckedUpdateInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -774,6 +806,8 @@ export type UserUncheckedUpdateInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -802,6 +836,7 @@ export type UserCreateManyInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
 }
 
 export type UserUpdateManyMutationInput = {
@@ -830,6 +865,7 @@ export type UserUpdateManyMutationInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -858,6 +894,7 @@ export type UserUncheckedUpdateManyInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type UserScalarRelationFilter = {
@@ -891,6 +928,7 @@ export type UserCountOrderByAggregateInput = {
   personalityAnimal?: Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrder
   lastMascotNudgeDismissedAt?: Prisma.SortOrder
+  neuronsBalance?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -899,6 +937,7 @@ export type UserAvgOrderByAggregateInput = {
   currentStreak?: Prisma.SortOrder
   longestStreak?: Prisma.SortOrder
   streakProtectionsUsed?: Prisma.SortOrder
+  neuronsBalance?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -927,6 +966,7 @@ export type UserMaxOrderByAggregateInput = {
   personalityAnimal?: Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrder
   lastMascotNudgeDismissedAt?: Prisma.SortOrder
+  neuronsBalance?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -955,6 +995,7 @@ export type UserMinOrderByAggregateInput = {
   personalityAnimal?: Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrder
   lastMascotNudgeDismissedAt?: Prisma.SortOrder
+  neuronsBalance?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -963,6 +1004,7 @@ export type UserSumOrderByAggregateInput = {
   currentStreak?: Prisma.SortOrder
   longestStreak?: Prisma.SortOrder
   streakProtectionsUsed?: Prisma.SortOrder
+  neuronsBalance?: Prisma.SortOrder
 }
 
 export type UserNullableScalarRelationFilter = {
@@ -1282,6 +1324,34 @@ export type UserUpdateOneRequiredWithoutPuzzleDuJourGamesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPuzzleDuJourGamesInput, Prisma.UserUpdateWithoutPuzzleDuJourGamesInput>, Prisma.UserUncheckedUpdateWithoutPuzzleDuJourGamesInput>
 }
 
+export type UserCreateNestedOneWithoutNeuronTransactionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNeuronTransactionsInput, Prisma.UserUncheckedCreateWithoutNeuronTransactionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNeuronTransactionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNeuronTransactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNeuronTransactionsInput, Prisma.UserUncheckedCreateWithoutNeuronTransactionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNeuronTransactionsInput
+  upsert?: Prisma.UserUpsertWithoutNeuronTransactionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNeuronTransactionsInput, Prisma.UserUpdateWithoutNeuronTransactionsInput>, Prisma.UserUncheckedUpdateWithoutNeuronTransactionsInput>
+}
+
+export type UserCreateNestedOneWithoutNeuronUnlocksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNeuronUnlocksInput, Prisma.UserUncheckedCreateWithoutNeuronUnlocksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNeuronUnlocksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNeuronUnlocksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNeuronUnlocksInput, Prisma.UserUncheckedCreateWithoutNeuronUnlocksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNeuronUnlocksInput
+  upsert?: Prisma.UserUpsertWithoutNeuronUnlocksInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNeuronUnlocksInput, Prisma.UserUpdateWithoutNeuronUnlocksInput>, Prisma.UserUncheckedUpdateWithoutNeuronUnlocksInput>
+}
+
 export type UserCreateWithoutAccountsInput = {
   id?: string
   name?: string | null
@@ -1308,6 +1378,7 @@ export type UserCreateWithoutAccountsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
@@ -1328,6 +1399,8 @@ export type UserCreateWithoutAccountsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1356,6 +1429,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
@@ -1376,6 +1450,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1420,6 +1496,7 @@ export type UserUpdateWithoutAccountsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
@@ -1440,6 +1517,8 @@ export type UserUpdateWithoutAccountsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1468,6 +1547,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -1488,6 +1568,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1516,6 +1598,7 @@ export type UserCreateWithoutSessionsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
@@ -1536,6 +1619,8 @@ export type UserCreateWithoutSessionsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1564,6 +1649,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
@@ -1584,6 +1670,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1628,6 +1716,7 @@ export type UserUpdateWithoutSessionsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
@@ -1648,6 +1737,8 @@ export type UserUpdateWithoutSessionsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1676,6 +1767,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -1696,6 +1788,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGamesInput = {
@@ -1724,6 +1818,7 @@ export type UserCreateWithoutGamesInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
@@ -1744,6 +1839,8 @@ export type UserCreateWithoutGamesInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGamesInput = {
@@ -1772,6 +1869,7 @@ export type UserUncheckedCreateWithoutGamesInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
@@ -1792,6 +1890,8 @@ export type UserUncheckedCreateWithoutGamesInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGamesInput = {
@@ -1836,6 +1936,7 @@ export type UserUpdateWithoutGamesInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
@@ -1856,6 +1957,8 @@ export type UserUpdateWithoutGamesInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGamesInput = {
@@ -1884,6 +1987,7 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -1904,6 +2008,8 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAttemptsInput = {
@@ -1932,6 +2038,7 @@ export type UserCreateWithoutAttemptsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -1952,6 +2059,8 @@ export type UserCreateWithoutAttemptsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAttemptsInput = {
@@ -1980,6 +2089,7 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2000,6 +2110,8 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAttemptsInput = {
@@ -2044,6 +2156,7 @@ export type UserUpdateWithoutAttemptsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2064,6 +2177,8 @@ export type UserUpdateWithoutAttemptsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttemptsInput = {
@@ -2092,6 +2207,7 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2112,6 +2228,8 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCuratedQuizCompletionsInput = {
@@ -2140,6 +2258,7 @@ export type UserCreateWithoutCuratedQuizCompletionsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2160,6 +2279,8 @@ export type UserCreateWithoutCuratedQuizCompletionsInput = {
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
@@ -2188,6 +2309,7 @@ export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2208,6 +2330,8 @@ export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCuratedQuizCompletionsInput = {
@@ -2252,6 +2376,7 @@ export type UserUpdateWithoutCuratedQuizCompletionsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2272,6 +2397,8 @@ export type UserUpdateWithoutCuratedQuizCompletionsInput = {
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
@@ -2300,6 +2427,7 @@ export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2320,6 +2448,8 @@ export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCertificatesInput = {
@@ -2348,6 +2478,7 @@ export type UserCreateWithoutCertificatesInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2368,6 +2499,8 @@ export type UserCreateWithoutCertificatesInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCertificatesInput = {
@@ -2396,6 +2529,7 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2416,6 +2550,8 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCertificatesInput = {
@@ -2460,6 +2596,7 @@ export type UserUpdateWithoutCertificatesInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2480,6 +2617,8 @@ export type UserUpdateWithoutCertificatesInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCertificatesInput = {
@@ -2508,6 +2647,7 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2528,6 +2668,8 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTopicRecommendationsInput = {
@@ -2556,6 +2698,7 @@ export type UserCreateWithoutTopicRecommendationsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2576,6 +2719,8 @@ export type UserCreateWithoutTopicRecommendationsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
@@ -2604,6 +2749,7 @@ export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2624,6 +2770,8 @@ export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTopicRecommendationsInput = {
@@ -2668,6 +2816,7 @@ export type UserUpdateWithoutTopicRecommendationsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2688,6 +2837,8 @@ export type UserUpdateWithoutTopicRecommendationsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
@@ -2716,6 +2867,7 @@ export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2736,6 +2888,8 @@ export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCategoryRecommendationInput = {
@@ -2764,6 +2918,7 @@ export type UserCreateWithoutCategoryRecommendationInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2784,6 +2939,8 @@ export type UserCreateWithoutCategoryRecommendationInput = {
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCategoryRecommendationInput = {
@@ -2812,6 +2969,7 @@ export type UserUncheckedCreateWithoutCategoryRecommendationInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2832,6 +2990,8 @@ export type UserUncheckedCreateWithoutCategoryRecommendationInput = {
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCategoryRecommendationInput = {
@@ -2876,6 +3036,7 @@ export type UserUpdateWithoutCategoryRecommendationInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2896,6 +3057,8 @@ export type UserUpdateWithoutCategoryRecommendationInput = {
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCategoryRecommendationInput = {
@@ -2924,6 +3087,7 @@ export type UserUncheckedUpdateWithoutCategoryRecommendationInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2944,6 +3108,8 @@ export type UserUncheckedUpdateWithoutCategoryRecommendationInput = {
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTrophiesInput = {
@@ -2972,6 +3138,7 @@ export type UserCreateWithoutTrophiesInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2992,6 +3159,8 @@ export type UserCreateWithoutTrophiesInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTrophiesInput = {
@@ -3020,6 +3189,7 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3040,6 +3210,8 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTrophiesInput = {
@@ -3084,6 +3256,7 @@ export type UserUpdateWithoutTrophiesInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3104,6 +3277,8 @@ export type UserUpdateWithoutTrophiesInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTrophiesInput = {
@@ -3132,6 +3307,7 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3152,6 +3328,8 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutQuestionProgressInput = {
@@ -3180,6 +3358,7 @@ export type UserCreateWithoutQuestionProgressInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3200,6 +3379,8 @@ export type UserCreateWithoutQuestionProgressInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutQuestionProgressInput = {
@@ -3228,6 +3409,7 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3248,6 +3430,8 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutQuestionProgressInput = {
@@ -3292,6 +3476,7 @@ export type UserUpdateWithoutQuestionProgressInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3312,6 +3497,8 @@ export type UserUpdateWithoutQuestionProgressInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuestionProgressInput = {
@@ -3340,6 +3527,7 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3360,6 +3548,8 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDailyChallengeAttemptsInput = {
@@ -3388,6 +3578,7 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3408,6 +3599,8 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
@@ -3436,6 +3629,7 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3456,6 +3650,8 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDailyChallengeAttemptsInput = {
@@ -3500,6 +3696,7 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3520,6 +3717,8 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
@@ -3548,6 +3747,7 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3568,6 +3768,8 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationPreferenceInput = {
@@ -3596,6 +3798,7 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3616,6 +3819,8 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
@@ -3644,6 +3849,7 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3664,6 +3870,8 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationPreferenceInput = {
@@ -3708,6 +3916,7 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3728,6 +3937,8 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
@@ -3756,6 +3967,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3776,6 +3988,8 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationLogsInput = {
@@ -3804,6 +4018,7 @@ export type UserCreateWithoutNotificationLogsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3824,6 +4039,8 @@ export type UserCreateWithoutNotificationLogsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationLogsInput = {
@@ -3852,6 +4069,7 @@ export type UserUncheckedCreateWithoutNotificationLogsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3872,6 +4090,8 @@ export type UserUncheckedCreateWithoutNotificationLogsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationLogsInput = {
@@ -3916,6 +4136,7 @@ export type UserUpdateWithoutNotificationLogsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3936,6 +4157,8 @@ export type UserUpdateWithoutNotificationLogsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationLogsInput = {
@@ -3964,6 +4187,7 @@ export type UserUncheckedUpdateWithoutNotificationLogsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3984,6 +4208,8 @@ export type UserUncheckedUpdateWithoutNotificationLogsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFriendshipsSentInput = {
@@ -4012,6 +4238,7 @@ export type UserCreateWithoutFriendshipsSentInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -4032,6 +4259,8 @@ export type UserCreateWithoutFriendshipsSentInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFriendshipsSentInput = {
@@ -4060,6 +4289,7 @@ export type UserUncheckedCreateWithoutFriendshipsSentInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -4080,6 +4310,8 @@ export type UserUncheckedCreateWithoutFriendshipsSentInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFriendshipsSentInput = {
@@ -4113,6 +4345,7 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -4133,6 +4366,8 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
@@ -4161,6 +4396,7 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -4181,6 +4417,8 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFriendshipsReceivedInput = {
@@ -4225,6 +4463,7 @@ export type UserUpdateWithoutFriendshipsSentInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -4245,6 +4484,8 @@ export type UserUpdateWithoutFriendshipsSentInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
@@ -4273,6 +4514,7 @@ export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -4293,6 +4535,8 @@ export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutFriendshipsReceivedInput = {
@@ -4332,6 +4576,7 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -4352,6 +4597,8 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
@@ -4380,6 +4627,7 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -4400,6 +4648,8 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReferralsMadeInput = {
@@ -4428,6 +4678,7 @@ export type UserCreateWithoutReferralsMadeInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -4448,6 +4699,8 @@ export type UserCreateWithoutReferralsMadeInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralsMadeInput = {
@@ -4476,6 +4729,7 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -4496,6 +4750,8 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralsMadeInput = {
@@ -4529,6 +4785,7 @@ export type UserCreateWithoutReferralReceivedInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -4549,6 +4806,8 @@ export type UserCreateWithoutReferralReceivedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralReceivedInput = {
@@ -4577,6 +4836,7 @@ export type UserUncheckedCreateWithoutReferralReceivedInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -4597,6 +4857,8 @@ export type UserUncheckedCreateWithoutReferralReceivedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralReceivedInput = {
@@ -4641,6 +4903,7 @@ export type UserUpdateWithoutReferralsMadeInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -4661,6 +4924,8 @@ export type UserUpdateWithoutReferralsMadeInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralsMadeInput = {
@@ -4689,6 +4954,7 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -4709,6 +4975,8 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReferralReceivedInput = {
@@ -4748,6 +5016,7 @@ export type UserUpdateWithoutReferralReceivedInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -4768,6 +5037,8 @@ export type UserUpdateWithoutReferralReceivedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralReceivedInput = {
@@ -4796,6 +5067,7 @@ export type UserUncheckedUpdateWithoutReferralReceivedInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -4816,6 +5088,8 @@ export type UserUncheckedUpdateWithoutReferralReceivedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGuestAttemptsClaimedInput = {
@@ -4844,6 +5118,7 @@ export type UserCreateWithoutGuestAttemptsClaimedInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -4864,6 +5139,8 @@ export type UserCreateWithoutGuestAttemptsClaimedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
@@ -4892,6 +5169,7 @@ export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -4912,6 +5190,8 @@ export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGuestAttemptsClaimedInput = {
@@ -4956,6 +5236,7 @@ export type UserUpdateWithoutGuestAttemptsClaimedInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -4976,6 +5257,8 @@ export type UserUpdateWithoutGuestAttemptsClaimedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
@@ -5004,6 +5287,7 @@ export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -5024,6 +5308,8 @@ export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDailyAttemptsInput = {
@@ -5052,6 +5338,7 @@ export type UserCreateWithoutDailyAttemptsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -5072,6 +5359,8 @@ export type UserCreateWithoutDailyAttemptsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDailyAttemptsInput = {
@@ -5100,6 +5389,7 @@ export type UserUncheckedCreateWithoutDailyAttemptsInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -5120,6 +5410,8 @@ export type UserUncheckedCreateWithoutDailyAttemptsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDailyAttemptsInput = {
@@ -5164,6 +5456,7 @@ export type UserUpdateWithoutDailyAttemptsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -5184,6 +5477,8 @@ export type UserUpdateWithoutDailyAttemptsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyAttemptsInput = {
@@ -5212,6 +5507,7 @@ export type UserUncheckedUpdateWithoutDailyAttemptsInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -5232,6 +5528,8 @@ export type UserUncheckedUpdateWithoutDailyAttemptsInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
@@ -5260,6 +5558,7 @@ export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -5280,6 +5579,8 @@ export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
@@ -5308,6 +5609,7 @@ export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -5328,6 +5630,8 @@ export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPersonalityTestAttemptsClaimedInput = {
@@ -5372,6 +5676,7 @@ export type UserUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -5392,6 +5697,8 @@ export type UserUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
@@ -5420,6 +5727,7 @@ export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -5440,6 +5748,8 @@ export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
   puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPuzzleDuJourGamesInput = {
@@ -5468,6 +5778,7 @@ export type UserCreateWithoutPuzzleDuJourGamesInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -5488,6 +5799,8 @@ export type UserCreateWithoutPuzzleDuJourGamesInput = {
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPuzzleDuJourGamesInput = {
@@ -5516,6 +5829,7 @@ export type UserUncheckedCreateWithoutPuzzleDuJourGamesInput = {
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -5536,6 +5850,8 @@ export type UserUncheckedCreateWithoutPuzzleDuJourGamesInput = {
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPuzzleDuJourGamesInput = {
@@ -5580,6 +5896,7 @@ export type UserUpdateWithoutPuzzleDuJourGamesInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -5600,6 +5917,8 @@ export type UserUpdateWithoutPuzzleDuJourGamesInput = {
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPuzzleDuJourGamesInput = {
@@ -5628,6 +5947,7 @@ export type UserUncheckedUpdateWithoutPuzzleDuJourGamesInput = {
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -5648,6 +5968,448 @@ export type UserUncheckedUpdateWithoutPuzzleDuJourGamesInput = {
   personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
   categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutNeuronTransactionsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutNeuronTransactionsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutNeuronTransactionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNeuronTransactionsInput, Prisma.UserUncheckedCreateWithoutNeuronTransactionsInput>
+}
+
+export type UserUpsertWithoutNeuronTransactionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNeuronTransactionsInput, Prisma.UserUncheckedUpdateWithoutNeuronTransactionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNeuronTransactionsInput, Prisma.UserUncheckedCreateWithoutNeuronTransactionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNeuronTransactionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNeuronTransactionsInput, Prisma.UserUncheckedUpdateWithoutNeuronTransactionsInput>
+}
+
+export type UserUpdateWithoutNeuronTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNeuronTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutNeuronUnlocksInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutNeuronUnlocksInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutNeuronUnlocksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNeuronUnlocksInput, Prisma.UserUncheckedCreateWithoutNeuronUnlocksInput>
+}
+
+export type UserUpsertWithoutNeuronUnlocksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNeuronUnlocksInput, Prisma.UserUncheckedUpdateWithoutNeuronUnlocksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNeuronUnlocksInput, Prisma.UserUncheckedCreateWithoutNeuronUnlocksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNeuronUnlocksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNeuronUnlocksInput, Prisma.UserUncheckedUpdateWithoutNeuronUnlocksInput>
+}
+
+export type UserUpdateWithoutNeuronUnlocksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNeuronUnlocksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -5674,6 +6436,8 @@ export type UserCountOutputType = {
   personalityTestAttemptsClaimed: number
   curatedQuizCompletions: number
   puzzleDuJourGames: number
+  neuronTransactions: number
+  neuronUnlocks: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5695,6 +6459,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   personalityTestAttemptsClaimed?: boolean | UserCountOutputTypeCountPersonalityTestAttemptsClaimedArgs
   curatedQuizCompletions?: boolean | UserCountOutputTypeCountCuratedQuizCompletionsArgs
   puzzleDuJourGames?: boolean | UserCountOutputTypeCountPuzzleDuJourGamesArgs
+  neuronTransactions?: boolean | UserCountOutputTypeCountNeuronTransactionsArgs
+  neuronUnlocks?: boolean | UserCountOutputTypeCountNeuronUnlocksArgs
 }
 
 /**
@@ -5833,6 +6599,20 @@ export type UserCountOutputTypeCountPuzzleDuJourGamesArgs<ExtArgs extends runtim
   where?: Prisma.PuzzleDuJourGameWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNeuronTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NeuronTransactionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNeuronUnlocksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NeuronUnlockWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -5860,6 +6640,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   personalityAnimal?: boolean
   personalityAnimalSetAt?: boolean
   lastMascotNudgeDismissedAt?: boolean
+  neuronsBalance?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   games?: boolean | Prisma.User$gamesArgs<ExtArgs>
@@ -5881,6 +6662,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   curatedQuizCompletions?: boolean | Prisma.User$curatedQuizCompletionsArgs<ExtArgs>
   categoryRecommendation?: boolean | Prisma.User$categoryRecommendationArgs<ExtArgs>
   puzzleDuJourGames?: boolean | Prisma.User$puzzleDuJourGamesArgs<ExtArgs>
+  neuronTransactions?: boolean | Prisma.User$neuronTransactionsArgs<ExtArgs>
+  neuronUnlocks?: boolean | Prisma.User$neuronUnlocksArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -5910,6 +6693,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   personalityAnimal?: boolean
   personalityAnimalSetAt?: boolean
   lastMascotNudgeDismissedAt?: boolean
+  neuronsBalance?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -5938,6 +6722,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   personalityAnimal?: boolean
   personalityAnimalSetAt?: boolean
   lastMascotNudgeDismissedAt?: boolean
+  neuronsBalance?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -5966,9 +6751,10 @@ export type UserSelectScalar = {
   personalityAnimal?: boolean
   personalityAnimalSetAt?: boolean
   lastMascotNudgeDismissedAt?: boolean
+  neuronsBalance?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth" | "timezone" | "premiumUntil" | "freeTrialUsedAt" | "selectedSkinId" | "personalityAnimal" | "personalityAnimalSetAt" | "lastMascotNudgeDismissedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth" | "timezone" | "premiumUntil" | "freeTrialUsedAt" | "selectedSkinId" | "personalityAnimal" | "personalityAnimalSetAt" | "lastMascotNudgeDismissedAt" | "neuronsBalance", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -5991,6 +6777,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   curatedQuizCompletions?: boolean | Prisma.User$curatedQuizCompletionsArgs<ExtArgs>
   categoryRecommendation?: boolean | Prisma.User$categoryRecommendationArgs<ExtArgs>
   puzzleDuJourGames?: boolean | Prisma.User$puzzleDuJourGamesArgs<ExtArgs>
+  neuronTransactions?: boolean | Prisma.User$neuronTransactionsArgs<ExtArgs>
+  neuronUnlocks?: boolean | Prisma.User$neuronUnlocksArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -6020,6 +6808,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     curatedQuizCompletions: Prisma.$CuratedQuizCompletionPayload<ExtArgs>[]
     categoryRecommendation: Prisma.$CategoryRecommendationMascotaPayload<ExtArgs> | null
     puzzleDuJourGames: Prisma.$PuzzleDuJourGamePayload<ExtArgs>[]
+    neuronTransactions: Prisma.$NeuronTransactionPayload<ExtArgs>[]
+    neuronUnlocks: Prisma.$NeuronUnlockPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -6047,6 +6837,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     personalityAnimal: string | null
     personalityAnimalSetAt: Date | null
     lastMascotNudgeDismissedAt: Date | null
+    neuronsBalance: number
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -6462,6 +7253,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   curatedQuizCompletions<T extends Prisma.User$curatedQuizCompletionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$curatedQuizCompletionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CuratedQuizCompletionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   categoryRecommendation<T extends Prisma.User$categoryRecommendationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$categoryRecommendationArgs<ExtArgs>>): Prisma.Prisma__CategoryRecommendationMascotaClient<runtime.Types.Result.GetResult<Prisma.$CategoryRecommendationMascotaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   puzzleDuJourGames<T extends Prisma.User$puzzleDuJourGamesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$puzzleDuJourGamesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PuzzleDuJourGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  neuronTransactions<T extends Prisma.User$neuronTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$neuronTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NeuronTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  neuronUnlocks<T extends Prisma.User$neuronUnlocksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$neuronUnlocksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NeuronUnlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6516,6 +7309,7 @@ export interface UserFieldRefs {
   readonly personalityAnimal: Prisma.FieldRef<"User", 'String'>
   readonly personalityAnimalSetAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly lastMascotNudgeDismissedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly neuronsBalance: Prisma.FieldRef<"User", 'Int'>
 }
     
 
@@ -7395,6 +8189,54 @@ export type User$puzzleDuJourGamesArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.PuzzleDuJourGameScalarFieldEnum | Prisma.PuzzleDuJourGameScalarFieldEnum[]
+}
+
+/**
+ * User.neuronTransactions
+ */
+export type User$neuronTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the NeuronTransaction
+   */
+  select?: Prisma.NeuronTransactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the NeuronTransaction
+   */
+  omit?: Prisma.NeuronTransactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NeuronTransactionInclude<ExtArgs> | null
+  where?: Prisma.NeuronTransactionWhereInput
+  orderBy?: Prisma.NeuronTransactionOrderByWithRelationInput | Prisma.NeuronTransactionOrderByWithRelationInput[]
+  cursor?: Prisma.NeuronTransactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NeuronTransactionScalarFieldEnum | Prisma.NeuronTransactionScalarFieldEnum[]
+}
+
+/**
+ * User.neuronUnlocks
+ */
+export type User$neuronUnlocksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the NeuronUnlock
+   */
+  select?: Prisma.NeuronUnlockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the NeuronUnlock
+   */
+  omit?: Prisma.NeuronUnlockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NeuronUnlockInclude<ExtArgs> | null
+  where?: Prisma.NeuronUnlockWhereInput
+  orderBy?: Prisma.NeuronUnlockOrderByWithRelationInput | Prisma.NeuronUnlockOrderByWithRelationInput[]
+  cursor?: Prisma.NeuronUnlockWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NeuronUnlockScalarFieldEnum | Prisma.NeuronUnlockScalarFieldEnum[]
 }
 
 /**

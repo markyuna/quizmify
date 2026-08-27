@@ -152,3 +152,13 @@ export type CategoryTopic = Prisma.CategoryTopicModel
  * 
  */
 export type PuzzleDuJourGame = Prisma.PuzzleDuJourGameModel
+/**
+ * Model NeuronTransaction
+ * 
+ */
+export type NeuronTransaction = Prisma.NeuronTransactionModel
+/**
+ * Model NeuronUnlock
+ * 
+ */
+export type NeuronUnlock = Prisma.NeuronUnlockModel

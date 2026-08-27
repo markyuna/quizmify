@@ -423,7 +423,9 @@ export const ModelName = {
   UserDailyAttempt: 'UserDailyAttempt',
   PersonalityTestAttempt: 'PersonalityTestAttempt',
   CategoryTopic: 'CategoryTopic',
-  PuzzleDuJourGame: 'PuzzleDuJourGame'
+  PuzzleDuJourGame: 'PuzzleDuJourGame',
+  NeuronTransaction: 'NeuronTransaction',
+  NeuronUnlock: 'NeuronUnlock'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -439,7 +441,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronUnlock"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2441,6 +2443,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    NeuronTransaction: {
+      payload: Prisma.$NeuronTransactionPayload<ExtArgs>
+      fields: Prisma.NeuronTransactionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.NeuronTransactionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronTransactionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.NeuronTransactionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronTransactionPayload>
+        }
+        findFirst: {
+          args: Prisma.NeuronTransactionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronTransactionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.NeuronTransactionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronTransactionPayload>
+        }
+        findMany: {
+          args: Prisma.NeuronTransactionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronTransactionPayload>[]
+        }
+        create: {
+          args: Prisma.NeuronTransactionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronTransactionPayload>
+        }
+        createMany: {
+          args: Prisma.NeuronTransactionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.NeuronTransactionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronTransactionPayload>[]
+        }
+        delete: {
+          args: Prisma.NeuronTransactionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronTransactionPayload>
+        }
+        update: {
+          args: Prisma.NeuronTransactionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronTransactionPayload>
+        }
+        deleteMany: {
+          args: Prisma.NeuronTransactionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.NeuronTransactionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.NeuronTransactionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronTransactionPayload>[]
+        }
+        upsert: {
+          args: Prisma.NeuronTransactionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronTransactionPayload>
+        }
+        aggregate: {
+          args: Prisma.NeuronTransactionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateNeuronTransaction>
+        }
+        groupBy: {
+          args: Prisma.NeuronTransactionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NeuronTransactionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.NeuronTransactionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NeuronTransactionCountAggregateOutputType> | number
+        }
+      }
+    }
+    NeuronUnlock: {
+      payload: Prisma.$NeuronUnlockPayload<ExtArgs>
+      fields: Prisma.NeuronUnlockFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.NeuronUnlockFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronUnlockPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.NeuronUnlockFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronUnlockPayload>
+        }
+        findFirst: {
+          args: Prisma.NeuronUnlockFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronUnlockPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.NeuronUnlockFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronUnlockPayload>
+        }
+        findMany: {
+          args: Prisma.NeuronUnlockFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronUnlockPayload>[]
+        }
+        create: {
+          args: Prisma.NeuronUnlockCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronUnlockPayload>
+        }
+        createMany: {
+          args: Prisma.NeuronUnlockCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.NeuronUnlockCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronUnlockPayload>[]
+        }
+        delete: {
+          args: Prisma.NeuronUnlockDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronUnlockPayload>
+        }
+        update: {
+          args: Prisma.NeuronUnlockUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronUnlockPayload>
+        }
+        deleteMany: {
+          args: Prisma.NeuronUnlockDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.NeuronUnlockUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.NeuronUnlockUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronUnlockPayload>[]
+        }
+        upsert: {
+          args: Prisma.NeuronUnlockUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronUnlockPayload>
+        }
+        aggregate: {
+          args: Prisma.NeuronUnlockAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateNeuronUnlock>
+        }
+        groupBy: {
+          args: Prisma.NeuronUnlockGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NeuronUnlockGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.NeuronUnlockCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NeuronUnlockCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2533,7 +2683,8 @@ export const UserScalarFieldEnum = {
   selectedSkinId: 'selectedSkinId',
   personalityAnimal: 'personalityAnimal',
   personalityAnimalSetAt: 'personalityAnimalSetAt',
-  lastMascotNudgeDismissedAt: 'lastMascotNudgeDismissedAt'
+  lastMascotNudgeDismissedAt: 'lastMascotNudgeDismissedAt',
+  neuronsBalance: 'neuronsBalance'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -2884,6 +3035,31 @@ export const PuzzleDuJourGameScalarFieldEnum = {
 export type PuzzleDuJourGameScalarFieldEnum = (typeof PuzzleDuJourGameScalarFieldEnum)[keyof typeof PuzzleDuJourGameScalarFieldEnum]
 
 
+export const NeuronTransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  amount: 'amount',
+  gameKey: 'gameKey',
+  relatedGameId: 'relatedGameId',
+  createdAt: 'createdAt'
+} as const
+
+export type NeuronTransactionScalarFieldEnum = (typeof NeuronTransactionScalarFieldEnum)[keyof typeof NeuronTransactionScalarFieldEnum]
+
+
+export const NeuronUnlockScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gameKey: 'gameKey',
+  status: 'status',
+  purchasedAt: 'purchasedAt',
+  usedAt: 'usedAt'
+} as const
+
+export type NeuronUnlockScalarFieldEnum = (typeof NeuronUnlockScalarFieldEnum)[keyof typeof NeuronUnlockScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3140,6 +3316,34 @@ export type EnumPuzzleDuJourStatusFieldRefInput<$PrismaModel> = FieldRefInputTyp
 export type ListEnumPuzzleDuJourStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PuzzleDuJourStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'NeuronTransactionType'
+ */
+export type EnumNeuronTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NeuronTransactionType'>
+    
+
+
+/**
+ * Reference to a field of type 'NeuronTransactionType[]'
+ */
+export type ListEnumNeuronTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NeuronTransactionType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'NeuronUnlockStatus'
+ */
+export type EnumNeuronUnlockStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NeuronUnlockStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'NeuronUnlockStatus[]'
+ */
+export type ListEnumNeuronUnlockStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NeuronUnlockStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -3318,6 +3522,8 @@ export type GlobalOmitConfig = {
   personalityTestAttempt?: Prisma.PersonalityTestAttemptOmit
   categoryTopic?: Prisma.CategoryTopicOmit
   puzzleDuJourGame?: Prisma.PuzzleDuJourGameOmit
+  neuronTransaction?: Prisma.NeuronTransactionOmit
+  neuronUnlock?: Prisma.NeuronUnlockOmit
 }
 
 /* Types for Logging */

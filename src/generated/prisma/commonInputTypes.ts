@@ -497,6 +497,40 @@ export type EnumPuzzleDuJourStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumPuzzleDuJourStatusFilter<$PrismaModel>
 }
 
+export type EnumNeuronTransactionTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.NeuronTransactionType | Prisma.EnumNeuronTransactionTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.NeuronTransactionType[] | Prisma.ListEnumNeuronTransactionTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NeuronTransactionType[] | Prisma.ListEnumNeuronTransactionTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNeuronTransactionTypeFilter<$PrismaModel> | $Enums.NeuronTransactionType
+}
+
+export type EnumNeuronTransactionTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.NeuronTransactionType | Prisma.EnumNeuronTransactionTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.NeuronTransactionType[] | Prisma.ListEnumNeuronTransactionTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NeuronTransactionType[] | Prisma.ListEnumNeuronTransactionTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNeuronTransactionTypeWithAggregatesFilter<$PrismaModel> | $Enums.NeuronTransactionType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumNeuronTransactionTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumNeuronTransactionTypeFilter<$PrismaModel>
+}
+
+export type EnumNeuronUnlockStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.NeuronUnlockStatus | Prisma.EnumNeuronUnlockStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.NeuronUnlockStatus[] | Prisma.ListEnumNeuronUnlockStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NeuronUnlockStatus[] | Prisma.ListEnumNeuronUnlockStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNeuronUnlockStatusFilter<$PrismaModel> | $Enums.NeuronUnlockStatus
+}
+
+export type EnumNeuronUnlockStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.NeuronUnlockStatus | Prisma.EnumNeuronUnlockStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.NeuronUnlockStatus[] | Prisma.ListEnumNeuronUnlockStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NeuronUnlockStatus[] | Prisma.ListEnumNeuronUnlockStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNeuronUnlockStatusWithAggregatesFilter<$PrismaModel> | $Enums.NeuronUnlockStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumNeuronUnlockStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumNeuronUnlockStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -926,6 +960,40 @@ export type NestedEnumPuzzleDuJourStatusWithAggregatesFilter<$PrismaModel = neve
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPuzzleDuJourStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPuzzleDuJourStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumNeuronTransactionTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.NeuronTransactionType | Prisma.EnumNeuronTransactionTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.NeuronTransactionType[] | Prisma.ListEnumNeuronTransactionTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NeuronTransactionType[] | Prisma.ListEnumNeuronTransactionTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNeuronTransactionTypeFilter<$PrismaModel> | $Enums.NeuronTransactionType
+}
+
+export type NestedEnumNeuronTransactionTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.NeuronTransactionType | Prisma.EnumNeuronTransactionTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.NeuronTransactionType[] | Prisma.ListEnumNeuronTransactionTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NeuronTransactionType[] | Prisma.ListEnumNeuronTransactionTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNeuronTransactionTypeWithAggregatesFilter<$PrismaModel> | $Enums.NeuronTransactionType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumNeuronTransactionTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumNeuronTransactionTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumNeuronUnlockStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.NeuronUnlockStatus | Prisma.EnumNeuronUnlockStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.NeuronUnlockStatus[] | Prisma.ListEnumNeuronUnlockStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NeuronUnlockStatus[] | Prisma.ListEnumNeuronUnlockStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNeuronUnlockStatusFilter<$PrismaModel> | $Enums.NeuronUnlockStatus
+}
+
+export type NestedEnumNeuronUnlockStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.NeuronUnlockStatus | Prisma.EnumNeuronUnlockStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.NeuronUnlockStatus[] | Prisma.ListEnumNeuronUnlockStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.NeuronUnlockStatus[] | Prisma.ListEnumNeuronUnlockStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumNeuronUnlockStatusWithAggregatesFilter<$PrismaModel> | $Enums.NeuronUnlockStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumNeuronUnlockStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumNeuronUnlockStatusFilter<$PrismaModel>
 }
 
 

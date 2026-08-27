@@ -93,6 +93,13 @@ model User {
   // the nudge stays hidden for 7 days from this timestamp. Guests use
   // localStorage instead (no User row to persist it against yet).
   lastMascotNudgeDismissedAt     DateTime?
+  // Read-cache of SUM(amount) over this user's NeuronTransaction rows --
+  // same "cache field + ledger table" pattern UserDailyAttempt (guard
+  // counter) + GuestAttempt (detail) already use elsewhere, applied to a
+  // balance instead of a daily-attempt guard. NeuronTransaction is the
+  // source of truth; this field only exists so reading the balance (e.g.
+  // the dashboard header) doesn't require summing the whole ledger.
+  neuronsBalance                 Int                            @default(0)
   accounts                       Account[]
   sessions                       Session[]
   games                          Game[]
@@ -114,6 +121,8 @@ model User {
   curatedQuizCompletions         CuratedQuizCompletion[]
   categoryRecommendation         CategoryRecommendationMascota?
   puzzleDuJourGames              PuzzleDuJourGame[]
+  neuronTransactions             NeuronTransaction[]
+  neuronUnlocks                  NeuronUnlock[]
 
   @@index([xp])
 }
@@ -789,4 +798,66 @@ model PuzzleDuJourGame {
 
   @@index([userId, date])
   @@index([topicNormalized, language])
+}
+
+enum NeuronTransactionType {
+  earn_quiz
+  spend_unlock
+  bonus_personality
+}
+
+// Ledger of every "Neurons" (fr: Neurones, en: Neurons) earn/spend/bonus
+// event -- the source of truth for a user's balance. User.neuronsBalance is
+// just a read-cache of SUM(amount) over these rows for this userId. amount
+// is signed on purpose (positive for earn_quiz/bonus_personality, negative
+// for spend_unlock) so the balance is always exactly SUM(amount) -- no
+// separate credit/debit columns to keep in sync.
+model NeuronTransaction {
+  id     String                @id @default(cuid())
+  userId String
+  type   NeuronTransactionType
+  amount Int
+  // Which game this event relates to -- null for earn_quiz (not tied to a
+  // specific unlockable game, it's earned from ordinary AI quiz play) and
+  // bonus_personality (not a game at all). Deliberately a plain String, not
+  // GameKey/GuestGameKey: Puzzle du Jour -- the first spend_unlock consumer
+  // -- is a member of neither enum (see GAMES_CATALOG's own history in this
+  // codebase for why).
+  gameKey String?
+  // Which Game produced an earn_quiz transaction, for tracing "why did my
+  // balance go up." No FK relation to Game (relationMode = "prisma", and
+  // this ledger row must outlive the Game it came from) -- same "plain
+  // traceability, not a join target" stance as CategoryTopic.createdByGameId.
+  relatedGameId String?
+  createdAt     DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([relatedGameId])
+}
+
+enum NeuronUnlockStatus {
+  available
+  used
+}
+
+// A purchased, persistent "ticket" to unlock one play of a premium game
+// without spending Neurons again at play time -- doesn't expire, sits
+// `available` until consumed. No uniqueness constraint on
+// [userId, gameKey] deliberately -- see the trade-off note in the schema
+// proposal report about whether multiple accumulated available tickets per
+// game (to unlock several days in a row) should be allowed or capped, and
+// at which layer (DB constraint vs. application check) that belongs.
+model NeuronUnlock {
+  id          String             @id @default(cuid())
+  userId      String
+  gameKey     String
+  status      NeuronUnlockStatus @default(available)
+  purchasedAt DateTime           @default(now())
+  usedAt      DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, gameKey, status])
 }
