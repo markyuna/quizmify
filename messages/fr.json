@@ -833,6 +833,12 @@
     "emptyDescription": "Faites le test \"Quel animal es-tu ?\" pour révéler votre mascotte et débloquer des recommandations personnalisées.",
     "ctaLabel": "Faire le test"
   },
+  "MascotDiscoveryNudge": {
+    "title": "Tu sais déjà quel animal tu es ?",
+    "description": "Fais le test d'une minute et découvre ta mascotte.",
+    "ctaLabel": "Faire le test",
+    "dismissLabel": "Pas maintenant"
+  },
   "PuzzleDuJour": {
     "title": "Puzzle du Jour",
     "errorTitle": "Erreur",

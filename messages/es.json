@@ -833,6 +833,12 @@
     "emptyDescription": "Hacé el test \"¿Qué animal sos?\" para revelar tu mascota y desbloquear recomendaciones personalizadas.",
     "ctaLabel": "Hacer el test"
   },
+  "MascotDiscoveryNudge": {
+    "title": "¿Ya sabés qué animal sos?",
+    "description": "Hacé el test de 1 minuto y descubrí tu mascota.",
+    "ctaLabel": "Hacer el test",
+    "dismissLabel": "Ahora no"
+  },
   "PuzzleDuJour": {
     "title": "Puzzle du Jour",
     "errorTitle": "Error",

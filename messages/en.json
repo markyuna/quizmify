@@ -833,6 +833,12 @@
     "emptyDescription": "Take the \"What animal are you?\" test to reveal your pet and unlock personalized recommendations.",
     "ctaLabel": "Take the test"
   },
+  "MascotDiscoveryNudge": {
+    "title": "Do you already know what animal you are?",
+    "description": "Take the 1-minute test and find your mascot.",
+    "ctaLabel": "Take the test",
+    "dismissLabel": "Not now"
+  },
   "PuzzleDuJour": {
     "title": "Puzzle du Jour",
     "errorTitle": "Error",

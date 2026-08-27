@@ -79,7 +79,7 @@ export function useRetryPersonalityTest() {
   });
 }
 
-type PersonalityAnimalStatusResponse = { hasAnimal: boolean };
+type PersonalityAnimalStatusResponse = { hasAnimal: boolean; lastMascotNudgeDismissedAt: string | null };
 
 /**
  * Whether the current session already has a permanent result -- drives the
@@ -97,5 +97,15 @@ export function usePersonalityAnimalStatus(enabled: boolean) {
     },
     enabled,
     staleTime: 5 * 60 * 1000,
+  });
+}
+
+/** Logged-in only -- see /api/personality-tests/mascot-nudge-dismiss. */
+export function useDismissMascotNudge() {
+  return useMutation({
+    mutationFn: async () => {
+      const { data } = await axios.post("/api/personality-tests/mascot-nudge-dismiss");
+      return data;
+    },
   });
 }

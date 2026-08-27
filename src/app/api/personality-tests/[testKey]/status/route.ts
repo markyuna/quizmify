@@ -24,13 +24,22 @@ export async function GET(_req: Request, { params }: { params: Promise<{ testKey
 
   const session = await getAuthSession();
   if (!session?.user?.id) {
-    return NextResponse.json({ hasAnimal: false }, { headers: { "Cache-Control": "no-store" } });
+    return NextResponse.json(
+      { hasAnimal: false, lastMascotNudgeDismissedAt: null },
+      { headers: { "Cache-Control": "no-store" } }
+    );
   }
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { personalityAnimal: true },
+    select: { personalityAnimal: true, lastMascotNudgeDismissedAt: true },
   });
 
-  return NextResponse.json({ hasAnimal: !!user?.personalityAnimal }, { headers: { "Cache-Control": "no-store" } });
+  return NextResponse.json(
+    {
+      hasAnimal: !!user?.personalityAnimal,
+      lastMascotNudgeDismissedAt: user?.lastMascotNudgeDismissedAt?.toISOString() ?? null,
+    },
+    { headers: { "Cache-Control": "no-store" } }
+  );
 }
