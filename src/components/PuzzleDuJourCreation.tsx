@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Lock, Sparkles } from "lucide-react";
@@ -9,20 +10,30 @@ import { Lock, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "./ui/use-toast";
 import LoadingQuestions from "./LoadingQuestions";
+import PuzzleDuJourUnlockModal from "./PuzzleDuJourUnlockModal";
 import type { PuzzleDuJourDifficulty } from "@/lib/puzzleDuJour";
+import { NEURON_UNLOCK_COSTS } from "@/lib/neurons/costs";
+import { resolvePuzzleDuJourAccess } from "@/lib/neurons/access";
 
 const DIFFICULTIES: PuzzleDuJourDifficulty[] = ["easy", "medium", "hard"];
 
 type TopicSuggestion = { topic: string; topicNormalized: string };
+
+type EligibilityResponse = {
+  isPro: boolean;
+  remainingToday: number;
+  neuronsBalance: number;
+  hasAvailableTicket: boolean;
+};
 
 export default function PuzzleDuJourCreation() {
   const t = useTranslations("PuzzleDuJour");
   const router = useRouter();
   const { toast } = useToast();
 
-  const [isPro, setIsPro] = React.useState(false);
-  const [remainingToday, setRemainingToday] = React.useState<number | null>(null);
+  const [eligibility, setEligibility] = React.useState<EligibilityResponse | null>(null);
   const [checking, setChecking] = React.useState(true);
+  const [showUnlockModal, setShowUnlockModal] = React.useState(false);
   const [topic, setTopic] = React.useState("");
   const [difficulty, setDifficulty] = React.useState<PuzzleDuJourDifficulty>("easy");
   const [suggestions, setSuggestions] = React.useState<TopicSuggestion[]>([]);
@@ -36,22 +47,28 @@ export default function PuzzleDuJourCreation() {
     };
   }, []);
 
+  // A ref (not a per-effect closure var) because this same fetch is reused
+  // on demand from the unlock modal's onUnlocked, not just on mount.
+  const mountedRef = React.useRef(true);
   React.useEffect(() => {
-    let cancelled = false;
-    axios
-      .get<{ isPro: boolean; remainingToday: number }>("/api/puzzle-du-jour/eligibility")
-      .then((res) => {
-        if (cancelled) return;
-        setIsPro(res.data.isPro);
-        setRemainingToday(res.data.remainingToday);
-      })
-      .finally(() => {
-        if (!cancelled) setChecking(false);
-      });
+    mountedRef.current = true;
     return () => {
-      cancelled = true;
+      mountedRef.current = false;
     };
   }, []);
+
+  const fetchEligibility = React.useCallback(async () => {
+    try {
+      const res = await axios.get<EligibilityResponse>("/api/puzzle-du-jour/eligibility");
+      if (mountedRef.current) setEligibility(res.data);
+    } finally {
+      if (mountedRef.current) setChecking(false);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    fetchEligibility();
+  }, [fetchEligibility]);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -73,15 +90,25 @@ export default function PuzzleDuJourCreation() {
     };
   }, []);
 
-  const locked = !isPro;
-  const atLimit = isPro && remainingToday === 0;
+  const accessState = resolvePuzzleDuJourAccess({
+    isPro: eligibility?.isPro ?? false,
+    hasAvailableTicket: eligibility?.hasAvailableTicket ?? false,
+    neuronsBalance: eligibility?.neuronsBalance ?? 0,
+  });
+  const isPro = accessState.kind === "pro";
+  // Locked = the form (topic/suggestions/difficulty) stays disabled --
+  // true unless Pro or already holding a ticket, matching the 2 states
+  // that behave exactly like a normal, unrestricted creation.
+  const locked = accessState.kind !== "pro" && accessState.kind !== "ticket_available";
+  const atLimit = isPro && eligibility?.remainingToday === 0;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (locked) {
-      router.push("/upgrade");
+    if (accessState.kind === "can_purchase") {
+      setShowUnlockModal(true);
       return;
     }
+    if (locked) return; // insufficient_balance -- button is disabled, nothing to do
     if (atLimit || showLoader || !topic.trim()) return;
 
     setShowLoader(true);
@@ -194,19 +221,34 @@ export default function PuzzleDuJourCreation() {
           ))}
         </div>
 
-        {isPro && remainingToday !== null && (
-          <p className="mt-2 text-xs text-slate-400">{t("remainingToday", { count: remainingToday })}</p>
+        {isPro && eligibility?.remainingToday != null && (
+          <p className="mt-2 text-xs text-slate-400">{t("remainingToday", { count: eligibility.remainingToday })}</p>
         )}
       </div>
 
       <button
         type="submit"
-        disabled={atLimit}
+        disabled={atLimit || accessState.kind === "insufficient_balance"}
         className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 px-4 py-3 text-sm font-bold text-white transition-opacity disabled:opacity-50"
       >
-        <Sparkles className="h-4 w-4" />
-        {locked ? t("unlockCta") : t("generateCta")}
+        {accessState.kind === "can_purchase" || accessState.kind === "insufficient_balance" ? (
+          <Image src="/icono-neurona/neurona-hex-32.png" alt="" width={16} height={16} />
+        ) : (
+          <Sparkles className="h-4 w-4" />
+        )}
+        {accessState.kind === "can_purchase"
+          ? t("unlockForCost", { cost: NEURON_UNLOCK_COSTS.puzzleDuJour })
+          : accessState.kind === "insufficient_balance"
+            ? t("missingNeurons", { missing: accessState.missing })
+            : t("generateCta")}
       </button>
+
+      <PuzzleDuJourUnlockModal
+        open={showUnlockModal}
+        onOpenChange={setShowUnlockModal}
+        neuronsBalance={eligibility?.neuronsBalance ?? 0}
+        onUnlocked={fetchEligibility}
+      />
     </form>
   );
 }

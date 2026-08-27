@@ -15,7 +15,7 @@ export async function GET() {
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { subscriptionStatus: true, premiumUntil: true },
+    select: { subscriptionStatus: true, premiumUntil: true, neuronsBalance: true },
   });
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -28,8 +28,21 @@ export async function GET() {
       })
     : 0;
 
+  // Cheap regardless of Pro status -- simpler than special-casing it away
+  // for Pro, and a lapsed-Pro user with a leftover ticket should still see
+  // it correctly once they're back to non-Pro.
+  const availableTicket = await prisma.neuronUnlock.findFirst({
+    where: { userId: session.user.id, gameKey: "puzzleDuJour", status: "available" },
+    select: { id: true },
+  });
+
   return NextResponse.json(
-    { isPro, remainingToday: Math.max(0, PUZZLE_DU_JOUR_DAILY_LIMIT - playedToday) },
+    {
+      isPro,
+      remainingToday: Math.max(0, PUZZLE_DU_JOUR_DAILY_LIMIT - playedToday),
+      neuronsBalance: user.neuronsBalance,
+      hasAvailableTicket: !!availableTicket,
+    },
     { headers: { "Cache-Control": "no-store" } }
   );
 }

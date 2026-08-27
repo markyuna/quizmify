@@ -5,11 +5,14 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { Search, ChevronDown, Lock } from "lucide-react";
+import { Search, ChevronDown } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { getCategoriesGroupedByGroup } from "@/lib/categories";
 import { GAMES_CATALOG } from "@/lib/games/catalog";
+import { NEURON_UNLOCK_COSTS } from "@/lib/neurons/costs";
+import { resolvePuzzleDuJourAccess } from "@/lib/neurons/access";
+import PuzzleDuJourUnlockModal from "@/components/PuzzleDuJourUnlockModal";
 
 const GROUPED_CATEGORIES = getCategoriesGroupedByGroup();
 
@@ -54,24 +57,34 @@ export default function CategorySidebar() {
   const tSidebar = useTranslations("CategorySidebar");
   const tPuzzleDuJour = useTranslations("PuzzleDuJour");
 
-  // Client-side only (this is a "use client" component) -- same isPro
-  // fetch QuizCreation.tsx already does for its own Pro badge, reused here
-  // rather than adding a second endpoint. 401s for guests/logged-out
-  // visitors are swallowed: isPro just stays false, which is the correct
-  // "show the badge" state for them anyway.
-  const [isPro, setIsPro] = React.useState(false);
-  React.useEffect(() => {
-    let cancelled = false;
-    axios
-      .get<{ isPro: boolean }>("/api/game/eligibility")
-      .then((res) => {
-        if (!cancelled) setIsPro(res.data.isPro);
-      })
+  // Client-side only (this is a "use client" component). Puzzle du Jour's
+  // own eligibility endpoint (not /api/game/eligibility -- that one is
+  // still used as-is by QuizCreation.tsx and left untouched) also carries
+  // the Neurons ticket/balance this card now needs. 401s for guests/
+  // logged-out visitors are swallowed: everything stays at its default
+  // (not Pro, no ticket, 0 balance), which is the correct "show the locked
+  // state" outcome for them anyway.
+  const [eligibility, setEligibility] = React.useState({
+    isPro: false,
+    hasAvailableTicket: false,
+    neuronsBalance: 0,
+  });
+  const [showUnlockModal, setShowUnlockModal] = React.useState(false);
+
+  const fetchEligibility = React.useCallback(() => {
+    return axios
+      .get<{ isPro: boolean; hasAvailableTicket: boolean; neuronsBalance: number }>(
+        "/api/puzzle-du-jour/eligibility"
+      )
+      .then((res) => setEligibility(res.data))
       .catch(() => {});
-    return () => {
-      cancelled = true;
-    };
   }, []);
+
+  React.useEffect(() => {
+    fetchEligibility();
+  }, [fetchEligibility]);
+
+  const access = resolvePuzzleDuJourAccess(eligibility);
 
   return (
     <aside className="space-y-6">
@@ -124,25 +137,65 @@ export default function CategorySidebar() {
               /games?game=X). Puzzle du Jour requires auth + Pro and lives
               at its own route, so it's a one-off card here and in
               GameCarousel.tsx rather than forcing it into that shape. */}
-          <Link
-            href="/puzzle-du-jour"
-            className="flex flex-col items-center gap-1.5 rounded-xl border border-slate-200 bg-white p-3 text-center transition hover:border-violet-300 hover:bg-violet-50 dark:border-white/10 dark:bg-white/5 dark:hover:border-violet-500/30 dark:hover:bg-violet-500/10"
-          >
-            <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-              <Image src="/images/games/puzzle-du-jour-icon.png" alt="" fill className="object-cover" sizes="32px" />
-            </div>
-            <span className="text-xs font-medium text-slate-700 dark:text-slate-200">
-              {tPuzzleDuJour("title")}
-            </span>
-            {!isPro && (
-              <span className="inline-flex items-center gap-0.5 rounded-full bg-violet-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-violet-600 dark:bg-violet-500/20 dark:text-violet-300">
-                <Lock className="h-2.5 w-2.5" />
-                {tPuzzleDuJour("proBadge")}
-              </span>
-            )}
-          </Link>
+          {(() => {
+            const cardClassName =
+              "flex flex-col items-center gap-1.5 rounded-xl border border-slate-200 bg-white p-3 text-center transition hover:border-violet-300 hover:bg-violet-50 dark:border-white/10 dark:bg-white/5 dark:hover:border-violet-500/30 dark:hover:bg-violet-500/10";
+
+            const cardBody = (
+              <>
+                <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg">
+                  <Image src="/images/games/puzzle-du-jour-icon.png" alt="" fill className="object-cover" sizes="32px" />
+                </div>
+                <span className="text-xs font-medium text-slate-700 dark:text-slate-200">
+                  {tPuzzleDuJour("title")}
+                </span>
+                {access.kind === "ticket_available" && (
+                  <span className="inline-flex items-center gap-0.5 rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">
+                    {tPuzzleDuJour("ticketAvailableBadge")}
+                  </span>
+                )}
+                {access.kind === "can_purchase" && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-violet-100 px-1.5 py-0.5 text-[10px] font-bold text-violet-600 dark:bg-violet-500/20 dark:text-violet-300">
+                    <Image src="/icono-neurona/neurona-hex-32.png" alt="" width={10} height={10} />
+                    {tPuzzleDuJour("unlockForCost", { cost: NEURON_UNLOCK_COSTS.puzzleDuJour })}
+                  </span>
+                )}
+                {access.kind === "insufficient_balance" && (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-medium text-slate-500 dark:bg-white/5 dark:text-slate-400">
+                    <Image src="/icono-neurona/neurona-hex-32.png" alt="" width={10} height={10} />
+                    {tPuzzleDuJour("missingNeurons", { missing: access.missing })}
+                  </span>
+                )}
+              </>
+            );
+
+            if (access.kind === "can_purchase") {
+              return (
+                <button type="button" onClick={() => setShowUnlockModal(true)} className={cardClassName}>
+                  {cardBody}
+                </button>
+              );
+            }
+
+            if (access.kind === "insufficient_balance") {
+              return <div className={cn(cardClassName, "cursor-default opacity-80")}>{cardBody}</div>;
+            }
+
+            return (
+              <Link href="/puzzle-du-jour" className={cardClassName}>
+                {cardBody}
+              </Link>
+            );
+          })()}
         </div>
       </div>
+
+      <PuzzleDuJourUnlockModal
+        open={showUnlockModal}
+        onOpenChange={setShowUnlockModal}
+        neuronsBalance={eligibility.neuronsBalance}
+        onUnlocked={fetchEligibility}
+      />
     </aside>
   );
 }
