@@ -60,7 +60,14 @@ export default function PuzzleDuJourCreation() {
       .then((res) => {
         if (!cancelled) setSuggestions(res.data.suggestions);
       })
-      .catch(() => {});
+      .catch((error) => {
+        // Secondary feature -- failing silently in the UI is fine (the
+        // section just doesn't render, same as a legitimately empty
+        // result), but swallowing it completely made this exact bug
+        // (mobile getting an empty array) indistinguishable from a real
+        // request failure. Logged, not surfaced to the user.
+        console.error("Failed to load Puzzle du Jour topic suggestions:", error);
+      });
     return () => {
       cancelled = true;
     };
