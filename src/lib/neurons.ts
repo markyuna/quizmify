@@ -80,3 +80,28 @@ export async function creditNeuronsForQuiz(
 
   return { neuronsEarned };
 }
+
+const PERSONALITY_BONUS_AMOUNT = 50;
+
+/**
+ * Merges the +50 "first mascot" bonus into the exact same tx.user.update
+ * that sets personalityAnimal, instead of a separate call after it -- both
+ * call sites (confirmPersonalityTestAttempt and claimPersonalityTestAttempts
+ * in src/lib/personalityTests/attempts.ts) only ever reach that update when
+ * personalityAnimal is transitioning from null to a value (guarded before
+ * they get there), so no extra "first time?" check belongs here. Uses
+ * Prisma's nested write on the NeuronTransaction relation so the ledger
+ * row, the balance increment, and the animal assignment are one Prisma
+ * call -- if a third write site to personalityAnimal ever appears, it has
+ * to explicitly call this too, but at least the bonus itself can't silently
+ * drift out of step with the transaction/balance that back it.
+ */
+export function withPersonalityBonus(baseData: { personalityAnimal: string; personalityAnimalSetAt: Date }) {
+  return {
+    ...baseData,
+    neuronsBalance: { increment: PERSONALITY_BONUS_AMOUNT },
+    neuronTransactions: {
+      create: { type: "bonus_personality" as const, amount: PERSONALITY_BONUS_AMOUNT, gameKey: null },
+    },
+  };
+}

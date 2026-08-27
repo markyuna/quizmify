@@ -2,6 +2,7 @@ import type { Prisma } from "@/generated/prisma/client";
 import { PersonalityTestKey } from "@/generated/prisma/client";
 
 import { prisma } from "@/lib/db";
+import { withPersonalityBonus } from "@/lib/neurons";
 import { computeResult, type PersonalityTestAnswer } from "./scoring";
 
 export { PersonalityTestKey };
@@ -100,7 +101,7 @@ export async function confirmPersonalityTestAttempt(userId: string, attemptId: s
 
     await tx.user.update({
       where: { id: userId },
-      data: { personalityAnimal: attempt.resultKey, personalityAnimalSetAt: now },
+      data: withPersonalityBonus({ personalityAnimal: attempt.resultKey, personalityAnimalSetAt: now }),
     });
 
     return confirmed;
@@ -200,7 +201,7 @@ export async function claimPersonalityTestAttempts(
 
       await tx.user.update({
         where: { id: userId },
-        data: { personalityAnimal: winner.resultKey, personalityAnimalSetAt: now },
+        data: withPersonalityBonus({ personalityAnimal: winner.resultKey, personalityAnimalSetAt: now }),
       });
     }
 
