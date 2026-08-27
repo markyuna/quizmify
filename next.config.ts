@@ -42,6 +42,12 @@ const nextConfig = {
         destination: "/quiz/categoria/sports",
         permanent: true,
       },
+      {
+        source: "/games",
+        has: [{ type: "query", key: "game", value: "personality-test" }],
+        destination: "/quel-animal-es-tu",
+        permanent: true,
+      },
     ];
   },
 };
