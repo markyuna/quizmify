@@ -664,6 +664,7 @@
   "NeuronHistory": {
     "title": "Neurons history",
     "backToDashboard": "Back to dashboard",
+    "earnMore": "Earn more Neurons",
     "balanceLabel": "Current balance",
     "howItWorks": "You earn 50 Neurons for every 10 correct answers you accumulate in medium- or hard-difficulty quizzes. Easy quizzes, Practice Mistakes and daily games don't count.",
     "howItWorksPro": "With Pro you have unlimited access, so you don't need to spend Neurons — but you keep earning them.",

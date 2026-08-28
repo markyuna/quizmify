@@ -664,6 +664,7 @@
   "NeuronHistory": {
     "title": "Historique des Neurones",
     "backToDashboard": "Retour au tableau de bord",
+    "earnMore": "Gagner plus de Neurones",
     "balanceLabel": "Solde actuel",
     "howItWorks": "Vous gagnez 50 Neurones pour 10 bonnes réponses cumulées dans les quiz de difficulté moyenne ou difficile. Les quiz faciles, Réviser les erreurs et les jeux du jour ne comptent pas.",
     "howItWorksPro": "Avec Pro, vous avez un accès illimité : vous n'avez pas besoin de dépenser vos Neurones, mais vous continuez d'en gagner.",

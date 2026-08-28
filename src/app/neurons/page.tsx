@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { LucideLayoutDashboard } from "lucide-react";
+import { LucideLayoutDashboard, Sparkles } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import NeuronHistoryList from "@/components/NeuronHistoryList";
@@ -41,10 +41,16 @@ export default async function NeuronsHistoryPage({ searchParams }: PageProps) {
         <CardHeader className="space-y-3">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <CardTitle className="text-2xl font-bold">{t("title")}</CardTitle>
-            <Link href="/dashboard" className={buttonVariants()}>
-              <LucideLayoutDashboard className="mr-2 h-4 w-4" />
-              {t("backToDashboard")}
-            </Link>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/categories" className={buttonVariants({ variant: "outline" })}>
+                <Sparkles className="mr-2 h-4 w-4" />
+                {t("earnMore")}
+              </Link>
+              <Link href="/dashboard" className={buttonVariants()}>
+                <LucideLayoutDashboard className="mr-2 h-4 w-4" />
+                {t("backToDashboard")}
+              </Link>
+            </div>
           </div>
 
           <div className="flex items-center gap-2 rounded-2xl border border-border/50 bg-muted/30 px-4 py-3">

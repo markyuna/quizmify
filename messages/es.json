@@ -664,6 +664,7 @@
   "NeuronHistory": {
     "title": "Historial de Neuronas",
     "backToDashboard": "Volver al panel",
+    "earnMore": "Ganar más Neuronas",
     "balanceLabel": "Saldo actual",
     "howItWorks": "Ganás 50 Neuronas por cada 10 respuestas correctas que acumulás en quizzes de dificultad media o difícil. No cuentan los quizzes fáciles, Practicar errores ni los juegos diarios.",
     "howItWorksPro": "Con Pro tenés acceso ilimitado, así que no necesitás gastar Neuronas — pero las seguís ganando.",
