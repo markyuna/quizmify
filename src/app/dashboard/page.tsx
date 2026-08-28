@@ -108,7 +108,6 @@ export default async function DashboardPage() {
   const session = await getAuthSession();
   const t = await getTranslations("Dashboard");
   const tTrial = await getTranslations("Trial");
-  const tNeurons = await getTranslations("NeuronHistory");
   const tRoot = await getTranslations();
 
   if (!session?.user?.id) {
@@ -351,7 +350,7 @@ export default async function DashboardPage() {
             </p>
 
             <div className="mt-5 max-w-xl rounded-[1.5rem] border border-white/10 bg-white/60 p-4 shadow-lg shadow-black/5 backdrop-blur-xl dark:bg-white/5">
-              <div className="flex items-center justify-between gap-4">
+              <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex min-w-0 items-center gap-3">
                   <Avatar3D level={currentLevel} size={72} className="rounded-full" skin={equippedSkin} />
                   <div className="min-w-0">
@@ -409,12 +408,6 @@ export default async function DashboardPage() {
                         needed: neuronsProgress.neededForNext,
                       })}
                     </p>
-                    <a
-                      href="/history?tab=neurons"
-                      className="mt-1 inline-block text-[11px] font-medium text-violet-600 underline-offset-2 hover:underline dark:text-violet-300"
-                    >
-                      {tNeurons("viewHistory")}
-                    </a>
                   </div>
                 </div>
               </div>
