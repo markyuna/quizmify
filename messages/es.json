@@ -1,6 +1,14 @@
 {
   "Navbar": {
-    "signIn": "Iniciar sesión"
+    "signIn": "Iniciar sesión",
+    "categories": "Categorías",
+    "games": "Juegos",
+    "whichAnimal": "¿Qué animal eres?",
+    "goPro": "Hazte Pro",
+    "proBadge": "Pro",
+    "quiEstLePeintre": "¿Quién es el pintor?",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
   },
   "ThemeToggle": {
     "toggle": "Cambiar de tema"

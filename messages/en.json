@@ -1,6 +1,14 @@
 {
   "Navbar": {
-    "signIn": "Sign In"
+    "signIn": "Sign In",
+    "categories": "Categories",
+    "games": "Games",
+    "whichAnimal": "Which animal are you?",
+    "goPro": "Go Pro",
+    "proBadge": "Pro",
+    "quiEstLePeintre": "Who's the painter?",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "ThemeToggle": {
     "toggle": "Toggle theme"
