@@ -25,6 +25,7 @@ import TrophyCabinetCard from "@/components/dashboard/TrophyCabinetCard";
 import CertificatesCard from "@/components/dashboard/CertificatesCard";
 import RecommendationCard from "@/components/dashboard/RecommendationCard";
 import PersonalityMascotCard from "@/components/dashboard/PersonalityMascotCard";
+import NeuronsInfoTooltip from "@/components/dashboard/NeuronsInfoTooltip";
 import DailyChallengeCard from "@/components/dashboard/DailyChallengeCard";
 import LeaderboardCard from "@/components/dashboard/LeaderboardCard";
 import FriendsCard from "@/components/dashboard/FriendsCard";
@@ -107,6 +108,7 @@ export default async function DashboardPage() {
   const session = await getAuthSession();
   const t = await getTranslations("Dashboard");
   const tTrial = await getTranslations("Trial");
+  const tNeurons = await getTranslations("NeuronHistory");
   const tRoot = await getTranslations();
 
   if (!session?.user?.id) {
@@ -384,9 +386,11 @@ export default async function DashboardPage() {
                         ? "border-white/10 bg-white/40 opacity-60 dark:bg-white/5"
                         : "border-white/10 bg-white/70 dark:bg-white/10"
                     )}
-                    title={isPro ? t("neuronsTooltipPro") : t("neuronsTooltip")}
                   >
-                    <p className="text-xs text-muted-foreground">{t("neurons")}</p>
+                    <p className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
+                      {t("neurons")}
+                      <NeuronsInfoTooltip isPro={isPro} />
+                    </p>
                     <p className="flex items-center justify-center gap-1.5 text-lg font-bold text-slate-900 dark:text-white">
                       <Image src="/icono-neurona/neurona-hex-48.png" alt="" width={20} height={20} />
                       {neuronsBalance}
@@ -405,6 +409,12 @@ export default async function DashboardPage() {
                         needed: neuronsProgress.neededForNext,
                       })}
                     </p>
+                    <a
+                      href="/neurons"
+                      className="mt-1 inline-block text-[11px] font-medium text-violet-600 underline-offset-2 hover:underline dark:text-violet-300"
+                    >
+                      {tNeurons("viewHistory")}
+                    </a>
                   </div>
                 </div>
               </div>
