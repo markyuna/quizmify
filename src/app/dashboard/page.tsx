@@ -410,7 +410,7 @@ export default async function DashboardPage() {
                       })}
                     </p>
                     <a
-                      href="/neurons"
+                      href="/history?tab=neurons"
                       className="mt-1 inline-block text-[11px] font-medium text-violet-600 underline-offset-2 hover:underline dark:text-violet-300"
                     >
                       {tNeurons("viewHistory")}

@@ -15,6 +15,10 @@ const PAGE_SIZE = 20;
 type Props = {
   userId: string;
   page: number;
+  // Builds the href for a given page number. Passed in so the list can
+  // live under whatever route hosts it (/history?tab=neurons&page=N)
+  // without hard-coding the path here.
+  hrefForPage: (page: number) => string;
 };
 
 const TYPE_LABEL_KEY: Record<string, string> = {
@@ -23,7 +27,11 @@ const TYPE_LABEL_KEY: Record<string, string> = {
   bonus_personality: "typeBonusPersonality",
 };
 
-export default async function NeuronHistoryList({ userId, page: requestedPage }: Props) {
+export default async function NeuronHistoryList({
+  userId,
+  page: requestedPage,
+  hrefForPage,
+}: Props) {
   const t = await getTranslations("NeuronHistory");
   const locale = await getRequestLocale();
 
@@ -152,7 +160,7 @@ export default async function NeuronHistoryList({ userId, page: requestedPage }:
         <div className="flex items-center justify-between gap-3 pt-2 text-sm">
           {page > 1 ? (
             <Link
-              href={`/neurons?page=${page - 1}`}
+              href={hrefForPage(page - 1)}
               className="rounded-lg border border-border/60 px-3 py-1.5 font-medium hover:bg-muted/50"
             >
               {t("previous")}
@@ -169,7 +177,7 @@ export default async function NeuronHistoryList({ userId, page: requestedPage }:
 
           {page < totalPages ? (
             <Link
-              href={`/neurons?page=${page + 1}`}
+              href={hrefForPage(page + 1)}
               className="rounded-lg border border-border/60 px-3 py-1.5 font-medium hover:bg-muted/50"
             >
               {t("next")}
