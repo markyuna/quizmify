@@ -709,7 +709,8 @@
     "quizHistory": "Quiz History",
     "attempt": "attempt",
     "attempts": "attempts",
-    "recorded": "recorded"
+    "recorded": "recorded",
+    "neuronsEarned": "{count} Neurons earned"
   },
   "HotTopicsCard": {
     "trendingNow": "Trending now",

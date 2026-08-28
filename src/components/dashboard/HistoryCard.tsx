@@ -2,6 +2,7 @@ import React from "react";
 import { History } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
+import { prisma } from "@/lib/db";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import HistoryComponent, { type AttemptItem } from "../HistoryComponent";
 import HistoryCardTabs from "./HistoryCardTabs";
@@ -21,6 +22,18 @@ const panelScrollClass =
 const HistoryCard = async ({ userId, attemptsCount, attempts }: HistoryCardProps) => {
   const t = await getTranslations("HistoryCard");
   const tHistoryPage = await getTranslations("HistoryPage");
+
+  // Lifetime Neurons *earned* (gross) -- the Neurons-tab counterpart of
+  // attemptsCount. Not User.neuronsBalance, which is net of spends. A
+  // DB-side aggregation over the [userId, createdAt] index, no rows
+  // fetched.
+  const neuronsEarned =
+    (
+      await prisma.neuronTransaction.aggregate({
+        where: { userId, amount: { gt: 0 } },
+        _sum: { amount: true },
+      })
+    )._sum.amount ?? 0;
 
   return (
     <Card className="relative h-full overflow-hidden rounded-[1.5rem] border-white/10 bg-white/60 shadow-xl shadow-black/5 transition-all duration-300 hover:scale-[1.01] dark:bg-white/5 sm:rounded-[1.75rem]">
@@ -42,6 +55,7 @@ const HistoryCard = async ({ userId, attemptsCount, attempts }: HistoryCardProps
           description={`${attemptsCount} ${
             attemptsCount === 1 ? t("attempt") : t("attempts")
           } ${t("recorded")}`}
+          neuronsDescription={t("neuronsEarned", { count: neuronsEarned })}
           quizzesPanel={
             <div className={panelBoxClass}>
               <div className={panelScrollClass}>

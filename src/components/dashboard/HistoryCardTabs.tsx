@@ -12,6 +12,7 @@ type Props = {
   quizzesLabel: string;
   neuronsLabel: string;
   description: string;
+  neuronsDescription: string;
   quizzesPanel: React.ReactNode;
   neuronsPanel: React.ReactNode;
 };
@@ -27,6 +28,7 @@ export default function HistoryCardTabs({
   quizzesLabel,
   neuronsLabel,
   description,
+  neuronsDescription,
   quizzesPanel,
   neuronsPanel,
 }: Props) {
@@ -45,9 +47,9 @@ export default function HistoryCardTabs({
           </Link>
         </CardTitle>
 
-        {tab === "quizzes" && (
-          <CardDescription className="text-sm leading-6">{description}</CardDescription>
-        )}
+        <CardDescription className="text-sm leading-6">
+          {tab === "quizzes" ? description : neuronsDescription}
+        </CardDescription>
 
         <TabBar
           size="sm"

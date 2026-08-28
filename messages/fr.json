@@ -709,7 +709,8 @@
     "quizHistory": "Historique des quiz",
     "attempt": "tentative",
     "attempts": "tentatives",
-    "recorded": "enregistrées"
+    "recorded": "enregistrées",
+    "neuronsEarned": "{count} Neurones gagnés"
   },
   "HotTopicsCard": {
     "trendingNow": "Tendance actuelle",
