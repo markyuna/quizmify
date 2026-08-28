@@ -4,6 +4,7 @@ import MCQ from "@/components/MCQ";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
 import { getGuestIdFromCookie } from "@/lib/guestQuiz";
+import { getNeuronsProgress, isNeuronsEligibleDifficulty } from "@/lib/neurons";
 
 type MCQPageProps = {
   params: Promise<{
@@ -60,5 +61,20 @@ export default async function MCQPage({ params }: MCQPageProps) {
     redirect("/quiz");
   }
 
-  return <MCQ game={game} isGuest={!userId} />;
+  // How far the user already was toward their next 50-Neuron batch *before*
+  // this quiz -- the starting point for MCQ's live in-quiz Neurons badge.
+  // Only meaningful for a signed-in user on a medium/hard game (easy games
+  // earn no Neurons); null otherwise, and MCQ then hides the badge entirely.
+  const initialNeuronsCorrectTowardNext =
+    userId && isNeuronsEligibleDifficulty(game.difficulty)
+      ? (await getNeuronsProgress(prisma, userId)).correctTowardNext
+      : null;
+
+  return (
+    <MCQ
+      game={game}
+      isGuest={!userId}
+      initialNeuronsCorrectTowardNext={initialNeuronsCorrectTowardNext}
+    />
+  );
 }

@@ -17,6 +17,7 @@ import {
   RotateCcw,
   AlertCircle,
   Trophy,
+  Brain,
   Zap,
   Lock,
   LayoutDashboard,
@@ -79,7 +80,18 @@ type MCQProps = {
   // Registering claims the game via /api/guest/claim-quiz, which applies
   // the same score/XP after the fact.
   isGuest: boolean;
+  // How many eligible correct answers the user had already banked toward
+  // their next 50-Neuron batch before this quiz started (0-9), fetched
+  // server-side via getNeuronsProgress. `null` when the badge shouldn't
+  // show at all -- a guest, or an easy-difficulty game (easy earns no
+  // Neurons). The badge is purely a live client-side counter from here on:
+  // it reuses the same per-answer signal as the trophy score and never
+  // calls the backend; the authoritative credit still happens in
+  // /api/quiz/submit.
+  initialNeuronsCorrectTowardNext: number | null;
 };
+
+const CORRECT_ANSWERS_PER_NEURON_BATCH = 10;
 
 type CheckAnswerResponse = {
   correct: boolean;
@@ -121,7 +133,7 @@ type SubmitQuizResponse = {
   neuronsProgress: { neuronsEarned: number; correctTowardNext: number; neededForNext: number } | null;
 };
 
-const MCQ = ({ game, isGuest }: MCQProps) => {
+const MCQ = ({ game, isGuest, initialNeuronsCorrectTowardNext }: MCQProps) => {
   const router = useRouter();
   const { toast } = useToast();
   const t = useTranslations("MCQ");
@@ -169,6 +181,17 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
   const [showTrophy, setShowTrophy] = React.useState(false);
   const [litCountries, setLitCountries] = React.useState<string[]>([]);
   const [revealedPuzzlePieces, setRevealedPuzzlePieces] = React.useState<Set<number>>(new Set());
+
+  // Live Neurons-batch progress. Seeded with what the user already had
+  // toward the next batch, then +1 for every correct answer this session
+  // (same signal the trophy `score` uses -- see the checkAnswer onSuccess).
+  // The badge only renders when initialNeuronsCorrectTowardNext isn't null.
+  const showNeuronsBadge = initialNeuronsCorrectTowardNext !== null;
+  const [neuronsSessionCorrect, setNeuronsSessionCorrect] = React.useState(
+    initialNeuronsCorrectTowardNext ?? 0
+  );
+  const [neuronsBatchJustCrossed, setNeuronsBatchJustCrossed] = React.useState(false);
+  const neuronsTowardNext = neuronsSessionCorrect % CORRECT_ANSWERS_PER_NEURON_BATCH;
 
   const timeLimitMs = game.isTimed && game.timePerQuestionSec ? game.timePerQuestionSec * 1000 : null;
   const [questionShownAt, setQuestionShownAt] = React.useState(() => new Date().getTime());
@@ -220,6 +243,7 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
 
       if (isCorrect) {
         setScore((prev) => prev + 1);
+        if (showNeuronsBadge) setNeuronsSessionCorrect((prev) => prev + 1);
 
         const answeredQuestionIndex = questions.findIndex((q) => q.id === variables.questionId);
         const answeredQuestion = questions[answeredQuestionIndex];
@@ -302,6 +326,19 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
     const timeout = window.setTimeout(() => setShowLevelUpOverlay(false), 2200);
     return () => window.clearTimeout(timeout);
   }, [showLevelUpOverlay]);
+
+  // Briefly highlight the Neurons badge each time the running count lands
+  // exactly on a multiple of 10 (a batch of 50 Neurons just credited on the
+  // server side). Purely cosmetic and non-blocking -- the next question
+  // advances independently.
+  React.useEffect(() => {
+    if (neuronsSessionCorrect === 0 || neuronsSessionCorrect % CORRECT_ANSWERS_PER_NEURON_BATCH !== 0) {
+      return;
+    }
+    setNeuronsBatchJustCrossed(true);
+    const timeout = window.setTimeout(() => setNeuronsBatchJustCrossed(false), 1500);
+    return () => window.clearTimeout(timeout);
+  }, [neuronsSessionCorrect]);
 
   const handleSelect = (option: string) => {
     if (hasAnswered || isCheckingAnswer || isSubmittingQuiz) return;
@@ -717,7 +754,36 @@ const MCQ = ({ game, isGuest }: MCQProps) => {
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
+            {showNeuronsBadge && (
+              <div
+                className={cn(
+                  "flex items-center gap-1.5 rounded-xl border px-2.5 py-1.5 transition-colors duration-300",
+                  neuronsBatchJustCrossed
+                    ? "animate-pulse border-emerald-300 bg-emerald-100 dark:border-emerald-400/40 dark:bg-emerald-500/20"
+                    : "border-violet-200 bg-violet-50 dark:border-violet-500/20 dark:bg-violet-500/10"
+                )}
+              >
+                <Brain
+                  className={cn(
+                    "h-3.5 w-3.5",
+                    neuronsBatchJustCrossed
+                      ? "text-emerald-600 dark:text-emerald-300"
+                      : "text-violet-600 dark:text-violet-300"
+                  )}
+                />
+                <span
+                  className={cn(
+                    "text-sm font-bold tabular-nums",
+                    neuronsBatchJustCrossed
+                      ? "text-emerald-700 dark:text-emerald-200"
+                      : "text-violet-700 dark:text-violet-200"
+                  )}
+                >
+                  {neuronsTowardNext}/{CORRECT_ANSWERS_PER_NEURON_BATCH}
+                </span>
+              </div>
+            )}
             <div className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-2.5 py-1.5 dark:border-white/10 dark:bg-white/5">
               <Trophy className="h-3.5 w-3.5 text-amber-500" />
               <span className="text-sm font-bold text-slate-900 dark:text-white">{score}</span>
