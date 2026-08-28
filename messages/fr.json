@@ -662,8 +662,6 @@
     "protectionsRemaining": "{count} protections de série restantes ce mois-ci"
   },
   "NeuronHistory": {
-    "title": "Historique des Neurones",
-    "backToDashboard": "Retour au tableau de bord",
     "earnMore": "Gagner plus de Neurones",
     "balanceLabel": "Solde actuel",
     "howItWorks": "Vous gagnez 50 Neurones pour 10 bonnes réponses cumulées dans les quiz de difficulté moyenne ou difficile. Les quiz faciles, Réviser les erreurs et les jeux du jour ne comptent pas.",
@@ -751,7 +749,9 @@
   },
   "HistoryPage": {
     "title": "Historique",
-    "backToDashboard": "Retour au tableau de bord"
+    "backToDashboard": "Retour au tableau de bord",
+    "tabQuizzes": "Quiz",
+    "tabNeurons": "Neurones"
   },
   "Upgrade": {
     "freeFeature1": "Quiz générés par IA sur n'importe quel sujet",

@@ -662,8 +662,6 @@
     "protectionsRemaining": "{count} streak saves left this month"
   },
   "NeuronHistory": {
-    "title": "Neurons history",
-    "backToDashboard": "Back to dashboard",
     "earnMore": "Earn more Neurons",
     "balanceLabel": "Current balance",
     "howItWorks": "You earn 50 Neurons for every 10 correct answers you accumulate in medium- or hard-difficulty quizzes. Easy quizzes, Practice Mistakes and daily games don't count.",
@@ -751,7 +749,9 @@
   },
   "HistoryPage": {
     "title": "History",
-    "backToDashboard": "Back to Dashboard"
+    "backToDashboard": "Back to Dashboard",
+    "tabQuizzes": "Quizzes",
+    "tabNeurons": "Neurons"
   },
   "Upgrade": {
     "freeFeature1": "AI-generated quizzes on any topic",

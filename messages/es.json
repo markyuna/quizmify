@@ -662,8 +662,6 @@
     "protectionsRemaining": "{count} protecciones de racha disponibles este mes"
   },
   "NeuronHistory": {
-    "title": "Historial de Neuronas",
-    "backToDashboard": "Volver al panel",
     "earnMore": "Ganar más Neuronas",
     "balanceLabel": "Saldo actual",
     "howItWorks": "Ganás 50 Neuronas por cada 10 respuestas correctas que acumulás en quizzes de dificultad media o difícil. No cuentan los quizzes fáciles, Practicar errores ni los juegos diarios.",
@@ -751,7 +749,9 @@
   },
   "HistoryPage": {
     "title": "Historial",
-    "backToDashboard": "Volver al panel"
+    "backToDashboard": "Volver al panel",
+    "tabQuizzes": "Quizzes",
+    "tabNeurons": "Neuronas"
   },
   "Upgrade": {
     "freeFeature1": "Quizzes generados por IA sobre cualquier tema",
