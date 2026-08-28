@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { getAuthSession } from "@/lib/nextauth";
 import { prisma } from "@/lib/db";
 import { isEffectivelyPro } from "@/lib/paywall";
+import { cn } from "@/lib/utils";
 import Logo from "./Logo";
 import { buttonVariants } from "./ui/button";
 import ThemeToggle from "./ThemeToggle";
@@ -34,7 +35,7 @@ export default async function Navbar() {
           <Link href="/" className="flex items-center" aria-label="Quizmify">
             <Logo />
           </Link>
-          <PrimaryNav isPro={isPro} />
+          <PrimaryNav isPro={isPro} isLoggedIn={!!session?.user} />
         </div>
 
         <div className="flex items-center gap-3">
@@ -43,7 +44,7 @@ export default async function Navbar() {
           {session?.user ? (
             <UserAccountNav user={session.user} />
           ) : (
-            <Link href="/login" className={buttonVariants()}>
+            <Link href="/login" className={cn(buttonVariants(), "hidden md:inline-flex")}>
               {t("signIn")}
             </Link>
           )}

@@ -8,6 +8,7 @@ import { ChevronDown, Menu, PawPrint, Sparkles, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getCategoriesGroupedByGroup } from "@/lib/categories";
 import { GAMES_CATALOG } from "@/lib/games/catalog";
+import { buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,6 +31,7 @@ const QUI_EST_LE_PEINTRE_HREF = `/quiz?topic=${encodeURIComponent(
 
 type PrimaryNavProps = {
   isPro: boolean;
+  isLoggedIn: boolean;
 };
 
 const triggerClass =
@@ -81,7 +83,7 @@ function MobileDisclosure({
   );
 }
 
-export default function PrimaryNav({ isPro }: PrimaryNavProps) {
+export default function PrimaryNav({ isPro, isLoggedIn }: PrimaryNavProps) {
   const t = useTranslations("Navbar");
   const tGroups = useTranslations("CategoryGroups");
   const tCategories = useTranslations("Categories");
@@ -269,6 +271,21 @@ export default function PrimaryNav({ isPro }: PrimaryNavProps) {
               <Sparkles className="h-4 w-4" />
               {t("goPro")}
             </Link>
+          )}
+
+          {/* Guests only -- on desktop this lives in the header (Navbar.tsx),
+              here it's the drawer's closing CTA. border-t sits on the wrapper
+              so it reads as a section divider, not a button edge. */}
+          {!isLoggedIn && (
+            <div className="mt-3 border-t border-slate-200/80 pt-3 dark:border-white/10">
+              <Link
+                href="/login"
+                onClick={closeMobile}
+                className={cn(buttonVariants({ variant: "outline" }), "w-full")}
+              >
+                {t("signIn")}
+              </Link>
+            </div>
           )}
         </div>
       )}
