@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { LucideLayoutDashboard, Sparkles } from "lucide-react";
+import { LucideLayoutDashboard } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import NeuronHistoryList from "@/components/NeuronHistoryList";
@@ -43,7 +43,13 @@ export default async function NeuronsHistoryPage({ searchParams }: PageProps) {
             <CardTitle className="text-2xl font-bold">{t("title")}</CardTitle>
             <div className="flex flex-wrap gap-2">
               <Link href="/categories" className={buttonVariants({ variant: "outline" })}>
-                <Sparkles className="mr-2 h-4 w-4" />
+                <Image
+                  src="/icono-neurona/neurona-hex-48.png"
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="mr-2"
+                />
                 {t("earnMore")}
               </Link>
               <Link href="/dashboard" className={buttonVariants()}>
