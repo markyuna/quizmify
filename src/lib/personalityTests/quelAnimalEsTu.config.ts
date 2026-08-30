@@ -23,7 +23,6 @@ export const CATEGORY_SLUGS = [
   "disney",
   "harry-potter",
   "sports",
-  "football",
   "animaux",
   "nature",
   "langue-francaise",
@@ -152,7 +151,7 @@ export const QUESTIONS: PersonalityTestQuestion[] = [
     options: [
       { id: "q9_a", weights: {}, categoryWeights: { animaux: 3, sciences: 1 } },
       { id: "q9_b", weights: {}, categoryWeights: { cinema: 3, disney: 1 } },
-      { id: "q9_c", weights: {}, categoryWeights: { sports: 3, football: 1 } },
+      { id: "q9_c", weights: {}, categoryWeights: { sports: 4 } },
       { id: "q9_d", weights: {}, categoryWeights: { histoire: 3, "culture-generale": 1 } },
     ],
   },
@@ -177,7 +176,7 @@ export const QUESTIONS: PersonalityTestQuestion[] = [
   {
     id: "q12",
     options: [
-      { id: "q12_a", weights: {}, categoryWeights: { football: 3, sports: 1 } },
+      { id: "q12_a", weights: {}, categoryWeights: { sports: 4 } },
       { id: "q12_b", weights: {}, categoryWeights: { "langue-francaise": 3 } },
       { id: "q12_c", weights: {}, categoryWeights: { drapeaux: 3, geographie: 1 } },
       { id: "q12_d", weights: {}, categoryWeights: { "code-de-la-route": 3 } },
