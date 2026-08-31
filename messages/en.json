@@ -496,8 +496,7 @@
   },
   "CategorySidebar": {
     "searchPlaceholder": "Search for a quiz...",
-    "moreCategories": "More categories",
-    "allGames": "All Games"
+    "moreCategories": "More categories"
   },
   "CategoryBreadcrumb": {
     "ariaLabel": "Breadcrumb",

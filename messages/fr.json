@@ -496,8 +496,7 @@
   },
   "CategorySidebar": {
     "searchPlaceholder": "Rechercher un quiz...",
-    "moreCategories": "Plus de catégories",
-    "allGames": "Tous les Jeux"
+    "moreCategories": "Plus de catégories"
   },
   "CategoryBreadcrumb": {
     "ariaLabel": "Fil d'Ariane",

@@ -51,6 +51,9 @@ function CategoryGroupDisclosure({ group, categories }: (typeof GROUPED_CATEGORI
 
 export default function CategorySidebar() {
   const tSidebar = useTranslations("CategorySidebar");
+  // Same "games list" heading as GamesSidebarSection on /categories -- one
+  // shared key rather than a duplicate.
+  const tCategoriesPage = useTranslations("CategoriesPage");
 
   // Client-side only (this is a "use client" component) so the category
   // pages stay statically rendered. Puzzle du Jour's own eligibility
@@ -90,7 +93,7 @@ export default function CategorySidebar() {
 
       <div className="rounded-2xl border border-slate-200/80 bg-white/80 p-4 backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
         <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-          {tSidebar("allGames")}
+          {tCategoriesPage("gamesHeading")}
         </h2>
         <div className="grid grid-cols-2 gap-2">
           {ALL_GAMES.map((game) => (
