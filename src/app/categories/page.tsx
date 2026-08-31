@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 
 import { getCategoriesGroupedByGroup } from "@/lib/categories";
 import { getCategoryTopicCountsByLocale } from "@/lib/categoryTopics";
 import { getRequestLocale } from "@/i18n/get-locale";
-import { GAMES_CATALOG } from "@/lib/games/catalog";
 import CategoryGroupSection from "@/components/category/CategoryGroupSection";
 import CompactCategorySearch from "@/components/category/CompactCategorySearch";
+import GamesSidebarSection from "@/components/category/GamesSidebarSection";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("CategoriesPage");
@@ -23,10 +22,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function CategoriesPage() {
   const locale = await getRequestLocale();
-  const [t, tBreadcrumb, tGames, countsBySlug] = await Promise.all([
+  const [t, tBreadcrumb, countsBySlug] = await Promise.all([
     getTranslations("CategoriesPage"),
     getTranslations("CategoryBreadcrumb"),
-    getTranslations("GuestGames"),
     getCategoryTopicCountsByLocale(locale),
   ]);
 
@@ -67,33 +65,7 @@ export default async function CategoriesPage() {
         <aside className="lg:sticky lg:top-6 lg:self-start space-y-4">
           <CompactCategorySearch />
 
-          <div className="rounded-2xl border border-slate-200/80 bg-white/80 p-4 backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
-            <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-              {t("gamesHeading")}
-            </h2>
-            <div className="grid grid-cols-2 gap-2">
-              {GAMES_CATALOG.map((game) => (
-                <Link
-                  key={game.key}
-                  href={`/games?game=${game.key}`}
-                  className="flex flex-col items-center gap-1.5 rounded-xl border border-slate-200 bg-white p-3 text-center transition hover:border-violet-300 hover:bg-violet-50 dark:border-white/10 dark:bg-white/5 dark:hover:border-violet-500/30 dark:hover:bg-violet-500/10"
-                >
-                  <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                    {game.image ? (
-                      <Image src={game.image} alt="" fill className="object-cover" sizes="32px" />
-                    ) : game.icon ? (
-                      <div className="flex h-full w-full items-center justify-center text-violet-600 dark:text-violet-400">
-                        <game.icon className="h-5 w-5" />
-                      </div>
-                    ) : null}
-                  </div>
-                  <span className="text-xs font-medium text-slate-700 dark:text-slate-200">
-                    {tGames(game.titleKey)}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
+          <GamesSidebarSection />
         </aside>
       </div>
     </main>
