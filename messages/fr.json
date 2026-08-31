@@ -42,6 +42,28 @@
     "success": "Message envoyé avec succès",
     "error": "Erreur lors de l'envoi du message"
   },
+  "MorpionPage": {
+    "title": "Le Morpion Dynamique",
+    "description": "Teste tes stratégies contre une IA adaptative. Chaque victoire rapporte 10 XP !",
+    "difficulty": "Difficulté estimée",
+    "neuronsBalance": "Neurones disponibles",
+    "winRate": "Taux de victoire",
+    "playButton": "Jouer maintenant",
+    "creating": "Création...",
+    "error": "Erreur lors de la création de la partie",
+    "insufficientNeurons": "Neurones insuffisants. Il te faut 50 Neurones pour jouer.",
+    "backHome": "Retour à l'accueil"
+  },
+  "MorpionGame": {
+    "title": "Le Morpion Dynamique",
+    "won": "Tu as gagné ! 🎉",
+    "lost": "L'IA a gagné",
+    "draw": "Égalité",
+    "error": "Erreur lors du mouvement",
+    "hitFreeLimit": "Limite XP gratuite atteinte",
+    "playAgain": "Rejouer",
+    "backHome": "Retour à l'accueil"
+  },
   "LanguageSwitcher": {
     "label": "Langue"
   },

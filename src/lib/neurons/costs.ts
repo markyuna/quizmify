@@ -13,3 +13,13 @@ export type NeuronUnlockGameKey = keyof typeof NEURON_UNLOCK_COSTS;
 export function isNeuronUnlockGameKey(value: string): value is NeuronUnlockGameKey {
   return value in NEURON_UNLOCK_COSTS;
 }
+
+// Direct per-play debit, not a purchasable ticket like NEURON_UNLOCK_COSTS
+// above -- Morpion charges this at game-creation time via its own
+// updateMany decrement (see /api/morpion/route.ts), never through
+// /api/neurons/unlock or a NeuronUnlock row. Kept out of
+// NEURON_UNLOCK_COSTS on purpose: adding it there would let a user "buy" a
+// NeuronUnlock ticket for morpion through the generic unlock endpoint that
+// Morpion's own route never checks for -- Neurons spent, ticket never
+// consumed.
+export const MORPION_COST_PER_GAME = 50;

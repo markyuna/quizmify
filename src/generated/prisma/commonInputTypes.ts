@@ -531,6 +531,57 @@ export type EnumNeuronUnlockStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumNeuronUnlockStatusFilter<$PrismaModel>
 }
 
+export type EnumMorpionDifficultyFilter<$PrismaModel = never> = {
+  equals?: $Enums.MorpionDifficulty | Prisma.EnumMorpionDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.MorpionDifficulty[] | Prisma.ListEnumMorpionDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MorpionDifficulty[] | Prisma.ListEnumMorpionDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMorpionDifficultyFilter<$PrismaModel> | $Enums.MorpionDifficulty
+}
+
+export type EnumMorpionStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.MorpionStatus | Prisma.EnumMorpionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MorpionStatus[] | Prisma.ListEnumMorpionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MorpionStatus[] | Prisma.ListEnumMorpionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMorpionStatusFilter<$PrismaModel> | $Enums.MorpionStatus
+}
+
+export type EnumMorpionSymbolFilter<$PrismaModel = never> = {
+  equals?: $Enums.MorpionSymbol | Prisma.EnumMorpionSymbolFieldRefInput<$PrismaModel>
+  in?: $Enums.MorpionSymbol[] | Prisma.ListEnumMorpionSymbolFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MorpionSymbol[] | Prisma.ListEnumMorpionSymbolFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMorpionSymbolFilter<$PrismaModel> | $Enums.MorpionSymbol
+}
+
+export type EnumMorpionDifficultyWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MorpionDifficulty | Prisma.EnumMorpionDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.MorpionDifficulty[] | Prisma.ListEnumMorpionDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MorpionDifficulty[] | Prisma.ListEnumMorpionDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMorpionDifficultyWithAggregatesFilter<$PrismaModel> | $Enums.MorpionDifficulty
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMorpionDifficultyFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMorpionDifficultyFilter<$PrismaModel>
+}
+
+export type EnumMorpionStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MorpionStatus | Prisma.EnumMorpionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MorpionStatus[] | Prisma.ListEnumMorpionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MorpionStatus[] | Prisma.ListEnumMorpionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMorpionStatusWithAggregatesFilter<$PrismaModel> | $Enums.MorpionStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMorpionStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMorpionStatusFilter<$PrismaModel>
+}
+
+export type EnumMorpionSymbolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MorpionSymbol | Prisma.EnumMorpionSymbolFieldRefInput<$PrismaModel>
+  in?: $Enums.MorpionSymbol[] | Prisma.ListEnumMorpionSymbolFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MorpionSymbol[] | Prisma.ListEnumMorpionSymbolFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMorpionSymbolWithAggregatesFilter<$PrismaModel> | $Enums.MorpionSymbol
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMorpionSymbolFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMorpionSymbolFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -994,6 +1045,57 @@ export type NestedEnumNeuronUnlockStatusWithAggregatesFilter<$PrismaModel = neve
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumNeuronUnlockStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumNeuronUnlockStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumMorpionDifficultyFilter<$PrismaModel = never> = {
+  equals?: $Enums.MorpionDifficulty | Prisma.EnumMorpionDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.MorpionDifficulty[] | Prisma.ListEnumMorpionDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MorpionDifficulty[] | Prisma.ListEnumMorpionDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMorpionDifficultyFilter<$PrismaModel> | $Enums.MorpionDifficulty
+}
+
+export type NestedEnumMorpionStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.MorpionStatus | Prisma.EnumMorpionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MorpionStatus[] | Prisma.ListEnumMorpionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MorpionStatus[] | Prisma.ListEnumMorpionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMorpionStatusFilter<$PrismaModel> | $Enums.MorpionStatus
+}
+
+export type NestedEnumMorpionSymbolFilter<$PrismaModel = never> = {
+  equals?: $Enums.MorpionSymbol | Prisma.EnumMorpionSymbolFieldRefInput<$PrismaModel>
+  in?: $Enums.MorpionSymbol[] | Prisma.ListEnumMorpionSymbolFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MorpionSymbol[] | Prisma.ListEnumMorpionSymbolFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMorpionSymbolFilter<$PrismaModel> | $Enums.MorpionSymbol
+}
+
+export type NestedEnumMorpionDifficultyWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MorpionDifficulty | Prisma.EnumMorpionDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.MorpionDifficulty[] | Prisma.ListEnumMorpionDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MorpionDifficulty[] | Prisma.ListEnumMorpionDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMorpionDifficultyWithAggregatesFilter<$PrismaModel> | $Enums.MorpionDifficulty
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMorpionDifficultyFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMorpionDifficultyFilter<$PrismaModel>
+}
+
+export type NestedEnumMorpionStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MorpionStatus | Prisma.EnumMorpionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MorpionStatus[] | Prisma.ListEnumMorpionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MorpionStatus[] | Prisma.ListEnumMorpionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMorpionStatusWithAggregatesFilter<$PrismaModel> | $Enums.MorpionStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMorpionStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMorpionStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumMorpionSymbolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MorpionSymbol | Prisma.EnumMorpionSymbolFieldRefInput<$PrismaModel>
+  in?: $Enums.MorpionSymbol[] | Prisma.ListEnumMorpionSymbolFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MorpionSymbol[] | Prisma.ListEnumMorpionSymbolFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMorpionSymbolWithAggregatesFilter<$PrismaModel> | $Enums.MorpionSymbol
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMorpionSymbolFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMorpionSymbolFilter<$PrismaModel>
 }
 
 

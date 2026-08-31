@@ -87,7 +87,8 @@ export type PuzzleDuJourStatus = (typeof PuzzleDuJourStatus)[keyof typeof Puzzle
 export const NeuronTransactionType = {
   earn_quiz: 'earn_quiz',
   spend_unlock: 'spend_unlock',
-  bonus_personality: 'bonus_personality'
+  bonus_personality: 'bonus_personality',
+  spend_morpion: 'spend_morpion'
 } as const
 
 export type NeuronTransactionType = (typeof NeuronTransactionType)[keyof typeof NeuronTransactionType]
@@ -99,3 +100,30 @@ export const NeuronUnlockStatus = {
 } as const
 
 export type NeuronUnlockStatus = (typeof NeuronUnlockStatus)[keyof typeof NeuronUnlockStatus]
+
+
+export const MorpionDifficulty = {
+  easy: 'easy',
+  medium: 'medium',
+  hard: 'hard'
+} as const
+
+export type MorpionDifficulty = (typeof MorpionDifficulty)[keyof typeof MorpionDifficulty]
+
+
+export const MorpionStatus = {
+  in_progress: 'in_progress',
+  won: 'won',
+  lost: 'lost',
+  draw: 'draw'
+} as const
+
+export type MorpionStatus = (typeof MorpionStatus)[keyof typeof MorpionStatus]
+
+
+export const MorpionSymbol = {
+  X: 'X',
+  O: 'O'
+} as const
+
+export type MorpionSymbol = (typeof MorpionSymbol)[keyof typeof MorpionSymbol]

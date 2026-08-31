@@ -80,11 +80,11 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.9.0
+ * Prisma Client JS version: 7.9.1
  * Query Engine version: e922089b7d7502aff4249d5da3420f6fa55fc6ad
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.9.0",
+  client: "7.9.1",
   engine: "e922089b7d7502aff4249d5da3420f6fa55fc6ad"
 }
 
@@ -425,7 +425,8 @@ export const ModelName = {
   CategoryTopic: 'CategoryTopic',
   PuzzleDuJourGame: 'PuzzleDuJourGame',
   NeuronTransaction: 'NeuronTransaction',
-  NeuronUnlock: 'NeuronUnlock'
+  NeuronUnlock: 'NeuronUnlock',
+  MorpionGame: 'MorpionGame'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -441,7 +442,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronUnlock"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronUnlock" | "morpionGame"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2591,6 +2592,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MorpionGame: {
+      payload: Prisma.$MorpionGamePayload<ExtArgs>
+      fields: Prisma.MorpionGameFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MorpionGameFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorpionGamePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MorpionGameFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorpionGamePayload>
+        }
+        findFirst: {
+          args: Prisma.MorpionGameFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorpionGamePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MorpionGameFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorpionGamePayload>
+        }
+        findMany: {
+          args: Prisma.MorpionGameFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorpionGamePayload>[]
+        }
+        create: {
+          args: Prisma.MorpionGameCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorpionGamePayload>
+        }
+        createMany: {
+          args: Prisma.MorpionGameCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MorpionGameCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorpionGamePayload>[]
+        }
+        delete: {
+          args: Prisma.MorpionGameDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorpionGamePayload>
+        }
+        update: {
+          args: Prisma.MorpionGameUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorpionGamePayload>
+        }
+        deleteMany: {
+          args: Prisma.MorpionGameDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MorpionGameUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MorpionGameUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorpionGamePayload>[]
+        }
+        upsert: {
+          args: Prisma.MorpionGameUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MorpionGamePayload>
+        }
+        aggregate: {
+          args: Prisma.MorpionGameAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMorpionGame>
+        }
+        groupBy: {
+          args: Prisma.MorpionGameGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MorpionGameGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MorpionGameCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MorpionGameCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3060,6 +3135,21 @@ export const NeuronUnlockScalarFieldEnum = {
 export type NeuronUnlockScalarFieldEnum = (typeof NeuronUnlockScalarFieldEnum)[keyof typeof NeuronUnlockScalarFieldEnum]
 
 
+export const MorpionGameScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  board: 'board',
+  difficulty: 'difficulty',
+  status: 'status',
+  playerSymbol: 'playerSymbol',
+  xpEarned: 'xpEarned',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt'
+} as const
+
+export type MorpionGameScalarFieldEnum = (typeof MorpionGameScalarFieldEnum)[keyof typeof MorpionGameScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3344,6 +3434,48 @@ export type EnumNeuronUnlockStatusFieldRefInput<$PrismaModel> = FieldRefInputTyp
 export type ListEnumNeuronUnlockStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NeuronUnlockStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'MorpionDifficulty'
+ */
+export type EnumMorpionDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MorpionDifficulty'>
+    
+
+
+/**
+ * Reference to a field of type 'MorpionDifficulty[]'
+ */
+export type ListEnumMorpionDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MorpionDifficulty[]'>
+    
+
+
+/**
+ * Reference to a field of type 'MorpionStatus'
+ */
+export type EnumMorpionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MorpionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'MorpionStatus[]'
+ */
+export type ListEnumMorpionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MorpionStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'MorpionSymbol'
+ */
+export type EnumMorpionSymbolFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MorpionSymbol'>
+    
+
+
+/**
+ * Reference to a field of type 'MorpionSymbol[]'
+ */
+export type ListEnumMorpionSymbolFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MorpionSymbol[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -3524,6 +3656,7 @@ export type GlobalOmitConfig = {
   puzzleDuJourGame?: Prisma.PuzzleDuJourGameOmit
   neuronTransaction?: Prisma.NeuronTransactionOmit
   neuronUnlock?: Prisma.NeuronUnlockOmit
+  morpionGame?: Prisma.MorpionGameOmit
 }
 
 /* Types for Logging */

@@ -42,6 +42,28 @@
     "success": "Message sent successfully",
     "error": "Error sending message"
   },
+  "MorpionPage": {
+    "title": "Dynamic Tic-Tac-Toe",
+    "description": "Test your strategies against an adaptive AI. Every victory earns 10 XP!",
+    "difficulty": "Estimated difficulty",
+    "neuronsBalance": "Neurons available",
+    "winRate": "Win rate",
+    "playButton": "Play now",
+    "creating": "Creating...",
+    "error": "Error creating game",
+    "insufficientNeurons": "Insufficient neurons. You need 50 neurons to play.",
+    "backHome": "Back home"
+  },
+  "MorpionGame": {
+    "title": "Dynamic Tic-Tac-Toe",
+    "won": "You won! 🎉",
+    "lost": "AI won",
+    "draw": "Draw",
+    "error": "Error making move",
+    "hitFreeLimit": "Free XP limit reached",
+    "playAgain": "Play again",
+    "backHome": "Back home"
+  },
   "LanguageSwitcher": {
     "label": "Language"
   },

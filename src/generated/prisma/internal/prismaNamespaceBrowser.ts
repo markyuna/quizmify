@@ -79,7 +79,8 @@ export const ModelName = {
   CategoryTopic: 'CategoryTopic',
   PuzzleDuJourGame: 'PuzzleDuJourGame',
   NeuronTransaction: 'NeuronTransaction',
-  NeuronUnlock: 'NeuronUnlock'
+  NeuronUnlock: 'NeuronUnlock',
+  MorpionGame: 'MorpionGame'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -526,6 +527,21 @@ export const NeuronUnlockScalarFieldEnum = {
 } as const
 
 export type NeuronUnlockScalarFieldEnum = (typeof NeuronUnlockScalarFieldEnum)[keyof typeof NeuronUnlockScalarFieldEnum]
+
+
+export const MorpionGameScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  board: 'board',
+  difficulty: 'difficulty',
+  status: 'status',
+  playerSymbol: 'playerSymbol',
+  xpEarned: 'xpEarned',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt'
+} as const
+
+export type MorpionGameScalarFieldEnum = (typeof MorpionGameScalarFieldEnum)[keyof typeof MorpionGameScalarFieldEnum]
 
 
 export const SortOrder = {

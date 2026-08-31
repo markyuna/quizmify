@@ -123,6 +123,7 @@ model User {
   puzzleDuJourGames              PuzzleDuJourGame[]
   neuronTransactions             NeuronTransaction[]
   neuronUnlocks                  NeuronUnlock[]
+  morpionGames                   MorpionGame[]
 
   @@index([xp])
 }
@@ -804,6 +805,7 @@ enum NeuronTransactionType {
   earn_quiz
   spend_unlock
   bonus_personality
+  spend_morpion
 }
 
 // Ledger of every "Neurons" (fr: Neurones, en: Neurons) earn/spend/bonus
@@ -860,4 +862,39 @@ model NeuronUnlock {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, gameKey, status])
+}
+
+enum MorpionDifficulty {
+  easy
+  medium
+  hard
+}
+
+enum MorpionStatus {
+  in_progress
+  won
+  lost
+  draw
+}
+
+enum MorpionSymbol {
+  X
+  O
+}
+
+model MorpionGame {
+  id           String            @id @default(cuid())
+  userId       String
+  board        String            // JSON serializado del tablero 3x3
+  difficulty   MorpionDifficulty
+  status       MorpionStatus     @default(in_progress)
+  playerSymbol MorpionSymbol     @default(X)
+  xpEarned     Int               @default(0)
+  createdAt    DateTime          @default(now())
+  completedAt  DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+  @@index([userId, createdAt])
 }
