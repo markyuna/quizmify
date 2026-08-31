@@ -21,6 +21,7 @@ const CATEGORY_IMAGES_BASE_URL =
 export const CATEGORY_GROUP_KEYS = [
   "culture-generale",
   "culture-sciences",
+  "technologie",
   "divertissement",
   "sports",
   "nature-animaux",
@@ -103,6 +104,14 @@ export const CATEGORIES: Category[] = [
     heroImage: CATEGORY_IMAGES_BASE_URL + "/france-hero.webp",
     aiPrompt:
       "Génère des questions sur la France : géographie régionale, monuments, traditions, symboles et faits culturels.",
+  },
+  {
+    slug: "informatica",
+    icon: "💻",
+    group: "technologie",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/informatic-hero.webp",
+    aiPrompt:
+      "Génère des questions d'informatique : programmation, bases de données, réseaux, cybersécurité, développement web, structures de données et intelligence artificielle, de difficulté progressive.",
   },
   {
     slug: "cinema",

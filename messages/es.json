@@ -401,6 +401,7 @@
   "CategoryGroups": {
     "culture-generale": "Cultura General",
     "culture-sciences": "Cultura y Ciencias",
+    "technologie": "Tecnología",
     "divertissement": "Entretenimiento",
     "sports": "Deportes",
     "nature-animaux": "Naturaleza y Animales",
@@ -475,6 +476,10 @@
     "drapeaux": {
       "name": "Banderas",
       "seoDescription": "¿Podrías reconocer todas las banderas del mundo? Poné a prueba tu ojo y tu memoria con estos quizzes dedicados a la vexilología."
+    },
+    "informatica": {
+      "name": "Informática",
+      "seoDescription": "Programación, bases de datos, redes, ciberseguridad e inteligencia artificial: poné a prueba tus conocimientos de informática con estos quizzes."
     }
   },
   "CategoryQuizList": {

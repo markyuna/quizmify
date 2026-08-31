@@ -401,6 +401,7 @@
   "CategoryGroups": {
     "culture-generale": "General Knowledge",
     "culture-sciences": "Culture & Science",
+    "technologie": "Technology",
     "divertissement": "Entertainment",
     "sports": "Sports",
     "nature-animaux": "Nature & Animals",
@@ -475,6 +476,10 @@
     "drapeaux": {
       "name": "Flags",
       "seoDescription": "Could you recognize every flag in the world? Test your eye and memory with these quizzes dedicated to vexillology."
+    },
+    "informatica": {
+      "name": "Informatics",
+      "seoDescription": "Programming, databases, networks, cybersecurity, and artificial intelligence: test your computing knowledge with these quizzes."
     }
   },
   "CategoryQuizList": {

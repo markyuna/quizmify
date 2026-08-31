@@ -5,7 +5,7 @@ export function isAnimalKey(value: string): value is AnimalKey {
   return (ANIMAL_KEYS as readonly string[]).includes(value);
 }
 
-// The 17 real quiz-topic category slugs from src/lib/categories.ts, minus
+// The real quiz-topic category slugs from src/lib/categories.ts, minus
 // "tests-de-personnalite" (that's this test's own entry point, not a topic
 // someone can be recommended). Kept as its own literal list rather than
 // derived from CATEGORIES (whose `slug` is typed as plain `string`) --
@@ -19,6 +19,7 @@ export const CATEGORY_SLUGS = [
   "sciences",
   "arts",
   "france",
+  "informatica",
   "cinema",
   "disney",
   "harry-potter",

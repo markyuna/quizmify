@@ -401,6 +401,7 @@
   "CategoryGroups": {
     "culture-generale": "Culture Générale",
     "culture-sciences": "Culture & Sciences",
+    "technologie": "Technologie",
     "divertissement": "Divertissement",
     "sports": "Sports",
     "nature-animaux": "Nature & Animaux",
@@ -475,6 +476,10 @@
     "drapeaux": {
       "name": "Drapeaux",
       "seoDescription": "Sauriez-vous reconnaître tous les drapeaux du monde ? Testez votre œil et votre mémoire avec ces quiz consacrés à la vexillologie."
+    },
+    "informatica": {
+      "name": "Informatique",
+      "seoDescription": "Programmation, bases de données, réseaux, cybersécurité et intelligence artificielle : testez vos connaissances en informatique avec ces quiz."
     }
   },
   "CategoryQuizList": {
