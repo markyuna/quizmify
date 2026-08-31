@@ -7,7 +7,8 @@ import { ChevronDown, Menu, PawPrint, Sparkles, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { getCategoriesGroupedByGroup } from "@/lib/categories";
-import { GAMES_CATALOG } from "@/lib/games/catalog";
+import { ALL_GAMES } from "@/lib/games/allGames";
+import GameCard from "@/components/games/GameCard";
 import { buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -20,14 +21,6 @@ import {
 
 // Computed once from static config -- same idiom as CategorySidebar.tsx.
 const GROUPED_CATEGORIES = getCategoriesGroupedByGroup();
-
-// "Qui est le peintre?" is a curated quiz (not a GAMES_CATALOG game): it
-// launches through the normal quiz-creation screen with topic+category
-// prefilled, exactly like CategoryQuizCard.tsx does. The topic text is the
-// curated definition's canonical topicDisplay, never a translated label.
-const QUI_EST_LE_PEINTRE_HREF = `/quiz?topic=${encodeURIComponent(
-  "Qui est le peintre?"
-)}&category=arts`;
 
 type PrimaryNavProps = {
   isPro: boolean;
@@ -44,9 +37,6 @@ const contentClass =
 
 const itemClass =
   "cursor-pointer rounded-2xl px-3 py-2.5 text-sm font-medium text-slate-700 outline-none transition hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10";
-
-const proBadgeClass =
-  "rounded-full bg-violet-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-violet-700 dark:bg-violet-500/20 dark:text-violet-300";
 
 const mobileLinkClass =
   "flex items-center gap-2.5 rounded-xl px-2 py-2 text-sm text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white";
@@ -87,9 +77,6 @@ export default function PrimaryNav({ isPro, isLoggedIn }: PrimaryNavProps) {
   const t = useTranslations("Navbar");
   const tGroups = useTranslations("CategoryGroups");
   const tCategories = useTranslations("Categories");
-  const tGuestGames = useTranslations("GuestGames");
-  const tPuzzle = useTranslations("PuzzleDuJour");
-  const tMorpion = useTranslations("MorpionPage");
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const closeMobile = React.useCallback(() => setMobileOpen(false), []);
 
@@ -138,32 +125,13 @@ export default function PrimaryNav({ isPro, isLoggedIn }: PrimaryNavProps) {
             <ChevronDown className="h-4 w-4 text-slate-400" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className={contentClass}>
-            {GAMES_CATALOG.map((game) => (
+            {ALL_GAMES.map((game) => (
               <DropdownMenuItem key={game.key} asChild className={itemClass}>
-                <Link href={`/games?game=${game.key}`}>{tGuestGames(game.titleKey)}</Link>
+                <Link href={game.href}>
+                  <GameCard game={game} isPro={isPro} variant="dropdown" />
+                </Link>
               </DropdownMenuItem>
             ))}
-            <DropdownMenuItem asChild className={itemClass}>
-              <Link
-                href="/puzzle-du-jour"
-                className="flex items-center justify-between gap-2"
-              >
-                <span>{tPuzzle("title")}</span>
-                <span className={proBadgeClass}>{t("proBadge")}</span>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild className={itemClass}>
-              <Link
-                href="/morpion"
-                className="flex items-center justify-between gap-2"
-              >
-                <span>{tMorpion("title")}</span>
-                <span className={proBadgeClass}>{t("proBadge")}</span>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild className={itemClass}>
-              <Link href={QUI_EST_LE_PEINTRE_HREF}>{t("quiEstLePeintre")}</Link>
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
@@ -227,46 +195,13 @@ export default function PrimaryNav({ isPro, isLoggedIn }: PrimaryNavProps) {
 
           <MobileDisclosure label={t("games")}>
             <ul className="space-y-0.5">
-              {GAMES_CATALOG.map((game) => (
+              {ALL_GAMES.map((game) => (
                 <li key={game.key}>
-                  <Link
-                    href={`/games?game=${game.key}`}
-                    onClick={closeMobile}
-                    className={mobileLinkClass}
-                  >
-                    {tGuestGames(game.titleKey)}
+                  <Link href={game.href} onClick={closeMobile} className={mobileLinkClass}>
+                    <GameCard game={game} isPro={isPro} variant="dropdown" />
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  href="/puzzle-du-jour"
-                  onClick={closeMobile}
-                  className={cn(mobileLinkClass, "justify-between")}
-                >
-                  <span>{tPuzzle("title")}</span>
-                  <span className={proBadgeClass}>{t("proBadge")}</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/morpion"
-                  onClick={closeMobile}
-                  className={cn(mobileLinkClass, "justify-between")}
-                >
-                  <span>{tMorpion("title")}</span>
-                  <span className={proBadgeClass}>{t("proBadge")}</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={QUI_EST_LE_PEINTRE_HREF}
-                  onClick={closeMobile}
-                  className={mobileLinkClass}
-                >
-                  {t("quiEstLePeintre")}
-                </Link>
-              </li>
             </ul>
           </MobileDisclosure>
 

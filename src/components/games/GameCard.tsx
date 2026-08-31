@@ -109,7 +109,7 @@ export default function GameCard({
   // variant is just the row's inner content.
   if (variant === "dropdown") {
     return (
-      <span className="flex flex-1 items-center justify-between gap-2">
+      <span className="flex w-full items-center justify-between gap-2">
         <span>{title}</span>
         {badge}
       </span>
