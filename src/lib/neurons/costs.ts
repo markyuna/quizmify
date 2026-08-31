@@ -5,7 +5,7 @@
 // belong there). One entry today; add more gameKeys here as they come, no
 // need for anything fancier until there's a second one.
 export const NEURON_UNLOCK_COSTS = {
-  puzzleDuJour: 100,
+  puzzleDuJour: 50,
 } as const;
 
 export type NeuronUnlockGameKey = keyof typeof NEURON_UNLOCK_COSTS;

@@ -78,15 +78,6 @@ export function GameCardBadge({
   );
 }
 
-export function NeuronAmount({ amount }: { amount: number }) {
-  return (
-    <>
-      <Image src={NEURON_ICON_SRC} alt="" width={9} height={9} />
-      {amount}
-    </>
-  );
-}
-
 /** Image + title (+ optional description) -- the inner body of a grid card. */
 export function GameCardGridBody({
   game,
@@ -133,9 +124,13 @@ function DefaultBadge({
   }
 
   if (game.neuronCost != null) {
+    // Only Morpion reaches this branch today (Puzzle du Jour has
+    // showProBadge and is handled above / by PuzzleDuJourGameCard) -- its
+    // Neuron cost is a per-game debit, hence the "{cost} par partie" phrasing.
     return (
       <GameCardBadge variant={variant} tone="neuron">
-        <NeuronAmount amount={game.neuronCost} />
+        <Image src={NEURON_ICON_SRC} alt="" width={9} height={9} />
+        {t("MorpionPage.costPerGame", { cost: game.neuronCost })}
       </GameCardBadge>
     );
   }

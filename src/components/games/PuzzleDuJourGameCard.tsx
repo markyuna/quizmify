@@ -14,7 +14,6 @@ import {
   GRID_CARD_HOVER_CLASS,
   GameCardBadge,
   GameCardGridBody,
-  NeuronAmount,
 } from "./GameCard";
 
 /**
@@ -73,7 +72,7 @@ export default function PuzzleDuJourGameCard({ game, initialIsPro = false }: Puz
   } else if (access.kind === "can_purchase") {
     badge = (
       <GameCardBadge variant="grid" tone="neuron">
-        <NeuronAmount amount={game.neuronCost ?? 0} />
+        {tPuzzle("unlockForCost", { cost: game.neuronCost ?? 0 })}
       </GameCardBadge>
     );
   } else if (access.kind === "insufficient_balance") {
