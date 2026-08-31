@@ -11,29 +11,17 @@ import { MORPION_COST_PER_GAME } from "@/lib/neurons/costs";
 
 const QUI_EST_LE_PEINTRE_HREF = `/quiz?topic=${encodeURIComponent("Qui est le peintre?")}&category=arts`;
 
-// Puzzle du Jour and Morpion both have a real icon asset in
-// public/images/games/ (same ones GameCarousel.tsx/CategorySidebar.tsx
-// already use) -- rendered via the same h-8 w-8 box as the GAMES_CATALOG
-// entries below, for visual consistency.
+// Puzzle du Jour, Morpion, and "Qui est le peintre?" each have a real icon
+// asset in public/images/games/ -- rendered via the same h-8 w-8 box as
+// the GAMES_CATALOG entries below, for visual consistency.
 const PUZZLE_ICON_SRC = "/images/games/puzzle-du-jour-icon.png";
 const MORPION_ICON_SRC = "/images/games/morpion-icon.png";
-// "Qui est le peintre?" has no dedicated icon asset in that folder --
-// stays an emoji until one is added (see conversation: only
-// puzzle-du-jour-icon.png and morpion-icon.png exist there).
-const PEINTRE_ICON = "🎨";
+const PEINTRE_ICON_SRC = "/images/games/peintre-icon.png";
 
 function GameIconImage({ src, alt }: { src: string; alt: string }) {
   return (
     <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg">
       <Image src={src} alt={alt} fill className="object-cover" sizes="32px" />
-    </div>
-  );
-}
-
-function EmojiIcon({ emoji }: { emoji: string }) {
-  return (
-    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xl">
-      {emoji}
     </div>
   );
 }
@@ -116,7 +104,7 @@ export default async function GamesSidebarSection() {
 
         {/* Qui est le peintre? -- free, no gating, same as the 3 above. */}
         <Link href={QUI_EST_LE_PEINTRE_HREF} className={`${cardClass} ${cardInteractiveClass}`}>
-          <EmojiIcon emoji={PEINTRE_ICON} />
+          <GameIconImage src={PEINTRE_ICON_SRC} alt={tPeintre("title")} />
           <span className="text-xs font-medium text-slate-700 dark:text-slate-200">{tPeintre("title")}</span>
         </Link>
 
