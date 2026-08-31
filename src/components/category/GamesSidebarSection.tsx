@@ -11,13 +11,24 @@ import { MORPION_COST_PER_GAME } from "@/lib/neurons/costs";
 
 const QUI_EST_LE_PEINTRE_HREF = `/quiz?topic=${encodeURIComponent("Qui est le peintre?")}&category=arts`;
 
-// Plain emoji, not lucide icons or an image asset -- unlike GAMES_CATALOG's
-// entries (which have real hero images), these 3 games don't have a
-// dedicated icon image in the sidebar's compact 32px format, and an emoji
-// is enough at this size.
-const PUZZLE_ICON = "🧩";
-const MORPION_ICON = "⭕";
+// Puzzle du Jour and Morpion both have a real icon asset in
+// public/images/games/ (same ones GameCarousel.tsx/CategorySidebar.tsx
+// already use) -- rendered via the same h-8 w-8 box as the GAMES_CATALOG
+// entries below, for visual consistency.
+const PUZZLE_ICON_SRC = "/images/games/puzzle-du-jour-icon.png";
+const MORPION_ICON_SRC = "/images/games/morpion-icon.png";
+// "Qui est le peintre?" has no dedicated icon asset in that folder --
+// stays an emoji until one is added (see conversation: only
+// puzzle-du-jour-icon.png and morpion-icon.png exist there).
 const PEINTRE_ICON = "🎨";
+
+function GameIconImage({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg">
+      <Image src={src} alt={alt} fill className="object-cover" sizes="32px" />
+    </div>
+  );
+}
 
 function EmojiIcon({ emoji }: { emoji: string }) {
   return (
@@ -116,7 +127,11 @@ export default async function GamesSidebarSection() {
           className={`${cardClass} ${cardInteractiveClass}`}
         >
           {!isPro && <span className={proBadgeClass}>{tNavbar("proBadge")}</span>}
-          {isGuest ? <Lock className="h-4 w-4 text-slate-400" /> : <EmojiIcon emoji={PUZZLE_ICON} />}
+          {isGuest ? (
+            <Lock className="h-4 w-4 text-slate-400" />
+          ) : (
+            <GameIconImage src={PUZZLE_ICON_SRC} alt={tPuzzle("title")} />
+          )}
           <span className="text-xs font-medium text-slate-700 dark:text-slate-200">{tPuzzle("title")}</span>
           {isGuest && <span className="text-[10px] text-slate-400">{tNavbar("signIn")}</span>}
         </Link>
@@ -140,7 +155,7 @@ export default async function GamesSidebarSection() {
               <Image src="/icono-neurona/neurona-hex-32.png" alt="" width={9} height={9} />
               {MORPION_COST_PER_GAME}
             </span>
-            <EmojiIcon emoji={MORPION_ICON} />
+            <GameIconImage src={MORPION_ICON_SRC} alt={tMorpion("title")} />
             <span className="text-xs font-medium text-slate-700 dark:text-slate-200">{tMorpion("title")}</span>
             <span className="text-[10px] text-slate-400">{tMorpion("insufficientNeurons")}</span>
           </div>
@@ -152,7 +167,7 @@ export default async function GamesSidebarSection() {
                 {MORPION_COST_PER_GAME}
               </span>
             )}
-            <EmojiIcon emoji={MORPION_ICON} />
+            <GameIconImage src={MORPION_ICON_SRC} alt={tMorpion("title")} />
             <span className="text-xs font-medium text-slate-700 dark:text-slate-200">{tMorpion("title")}</span>
           </Link>
         )}
