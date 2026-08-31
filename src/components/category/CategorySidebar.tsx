@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { getCategoriesGroupedByGroup } from "@/lib/categories";
 import { ALL_GAMES } from "@/lib/games/allGames";
 import GameCard from "@/components/games/GameCard";
+import PuzzleDuJourGameCard from "@/components/games/PuzzleDuJourGameCard";
 
 const GROUPED_CATEGORIES = getCategoriesGroupedByGroup();
 
@@ -96,9 +97,13 @@ export default function CategorySidebar() {
           {tCategoriesPage("gamesHeading")}
         </h2>
         <div className="grid grid-cols-2 gap-2">
-          {ALL_GAMES.map((game) => (
-            <GameCard key={game.key} game={game} isPro={isPro} variant="grid" />
-          ))}
+          {ALL_GAMES.map((game) =>
+            game.key === "puzzle-du-jour" ? (
+              <PuzzleDuJourGameCard key={game.key} game={game} initialIsPro={isPro} />
+            ) : (
+              <GameCard key={game.key} game={game} isPro={isPro} variant="grid" />
+            )
+          )}
         </div>
       </div>
     </aside>

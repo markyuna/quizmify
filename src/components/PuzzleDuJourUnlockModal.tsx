@@ -24,11 +24,11 @@ type PuzzleDuJourUnlockModalProps = {
 };
 
 /**
- * Shared between the two "today's games" list cards (CategorySidebar.tsx,
- * GameCarousel.tsx) and the Puzzle du Jour creation screen
- * (PuzzleDuJourCreation.tsx) -- one component, one POST
- * /api/neurons/unlock call site, instead of three copies of the same
- * confirm-and-handle-errors logic.
+ * Shared between the games-grid card (PuzzleDuJourGameCard.tsx, rendered by
+ * the /categories sidebar, the per-category sidebar and the homepage
+ * carousel) and the Puzzle du Jour creation screen (PuzzleDuJourCreation.tsx)
+ * -- one component, one POST /api/neurons/unlock call site, instead of
+ * copies of the same confirm-and-handle-errors logic.
  */
 export default function PuzzleDuJourUnlockModal({
   open,

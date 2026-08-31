@@ -6,6 +6,7 @@ import { prisma } from "@/lib/db";
 import { isEffectivelyPro } from "@/lib/paywall";
 import { ALL_GAMES } from "@/lib/games/allGames";
 import GameCard from "@/components/games/GameCard";
+import PuzzleDuJourGameCard from "@/components/games/PuzzleDuJourGameCard";
 
 /**
  * A plain Server Component listing every game (ALL_GAMES) as a grid of
@@ -39,9 +40,13 @@ export default async function GameCarousel() {
         </p>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {ALL_GAMES.map((game) => (
-            <GameCard key={game.key} game={game} isPro={isPro} variant="grid" />
-          ))}
+          {ALL_GAMES.map((game) =>
+            game.key === "puzzle-du-jour" ? (
+              <PuzzleDuJourGameCard key={game.key} game={game} initialIsPro={isPro} />
+            ) : (
+              <GameCard key={game.key} game={game} isPro={isPro} variant="grid" />
+            )
+          )}
         </div>
       </div>
     </section>
