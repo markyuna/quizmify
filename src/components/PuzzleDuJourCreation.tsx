@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { useToast } from "./ui/use-toast";
 import LoadingQuestions from "./LoadingQuestions";
 import PuzzleDuJourUnlockModal from "./PuzzleDuJourUnlockModal";
+import PuzzleDuJourHeader from "./games/PuzzleDuJourHeader";
 import type { PuzzleDuJourDifficulty } from "@/lib/puzzleDuJour";
 import { NEURON_UNLOCK_COSTS } from "@/lib/neurons/costs";
 import { resolvePuzzleDuJourAccess } from "@/lib/neurons/access";
@@ -148,6 +149,7 @@ export default function PuzzleDuJourCreation() {
 
   return (
     <form onSubmit={handleSubmit} className="mx-auto w-full max-w-lg space-y-4">
+      <PuzzleDuJourHeader />
       <div
         className={cn(
           "rounded-2xl border p-4",
@@ -156,18 +158,14 @@ export default function PuzzleDuJourCreation() {
             : "border-slate-200 bg-white/60 dark:border-white/10 dark:bg-white/5"
         )}
       >
-        <div className="flex items-center gap-2">
-          <span className="flex items-center gap-1.5 text-sm font-bold text-slate-800 dark:text-slate-100">
-            {t("title")}
-            {locked && (
-              <span className="inline-flex items-center gap-0.5 rounded-full bg-violet-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-violet-600 dark:bg-violet-500/20 dark:text-violet-300">
-                <Lock className="h-2.5 w-2.5" />
-                {t("proBadge")}
-              </span>
-            )}
-          </span>
-        </div>
-        <p className="mt-0.5 text-xs text-slate-400">{t("description")}</p>
+        {/* Title + tagline live in <PuzzleDuJourHeader /> above -- only the
+            locked-state Pro badge stays on the card itself. */}
+        {locked && (
+          <div className="mb-2 inline-flex items-center gap-0.5 rounded-full bg-violet-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-violet-600 dark:bg-violet-500/20 dark:text-violet-300">
+            <Lock className="h-2.5 w-2.5" />
+            {t("proBadge")}
+          </div>
+        )}
 
         <input
           value={topic}
@@ -175,7 +173,7 @@ export default function PuzzleDuJourCreation() {
           disabled={locked}
           placeholder={t("topicPlaceholder")}
           maxLength={200}
-          className="mt-3 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 disabled:opacity-60 dark:border-white/10 dark:bg-white/5 dark:text-slate-100"
+          className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 disabled:opacity-60 dark:border-white/10 dark:bg-white/5 dark:text-slate-100"
         />
 
         {/* Nudges picks toward already-cached topics (see the
@@ -202,23 +200,28 @@ export default function PuzzleDuJourCreation() {
           </div>
         )}
 
-        <div className="mt-3 grid grid-cols-3 gap-2">
-          {DIFFICULTIES.map((d) => (
-            <button
-              key={d}
-              type="button"
-              disabled={locked}
-              onClick={() => setDifficulty(d)}
-              className={cn(
-                "rounded-xl border px-3 py-2 text-xs font-semibold transition-colors",
-                difficulty === d
-                  ? "border-emerald-400 bg-emerald-50 text-emerald-700 dark:border-emerald-500/50 dark:bg-emerald-500/15 dark:text-emerald-300"
-                  : "border-slate-200 text-slate-600 dark:border-white/10 dark:text-slate-300"
-              )}
-            >
-              {t(`difficulty.${d}`)}
-            </button>
-          ))}
+        <div className="mt-3">
+          <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+            {t("difficultyLabel")}
+          </p>
+          <div className="grid grid-cols-3 gap-2">
+            {DIFFICULTIES.map((d) => (
+              <button
+                key={d}
+                type="button"
+                disabled={locked}
+                onClick={() => setDifficulty(d)}
+                className={cn(
+                  "rounded-xl border px-3 py-2 text-xs font-semibold transition-colors",
+                  difficulty === d
+                    ? "border-emerald-400 bg-emerald-50 text-emerald-700 dark:border-emerald-500/50 dark:bg-emerald-500/15 dark:text-emerald-300"
+                    : "border-slate-200 text-slate-600 dark:border-white/10 dark:text-slate-300"
+                )}
+              >
+                {t(`difficulty.${d}`)}
+              </button>
+            ))}
+          </div>
         </div>
 
         {isPro && eligibility?.remainingToday != null && (

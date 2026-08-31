@@ -75,6 +75,7 @@ body {
   --animate-mascot-ripple: mascot-ripple 6s ease-out infinite;
   --animate-mascot-hand-squash: mascot-hand-squash 6s ease-in-out infinite;
   --animate-mascot-impact: mascot-impact 6s ease-out infinite;
+  --animate-puzzle-bounce: puzzle-bounce 1.8s ease-in-out infinite;
 }
 
 @keyframes shimmer {
@@ -283,5 +284,23 @@ body {
   9% {
     opacity: 0;
     transform: scale(1.15);
+  }
+}
+
+@keyframes puzzle-bounce {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(-5deg);
+  }
+}
+
+/* The mascot loops above are decorative too, but this one sits right next
+   to reading text -- honour a reduced-motion preference. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-puzzle-bounce {
+    animation: none;
   }
 }

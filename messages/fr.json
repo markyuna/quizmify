@@ -932,6 +932,7 @@
   },
   "PuzzleDuJour": {
     "title": "Puzzle du Jour",
+    "headerTitle": "Puzzle",
     "errorTitle": "Erreur",
     "loadingTexts": [
       "Génération de ton image",
@@ -944,6 +945,7 @@
     "proBadge": "Pro",
     "topicPlaceholder": "ex. Tokyo la nuit",
     "suggestionsLabel": "Thèmes populaires",
+    "difficultyLabel": "Difficulté",
     "difficulty": {
       "easy": "Facile",
       "medium": "Moyen",
