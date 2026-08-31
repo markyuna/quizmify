@@ -6,8 +6,9 @@ import { getCategoryBySlug } from "@/lib/categories";
 import CategoryCard from "@/components/category/CategoryCard";
 
 // Editorial pick spanning all CATEGORY_GROUPS -- every category except
-// "tests-de-personnalite" (has its own entry point via /games).
-// Full list is /categories.
+// "tests-de-personnalite" (has its own entry point via /games). The home
+// grid shows only the first HOME_VISIBLE_COUNT (2 rows of md:grid-cols-8);
+// the full list is /categories, reachable via the CTA below the grid.
 const FEATURED_CATEGORY_SLUGS = [
   "culture-generale",
   "histoire",
@@ -28,9 +29,12 @@ const FEATURED_CATEGORY_SLUGS = [
   "drapeaux",
 ] as const;
 
-const FEATURED_CATEGORIES = FEATURED_CATEGORY_SLUGS.map((slug) => getCategoryBySlug(slug)).filter(
-  (category) => category !== undefined
-);
+// 2 rows x md:grid-cols-8.
+const HOME_VISIBLE_COUNT = 16;
+
+const FEATURED_CATEGORIES = FEATURED_CATEGORY_SLUGS.map((slug) => getCategoryBySlug(slug))
+  .filter((category) => category !== undefined)
+  .slice(0, HOME_VISIBLE_COUNT);
 
 /**
  * A plain Server Component, same shape as TopicCarousel.tsx: mobile
