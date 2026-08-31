@@ -111,7 +111,13 @@ export default function MorpionGamePage() {
               type="button"
               onClick={() => handleMove(idx)}
               disabled={gameStatus !== "in_progress" || playing || cell !== null}
-              className="flex aspect-square items-center justify-center rounded-xl border border-slate-200 bg-white text-3xl font-bold text-slate-900 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
+              className={`flex aspect-square items-center justify-center rounded-xl border border-slate-200 text-3xl font-bold transition disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 ${
+                cell === "X"
+                  ? "bg-white text-red-500 dark:bg-white/10"
+                  : cell === "O"
+                    ? "bg-white text-blue-500 dark:bg-white/10"
+                    : "bg-white text-slate-900 hover:bg-slate-50 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
+              }`}
             >
               {cell}
             </button>
