@@ -9,6 +9,7 @@ export default async function Footer() {
     { href: "/mentions-legales", label: t("mentionsLegales") },
     { href: "/confidentialite", label: t("confidentialite") },
     { href: "/cgu-cgv", label: t("cguCgv") },
+    { href: "/contact", label: t("contact") },
   ];
 
   return (

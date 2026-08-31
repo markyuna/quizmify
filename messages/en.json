@@ -28,7 +28,19 @@
     "about": "About",
     "mentionsLegales": "Legal Notice",
     "confidentialite": "Privacy Policy",
-    "cguCgv": "Terms of Use & Sale"
+    "cguCgv": "Terms of Use & Sale",
+    "contact": "Contact"
+  },
+  "ContactPage": {
+    "title": "Contact",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "submit": "Send",
+    "sending": "Sending...",
+    "success": "Message sent successfully",
+    "error": "Error sending message"
   },
   "LanguageSwitcher": {
     "label": "Language"

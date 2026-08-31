@@ -181,6 +181,7 @@ STRIPE_PRICE_ID           # Stripe Price ID for the Pro subscription
 STRIPE_WEBHOOK_SECRET     # Stripe webhook signing secret
 RESEND_API_KEY            # Resend API key (notification emails)
 RESEND_FROM_EMAIL         # Verified sender address for Resend
+CONTACT_EMAIL_TO          # Destination inbox for /contact form submissions (distinct from RESEND_FROM_EMAIL)
 ```
 
 `SUPABASE_SERVICE_ROLE_KEY` must be the **secret** key (`sb_secret_…`, or the
