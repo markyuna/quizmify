@@ -7,6 +7,7 @@ import { GAMES_CATALOG } from "@/lib/games/catalog";
 import { getAuthSession } from "@/lib/nextauth";
 import { prisma } from "@/lib/db";
 import { isEffectivelyPro } from "@/lib/paywall";
+import { MORPION_COST_PER_GAME } from "@/lib/neurons/costs";
 import PuzzleDuJourCarouselItem from "./PuzzleDuJourCarouselItem";
 
 /**
@@ -20,6 +21,7 @@ import PuzzleDuJourCarouselItem from "./PuzzleDuJourCarouselItem";
 
 export default async function GameCarousel() {
   const t = await getTranslations("GuestGames");
+  const tMorpion = await getTranslations("MorpionPage");
 
   // Server-rendered, so this can just read the DB directly (same as
   // ProStatusBanner.tsx) instead of a client-side eligibility fetch --
@@ -91,6 +93,34 @@ export default async function GameCarousel() {
             hasAvailableTicket={hasAvailableTicket}
             neuronsBalance={neuronsBalance}
           />
+
+          {/* Morpion: no unlock modal needed, unlike Puzzle du Jour above --
+              it's a direct per-game Neuron debit taken when a game is
+              created on /morpion itself, not a purchasable ticket, so a
+              plain server-rendered link is enough here. */}
+          <li>
+            <Link
+              href="/morpion"
+              className="flex items-center gap-3 p-4 font-semibold text-slate-900 transition hover:bg-slate-100 dark:text-white dark:hover:bg-white/10"
+            >
+              <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded">
+                <Image
+                  src="/images/games/morpion-icon.png"
+                  alt={tMorpion("title")}
+                  fill
+                  className="object-cover"
+                  sizes="32px"
+                />
+              </div>
+              <span className="flex-1 truncate">→ {tMorpion("title")}</span>
+              {!isPro && (
+                <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-violet-100 px-2 py-0.5 text-[10px] font-bold text-violet-600 dark:bg-violet-500/20 dark:text-violet-300">
+                  <Image src="/icono-neurona/neurona-hex-32.png" alt="" width={10} height={10} />
+                  {tMorpion("costPerGame", { cost: MORPION_COST_PER_GAME })}
+                </span>
+              )}
+            </Link>
+          </li>
         </ul>
       </div>
     </section>

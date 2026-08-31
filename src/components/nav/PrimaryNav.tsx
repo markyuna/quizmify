@@ -89,6 +89,7 @@ export default function PrimaryNav({ isPro, isLoggedIn }: PrimaryNavProps) {
   const tCategories = useTranslations("Categories");
   const tGuestGames = useTranslations("GuestGames");
   const tPuzzle = useTranslations("PuzzleDuJour");
+  const tMorpion = useTranslations("MorpionPage");
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const closeMobile = React.useCallback(() => setMobileOpen(false), []);
 
@@ -148,6 +149,15 @@ export default function PrimaryNav({ isPro, isLoggedIn }: PrimaryNavProps) {
                 className="flex items-center justify-between gap-2"
               >
                 <span>{tPuzzle("title")}</span>
+                <span className={proBadgeClass}>{t("proBadge")}</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild className={itemClass}>
+              <Link
+                href="/morpion"
+                className="flex items-center justify-between gap-2"
+              >
+                <span>{tMorpion("title")}</span>
                 <span className={proBadgeClass}>{t("proBadge")}</span>
               </Link>
             </DropdownMenuItem>
@@ -235,6 +245,16 @@ export default function PrimaryNav({ isPro, isLoggedIn }: PrimaryNavProps) {
                   className={cn(mobileLinkClass, "justify-between")}
                 >
                   <span>{tPuzzle("title")}</span>
+                  <span className={proBadgeClass}>{t("proBadge")}</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/morpion"
+                  onClick={closeMobile}
+                  className={cn(mobileLinkClass, "justify-between")}
+                >
+                  <span>{tMorpion("title")}</span>
                   <span className={proBadgeClass}>{t("proBadge")}</span>
                 </Link>
               </li>

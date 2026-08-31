@@ -52,6 +52,7 @@
     "creating": "Creating...",
     "error": "Error creating game",
     "insufficientNeurons": "Insufficient neurons. You need 50 neurons to play.",
+    "costPerGame": "{cost} per game",
     "backHome": "Back home"
   },
   "MorpionGame": {

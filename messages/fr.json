@@ -52,6 +52,7 @@
     "creating": "Création...",
     "error": "Erreur lors de la création de la partie",
     "insufficientNeurons": "Neurones insuffisants. Il te faut 50 Neurones pour jouer.",
+    "costPerGame": "{cost} par partie",
     "backHome": "Retour à l'accueil"
   },
   "MorpionGame": {

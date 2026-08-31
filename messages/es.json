@@ -52,6 +52,7 @@
     "creating": "Creando...",
     "error": "Error al crear la partida",
     "insufficientNeurons": "Neuronas insuficientes. Necesitas 50 Neuronas para jugar.",
+    "costPerGame": "{cost} por partida",
     "backHome": "Volver a inicio"
   },
   "MorpionGame": {
