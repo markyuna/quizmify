@@ -945,6 +945,10 @@
     "proBadge": "Pro",
     "topicPlaceholder": "ej. Tokio de noche",
     "suggestionsLabel": "Temas populares",
+    "previousTheme": "Anterior",
+    "nextTheme": "Siguiente",
+    "goToThemeGroup": "Ir al grupo {index}",
+    "loadingThemes": "Cargando temas…",
     "difficultyLabel": "Dificultad",
     "difficulty": {
       "easy": "Fácil",

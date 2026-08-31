@@ -12,6 +12,7 @@ import { useToast } from "./ui/use-toast";
 import LoadingQuestions from "./LoadingQuestions";
 import PuzzleDuJourUnlockModal from "./PuzzleDuJourUnlockModal";
 import PuzzleDuJourHeader from "./games/PuzzleDuJourHeader";
+import PopularThemesCarousel from "./games/PopularThemesCarousel";
 import type { PuzzleDuJourDifficulty } from "@/lib/puzzleDuJour";
 import { NEURON_UNLOCK_COSTS } from "@/lib/neurons/costs";
 import { resolvePuzzleDuJourAccess } from "@/lib/neurons/access";
@@ -37,7 +38,8 @@ export default function PuzzleDuJourCreation() {
   const [showUnlockModal, setShowUnlockModal] = React.useState(false);
   const [topic, setTopic] = React.useState("");
   const [difficulty, setDifficulty] = React.useState<PuzzleDuJourDifficulty>("easy");
-  const [suggestions, setSuggestions] = React.useState<TopicSuggestion[]>([]);
+  const [suggestedThemes, setSuggestedThemes] = React.useState<string[]>([]);
+  const [loadingThemes, setLoadingThemes] = React.useState(false);
   const [showLoader, setShowLoader] = React.useState(false);
   const [finished, setFinished] = React.useState(false);
   const navigationTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -73,21 +75,30 @@ export default function PuzzleDuJourCreation() {
 
   React.useEffect(() => {
     let cancelled = false;
+    const controller = new AbortController();
+    setLoadingThemes(true);
     axios
-      .get<{ suggestions: TopicSuggestion[] }>("/api/puzzle-du-jour/suggestions")
+      .get<{ suggestions: TopicSuggestion[] }>("/api/puzzle-du-jour/suggestions", {
+        signal: controller.signal,
+        timeout: 8000,
+      })
       .then((res) => {
-        if (!cancelled) setSuggestions(res.data.suggestions);
+        if (!cancelled) setSuggestedThemes(res.data.suggestions.map((s) => s.topic));
       })
       .catch((error) => {
-        // Secondary feature -- failing silently in the UI is fine (the
-        // section just doesn't render, same as a legitimately empty
-        // result), but swallowing it completely made this exact bug
-        // (mobile getting an empty array) indistinguishable from a real
-        // request failure. Logged, not surfaced to the user.
+        if (cancelled || axios.isCancel(error)) return;
+        // Secondary feature -- fall back to an empty list, which the
+        // carousel renders as nothing (same as a legitimately empty
+        // result). Logged, never surfaced to the user.
         console.error("Failed to load Puzzle du Jour topic suggestions:", error);
+        setSuggestedThemes([]);
+      })
+      .finally(() => {
+        if (!cancelled) setLoadingThemes(false);
       });
     return () => {
       cancelled = true;
+      controller.abort();
     };
   }, []);
 
@@ -178,25 +189,19 @@ export default function PuzzleDuJourCreation() {
 
         {/* Nudges picks toward already-cached topics (see the
             topicNormalized+language cache lookup in POST /api/puzzle-du-jour)
-            -- clicking only fills the input, it never submits on its own. */}
-        {suggestions.length > 0 && (
-          <div className="mt-2">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
-              {t("suggestionsLabel")}
-            </p>
-            <div className="mt-1.5 flex flex-wrap gap-1.5">
-              {suggestions.map((s) => (
-                <button
-                  key={s.topicNormalized}
-                  type="button"
-                  disabled={locked}
-                  onClick={() => setTopic(s.topic)}
-                  className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-600 transition-colors hover:border-violet-300 hover:bg-violet-50 hover:text-violet-700 disabled:opacity-60 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-violet-500/30 dark:hover:bg-violet-500/10 dark:hover:text-violet-300"
-                >
-                  {s.topic}
-                </button>
-              ))}
-            </div>
+            -- clicking only fills the input, it never submits on its own.
+            The carousel renders nothing on its own when there are <2 themes
+            and we're not loading; the wrapper mirrors that so no vertical
+            gap is reserved for an absent section. */}
+        {(loadingThemes || suggestedThemes.length >= 2) && (
+          <div className="mt-3">
+            <PopularThemesCarousel
+              themes={suggestedThemes}
+              isLoading={loadingThemes}
+              onThemeSelect={(theme) => setTopic(theme)}
+              currentTheme={topic}
+              disabled={locked}
+            />
           </div>
         )}
 

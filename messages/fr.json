@@ -945,6 +945,10 @@
     "proBadge": "Pro",
     "topicPlaceholder": "ex. Tokyo la nuit",
     "suggestionsLabel": "Thèmes populaires",
+    "previousTheme": "Précédent",
+    "nextTheme": "Suivant",
+    "goToThemeGroup": "Aller au groupe {index}",
+    "loadingThemes": "Chargement des thèmes…",
     "difficultyLabel": "Difficulté",
     "difficulty": {
       "easy": "Facile",
