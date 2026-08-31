@@ -100,7 +100,7 @@ Neurons (`User.neuronsBalance`) are a second, independent currency — deliberat
 
 - **Earning**: `creditNeuronsForQuiz()` awards 50 Neurons per 10 accumulated correct answers, counted only across medium/hard-difficulty games (`ELIGIBLE_DIFFICULTIES`) — easy games earn nothing. The total is derived fresh on every call from `Attempt` history plus the `NeuronTransaction` ledger (never a separate running counter), so nothing can drift out of sync. Must run inside the same `$transaction` as the rest of `/api/quiz/submit`. `getNeuronsProgress()` exposes the same "how close to the next batch" math for dashboard reads outside a transaction.
 - **Personality-test bonus**: `withPersonalityBonus()` merges a one-time +50 Neuron bonus into the same `tx.user.update()` call that first sets `personalityAnimal` (i.e. only on transition from `null` to a value), via Prisma's nested `neuronTransactions` write — ledger row, balance increment, and animal assignment happen as one write.
-- **Spending**: `src/lib/neurons/costs.ts` holds `NEURON_UNLOCK_COSTS`, currently one entry — unlocking Puzzle du Jour costs 100 Neurons. Deliberately kept separate from `GAMES_CATALOG` (`src/lib/games/catalog.ts`), which is reserved for the 3 free guest games; Pro/auth-only unlockable games live here instead. Expect more `gameKey` entries here as more Neuron-unlockable games ship.
+- **Spending**: `src/lib/neurons/costs.ts` holds `NEURON_UNLOCK_COSTS`, currently one entry — unlocking Puzzle du Jour costs 100 Neurons. Kept separate from `ALL_GAMES` (`src/lib/games/allGames.ts`), which is presentation-layer config for listing games; the Neuron price a `pro-neuron` entry displays is imported from here. Expect more `gameKey` entries here as more Neuron-unlockable games ship.
 - **Ledger**: `NeuronTransaction` (append-only, types include `earn_quiz` and `bonus_personality`) is the source of truth `creditNeuronsForQuiz` reconciles against — it never re-credits a batch already reflected in the ledger.
 
 ### Puzzle du Jour
@@ -160,7 +160,11 @@ Transactional/reminder emails (streak reminders, daily challenge nudges, weekly 
 
 ### Games catalog
 
-`GAMES_CATALOG` (`src/lib/games/catalog.ts`) is the single source of truth for the 3 free guest mini-games (key, title/teaser i18n keys, image) — consumed by `PrimaryNav.tsx`, `GameCarousel.tsx`, `TopicCarousel.tsx`, and `/games/page.tsx`. Add new entries here rather than duplicating them per component. Pro/auth-only unlockable games (e.g. Puzzle du Jour) intentionally live in `neurons/costs.ts` instead — see Neuronas above.
+`ALL_GAMES` (`src/lib/games/allGames.ts`) is the single source of truth for **every** game the app lists in a "games" surface — the 3 free guest mini-games plus Puzzle du Jour, Morpion, and "Qui est le peintre?". Each entry carries `kind` (`guest` | `pro-neuron` | `curated`), `href`, an `(i18nNamespace, i18nKey)` title pair, image, and presentational hints (`neuronCost`, `showProBadge`). `QUI_EST_LE_PEINTRE_HREF` lives here too. Add a game here once and it shows up in all four surfaces.
+
+The four surfaces all iterate `ALL_GAMES` and render `<GameCard>` (`src/components/games/GameCard.tsx`, a presentational, no-`"use client"`, no-fetch component with `grid`/`list`/`dropdown` variants): `GamesSidebarSection.tsx` (`/categories`), `CategorySidebar.tsx` (`/quiz/categoria/[slug]`), `GameCarousel.tsx` (homepage), and `PrimaryNav.tsx` (header, desktop + mobile). Puzzle du Jour's card in the three grid surfaces is `<PuzzleDuJourGameCard>` instead — a client island that owns the eligibility fetch + unlock-modal flow; the nav keeps a plain `<GameCard>`.
+
+`GAMES_CATALOG` (`src/lib/games/catalog.ts`) still exists but is now **derived** — `ALL_GAMES.filter(kind === "guest")` remapped to the flatter `{ key, titleKey, teaserKey, image, icon }` shape — for the callers that only deal with guest games (`/games/page.tsx`, the guest-play plumbing). The Neuron price of a `pro-neuron` game lives in `neurons/costs.ts` (`NEURON_UNLOCK_COSTS`, `MORPION_COST_PER_GAME`) and is referenced from `ALL_GAMES` — see Neuronas above.
 
 ### Environment variables required
 
