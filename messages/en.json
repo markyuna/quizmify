@@ -105,7 +105,8 @@
     "error": "Error",
     "failedToAsk": "We couldn't process your question. Try again.",
     "failedToGuess": "We couldn't process your guess. Try again.",
-    "gameNotFound": "Game not found"
+    "gameNotFound": "Game not found",
+    "imageAlt": "Blurred portrait of the mystery character"
   },
   "LanguageSwitcher": {
     "label": "Language"

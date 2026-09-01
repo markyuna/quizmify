@@ -105,7 +105,8 @@
     "error": "Error",
     "failedToAsk": "No pudimos procesar tu pregunta. Probá de nuevo.",
     "failedToGuess": "No pudimos procesar tu intento. Probá de nuevo.",
-    "gameNotFound": "Partida no encontrada"
+    "gameNotFound": "Partida no encontrada",
+    "imageAlt": "Retrato borroso del personaje misterioso"
   },
   "LanguageSwitcher": {
     "label": "Idioma"

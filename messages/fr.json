@@ -105,7 +105,8 @@
     "error": "Erreur",
     "failedToAsk": "Impossible de traiter ta question. Réessaie.",
     "failedToGuess": "Impossible de traiter ta tentative. Réessaie.",
-    "gameNotFound": "Partie introuvable"
+    "gameNotFound": "Partie introuvable",
+    "imageAlt": "Portrait flou du personnage mystère"
   },
   "LanguageSwitcher": {
     "label": "Langue"

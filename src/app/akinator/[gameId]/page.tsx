@@ -2,12 +2,14 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { getBlurLevel } from "@/lib/akinator/characters";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +26,7 @@ type GameState = {
   status: "in_progress" | "won" | "lost";
   questionsAsked: number;
   questionLimit: number;
+  imageUrl: string | null;
   turns: Turn[];
   score: number | null;
   xpEarned: number;
@@ -186,6 +189,29 @@ export default function AkinatorGamePage() {
               </li>
             ))}
           </ul>
+        )}
+
+        {/* Image reveal -- blur clears one step every 5 questions */}
+        {!over && game.imageUrl && (
+          <div className="mb-6">
+            <div className="relative mx-auto aspect-square w-full max-w-xs overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-200 dark:border-white/10 dark:bg-slate-800">
+              <Image
+                src={game.imageUrl}
+                alt={t("imageAlt")}
+                fill
+                sizes="320px"
+                className="object-cover"
+                style={{
+                  filter: `blur(${getBlurLevel(game.questionsAsked)}px)`,
+                  transform: "scale(1.1)",
+                  transition: "filter 0.6s ease-out",
+                }}
+              />
+              <span className="absolute bottom-2 left-2 rounded-full bg-black/60 px-2.5 py-1 text-[11px] font-medium text-white">
+                {t("questionCounter", { current: game.questionsAsked, total: game.questionLimit })}
+              </span>
+            </div>
+          </div>
         )}
 
         {/* Play area */}

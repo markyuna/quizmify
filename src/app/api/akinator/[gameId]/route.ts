@@ -31,6 +31,7 @@ export async function GET(_request: Request, { params }: Params) {
     status: game.status,
     questionsAsked: game.questionsAsked,
     questionLimit: MAX_QUESTIONS,
+    imageUrl: game.imageUrl,
     turns: JSON.parse(game.conversation) as AkinatorTurn[],
     score: game.score,
     xpEarned: game.xpEarned,

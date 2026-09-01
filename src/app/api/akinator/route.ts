@@ -4,7 +4,7 @@ import { getAuthSession } from "@/lib/nextauth";
 import { prisma } from "@/lib/db";
 import { isEffectivelyPro } from "@/lib/paywall";
 import { AKINATOR_COST_PER_GAME } from "@/lib/neurons/costs";
-import { getRandomCharacterKey } from "@/lib/akinator/characters";
+import { getImageUrl, getRandomCharacterKey } from "@/lib/akinator/characters";
 
 /**
  * Create an Akinator game. Free users pay AKINATOR_COST_PER_GAME up front,
@@ -48,8 +48,9 @@ export async function POST() {
         });
       }
 
+      const characterKey = getRandomCharacterKey();
       return tx.akinatorGame.create({
-        data: { userId, characterKey: getRandomCharacterKey(), conversation: "[]" },
+        data: { userId, characterKey, imageUrl: getImageUrl(characterKey), conversation: "[]" },
         select: { id: true },
       });
     });
