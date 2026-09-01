@@ -964,6 +964,10 @@ model AkinatorGame {
   // content }]. Replayed in full on every /question call (chat completions
   // are stateless).
   conversation   String
+  // Public Supabase Storage URL (akinator-images/<characterKey>.webp) for
+  // the progressive blur-reveal on the play page. Nullable: games created
+  // before this column existed have none. Derived, never user-supplied.
+  imageUrl       String?
   questionsAsked Int            @default(0)
   // The player's final guess text, whether right or wrong.
   guessedName    String?

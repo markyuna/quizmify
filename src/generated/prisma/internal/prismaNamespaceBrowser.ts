@@ -567,6 +567,7 @@ export const AkinatorGameScalarFieldEnum = {
   userId: 'userId',
   characterKey: 'characterKey',
   conversation: 'conversation',
+  imageUrl: 'imageUrl',
   questionsAsked: 'questionsAsked',
   guessedName: 'guessedName',
   status: 'status',

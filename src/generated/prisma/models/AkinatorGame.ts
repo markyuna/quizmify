@@ -43,6 +43,7 @@ export type AkinatorGameMinAggregateOutputType = {
   userId: string | null
   characterKey: string | null
   conversation: string | null
+  imageUrl: string | null
   questionsAsked: number | null
   guessedName: string | null
   status: $Enums.AkinatorStatus | null
@@ -57,6 +58,7 @@ export type AkinatorGameMaxAggregateOutputType = {
   userId: string | null
   characterKey: string | null
   conversation: string | null
+  imageUrl: string | null
   questionsAsked: number | null
   guessedName: string | null
   status: $Enums.AkinatorStatus | null
@@ -71,6 +73,7 @@ export type AkinatorGameCountAggregateOutputType = {
   userId: number
   characterKey: number
   conversation: number
+  imageUrl: number
   questionsAsked: number
   guessedName: number
   status: number
@@ -99,6 +102,7 @@ export type AkinatorGameMinAggregateInputType = {
   userId?: true
   characterKey?: true
   conversation?: true
+  imageUrl?: true
   questionsAsked?: true
   guessedName?: true
   status?: true
@@ -113,6 +117,7 @@ export type AkinatorGameMaxAggregateInputType = {
   userId?: true
   characterKey?: true
   conversation?: true
+  imageUrl?: true
   questionsAsked?: true
   guessedName?: true
   status?: true
@@ -127,6 +132,7 @@ export type AkinatorGameCountAggregateInputType = {
   userId?: true
   characterKey?: true
   conversation?: true
+  imageUrl?: true
   questionsAsked?: true
   guessedName?: true
   status?: true
@@ -228,6 +234,7 @@ export type AkinatorGameGroupByOutputType = {
   userId: string
   characterKey: string
   conversation: string
+  imageUrl: string | null
   questionsAsked: number
   guessedName: string | null
   status: $Enums.AkinatorStatus
@@ -265,6 +272,7 @@ export type AkinatorGameWhereInput = {
   userId?: Prisma.StringFilter<"AkinatorGame"> | string
   characterKey?: Prisma.StringFilter<"AkinatorGame"> | string
   conversation?: Prisma.StringFilter<"AkinatorGame"> | string
+  imageUrl?: Prisma.StringNullableFilter<"AkinatorGame"> | string | null
   questionsAsked?: Prisma.IntFilter<"AkinatorGame"> | number
   guessedName?: Prisma.StringNullableFilter<"AkinatorGame"> | string | null
   status?: Prisma.EnumAkinatorStatusFilter<"AkinatorGame"> | $Enums.AkinatorStatus
@@ -280,6 +288,7 @@ export type AkinatorGameOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   characterKey?: Prisma.SortOrder
   conversation?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   questionsAsked?: Prisma.SortOrder
   guessedName?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -298,6 +307,7 @@ export type AkinatorGameWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"AkinatorGame"> | string
   characterKey?: Prisma.StringFilter<"AkinatorGame"> | string
   conversation?: Prisma.StringFilter<"AkinatorGame"> | string
+  imageUrl?: Prisma.StringNullableFilter<"AkinatorGame"> | string | null
   questionsAsked?: Prisma.IntFilter<"AkinatorGame"> | number
   guessedName?: Prisma.StringNullableFilter<"AkinatorGame"> | string | null
   status?: Prisma.EnumAkinatorStatusFilter<"AkinatorGame"> | $Enums.AkinatorStatus
@@ -313,6 +323,7 @@ export type AkinatorGameOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   characterKey?: Prisma.SortOrder
   conversation?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   questionsAsked?: Prisma.SortOrder
   guessedName?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -335,6 +346,7 @@ export type AkinatorGameScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"AkinatorGame"> | string
   characterKey?: Prisma.StringWithAggregatesFilter<"AkinatorGame"> | string
   conversation?: Prisma.StringWithAggregatesFilter<"AkinatorGame"> | string
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"AkinatorGame"> | string | null
   questionsAsked?: Prisma.IntWithAggregatesFilter<"AkinatorGame"> | number
   guessedName?: Prisma.StringNullableWithAggregatesFilter<"AkinatorGame"> | string | null
   status?: Prisma.EnumAkinatorStatusWithAggregatesFilter<"AkinatorGame"> | $Enums.AkinatorStatus
@@ -348,6 +360,7 @@ export type AkinatorGameCreateInput = {
   id?: string
   characterKey: string
   conversation: string
+  imageUrl?: string | null
   questionsAsked?: number
   guessedName?: string | null
   status?: $Enums.AkinatorStatus
@@ -363,6 +376,7 @@ export type AkinatorGameUncheckedCreateInput = {
   userId: string
   characterKey: string
   conversation: string
+  imageUrl?: string | null
   questionsAsked?: number
   guessedName?: string | null
   status?: $Enums.AkinatorStatus
@@ -376,6 +390,7 @@ export type AkinatorGameUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   characterKey?: Prisma.StringFieldUpdateOperationsInput | string
   conversation?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   questionsAsked?: Prisma.IntFieldUpdateOperationsInput | number
   guessedName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAkinatorStatusFieldUpdateOperationsInput | $Enums.AkinatorStatus
@@ -391,6 +406,7 @@ export type AkinatorGameUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   characterKey?: Prisma.StringFieldUpdateOperationsInput | string
   conversation?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   questionsAsked?: Prisma.IntFieldUpdateOperationsInput | number
   guessedName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAkinatorStatusFieldUpdateOperationsInput | $Enums.AkinatorStatus
@@ -405,6 +421,7 @@ export type AkinatorGameCreateManyInput = {
   userId: string
   characterKey: string
   conversation: string
+  imageUrl?: string | null
   questionsAsked?: number
   guessedName?: string | null
   status?: $Enums.AkinatorStatus
@@ -418,6 +435,7 @@ export type AkinatorGameUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   characterKey?: Prisma.StringFieldUpdateOperationsInput | string
   conversation?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   questionsAsked?: Prisma.IntFieldUpdateOperationsInput | number
   guessedName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAkinatorStatusFieldUpdateOperationsInput | $Enums.AkinatorStatus
@@ -432,6 +450,7 @@ export type AkinatorGameUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   characterKey?: Prisma.StringFieldUpdateOperationsInput | string
   conversation?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   questionsAsked?: Prisma.IntFieldUpdateOperationsInput | number
   guessedName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAkinatorStatusFieldUpdateOperationsInput | $Enums.AkinatorStatus
@@ -456,6 +475,7 @@ export type AkinatorGameCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   characterKey?: Prisma.SortOrder
   conversation?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   questionsAsked?: Prisma.SortOrder
   guessedName?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -476,6 +496,7 @@ export type AkinatorGameMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   characterKey?: Prisma.SortOrder
   conversation?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   questionsAsked?: Prisma.SortOrder
   guessedName?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -490,6 +511,7 @@ export type AkinatorGameMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   characterKey?: Prisma.SortOrder
   conversation?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   questionsAsked?: Prisma.SortOrder
   guessedName?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -555,6 +577,7 @@ export type AkinatorGameCreateWithoutUserInput = {
   id?: string
   characterKey: string
   conversation: string
+  imageUrl?: string | null
   questionsAsked?: number
   guessedName?: string | null
   status?: $Enums.AkinatorStatus
@@ -568,6 +591,7 @@ export type AkinatorGameUncheckedCreateWithoutUserInput = {
   id?: string
   characterKey: string
   conversation: string
+  imageUrl?: string | null
   questionsAsked?: number
   guessedName?: string | null
   status?: $Enums.AkinatorStatus
@@ -611,6 +635,7 @@ export type AkinatorGameScalarWhereInput = {
   userId?: Prisma.StringFilter<"AkinatorGame"> | string
   characterKey?: Prisma.StringFilter<"AkinatorGame"> | string
   conversation?: Prisma.StringFilter<"AkinatorGame"> | string
+  imageUrl?: Prisma.StringNullableFilter<"AkinatorGame"> | string | null
   questionsAsked?: Prisma.IntFilter<"AkinatorGame"> | number
   guessedName?: Prisma.StringNullableFilter<"AkinatorGame"> | string | null
   status?: Prisma.EnumAkinatorStatusFilter<"AkinatorGame"> | $Enums.AkinatorStatus
@@ -624,6 +649,7 @@ export type AkinatorGameCreateManyUserInput = {
   id?: string
   characterKey: string
   conversation: string
+  imageUrl?: string | null
   questionsAsked?: number
   guessedName?: string | null
   status?: $Enums.AkinatorStatus
@@ -637,6 +663,7 @@ export type AkinatorGameUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   characterKey?: Prisma.StringFieldUpdateOperationsInput | string
   conversation?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   questionsAsked?: Prisma.IntFieldUpdateOperationsInput | number
   guessedName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAkinatorStatusFieldUpdateOperationsInput | $Enums.AkinatorStatus
@@ -650,6 +677,7 @@ export type AkinatorGameUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   characterKey?: Prisma.StringFieldUpdateOperationsInput | string
   conversation?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   questionsAsked?: Prisma.IntFieldUpdateOperationsInput | number
   guessedName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAkinatorStatusFieldUpdateOperationsInput | $Enums.AkinatorStatus
@@ -663,6 +691,7 @@ export type AkinatorGameUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   characterKey?: Prisma.StringFieldUpdateOperationsInput | string
   conversation?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   questionsAsked?: Prisma.IntFieldUpdateOperationsInput | number
   guessedName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumAkinatorStatusFieldUpdateOperationsInput | $Enums.AkinatorStatus
@@ -679,6 +708,7 @@ export type AkinatorGameSelect<ExtArgs extends runtime.Types.Extensions.Internal
   userId?: boolean
   characterKey?: boolean
   conversation?: boolean
+  imageUrl?: boolean
   questionsAsked?: boolean
   guessedName?: boolean
   status?: boolean
@@ -694,6 +724,7 @@ export type AkinatorGameSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   userId?: boolean
   characterKey?: boolean
   conversation?: boolean
+  imageUrl?: boolean
   questionsAsked?: boolean
   guessedName?: boolean
   status?: boolean
@@ -709,6 +740,7 @@ export type AkinatorGameSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   userId?: boolean
   characterKey?: boolean
   conversation?: boolean
+  imageUrl?: boolean
   questionsAsked?: boolean
   guessedName?: boolean
   status?: boolean
@@ -724,6 +756,7 @@ export type AkinatorGameSelectScalar = {
   userId?: boolean
   characterKey?: boolean
   conversation?: boolean
+  imageUrl?: boolean
   questionsAsked?: boolean
   guessedName?: boolean
   status?: boolean
@@ -733,7 +766,7 @@ export type AkinatorGameSelectScalar = {
   completedAt?: boolean
 }
 
-export type AkinatorGameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "characterKey" | "conversation" | "questionsAsked" | "guessedName" | "status" | "score" | "xpEarned" | "createdAt" | "completedAt", ExtArgs["result"]["akinatorGame"]>
+export type AkinatorGameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "characterKey" | "conversation" | "imageUrl" | "questionsAsked" | "guessedName" | "status" | "score" | "xpEarned" | "createdAt" | "completedAt", ExtArgs["result"]["akinatorGame"]>
 export type AkinatorGameInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -754,6 +787,7 @@ export type $AkinatorGamePayload<ExtArgs extends runtime.Types.Extensions.Intern
     userId: string
     characterKey: string
     conversation: string
+    imageUrl: string | null
     questionsAsked: number
     guessedName: string | null
     status: $Enums.AkinatorStatus
@@ -1189,6 +1223,7 @@ export interface AkinatorGameFieldRefs {
   readonly userId: Prisma.FieldRef<"AkinatorGame", 'String'>
   readonly characterKey: Prisma.FieldRef<"AkinatorGame", 'String'>
   readonly conversation: Prisma.FieldRef<"AkinatorGame", 'String'>
+  readonly imageUrl: Prisma.FieldRef<"AkinatorGame", 'String'>
   readonly questionsAsked: Prisma.FieldRef<"AkinatorGame", 'Int'>
   readonly guessedName: Prisma.FieldRef<"AkinatorGame", 'String'>
   readonly status: Prisma.FieldRef<"AkinatorGame", 'AkinatorStatus'>
