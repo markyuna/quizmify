@@ -115,6 +115,15 @@ A Pro-only daily jigsaw puzzle, separate from "Puzzle Mode" (see AI question gen
 - Can also be unlocked with Neurons (`NEURON_UNLOCK_COSTS.puzzleDuJour`, currently 50) rather than only via Pro status — check `neurons/costs.ts` and the eligibility route together when working on access logic.
 - Creation UI (`PuzzleDuJourCreation.tsx`): `PuzzleDuJourHeader.tsx` renders the multicolour "Puzzle" title (one brand colour per letter) plus an `animate-puzzle-bounce` SVG piece — keyframes live in `globals.css`, `prefers-reduced-motion`-guarded. Topic suggestions from `GET /api/puzzle-du-jour/suggestions` render through `PopularThemesCarousel.tsx`, a dumb component that shows nothing for <2 themes, a plain grid for 2–4, and a paginated carousel (2 mobile / 4 desktop, prev/next, dot indicators, ←/→ keys, fade+slide) for 5+. The fetch uses an `AbortController` + 8s timeout and falls back to an empty list on error.
 
+### Akinator
+
+A "20 questions" game: the AI holds a secret character and the player asks yes/no questions to work out who it is. Same shape as Morpion — `src/app/akinator/page.tsx` (creation) + `src/app/akinator/[gameId]/page.tsx` (play, client components reading `gameId` via `useParams()`), routes under `src/app/api/akinator/*` (`route.ts` create, `eligibility`, `[gameId]`, `[gameId]/question`, `[gameId]/guess`).
+
+- Free users pay `AKINATOR_COST_PER_GAME` (`src/lib/neurons/costs.ts`, currently 50) — a direct per-play debit like Morpion, taken in the same `$transaction` that creates the game, logged as a `spend_akinator` `NeuronTransaction`. Pro is unlimited (`isEffectivelyPro`).
+- Secret character comes from `src/lib/akinator/characters.ts` (`AKINATOR_CHARACTERS`, 10 curated, localised names) — a hardcoded catalog, `characterKey` persisted on `AkinatorGame`.
+- `AkinatorGame.conversation` is a JSON `AkinatorTurn[]` (`{ question, verdict, explanation }`); `src/lib/akinator/ai.ts` replays it into OpenAI chat messages on every `/question` call (chat completions are stateless). `answerQuestion` uses JSON mode + `temperature: 0.2` and the system prompt forbids leaking the name. `validateGuess` does a local normalise-and-compare against the character's aliases first, then one cheap OpenAI call for nicknames/spellings.
+- `MAX_QUESTIONS = 20`, `AKINATOR_WIN_XP = 15` (`src/lib/akinator/config.ts`). A correct guess flips the game to `won` via a conditional `updateMany` (so a double-submit can't double-credit XP) and awards XP with the same "xp accrues, level capped for free users" block as `/api/morpion/[gameId]/move`. `score = 20 - questionsAsked`.
+
 ### Personality test — "Quel animal es-tu ?"
 
 Config in `src/lib/personalityTests/quelAnimalEsTu.config.ts`; routes under `/api/personality-tests/[testKey]/*` (`submit`, `confirm`, `retry`, `status`) plus `claim` (migrate a guest attempt onto a real account, mirroring `GuestAttempt.claimedByUserId`) and `mascot-nudge-dismiss`.
