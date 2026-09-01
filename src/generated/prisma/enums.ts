@@ -89,6 +89,7 @@ export const NeuronTransactionType = {
   spend_unlock: 'spend_unlock',
   bonus_personality: 'bonus_personality',
   spend_morpion: 'spend_morpion',
+  spend_akinator: 'spend_akinator',
   purchase: 'purchase'
 } as const
 
@@ -128,3 +129,12 @@ export const MorpionSymbol = {
 } as const
 
 export type MorpionSymbol = (typeof MorpionSymbol)[keyof typeof MorpionSymbol]
+
+
+export const AkinatorStatus = {
+  in_progress: 'in_progress',
+  won: 'won',
+  lost: 'lost'
+} as const
+
+export type AkinatorStatus = (typeof AkinatorStatus)[keyof typeof AkinatorStatus]

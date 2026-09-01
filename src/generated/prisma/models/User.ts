@@ -429,6 +429,7 @@ export type UserWhereInput = {
   neuronUnlocks?: Prisma.NeuronUnlockListRelationFilter
   neuronPurchases?: Prisma.NeuronPurchaseListRelationFilter
   morpionGames?: Prisma.MorpionGameListRelationFilter
+  akinatorGames?: Prisma.AkinatorGameListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -483,6 +484,7 @@ export type UserOrderByWithRelationInput = {
   neuronUnlocks?: Prisma.NeuronUnlockOrderByRelationAggregateInput
   neuronPurchases?: Prisma.NeuronPurchaseOrderByRelationAggregateInput
   morpionGames?: Prisma.MorpionGameOrderByRelationAggregateInput
+  akinatorGames?: Prisma.AkinatorGameOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -540,6 +542,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   neuronUnlocks?: Prisma.NeuronUnlockListRelationFilter
   neuronPurchases?: Prisma.NeuronPurchaseListRelationFilter
   morpionGames?: Prisma.MorpionGameListRelationFilter
+  akinatorGames?: Prisma.AkinatorGameListRelationFilter
 }, "id" | "email" | "stripePaymentId">
 
 export type UserOrderByWithAggregationInput = {
@@ -660,6 +663,7 @@ export type UserCreateInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -714,6 +718,7 @@ export type UserUncheckedCreateInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -768,6 +773,7 @@ export type UserUpdateInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -822,6 +828,7 @@ export type UserUncheckedUpdateInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1394,6 +1401,20 @@ export type UserUpdateOneRequiredWithoutMorpionGamesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMorpionGamesInput, Prisma.UserUpdateWithoutMorpionGamesInput>, Prisma.UserUncheckedUpdateWithoutMorpionGamesInput>
 }
 
+export type UserCreateNestedOneWithoutAkinatorGamesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAkinatorGamesInput, Prisma.UserUncheckedCreateWithoutAkinatorGamesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAkinatorGamesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAkinatorGamesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAkinatorGamesInput, Prisma.UserUncheckedCreateWithoutAkinatorGamesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAkinatorGamesInput
+  upsert?: Prisma.UserUpsertWithoutAkinatorGamesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAkinatorGamesInput, Prisma.UserUpdateWithoutAkinatorGamesInput>, Prisma.UserUncheckedUpdateWithoutAkinatorGamesInput>
+}
+
 export type UserCreateWithoutAccountsInput = {
   id?: string
   name?: string | null
@@ -1445,6 +1466,7 @@ export type UserCreateWithoutAccountsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1498,6 +1520,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1567,6 +1590,7 @@ export type UserUpdateWithoutAccountsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1620,6 +1644,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1673,6 +1698,7 @@ export type UserCreateWithoutSessionsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1726,6 +1752,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1795,6 +1822,7 @@ export type UserUpdateWithoutSessionsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1848,6 +1876,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGamesInput = {
@@ -1901,6 +1930,7 @@ export type UserCreateWithoutGamesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGamesInput = {
@@ -1954,6 +1984,7 @@ export type UserUncheckedCreateWithoutGamesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGamesInput = {
@@ -2023,6 +2054,7 @@ export type UserUpdateWithoutGamesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGamesInput = {
@@ -2076,6 +2108,7 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAttemptsInput = {
@@ -2129,6 +2162,7 @@ export type UserCreateWithoutAttemptsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAttemptsInput = {
@@ -2182,6 +2216,7 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAttemptsInput = {
@@ -2251,6 +2286,7 @@ export type UserUpdateWithoutAttemptsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttemptsInput = {
@@ -2304,6 +2340,7 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCuratedQuizCompletionsInput = {
@@ -2357,6 +2394,7 @@ export type UserCreateWithoutCuratedQuizCompletionsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
@@ -2410,6 +2448,7 @@ export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCuratedQuizCompletionsInput = {
@@ -2479,6 +2518,7 @@ export type UserUpdateWithoutCuratedQuizCompletionsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
@@ -2532,6 +2572,7 @@ export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCertificatesInput = {
@@ -2585,6 +2626,7 @@ export type UserCreateWithoutCertificatesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCertificatesInput = {
@@ -2638,6 +2680,7 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCertificatesInput = {
@@ -2707,6 +2750,7 @@ export type UserUpdateWithoutCertificatesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCertificatesInput = {
@@ -2760,6 +2804,7 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTopicRecommendationsInput = {
@@ -2813,6 +2858,7 @@ export type UserCreateWithoutTopicRecommendationsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
@@ -2866,6 +2912,7 @@ export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTopicRecommendationsInput = {
@@ -2935,6 +2982,7 @@ export type UserUpdateWithoutTopicRecommendationsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
@@ -2988,6 +3036,7 @@ export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCategoryRecommendationInput = {
@@ -3041,6 +3090,7 @@ export type UserCreateWithoutCategoryRecommendationInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCategoryRecommendationInput = {
@@ -3094,6 +3144,7 @@ export type UserUncheckedCreateWithoutCategoryRecommendationInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCategoryRecommendationInput = {
@@ -3163,6 +3214,7 @@ export type UserUpdateWithoutCategoryRecommendationInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCategoryRecommendationInput = {
@@ -3216,6 +3268,7 @@ export type UserUncheckedUpdateWithoutCategoryRecommendationInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTrophiesInput = {
@@ -3269,6 +3322,7 @@ export type UserCreateWithoutTrophiesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTrophiesInput = {
@@ -3322,6 +3376,7 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTrophiesInput = {
@@ -3391,6 +3446,7 @@ export type UserUpdateWithoutTrophiesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTrophiesInput = {
@@ -3444,6 +3500,7 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutQuestionProgressInput = {
@@ -3497,6 +3554,7 @@ export type UserCreateWithoutQuestionProgressInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutQuestionProgressInput = {
@@ -3550,6 +3608,7 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutQuestionProgressInput = {
@@ -3619,6 +3678,7 @@ export type UserUpdateWithoutQuestionProgressInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuestionProgressInput = {
@@ -3672,6 +3732,7 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDailyChallengeAttemptsInput = {
@@ -3725,6 +3786,7 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
@@ -3778,6 +3840,7 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDailyChallengeAttemptsInput = {
@@ -3847,6 +3910,7 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
@@ -3900,6 +3964,7 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationPreferenceInput = {
@@ -3953,6 +4018,7 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
@@ -4006,6 +4072,7 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationPreferenceInput = {
@@ -4075,6 +4142,7 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
@@ -4128,6 +4196,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationLogsInput = {
@@ -4181,6 +4250,7 @@ export type UserCreateWithoutNotificationLogsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationLogsInput = {
@@ -4234,6 +4304,7 @@ export type UserUncheckedCreateWithoutNotificationLogsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationLogsInput = {
@@ -4303,6 +4374,7 @@ export type UserUpdateWithoutNotificationLogsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationLogsInput = {
@@ -4356,6 +4428,7 @@ export type UserUncheckedUpdateWithoutNotificationLogsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFriendshipsSentInput = {
@@ -4409,6 +4482,7 @@ export type UserCreateWithoutFriendshipsSentInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFriendshipsSentInput = {
@@ -4462,6 +4536,7 @@ export type UserUncheckedCreateWithoutFriendshipsSentInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFriendshipsSentInput = {
@@ -4520,6 +4595,7 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
@@ -4573,6 +4649,7 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFriendshipsReceivedInput = {
@@ -4642,6 +4719,7 @@ export type UserUpdateWithoutFriendshipsSentInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
@@ -4695,6 +4773,7 @@ export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutFriendshipsReceivedInput = {
@@ -4759,6 +4838,7 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
@@ -4812,6 +4892,7 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReferralsMadeInput = {
@@ -4865,6 +4946,7 @@ export type UserCreateWithoutReferralsMadeInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralsMadeInput = {
@@ -4918,6 +5000,7 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralsMadeInput = {
@@ -4976,6 +5059,7 @@ export type UserCreateWithoutReferralReceivedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralReceivedInput = {
@@ -5029,6 +5113,7 @@ export type UserUncheckedCreateWithoutReferralReceivedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralReceivedInput = {
@@ -5098,6 +5183,7 @@ export type UserUpdateWithoutReferralsMadeInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralsMadeInput = {
@@ -5151,6 +5237,7 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReferralReceivedInput = {
@@ -5215,6 +5302,7 @@ export type UserUpdateWithoutReferralReceivedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralReceivedInput = {
@@ -5268,6 +5356,7 @@ export type UserUncheckedUpdateWithoutReferralReceivedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGuestAttemptsClaimedInput = {
@@ -5321,6 +5410,7 @@ export type UserCreateWithoutGuestAttemptsClaimedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
@@ -5374,6 +5464,7 @@ export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGuestAttemptsClaimedInput = {
@@ -5443,6 +5534,7 @@ export type UserUpdateWithoutGuestAttemptsClaimedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
@@ -5496,6 +5588,7 @@ export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDailyAttemptsInput = {
@@ -5549,6 +5642,7 @@ export type UserCreateWithoutDailyAttemptsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDailyAttemptsInput = {
@@ -5602,6 +5696,7 @@ export type UserUncheckedCreateWithoutDailyAttemptsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDailyAttemptsInput = {
@@ -5671,6 +5766,7 @@ export type UserUpdateWithoutDailyAttemptsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyAttemptsInput = {
@@ -5724,6 +5820,7 @@ export type UserUncheckedUpdateWithoutDailyAttemptsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
@@ -5777,6 +5874,7 @@ export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
@@ -5830,6 +5928,7 @@ export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPersonalityTestAttemptsClaimedInput = {
@@ -5899,6 +5998,7 @@ export type UserUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
@@ -5952,6 +6052,7 @@ export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPuzzleDuJourGamesInput = {
@@ -6005,6 +6106,7 @@ export type UserCreateWithoutPuzzleDuJourGamesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPuzzleDuJourGamesInput = {
@@ -6058,6 +6160,7 @@ export type UserUncheckedCreateWithoutPuzzleDuJourGamesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPuzzleDuJourGamesInput = {
@@ -6127,6 +6230,7 @@ export type UserUpdateWithoutPuzzleDuJourGamesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPuzzleDuJourGamesInput = {
@@ -6180,6 +6284,7 @@ export type UserUncheckedUpdateWithoutPuzzleDuJourGamesInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNeuronTransactionsInput = {
@@ -6233,6 +6338,7 @@ export type UserCreateWithoutNeuronTransactionsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNeuronTransactionsInput = {
@@ -6286,6 +6392,7 @@ export type UserUncheckedCreateWithoutNeuronTransactionsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNeuronTransactionsInput = {
@@ -6355,6 +6462,7 @@ export type UserUpdateWithoutNeuronTransactionsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNeuronTransactionsInput = {
@@ -6408,6 +6516,7 @@ export type UserUncheckedUpdateWithoutNeuronTransactionsInput = {
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNeuronPurchasesInput = {
@@ -6461,6 +6570,7 @@ export type UserCreateWithoutNeuronPurchasesInput = {
   neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNeuronPurchasesInput = {
@@ -6514,6 +6624,7 @@ export type UserUncheckedCreateWithoutNeuronPurchasesInput = {
   neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNeuronPurchasesInput = {
@@ -6583,6 +6694,7 @@ export type UserUpdateWithoutNeuronPurchasesInput = {
   neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNeuronPurchasesInput = {
@@ -6636,6 +6748,7 @@ export type UserUncheckedUpdateWithoutNeuronPurchasesInput = {
   neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNeuronUnlocksInput = {
@@ -6689,6 +6802,7 @@ export type UserCreateWithoutNeuronUnlocksInput = {
   neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNeuronUnlocksInput = {
@@ -6742,6 +6856,7 @@ export type UserUncheckedCreateWithoutNeuronUnlocksInput = {
   neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNeuronUnlocksInput = {
@@ -6811,6 +6926,7 @@ export type UserUpdateWithoutNeuronUnlocksInput = {
   neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNeuronUnlocksInput = {
@@ -6864,6 +6980,7 @@ export type UserUncheckedUpdateWithoutNeuronUnlocksInput = {
   neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMorpionGamesInput = {
@@ -6917,6 +7034,7 @@ export type UserCreateWithoutMorpionGamesInput = {
   neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
   neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMorpionGamesInput = {
@@ -6970,6 +7088,7 @@ export type UserUncheckedCreateWithoutMorpionGamesInput = {
   neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMorpionGamesInput = {
@@ -7039,6 +7158,7 @@ export type UserUpdateWithoutMorpionGamesInput = {
   neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
   neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMorpionGamesInput = {
@@ -7092,6 +7212,239 @@ export type UserUncheckedUpdateWithoutMorpionGamesInput = {
   neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
   neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAkinatorGamesInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAkinatorGamesInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAkinatorGamesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAkinatorGamesInput, Prisma.UserUncheckedCreateWithoutAkinatorGamesInput>
+}
+
+export type UserUpsertWithoutAkinatorGamesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAkinatorGamesInput, Prisma.UserUncheckedUpdateWithoutAkinatorGamesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAkinatorGamesInput, Prisma.UserUncheckedCreateWithoutAkinatorGamesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAkinatorGamesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAkinatorGamesInput, Prisma.UserUncheckedUpdateWithoutAkinatorGamesInput>
+}
+
+export type UserUpdateWithoutAkinatorGamesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAkinatorGamesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -7122,6 +7475,7 @@ export type UserCountOutputType = {
   neuronUnlocks: number
   neuronPurchases: number
   morpionGames: number
+  akinatorGames: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -7147,6 +7501,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   neuronUnlocks?: boolean | UserCountOutputTypeCountNeuronUnlocksArgs
   neuronPurchases?: boolean | UserCountOutputTypeCountNeuronPurchasesArgs
   morpionGames?: boolean | UserCountOutputTypeCountMorpionGamesArgs
+  akinatorGames?: boolean | UserCountOutputTypeCountAkinatorGamesArgs
 }
 
 /**
@@ -7313,6 +7668,13 @@ export type UserCountOutputTypeCountMorpionGamesArgs<ExtArgs extends runtime.Typ
   where?: Prisma.MorpionGameWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAkinatorGamesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AkinatorGameWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -7366,6 +7728,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   neuronUnlocks?: boolean | Prisma.User$neuronUnlocksArgs<ExtArgs>
   neuronPurchases?: boolean | Prisma.User$neuronPurchasesArgs<ExtArgs>
   morpionGames?: boolean | Prisma.User$morpionGamesArgs<ExtArgs>
+  akinatorGames?: boolean | Prisma.User$akinatorGamesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -7483,6 +7846,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   neuronUnlocks?: boolean | Prisma.User$neuronUnlocksArgs<ExtArgs>
   neuronPurchases?: boolean | Prisma.User$neuronPurchasesArgs<ExtArgs>
   morpionGames?: boolean | Prisma.User$morpionGamesArgs<ExtArgs>
+  akinatorGames?: boolean | Prisma.User$akinatorGamesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -7516,6 +7880,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     neuronUnlocks: Prisma.$NeuronUnlockPayload<ExtArgs>[]
     neuronPurchases: Prisma.$NeuronPurchasePayload<ExtArgs>[]
     morpionGames: Prisma.$MorpionGamePayload<ExtArgs>[]
+    akinatorGames: Prisma.$AkinatorGamePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -7963,6 +8328,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   neuronUnlocks<T extends Prisma.User$neuronUnlocksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$neuronUnlocksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NeuronUnlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   neuronPurchases<T extends Prisma.User$neuronPurchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$neuronPurchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NeuronPurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   morpionGames<T extends Prisma.User$morpionGamesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$morpionGamesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MorpionGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  akinatorGames<T extends Prisma.User$akinatorGamesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$akinatorGamesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AkinatorGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8993,6 +9359,30 @@ export type User$morpionGamesArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.MorpionGameScalarFieldEnum | Prisma.MorpionGameScalarFieldEnum[]
+}
+
+/**
+ * User.akinatorGames
+ */
+export type User$akinatorGamesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AkinatorGame
+   */
+  select?: Prisma.AkinatorGameSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AkinatorGame
+   */
+  omit?: Prisma.AkinatorGameOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AkinatorGameInclude<ExtArgs> | null
+  where?: Prisma.AkinatorGameWhereInput
+  orderBy?: Prisma.AkinatorGameOrderByWithRelationInput | Prisma.AkinatorGameOrderByWithRelationInput[]
+  cursor?: Prisma.AkinatorGameWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AkinatorGameScalarFieldEnum | Prisma.AkinatorGameScalarFieldEnum[]
 }
 
 /**

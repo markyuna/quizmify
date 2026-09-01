@@ -708,6 +708,7 @@
     "typeSpendUnlock": "Déblocage de jeu",
     "typeBonusPersonality": "Bonus de première mascotte",
     "typeSpendMorpion": "Partie de Morpion",
+    "typeSpendAkinator": "Partie d'Akinator",
     "typePurchase": "Achat de Neurones",
     "fromQuiz": "quiz : {topic}",
     "quizUnavailable": "quiz plus disponible",

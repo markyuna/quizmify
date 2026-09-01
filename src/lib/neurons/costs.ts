@@ -23,3 +23,9 @@ export function isNeuronUnlockGameKey(value: string): value is NeuronUnlockGameK
 // Morpion's own route never checks for -- Neurons spent, ticket never
 // consumed.
 export const MORPION_COST_PER_GAME = 50;
+
+// Same kind of direct per-play debit as MORPION_COST_PER_GAME -- charged in
+// the game-creation transaction (POST /api/akinator) via an updateMany
+// decrement, logged as a `spend_akinator` NeuronTransaction. Not a
+// NeuronUnlock ticket.
+export const AKINATOR_COST_PER_GAME = 50;

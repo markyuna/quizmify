@@ -708,6 +708,7 @@
     "typeSpendUnlock": "Game unlock",
     "typeBonusPersonality": "First mascot bonus",
     "typeSpendMorpion": "Tic-Tac-Toe game",
+    "typeSpendAkinator": "Akinator game",
     "typePurchase": "Neuron purchase",
     "fromQuiz": "quiz: {topic}",
     "quizUnavailable": "quiz no longer available",

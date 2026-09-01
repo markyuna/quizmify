@@ -125,6 +125,7 @@ model User {
   neuronUnlocks                  NeuronUnlock[]
   neuronPurchases                NeuronPurchase[]
   morpionGames                   MorpionGame[]
+  akinatorGames                  AkinatorGame[]
 
   @@index([xp])
 }
@@ -807,6 +808,10 @@ enum NeuronTransactionType {
   spend_unlock
   bonus_personality
   spend_morpion
+  // Per-game debit for Akinator, taken at game creation (POST /api/akinator)
+  // -- same direct updateMany decrement as spend_morpion, never a
+  // NeuronUnlock ticket.
+  spend_akinator
   // A real-money purchase from the Neuron shop (Stripe checkout). Credited
   // by creditNeuronsForPurchase() from the Stripe webhook; the matching
   // NeuronPurchase row is the anti-double-credit guard (unique on
@@ -932,6 +937,42 @@ model MorpionGame {
   xpEarned     Int               @default(0)
   createdAt    DateTime          @default(now())
   completedAt  DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+  @@index([userId, createdAt])
+}
+
+enum AkinatorStatus {
+  in_progress
+  won
+  lost
+}
+
+// "20 questions" game: the AI holds a secret character (one of the curated
+// keys in src/lib/akinator/characters.ts) and the player asks yes/no
+// questions to figure out who it is. Same "state as a serialized JSON
+// string" pattern as MorpionGame.board.
+model AkinatorGame {
+  id             String         @id @default(cuid())
+  userId         String
+  // Catalog key from src/lib/akinator/characters.ts -- plain String,
+  // validated in code, same stance as NeuronTransaction.gameKey.
+  characterKey   String
+  // JSON array of OpenAI chat messages: [{ role: "user"|"assistant",
+  // content }]. Replayed in full on every /question call (chat completions
+  // are stateless).
+  conversation   String
+  questionsAsked Int            @default(0)
+  // The player's final guess text, whether right or wrong.
+  guessedName    String?
+  status         AkinatorStatus @default(in_progress)
+  // 20 - questionsAsked at the moment of a correct guess; null until won.
+  score          Int?
+  xpEarned       Int            @default(0)
+  createdAt      DateTime       @default(now())
+  completedAt    DateTime?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

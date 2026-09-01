@@ -427,7 +427,8 @@ export const ModelName = {
   NeuronTransaction: 'NeuronTransaction',
   NeuronPurchase: 'NeuronPurchase',
   NeuronUnlock: 'NeuronUnlock',
-  MorpionGame: 'MorpionGame'
+  MorpionGame: 'MorpionGame',
+  AkinatorGame: 'AkinatorGame'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -443,7 +444,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronPurchase" | "neuronUnlock" | "morpionGame"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronPurchase" | "neuronUnlock" | "morpionGame" | "akinatorGame"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2741,6 +2742,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AkinatorGame: {
+      payload: Prisma.$AkinatorGamePayload<ExtArgs>
+      fields: Prisma.AkinatorGameFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AkinatorGameFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AkinatorGamePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AkinatorGameFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AkinatorGamePayload>
+        }
+        findFirst: {
+          args: Prisma.AkinatorGameFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AkinatorGamePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AkinatorGameFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AkinatorGamePayload>
+        }
+        findMany: {
+          args: Prisma.AkinatorGameFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AkinatorGamePayload>[]
+        }
+        create: {
+          args: Prisma.AkinatorGameCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AkinatorGamePayload>
+        }
+        createMany: {
+          args: Prisma.AkinatorGameCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AkinatorGameCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AkinatorGamePayload>[]
+        }
+        delete: {
+          args: Prisma.AkinatorGameDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AkinatorGamePayload>
+        }
+        update: {
+          args: Prisma.AkinatorGameUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AkinatorGamePayload>
+        }
+        deleteMany: {
+          args: Prisma.AkinatorGameDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AkinatorGameUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AkinatorGameUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AkinatorGamePayload>[]
+        }
+        upsert: {
+          args: Prisma.AkinatorGameUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AkinatorGamePayload>
+        }
+        aggregate: {
+          args: Prisma.AkinatorGameAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAkinatorGame>
+        }
+        groupBy: {
+          args: Prisma.AkinatorGameGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AkinatorGameGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AkinatorGameCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AkinatorGameCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3241,6 +3316,23 @@ export const MorpionGameScalarFieldEnum = {
 export type MorpionGameScalarFieldEnum = (typeof MorpionGameScalarFieldEnum)[keyof typeof MorpionGameScalarFieldEnum]
 
 
+export const AkinatorGameScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  characterKey: 'characterKey',
+  conversation: 'conversation',
+  questionsAsked: 'questionsAsked',
+  guessedName: 'guessedName',
+  status: 'status',
+  score: 'score',
+  xpEarned: 'xpEarned',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt'
+} as const
+
+export type AkinatorGameScalarFieldEnum = (typeof AkinatorGameScalarFieldEnum)[keyof typeof AkinatorGameScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3567,6 +3659,20 @@ export type EnumMorpionSymbolFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 export type ListEnumMorpionSymbolFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MorpionSymbol[]'>
     
 
+
+/**
+ * Reference to a field of type 'AkinatorStatus'
+ */
+export type EnumAkinatorStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AkinatorStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'AkinatorStatus[]'
+ */
+export type ListEnumAkinatorStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AkinatorStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -3749,6 +3855,7 @@ export type GlobalOmitConfig = {
   neuronPurchase?: Prisma.NeuronPurchaseOmit
   neuronUnlock?: Prisma.NeuronUnlockOmit
   morpionGame?: Prisma.MorpionGameOmit
+  akinatorGame?: Prisma.AkinatorGameOmit
 }
 
 /* Types for Logging */

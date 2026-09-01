@@ -708,6 +708,7 @@
     "typeSpendUnlock": "Desbloqueo de juego",
     "typeBonusPersonality": "Bono de primera mascota",
     "typeSpendMorpion": "Partida de Morpión",
+    "typeSpendAkinator": "Partida de Akinator",
     "typePurchase": "Compra de Neuronas",
     "fromQuiz": "quiz: {topic}",
     "quizUnavailable": "quiz ya no disponible",

@@ -196,3 +196,8 @@ export type NeuronUnlock = Prisma.NeuronUnlockModel
  * 
  */
 export type MorpionGame = Prisma.MorpionGameModel
+/**
+ * Model AkinatorGame
+ * 
+ */
+export type AkinatorGame = Prisma.AkinatorGameModel

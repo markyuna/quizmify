@@ -26,6 +26,7 @@ const TYPE_LABEL_KEY: Record<string, string> = {
   spend_unlock: "typeSpendUnlock",
   bonus_personality: "typeBonusPersonality",
   spend_morpion: "typeSpendMorpion",
+  spend_akinator: "typeSpendAkinator",
   purchase: "typePurchase",
 };
 

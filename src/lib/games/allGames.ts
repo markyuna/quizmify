@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
-import { MORPION_COST_PER_GAME, NEURON_UNLOCK_COSTS } from "@/lib/neurons/costs";
+import { AKINATOR_COST_PER_GAME, MORPION_COST_PER_GAME, NEURON_UNLOCK_COSTS } from "@/lib/neurons/costs";
 
 /**
  * Single source of truth for the full games catalogue -- every game the app
@@ -114,6 +115,16 @@ export const ALL_GAMES: AllGamesEntry[] = [
     i18nKey: "title",
     image: "/images/games/morpion-icon.png",
     neuronCost: MORPION_COST_PER_GAME,
+  },
+  {
+    key: "akinator",
+    kind: "pro-neuron",
+    href: "/akinator",
+    i18nNamespace: "AkinatorPage",
+    i18nKey: "title",
+    // No icon asset yet -- GameCard falls back to this lucide icon.
+    icon: Sparkles,
+    neuronCost: AKINATOR_COST_PER_GAME,
   },
 ];
 
