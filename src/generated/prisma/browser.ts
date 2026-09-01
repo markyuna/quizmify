@@ -158,6 +158,11 @@ export type PuzzleDuJourGame = Prisma.PuzzleDuJourGameModel
  */
 export type NeuronTransaction = Prisma.NeuronTransactionModel
 /**
+ * Model NeuronPurchase
+ * 
+ */
+export type NeuronPurchase = Prisma.NeuronPurchaseModel
+/**
  * Model NeuronUnlock
  * 
  */

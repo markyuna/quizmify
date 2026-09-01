@@ -123,6 +123,7 @@ model User {
   puzzleDuJourGames              PuzzleDuJourGame[]
   neuronTransactions             NeuronTransaction[]
   neuronUnlocks                  NeuronUnlock[]
+  neuronPurchases                NeuronPurchase[]
   morpionGames                   MorpionGame[]
 
   @@index([xp])
@@ -806,6 +807,11 @@ enum NeuronTransactionType {
   spend_unlock
   bonus_personality
   spend_morpion
+  // A real-money purchase from the Neuron shop (Stripe checkout). Credited
+  // by creditNeuronsForPurchase() from the Stripe webhook; the matching
+  // NeuronPurchase row is the anti-double-credit guard (unique on
+  // stripeSessionId), not the ledger itself.
+  purchase
 }
 
 // Ledger of every "Neurons" (fr: Neurones, en: Neurons) earn/spend/bonus
@@ -815,28 +821,62 @@ enum NeuronTransactionType {
 // for spend_unlock) so the balance is always exactly SUM(amount) -- no
 // separate credit/debit columns to keep in sync.
 model NeuronTransaction {
-  id     String                @id @default(cuid())
-  userId String
-  type   NeuronTransactionType
-  amount Int
+  id            String                @id @default(cuid())
+  userId        String
+  type          NeuronTransactionType
+  amount        Int
   // Which game this event relates to -- null for earn_quiz (not tied to a
   // specific unlockable game, it's earned from ordinary AI quiz play) and
   // bonus_personality (not a game at all). Deliberately a plain String, not
   // GameKey/GuestGameKey: Puzzle du Jour -- the first spend_unlock consumer
   // -- is a member of neither enum (see GAMES_CATALOG's own history in this
   // codebase for why).
-  gameKey String?
+  gameKey       String?
   // Which Game produced an earn_quiz transaction, for tracing "why did my
   // balance go up." No FK relation to Game (relationMode = "prisma", and
   // this ledger row must outlive the Game it came from) -- same "plain
   // traceability, not a join target" stance as CategoryTopic.createdByGameId.
   relatedGameId String?
-  createdAt     DateTime @default(now())
+  createdAt     DateTime              @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
   @@index([relatedGameId])
+}
+
+// One row per Stripe checkout for a Neuron package. Created `pending` when
+// the checkout session is opened (POST /api/checkout/neurons) and flipped
+// to `completed` by the Stripe webhook, which also writes the matching
+// `purchase` NeuronTransaction and bumps User.neuronsBalance -- all in one
+// $transaction (see creditNeuronsForPurchase). `stripeSessionId` is unique
+// so a retried webhook can't double-credit: the credit only happens on the
+// pending -> completed transition. No FK to Game/anything; this is a
+// payment record that must outlive everything it references.
+model NeuronPurchase {
+  id              String    @id @default(cuid())
+  userId          String
+  stripeSessionId String    @unique
+  // Catalog key from src/lib/neurons/shop.ts (SMALL/MEDIUM/LARGE/XL) --
+  // plain String, validated in code, same "catalog lives in code" stance
+  // as NeuronTransaction.gameKey.
+  packageKey      String
+  // Neurons bought -- the amount credited on completion.
+  neuronAmount    Int
+  // Price actually charged, in the smallest currency unit (EUR cents).
+  // Read back from the Stripe session (amount_total), not trusted from the
+  // client.
+  amountCents     Int
+  currency        String    @default("EUR")
+  // "pending" | "completed" | "failed" -- plain String, no enum, mirroring
+  // how the rest of this schema treats short lifecycle states.
+  status          String    @default("pending")
+  createdAt       DateTime  @default(now())
+  completedAt     DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 enum NeuronUnlockStatus {
@@ -885,7 +925,7 @@ enum MorpionSymbol {
 model MorpionGame {
   id           String            @id @default(cuid())
   userId       String
-  board        String            // JSON serializado del tablero 3x3
+  board        String // JSON serializado del tablero 3x3
   difficulty   MorpionDifficulty
   status       MorpionStatus     @default(in_progress)
   playerSymbol MorpionSymbol     @default(X)

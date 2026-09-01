@@ -425,6 +425,7 @@ export const ModelName = {
   CategoryTopic: 'CategoryTopic',
   PuzzleDuJourGame: 'PuzzleDuJourGame',
   NeuronTransaction: 'NeuronTransaction',
+  NeuronPurchase: 'NeuronPurchase',
   NeuronUnlock: 'NeuronUnlock',
   MorpionGame: 'MorpionGame'
 } as const
@@ -442,7 +443,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronUnlock" | "morpionGame"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronPurchase" | "neuronUnlock" | "morpionGame"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2518,6 +2519,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    NeuronPurchase: {
+      payload: Prisma.$NeuronPurchasePayload<ExtArgs>
+      fields: Prisma.NeuronPurchaseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.NeuronPurchaseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronPurchasePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.NeuronPurchaseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronPurchasePayload>
+        }
+        findFirst: {
+          args: Prisma.NeuronPurchaseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronPurchasePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.NeuronPurchaseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronPurchasePayload>
+        }
+        findMany: {
+          args: Prisma.NeuronPurchaseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronPurchasePayload>[]
+        }
+        create: {
+          args: Prisma.NeuronPurchaseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronPurchasePayload>
+        }
+        createMany: {
+          args: Prisma.NeuronPurchaseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.NeuronPurchaseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronPurchasePayload>[]
+        }
+        delete: {
+          args: Prisma.NeuronPurchaseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronPurchasePayload>
+        }
+        update: {
+          args: Prisma.NeuronPurchaseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronPurchasePayload>
+        }
+        deleteMany: {
+          args: Prisma.NeuronPurchaseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.NeuronPurchaseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.NeuronPurchaseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronPurchasePayload>[]
+        }
+        upsert: {
+          args: Prisma.NeuronPurchaseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NeuronPurchasePayload>
+        }
+        aggregate: {
+          args: Prisma.NeuronPurchaseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateNeuronPurchase>
+        }
+        groupBy: {
+          args: Prisma.NeuronPurchaseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NeuronPurchaseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.NeuronPurchaseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NeuronPurchaseCountAggregateOutputType> | number
+        }
+      }
+    }
     NeuronUnlock: {
       payload: Prisma.$NeuronUnlockPayload<ExtArgs>
       fields: Prisma.NeuronUnlockFieldRefs
@@ -3123,6 +3198,22 @@ export const NeuronTransactionScalarFieldEnum = {
 export type NeuronTransactionScalarFieldEnum = (typeof NeuronTransactionScalarFieldEnum)[keyof typeof NeuronTransactionScalarFieldEnum]
 
 
+export const NeuronPurchaseScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  stripeSessionId: 'stripeSessionId',
+  packageKey: 'packageKey',
+  neuronAmount: 'neuronAmount',
+  amountCents: 'amountCents',
+  currency: 'currency',
+  status: 'status',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt'
+} as const
+
+export type NeuronPurchaseScalarFieldEnum = (typeof NeuronPurchaseScalarFieldEnum)[keyof typeof NeuronPurchaseScalarFieldEnum]
+
+
 export const NeuronUnlockScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -3655,6 +3746,7 @@ export type GlobalOmitConfig = {
   categoryTopic?: Prisma.CategoryTopicOmit
   puzzleDuJourGame?: Prisma.PuzzleDuJourGameOmit
   neuronTransaction?: Prisma.NeuronTransactionOmit
+  neuronPurchase?: Prisma.NeuronPurchaseOmit
   neuronUnlock?: Prisma.NeuronUnlockOmit
   morpionGame?: Prisma.MorpionGameOmit
 }

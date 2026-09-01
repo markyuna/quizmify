@@ -79,6 +79,7 @@ export const ModelName = {
   CategoryTopic: 'CategoryTopic',
   PuzzleDuJourGame: 'PuzzleDuJourGame',
   NeuronTransaction: 'NeuronTransaction',
+  NeuronPurchase: 'NeuronPurchase',
   NeuronUnlock: 'NeuronUnlock',
   MorpionGame: 'MorpionGame'
 } as const
@@ -515,6 +516,22 @@ export const NeuronTransactionScalarFieldEnum = {
 } as const
 
 export type NeuronTransactionScalarFieldEnum = (typeof NeuronTransactionScalarFieldEnum)[keyof typeof NeuronTransactionScalarFieldEnum]
+
+
+export const NeuronPurchaseScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  stripeSessionId: 'stripeSessionId',
+  packageKey: 'packageKey',
+  neuronAmount: 'neuronAmount',
+  amountCents: 'amountCents',
+  currency: 'currency',
+  status: 'status',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt'
+} as const
+
+export type NeuronPurchaseScalarFieldEnum = (typeof NeuronPurchaseScalarFieldEnum)[keyof typeof NeuronPurchaseScalarFieldEnum]
 
 
 export const NeuronUnlockScalarFieldEnum = {

@@ -88,7 +88,8 @@ export const NeuronTransactionType = {
   earn_quiz: 'earn_quiz',
   spend_unlock: 'spend_unlock',
   bonus_personality: 'bonus_personality',
-  spend_morpion: 'spend_morpion'
+  spend_morpion: 'spend_morpion',
+  purchase: 'purchase'
 } as const
 
 export type NeuronTransactionType = (typeof NeuronTransactionType)[keyof typeof NeuronTransactionType]
