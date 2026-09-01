@@ -143,3 +143,74 @@ export function withPersonalityBonus(baseData: { personalityAnimal: string; pers
     },
   };
 }
+
+/**
+ * Credits the Neurons from a completed Stripe checkout for a shop package.
+ * Called from the Stripe webhook (POST /api/stripe/webhook), which has no
+ * surrounding transaction, so this opens its own.
+ *
+ * Idempotency (Stripe retries webhooks; a double credit here is real money):
+ * the NeuronPurchase row -- created `pending` by POST /api/checkout/neurons
+ * -- is flipped to `completed` with a conditional `updateMany` scoped to
+ * `status: "pending"`. Only the call that actually flips the row (count === 1)
+ * goes on to write the ledger row and bump the balance; a retry, or a
+ * concurrent delivery that lost the race, sees count === 0 and no-ops.
+ *
+ * `neuronAmount` / `packageKey` are read back from the pending row (written
+ * server-side from the validated catalog), never trusted from Stripe
+ * metadata.
+ */
+export async function creditNeuronsForPurchase(
+  client: PrismaClient,
+  params: { stripeSessionId: string; amountTotalCents: number | null }
+): Promise<{ credited: boolean; userId?: string; neuronAmount?: number }> {
+  return client.$transaction(async (tx) => {
+    const purchase = await tx.neuronPurchase.findUnique({
+      where: { stripeSessionId: params.stripeSessionId },
+      select: { userId: true, neuronAmount: true, packageKey: true, status: true },
+    });
+
+    if (!purchase) {
+      console.error(
+        `[neurons] purchase webhook: no NeuronPurchase row for Stripe session ${params.stripeSessionId} -- not crediting`
+      );
+      return { credited: false };
+    }
+
+    if (purchase.status === "completed") {
+      return { credited: false, userId: purchase.userId, neuronAmount: purchase.neuronAmount };
+    }
+
+    const flipped = await tx.neuronPurchase.updateMany({
+      where: { stripeSessionId: params.stripeSessionId, status: "pending" },
+      data: {
+        status: "completed",
+        completedAt: new Date(),
+        // Record what Stripe actually charged, in case it ever diverges from
+        // the catalog price we estimated at checkout time.
+        ...(params.amountTotalCents != null ? { amountCents: params.amountTotalCents } : {}),
+      },
+    });
+
+    if (flipped.count === 0) {
+      return { credited: false, userId: purchase.userId, neuronAmount: purchase.neuronAmount };
+    }
+
+    await tx.neuronTransaction.create({
+      data: {
+        userId: purchase.userId,
+        type: "purchase",
+        amount: purchase.neuronAmount,
+        // Reuse the traceability field to record which package -- same
+        // "plain String, not an enum" stance as the rest of this ledger.
+        gameKey: purchase.packageKey,
+      },
+    });
+    await tx.user.update({
+      where: { id: purchase.userId },
+      data: { neuronsBalance: { increment: purchase.neuronAmount } },
+    });
+
+    return { credited: true, userId: purchase.userId, neuronAmount: purchase.neuronAmount };
+  });
+}
