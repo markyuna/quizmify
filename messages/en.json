@@ -707,12 +707,27 @@
     "typeEarnQuiz": "Earned from a quiz",
     "typeSpendUnlock": "Game unlock",
     "typeBonusPersonality": "First mascot bonus",
+    "typeSpendMorpion": "Tic-Tac-Toe game",
+    "typePurchase": "Neuron purchase",
     "fromQuiz": "quiz: {topic}",
     "quizUnavailable": "quiz no longer available",
     "earnQuizNote": "Based on your accumulated progress up to this quiz — not this quiz alone.",
     "previous": "Previous",
     "next": "Next",
-    "pageOf": "Page {page} of {total}"
+    "pageOf": "Page {page} of {total}",
+    "purchaseSuccessTitle": "Purchase complete!",
+    "purchaseSuccessBody": "Your Neurons are in your account.",
+    "purchaseCanceledTitle": "Purchase canceled",
+    "purchaseCanceledBody": "The transaction didn't go through."
+  },
+  "NeuronsShop": {
+    "title": "Neurons Shop",
+    "subtitle": "Buy Neurons to play without limits.",
+    "popular": "Popular",
+    "buy": "Buy",
+    "processing": "Processing…",
+    "errorTitle": "Error",
+    "errorDescription": "Couldn't start checkout. Try again."
   },
   "DetailsDialog": {
     "whatIsThis": "What is this",

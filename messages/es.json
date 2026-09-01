@@ -707,12 +707,27 @@
     "typeEarnQuiz": "Ganado en un quiz",
     "typeSpendUnlock": "Desbloqueo de juego",
     "typeBonusPersonality": "Bono de primera mascota",
+    "typeSpendMorpion": "Partida de Morpión",
+    "typePurchase": "Compra de Neuronas",
     "fromQuiz": "quiz: {topic}",
     "quizUnavailable": "quiz ya no disponible",
     "earnQuizNote": "Según tu progreso acumulado hasta este quiz — no solo este quiz.",
     "previous": "Anterior",
     "next": "Siguiente",
-    "pageOf": "Página {page} de {total}"
+    "pageOf": "Página {page} de {total}",
+    "purchaseSuccessTitle": "¡Compra exitosa!",
+    "purchaseSuccessBody": "Tus Neuronas ya están en tu cuenta.",
+    "purchaseCanceledTitle": "Compra cancelada",
+    "purchaseCanceledBody": "No se completó la transacción."
+  },
+  "NeuronsShop": {
+    "title": "Tienda de Neuronas",
+    "subtitle": "Comprá Neuronas para jugar sin límites.",
+    "popular": "Popular",
+    "buy": "Comprar",
+    "processing": "Procesando…",
+    "errorTitle": "Error",
+    "errorDescription": "No se pudo iniciar la compra. Probá de nuevo."
   },
   "DetailsDialog": {
     "whatIsThis": "Qué es esto",
