@@ -112,7 +112,8 @@ A Pro-only daily jigsaw puzzle, separate from "Puzzle Mode" (see AI question gen
 - Fixed grid per difficulty — easy 4×4, medium 7×7, hard 10×10 (`PUZZLE_DU_JOUR_GRID`) — picked from the product spec's ranges, not randomized within them.
 - Flat XP per difficulty (20/35/50, `PUZZLE_DU_JOUR_XP`) — deliberately not derived from `calculateEarnedXpBreakdown`, since there's no "correct answers" concept here.
 - Deliberately isolated from `guestPlay.ts` — it shares nothing with the guest daily-games system.
-- Can also be unlocked with Neurons (100, see above) rather than only via Pro status — check `neurons/costs.ts` and the eligibility route together when working on access logic.
+- Can also be unlocked with Neurons (`NEURON_UNLOCK_COSTS.puzzleDuJour`, currently 50) rather than only via Pro status — check `neurons/costs.ts` and the eligibility route together when working on access logic.
+- Creation UI (`PuzzleDuJourCreation.tsx`): `PuzzleDuJourHeader.tsx` renders the multicolour "Puzzle" title (one brand colour per letter) plus an `animate-puzzle-bounce` SVG piece — keyframes live in `globals.css`, `prefers-reduced-motion`-guarded. Topic suggestions from `GET /api/puzzle-du-jour/suggestions` render through `PopularThemesCarousel.tsx`, a dumb component that shows nothing for <2 themes, a plain grid for 2–4, and a paginated carousel (2 mobile / 4 desktop, prev/next, dot indicators, ←/→ keys, fade+slide) for 5+. The fetch uses an `AbortController` + 8s timeout and falls back to an empty list on error.
 
 ### Personality test — "Quel animal es-tu ?"
 
