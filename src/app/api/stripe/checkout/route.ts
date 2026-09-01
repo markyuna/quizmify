@@ -70,6 +70,9 @@ export async function POST(request: Request) {
       success_url: `${baseUrl}/upgrade?success=true`,
       cancel_url: `${baseUrl}/upgrade?canceled=true`,
       metadata: {
+        // Distinguishes this from a Neuron-shop checkout in the shared
+        // webhook (POST /api/stripe/webhook).
+        kind: "pro",
         userId: user.id,
         withdrawalWaiverAcceptedAt: new Date().toISOString(),
       },

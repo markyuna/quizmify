@@ -4,6 +4,7 @@ import type Stripe from "stripe";
 
 import { prisma } from "@/lib/db";
 import { getStripe } from "@/lib/stripe";
+import { creditNeuronsForPurchase } from "@/lib/neurons";
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -34,6 +35,24 @@ export async function POST(req: Request) {
       return NextResponse.json({ received: true });
     }
 
+    // Neuron shop purchase -- crediting + idempotency live in
+    // creditNeuronsForPurchase (keyed on the NeuronPurchase row).
+    if (session.metadata?.kind === "neuron_purchase") {
+      const result = await creditNeuronsForPurchase(prisma, {
+        stripeSessionId: session.id,
+        amountTotalCents: session.amount_total,
+      });
+      if (result.credited) {
+        console.log(
+          `Webhook: credited ${result.neuronAmount} neurons to ${result.userId} (session ${session.id})`
+        );
+      }
+      return NextResponse.json({ received: true });
+    }
+
+    // Pro purchase -- `kind: "pro"`, or a session created before the kind
+    // field existed (no kind => treat as Pro, for backwards compatibility
+    // with any in-flight checkout).
     const userId = session.metadata?.userId;
 
     if (!userId) {
