@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -6,6 +7,8 @@ import { getTranslations } from "next-intl/server";
 
 import HistoryComponent from "@/components/HistoryComponent";
 import NeuronHistoryList from "@/components/NeuronHistoryList";
+import NeuronsShop from "@/components/shop/NeuronsShop";
+import PurchaseToast from "@/components/history/PurchaseToast";
 import TabBar from "@/components/TabBar";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
@@ -117,11 +120,17 @@ export default async function HistoryPage({ searchParams }: PageProps) {
 
         <CardContent className="max-h-[60vh] overflow-y-auto">
           {tab === "neurons" ? (
-            <NeuronHistoryList
-              userId={userId}
-              page={page}
-              hrefForPage={(p) => `/history?tab=neurons&page=${p}`}
-            />
+            <div className="space-y-8">
+              <Suspense fallback={null}>
+                <PurchaseToast />
+              </Suspense>
+              <NeuronsShop />
+              <NeuronHistoryList
+                userId={userId}
+                page={page}
+                hrefForPage={(p) => `/history?tab=neurons&page=${p}`}
+              />
+            </div>
           ) : (
             <HistoryComponent limit={100} userId={userId} />
           )}
