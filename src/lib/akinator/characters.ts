@@ -60,10 +60,14 @@ export function getImageUrl(characterKey: string): string {
   return `${baseUrl}/storage/v1/object/public/akinator-images/${characterKey}.webp`;
 }
 
-/** Blur radius (px) for the reveal image -- clears one step every 5 questions. */
-export function getBlurLevel(questionsAsked: number): number {
-  if (questionsAsked <= 5) return 80;
-  if (questionsAsked <= 10) return 50;
-  if (questionsAsked <= 15) return 20;
+/**
+ * Blur radius (px) for the reveal image. The portrait sharpens as the player
+ * collects "yes" verdicts (confirmed traits), not merely by asking questions.
+ * Reaches 0 (fully sharp) at 6 confirmations.
+ */
+export function getBlurLevel(yesVerdicts: number): number {
+  if (yesVerdicts <= 1) return 40;
+  if (yesVerdicts <= 3) return 24;
+  if (yesVerdicts <= 5) return 12;
   return 0;
 }

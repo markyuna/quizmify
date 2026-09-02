@@ -151,6 +151,7 @@ export default function AkinatorGamePage() {
   }
 
   const over = game.status !== "in_progress";
+  const yesVerdicts = game.turns.filter((turn) => turn.verdict === "yes").length;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-cyan-50 px-4 py-12 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950">
@@ -191,7 +192,7 @@ export default function AkinatorGamePage() {
           </ul>
         )}
 
-        {/* Image reveal -- blur clears a step every 5 questions; fully sharp on a win, hidden on a loss */}
+        {/* Image reveal -- sharpens as "yes" verdicts pile up; fully sharp on a win, hidden on a loss */}
         {game.imageUrl && game.status !== "lost" && (
           <div className="mb-6">
             <div className="relative mx-auto aspect-square w-full max-w-xs overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-200 dark:border-white/10 dark:bg-slate-800">
@@ -202,7 +203,7 @@ export default function AkinatorGamePage() {
                 sizes="320px"
                 className="object-cover"
                 style={{
-                  filter: `blur(${game.status === "won" ? 0 : getBlurLevel(game.turns?.length || 0)}px)`,
+                  filter: `blur(${game.status === "won" ? 0 : getBlurLevel(yesVerdicts)}px)`,
                   transform: "scale(1.1)",
                   transition: "filter 0.6s ease-out",
                 }}
