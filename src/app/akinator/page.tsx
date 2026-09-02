@@ -81,7 +81,9 @@ export default function AkinatorPage() {
     <div
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+        // Theme-reactive: --background / --muted are redefined under html.dark
+        background: "linear-gradient(160deg, var(--muted) 0%, var(--background) 55%)",
+        color: "var(--foreground)",
         padding: "2rem 1rem",
         display: "flex",
         flexDirection: "column",
@@ -101,7 +103,9 @@ export default function AkinatorPage() {
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))",
+              // dark outline keeps the gold legible on the light-mode surface
+              WebkitTextStroke: "1px rgba(80, 50, 0, 0.28)",
+              filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.28))",
               fontFamily: "Georgia, 'Times New Roman', serif",
               letterSpacing: "2px",
             }}
@@ -111,7 +115,7 @@ export default function AkinatorPage() {
           <p
             style={{
               fontSize: "16px",
-              color: "#e0e0e0",
+              color: "var(--muted-foreground)",
               margin: "1rem 0 0",
               letterSpacing: "1px",
               textTransform: "uppercase",
@@ -124,18 +128,17 @@ export default function AkinatorPage() {
         {/* How it works */}
         <div
           style={{
-            background: "rgba(255, 255, 255, 0.05)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
+            background: "var(--muted)",
+            border: "1px solid color-mix(in srgb, var(--muted-foreground) 22%, transparent)",
             borderRadius: "16px",
             padding: "2rem",
             marginBottom: "2rem",
-            backdropFilter: "blur(10px)",
           }}
         >
           <h2
             style={{
               fontSize: "18px",
-              color: "#e0e0e0",
+              color: "var(--muted-foreground)",
               margin: "0 0 1.5rem",
               textTransform: "uppercase",
               letterSpacing: "1px",
@@ -171,10 +174,10 @@ export default function AkinatorPage() {
                 >
                   <span style={{ fontSize: "28px" }}>{step.emoji}</span>
                 </div>
-                <p style={{ fontSize: "14px", fontWeight: 500, color: "#ffffff", margin: "0 0 0.5rem" }}>
+                <p style={{ fontSize: "14px", fontWeight: 500, color: "var(--foreground)", margin: "0 0 0.5rem" }}>
                   {step.title}
                 </p>
-                <p style={{ fontSize: "12px", color: "#b0b0b0", margin: 0 }}>{step.desc}</p>
+                <p style={{ fontSize: "12px", color: "var(--muted-foreground)", margin: 0 }}>{step.desc}</p>
               </div>
             ))}
           </div>
@@ -224,7 +227,7 @@ export default function AkinatorPage() {
             )}
           </button>
           {!checkingEligibility && !canPlay && (
-            <p style={{ fontSize: "13px", color: "#ff6b6b", margin: "1rem 0 0" }}>
+            <p style={{ fontSize: "13px", color: "#e11d48", margin: "1rem 0 0" }}>
               {t("buyNeuronsToPlay")}
             </p>
           )}
@@ -235,7 +238,7 @@ export default function AkinatorPage() {
               background: "none",
               border: "none",
               fontSize: "13px",
-              color: "#8080a0",
+              color: "var(--muted-foreground)",
               margin: "1rem auto 0",
               cursor: "pointer",
             }}
