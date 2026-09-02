@@ -26,7 +26,7 @@ export async function GET() {
       prisma.morpionGame.findMany({
         where: { userId, status: { in: [...TERMINAL] } },
         orderBy: { createdAt: "desc" },
-        take: 3,
+        take: 5,
         select: { id: true, status: true, difficulty: true, createdAt: true },
       }),
       prisma.morpionGame.count({ where: { status: { in: [...TERMINAL] } } }),
