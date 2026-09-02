@@ -1,5 +1,4 @@
 import type { LucideIcon } from "lucide-react";
-import { Sparkles } from "lucide-react";
 
 import { AKINATOR_COST_PER_GAME, MORPION_COST_PER_GAME, NEURON_UNLOCK_COSTS } from "@/lib/neurons/costs";
 
@@ -122,8 +121,7 @@ export const ALL_GAMES: AllGamesEntry[] = [
     href: "/akinator",
     i18nNamespace: "AkinatorPage",
     i18nKey: "title",
-    // No icon asset yet -- GameCard falls back to this lucide icon.
-    icon: Sparkles,
+    image: "/images/games/akinator-icon.png",
     neuronCost: AKINATOR_COST_PER_GAME,
   },
 ];
