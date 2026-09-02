@@ -17,8 +17,11 @@ const POPULAR_KEY: NeuronPackageKey = "LARGE";
  * The Neuron package grid. Posts to /api/checkout/neurons and hands the
  * browser off to Stripe Checkout. Rendered above the ledger on
  * /history?tab=neurons; safe to drop anywhere else that needs a buy CTA.
+ *
+ * `showHeading={false}` drops the built-in title/subtitle for callers that
+ * render their own (e.g. NeuronsPurchaseModal, which supplies a DialogTitle).
  */
-export default function NeuronsShop() {
+export default function NeuronsShop({ showHeading = true }: { showHeading?: boolean }) {
   const t = useTranslations("NeuronsShop");
   const locale = useLocale();
   const { toast } = useToast();
@@ -47,16 +50,20 @@ export default function NeuronsShop() {
   }
 
   return (
-    <section aria-labelledby="neurons-shop-heading">
-      <h2
-        id="neurons-shop-heading"
-        className="text-sm font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400"
-      >
-        {t("title")}
-      </h2>
-      <p className="mt-0.5 text-xs text-muted-foreground">{t("subtitle")}</p>
+    <section aria-labelledby={showHeading ? "neurons-shop-heading" : undefined} aria-label={showHeading ? undefined : t("title")}>
+      {showHeading && (
+        <>
+          <h2
+            id="neurons-shop-heading"
+            className="text-sm font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            {t("title")}
+          </h2>
+          <p className="mt-0.5 text-xs text-muted-foreground">{t("subtitle")}</p>
+        </>
+      )}
 
-      <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className={cn("grid grid-cols-2 gap-3 sm:grid-cols-4", showHeading && "mt-3")}>
         {NEURON_PACKAGE_KEYS.map((key) => {
           const pkg = NEURON_PACKAGES[key];
           const popular = key === POPULAR_KEY;
