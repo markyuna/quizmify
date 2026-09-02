@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 
 import { useToast } from "@/components/ui/use-toast";
+import InsufficientNeuronsCta from "@/components/games/InsufficientNeuronsCta";
 
 export default function AkinatorPage() {
   const t = useTranslations("AkinatorPage");
@@ -15,6 +16,7 @@ export default function AkinatorPage() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [canPlay, setCanPlay] = useState(true);
+  const [missingNeurons, setMissingNeurons] = useState(0);
   const [checkingEligibility, setCheckingEligibility] = useState(true);
 
   useEffect(() => {
@@ -32,7 +34,10 @@ export default function AkinatorPage() {
         const res = await fetch("/api/akinator/eligibility");
         if (!res.ok) throw new Error("Failed to check eligibility");
         const data = (await res.json()) as { isPro: boolean; neuronsBalance: number; cost: number };
-        if (!cancelled) setCanPlay(data.isPro || data.neuronsBalance >= data.cost);
+        if (!cancelled) {
+          setCanPlay(data.isPro || data.neuronsBalance >= data.cost);
+          setMissingNeurons(Math.max(0, data.cost - data.neuronsBalance));
+        }
       } catch (error) {
         console.error("Eligibility check error:", error);
         if (!cancelled) setCanPlay(true); // fail open — the POST still enforces the debit
@@ -227,9 +232,9 @@ export default function AkinatorPage() {
             )}
           </button>
           {!checkingEligibility && !canPlay && (
-            <p style={{ fontSize: "13px", color: "#e11d48", margin: "1rem 0 0" }}>
-              {t("buyNeuronsToPlay")}
-            </p>
+            <div style={{ marginTop: "1rem" }}>
+              <InsufficientNeuronsCta missing={missingNeurons} />
+            </div>
           )}
           <button
             type="button"

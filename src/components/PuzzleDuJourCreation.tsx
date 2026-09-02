@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { useToast } from "./ui/use-toast";
 import LoadingQuestions from "./LoadingQuestions";
 import PuzzleDuJourUnlockModal from "./PuzzleDuJourUnlockModal";
+import InsufficientNeuronsCta from "./games/InsufficientNeuronsCta";
 import PuzzleDuJourHeader from "./games/PuzzleDuJourHeader";
 import PopularThemesCarousel from "./games/PopularThemesCarousel";
 import type { PuzzleDuJourDifficulty } from "@/lib/puzzleDuJour";
@@ -250,6 +251,12 @@ export default function PuzzleDuJourCreation() {
             ? t("missingNeurons", { missing: accessState.missing })
             : t("generateCta")}
       </button>
+
+      {accessState.kind === "insufficient_balance" && (
+        <div className="mt-3">
+          <InsufficientNeuronsCta missing={accessState.missing} />
+        </div>
+      )}
 
       <PuzzleDuJourUnlockModal
         open={showUnlockModal}

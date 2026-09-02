@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
+import InsufficientNeuronsCta from "@/components/games/InsufficientNeuronsCta";
 
 type Eligibility = {
   isPro: boolean;
@@ -131,6 +132,12 @@ export default function MorpionPage() {
         >
           {creating ? t("creating") : t("playButton")}
         </Button>
+
+        {eligibility && !eligibility.isPro && eligibility.neuronsBalance < eligibility.cost && (
+          <div className="mt-4">
+            <InsufficientNeuronsCta missing={eligibility.cost - eligibility.neuronsBalance} />
+          </div>
+        )}
 
         <Link
           href="/"
