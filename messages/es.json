@@ -58,6 +58,7 @@
     "error": "Error al crear la partida",
     "insufficientNeurons": "Neuronas insuficientes. Necesitas 50 Neuronas para jugar.",
     "costPerGame": "{cost} por partida",
+    "howToPlayButton": "Cómo jugar",
     "statsButton": "Mis estadísticas",
     "backHome": "Volver a inicio"
   },
@@ -85,6 +86,18 @@
     "resultWon": "Victoria",
     "resultLost": "Derrota",
     "resultDraw": "Empate",
+    "close": "Cerrar"
+  },
+  "MorpionHowToPlay": {
+    "title": "Cómo jugar",
+    "costTitle": "Coste",
+    "costBody": "Cada partida cuesta {cost} Neuronas. Con Pro jugás sin límite.",
+    "difficultyTitle": "Los niveles de dificultad",
+    "difficultyEasy": "Fácil: la IA juega muchas veces al azar — podés ganar sin esforzarte demasiado.",
+    "difficultyMedium": "Media: la IA arma sus jugadas, pero todavía falla en los finales ajustados.",
+    "difficultyHard": "Difícil: la IA juega de forma perfecta. El empate es el mejor resultado posible.",
+    "xpTitle": "XP según el resultado",
+    "xpBody": "Victoria {win} XP · Empate {draw} XP · Derrota {loss} XP.",
     "close": "Cerrar"
   },
   "AkinatorPage": {

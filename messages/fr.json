@@ -58,6 +58,7 @@
     "error": "Erreur lors de la création de la partie",
     "insufficientNeurons": "Neurones insuffisants. Il te faut 50 Neurones pour jouer.",
     "costPerGame": "{cost} par partie",
+    "howToPlayButton": "Comment jouer",
     "statsButton": "Mes statistiques",
     "backHome": "Retour à l'accueil"
   },
@@ -85,6 +86,18 @@
     "resultWon": "Victoire",
     "resultLost": "Défaite",
     "resultDraw": "Égalité",
+    "close": "Fermer"
+  },
+  "MorpionHowToPlay": {
+    "title": "Comment jouer",
+    "costTitle": "Coût",
+    "costBody": "Chaque partie coûte {cost} Neurones. Les membres Pro jouent sans limite.",
+    "difficultyTitle": "Les niveaux de difficulté",
+    "difficultyEasy": "Facile : l'IA joue souvent au hasard — une victoire est à ta portée sans forcer.",
+    "difficultyMedium": "Moyen : l'IA construit ses coups, mais se trompe encore dans les fins de partie serrées.",
+    "difficultyHard": "Difficile : l'IA joue parfaitement. Le match nul est le meilleur résultat possible.",
+    "xpTitle": "XP selon le résultat",
+    "xpBody": "Victoire {win} XP · Égalité {draw} XP · Défaite {loss} XP.",
     "close": "Fermer"
   },
   "AkinatorPage": {

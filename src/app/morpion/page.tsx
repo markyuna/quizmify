@@ -5,13 +5,15 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { BarChart3 } from "lucide-react";
+import { BarChart3, HelpCircle } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import InsufficientNeuronsCta from "@/components/games/InsufficientNeuronsCta";
 import MorpionStatsModal from "@/components/games/MorpionStatsModal";
+import MorpionHowToPlayModal from "@/components/games/MorpionHowToPlayModal";
+import { MORPION_COST_PER_GAME } from "@/lib/neurons/costs";
 
 const DIFFICULTIES = ["easy", "medium", "hard"] as const;
 type Difficulty = (typeof DIFFICULTIES)[number];
@@ -36,6 +38,7 @@ export default function MorpionPage() {
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const [showHowTo, setShowHowTo] = useState(false);
 
   useEffect(() => {
     if (status !== "authenticated") {
@@ -103,7 +106,15 @@ export default function MorpionPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-cyan-50 px-4 py-12 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950">
       <div className="mx-auto max-w-md">
-        <div className="mb-2 flex justify-end">
+        <div className="mb-2 flex justify-end gap-2">
+          <button
+            type="button"
+            onClick={() => setShowHowTo(true)}
+            className="flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:bg-slate-100 dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/10"
+          >
+            <HelpCircle className="h-3.5 w-3.5" aria-hidden="true" />
+            {t("howToPlayButton")}
+          </button>
           <button
             type="button"
             onClick={() => setShowStats(true)}
@@ -209,6 +220,11 @@ export default function MorpionPage() {
       </div>
 
       <MorpionStatsModal open={showStats} onOpenChange={setShowStats} />
+      <MorpionHowToPlayModal
+        open={showHowTo}
+        onOpenChange={setShowHowTo}
+        cost={eligibility?.cost ?? MORPION_COST_PER_GAME}
+      />
     </div>
   );
 }
