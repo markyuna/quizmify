@@ -58,6 +58,7 @@
     "error": "Error creating game",
     "insufficientNeurons": "Insufficient neurons. You need 50 neurons to play.",
     "costPerGame": "{cost} per game",
+    "statsButton": "My stats",
     "backHome": "Back home"
   },
   "MorpionGame": {
@@ -68,7 +69,23 @@
     "error": "Error making move",
     "hitFreeLimit": "Free XP limit reached",
     "playAgain": "Play again",
-    "backHome": "Back home"
+    "backHome": "Back home",
+    "scoreYou": "You",
+    "scoreAi": "AI",
+    "xpLine": "+{xp} XP"
+  },
+  "MorpionStats": {
+    "title": "Your stats",
+    "total": "Games played",
+    "winRate": "Win rate",
+    "avg": "Global average",
+    "recent": "Recent games",
+    "empty": "You haven't played any games yet.",
+    "loadError": "Couldn't load your stats.",
+    "resultWon": "Win",
+    "resultLost": "Loss",
+    "resultDraw": "Draw",
+    "close": "Close"
   },
   "AkinatorPage": {
     "title": "Akinator",

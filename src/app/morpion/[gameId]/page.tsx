@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
+import MorpionResultModal from "@/components/games/MorpionResultModal";
 
 type GameState = {
   board: (string | null)[];
@@ -31,6 +32,7 @@ export default function MorpionGamePage() {
   const [loading, setLoading] = useState(true);
   const [playing, setPlaying] = useState(false);
   const [hitFreeLimit, setHitFreeLimit] = useState(false);
+  const [resultDismissed, setResultDismissed] = useState(false);
 
   useEffect(() => {
     if (sessionStatus !== "authenticated") {
@@ -96,13 +98,24 @@ export default function MorpionGamePage() {
 
   if (loading) return <div className="flex min-h-screen items-center justify-center">Loading...</div>;
 
-  const statusMessage =
-    gameStatus === "won" ? t("won") : gameStatus === "lost" ? t("lost") : gameStatus === "draw" ? t("draw") : "";
+  // Live scoreboard -- marks on the current board, resets with each new game.
+  const playerScore = board.filter((c) => c === "X").length;
+  const aiScore = board.filter((c) => c === "O").length;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-cyan-50 px-4 py-12 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950">
       <div className="mx-auto max-w-md">
-        <h1 className="mb-8 text-3xl font-bold text-slate-900 dark:text-white">{t("title")}</h1>
+        <h1 className="mb-6 text-3xl font-bold text-slate-900 dark:text-white">{t("title")}</h1>
+
+        <div className="mb-4 flex items-center justify-center gap-4 text-sm font-semibold text-slate-600 dark:text-slate-300">
+          <span className="text-red-500">
+            {t("scoreYou")} <span className="text-lg">{playerScore}</span>
+          </span>
+          <span className="text-slate-300 dark:text-white/20">·</span>
+          <span className="text-blue-500">
+            <span className="text-lg">{aiScore}</span> {t("scoreAi")}
+          </span>
+        </div>
 
         <div className="mb-8 grid grid-cols-3 gap-2 rounded-2xl border border-slate-200/80 bg-white/80 p-4 backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
           {board.map((cell, idx) => (
@@ -124,26 +137,6 @@ export default function MorpionGamePage() {
           ))}
         </div>
 
-        {gameStatus !== "in_progress" && (
-          <div className="mb-8 text-center">
-            <p
-              className={`text-xl font-bold ${
-                gameStatus === "won"
-                  ? "text-emerald-500"
-                  : gameStatus === "lost"
-                    ? "text-red-500"
-                    : "text-amber-500"
-              }`}
-            >
-              {statusMessage}
-            </p>
-            {xpEarned > 0 && <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">+{xpEarned} XP</p>}
-            {hitFreeLimit && (
-              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{t("hitFreeLimit")}</p>
-            )}
-          </div>
-        )}
-
         <div className="space-y-2">
           {gameStatus !== "in_progress" && (
             <Button onClick={() => router.push("/morpion")} className="h-11 w-full rounded-2xl">
@@ -158,6 +151,18 @@ export default function MorpionGamePage() {
           </Link>
         </div>
       </div>
+
+      {gameStatus !== "in_progress" && (
+        <MorpionResultModal
+          open={!resultDismissed}
+          onOpenChange={(o) => setResultDismissed(!o)}
+          result={gameStatus}
+          xpEarned={xpEarned}
+          hitFreeLimit={hitFreeLimit}
+          onPlayAgain={() => router.push("/morpion")}
+          onBackHome={() => router.push("/")}
+        />
+      )}
     </div>
   );
 }

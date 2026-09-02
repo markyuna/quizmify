@@ -58,6 +58,7 @@
     "error": "Erreur lors de la création de la partie",
     "insufficientNeurons": "Neurones insuffisants. Il te faut 50 Neurones pour jouer.",
     "costPerGame": "{cost} par partie",
+    "statsButton": "Mes statistiques",
     "backHome": "Retour à l'accueil"
   },
   "MorpionGame": {
@@ -68,7 +69,23 @@
     "error": "Erreur lors du mouvement",
     "hitFreeLimit": "Limite XP gratuite atteinte",
     "playAgain": "Rejouer",
-    "backHome": "Retour à l'accueil"
+    "backHome": "Retour à l'accueil",
+    "scoreYou": "Toi",
+    "scoreAi": "IA",
+    "xpLine": "+{xp} XP"
+  },
+  "MorpionStats": {
+    "title": "Tes statistiques",
+    "total": "Parties jouées",
+    "winRate": "Taux de victoire",
+    "avg": "Moyenne globale",
+    "recent": "Dernières parties",
+    "empty": "Tu n'as encore joué aucune partie.",
+    "loadError": "Impossible de charger tes statistiques.",
+    "resultWon": "Victoire",
+    "resultLost": "Défaite",
+    "resultDraw": "Égalité",
+    "close": "Fermer"
   },
   "AkinatorPage": {
     "title": "Akinator",
