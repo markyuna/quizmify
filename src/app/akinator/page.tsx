@@ -11,13 +11,39 @@ import { useToast } from "@/components/ui/use-toast";
 export default function AkinatorPage() {
   const t = useTranslations("AkinatorPage");
   const router = useRouter();
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [canPlay, setCanPlay] = useState(true);
+  const [checkingEligibility, setCheckingEligibility] = useState(true);
 
   useEffect(() => {
     if (status === "unauthenticated") router.push("/login");
   }, [status, router]);
+
+  useEffect(() => {
+    if (!session?.user?.id) {
+      if (status !== "loading") setCheckingEligibility(false);
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/akinator/eligibility");
+        if (!res.ok) throw new Error("Failed to check eligibility");
+        const data = (await res.json()) as { isPro: boolean; neuronsBalance: number; cost: number };
+        if (!cancelled) setCanPlay(data.isPro || data.neuronsBalance >= data.cost);
+      } catch (error) {
+        console.error("Eligibility check error:", error);
+        if (!cancelled) setCanPlay(true); // fail open — the POST still enforces the debit
+      } finally {
+        if (!cancelled) setCheckingEligibility(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [session?.user?.id, status]);
 
   const handleStartGame = async () => {
     setLoading(true);
@@ -48,6 +74,8 @@ export default function AkinatorPage() {
       setLoading(false);
     }
   };
+
+  const ctaDisabled = loading || checkingEligibility || !canPlay;
 
   return (
     <div
@@ -157,27 +185,27 @@ export default function AkinatorPage() {
           <button
             type="button"
             onClick={handleStartGame}
-            disabled={loading}
+            disabled={ctaDisabled}
             style={{
               width: "100%",
               padding: "1.25rem",
               fontSize: "18px",
               fontWeight: 600,
-              background: loading
+              background: ctaDisabled
                 ? "linear-gradient(135deg, #ccaa00 0%, #998800 100%)"
                 : "linear-gradient(135deg, #ffd700 0%, #ffb300 100%)",
               color: "#1a1a2e",
               border: "none",
               borderRadius: "12px",
-              cursor: loading ? "not-allowed" : "pointer",
+              cursor: ctaDisabled ? "not-allowed" : "pointer",
               transition: "transform 0.2s, box-shadow 0.2s",
               boxShadow: "0 8px 24px rgba(255, 215, 0, 0.3)",
               letterSpacing: "1px",
               textTransform: "uppercase",
-              opacity: loading ? 0.8 : 1,
+              opacity: ctaDisabled ? 0.8 : 1,
             }}
             onMouseOver={(e) => {
-              if (loading) return;
+              if (ctaDisabled) return;
               e.currentTarget.style.transform = "translateY(-2px)";
               e.currentTarget.style.boxShadow = "0 12px 32px rgba(255, 215, 0, 0.4)";
             }}
@@ -195,6 +223,11 @@ export default function AkinatorPage() {
               t("startGame")
             )}
           </button>
+          {!checkingEligibility && !canPlay && (
+            <p style={{ fontSize: "13px", color: "#ff6b6b", margin: "1rem 0 0" }}>
+              {t("buyNeuronsToPlay")}
+            </p>
+          )}
           <button
             type="button"
             onClick={() => router.push("/")}
