@@ -115,24 +115,26 @@ export default function MorpionPage() {
         </div>
 
         <svg
-          viewBox="0 0 680 120"
+          viewBox="0 0 400 120"
           role="img"
           aria-label={t("title")}
           className="mb-4 w-full max-w-[300px] text-slate-900 dark:text-white"
         >
           <text
-            x="40"
-            y="90"
+            x="200"
+            y="82"
+            textAnchor="middle"
+            fontFamily="inherit"
             fontSize="72"
             fontWeight="700"
-            fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
             fill="currentColor"
           >
-            MORPION
+            <tspan>M</tspan>
+            <tspan fill="#ff6b6b" dy="12">O</tspan>
+            <tspan fill="currentColor" dy="-12">RPI</tspan>
+            <tspan fill="#8b5cf6" dy="-12">O</tspan>
+            <tspan fill="currentColor" dy="12">N</tspan>
           </text>
-          <circle cx="135" cy="62" r="14" fill="#ff6b6b" opacity="0.95" />
-          <circle cx="290" cy="48" r="12" fill="#8b5cf6" opacity="0.95" />
-          <circle cx="375" cy="36" r="11" fill="#2563eb" opacity="0.95" />
         </svg>
         <p className="mb-6 text-slate-600 dark:text-slate-300">{t("description")}</p>
 
