@@ -27,6 +27,33 @@ const MIN_NATIVE_RESULTS = 6;
 // seed batch without needing to keep raising this number.
 const SMALL_CATALOG_THRESHOLD = 20;
 
+/**
+ * How many topic cards getCategoryTopics() actually returns for a category,
+ * given how many rows exist in the visitor's own locale (`nativeCount`) and
+ * across every language combined (`totalCount`) -- both counted with
+ * hidden = false, and nativeCount is always <= totalCount. This is the single
+ * source of truth for the native-first / pad-with-translations rule:
+ * getCategoryTopics() sizes its supplemental fetch from it, and
+ * getCategoryTopicCountsByLocale() reuses it so the /categories card badge can
+ * never disagree with the list on the category page.
+ */
+export function computeVisibleTopicCount(nativeCount: number, totalCount: number): number {
+  const smallCatalog = totalCount <= SMALL_CATALOG_THRESHOLD;
+
+  // Small (effectively single-language) catalog missing any row for this
+  // locale: show the whole cross-language catalog, translated on demand.
+  if (smallCatalog && nativeCount < totalCount) return totalCount;
+
+  // Larger catalog with a thin native set: pad toward MIN_NATIVE_RESULTS, but
+  // never past the number of non-native rows that actually exist.
+  if (!smallCatalog && nativeCount < MIN_NATIVE_RESULTS) {
+    return nativeCount + Math.min(MIN_NATIVE_RESULTS - nativeCount, totalCount - nativeCount);
+  }
+
+  // Enough native rows, or already showing everything: native only.
+  return nativeCount;
+}
+
 export type CategoryTopicWithTrending = CategoryTopic & {
   trending: boolean;
   // What the card should actually show/link with -- topicDisplay verbatim
@@ -119,11 +146,7 @@ export async function getCategoryTopics(
   locale: Locale,
   sort: CategoryTopicSort = "recent"
 ): Promise<CategoryTopicWithTrending[]> {
-  // Below SMALL_CATALOG_THRESHOLD total rows, every locale gets the full
-  // catalog (see the constant's comment) -- above it, the original
-  // MIN_NATIVE_RESULTS cap applies.
   const totalCount = await prisma.categoryTopic.count({ where: { categorySlug, hidden: false } });
-  const smallCatalog = totalCount <= SMALL_CATALOG_THRESHOLD;
 
   // `id` as a secondary sort key: rows seeded in the same createMany() batch
   // (see e.g. the animaux/cinema/sports catalog seeds) share the exact same
@@ -139,15 +162,21 @@ export async function getCategoryTopics(
     orderBy: [{ createdAt: "desc" }, { id: "desc" }],
   });
 
+  // Single source of truth for the native-first / pad-with-translations rule.
+  // getCategoryTopicCountsByLocale() calls the same helper, so the /categories
+  // card badge can't disagree with the list rendered here. supplementalNeeded
+  // is how many non-native rows to append; for a small (single-language)
+  // catalog it works out to the entire non-native set, so `take` returns
+  // exactly the same full list the previous uncapped query did.
+  const visibleCount = computeVisibleTopicCount(nativeTopics.length, totalCount);
+  const supplementalNeeded = visibleCount - nativeTopics.length;
+
   let supplementalTopics: CategoryTopic[] = [];
-  if (smallCatalog ? nativeTopics.length < totalCount : nativeTopics.length < MIN_NATIVE_RESULTS) {
+  if (supplementalNeeded > 0) {
     supplementalTopics = await prisma.categoryTopic.findMany({
       where: { categorySlug, hidden: false, language: { not: locale } },
       orderBy: [{ createdAt: "desc" }, { id: "desc" }],
-      // No cap for a small catalog -- every non-native row comes along, so
-      // the visitor sees the exact same full set as a native speaker would,
-      // just translated. Large catalogs keep the original pad-to-6 cap.
-      ...(smallCatalog ? {} : { take: MIN_NATIVE_RESULTS - nativeTopics.length }),
+      take: supplementalNeeded,
     });
   }
 
@@ -189,17 +218,40 @@ export async function getCategoryTopics(
 }
 
 /**
- * One-shot topic count per category for `locale`, for the /categories
- * overview grid -- a single groupBy instead of one count() per category.
- * A category with zero rows in this locale is simply absent from the
- * result; callers treat a missing key as 0.
+ * Visible topic count per category for `locale`, for the /categories overview
+ * grid -- i.e. the number getCategoryTopics() would actually render for each
+ * category (native rows plus the translated padding it adds), via the shared
+ * computeVisibleTopicCount helper. Previously returned the raw native-row
+ * count, which disagreed with the category page whenever padding kicked in
+ * (a fr-only catalog showed "1 topic" / "Coming soon" on the card but 13
+ * topics inside). Two groupBy aggregates -- native rows for this locale, and
+ * total visible rows across every language -- rather than one query per
+ * category. A category with zero visible rows in every language is absent
+ * from the result; callers treat a missing key as 0 (the "Coming soon"
+ * plural branch).
  */
 export async function getCategoryTopicCountsByLocale(locale: Locale): Promise<Record<string, number>> {
-  const rows = await prisma.categoryTopic.groupBy({
-    by: ["categorySlug"],
-    where: { hidden: false, language: locale },
-    _count: { _all: true },
-  });
+  const [nativeRows, totalRows] = await Promise.all([
+    prisma.categoryTopic.groupBy({
+      by: ["categorySlug"],
+      where: { hidden: false, language: locale },
+      _count: { _all: true },
+    }),
+    prisma.categoryTopic.groupBy({
+      by: ["categorySlug"],
+      where: { hidden: false },
+      _count: { _all: true },
+    }),
+  ]);
 
-  return Object.fromEntries(rows.map((row) => [row.categorySlug, row._count._all]));
+  const nativeCountBySlug = new Map(
+    nativeRows.map((row) => [row.categorySlug, row._count._all])
+  );
+
+  return Object.fromEntries(
+    totalRows.map((row) => [
+      row.categorySlug,
+      computeVisibleTopicCount(nativeCountBySlug.get(row.categorySlug) ?? 0, row._count._all),
+    ])
+  );
 }
