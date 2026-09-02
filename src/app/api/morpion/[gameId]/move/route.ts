@@ -8,6 +8,7 @@ import { FREE_XP_CAP, FREE_LEVEL_CAP } from "@/lib/stripe";
 import { morpionMoveSchema } from "@/schemas/form/morpion";
 import { checkWinner, checkDraw, applyMove } from "@/lib/morpion/logic";
 import { getComputerMove } from "@/lib/morpion/ai";
+import { MORPION_XP } from "@/lib/morpion/config";
 import type { Board, MorpionGameStatus } from "@/lib/morpion/logic";
 
 type Params = { params: Promise<{ gameId: string }> };
@@ -53,12 +54,10 @@ export async function POST(request: Request, { params }: Params) {
     board = applyMove(board, position, "X");
 
     let status: MorpionGameStatus = "in_progress";
-    let xpEarned = 0;
 
     // Revisar si el usuario ganó
     if (checkWinner(board) === "X") {
       status = "won";
-      xpEarned = 10;
     } else if (checkDraw(board)) {
       status = "draw";
     }
@@ -75,6 +74,9 @@ export async function POST(request: Request, { params }: Params) {
         status = "draw";
       }
     }
+
+    // XP ponderado por resultado: win 50 / draw 25 / loss 10.
+    const xpEarned = status === "in_progress" ? 0 : MORPION_XP[status];
 
     const result = await prisma.$transaction(async (tx) => {
       // Actualizar game

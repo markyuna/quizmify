@@ -44,7 +44,7 @@
   },
   "MorpionPage": {
     "title": "Tic-Tac-Toe",
-    "description": "Test your strategies against an adaptive AI. Every victory earns 10 XP!",
+    "description": "Test your strategies against an adaptive AI. Earn XP every game: 50 for a win, 25 for a draw, 10 for a loss.",
     "difficultyLabel": "Choose difficulty",
     "difficulty": {
       "easy": "Easy",

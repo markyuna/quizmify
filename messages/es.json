@@ -44,7 +44,7 @@
   },
   "MorpionPage": {
     "title": "Morpión",
-    "description": "Prueba tus estrategias contra una IA adaptativa. ¡Cada victoria te da 10 XP!",
+    "description": "Probá tus estrategias contra una IA adaptativa. Ganás XP en cada partida: 50 por victoria, 25 por empate, 10 por derrota.",
     "difficultyLabel": "Elegí la dificultad",
     "difficulty": {
       "easy": "Fácil",

@@ -44,7 +44,7 @@
   },
   "MorpionPage": {
     "title": "Morpion",
-    "description": "Teste tes stratégies contre une IA adaptative. Chaque victoire rapporte 10 XP !",
+    "description": "Teste tes stratégies contre une IA adaptative. Gagne de l'XP à chaque partie : 50 pour une victoire, 25 pour une égalité, 10 pour une défaite.",
     "difficultyLabel": "Choisis la difficulté",
     "difficulty": {
       "easy": "Facile",
