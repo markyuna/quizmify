@@ -124,12 +124,12 @@ function DefaultBadge({
   }
 
   if (game.neuronCost != null) {
-    // Only Morpion reaches this branch today (Puzzle du Jour has
-    // showProBadge and is handled above / by PuzzleDuJourGameCard) -- its
-    // Neuron cost is a per-game debit, hence the "{cost} par partie" phrasing.
+    // Morpion, Akinator and (in the nav) Puzzle du Jour -- the grid
+    // surfaces route Puzzle du Jour through PuzzleDuJourGameCard instead.
+    // "{cost} par partie" phrasing is shared via MorpionPage.costPerGame.
     return (
       <GameCardBadge variant={variant} tone="neuron">
-        <Image src={NEURON_ICON_SRC} alt="" width={9} height={9} />
+        <Image src={NEURON_ICON_SRC} alt="" width={12} height={12} />
         {t("MorpionPage.costPerGame", { cost: game.neuronCost })}
       </GameCardBadge>
     );

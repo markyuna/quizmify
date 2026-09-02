@@ -104,7 +104,6 @@ export const ALL_GAMES: AllGamesEntry[] = [
     i18nKey: "title",
     image: "/images/games/puzzle-du-jour-icon.png",
     neuronCost: NEURON_UNLOCK_COSTS.puzzleDuJour,
-    showProBadge: true,
   },
   {
     key: "morpion",
