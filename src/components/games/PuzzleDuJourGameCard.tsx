@@ -78,7 +78,7 @@ export default function PuzzleDuJourGameCard({ game, initialIsPro = false }: Puz
   } else if (access.kind === "insufficient_balance") {
     badge = (
       <GameCardBadge variant="grid" tone="neuron">
-        {tPuzzle("missingNeurons", { missing: access.missing })}
+        {t("MorpionPage.costPerGame", { cost: game.neuronCost ?? 0 })}
       </GameCardBadge>
     );
   }
@@ -106,7 +106,13 @@ export default function PuzzleDuJourGameCard({ game, initialIsPro = false }: Puz
   }
 
   if (access.kind === "insufficient_balance") {
-    return <div className={cn(GRID_CARD_CLASS, "cursor-default opacity-80")}>{body}</div>;
+    // Link through to the creation screen, which shows the earn/buy CTA
+    // (InsufficientNeuronsCta) -- same landing as akinator/morpion.
+    return (
+      <Link href={game.href} className={cn(GRID_CARD_CLASS, GRID_CARD_HOVER_CLASS)}>
+        {body}
+      </Link>
+    );
   }
 
   // "pro" or "ticket_available" -- a plain link into the game.

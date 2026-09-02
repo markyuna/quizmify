@@ -31,6 +31,7 @@ type EligibilityResponse = {
 
 export default function PuzzleDuJourCreation() {
   const t = useTranslations("PuzzleDuJour");
+  const tRoot = useTranslations();
   const router = useRouter();
   const { toast } = useToast();
 
@@ -248,7 +249,7 @@ export default function PuzzleDuJourCreation() {
         {accessState.kind === "can_purchase"
           ? t("unlockForCost", { cost: NEURON_UNLOCK_COSTS.puzzleDuJour })
           : accessState.kind === "insufficient_balance"
-            ? t("missingNeurons", { missing: accessState.missing })
+            ? tRoot("MorpionPage.costPerGame", { cost: NEURON_UNLOCK_COSTS.puzzleDuJour })
             : t("generateCta")}
       </button>
 

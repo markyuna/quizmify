@@ -1000,7 +1000,7 @@
     "dismissLabel": "Not now"
   },
   "PuzzleDuJour": {
-    "title": "Puzzle of the Day",
+    "title": "Puzzle",
     "headerTitle": "Puzzle",
     "errorTitle": "Error",
     "loadingTexts": [
@@ -1029,7 +1029,6 @@
     "generating": "Generating...",
     "ticketAvailableBadge": "✓ Available",
     "unlockForCost": "Unlock for {cost}",
-    "missingNeurons": "You need {missing} more",
     "unlockModalTitle": "Unlock Puzzle du Jour",
     "unlockModalExplanation": "Earn Neurons by answering correctly on medium or hard difficulty quizzes.",
     "unlockModalConfirmLine": "Unlock Puzzle du Jour for {cost} 🧠. You'll have {remaining} 🧠 left.",

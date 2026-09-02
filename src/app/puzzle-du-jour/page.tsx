@@ -4,7 +4,7 @@ import PuzzleDuJourCreation from "@/components/PuzzleDuJourCreation";
 import { getAuthSession } from "@/lib/nextauth";
 
 export const metadata = {
-  title: "Puzzle du Jour | Quizmify",
+  title: "Puzzle | Quizmify",
 };
 
 export default async function PuzzleDuJourPage() {
