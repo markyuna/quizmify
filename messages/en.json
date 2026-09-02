@@ -776,6 +776,13 @@
     "errorTitle": "Error",
     "errorDescription": "Couldn't start checkout. Try again."
   },
+  "NeuronsCta": {
+    "message": "You need {missing} more Neurons to play.",
+    "earnByPlaying": "Earn by playing",
+    "buyNow": "Buy now",
+    "earnAriaLabel": "Earn Neurons by playing quizzes",
+    "buyAriaLabel": "Buy Neurons now"
+  },
   "DetailsDialog": {
     "whatIsThis": "What is this",
     "title": "Welcome to Quizmify! 🎯",

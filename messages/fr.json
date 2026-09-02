@@ -776,6 +776,13 @@
     "errorTitle": "Erreur",
     "errorDescription": "Impossible de démarrer l'achat. Réessaie."
   },
+  "NeuronsCta": {
+    "message": "Il te manque {missing} Neurones pour jouer.",
+    "earnByPlaying": "Gagne en jouant",
+    "buyNow": "Achète maintenant",
+    "earnAriaLabel": "Gagne des Neurones en jouant à des quiz",
+    "buyAriaLabel": "Achète des Neurones maintenant"
+  },
   "DetailsDialog": {
     "whatIsThis": "Qu'est-ce que c'est",
     "title": "Bienvenue sur Quizmify ! 🎯",
