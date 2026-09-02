@@ -202,7 +202,7 @@ export default function AkinatorGamePage() {
                 sizes="320px"
                 className="object-cover"
                 style={{
-                  filter: `blur(${getBlurLevel(game.questionsAsked)}px)`,
+                  filter: `blur(${getBlurLevel(game.turns?.length || 0)}px)`,
                   transform: "scale(1.1)",
                   transition: "filter 0.6s ease-out",
                 }}
