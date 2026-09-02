@@ -162,8 +162,8 @@ export default function AkinatorPage() {
               <div key={step.title} style={{ textAlign: "center" }}>
                 <div
                   style={{
-                    width: "56px",
-                    height: "56px",
+                    width: "clamp(40px, 12vw, 56px)",
+                    height: "clamp(40px, 12vw, 56px)",
                     background: step.gradient,
                     borderRadius: "50%",
                     margin: "0 auto 1rem",
@@ -172,7 +172,7 @@ export default function AkinatorPage() {
                     justifyContent: "center",
                   }}
                 >
-                  <span style={{ fontSize: "28px" }}>{step.emoji}</span>
+                  <span style={{ fontSize: "clamp(18px, 6vw, 28px)" }}>{step.emoji}</span>
                 </div>
                 <p style={{ fontSize: "14px", fontWeight: 500, color: "var(--foreground)", margin: "0 0 0.5rem" }}>
                   {step.title}
