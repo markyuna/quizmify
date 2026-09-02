@@ -45,7 +45,12 @@
   "MorpionPage": {
     "title": "Tic-Tac-Toe",
     "description": "Test your strategies against an adaptive AI. Every victory earns 10 XP!",
-    "difficulty": "Estimated difficulty",
+    "difficultyLabel": "Choose difficulty",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
     "neuronsBalance": "Neurons available",
     "winRate": "Win rate",
     "playButton": "Play now",

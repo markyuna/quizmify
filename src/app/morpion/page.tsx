@@ -5,9 +5,16 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+
+import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import InsufficientNeuronsCta from "@/components/games/InsufficientNeuronsCta";
+
+const DIFFICULTIES = ["easy", "medium", "hard"] as const;
+type Difficulty = (typeof DIFFICULTIES)[number];
+
+const isDifficulty = (v: string): v is Difficulty => (DIFFICULTIES as readonly string[]).includes(v);
 
 type Eligibility = {
   isPro: boolean;
@@ -23,6 +30,7 @@ export default function MorpionPage() {
   const t = useTranslations("MorpionPage");
   const { toast } = useToast();
   const [eligibility, setEligibility] = useState<Eligibility | null>(null);
+  const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
 
@@ -35,15 +43,15 @@ export default function MorpionPage() {
     const fetchEligibility = async () => {
       try {
         const res = await fetch("/api/morpion/eligibility");
-        const data = await res.json();
+        const data = (await res.json()) as Eligibility;
         setEligibility(data);
+        // Pre-select the adaptively recommended difficulty; the player can override.
+        if (typeof data.difficulty === "string" && isDifficulty(data.difficulty)) {
+          setDifficulty(data.difficulty);
+        }
       } catch (error) {
         console.error("Error fetching eligibility:", error);
-        toast({
-          title: "Error",
-          description: t("error"),
-          variant: "destructive",
-        });
+        toast({ title: "Error", description: t("error"), variant: "destructive" });
       } finally {
         setLoading(false);
       }
@@ -55,7 +63,11 @@ export default function MorpionPage() {
   const handleCreateGame = async () => {
     setCreating(true);
     try {
-      const res = await fetch("/api/morpion", { method: "POST" });
+      const res = await fetch("/api/morpion", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ difficulty }),
+      });
 
       if (!res.ok) {
         if (res.status === 402) {
@@ -74,11 +86,7 @@ export default function MorpionPage() {
       router.push(`/morpion/${data.gameId}`);
     } catch (error) {
       console.error("Error creating game:", error);
-      toast({
-        title: "Error",
-        description: t("error"),
-        variant: "destructive",
-      });
+      toast({ title: "Error", description: t("error"), variant: "destructive" });
     } finally {
       setCreating(false);
     }
@@ -86,17 +94,56 @@ export default function MorpionPage() {
 
   if (loading) return <div className="flex min-h-screen items-center justify-center">Loading...</div>;
 
+  const cannotAfford =
+    !!eligibility && !eligibility.isPro && eligibility.neuronsBalance < eligibility.cost;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-cyan-50 px-4 py-12 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950">
       <div className="mx-auto max-w-md">
-        <h1 className="mb-8 text-3xl font-bold text-slate-900 dark:text-white">{t("title")}</h1>
+        <svg
+          viewBox="0 0 680 120"
+          role="img"
+          aria-label={t("title")}
+          className="mb-4 w-full max-w-[300px] text-slate-900 dark:text-white"
+        >
+          <text
+            x="40"
+            y="90"
+            fontSize="72"
+            fontWeight="700"
+            fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+            fill="currentColor"
+          >
+            MORPION
+          </text>
+          <circle cx="135" cy="62" r="14" fill="#ff6b6b" opacity="0.95" />
+          <circle cx="290" cy="48" r="12" fill="#8b5cf6" opacity="0.95" />
+          <circle cx="375" cy="36" r="11" fill="#2563eb" opacity="0.95" />
+        </svg>
         <p className="mb-6 text-slate-600 dark:text-slate-300">{t("description")}</p>
 
         {eligibility && (
           <div className="mb-8 space-y-4 rounded-2xl border border-slate-200/80 bg-white/80 p-4 backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
             <div>
-              <p className="text-sm text-slate-500 dark:text-slate-400">{t("difficulty")}</p>
-              <p className="text-lg font-bold capitalize text-slate-900 dark:text-white">{eligibility.difficulty}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">{t("difficultyLabel")}</p>
+              <div className="mt-2 grid grid-cols-3 gap-2">
+                {DIFFICULTIES.map((d) => (
+                  <button
+                    key={d}
+                    type="button"
+                    onClick={() => setDifficulty(d)}
+                    aria-pressed={difficulty === d}
+                    className={cn(
+                      "rounded-xl border px-3 py-2 text-xs font-semibold transition-colors",
+                      difficulty === d
+                        ? "border-emerald-400 bg-emerald-50 text-emerald-700 dark:border-emerald-500/50 dark:bg-emerald-500/15 dark:text-emerald-300"
+                        : "border-slate-200 text-slate-600 dark:border-white/10 dark:text-slate-300"
+                    )}
+                  >
+                    {t(`difficulty.${d}`)}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {!eligibility.isPro && (
@@ -105,9 +152,7 @@ export default function MorpionPage() {
                   <p className="text-sm text-slate-500 dark:text-slate-400">{t("neuronsBalance")}</p>
                   <p
                     className={`text-lg font-bold ${
-                      eligibility.neuronsBalance >= eligibility.cost
-                        ? "text-emerald-500"
-                        : "text-red-500"
+                      eligibility.neuronsBalance >= eligibility.cost ? "text-emerald-500" : "text-red-500"
                     }`}
                   >
                     {eligibility.neuronsBalance} / {eligibility.cost}
@@ -127,13 +172,13 @@ export default function MorpionPage() {
 
         <Button
           onClick={handleCreateGame}
-          disabled={creating || (!eligibility?.isPro && (eligibility?.neuronsBalance ?? 0) < (eligibility?.cost ?? 0))}
+          disabled={creating || cannotAfford}
           className="h-11 w-full rounded-2xl"
         >
           {creating ? t("creating") : t("playButton")}
         </Button>
 
-        {eligibility && !eligibility.isPro && eligibility.neuronsBalance < eligibility.cost && (
+        {cannotAfford && eligibility && (
           <div className="mt-4">
             <InsufficientNeuronsCta missing={eligibility.cost - eligibility.neuronsBalance} />
           </div>

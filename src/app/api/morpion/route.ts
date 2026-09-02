@@ -6,13 +6,19 @@ import { isEffectivelyPro } from "@/lib/paywall";
 import { computeDifficulty } from "@/lib/morpion/ai";
 import { MORPION_COST_PER_GAME } from "@/lib/neurons/costs";
 import { createEmptyBoard } from "@/lib/morpion/logic";
+import { morpionCreateSchema } from "@/schemas/form/morpion";
 
-export async function POST() {
+export async function POST(request: Request) {
   const session = await getAuthSession();
 
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  // Optional { difficulty } from the /morpion selector; anything invalid or
+  // absent falls through to the adaptive auto-computation.
+  const parsedBody = morpionCreateSchema.safeParse(await request.json().catch(() => ({})));
+  const selectedDifficulty = parsedBody.success ? parsedBody.data.difficulty : undefined;
 
   try {
     const user = await prisma.user.findUnique({
@@ -40,7 +46,7 @@ export async function POST() {
       select: { status: true },
     });
 
-    const difficulty = computeDifficulty(recentGames);
+    const difficulty = computeDifficulty(recentGames, selectedDifficulty);
 
     const game = await prisma.$transaction(async (tx) => {
       if (!isPro) {

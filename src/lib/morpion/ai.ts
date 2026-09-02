@@ -79,9 +79,13 @@ export function getComputerMove(
 }
 
 export function computeDifficulty(
-  recentGames: { status: string }[]
+  recentGames: { status: string }[],
+  userSelected?: MorpionDifficulty
 ): MorpionDifficulty {
-  if (recentGames.length < 3) return "medium";
+  // An explicit pick from the /morpion selector wins outright.
+  if (userSelected) return userSelected;
+
+  if (recentGames.length < 1) return "easy";
 
   const score = recentGames.reduce((sum, g) => {
     if (g.status === "won") return sum + 1;

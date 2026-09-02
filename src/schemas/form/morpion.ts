@@ -6,3 +6,13 @@ export const morpionMoveSchema = z.object({
 });
 
 export type MorpionMoveData = z.infer<typeof morpionMoveSchema>;
+
+export const MORPION_DIFFICULTIES = ["easy", "medium", "hard"] as const;
+export const morpionDifficultySchema = z.enum(MORPION_DIFFICULTIES);
+
+/** POST /api/morpion body -- difficulty optional; omitted = auto-computed. */
+export const morpionCreateSchema = z.object({
+  difficulty: morpionDifficultySchema.optional(),
+});
+
+export type MorpionDifficultyValue = z.infer<typeof morpionDifficultySchema>;

@@ -45,7 +45,12 @@
   "MorpionPage": {
     "title": "Morpion",
     "description": "Teste tes stratégies contre une IA adaptative. Chaque victoire rapporte 10 XP !",
-    "difficulty": "Difficulté estimée",
+    "difficultyLabel": "Choisis la difficulté",
+    "difficulty": {
+      "easy": "Facile",
+      "medium": "Moyen",
+      "hard": "Difficile"
+    },
     "neuronsBalance": "Neurones disponibles",
     "winRate": "Taux de victoire",
     "playButton": "Jouer maintenant",
