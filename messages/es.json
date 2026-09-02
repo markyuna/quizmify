@@ -43,7 +43,7 @@
     "error": "Error al enviar el mensaje"
   },
   "MorpionPage": {
-    "title": "El Morpión Dinámico",
+    "title": "Morpión",
     "description": "Prueba tus estrategias contra una IA adaptativa. ¡Cada victoria te da 10 XP!",
     "difficulty": "Dificultad estimada",
     "neuronsBalance": "Neuronas disponibles",
@@ -56,7 +56,7 @@
     "backHome": "Volver a inicio"
   },
   "MorpionGame": {
-    "title": "El Morpión Dinámico",
+    "title": "Morpión",
     "won": "¡Ganaste! 🎉",
     "lost": "La IA ganó",
     "draw": "Empate",

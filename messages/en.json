@@ -43,7 +43,7 @@
     "error": "Error sending message"
   },
   "MorpionPage": {
-    "title": "Dynamic Tic-Tac-Toe",
+    "title": "Tic-Tac-Toe",
     "description": "Test your strategies against an adaptive AI. Every victory earns 10 XP!",
     "difficulty": "Estimated difficulty",
     "neuronsBalance": "Neurons available",
@@ -56,7 +56,7 @@
     "backHome": "Back home"
   },
   "MorpionGame": {
-    "title": "Dynamic Tic-Tac-Toe",
+    "title": "Tic-Tac-Toe",
     "won": "You won! 🎉",
     "lost": "AI won",
     "draw": "Draw",
