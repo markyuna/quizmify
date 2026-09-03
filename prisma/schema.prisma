@@ -744,10 +744,17 @@ model CategoryTopic {
   // yet for that language" -- never the questions themselves, just this
   // short card label.
   translatedLabels Json?
+  // Opaque grouping id (crypto.randomUUID at backfill time / assign time),
+  // NOT derived from any text field -- links the rows that are the same
+  // concept in different languages. Nullable: not every legacy row could be
+  // grouped in the initial backfill. See scripts/backfill-category-topic-keys.mjs
+  // and the Phase C submit guard (dedupe on (topicKey, language)).
+  topicKey         String?
 
   @@unique([categorySlug, topicNormalized, language])
   @@index([categorySlug])
   @@index([topicNormalized, language])
+  @@index([topicKey])
 }
 
 enum PuzzleDuJourDifficulty {

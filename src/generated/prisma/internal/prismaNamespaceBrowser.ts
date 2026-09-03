@@ -480,7 +480,8 @@ export const CategoryTopicScalarFieldEnum = {
   createdAt: 'createdAt',
   hidden: 'hidden',
   createdByGameId: 'createdByGameId',
-  translatedLabels: 'translatedLabels'
+  translatedLabels: 'translatedLabels',
+  topicKey: 'topicKey'
 } as const
 
 export type CategoryTopicScalarFieldEnum = (typeof CategoryTopicScalarFieldEnum)[keyof typeof CategoryTopicScalarFieldEnum]
