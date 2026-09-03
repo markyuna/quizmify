@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import axios from "axios";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Search, ChevronDown } from "lucide-react";
@@ -50,25 +49,15 @@ function CategoryGroupDisclosure({ group, categories }: (typeof GROUPED_CATEGORI
   );
 }
 
-export default function CategorySidebar() {
+export default function CategorySidebar({ isPro }: { isPro: boolean }) {
   const tSidebar = useTranslations("CategorySidebar");
   // Same "games list" heading as GamesSidebarSection on /categories -- one
   // shared key rather than a duplicate.
   const tCategoriesPage = useTranslations("CategoriesPage");
 
-  // Client-side only (this is a "use client" component) so the category
-  // pages stay statically rendered. Puzzle du Jour's own eligibility
-  // endpoint carries the `isPro` flag the game cards need for their badges;
-  // 401s for guests are swallowed (everything stays non-Pro, the correct
-  // "show the locked state" outcome for them anyway).
-  const [isPro, setIsPro] = React.useState(false);
-
-  React.useEffect(() => {
-    axios
-      .get<{ isPro: boolean }>("/api/puzzle-du-jour/eligibility")
-      .then((res) => setIsPro(res.data.isPro))
-      .catch(() => {});
-  }, []);
+  // `isPro` is resolved server-side by the page and passed in (same as
+  // GameCarousel / GamesSidebarSection), so the game badges are right on
+  // first paint -- no client eligibility fetch, no cost-badge flash.
 
   return (
     <aside className="space-y-6">

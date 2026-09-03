@@ -6,6 +6,9 @@ import { getTranslations } from "next-intl/server";
 import { CATEGORIES, getCategoryBySlug } from "@/lib/categories";
 import { getCategoryTopics } from "@/lib/categoryTopics";
 import { getRequestLocale } from "@/i18n/get-locale";
+import { getAuthSession } from "@/lib/nextauth";
+import { prisma } from "@/lib/db";
+import { isEffectivelyPro } from "@/lib/paywall";
 import CategoryBreadcrumb from "@/components/category/CategoryBreadcrumb";
 import CategoryQuizList from "@/components/category/CategoryQuizList";
 import CategorySidebar from "@/components/category/CategorySidebar";
@@ -52,6 +55,19 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     getTranslations("CategoryGroups"),
   ]);
 
+  // Resolve Pro status server-side (same pattern as GameCarousel /
+  // GamesSidebarSection) so the sidebar's game badges are correct on first
+  // paint -- no client eligibility fetch, no cost-badge flash for Pro. The
+  // page is already dynamically rendered (getRequestLocale reads cookies).
+  const session = await getAuthSession();
+  const sidebarUser = session?.user?.id
+    ? await prisma.user.findUnique({
+        where: { id: session.user.id },
+        select: { subscriptionStatus: true, premiumUntil: true },
+      })
+    : null;
+  const isPro = sidebarUser ? isEffectivelyPro(sidebarUser) : false;
+
   const name = t(`${category.slug}.name`);
 
   return (
@@ -84,7 +100,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
         </div>
 
-        <CategorySidebar />
+        <CategorySidebar isPro={isPro} />
       </div>
     </main>
   );
