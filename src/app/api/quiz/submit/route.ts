@@ -417,12 +417,12 @@ export async function POST(req: Request) {
       };
     });
 
-    // Best-effort, outside the main transaction: publishing to the
+    // Best-effort, outside the main (XP) transaction: publishing to the
     // community catalog is a nice-to-have, never allowed to break "finish
-    // quiz" for the player who just earned XP for it. See CategoryTopic in
-    // prisma/schema.prisma -- the @@unique constraint is what actually
-    // prevents duplicates, this create() just relies on it and swallows the
-    // conflict along with every other failure mode.
+    // quiz" for the player who just earned XP for it. Its own $transaction
+    // below keeps the new row and its topicKey consistent; any failure
+    // (including a @@unique violation on an exact same-language repeat) is
+    // swallowed by the outer catch.
     //
     // Reads game.categorySlug (set server-side at POST /api/game, see
     // Game.categorySlug in prisma/schema.prisma) rather than trusting a
@@ -448,42 +448,81 @@ export async function POST(req: Request) {
           // le peintre?" row under language "es").
           const isCuratedTopic = findCuratedQuiz(category.slug, normalizedTopic) !== null;
 
-          // The (categorySlug, topicNormalized, language) unique constraint
-          // below only catches an exact same-language repeat. It can't
-          // catch replaying a topic that's already cataloged under a
-          // *different* language and was only being shown here as a
-          // translated/padded card (see resolveDisplayLabel's
-          // translatedLabels cache in categoryTopics.ts) -- that always
-          // produces a legitimately distinct key. Check translatedLabels
-          // for an existing row that was already translated into
-          // game.language and matches this topic, so replaying a
-          // translated card doesn't mint a second entry for the same
-          // underlying topic. Skipped entirely for a curated topic -- the
-          // isCuratedTopic check above already covers it, no need to query.
-          const alreadyCatalogedViaTranslation =
-            !isCuratedTopic &&
-            (
-              await prisma.categoryTopic.findMany({
+          if (!isCuratedTopic) {
+            // One transaction for the whole publish decision -- lookup,
+            // topicKey-collision check, create, and (for a brand-new topic)
+            // stamping topicKey -- so a row is never left without a topicKey.
+            const created = await prisma.$transaction(async (tx) => {
+              const catalogRows = await tx.categoryTopic.findMany({
                 where: { categorySlug: category.slug },
-                select: { translatedLabels: true },
-              })
-            ).some((row) => {
-              const translated = (row.translatedLabels as Record<string, string> | null)?.[game.language];
-              return translated !== undefined && normalizeTopic(translated) === normalizedTopic;
+                select: { id: true, topicKey: true, translatedLabels: true },
+              });
+
+              // An existing row in this category that already carries a
+              // translation of this exact topic into game.language -- i.e.
+              // the player replayed a card that was only ever shown here
+              // translated (see resolveDisplayLabel's translatedLabels cache
+              // in categoryTopics.ts). The (categorySlug, topicNormalized,
+              // language) @@unique constraint can't catch this: the replayed
+              // topic text is a legitimately distinct key.
+              const translatedMatch = catalogRows.find((row) => {
+                const translated = (row.translatedLabels as Record<string, string> | null)?.[game.language];
+                return translated !== undefined && normalizeTopic(translated) === normalizedTopic;
+              });
+
+              if (translatedMatch) {
+                // Reuse the matched row's topicKey so the new native row is
+                // grouped with the concept it came from. Fallback to the
+                // matched row's own id for a row created between the topicKey
+                // backfill and this deploy (topicKey still null).
+                const topicKey = translatedMatch.topicKey ?? translatedMatch.id;
+
+                // Skip if that concept already has a native row in
+                // game.language -- prevents a near-duplicate such as a native
+                // "Fútbol" plus an "El fútbol" minted from the fr card's
+                // translation.
+                const existingInLanguage = await tx.categoryTopic.findFirst({
+                  where: { topicKey, language: game.language },
+                  select: { id: true },
+                });
+                if (existingInLanguage) return false;
+
+                await tx.categoryTopic.create({
+                  data: {
+                    categorySlug: category.slug,
+                    topicDisplay: game.topic,
+                    topicNormalized: normalizedTopic,
+                    language: game.language,
+                    difficulty: game.difficulty ?? "medium",
+                    createdByGameId: game.id,
+                    topicKey,
+                  },
+                });
+                return true;
+              }
+
+              // Genuinely new topic. Create it, then stamp topicKey = its own
+              // id in the same transaction -- same shape as the backfill's
+              // singleton segment. An exact same-language repeat throws on
+              // the @@unique constraint and is swallowed by the outer catch.
+              const row = await tx.categoryTopic.create({
+                data: {
+                  categorySlug: category.slug,
+                  topicDisplay: game.topic,
+                  topicNormalized: normalizedTopic,
+                  language: game.language,
+                  difficulty: game.difficulty ?? "medium",
+                  createdByGameId: game.id,
+                },
+              });
+              await tx.categoryTopic.update({
+                where: { id: row.id },
+                data: { topicKey: row.id },
+              });
+              return true;
             });
 
-          if (!isCuratedTopic && !alreadyCatalogedViaTranslation) {
-            await prisma.categoryTopic.create({
-              data: {
-                categorySlug: category.slug,
-                topicDisplay: game.topic,
-                topicNormalized: game.topic,
-                language: game.language,
-                difficulty: game.difficulty ?? "medium",
-                createdByGameId: game.id,
-              },
-            });
-            revalidatePath(`/quiz/categoria/${category.slug}`);
+            if (created) revalidatePath(`/quiz/categoria/${category.slug}`);
           }
         }
       } catch (error) {
