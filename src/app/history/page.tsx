@@ -12,6 +12,7 @@ import PurchaseToast from "@/components/history/PurchaseToast";
 import TabBar from "@/components/TabBar";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
+import { isEffectivelyPro } from "@/lib/paywall";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -43,15 +44,22 @@ export default async function HistoryPage({ searchParams }: PageProps) {
   const parsedPage = Number.parseInt(pageParam ?? "1", 10);
   const page = Number.isFinite(parsedPage) && parsedPage > 0 ? parsedPage : 1;
 
-  const neuronsBalance =
+  // Only the Neurons tab needs the User row: the balance for the header
+  // badge, plus Pro status to gate the shop. The Quizzes tab reads nothing
+  // from User here, so skip the query entirely for it.
+  const neuronsUser =
     tab === "neurons"
-      ? (
-          await prisma.user.findUnique({
-            where: { id: userId },
-            select: { neuronsBalance: true },
-          })
-        )?.neuronsBalance ?? 0
-      : 0;
+      ? await prisma.user.findUnique({
+          where: { id: userId },
+          select: {
+            neuronsBalance: true,
+            subscriptionStatus: true,
+            premiumUntil: true,
+          },
+        })
+      : null;
+  const neuronsBalance = neuronsUser?.neuronsBalance ?? 0;
+  const isPro = neuronsUser ? isEffectivelyPro(neuronsUser) : false;
 
   return (
     <main className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-4xl items-start justify-center px-4 py-10">
@@ -114,6 +122,9 @@ export default async function HistoryPage({ searchParams }: PageProps) {
                 </div>
               </div>
               <p className="text-sm text-muted-foreground">{tNeurons("howItWorks")}</p>
+              {isPro && (
+                <p className="text-sm text-muted-foreground">{tNeurons("howItWorksPro")}</p>
+              )}
             </>
           )}
         </CardHeader>
@@ -124,7 +135,7 @@ export default async function HistoryPage({ searchParams }: PageProps) {
               <Suspense fallback={null}>
                 <PurchaseToast />
               </Suspense>
-              <NeuronsShop />
+              {!isPro && <NeuronsShop />}
               <NeuronHistoryList
                 userId={userId}
                 page={page}
