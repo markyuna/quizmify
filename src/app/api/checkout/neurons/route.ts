@@ -5,6 +5,7 @@ import { getAuthSession } from "@/lib/nextauth";
 import { getStripe } from "@/lib/stripe";
 import { getSiteUrl } from "@/lib/site";
 import { getNeuronPackage, isNeuronPackageKey } from "@/lib/neurons/shop";
+import { isEffectivelyPro } from "@/lib/paywall";
 
 /**
  * Opens a Stripe Checkout session for one Neuron package and records a
@@ -28,10 +29,29 @@ export async function POST(request: Request) {
 
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
-      select: { id: true, email: true, name: true, stripeCustomerId: true },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        stripeCustomerId: true,
+        subscriptionStatus: true,
+        premiumUntil: true,
+      },
     });
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    // Pro accounts already have unlimited access to every Neuron-gated game
+    // (Morpion/Akinator skip the per-play debit, Puzzle du Jour runs on the
+    // Pro daily allowance), so they have nothing to spend Neurons on --
+    // selling them a pack would be selling something unusable. Mirrors
+    // PRO_DOES_NOT_NEED_UNLOCK in POST /api/neurons/unlock. This gate is at
+    // checkout *start* only: a purchase begun while free and paid after
+    // upgrading still credits normally -- the webhook and
+    // creditNeuronsForPurchase are deliberately left untouched.
+    if (isEffectivelyPro(user)) {
+      return NextResponse.json({ error: "PRO_DOES_NOT_NEED_NEURONS" }, { status: 400 });
     }
 
     // Reuse the same Stripe customer the Pro flow creates, so a user's
