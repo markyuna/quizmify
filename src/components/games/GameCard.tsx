@@ -19,7 +19,7 @@ import type { AllGamesEntry } from "@/lib/games/allGames";
  * destination route.
  */
 
-const NEURON_ICON_SRC = "/icono-neurona/neurona-hex-32.png";
+const NEURON_ICON_SRC = "/icono-neurona/neurona-hex-48.png";
 
 export const GRID_CARD_CLASS =
   "relative flex flex-col items-center gap-1.5 rounded-xl border border-slate-200 bg-white p-3 text-center transition dark:border-white/10 dark:bg-white/5";

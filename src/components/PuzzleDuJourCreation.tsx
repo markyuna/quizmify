@@ -242,7 +242,7 @@ export default function PuzzleDuJourCreation() {
         className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 px-4 py-3 text-sm font-bold text-white transition-opacity disabled:opacity-50"
       >
         {accessState.kind === "can_purchase" || accessState.kind === "insufficient_balance" ? (
-          <Image src="/icono-neurona/neurona-hex-32.png" alt="" width={16} height={16} />
+          <Image src="/icono-neurona/neurona-hex-48.png" alt="" width={16} height={16} />
         ) : (
           <Sparkles className="h-4 w-4" />
         )}
