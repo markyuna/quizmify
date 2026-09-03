@@ -13,6 +13,9 @@ const TYPE_LABEL_KEY: Record<string, string> = {
   earn_quiz: "typeEarnQuiz",
   spend_unlock: "typeSpendUnlock",
   bonus_personality: "typeBonusPersonality",
+  spend_morpion: "typeSpendMorpion",
+  spend_akinator: "typeSpendAkinator",
+  purchase: "typePurchase",
 };
 
 export default async function NeuronPreview({ userId }: { userId: string }) {
