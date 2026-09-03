@@ -13,20 +13,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-```bash
-npm run dev      # start dev server (localhost:3000)
-npm run build    # production build
-npm run lint     # run ESLint
-```
+No test suite. `npm run dev` / `build` / `lint` are the standard `next` / `eslint` scripts; Prisma via `npx prisma generate` / `db push` / `studio`.
 
-There are no test scripts — the project has no test suite.
-
-**Prisma workflows:**
-```bash
-npx prisma generate          # regenerate client after schema changes
-npx prisma db push           # push schema changes to the database
-npx prisma studio            # open DB GUI
-```
 Migrations/`db push` run against `DIRECT_URL` (see `prisma.config.ts`), while the app itself connects via `DATABASE_URL` through a `pg.Pool` + `PrismaPg` driver adapter (`src/lib/db.ts`) — Prisma 7 with `relationMode = "prisma"`, no native FKs.
 
 ## Architecture
@@ -55,26 +43,7 @@ Stripe env vars: `STRIPE_SECRET_KEY`, `STRIPE_PRICE_ID`, `STRIPE_WEBHOOK_SECRET`
 
 ### API routes
 
-All routes live in `src/app/api/`. Key ones:
-
-| Route | Purpose |
-|---|---|
-| `POST /api/game` | Create a game: source questions (cache+AI), optionally generate a Puzzle Mode image, write to Prisma |
-| `POST /api/checkAnswer` | Validate one answer, write `userAnswer`/`isCorrect`, upsert `UserQuestionProgress` |
-| `POST /api/endGame` | Stamp `timeEnded` on a game |
-| `POST /api/quiz/questions` | Fetch questions for a game (used by quiz UI) |
-| `GET  /api/game/mistakes` | Return questions the user got wrong (needs review) |
-| `POST /api/daily-challenge/*` | The authenticated shared-per-day quiz (one per UTC day per language) |
-| `GET/POST /api/guest/[gameKey]/*` | The 3 unauthenticated daily mini-games (word/photo/math) — see below |
-| `POST /api/guest/claim` | Migrate a guest's attempts onto a real account after signup |
-| `/api/puzzle-du-jour/*` | Pro-only daily jigsaw puzzle: eligibility check, create/fetch/complete a game, topic suggestions — see Puzzle du Jour below |
-| `/api/personality-tests/[testKey]/*` | Submit/confirm/retry/status for a personality test attempt; `claim` migrates a guest attempt onto a real account, `mascot-nudge-dismiss` records dismissing the dashboard nudge |
-| `/api/category-topics/*` | `lookup`/`search`/`suggest` — AI-assisted and cached topic suggestions scoped to a category, used by the quiz-creation search UI |
-| `/api/stripe/*` | Checkout session creation + webhook handling for subscriptions |
-| `/api/friends/*`, `/api/referrals/*`, `/api/leaderboard` | Social features |
-| `/api/cron/daily-challenge`, `/api/cron/notifications` | Vercel Cron targets (see `vercel.json`) — generate the day's challenge and send reminder/summary emails |
-
-Zod schemas for request/response shapes live in `src/schemas/form/quiz.ts`.
+All routes live in `src/app/api/` — `ls` it for the map. Request/response Zod schemas: `src/schemas/form/quiz.ts`. Cron targets (`/api/cron/*`) are declared in `vercel.json`. Adaptive-difficulty quizzes fetch their second half from a `next-batch` route (see below).
 
 ### AI question generation
 
