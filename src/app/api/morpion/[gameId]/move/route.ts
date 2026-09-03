@@ -79,9 +79,15 @@ export async function POST(request: Request, { params }: Params) {
     const xpEarned = status === "in_progress" ? 0 : MORPION_XP[status];
 
     const result = await prisma.$transaction(async (tx) => {
-      // Actualizar game
-      await tx.morpionGame.update({
-        where: { id: gameId },
+      // Apply the move only while the row is still in_progress. updateMany
+      // (not update) puts that guard in the WHERE clause, so two concurrent
+      // requests for the same move can't both land: the first flips the
+      // row, the second matches nothing (count === 0). This is what stops a
+      // double-submitted closing move from crediting XP twice -- and also
+      // stops a stale intermediate move from writing over (resurrecting) an
+      // already-finished game. Same guard as the akinator guess route.
+      const applied = await tx.morpionGame.updateMany({
+        where: { id: gameId, status: "in_progress" },
         data: {
           board: JSON.stringify(board),
           status,
@@ -89,6 +95,23 @@ export async function POST(request: Request, { params }: Params) {
           completedAt: status !== "in_progress" ? new Date() : null,
         },
       });
+
+      if (applied.count === 0) {
+        // A concurrent request already advanced this game. Credit nothing;
+        // return the authoritative persisted state so the client still
+        // renders the real board/result -- the locally computed board can
+        // differ, since the AI reply is randomised on easy/medium.
+        const persisted = await tx.morpionGame.findUniqueOrThrow({
+          where: { id: gameId },
+          select: { board: true, status: true, xpEarned: true },
+        });
+        return {
+          board: JSON.parse(persisted.board) as Board,
+          status: persisted.status as MorpionGameStatus,
+          xpEarned: persisted.xpEarned,
+          hitFreeLimit: false,
+        };
+      }
 
       let hitFreeLimit = false;
 
@@ -122,15 +145,10 @@ export async function POST(request: Request, { params }: Params) {
         }
       }
 
-      return { hitFreeLimit };
+      return { board, status, xpEarned, hitFreeLimit };
     });
 
-    return NextResponse.json({
-      board,
-      status,
-      xpEarned,
-      hitFreeLimit: result.hitFreeLimit,
-    });
+    return NextResponse.json(result);
   } catch (error) {
     console.error("Move error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
