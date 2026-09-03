@@ -17,6 +17,9 @@ type MorpionHowToPlayModalProps = {
   /** Live cost from /api/morpion/eligibility; parent passes a fallback so
    * this never renders "undefined" if the modal opens before the fetch. */
   cost: number;
+  /** Pro players pay nothing per game, so the Cost section is hidden for
+   * them entirely -- same treatment as the balance/cost block on /morpion. */
+  isPro: boolean;
 };
 
 /** Explains what isn't obvious about Morpion -- Neuron cost, what changes
@@ -27,6 +30,7 @@ export default function MorpionHowToPlayModal({
   open,
   onOpenChange,
   cost,
+  isPro,
 }: MorpionHowToPlayModalProps) {
   const t = useTranslations("MorpionHowToPlay");
 
@@ -38,12 +42,14 @@ export default function MorpionHowToPlayModal({
         </DialogHeader>
 
         <div className="space-y-4 text-sm text-slate-600 dark:text-slate-300">
-          <section className="space-y-1">
-            <h3 className="font-semibold text-slate-900 dark:text-white">
-              {t("costTitle")}
-            </h3>
-            <p>{t("costBody", { cost })}</p>
-          </section>
+          {!isPro && (
+            <section className="space-y-1">
+              <h3 className="font-semibold text-slate-900 dark:text-white">
+                {t("costTitle")}
+              </h3>
+              <p>{t("costBody", { cost })}</p>
+            </section>
+          )}
 
           <section className="space-y-1">
             <h3 className="font-semibold text-slate-900 dark:text-white">

@@ -224,6 +224,7 @@ export default function MorpionPage() {
         open={showHowTo}
         onOpenChange={setShowHowTo}
         cost={eligibility?.cost ?? MORPION_COST_PER_GAME}
+        isPro={eligibility?.isPro ?? false}
       />
     </div>
   );
