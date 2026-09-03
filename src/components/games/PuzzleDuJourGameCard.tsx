@@ -14,6 +14,7 @@ import {
   GRID_CARD_HOVER_CLASS,
   GameCardBadge,
   GameCardGridBody,
+  NeuronCostBadge,
 } from "./GameCard";
 
 /**
@@ -71,15 +72,15 @@ export default function PuzzleDuJourGameCard({ game, initialIsPro = false }: Puz
     );
   } else if (access.kind === "can_purchase") {
     badge = (
-      <GameCardBadge variant="grid" tone="neuron">
+      <NeuronCostBadge variant="grid">
         {tPuzzle("unlockForCost", { cost: game.neuronCost ?? 0 })}
-      </GameCardBadge>
+      </NeuronCostBadge>
     );
   } else if (access.kind === "insufficient_balance") {
     badge = (
-      <GameCardBadge variant="grid" tone="neuron">
+      <NeuronCostBadge variant="grid">
         {t("MorpionPage.costPerGame", { cost: game.neuronCost ?? 0 })}
-      </GameCardBadge>
+      </NeuronCostBadge>
     );
   }
 

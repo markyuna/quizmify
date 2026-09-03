@@ -78,6 +78,28 @@ export function GameCardBadge({
   );
 }
 
+/**
+ * Neuron-cost pill: the shared "{cost} per game" / "unlock for {cost}" badge
+ * used by Morpion and Akinator (through DefaultBadge below) and by Puzzle du
+ * Jour (through PuzzleDuJourGameCard). Always prefixes the Neuron icon so the
+ * three games render identically -- this is the single definition, don't
+ * inline a bare <GameCardBadge tone="neuron"> for a cost anywhere else.
+ */
+export function NeuronCostBadge({
+  variant,
+  children,
+}: {
+  variant: GameCardVariant;
+  children: ReactNode;
+}) {
+  return (
+    <GameCardBadge variant={variant} tone="neuron">
+      <Image src={NEURON_ICON_SRC} alt="" width={12} height={12} />
+      {children}
+    </GameCardBadge>
+  );
+}
+
 /** Image + title (+ optional description) -- the inner body of a grid card. */
 export function GameCardGridBody({
   game,
@@ -124,14 +146,14 @@ function DefaultBadge({
   }
 
   if (game.neuronCost != null) {
-    // Morpion, Akinator and (in the nav) Puzzle du Jour -- the grid
-    // surfaces route Puzzle du Jour through PuzzleDuJourGameCard instead.
-    // "{cost} par partie" phrasing is shared via MorpionPage.costPerGame.
+    // Morpion, Akinator and (in the nav) Puzzle du Jour. The grid surfaces
+    // route Puzzle du Jour through PuzzleDuJourGameCard, which renders
+    // NeuronCostBadge directly. "{cost} par partie" phrasing is shared via
+    // MorpionPage.costPerGame.
     return (
-      <GameCardBadge variant={variant} tone="neuron">
-        <Image src={NEURON_ICON_SRC} alt="" width={12} height={12} />
+      <NeuronCostBadge variant={variant}>
         {t("MorpionPage.costPerGame", { cost: game.neuronCost })}
-      </GameCardBadge>
+      </NeuronCostBadge>
     );
   }
 
