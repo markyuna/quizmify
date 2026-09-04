@@ -428,7 +428,8 @@ export const ModelName = {
   NeuronPurchase: 'NeuronPurchase',
   NeuronUnlock: 'NeuronUnlock',
   MorpionGame: 'MorpionGame',
-  AkinatorGame: 'AkinatorGame'
+  AkinatorGame: 'AkinatorGame',
+  UserDailyFreeGame: 'UserDailyFreeGame'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -444,7 +445,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronPurchase" | "neuronUnlock" | "morpionGame" | "akinatorGame"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronPurchase" | "neuronUnlock" | "morpionGame" | "akinatorGame" | "userDailyFreeGame"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2816,6 +2817,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    UserDailyFreeGame: {
+      payload: Prisma.$UserDailyFreeGamePayload<ExtArgs>
+      fields: Prisma.UserDailyFreeGameFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserDailyFreeGameFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyFreeGamePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserDailyFreeGameFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyFreeGamePayload>
+        }
+        findFirst: {
+          args: Prisma.UserDailyFreeGameFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyFreeGamePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserDailyFreeGameFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyFreeGamePayload>
+        }
+        findMany: {
+          args: Prisma.UserDailyFreeGameFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyFreeGamePayload>[]
+        }
+        create: {
+          args: Prisma.UserDailyFreeGameCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyFreeGamePayload>
+        }
+        createMany: {
+          args: Prisma.UserDailyFreeGameCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserDailyFreeGameCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyFreeGamePayload>[]
+        }
+        delete: {
+          args: Prisma.UserDailyFreeGameDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyFreeGamePayload>
+        }
+        update: {
+          args: Prisma.UserDailyFreeGameUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyFreeGamePayload>
+        }
+        deleteMany: {
+          args: Prisma.UserDailyFreeGameDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserDailyFreeGameUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserDailyFreeGameUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyFreeGamePayload>[]
+        }
+        upsert: {
+          args: Prisma.UserDailyFreeGameUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserDailyFreeGamePayload>
+        }
+        aggregate: {
+          args: Prisma.UserDailyFreeGameAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserDailyFreeGame>
+        }
+        groupBy: {
+          args: Prisma.UserDailyFreeGameGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserDailyFreeGameGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserDailyFreeGameCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserDailyFreeGameCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3333,6 +3408,18 @@ export const AkinatorGameScalarFieldEnum = {
 } as const
 
 export type AkinatorGameScalarFieldEnum = (typeof AkinatorGameScalarFieldEnum)[keyof typeof AkinatorGameScalarFieldEnum]
+
+
+export const UserDailyFreeGameScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gameKey: 'gameKey',
+  date: 'date',
+  gameId: 'gameId',
+  createdAt: 'createdAt'
+} as const
+
+export type UserDailyFreeGameScalarFieldEnum = (typeof UserDailyFreeGameScalarFieldEnum)[keyof typeof UserDailyFreeGameScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -3858,6 +3945,7 @@ export type GlobalOmitConfig = {
   neuronUnlock?: Prisma.NeuronUnlockOmit
   morpionGame?: Prisma.MorpionGameOmit
   akinatorGame?: Prisma.AkinatorGameOmit
+  userDailyFreeGame?: Prisma.UserDailyFreeGameOmit
 }
 
 /* Types for Logging */

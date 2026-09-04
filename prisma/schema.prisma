@@ -126,6 +126,7 @@ model User {
   neuronPurchases                NeuronPurchase[]
   morpionGames                   MorpionGame[]
   akinatorGames                  AkinatorGame[]
+  dailyFreeGames                 UserDailyFreeGame[]
 
   @@index([xp])
 }
@@ -989,4 +990,40 @@ model AkinatorGame {
 
   @@index([userId, status])
   @@index([userId, createdAt])
+}
+
+// One row per user per game per UTC day, inserted the moment a PRO user
+// *completes* (won/lost/draw) their first Morpion or Akinator game of the
+// day. That first game is played for free -- no Neuron debit at creation --
+// and the presence of this row is what makes every later game of the same
+// game that same day cost Neurons again (the normal free-user flow).
+//
+// FREE users never get a row here: they always pay, so both the read (in
+// the creation routes) and the write (in the completion routes) sit behind
+// isEffectivelyPro(). The row is written ON COMPLETION, not creation, so a
+// game that's created and abandoned never burns the daily free slot.
+//
+// Deliberately NOT reusing UserDailyAttempt: its `gameKey` is the closed
+// GuestGameKey enum, and `challengeId`/`guestAttemptId` are required FKs to
+// DailyGameChallenge/GuestAttempt -- rows these games never have. Same
+// reasoning that kept PuzzleDuJourGame off that model (see its comment).
+//
+// `gameKey` is a plain String ("morpion" | "akinator"), validated in code
+// -- same stance as NeuronTransaction.gameKey and AkinatorGame.characterKey.
+// `date` is the UTC "YYYY-MM-DD" key from getTodayDateKey() (src/lib/
+// guestPlay.ts), same convention as UserDailyAttempt.date / PuzzleDuJourGame.date.
+model UserDailyFreeGame {
+  id        String   @id @default(cuid())
+  userId    String
+  gameKey   String
+  date      String
+  // The MorpionGame / AkinatorGame id whose completion consumed the quota
+  // -- audit/debugging only, never part of a constraint.
+  gameId    String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, gameKey, date])
+  @@index([userId])
 }

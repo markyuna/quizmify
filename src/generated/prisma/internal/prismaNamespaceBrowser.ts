@@ -82,7 +82,8 @@ export const ModelName = {
   NeuronPurchase: 'NeuronPurchase',
   NeuronUnlock: 'NeuronUnlock',
   MorpionGame: 'MorpionGame',
-  AkinatorGame: 'AkinatorGame'
+  AkinatorGame: 'AkinatorGame',
+  UserDailyFreeGame: 'UserDailyFreeGame'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -579,6 +580,18 @@ export const AkinatorGameScalarFieldEnum = {
 } as const
 
 export type AkinatorGameScalarFieldEnum = (typeof AkinatorGameScalarFieldEnum)[keyof typeof AkinatorGameScalarFieldEnum]
+
+
+export const UserDailyFreeGameScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gameKey: 'gameKey',
+  date: 'date',
+  gameId: 'gameId',
+  createdAt: 'createdAt'
+} as const
+
+export type UserDailyFreeGameScalarFieldEnum = (typeof UserDailyFreeGameScalarFieldEnum)[keyof typeof UserDailyFreeGameScalarFieldEnum]
 
 
 export const SortOrder = {
