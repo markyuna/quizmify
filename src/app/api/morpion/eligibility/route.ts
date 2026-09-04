@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getAuthSession } from "@/lib/nextauth";
 import { prisma } from "@/lib/db";
 import { isEffectivelyPro } from "@/lib/paywall";
+import { getTodayDateKey } from "@/lib/guestPlay";
 import { computeDifficulty } from "@/lib/morpion/ai";
 import { MORPION_COST_PER_GAME } from "@/lib/neurons/costs";
 
@@ -31,6 +32,22 @@ export async function GET() {
 
     const isPro = isEffectivelyPro(user);
 
+    // True only for a Pro who hasn't yet completed their one free Morpion
+    // game today (UserDailyFreeGame row is written on completion). Always
+    // false for free users -- they never get the free slot.
+    const freeGameAvailableToday =
+      isPro &&
+      (await prisma.userDailyFreeGame.findUnique({
+        where: {
+          userId_gameKey_date: {
+            userId: session.user.id,
+            gameKey: "morpion",
+            date: getTodayDateKey(),
+          },
+        },
+        select: { id: true },
+      })) === null;
+
     const recentGames = await prisma.morpionGame.findMany({
       where: {
         userId: session.user.id,
@@ -49,6 +66,7 @@ export async function GET() {
         neuronsBalance: user.neuronsBalance,
         difficulty,
         cost: MORPION_COST_PER_GAME,
+        freeGameAvailableToday,
         recentWinRatio:
           recentGames.length > 0
             ? recentGames.filter((g) => g.status === "won").length / recentGames.length

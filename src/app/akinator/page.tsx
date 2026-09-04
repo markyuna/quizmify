@@ -17,6 +17,7 @@ export default function AkinatorPage() {
   const [loading, setLoading] = useState(false);
   const [canPlay, setCanPlay] = useState(true);
   const [missingNeurons, setMissingNeurons] = useState(0);
+  const [freeToday, setFreeToday] = useState(false);
   const [checkingEligibility, setCheckingEligibility] = useState(true);
 
   useEffect(() => {
@@ -33,10 +34,18 @@ export default function AkinatorPage() {
       try {
         const res = await fetch("/api/akinator/eligibility");
         if (!res.ok) throw new Error("Failed to check eligibility");
-        const data = (await res.json()) as { isPro: boolean; neuronsBalance: number; cost: number };
+        const data = (await res.json()) as {
+          isPro: boolean;
+          neuronsBalance: number;
+          cost: number;
+          freeGameAvailableToday: boolean;
+        };
         if (!cancelled) {
-          setCanPlay(data.isPro || data.neuronsBalance >= data.cost);
+          // A Pro with a free game left today can always play; a Pro who
+          // already used it falls back to the Neuron check like a free user.
+          setCanPlay(data.freeGameAvailableToday || data.neuronsBalance >= data.cost);
           setMissingNeurons(Math.max(0, data.cost - data.neuronsBalance));
+          setFreeToday(data.freeGameAvailableToday);
         }
       } catch (error) {
         console.error("Eligibility check error:", error);
@@ -235,6 +244,18 @@ export default function AkinatorPage() {
             <div style={{ marginTop: "1rem" }}>
               <InsufficientNeuronsCta missing={missingNeurons} />
             </div>
+          )}
+          {!checkingEligibility && freeToday && (
+            <p
+              style={{
+                marginTop: "0.75rem",
+                fontSize: "13px",
+                fontWeight: 600,
+                color: "#16a34a",
+              }}
+            >
+              {t("freeToday")}
+            </p>
           )}
           <button
             type="button"

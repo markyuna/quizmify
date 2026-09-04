@@ -26,6 +26,7 @@ type Eligibility = {
   difficulty: string;
   cost: number;
   recentWinRatio: number;
+  freeGameAvailableToday: boolean;
 };
 
 export default function MorpionPage() {
@@ -100,8 +101,12 @@ export default function MorpionPage() {
 
   if (loading) return <div className="flex min-h-screen items-center justify-center">Loading...</div>;
 
+  // A Pro with a free game left today can always play; otherwise (free user,
+  // or Pro who already used today's free game) they need the Neurons.
   const cannotAfford =
-    !!eligibility && !eligibility.isPro && eligibility.neuronsBalance < eligibility.cost;
+    !!eligibility &&
+    !eligibility.freeGameAvailableToday &&
+    eligibility.neuronsBalance < eligibility.cost;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-cyan-50 px-4 py-12 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950">
@@ -193,6 +198,23 @@ export default function MorpionPage() {
                   </p>
                 </div>
               </>
+            )}
+
+            {eligibility.isPro && (
+              <div>
+                <p className="text-sm text-slate-500 dark:text-slate-400">{t("costLabel")}</p>
+                <p
+                  className={`text-lg font-bold ${
+                    eligibility.freeGameAvailableToday
+                      ? "text-emerald-500"
+                      : "text-slate-900 dark:text-white"
+                  }`}
+                >
+                  {eligibility.freeGameAvailableToday
+                    ? t("freeToday")
+                    : t("costPerGame", { cost: eligibility.cost })}
+                </p>
+              </div>
             )}
           </div>
         )}
