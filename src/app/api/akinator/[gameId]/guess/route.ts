@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getAuthSession } from "@/lib/nextauth";
 import { prisma } from "@/lib/db";
 import { isEffectivelyPro } from "@/lib/paywall";
+import { getTodayDateKey } from "@/lib/guestPlay";
 import { calculateLevel } from "@/lib/xp";
 import { FREE_LEVEL_CAP, FREE_XP_CAP } from "@/lib/stripe";
 import { getRequestLocale } from "@/i18n/get-locale";
@@ -45,9 +46,37 @@ export async function POST(request: Request, { params }: Params) {
   );
 
   if (!correct) {
-    await prisma.akinatorGame.updateMany({
-      where: { id: game.id, status: "in_progress" },
-      data: { status: "lost", guessedName: parsed.data.guess, completedAt: new Date() },
+    // Own $transaction, independent of the "won" branch below (mutually
+    // exclusive paths): the lost-flip and the Pro daily-free-game mark
+    // commit together. The conditional updateMany stays the idempotency
+    // guard -- only the request that actually moves the row out of
+    // in_progress (count === 1) marks the quota.
+    await prisma.$transaction(async (tx) => {
+      const flipped = await tx.akinatorGame.updateMany({
+        where: { id: game.id, status: "in_progress" },
+        data: { status: "lost", guessedName: parsed.data.guess, completedAt: new Date() },
+      });
+      if (flipped.count === 0) return;
+
+      const previousUser = await tx.user.findUniqueOrThrow({
+        where: { id: userId },
+        select: { subscriptionStatus: true, premiumUntil: true },
+      });
+      if (!isEffectivelyPro(previousUser)) return;
+
+      // Same check-then-create as the "won" branch / the morpion move route.
+      const dateKey = getTodayDateKey();
+      const alreadyFree = await tx.userDailyFreeGame.findUnique({
+        where: {
+          userId_gameKey_date: { userId, gameKey: "akinator", date: dateKey },
+        },
+        select: { id: true },
+      });
+      if (!alreadyFree) {
+        await tx.userDailyFreeGame.create({
+          data: { userId, gameKey: "akinator", date: dateKey, gameId: game.id },
+        });
+      }
     });
     return NextResponse.json({ won: false, characterName });
   }
@@ -87,6 +116,27 @@ export async function POST(request: Request, { params }: Params) {
     const newLevel = isPro ? trueLevel : Math.min(trueLevel, FREE_LEVEL_CAP);
     if (newLevel !== previousUser.level) {
       await tx.user.update({ where: { id: userId }, data: { level: newLevel } });
+    }
+
+    // Pro's first *completed* Akinator game of the day is free -- mark it
+    // here, the point where "completed" (won) becomes true. check-then-
+    // create for the same reason as the other two branches (a bare create
+    // hitting the unique constraint aborts the rest of this $transaction).
+    // A real race between two games finishing at once can still lose a
+    // create; accepted -- the losing game was never charged at creation.
+    if (isPro) {
+      const dateKey = getTodayDateKey();
+      const alreadyFree = await tx.userDailyFreeGame.findUnique({
+        where: {
+          userId_gameKey_date: { userId, gameKey: "akinator", date: dateKey },
+        },
+        select: { id: true },
+      });
+      if (!alreadyFree) {
+        await tx.userDailyFreeGame.create({
+          data: { userId, gameKey: "akinator", date: dateKey, gameId: game.id },
+        });
+      }
     }
 
     return { hitFreeLimit: !isPro && newXp >= FREE_XP_CAP };

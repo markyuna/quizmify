@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getAuthSession } from "@/lib/nextauth";
 import { prisma } from "@/lib/db";
 import { isEffectivelyPro } from "@/lib/paywall";
+import { getTodayDateKey } from "@/lib/guestPlay";
 import { calculateLevel } from "@/lib/xp";
 import { FREE_XP_CAP, FREE_LEVEL_CAP } from "@/lib/stripe";
 import { morpionMoveSchema } from "@/schemas/form/morpion";
@@ -115,7 +116,11 @@ export async function POST(request: Request, { params }: Params) {
 
       let hitFreeLimit = false;
 
-      if (xpEarned > 0) {
+      // This request is the one that closed the game (idempotency guard
+      // above). Tie the credit + quota-mark to the terminal status, not to
+      // xpEarned > 0 -- they coincide today (win/draw/loss all pay) but the
+      // meaning here is "the game just completed".
+      if (status !== "in_progress") {
         const previousUser = await tx.user.findUniqueOrThrow({
           where: { id: session.user.id },
           select: { level: true, subscriptionStatus: true, premiumUntil: true },
@@ -142,6 +147,35 @@ export async function POST(request: Request, { params }: Params) {
             where: { id: session.user.id },
             data: { level: newLevel },
           });
+        }
+
+        // Pro's first *completed* Morpion game of the day is free (no Neuron
+        // debit ran at creation). This is the moment "completed" becomes
+        // true, so this is where the daily free slot is spent. check-then-
+        // create, never a bare create: a unique-constraint violation
+        // mid-$transaction aborts every later statement in it -- same reason
+        // claimGuestAttempts (guestPlay.ts) does it this way. A genuine race
+        // between two games of this user finishing in the same instant can
+        // still leave the second create losing; accepted -- that game was
+        // never charged Neurons at creation, so there's nothing to
+        // reconcile. FREE users never reach this (isPro gate).
+        if (isPro) {
+          const dateKey = getTodayDateKey();
+          const alreadyFree = await tx.userDailyFreeGame.findUnique({
+            where: {
+              userId_gameKey_date: {
+                userId: session.user.id,
+                gameKey: "morpion",
+                date: dateKey,
+              },
+            },
+            select: { id: true },
+          });
+          if (!alreadyFree) {
+            await tx.userDailyFreeGame.create({
+              data: { userId: session.user.id, gameKey: "morpion", date: dateKey, gameId },
+            });
+          }
         }
       }
 
