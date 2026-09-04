@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getAuthSession } from "@/lib/nextauth";
 import { prisma } from "@/lib/db";
 import { isEffectivelyPro } from "@/lib/paywall";
+import { getTodayDateKey } from "@/lib/guestPlay";
 import { computeDifficulty } from "@/lib/morpion/ai";
 import { MORPION_COST_PER_GAME } from "@/lib/neurons/costs";
 import { createEmptyBoard } from "@/lib/morpion/logic";
@@ -36,6 +37,23 @@ export async function POST(request: Request) {
 
     const isPro = isEffectivelyPro(user);
 
+    // One in-progress game at a time, for every user (Pro or not). A second
+    // POST while a game is still open just hands back that same game rather
+    // than spawning a parallel one -- which, for Pro, would also let two
+    // "first game of the day" both look free before either completes.
+    const openGame = await prisma.morpionGame.findFirst({
+      where: { userId: session.user.id, status: "in_progress" },
+      orderBy: { createdAt: "desc" },
+    });
+    if (openGame) {
+      return NextResponse.json({
+        gameId: openGame.id,
+        board: JSON.parse(openGame.board),
+        playerSymbol: openGame.playerSymbol,
+        difficulty: openGame.difficulty,
+      });
+    }
+
     const recentGames = await prisma.morpionGame.findMany({
       where: {
         userId: session.user.id,
@@ -48,8 +66,26 @@ export async function POST(request: Request) {
 
     const difficulty = computeDifficulty(recentGames, selectedDifficulty);
 
+    // Pro's first *completed* game of the day is free. Until that row exists
+    // (written on completion in [gameId]/move/route.ts), a Pro create pays
+    // nothing; once it exists, Pro pays Neurons like a free user. FREE users
+    // are never eligible -- they always pay.
+    const freeQuotaUsed =
+      isPro &&
+      (await prisma.userDailyFreeGame.findUnique({
+        where: {
+          userId_gameKey_date: {
+            userId: session.user.id,
+            gameKey: "morpion",
+            date: getTodayDateKey(),
+          },
+        },
+        select: { id: true },
+      })) !== null;
+    const chargeNeurons = !isPro || freeQuotaUsed;
+
     const game = await prisma.$transaction(async (tx) => {
-      if (!isPro) {
+      if (chargeNeurons) {
         const cost = MORPION_COST_PER_GAME;
 
         // Descuento atómico condicionado
