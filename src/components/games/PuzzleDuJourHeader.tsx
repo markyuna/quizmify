@@ -3,8 +3,8 @@ import { useTranslations } from "next-intl";
 /**
  * Header for the Puzzle du Jour creation screen: the word "Puzzle" with each
  * letter in a Quizmify brand colour, next to a bouncing jigsaw-piece SVG,
- * over the same glass panel the rest of the app uses. Presentational only
- * (no "use client", no state) so it renders in both Server and Client trees.
+ * centred over the page background. Presentational only (no "use client",
+ * no state) so it renders in both Server and Client trees.
  */
 
 // One colour per letter of t("headerTitle") ("Puzzle" = 6). Wraps if a
@@ -39,7 +39,7 @@ export default function PuzzleDuJourHeader() {
   const title = t("headerTitle");
 
   return (
-    <header className="rounded-2xl border border-slate-200/80 bg-white/70 p-5 text-center shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/5 sm:p-6">
+    <header className="px-4 pb-2 text-center">
       <div className="flex items-center justify-center gap-4">
         <PuzzlePieceIcon />
         <h1 className="text-4xl font-black tracking-tight sm:text-6xl">

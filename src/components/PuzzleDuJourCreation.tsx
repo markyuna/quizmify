@@ -5,7 +5,7 @@ import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Lock, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { useToast } from "./ui/use-toast";
@@ -19,6 +19,15 @@ import { NEURON_UNLOCK_COSTS } from "@/lib/neurons/costs";
 import { resolvePuzzleDuJourAccess } from "@/lib/neurons/access";
 
 const DIFFICULTIES: PuzzleDuJourDifficulty[] = ["easy", "medium", "hard"];
+
+// Selected-state colour per difficulty -- same "border + translucent bg +
+// text" chip pattern used elsewhere in the app. The unselected state is
+// shared across all three (see the button below).
+const DIFFICULTY_SELECTED_STYLES: Record<PuzzleDuJourDifficulty, string> = {
+  easy: "border-emerald-400 bg-emerald-50 text-emerald-700 dark:border-emerald-500/50 dark:bg-emerald-500/15 dark:text-emerald-300",
+  medium: "border-amber-400 bg-amber-50 text-amber-700 dark:border-amber-500/50 dark:bg-amber-500/15 dark:text-amber-300",
+  hard: "border-rose-400 bg-rose-50 text-rose-700 dark:border-rose-500/50 dark:bg-rose-500/15 dark:text-rose-300",
+};
 
 type TopicSuggestion = { topic: string; topicNormalized: string };
 
@@ -171,15 +180,7 @@ export default function PuzzleDuJourCreation() {
             : "border-slate-200 bg-white/60 dark:border-white/10 dark:bg-white/5"
         )}
       >
-        {/* Title + tagline live in <PuzzleDuJourHeader /> above -- only the
-            locked-state Pro badge stays on the card itself. */}
-        {locked && (
-          <div className="mb-2 inline-flex items-center gap-0.5 rounded-full bg-violet-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-violet-600 dark:bg-violet-500/20 dark:text-violet-300">
-            <Lock className="h-2.5 w-2.5" />
-            {t("proBadge")}
-          </div>
-        )}
-
+        {/* Title + tagline live in <PuzzleDuJourHeader /> above. */}
         <input
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
@@ -221,7 +222,7 @@ export default function PuzzleDuJourCreation() {
                 className={cn(
                   "rounded-xl border px-3 py-2 text-xs font-semibold transition-colors",
                   difficulty === d
-                    ? "border-emerald-400 bg-emerald-50 text-emerald-700 dark:border-emerald-500/50 dark:bg-emerald-500/15 dark:text-emerald-300"
+                    ? DIFFICULTY_SELECTED_STYLES[d]
                     : "border-slate-200 text-slate-600 dark:border-white/10 dark:text-slate-300"
                 )}
               >
