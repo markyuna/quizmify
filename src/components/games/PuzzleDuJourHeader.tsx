@@ -17,7 +17,7 @@ function PuzzlePieceIcon() {
       viewBox="0 0 24 24"
       role="presentation"
       aria-hidden="true"
-      className="animate-puzzle-bounce h-8 w-8 shrink-0 drop-shadow-sm sm:h-9 sm:w-9"
+      className="animate-puzzle-bounce h-14 w-14 shrink-0 drop-shadow-sm sm:h-20 sm:w-20"
     >
       <defs>
         <linearGradient id="pdj-header-piece" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
@@ -40,9 +40,9 @@ export default function PuzzleDuJourHeader() {
 
   return (
     <header className="rounded-2xl border border-slate-200/80 bg-white/70 p-5 text-center shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/5 sm:p-6">
-      <div className="flex items-center justify-center gap-2.5">
+      <div className="flex items-center justify-center gap-4">
         <PuzzlePieceIcon />
-        <h1 className="text-2xl font-black tracking-tight sm:text-3xl">
+        <h1 className="text-4xl font-black tracking-tight sm:text-6xl">
           <span className="sr-only">{title}</span>
           {[...title].map((char, index) => (
             <span
@@ -55,7 +55,7 @@ export default function PuzzleDuJourHeader() {
           ))}
         </h1>
       </div>
-      <p className="mx-auto mt-2 max-w-sm text-sm text-slate-500 dark:text-slate-400">{t("description")}</p>
+      <p className="mx-auto mt-3 max-w-md text-sm text-slate-500 dark:text-slate-400 sm:text-base">{t("description")}</p>
     </header>
   );
 }
