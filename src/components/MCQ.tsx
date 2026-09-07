@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import axios from "axios";
 import { differenceInSeconds } from "date-fns";
 import { useMutation } from "@tanstack/react-query";
@@ -17,7 +18,6 @@ import {
   RotateCcw,
   AlertCircle,
   Trophy,
-  Brain,
   Zap,
   Lock,
   LayoutDashboard,
@@ -764,13 +764,12 @@ const MCQ = ({ game, isGuest, initialNeuronsCorrectTowardNext }: MCQProps) => {
                     : "border-violet-200 bg-violet-50 dark:border-violet-500/20 dark:bg-violet-500/10"
                 )}
               >
-                <Brain
-                  className={cn(
-                    "h-3.5 w-3.5",
-                    neuronsBatchJustCrossed
-                      ? "text-emerald-600 dark:text-emerald-300"
-                      : "text-violet-600 dark:text-violet-300"
-                  )}
+                <Image
+                  src="/icono-neurona/neurona-hex-48.png"
+                  alt=""
+                  width={14}
+                  height={14}
+                  className="h-3.5 w-3.5"
                 />
                 <span
                   className={cn(
