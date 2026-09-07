@@ -146,10 +146,6 @@ export default function AkinatorPage() {
         {/* How it works */}
         <div
           style={{
-            background: "var(--muted)",
-            border: "1px solid color-mix(in srgb, var(--muted-foreground) 22%, transparent)",
-            borderRadius: "16px",
-            padding: "2rem",
             marginBottom: "2rem",
           }}
         >

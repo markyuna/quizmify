@@ -155,7 +155,7 @@ export default function MorpionPage() {
         <p className="mb-6 text-slate-600 dark:text-slate-300">{t("description")}</p>
 
         {eligibility && (
-          <div className="mb-8 space-y-4 rounded-2xl border border-slate-200/80 bg-white/80 p-4 backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+          <div className="mb-8 space-y-4">
             <div>
               <p className="text-sm text-slate-500 dark:text-slate-400">{t("difficultyLabel")}</p>
               <div className="mt-2 grid grid-cols-3 gap-2">
