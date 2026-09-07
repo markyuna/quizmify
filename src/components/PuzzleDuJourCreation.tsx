@@ -239,8 +239,12 @@ export default function PuzzleDuJourCreation() {
       <button
         type="submit"
         disabled={atLimit || accessState.kind === "insufficient_balance"}
-        className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 px-4 py-3 text-sm font-bold text-white transition-opacity disabled:opacity-50"
+        className="relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-violet-500/20 transition-all duration-200 hover:-translate-y-0.5 hover:opacity-95 hover:shadow-xl hover:shadow-cyan-500/20 disabled:opacity-50"
       >
+        <span
+          aria-hidden
+          className="animate-shine pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-white/25 motion-reduce:hidden"
+        />
         {accessState.kind === "can_purchase" || accessState.kind === "insufficient_balance" ? (
           <Image src="/icono-neurona/neurona-hex-48.png" alt="" width={16} height={16} />
         ) : (
