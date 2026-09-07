@@ -210,7 +210,7 @@ export default function AkinatorPage() {
             style={{
               width: "100%",
               padding: "1.25rem",
-              fontSize: "18px",
+              fontSize: "clamp(14px, 4vw, 18px)",
               fontWeight: 600,
               background: ctaDisabled
                 ? "linear-gradient(135deg, #ccaa00 0%, #998800 100%)"

@@ -120,7 +120,7 @@
     "buyNeuronsToPlay": "You need 50⚛ to play. Buy Neurons.",
     "error": "Error",
     "failedToStart": "We couldn't start the game. Try again.",
-    "unlockButton": "Unlock with <icon></icon> {cost} per game"
+    "unlockButton": "Unlock <icon></icon> {cost}"
   },
   "AkinatorGame": {
     "title": "Akinator",
