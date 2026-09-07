@@ -38,6 +38,7 @@ import TrophyModal from "./trophy/TrophyModal";
 import Globe3D from "./globe/Globe3D";
 import PuzzleReveal from "./PuzzleReveal";
 import ConversionModal from "./games/ConversionModal";
+import NeuronBurst from "./quiz-game/NeuronBurst";
 import { Button, buttonVariants } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import { cn, formatTimeDelta } from "@/lib/utils";
@@ -193,6 +194,10 @@ const MCQ = ({ game, isGuest, initialNeuronsCorrectTowardNext }: MCQProps) => {
   const [neuronsBatchJustCrossed, setNeuronsBatchJustCrossed] = React.useState(false);
   const neuronsTowardNext = neuronsSessionCorrect % CORRECT_ANSWERS_PER_NEURON_BATCH;
 
+  const neuronsBadgeRef = React.useRef<HTMLDivElement>(null);
+  const pendingOriginRef = React.useRef<{ x: number; y: number } | null>(null);
+  const [burst, setBurst] = React.useState<{ id: number; origin: { x: number; y: number } } | null>(null);
+
   const timeLimitMs = game.isTimed && game.timePerQuestionSec ? game.timePerQuestionSec * 1000 : null;
   const [questionShownAt, setQuestionShownAt] = React.useState(() => new Date().getTime());
   const [remainingMs, setRemainingMs] = React.useState<number | null>(timeLimitMs);
@@ -243,7 +248,13 @@ const MCQ = ({ game, isGuest, initialNeuronsCorrectTowardNext }: MCQProps) => {
 
       if (isCorrect) {
         setScore((prev) => prev + 1);
-        if (showNeuronsBadge) setNeuronsSessionCorrect((prev) => prev + 1);
+        if (showNeuronsBadge) {
+          setNeuronsSessionCorrect((prev) => prev + 1);
+          if (pendingOriginRef.current) {
+            setBurst({ id: Date.now(), origin: pendingOriginRef.current });
+            pendingOriginRef.current = null;
+          }
+        }
 
         const answeredQuestionIndex = questions.findIndex((q) => q.id === variables.questionId);
         const answeredQuestion = questions[answeredQuestionIndex];
@@ -340,8 +351,10 @@ const MCQ = ({ game, isGuest, initialNeuronsCorrectTowardNext }: MCQProps) => {
     return () => window.clearTimeout(timeout);
   }, [neuronsSessionCorrect]);
 
-  const handleSelect = (option: string) => {
+  const handleSelect = (option: string, event: React.MouseEvent<HTMLButtonElement>) => {
     if (hasAnswered || isCheckingAnswer || isSubmittingQuiz) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    pendingOriginRef.current = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
     const responseTimeMs = new Date().getTime() - questionShownAt;
     setSelectedAnswer(option);
     checkAnswer({ questionId: currentQuestion.id, userAnswer: option, responseTimeMs });
@@ -757,6 +770,7 @@ const MCQ = ({ game, isGuest, initialNeuronsCorrectTowardNext }: MCQProps) => {
           <div className="flex shrink-0 items-center gap-2">
             {showNeuronsBadge && (
               <div
+                ref={neuronsBadgeRef}
                 className={cn(
                   "flex items-center gap-1.5 rounded-xl border px-2.5 py-1.5 transition-colors duration-300",
                   neuronsBatchJustCrossed
@@ -853,7 +867,7 @@ const MCQ = ({ game, isGuest, initialNeuronsCorrectTowardNext }: MCQProps) => {
                 <button
                   key={`${option}-${index}`}
                   type="button"
-                  onClick={() => handleSelect(option)}
+                  onClick={(e) => handleSelect(option, e)}
                   disabled={hasAnswered || isCheckingAnswer || isSubmittingQuiz}
                   className={cn(
                     "group flex w-full items-center justify-between gap-3 rounded-2xl border px-4 py-4 text-left text-sm font-medium transition-all duration-200 sm:text-base",
@@ -1041,6 +1055,15 @@ const MCQ = ({ game, isGuest, initialNeuronsCorrectTowardNext }: MCQProps) => {
           </Button>
         </div>
       </div>
+
+      {burst && (
+        <NeuronBurst
+          key={burst.id}
+          origin={burst.origin}
+          targetRef={neuronsBadgeRef}
+          onComplete={() => setBurst(null)}
+        />
+      )}
     </div>
   );
 };
