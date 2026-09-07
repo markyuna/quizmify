@@ -187,7 +187,7 @@ export default function PuzzleDuJourCreation() {
           disabled={locked}
           placeholder={t("topicPlaceholder")}
           maxLength={200}
-          className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 disabled:opacity-60 dark:border-white/10 dark:bg-white/5 dark:text-slate-100"
+          className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus-visible:border-violet-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/30 disabled:opacity-60 dark:border-white/10 dark:bg-white/5 dark:text-slate-100"
         />
 
         {/* Nudges picks toward already-cached topics (see the

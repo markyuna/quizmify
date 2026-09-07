@@ -47,16 +47,27 @@ function useIsDesktop(): boolean {
   );
 }
 
+// Border tint rotated by pill position -- a subtle brand-gradient nod on the
+// UNSELECTED state. Violet is last and lowest-opacity so a pill never reads
+// as the (violet, filled) selected state.
+const THEME_BORDER_ROTATION = [
+  "border-cyan-300/40 dark:border-cyan-500/30",
+  "border-fuchsia-300/40 dark:border-fuchsia-500/30",
+  "border-violet-300/30 dark:border-violet-500/20",
+];
+
 function ThemeButton({
   theme,
   currentTheme,
   disabled,
   onThemeSelect,
+  colorIndex,
 }: {
   theme: string;
   currentTheme?: string;
   disabled: boolean;
   onThemeSelect: (theme: string) => void;
+  colorIndex: number;
 }) {
   return (
     <button
@@ -68,7 +79,8 @@ function ThemeButton({
         "truncate rounded-xl border px-2.5 py-2 text-xs font-medium transition-colors",
         theme === currentTheme
           ? "border-violet-400 bg-violet-50 text-violet-700 dark:border-violet-500/50 dark:bg-violet-500/15 dark:text-violet-300"
-          : "border-slate-200 bg-slate-50 text-slate-600 hover:border-violet-300 hover:bg-violet-50 hover:text-violet-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-violet-500/30 dark:hover:bg-violet-500/10 dark:hover:text-violet-300"
+          : "bg-slate-50 text-slate-600 hover:border-violet-300 hover:bg-violet-50 hover:text-violet-700 dark:bg-white/5 dark:text-slate-300 dark:hover:border-violet-500/30 dark:hover:bg-violet-500/10 dark:hover:text-violet-300",
+        theme !== currentTheme && THEME_BORDER_ROTATION[colorIndex % THEME_BORDER_ROTATION.length]
       )}
     >
       {theme}
@@ -193,13 +205,14 @@ export default function PopularThemesCarousel({
                   pageIndex === activePage ? "opacity-100" : "opacity-40"
                 )}
               >
-                {pageThemes.map((theme) => (
+                {pageThemes.map((theme, i) => (
                   <ThemeButton
                     key={theme}
                     theme={theme}
                     currentTheme={currentTheme}
                     disabled={disabled || pageIndex !== activePage}
                     onThemeSelect={onThemeSelect}
+                    colorIndex={pageIndex * pageSize + i}
                   />
                 ))}
               </div>
@@ -208,13 +221,14 @@ export default function PopularThemesCarousel({
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-          {themes.map((theme) => (
+          {themes.map((theme, i) => (
             <ThemeButton
               key={theme}
               theme={theme}
               currentTheme={currentTheme}
               disabled={disabled}
               onThemeSelect={onThemeSelect}
+              colorIndex={i}
             />
           ))}
         </div>
