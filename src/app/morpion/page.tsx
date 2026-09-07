@@ -109,7 +109,7 @@ export default function MorpionPage() {
     eligibility.neuronsBalance < eligibility.cost;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-cyan-50 px-4 py-12 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950">
+    <div className="min-h-screen px-4 py-12">
       <div className="mx-auto max-w-md">
         <div className="mb-2 flex justify-end gap-2">
           <button

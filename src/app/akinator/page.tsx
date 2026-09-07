@@ -99,8 +99,6 @@ export default function AkinatorPage() {
     <div
       style={{
         minHeight: "100vh",
-        // Theme-reactive: --background / --muted are redefined under html.dark
-        background: "linear-gradient(160deg, var(--muted) 0%, var(--background) 55%)",
         color: "var(--foreground)",
         padding: "2rem 1rem",
         display: "flex",
@@ -161,13 +159,7 @@ export default function AkinatorPage() {
             {t("howItWorks")}
           </h2>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-              gap: "1.5rem",
-            }}
-          >
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {[
               { emoji: "❓", gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", title: t("step1"), desc: t("step1desc") },
               { emoji: "🧠", gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)", title: t("step2"), desc: t("step2desc") },
