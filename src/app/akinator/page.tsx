@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
@@ -239,6 +240,21 @@ export default function AkinatorPage() {
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" style={{ display: "inline" }} />
                 {t("starting")}
               </>
+            ) : !checkingEligibility && canPlay && !freeToday ? (
+              <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}>
+                {t.rich("unlockButton", {
+                  icon: () => (
+                    <Image
+                      src="/icono-neurona/neurona-hex-48.png"
+                      alt=""
+                      width={18}
+                      height={18}
+                      style={{ display: "inline-block", verticalAlign: "middle" }}
+                    />
+                  ),
+                  cost,
+                })}
+              </span>
             ) : (
               t("startGame")
             )}
@@ -258,18 +274,6 @@ export default function AkinatorPage() {
               }}
             >
               {t("freeToday")}
-            </p>
-          )}
-          {!checkingEligibility && canPlay && !freeToday && (
-            <p
-              style={{
-                marginTop: "0.75rem",
-                fontSize: "13px",
-                fontWeight: 600,
-                color: "var(--muted-foreground)",
-              }}
-            >
-              {t("costPerGame", { cost })}
             </p>
           )}
           <button
