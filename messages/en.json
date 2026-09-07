@@ -119,7 +119,8 @@
     "insufficientNeurons": "Insufficient neurons",
     "buyNeuronsToPlay": "You need 50⚛ to play. Buy Neurons.",
     "error": "Error",
-    "failedToStart": "We couldn't start the game. Try again."
+    "failedToStart": "We couldn't start the game. Try again.",
+    "costPerGame": "{cost}⚛ per game"
   },
   "AkinatorGame": {
     "title": "Akinator",

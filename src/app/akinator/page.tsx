@@ -8,6 +8,7 @@ import { Loader2 } from "lucide-react";
 
 import { useToast } from "@/components/ui/use-toast";
 import InsufficientNeuronsCta from "@/components/games/InsufficientNeuronsCta";
+import { AKINATOR_COST_PER_GAME } from "@/lib/neurons/costs";
 
 export default function AkinatorPage() {
   const t = useTranslations("AkinatorPage");
@@ -18,6 +19,7 @@ export default function AkinatorPage() {
   const [canPlay, setCanPlay] = useState(true);
   const [missingNeurons, setMissingNeurons] = useState(0);
   const [freeToday, setFreeToday] = useState(false);
+  const [cost, setCost] = useState(AKINATOR_COST_PER_GAME);
   const [checkingEligibility, setCheckingEligibility] = useState(true);
 
   useEffect(() => {
@@ -46,6 +48,7 @@ export default function AkinatorPage() {
           setCanPlay(data.freeGameAvailableToday || data.neuronsBalance >= data.cost);
           setMissingNeurons(Math.max(0, data.cost - data.neuronsBalance));
           setFreeToday(data.freeGameAvailableToday);
+          setCost(data.cost);
         }
       } catch (error) {
         console.error("Eligibility check error:", error);
@@ -255,6 +258,18 @@ export default function AkinatorPage() {
               }}
             >
               {t("freeToday")}
+            </p>
+          )}
+          {!checkingEligibility && canPlay && !freeToday && (
+            <p
+              style={{
+                marginTop: "0.75rem",
+                fontSize: "13px",
+                fontWeight: 600,
+                color: "var(--muted-foreground)",
+              }}
+            >
+              {t("costPerGame", { cost })}
             </p>
           )}
           <button

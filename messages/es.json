@@ -119,7 +119,8 @@
     "insufficientNeurons": "Neuronas insuficientes",
     "buyNeuronsToPlay": "Necesitás 50⚛ para jugar. Comprá Neuronas.",
     "error": "Error",
-    "failedToStart": "No pudimos iniciar la partida. Probá de nuevo."
+    "failedToStart": "No pudimos iniciar la partida. Probá de nuevo.",
+    "costPerGame": "{cost}⚛ por partida"
   },
   "AkinatorGame": {
     "title": "Akinator",
