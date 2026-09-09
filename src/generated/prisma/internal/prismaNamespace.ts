@@ -429,6 +429,7 @@ export const ModelName = {
   NeuronUnlock: 'NeuronUnlock',
   MorpionGame: 'MorpionGame',
   AkinatorGame: 'AkinatorGame',
+  CrucigramaGame: 'CrucigramaGame',
   UserDailyFreeGame: 'UserDailyFreeGame'
 } as const
 
@@ -445,7 +446,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronPurchase" | "neuronUnlock" | "morpionGame" | "akinatorGame" | "userDailyFreeGame"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronPurchase" | "neuronUnlock" | "morpionGame" | "akinatorGame" | "crucigramaGame" | "userDailyFreeGame"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2817,6 +2818,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CrucigramaGame: {
+      payload: Prisma.$CrucigramaGamePayload<ExtArgs>
+      fields: Prisma.CrucigramaGameFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CrucigramaGameFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrucigramaGamePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CrucigramaGameFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrucigramaGamePayload>
+        }
+        findFirst: {
+          args: Prisma.CrucigramaGameFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrucigramaGamePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CrucigramaGameFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrucigramaGamePayload>
+        }
+        findMany: {
+          args: Prisma.CrucigramaGameFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrucigramaGamePayload>[]
+        }
+        create: {
+          args: Prisma.CrucigramaGameCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrucigramaGamePayload>
+        }
+        createMany: {
+          args: Prisma.CrucigramaGameCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CrucigramaGameCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrucigramaGamePayload>[]
+        }
+        delete: {
+          args: Prisma.CrucigramaGameDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrucigramaGamePayload>
+        }
+        update: {
+          args: Prisma.CrucigramaGameUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrucigramaGamePayload>
+        }
+        deleteMany: {
+          args: Prisma.CrucigramaGameDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CrucigramaGameUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CrucigramaGameUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrucigramaGamePayload>[]
+        }
+        upsert: {
+          args: Prisma.CrucigramaGameUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrucigramaGamePayload>
+        }
+        aggregate: {
+          args: Prisma.CrucigramaGameAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCrucigramaGame>
+        }
+        groupBy: {
+          args: Prisma.CrucigramaGameGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrucigramaGameGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CrucigramaGameCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrucigramaGameCountAggregateOutputType> | number
+        }
+      }
+    }
     UserDailyFreeGame: {
       payload: Prisma.$UserDailyFreeGamePayload<ExtArgs>
       fields: Prisma.UserDailyFreeGameFieldRefs
@@ -3410,6 +3485,27 @@ export const AkinatorGameScalarFieldEnum = {
 export type AkinatorGameScalarFieldEnum = (typeof AkinatorGameScalarFieldEnum)[keyof typeof AkinatorGameScalarFieldEnum]
 
 
+export const CrucigramaGameScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  topic: 'topic',
+  topicNormalized: 'topicNormalized',
+  language: 'language',
+  difficulty: 'difficulty',
+  words: 'words',
+  layout: 'layout',
+  wordCount: 'wordCount',
+  status: 'status',
+  score: 'score',
+  xpEarned: 'xpEarned',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CrucigramaGameScalarFieldEnum = (typeof CrucigramaGameScalarFieldEnum)[keyof typeof CrucigramaGameScalarFieldEnum]
+
+
 export const UserDailyFreeGameScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -3945,6 +4041,7 @@ export type GlobalOmitConfig = {
   neuronUnlock?: Prisma.NeuronUnlockOmit
   morpionGame?: Prisma.MorpionGameOmit
   akinatorGame?: Prisma.AkinatorGameOmit
+  crucigramaGame?: Prisma.CrucigramaGameOmit
   userDailyFreeGame?: Prisma.UserDailyFreeGameOmit
 }
 

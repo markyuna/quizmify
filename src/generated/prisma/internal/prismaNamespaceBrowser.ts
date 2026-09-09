@@ -83,6 +83,7 @@ export const ModelName = {
   NeuronUnlock: 'NeuronUnlock',
   MorpionGame: 'MorpionGame',
   AkinatorGame: 'AkinatorGame',
+  CrucigramaGame: 'CrucigramaGame',
   UserDailyFreeGame: 'UserDailyFreeGame'
 } as const
 
@@ -580,6 +581,27 @@ export const AkinatorGameScalarFieldEnum = {
 } as const
 
 export type AkinatorGameScalarFieldEnum = (typeof AkinatorGameScalarFieldEnum)[keyof typeof AkinatorGameScalarFieldEnum]
+
+
+export const CrucigramaGameScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  topic: 'topic',
+  topicNormalized: 'topicNormalized',
+  language: 'language',
+  difficulty: 'difficulty',
+  words: 'words',
+  layout: 'layout',
+  wordCount: 'wordCount',
+  status: 'status',
+  score: 'score',
+  xpEarned: 'xpEarned',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CrucigramaGameScalarFieldEnum = (typeof CrucigramaGameScalarFieldEnum)[keyof typeof CrucigramaGameScalarFieldEnum]
 
 
 export const UserDailyFreeGameScalarFieldEnum = {

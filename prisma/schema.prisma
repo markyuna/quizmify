@@ -126,6 +126,7 @@ model User {
   neuronPurchases                NeuronPurchase[]
   morpionGames                   MorpionGame[]
   akinatorGames                  AkinatorGame[]
+  crucigramaGames                CrucigramaGame[]
   dailyFreeGames                 UserDailyFreeGame[]
 
   @@index([xp])
@@ -820,6 +821,11 @@ enum NeuronTransactionType {
   // -- same direct updateMany decrement as spend_morpion, never a
   // NeuronUnlock ticket.
   spend_akinator
+  // Per-game debit for Crucigrama, taken at game creation (POST
+  // /api/crucigrama) -- same direct updateMany decrement as spend_morpion /
+  // spend_akinator, never a NeuronUnlock ticket. Fixed amount regardless of
+  // the chosen difficulty (difficulty only changes word count/size).
+  spend_crucigrama
   // A real-money purchase from the Neuron shop (Stripe checkout). Credited
   // by creditNeuronsForPurchase() from the Stripe webhook; the matching
   // NeuronPurchase row is the anti-double-credit guard (unique on
@@ -992,6 +998,60 @@ model AkinatorGame {
   @@index([userId, createdAt])
 }
 
+// Auth-only, on-demand crossword: the player picks a topic + difficulty, the
+// AI produces the word/clue list, and a deterministic local backtracker
+// (src/lib/crucigrama/grid.ts -- no AI) interlocks them into a grid. Content
+// generation and grid generation are two separate steps.
+//
+// Same "state as a serialized JSON string" stance as MorpionGame.board /
+// AkinatorGame.conversation -- `words` and `layout` are JSON.stringify'd,
+// never a Prisma Json column.
+//
+// `difficulty` and `status` are plain validated Strings, NOT native Postgres
+// enums (deliberately unlike PuzzleDuJourDifficulty / PuzzleDuJourStatus) --
+// keeps future difficulty tweaks off the migration path.
+//
+// Deliberately NOT reusing PuzzleDuJourGame: no image, no shared daily
+// challenge, different completion model (every cell correct = the win).
+model CrucigramaGame {
+  id              String    @id @default(cuid())
+  userId          String
+  // UTC "YYYY-MM-DD" from getTodayDateKey() (src/lib/guestPlay.ts). Used for
+  // history + as the UserDailyFreeGame date key -- never part of a
+  // uniqueness constraint. Same convention as PuzzleDuJourGame.date.
+  date            String
+  // Exactly what the user typed (trimmed), for display in the title/history.
+  topic           String
+  // normalizeTopic(topic) -- paired with language+difficulty to reuse a
+  // previously generated word set + grid before spending an OpenAI call,
+  // same "cache by normalized topic" stance as sourceQuestions().
+  topicNormalized String
+  language        String    @default("en")
+  // "easy" | "medium" | "hard" -- validated in code (isCrucigramaDifficulty).
+  difficulty      String
+  // JSON: { number, direction, clue, answer }[] -- the ACCENTED answers live
+  // here, for the across/down clue list only (never sent to the client).
+  words           String
+  // JSON CrosswordLayout: { width, height, cells:[{row,col,letter,number?}],
+  // entries:[...] }. `letter` is the accent-stripped grid letter -- the full
+  // solution, which the play route strips before sending to the client.
+  layout          String
+  wordCount       Int
+  // "in_progress" | "completed" -- validated in code.
+  status          String    @default("in_progress")
+  // Number of fully-correct words at completion (for the result screen).
+  score           Int       @default(0)
+  xpEarned        Int       @default(0)
+  completedAt     DateTime?
+  createdAt       DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+  @@index([userId, date])
+  @@index([topicNormalized, language, difficulty])
+}
+
 // One row per user per game per UTC day, inserted the moment a PRO user
 // *completes* (won/lost/draw) their first Morpion or Akinator game of the
 // day. That first game is played for free -- no Neuron debit at creation --
@@ -1008,8 +1068,9 @@ model AkinatorGame {
 // DailyGameChallenge/GuestAttempt -- rows these games never have. Same
 // reasoning that kept PuzzleDuJourGame off that model (see its comment).
 //
-// `gameKey` is a plain String ("morpion" | "akinator"), validated in code
-// -- same stance as NeuronTransaction.gameKey and AkinatorGame.characterKey.
+// `gameKey` is a plain String ("morpion" | "akinator" | "crucigrama"),
+// validated in code -- same stance as NeuronTransaction.gameKey and
+// AkinatorGame.characterKey.
 // `date` is the UTC "YYYY-MM-DD" key from getTodayDateKey() (src/lib/
 // guestPlay.ts), same convention as UserDailyAttempt.date / PuzzleDuJourGame.date.
 model UserDailyFreeGame {

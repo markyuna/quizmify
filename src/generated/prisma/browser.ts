@@ -178,6 +178,11 @@ export type MorpionGame = Prisma.MorpionGameModel
  */
 export type AkinatorGame = Prisma.AkinatorGameModel
 /**
+ * Model CrucigramaGame
+ * 
+ */
+export type CrucigramaGame = Prisma.CrucigramaGameModel
+/**
  * Model UserDailyFreeGame
  * 
  */
