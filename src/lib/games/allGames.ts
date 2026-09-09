@@ -1,6 +1,11 @@
-import type { LucideIcon } from "lucide-react";
+import { Grid3x3, type LucideIcon } from "lucide-react";
 
-import { AKINATOR_COST_PER_GAME, MORPION_COST_PER_GAME, NEURON_UNLOCK_COSTS } from "@/lib/neurons/costs";
+import {
+  AKINATOR_COST_PER_GAME,
+  CRUCIGRAMA_COST_PER_GAME,
+  MORPION_COST_PER_GAME,
+  NEURON_UNLOCK_COSTS,
+} from "@/lib/neurons/costs";
 
 /**
  * Single source of truth for the full games catalogue -- every game the app
@@ -122,6 +127,17 @@ export const ALL_GAMES: AllGamesEntry[] = [
     i18nKey: "title",
     image: "/images/games/akinator-icon.png",
     neuronCost: AKINATOR_COST_PER_GAME,
+  },
+  {
+    key: "crucigrama",
+    kind: "pro-neuron",
+    href: "/crucigrama",
+    i18nNamespace: "CrucigramaPage",
+    i18nKey: "title",
+    // TODO: swap for a /images/games/crucigrama-icon.png once the asset
+    // exists -- Lucide fallback for now, same slot GameCard renders either way.
+    icon: Grid3x3,
+    neuronCost: CRUCIGRAMA_COST_PER_GAME,
   },
 ];
 

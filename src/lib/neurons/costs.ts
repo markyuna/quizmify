@@ -29,3 +29,11 @@ export const MORPION_COST_PER_GAME = 50;
 // decrement, logged as a `spend_akinator` NeuronTransaction. Not a
 // NeuronUnlock ticket.
 export const AKINATOR_COST_PER_GAME = 50;
+
+// Same kind of direct per-play debit as MORPION_COST_PER_GAME /
+// AKINATOR_COST_PER_GAME -- charged in the game-creation transaction (POST
+// /api/crucigrama) via an updateMany decrement, logged as a
+// `spend_crucigrama` NeuronTransaction. Not a NeuronUnlock ticket. FIXED
+// regardless of the chosen difficulty: difficulty only changes the number
+// and size of the words, never the price.
+export const CRUCIGRAMA_COST_PER_GAME = 50;
