@@ -43,7 +43,7 @@ export function GameImage({ game, className }: { game: AllGamesEntry; className:
   return (
     <div className={cn("relative shrink-0 overflow-hidden rounded-lg", className)}>
       {game.image ? (
-        <Image src={game.image} alt="" fill className="object-cover" sizes="32px" />
+        <Image src={game.image} alt="" fill className="object-cover" sizes="56px" />
       ) : game.icon ? (
         <div className="flex h-full w-full items-center justify-center text-violet-600 dark:text-violet-400">
           <game.icon className="h-5 w-5" />
@@ -115,7 +115,7 @@ export function GameCardGridBody({
   return (
     <>
       {badge}
-      <GameImage game={game} className="h-8 w-8" />
+      <GameImage game={game} className="h-14 w-14" />
       <span className="text-xs font-medium text-slate-700 dark:text-slate-200">{title}</span>
       {description && (
         <span className="text-[11px] leading-4 text-slate-500 dark:text-slate-400">{description}</span>
