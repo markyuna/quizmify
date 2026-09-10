@@ -76,6 +76,7 @@ body {
   --animate-mascot-hand-squash: mascot-hand-squash 6s ease-in-out infinite;
   --animate-mascot-impact: mascot-impact 6s ease-out infinite;
   --animate-puzzle-bounce: puzzle-bounce 1.8s ease-in-out infinite;
+  --animate-marquee: marquee 40s linear infinite;
 }
 
 @keyframes shimmer {
@@ -297,10 +298,19 @@ body {
   }
 }
 
-/* The mascot loops above are decorative too, but this one sits right next
-   to reading text -- honour a reduced-motion preference. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* The mascot loops above are decorative too, but these two sit right next
+   to reading text -- honour a reduced-motion preference. The marquee's
+   container is `overflow-x-auto`, so pausing it still leaves every pill
+   reachable by manual scroll. */
 @media (prefers-reduced-motion: reduce) {
-  .animate-puzzle-bounce {
+  .animate-puzzle-bounce,
+  .animate-marquee {
     animation: none;
   }
 }

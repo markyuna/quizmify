@@ -126,6 +126,7 @@
     "title": "Crucigrama",
     "description": "Elegí un tema y una dificultad — creamos un crucigrama para resolver.",
     "topicPlaceholder": "ej. El sistema solar",
+    "exampleTopics": ["El cuerpo humano", "El sistema solar", "Los océanos del mundo", "El Antiguo Egipto", "Pintores famosos", "Inteligencia artificial", "Animales de la selva", "El dinero y las monedas", "Dioses griegos", "Instrumentos musicales", "El fútbol", "Cuentos clásicos"],
     "difficultyLabel": "Dificultad",
     "difficulty": { "easy": "Fácil", "medium": "Medio", "hard": "Difícil" },
     "wordCount": { "easy": "5 a 7 palabras", "medium": "8 a 10 palabras", "hard": "11 a 13 palabras" },

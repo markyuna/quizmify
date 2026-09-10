@@ -126,6 +126,7 @@
     "title": "Crossword",
     "description": "Pick a topic and difficulty — we build a crossword you solve.",
     "topicPlaceholder": "e.g. The solar system",
+    "exampleTopics": ["The human body", "The solar system", "The world's oceans", "Ancient Egypt", "Famous painters", "Artificial intelligence", "Jungle animals", "Money and currencies", "Greek gods", "Musical instruments", "Football", "Classic fairy tales"],
     "difficultyLabel": "Difficulty",
     "difficulty": { "easy": "Easy", "medium": "Medium", "hard": "Hard" },
     "wordCount": { "easy": "5–7 words", "medium": "8–10 words", "hard": "11–13 words" },

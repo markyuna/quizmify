@@ -126,6 +126,7 @@
     "title": "Mots croisés",
     "description": "Choisissez un thème et une difficulté — on génère une grille à résoudre.",
     "topicPlaceholder": "ex. Le système solaire",
+    "exampleTopics": ["Le corps humain", "Le système solaire", "Les océans du monde", "L'Égypte antique", "Peintres célèbres", "L'intelligence artificielle", "Les animaux de la jungle", "L'argent et les monnaies", "Les dieux grecs", "Les instruments de musique", "Le football", "Les contes classiques"],
     "difficultyLabel": "Difficulté",
     "difficulty": { "easy": "Facile", "medium": "Moyen", "hard": "Difficile" },
     "wordCount": { "easy": "5 à 7 mots", "medium": "8 à 10 mots", "hard": "11 à 13 mots" },

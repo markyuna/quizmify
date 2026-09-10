@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { useToast } from "./ui/use-toast";
 import LoadingQuestions from "./LoadingQuestions";
 import CrucigramaHeader from "./games/CrucigramaHeader";
+import CrucigramaExampleTopics from "./games/CrucigramaExampleTopics";
 import InsufficientNeuronsCta from "./games/InsufficientNeuronsCta";
 import { CRUCIGRAMA_COST_PER_GAME } from "@/lib/neurons/costs";
 import { CRUCIGRAMA_DIFFICULTIES, type CrucigramaDifficulty } from "@/lib/crucigrama";
@@ -124,6 +125,8 @@ export default function CrucigramaCreation() {
           maxLength={200}
           className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus-visible:border-violet-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/30 dark:border-white/10 dark:bg-white/5 dark:text-slate-100"
         />
+
+        <CrucigramaExampleTopics onSelect={setTopic} />
 
         <div className="mt-3">
           <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate-400">
