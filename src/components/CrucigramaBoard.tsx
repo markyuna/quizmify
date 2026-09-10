@@ -9,6 +9,13 @@ import { Loader2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
 import { entryCellKeys, type ClientCrossword } from "@/lib/crucigrama/grid";
 
@@ -18,7 +25,7 @@ type Props = {
   gameId: string;
   topic: string;
   difficulty: string;
-  initialStatus: "in_progress" | "completed";
+  initialStatus: "in_progress" | "completed" | "revealed";
   xpEarned: number;
   puzzle: ClientCrossword;
 };
@@ -34,6 +41,15 @@ const setWithout = (s: Set<string>, id: string) => {
 // Per-word feedback timings.
 const WRONG_CLEAR_MS = 650; // red shake/flash, then wipe the word
 const SOLVED_PULSE_MS = 450; // green scale-pop, then settle
+
+// Shared cell palettes -- reused by the live per-word feedback and by the
+// green (found) / red (missed) marking of a revealed grid.
+const CELL_CORRECT =
+  "border-emerald-400 bg-emerald-50 text-emerald-800 dark:border-emerald-500/60 dark:bg-emerald-500/15 dark:text-emerald-100";
+const CELL_WRONG =
+  "border-rose-400 bg-rose-50 text-rose-800 dark:border-rose-500/60 dark:bg-rose-500/15 dark:text-rose-100";
+const CELL_NEUTRAL =
+  "border-slate-300 bg-slate-100 text-slate-700 dark:border-slate-600 dark:bg-slate-700/50 dark:text-slate-200";
 
 export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned, puzzle }: Props) {
   const t = useTranslations("CrucigramaPage");
@@ -53,10 +69,14 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
   const [values, setValues] = React.useState<Record<string, string>>({});
   const [active, setActive] = React.useState<{ row: number; col: number } | null>(null);
   const [direction, setDirection] = React.useState<"across" | "down">("across");
-  const [status, setStatus] = React.useState(initialStatus);
+  const [status, setStatus] = React.useState<"in_progress" | "completed" | "revealed">(
+    initialStatus
+  );
   const [earnedXp, setEarnedXp] = React.useState(xpEarned);
   const [wordResults, setWordResults] = React.useState<WordResult[]>([]);
   const [checking, setChecking] = React.useState(false);
+  const [showRevealConfirm, setShowRevealConfirm] = React.useState(false);
+  const [revealing, setRevealing] = React.useState(false);
   // Real-time per-word validation. `solvedEntries` is permanent (its cells
   // lock read-only); `wrongEntries` / `pulseEntries` are transient anim flags.
   const [solvedEntries, setSolvedEntries] = React.useState<Set<string>>(new Set());
@@ -112,6 +132,13 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
     solvedEntriesRef.current = solvedEntries;
   }, [solvedEntries]);
 
+  // Read by in-flight per-word checks so a response that lands *after* the
+  // grid was revealed can't mutate solved/wrong sets or wipe a cell.
+  const statusRef = React.useRef(status);
+  React.useEffect(() => {
+    statusRef.current = status;
+  }, [status]);
+
   const across = puzzle.entries.filter((e) => e.direction === "across");
   const down = puzzle.entries.filter((e) => e.direction === "down");
   const resultFor = (n: number, d: "across" | "down") =>
@@ -137,6 +164,7 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
         });
         if (!res.ok) return; // silent -- the manual "Comprobar" button is the backstop
         const data = (await res.json()) as { correct: boolean };
+        if (statusRef.current !== "in_progress") return; // grid was revealed/solved mid-flight
         if (data.correct) {
           setSolvedEntries((s) => new Set(s).add(id));
           setPulseEntries((p) => new Set(p).add(id));
@@ -258,14 +286,48 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
     }
   }
 
-  const done = status === "completed";
+  async function handleReveal() {
+    setRevealing(true);
+    try {
+      const res = await fetch(`/api/crucigrama/${gameId}/reveal`, { method: "POST" });
+      if (!res.ok) throw new Error("reveal failed");
+      const data = (await res.json()) as { solution: Record<string, string> };
+      // Cancel any pending per-word animation/clear timers so a scheduled
+      // "wrong" wipe can't delete solution letters after the reveal.
+      for (const id of timersRef.current) clearTimeout(id);
+      timersRef.current.clear();
+      setWrongEntries(new Set());
+      setPulseEntries(new Set());
+      // Fill the whole grid with the solution and lock it. `solvedEntries`
+      // is kept as-is: the cells of words the player actually found stay
+      // emerald, every other (now-revealed) cell turns rose -- the grid and
+      // the clue list both read green = found / red = missed.
+      setValues(data.solution);
+      setStatus("revealed");
+      setShowRevealConfirm(false);
+      toast({
+        title: t("revealedTitle"),
+        description: t("revealedStats", {
+          found: solvedEntries.size,
+          total: puzzle.entries.length,
+        }),
+      });
+    } catch {
+      toast({ title: t("errorTitle"), description: t("errorGeneric"), variant: "destructive" });
+    } finally {
+      setRevealing(false);
+    }
+  }
+
+  const done = status === "completed" || status === "revealed";
+  const revealed = status === "revealed";
   const cellPx = puzzle.width > 12 ? 30 : puzzle.width > 9 ? 36 : 42;
 
   return (
     <div className="space-y-6">
       <div className="flex items-baseline justify-between">
         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{topic}</h1>
-        {done && (
+        {status === "completed" && (
           <span className="text-sm font-semibold text-emerald-600">
             {t("completedXp", { xp: earnedXp })}
           </span>
@@ -330,16 +392,22 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
                     }}
                     className={cn(
                       "h-full w-full border text-center text-sm font-bold uppercase caret-transparent focus:outline-none",
-                      solved
-                        ? "border-emerald-400 bg-emerald-50 text-emerald-800 dark:border-emerald-500/60 dark:bg-emerald-500/15 dark:text-emerald-100"
-                        : wrong
-                          ? "border-rose-400 bg-rose-50 text-rose-800 dark:border-rose-500/60 dark:bg-rose-500/15 dark:text-rose-100"
-                          : cn(
-                              "border-slate-300 text-slate-900 dark:border-slate-600 dark:text-white",
-                              isActive
-                                ? "bg-violet-200 dark:bg-violet-500/40"
-                                : "bg-white dark:bg-slate-800"
-                            )
+                      revealed
+                        ? !values[k]
+                          ? CELL_NEUTRAL // empty on a reloaded revealed game
+                          : solved
+                            ? CELL_CORRECT // word the player found
+                            : CELL_WRONG // now-revealed cell the player missed
+                        : solved
+                          ? CELL_CORRECT
+                          : wrong
+                            ? CELL_WRONG
+                            : cn(
+                                "border-slate-300 text-slate-900 dark:border-slate-600 dark:text-white",
+                                isActive
+                                  ? "bg-violet-200 dark:bg-violet-500/40"
+                                  : "bg-white dark:bg-slate-800"
+                              )
                     )}
                   />
                 </motion.div>
@@ -350,10 +418,21 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
       </div>
 
       {!done && (
-        <Button onClick={handleCheck} disabled={checking} className="w-full">
-          {checking && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          {t("checkButton")}
-        </Button>
+        <div className="space-y-2">
+          <Button onClick={handleCheck} disabled={checking || revealing} className="w-full">
+            {checking && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {t("checkButton")}
+          </Button>
+          <Button
+            onClick={() => setShowRevealConfirm(true)}
+            disabled={checking || revealing}
+            variant="ghost"
+            size="sm"
+            className="w-full text-slate-500 dark:text-slate-400"
+          >
+            {t("revealButton")}
+          </Button>
+        </div>
       )}
 
       <div className="grid gap-6 sm:grid-cols-2">
@@ -367,9 +446,13 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
             </h2>
             <ul className="space-y-1.5">
               {list.map((e) => {
+                // On a revealed grid every clue resolves: green if the
+                // player had solved that word, red otherwise.
                 const ok = solvedEntries.has(entryIdOf(e.number, e.direction))
                   ? true
-                  : resultFor(e.number, e.direction);
+                  : revealed
+                    ? false
+                    : resultFor(e.number, e.direction);
                 return (
                   <li
                     key={`${e.number}-${e.direction}`}
@@ -394,11 +477,28 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
         ))}
       </div>
 
-      {done && (
+      {status === "completed" && (
         <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-center dark:border-emerald-500/30 dark:bg-emerald-500/10">
           <p className="text-lg font-bold text-emerald-600">{t("completedTitle")}</p>
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
             {t("completedXp", { xp: earnedXp })}
+          </p>
+          <Button onClick={() => router.push("/crucigrama")} className="mt-4">
+            {t("playAgain")}
+          </Button>
+        </div>
+      )}
+
+      {revealed && (
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center dark:border-slate-700 dark:bg-slate-800/40">
+          <p className="text-lg font-bold text-slate-700 dark:text-slate-200">
+            {t("revealedTitle")}
+          </p>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+            {t("revealedStats", { found: solvedEntries.size, total: puzzle.entries.length })}
+          </p>
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+            {t("revealedSubtitle")}
           </p>
           <Button onClick={() => router.push("/crucigrama")} className="mt-4">
             {t("playAgain")}
@@ -412,6 +512,39 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
       >
         {t("backHome")}
       </Link>
+
+      <Dialog
+        open={showRevealConfirm}
+        onOpenChange={(o) => {
+          if (!revealing) setShowRevealConfirm(o);
+        }}
+      >
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>{t("revealConfirmTitle")}</DialogTitle>
+            <DialogDescription>{t("revealConfirmBody")}</DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-2">
+            <Button
+              onClick={handleReveal}
+              disabled={revealing}
+              variant="destructive"
+              className="w-full"
+            >
+              {revealing && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {t("revealConfirmCta")}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setShowRevealConfirm(false)}
+              disabled={revealing}
+              className="w-full"
+            >
+              {t("revealConfirmCancel")}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

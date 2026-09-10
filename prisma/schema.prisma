@@ -1037,7 +1037,9 @@ model CrucigramaGame {
   // solution, which the play route strips before sending to the client.
   layout          String
   wordCount       Int
-  // "in_progress" | "completed" -- validated in code.
+  // "in_progress" | "completed" | "revealed" -- validated in code.
+  // "revealed" = player gave up and revealed the grid: terminal like
+  // "completed" but credits no XP (still burns the Pro daily free slot).
   status          String    @default("in_progress")
   // Number of fully-correct words at completion (for the result screen).
   score           Int       @default(0)

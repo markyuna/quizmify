@@ -30,10 +30,15 @@ export async function POST(request: Request, { params }: Params) {
 
   const game = await prisma.crucigramaGame.findFirst({
     where: { id: gameId, userId: session.user.id },
-    select: { layout: true },
+    select: { layout: true, status: true },
   });
   if (!game) {
     return NextResponse.json({ error: "Game not found" }, { status: 404 });
+  }
+  // Defensive: once the game is over (completed or revealed) there's
+  // nothing left to grade -- the board stops calling this, but guard anyway.
+  if (game.status !== "in_progress") {
+    return NextResponse.json({ error: "NOT_IN_PROGRESS" }, { status: 409 });
   }
 
   const layout = JSON.parse(game.layout) as CrosswordLayout;

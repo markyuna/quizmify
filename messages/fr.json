@@ -148,7 +148,15 @@
     "across": "Horizontal",
     "down": "Vertical",
     "playAgain": "Nouvelle grille",
-    "backHome": "← Retour à l'accueil"
+    "backHome": "← Retour à l'accueil",
+    "revealButton": "Révéler les réponses",
+    "revealConfirmTitle": "Révéler toutes les réponses ?",
+    "revealConfirmBody": "Cela met fin à la partie immédiatement. La grille sera entièrement remplie, vous ne gagnerez aucun XP et c'est irréversible.",
+    "revealConfirmCta": "Révéler les réponses",
+    "revealConfirmCancel": "Continuer à jouer",
+    "revealedTitle": "Réponses révélées",
+    "revealedStats": "Vous avez trouvé {found} mots sur {total}.",
+    "revealedSubtitle": "Vert : les réponses trouvées. Rouge : les réponses manquées. Aucun XP gagné."
   },
   "AkinatorGame": {
     "title": "Akinator",

@@ -148,7 +148,15 @@
     "across": "Across",
     "down": "Down",
     "playAgain": "New crossword",
-    "backHome": "← Back home"
+    "backHome": "← Back home",
+    "revealButton": "Reveal answers",
+    "revealConfirmTitle": "Reveal all answers?",
+    "revealConfirmBody": "This ends the game right now. The whole grid gets filled in, you won't earn any XP, and it can't be undone.",
+    "revealConfirmCta": "Reveal answers",
+    "revealConfirmCancel": "Keep playing",
+    "revealedTitle": "Answers revealed",
+    "revealedStats": "You found {found} of {total} words.",
+    "revealedSubtitle": "Green: answers you found. Red: answers you missed. No XP earned."
   },
   "AkinatorGame": {
     "title": "Akinator",

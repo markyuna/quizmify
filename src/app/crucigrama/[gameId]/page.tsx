@@ -25,7 +25,11 @@ export default async function CrucigramaGamePage({
         gameId={game.id}
         topic={game.topic}
         difficulty={game.difficulty}
-        initialStatus={game.status === "completed" ? "completed" : "in_progress"}
+        initialStatus={
+          game.status === "completed" || game.status === "revealed"
+            ? game.status
+            : "in_progress"
+        }
         xpEarned={game.xpEarned}
         puzzle={toClientCrossword(JSON.parse(game.layout) as CrosswordLayout)}
       />

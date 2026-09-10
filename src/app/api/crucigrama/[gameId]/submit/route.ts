@@ -51,6 +51,18 @@ export async function POST(request: Request, { params }: Params) {
     (c) => normalizeCellInput(filled[`${c.row},${c.col}`] ?? "") === c.letter
   );
 
+  if (game.status === "revealed") {
+    // Player gave up and revealed the grid -- terminal, no XP, and distinct
+    // from a real completion.
+    return NextResponse.json({
+      completed: true,
+      alreadyCompleted: true,
+      revealed: true,
+      xpEarned: 0,
+      correctWords: game.score,
+      wordResults,
+    });
+  }
   if (game.status !== "in_progress") {
     return NextResponse.json({
       completed: true,

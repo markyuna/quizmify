@@ -148,7 +148,15 @@
     "across": "Horizontal",
     "down": "Vertical",
     "playAgain": "Nuevo crucigrama",
-    "backHome": "← Volver a inicio"
+    "backHome": "← Volver a inicio",
+    "revealButton": "Revelar respuestas",
+    "revealConfirmTitle": "¿Revelar todas las respuestas?",
+    "revealConfirmBody": "Esto termina la partida ahora mismo. Se completa toda la cuadrícula, no vas a ganar XP y no se puede deshacer.",
+    "revealConfirmCta": "Revelar respuestas",
+    "revealConfirmCancel": "Seguir jugando",
+    "revealedTitle": "Respuestas reveladas",
+    "revealedStats": "Encontraste {found} de {total} palabras.",
+    "revealedSubtitle": "Verde: las respuestas que encontraste. Rojo: las que faltaron. Sin XP."
   },
   "AkinatorGame": {
     "title": "Akinator",
