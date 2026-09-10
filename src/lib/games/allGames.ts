@@ -1,4 +1,4 @@
-import { Grid3x3, type LucideIcon } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 import {
   AKINATOR_COST_PER_GAME,
@@ -134,9 +134,7 @@ export const ALL_GAMES: AllGamesEntry[] = [
     href: "/crucigrama",
     i18nNamespace: "CrucigramaPage",
     i18nKey: "title",
-    // TODO: swap for a /images/games/crucigrama-icon.png once the asset
-    // exists -- Lucide fallback for now, same slot GameCard renders either way.
-    icon: Grid3x3,
+    image: "/images/games/crucigrama-icon.png",
     neuronCost: CRUCIGRAMA_COST_PER_GAME,
   },
 ];
