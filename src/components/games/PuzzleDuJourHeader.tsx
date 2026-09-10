@@ -8,8 +8,9 @@ import { useTranslations } from "next-intl";
  */
 
 // One colour per letter of t("headerTitle") ("Puzzle" = 6). Wraps if a
-// locale ever makes the word longer.
-const LETTER_COLORS = ["#8b5cf6", "#06b6d4", "#ff6b6b", "#ec4899", "#10b981", "#f59e0b"];
+// locale ever makes the word longer. Shared with CrucigramaHeader so both
+// game headers use the exact same brand palette.
+export const LETTER_COLORS = ["#8b5cf6", "#06b6d4", "#ff6b6b", "#ec4899", "#10b981", "#f59e0b"];
 
 function PuzzlePieceIcon() {
   return (

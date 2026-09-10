@@ -10,6 +10,7 @@ import { Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "./ui/use-toast";
 import LoadingQuestions from "./LoadingQuestions";
+import CrucigramaHeader from "./games/CrucigramaHeader";
 import InsufficientNeuronsCta from "./games/InsufficientNeuronsCta";
 import { CRUCIGRAMA_COST_PER_GAME } from "@/lib/neurons/costs";
 import { CRUCIGRAMA_DIFFICULTIES, type CrucigramaDifficulty } from "@/lib/crucigrama";
@@ -113,12 +114,7 @@ export default function CrucigramaCreation() {
 
   return (
     <form onSubmit={handleSubmit} className="mx-auto w-full max-w-lg space-y-4">
-      <div className="text-center">
-        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-          {t("title")}
-        </h1>
-        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{t("description")}</p>
-      </div>
+      <CrucigramaHeader />
 
       <div className="rounded-2xl border border-slate-200 bg-white/60 p-4 dark:border-white/10 dark:bg-white/5">
         <input
@@ -157,8 +153,12 @@ export default function CrucigramaCreation() {
       <button
         type="submit"
         disabled={!canAfford || !topic.trim()}
-        className="relative flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-violet-500/20 transition-all duration-200 hover:-translate-y-0.5 hover:opacity-95 disabled:opacity-50"
+        className="relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-violet-500/20 transition-all duration-200 hover:-translate-y-0.5 hover:opacity-95 hover:shadow-xl hover:shadow-cyan-500/20 disabled:opacity-50"
       >
+        <span
+          aria-hidden
+          className="animate-shine pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-white/25 motion-reduce:hidden"
+        />
         {freeToday ? (
           <>
             <Sparkles className="h-4 w-4" />
