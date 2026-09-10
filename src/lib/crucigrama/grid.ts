@@ -90,6 +90,42 @@ export function toClientCrossword(layout: CrosswordLayout): ClientCrossword {
   };
 }
 
+/** Player input -> comparable grid letter (the grid never shows accents). */
+export const normalizeCellInput = (s: string): string => s.trim().toUpperCase();
+
+/**
+ * The "row,col" keys a placed word occupies, in answer order. Takes the
+ * client-safe shape (`length`, not `letters`) so the board reuses it too.
+ */
+export function entryCellKeys(entry: {
+  direction: "across" | "down";
+  row: number;
+  col: number;
+  length: number;
+}): string[] {
+  return Array.from({ length: entry.length }, (_, i) =>
+    entry.direction === "down"
+      ? `${entry.row + i},${entry.col}`
+      : `${entry.row},${entry.col + i}`
+  );
+}
+
+/**
+ * Is one placed word fully correct against the player's filled cells (keyed
+ * "row,col")? The solution comes from `entry.letters` and must never reach
+ * the client -- callers return a boolean only. Shared by /submit (grades
+ * every word) and /check-word (grades one).
+ */
+export function isEntryCorrect(entry: PlacedEntry, filled: Record<string, string>): boolean {
+  const keys = entryCellKeys({
+    direction: entry.direction,
+    row: entry.row,
+    col: entry.col,
+    length: entry.letters.length,
+  });
+  return entry.letters.every((letter, i) => normalizeCellInput(filled[keys[i]] ?? "") === letter);
+}
+
 type Prepared = { answer: string; clue: string; letters: string[] };
 type Working = Prepared & { row: number; col: number; direction: "across" | "down" };
 

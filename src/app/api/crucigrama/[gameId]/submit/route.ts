@@ -8,7 +8,7 @@ import { calculateLevel } from "@/lib/xp";
 import { FREE_LEVEL_CAP, FREE_XP_CAP } from "@/lib/stripe";
 import { crucigramaSubmitSchema } from "@/schemas/form/crucigrama";
 import { CRUCIGRAMA_GAME_KEY, CRUCIGRAMA_XP, isCrucigramaDifficulty } from "@/lib/crucigrama";
-import type { CrosswordLayout } from "@/lib/crucigrama/grid";
+import { isEntryCorrect, normalizeCellInput, type CrosswordLayout } from "@/lib/crucigrama/grid";
 
 type Params = { params: Promise<{ gameId: string }> };
 
@@ -40,19 +40,15 @@ export async function POST(request: Request, { params }: Params) {
 
   const layout = JSON.parse(game.layout) as CrosswordLayout;
   const filled = parsed.data.cells;
-  const norm = (s: string) => s.trim().toUpperCase();
 
-  const wordResults = layout.entries.map((e) => {
-    const correct = e.letters.every((letter, i) => {
-      const row = e.direction === "down" ? e.row + i : e.row;
-      const col = e.direction === "across" ? e.col + i : e.col;
-      return norm(filled[`${row},${col}`] ?? "") === letter;
-    });
-    return { number: e.number, direction: e.direction, correct };
-  });
+  const wordResults = layout.entries.map((e) => ({
+    number: e.number,
+    direction: e.direction,
+    correct: isEntryCorrect(e, filled),
+  }));
   const correctWords = wordResults.filter((w) => w.correct).length;
   const allCellsCorrect = layout.cells.every(
-    (c) => norm(filled[`${c.row},${c.col}`] ?? "") === c.letter
+    (c) => normalizeCellInput(filled[`${c.row},${c.col}`] ?? "") === c.letter
   );
 
   if (game.status !== "in_progress") {

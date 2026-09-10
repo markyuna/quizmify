@@ -11,5 +11,15 @@ export const crucigramaSubmitSchema = z.object({
   cells: z.record(z.string(), z.string().max(1)),
 });
 
+export const crucigramaCheckWordSchema = z.object({
+  // Which placed word to grade -- its clue-list number + direction.
+  number: z.number().int().positive(),
+  direction: z.enum(["across", "down"]),
+  // The player's full grid, same shape as the submit payload; the server
+  // picks out only this word's cells before comparing.
+  cells: z.record(z.string(), z.string().max(1)),
+});
+
 export type CrucigramaCreateData = z.infer<typeof crucigramaCreateSchema>;
 export type CrucigramaSubmitData = z.infer<typeof crucigramaSubmitSchema>;
+export type CrucigramaCheckWordData = z.infer<typeof crucigramaCheckWordSchema>;

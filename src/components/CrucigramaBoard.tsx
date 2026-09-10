@@ -4,12 +4,13 @@ import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { motion, useReducedMotion } from "framer-motion";
 import { Loader2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import type { ClientCrossword } from "@/lib/crucigrama/grid";
+import { entryCellKeys, type ClientCrossword } from "@/lib/crucigrama/grid";
 
 type WordResult = { number: number; direction: "across" | "down"; correct: boolean };
 
@@ -23,6 +24,16 @@ type Props = {
 };
 
 const keyOf = (r: number, c: number) => `${r},${c}`;
+const entryIdOf = (n: number, d: "across" | "down") => `${n}-${d}`;
+const setWithout = (s: Set<string>, id: string) => {
+  const next = new Set(s);
+  next.delete(id);
+  return next;
+};
+
+// Per-word feedback timings.
+const WRONG_CLEAR_MS = 650; // red shake/flash, then wipe the word
+const SOLVED_PULSE_MS = 450; // green scale-pop, then settle
 
 export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned, puzzle }: Props) {
   const t = useTranslations("CrucigramaPage");
@@ -46,7 +57,60 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
   const [earnedXp, setEarnedXp] = React.useState(xpEarned);
   const [wordResults, setWordResults] = React.useState<WordResult[]>([]);
   const [checking, setChecking] = React.useState(false);
+  // Real-time per-word validation. `solvedEntries` is permanent (its cells
+  // lock read-only); `wrongEntries` / `pulseEntries` are transient anim flags.
+  const [solvedEntries, setSolvedEntries] = React.useState<Set<string>>(new Set());
+  const [wrongEntries, setWrongEntries] = React.useState<Set<string>>(new Set());
+  const [pulseEntries, setPulseEntries] = React.useState<Set<string>>(new Set());
   const inputRefs = React.useRef<Record<string, HTMLInputElement | null>>({});
+  const reduceMotion = useReducedMotion() ?? false;
+
+  const navTimeout = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const timersRef = React.useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
+  const later = React.useCallback((fn: () => void, ms: number) => {
+    const id = setTimeout(() => {
+      timersRef.current.delete(id);
+      fn();
+    }, ms);
+    timersRef.current.add(id);
+  }, []);
+
+  React.useEffect(
+    () => () => {
+      if (navTimeout.current) clearTimeout(navTimeout.current);
+      for (const id of timersRef.current) clearTimeout(id);
+      timersRef.current.clear();
+    },
+    []
+  );
+
+  // "number-direction" -> its cell keys; used both to expand solved/wrong
+  // sets to cells and to detect which word(s) a filled cell just completed.
+  const cellsByEntry = React.useMemo(() => {
+    const m = new Map<string, string[]>();
+    for (const e of puzzle.entries) m.set(entryIdOf(e.number, e.direction), entryCellKeys(e));
+    return m;
+  }, [puzzle.entries]);
+
+  const expandToCells = React.useCallback(
+    (ids: Set<string>) => {
+      const s = new Set<string>();
+      for (const id of ids) for (const k of cellsByEntry.get(id) ?? []) s.add(k);
+      return s;
+    },
+    [cellsByEntry]
+  );
+  const solvedCells = React.useMemo(
+    () => expandToCells(solvedEntries),
+    [expandToCells, solvedEntries]
+  );
+  const wrongCells = React.useMemo(() => expandToCells(wrongEntries), [expandToCells, wrongEntries]);
+  const pulseCells = React.useMemo(() => expandToCells(pulseEntries), [expandToCells, pulseEntries]);
+
+  const solvedEntriesRef = React.useRef(solvedEntries);
+  React.useEffect(() => {
+    solvedEntriesRef.current = solvedEntries;
+  }, [solvedEntries]);
 
   const across = puzzle.entries.filter((e) => e.direction === "across");
   const down = puzzle.entries.filter((e) => e.direction === "down");
@@ -57,6 +121,72 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
     inputRefs.current[keyOf(r, c)]?.focus();
     setActive({ row: r, col: c });
   }, []);
+
+  const inFlightRef = React.useRef<Set<string>>(new Set());
+  const prevCompleteRef = React.useRef<Set<string>>(new Set());
+
+  const checkWord = React.useCallback(
+    async (id: string, snapshot: Record<string, string>) => {
+      const [numStr, dir] = id.split("-") as [string, "across" | "down"];
+      inFlightRef.current.add(id);
+      try {
+        const res = await fetch(`/api/crucigrama/${gameId}/check-word`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ number: Number(numStr), direction: dir, cells: snapshot }),
+        });
+        if (!res.ok) return; // silent -- the manual "Comprobar" button is the backstop
+        const data = (await res.json()) as { correct: boolean };
+        if (data.correct) {
+          setSolvedEntries((s) => new Set(s).add(id));
+          setPulseEntries((p) => new Set(p).add(id));
+          later(() => setPulseEntries((p) => setWithout(p, id)), SOLVED_PULSE_MS);
+        } else {
+          setWrongEntries((w) => new Set(w).add(id));
+          later(() => {
+            setWrongEntries((w) => setWithout(w, id));
+            const keys = cellsByEntry.get(id) ?? [];
+            // keep any cell that also belongs to an already-solved crossing word
+            const locked = new Set<string>();
+            for (const sid of solvedEntriesRef.current)
+              for (const k of cellsByEntry.get(sid) ?? []) locked.add(k);
+            setValues((v) => {
+              const next = { ...v };
+              for (const k of keys) if (!locked.has(k)) delete next[k];
+              return next;
+            });
+            const [fr, fc] = (keys[0] ?? "0,0").split(",").map(Number);
+            setDirection(dir);
+            focusCell(fr, fc);
+          }, WRONG_CLEAR_MS);
+        }
+      } catch {
+        // network error -- ignore, the manual check still works
+      } finally {
+        inFlightRef.current.delete(id);
+      }
+    },
+    [gameId, cellsByEntry, later, focusCell]
+  );
+
+  // Fire a per-word check the moment every cell of a word is filled. A
+  // crossing letter can complete two words at once -- both fire. Skips words
+  // already solved or with a check in flight, and words that were already
+  // complete on the previous render (so it only fires on the transition).
+  React.useEffect(() => {
+    if (status !== "in_progress") return;
+    const complete = new Set<string>();
+    for (const [id, keys] of cellsByEntry) {
+      if (keys.every((k) => (values[k] ?? "") !== "")) complete.add(id);
+    }
+    for (const id of complete) {
+      if (prevCompleteRef.current.has(id) || solvedEntries.has(id) || inFlightRef.current.has(id)) {
+        continue;
+      }
+      void checkWord(id, values);
+    }
+    prevCompleteRef.current = complete;
+  }, [values, cellsByEntry, status, solvedEntries, checkWord]);
 
   const step = (r: number, c: number, dir: "across" | "down", back = false): [number, number] => {
     const d = back ? -1 : 1;
@@ -77,7 +207,7 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
   function handleKeyDown(e: React.KeyboardEvent, r: number, c: number) {
     if (e.key === "Backspace" && !values[keyOf(r, c)]) {
       const [pr, pc] = step(r, c, direction, true);
-      if (cellSet.has(keyOf(pr, pc))) {
+      if (cellSet.has(keyOf(pr, pc)) && !solvedCells.has(keyOf(pr, pc))) {
         setValues((v) => ({ ...v, [keyOf(pr, pc)]: "" }));
         focusCell(pr, pc);
       }
@@ -158,8 +288,25 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
               if (!cellSet.has(k)) return <div key={k} />;
               const num = numberAt.get(k);
               const isActive = active?.row === r && active?.col === c;
+              const solved = solvedCells.has(k);
+              const wrong = wrongCells.has(k);
+              const pulse = pulseCells.has(k);
+              const cellAnim = reduceMotion
+                ? undefined
+                : wrong
+                  ? { x: [0, -6, 6, -4, 4, 0] }
+                  : pulse
+                    ? { scale: [1, 1.08, 0.98, 1.03, 1] }
+                    : undefined;
               return (
-                <div key={k} className="relative">
+                <motion.div
+                  key={k}
+                  className="relative"
+                  animate={cellAnim}
+                  transition={
+                    cellAnim ? { duration: wrong ? 0.5 : 0.35, ease: "easeInOut" } : undefined
+                  }
+                >
                   {num != null && (
                     <span className="pointer-events-none absolute left-0.5 top-0 z-10 text-[9px] leading-none text-slate-500">
                       {num}
@@ -170,7 +317,7 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
                       inputRefs.current[k] = el;
                     }}
                     value={values[k] ?? ""}
-                    disabled={done}
+                    disabled={done || solved}
                     maxLength={1}
                     autoComplete="off"
                     inputMode="text"
@@ -182,11 +329,20 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
                       if (isActive) setDirection((d) => (d === "across" ? "down" : "across"));
                     }}
                     className={cn(
-                      "h-full w-full border border-slate-300 text-center text-sm font-bold uppercase text-slate-900 caret-transparent focus:outline-none dark:border-slate-600 dark:text-white",
-                      isActive ? "bg-violet-200 dark:bg-violet-500/40" : "bg-white dark:bg-slate-800"
+                      "h-full w-full border text-center text-sm font-bold uppercase caret-transparent focus:outline-none",
+                      solved
+                        ? "border-emerald-400 bg-emerald-50 text-emerald-800 dark:border-emerald-500/60 dark:bg-emerald-500/15 dark:text-emerald-100"
+                        : wrong
+                          ? "border-rose-400 bg-rose-50 text-rose-800 dark:border-rose-500/60 dark:bg-rose-500/15 dark:text-rose-100"
+                          : cn(
+                              "border-slate-300 text-slate-900 dark:border-slate-600 dark:text-white",
+                              isActive
+                                ? "bg-violet-200 dark:bg-violet-500/40"
+                                : "bg-white dark:bg-slate-800"
+                            )
                     )}
                   />
-                </div>
+                </motion.div>
               );
             })
           )}
@@ -211,7 +367,9 @@ export default function CrucigramaBoard({ gameId, topic, initialStatus, xpEarned
             </h2>
             <ul className="space-y-1.5">
               {list.map((e) => {
-                const ok = resultFor(e.number, e.direction);
+                const ok = solvedEntries.has(entryIdOf(e.number, e.direction))
+                  ? true
+                  : resultFor(e.number, e.direction);
                 return (
                   <li
                     key={`${e.number}-${e.direction}`}
