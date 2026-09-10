@@ -85,7 +85,11 @@ export default function PrimaryNav({ isPro, isLoggedIn }: PrimaryNavProps) {
       {/* Desktop */}
       <nav className="hidden items-center gap-0.5 md:flex">
         {/* Categories */}
-        <DropdownMenu>
+        {/* modal={false}: a nav dropdown must not lock body scroll --
+            react-remove-scroll's scrollbar compensation adds a margin to
+            <body> that shifts the centered layout a few px on open/close
+            (our scroll container is <html>, so the compensation is spurious). */}
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger className={triggerClass}>
             {t("categories")}
             <ChevronDown className="h-4 w-4 text-slate-400" />
@@ -119,7 +123,7 @@ export default function PrimaryNav({ isPro, isLoggedIn }: PrimaryNavProps) {
         </DropdownMenu>
 
         {/* Games */}
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger className={triggerClass}>
             {t("games")}
             <ChevronDown className="h-4 w-4 text-slate-400" />

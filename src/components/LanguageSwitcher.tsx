@@ -29,7 +29,9 @@ export default function LanguageSwitcher() {
   }
 
   return (
-    <DropdownMenu>
+    // modal={false}: keep this nav menu from locking body scroll -- see the
+    // note in nav/PrimaryNav.tsx (avoids the few-px layout shift on open/close).
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <button
           type="button"
