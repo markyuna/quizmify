@@ -73,7 +73,7 @@ export const ALL_GAMES: AllGamesEntry[] = [
     i18nNamespace: "GuestGames",
     i18nKey: "games.wordOfDay.title",
     descriptionKey: "games.wordOfDay.teaser",
-    image: "/images/games/mot-du-jour-bg.webp",
+    image: "/images/games/mot-du-jour-bg.png",
   },
   {
     key: "photo-of-day",
@@ -82,7 +82,7 @@ export const ALL_GAMES: AllGamesEntry[] = [
     i18nNamespace: "GuestGames",
     i18nKey: "games.photoOfDay.title",
     descriptionKey: "games.photoOfDay.teaser",
-    image: "/images/games/photo-du-jour-bg.webp",
+    image: "/images/games/photo-du-jour-bg.png",
   },
   {
     key: "math-target",
@@ -91,7 +91,7 @@ export const ALL_GAMES: AllGamesEntry[] = [
     i18nNamespace: "GuestGames",
     i18nKey: "games.mathTarget.title",
     descriptionKey: "games.mathTarget.teaser",
-    image: "/images/games/compte-est-bon-bg.webp",
+    image: "/images/games/compte-est-bon-bg.png",
   },
   {
     key: "qui-est-le-peintre",
