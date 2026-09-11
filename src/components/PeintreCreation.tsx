@@ -106,7 +106,7 @@ export default function PeintreCreation() {
         <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-slate-400">
           {t("deckLabel")}
         </p>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
           {PEINTRE_DECKS.map((deck) => {
             const selected = deckKey === deck.deckKey;
             return (

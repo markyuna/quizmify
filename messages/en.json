@@ -868,6 +868,33 @@
           "bapteme-du-christ": "This work is famous for its almost mathematical use of perspective and light.",
           "portrait-vieillard-petit-fils": "Ghirlandaio depicts, without idealizing it, a skin condition of the old man (rhinophyma), an unusual choice for the time."
         }
+      },
+      "impressionnisme": {
+        "title": "Impressionism",
+        "titles": {
+          "bal-du-moulin-de-la-galette": "Bal du moulin de la Galette",
+          "la-classe-de-danse": "La Classe de danse",
+          "un-dimanche-a-la-grande-jatte": "Un dimanche après-midi à l'Île de la Grande Jatte",
+          "rue-de-paris-temps-de-pluie": "Rue de Paris, temps de pluie",
+          "la-toilette-de-l-enfant": "La Toilette de l'enfant",
+          "les-joueurs-de-cartes": "Les Joueurs de cartes",
+          "d-ou-venons-nous": "D'où venons-nous ? Que sommes-nous ? Où allons-nous ?",
+          "moulin-rouge-la-goulue": "Moulin Rouge : La Goulue",
+          "boulevard-montmartre-la-nuit": "Boulevard Montmartre, effet de nuit",
+          "le-pont-de-moret": "Le Pont de Moret"
+        },
+        "explanations": {
+          "bal-du-moulin-de-la-galette": "Renoir painted this outdoor scene in Montmartre, trying to capture the effect of dappled light filtering through the trees onto the crowd.",
+          "la-classe-de-danse": "This painting is part of a series of more than 1,500 works Degas devoted to dancers throughout his career.",
+          "un-dimanche-a-la-grande-jatte": "Seurat invented pointillism for this painting: thousands of tiny dots of pure color that the viewer's eye blends from a distance.",
+          "rue-de-paris-temps-de-pluie": "Caillebotte adopts an almost photographic perspective here, unusual among Impressionist painters of his time.",
+          "la-toilette-de-l-enfant": "Mary Cassatt was one of the few women fully recognized within the Impressionist movement.",
+          "les-joueurs-de-cartes": "Cézanne painted several versions of this scene; art historians see in them a bridge toward emerging Cubism.",
+          "d-ou-venons-nous": "Painted in Tahiti, Gauguin considered it his artistic testament, the most ambitious work of his entire career.",
+          "moulin-rouge-la-goulue": "This poster was Toulouse-Lautrec's very first advertising commission for the Moulin Rouge, in 1891.",
+          "boulevard-montmartre-la-nuit": "Pissarro painted this same boulevard several times, at different hours and seasons, from the window of his hotel.",
+          "le-pont-de-moret": "Sisley, the least known of the great Impressionists, stayed faithful to pure landscape throughout his career."
+        }
       }
     }
   },

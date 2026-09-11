@@ -868,6 +868,33 @@
           "bapteme-du-christ": "Esta obra es célebre por su uso casi matemático de la perspectiva y de la luz.",
           "portrait-vieillard-petit-fils": "Ghirlandaio representa sin idealizar una enfermedad cutánea del anciano (rinofima), una elección poco habitual para la época."
         }
+      },
+      "impressionnisme": {
+        "title": "Impresionismo",
+        "titles": {
+          "bal-du-moulin-de-la-galette": "Bal du moulin de la Galette",
+          "la-classe-de-danse": "La Classe de danse",
+          "un-dimanche-a-la-grande-jatte": "Un dimanche après-midi à l'Île de la Grande Jatte",
+          "rue-de-paris-temps-de-pluie": "Rue de Paris, temps de pluie",
+          "la-toilette-de-l-enfant": "La Toilette de l'enfant",
+          "les-joueurs-de-cartes": "Les Joueurs de cartes",
+          "d-ou-venons-nous": "D'où venons-nous ? Que sommes-nous ? Où allons-nous ?",
+          "moulin-rouge-la-goulue": "Moulin Rouge : La Goulue",
+          "boulevard-montmartre-la-nuit": "Boulevard Montmartre, effet de nuit",
+          "le-pont-de-moret": "Le Pont de Moret"
+        },
+        "explanations": {
+          "bal-du-moulin-de-la-galette": "Renoir pintó esta escena al aire libre en Montmartre, buscando captar el efecto de la luz moteada filtrándose entre los árboles sobre la multitud.",
+          "la-classe-de-danse": "Este cuadro forma parte de una serie de más de 1500 obras que Degas dedicó a las bailarinas a lo largo de su carrera.",
+          "un-dimanche-a-la-grande-jatte": "Seurat inventó el puntillismo para este cuadro: miles de pequeños puntos de color puro que el ojo del espectador mezcla a distancia.",
+          "rue-de-paris-temps-de-pluie": "Caillebotte adopta aquí una perspectiva casi fotográfica, poco habitual entre los pintores impresionistas de su época.",
+          "la-toilette-de-l-enfant": "Mary Cassatt fue una de las pocas mujeres plenamente reconocidas dentro del movimiento impresionista.",
+          "les-joueurs-de-cartes": "Cézanne pintó varias versiones de esta escena; los historiadores del arte ven en ellas un puente hacia el cubismo naciente.",
+          "d-ou-venons-nous": "Pintada en Tahití, Gauguin la consideraba su testamento artístico, la obra más ambiciosa de toda su carrera.",
+          "moulin-rouge-la-goulue": "Este afiche fue el primer encargo publicitario de Toulouse-Lautrec para el Moulin Rouge, en 1891.",
+          "boulevard-montmartre-la-nuit": "Pissarro pintó este mismo bulevar en varias ocasiones, en distintas horas y estaciones, desde la ventana de su hotel.",
+          "le-pont-de-moret": "Sisley, el menos conocido de los grandes impresionistas, se mantuvo fiel al paisaje puro durante toda su carrera."
+        }
       }
     }
   },

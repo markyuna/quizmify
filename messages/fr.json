@@ -868,6 +868,33 @@
           "bapteme-du-christ": "Cette œuvre est célèbre pour son usage quasi mathématique de la perspective et de la lumière.",
           "portrait-vieillard-petit-fils": "Ghirlandaio représente sans idéaliser une maladie de peau du vieil homme (rhinophyma), un choix inhabituel pour l'époque."
         }
+      },
+      "impressionnisme": {
+        "title": "Impressionnisme",
+        "titles": {
+          "bal-du-moulin-de-la-galette": "Bal du moulin de la Galette",
+          "la-classe-de-danse": "La Classe de danse",
+          "un-dimanche-a-la-grande-jatte": "Un dimanche après-midi à l'Île de la Grande Jatte",
+          "rue-de-paris-temps-de-pluie": "Rue de Paris, temps de pluie",
+          "la-toilette-de-l-enfant": "La Toilette de l'enfant",
+          "les-joueurs-de-cartes": "Les Joueurs de cartes",
+          "d-ou-venons-nous": "D'où venons-nous ? Que sommes-nous ? Où allons-nous ?",
+          "moulin-rouge-la-goulue": "Moulin Rouge : La Goulue",
+          "boulevard-montmartre-la-nuit": "Boulevard Montmartre, effet de nuit",
+          "le-pont-de-moret": "Le Pont de Moret"
+        },
+        "explanations": {
+          "bal-du-moulin-de-la-galette": "Renoir peignit cette scène en plein air à Montmartre, cherchant à capturer l'effet de la lumière tachetée filtrant à travers les arbres sur la foule.",
+          "la-classe-de-danse": "Cette toile fait partie d'une série de plus de 1 500 œuvres que Degas consacra aux danseuses tout au long de sa carrière.",
+          "un-dimanche-a-la-grande-jatte": "Seurat inventa le pointillisme pour cette toile : des milliers de petits points de couleur pure que l'œil du spectateur mélange à distance.",
+          "rue-de-paris-temps-de-pluie": "Caillebotte adopte ici une perspective presque photographique, inhabituelle chez les peintres impressionnistes de son époque.",
+          "la-toilette-de-l-enfant": "Mary Cassatt fut l'une des rares femmes pleinement reconnues au sein du mouvement impressionniste.",
+          "les-joueurs-de-cartes": "Cézanne peignit plusieurs versions de cette scène ; les historiens de l'art y voient une passerelle vers le cubisme naissant.",
+          "d-ou-venons-nous": "Peinte à Tahiti, Gauguin la considérait comme son testament artistique, l'œuvre la plus ambitieuse de toute sa carrière.",
+          "moulin-rouge-la-goulue": "Cette affiche fut la toute première commande publicitaire de Toulouse-Lautrec pour le Moulin Rouge, en 1891.",
+          "boulevard-montmartre-la-nuit": "Pissarro peignit ce même boulevard à plusieurs reprises, à différentes heures et saisons, depuis la fenêtre de son hôtel.",
+          "le-pont-de-moret": "Sisley, le moins connu des grands impressionnistes, resta fidèle au paysage pur pendant toute sa carrière."
+        }
       }
     }
   },
