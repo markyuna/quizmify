@@ -1,10 +1,16 @@
-import { QUI_EST_LE_PEINTRE } from "./quiEstLePeintre";
 import type { CuratedQuizDefinition } from "./types";
 
 // Add future curated topics here (image-based or otherwise hand-curated
 // question sets that should bypass AI generation entirely -- see
-// findCuratedQuiz's callers in /api/game/route.ts and QuizCreation.tsx).
-export const CURATED_QUIZZES: CuratedQuizDefinition[] = [QUI_EST_LE_PEINTRE];
+// findCuratedQuiz's callers in /api/game/route.ts).
+//
+// Empty today: the only curated quiz, "Qui est le peintre?"
+// (./quiEstLePeintre.ts, kept on disk for reference), was promoted to its
+// own standalone game -- see src/lib/peintre/ and /app/peintre. The
+// curated-quiz machinery (this registry, findCuratedQuiz, the curated
+// branches in /api/game and /api/quiz/submit, the CuratedQuizCompletion
+// model) is left intact for the next curated set.
+export const CURATED_QUIZZES: CuratedQuizDefinition[] = [];
 
 /**
  * Looks up a curated quiz by (categorySlug, normalized topic) only --
@@ -15,8 +21,7 @@ export const CURATED_QUIZZES: CuratedQuizDefinition[] = [QUI_EST_LE_PEINTRE];
  * quiz when they click the topic, not fall through to AI generation just
  * because the UI chrome is in a different language. Callers must pass the
  * topic's own canonical text (CategoryTopic.topicNormalized / a curated
- * definition's topicDisplay), never a locale-translated display label --
- * see CategoryQuizCard.tsx for why that distinction matters.
+ * definition's topicDisplay), never a locale-translated display label.
  */
 export function findCuratedQuiz(
   categorySlug: string | null | undefined,

@@ -84,6 +84,7 @@ export const ModelName = {
   MorpionGame: 'MorpionGame',
   AkinatorGame: 'AkinatorGame',
   CrucigramaGame: 'CrucigramaGame',
+  PeintreGame: 'PeintreGame',
   UserDailyFreeGame: 'UserDailyFreeGame'
 } as const
 
@@ -602,6 +603,23 @@ export const CrucigramaGameScalarFieldEnum = {
 } as const
 
 export type CrucigramaGameScalarFieldEnum = (typeof CrucigramaGameScalarFieldEnum)[keyof typeof CrucigramaGameScalarFieldEnum]
+
+
+export const PeintreGameScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  deckKey: 'deckKey',
+  language: 'language',
+  status: 'status',
+  answers: 'answers',
+  score: 'score',
+  xpEarned: 'xpEarned',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PeintreGameScalarFieldEnum = (typeof PeintreGameScalarFieldEnum)[keyof typeof PeintreGameScalarFieldEnum]
 
 
 export const UserDailyFreeGameScalarFieldEnum = {

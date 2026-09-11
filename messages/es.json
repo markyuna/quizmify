@@ -788,6 +788,89 @@
       }
     }
   },
+  "Peintre": {
+    "title": "¿Quién es el pintor?",
+    "titleBrandWord": "pintor",
+    "description": "Mira la obra y adivina quién la pintó. 10 cuadros, 4 opciones cada uno.",
+    "questionTemplate": "¿Quién pintó «{title}»?",
+    "deckLabel": "Elige un mazo de pintores",
+    "deckQuestionCount": "{count} obras",
+    "generateCta": "Jugar",
+    "unlockButton": "Jugar por <icon></icon> {cost}",
+    "freeToday": "Tu primera partida del día es gratis",
+    "loadingSecondaryLine": "Preparando los lienzos…",
+    "loadingTexts": ["Colgando los cuadros", "Mezclando las opciones", "Casi listo"],
+    "progress": "Obra {current}/{total}",
+    "nextButton": "Siguiente",
+    "seeResultButton": "Ver el resultado",
+    "resultTitle": "Resultado",
+    "scoreLine": "{score} / 10",
+    "xpLine": "+{xp} XP",
+    "perfectLine": "¡Sin fallos! +{bonus} XP extra",
+    "yourAnswer": "Tu respuesta: {answer}",
+    "hitFreeLimit": "Alcanzaste el límite de XP del plan gratuito.",
+    "playAgain": "Jugar de nuevo",
+    "backHome": "← Volver al inicio",
+    "errorTitle": "Error",
+    "errorGeneric": "Ocurrió un error. Inténtalo de nuevo.",
+    "errorInsufficient": "No tienes suficientes Neuronas para jugar.",
+    "decks": {
+      "classiques": {
+        "title": "Obras maestras",
+        "titles": {
+          "nuit-etoilee": "La noche estrellada",
+          "joconde": "La Gioconda",
+          "le-cri": "El grito",
+          "naissance-de-venus": "El nacimiento de Venus",
+          "nympheas": "Los nenúfares",
+          "liberte-guidant-le-peuple": "La libertad guiando al pueblo",
+          "dejeuner-sur-l-herbe": "El almuerzo sobre la hierba",
+          "jeune-fille-a-la-perle": "La joven de la perla",
+          "le-baiser": "El beso",
+          "american-gothic": "American Gothic"
+        },
+        "explanations": {
+          "nuit-etoilee": "Vincent van Gogh pintó «La noche estrellada» en 1889, desde la ventana de su habitación en el asilo de Saint-Rémy-de-Provence.",
+          "joconde": "Léonard de Vinci pintó «La Gioconda» a comienzos del siglo XVI; la obra se exhibe en el Museo del Louvre.",
+          "le-cri": "Edvard Munch pintó «El grito» en 1893, una obra emblemática del expresionismo.",
+          "naissance-de-venus": "Sandro Botticelli pintó «El nacimiento de Venus» hacia 1485, una obra clave del Renacimiento italiano.",
+          "nympheas": "Claude Monet pintó la serie de «Los nenúfares» desde el jardín de su casa en Giverny, una cumbre del impresionismo.",
+          "liberte-guidant-le-peuple": "Eugène Delacroix pintó «La libertad guiando al pueblo» en 1830, para conmemorar la revolución de Julio.",
+          "dejeuner-sur-l-herbe": "Édouard Manet pintó «El almuerzo sobre la hierba» en 1863; la obra causó escándalo en el Salón de los Rechazados.",
+          "jeune-fille-a-la-perle": "Johannes Vermeer pintó «La joven de la perla» hacia 1665, apodada la «Gioconda del Norte».",
+          "le-baiser": "Gustav Klimt pintó «El beso» entre 1907 y 1908, obra emblemática de su período dorado y de la Secesión vienesa.",
+          "american-gothic": "Grant Wood pintó «American Gothic» en 1930, convertida en un ícono del regionalismo estadounidense."
+        }
+      },
+      "renaissance": {
+        "title": "Renacimiento",
+        "titles": {
+          "ecole-d-athenes": "La escuela de Atenas",
+          "creation-d-adam": "La creación de Adán",
+          "les-epoux-arnolfini": "El matrimonio Arnolfini",
+          "jardin-des-delices": "El jardín de las delicias",
+          "venus-d-urbin": "La Venus de Urbino",
+          "les-ambassadeurs": "Los embajadores",
+          "autoportrait-a-la-pelisse": "Autorretrato con abrigo de pieles",
+          "saint-georges-et-le-dragon": "San Jorge y el dragón",
+          "bapteme-du-christ": "El bautismo de Cristo",
+          "portrait-vieillard-petit-fils": "Retrato de un anciano y su nieto"
+        },
+        "explanations": {
+          "ecole-d-athenes": "Rafael pintó a varios de sus contemporáneos en este fresco del Vaticano con los rasgos de filósofos de la Antigüedad: Platón tiene el rostro de Leonardo da Vinci y Heráclito el de Miguel Ángel.",
+          "creation-d-adam": "Miguel Ángel se consideraba escultor, no pintor, y al principio rechazó el encargo del papa Julio II. Diseñó su propio andamio y trabajó de pie, con el cuerpo arqueado hacia atrás, durante cuatro años, y no tumbado de espaldas como cuenta la leyenda popular.",
+          "les-epoux-arnolfini": "El espejo convexo del fondo de la habitación refleja dos figuras más, probablemente el propio pintor, testigo de la escena.",
+          "jardin-des-delices": "Este tríptico encierra un infierno tan detallado que lleva siglos inspirando innumerables interpretaciones simbólicas.",
+          "venus-d-urbin": "Esta obra retoma y reinterpreta directamente la «Venus dormida» de Giorgione, su maestro.",
+          "les-ambassadeurs": "El cuadro esconde una calavera deformada (anamorfosis), visible solo desde un ángulo concreto.",
+          "autoportrait-a-la-pelisse": "Durero se representa de frente, una pose habitualmente reservada a Cristo: un gesto atrevido para el año 1500.",
+          "saint-georges-et-le-dragon": "Uccello fue uno de los pioneros de la perspectiva geométrica en la pintura del Quattrocento.",
+          "bapteme-du-christ": "Esta obra es célebre por su uso casi matemático de la perspectiva y de la luz.",
+          "portrait-vieillard-petit-fils": "Ghirlandaio representa sin idealizar una enfermedad cutánea del anciano (rinofima), una elección poco habitual para la época."
+        }
+      }
+    }
+  },
   "Dashboard": {
     "statAttemptsTitle": "Quizzes completados en total",
     "statAccuracyTitle": "Precisión",

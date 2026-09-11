@@ -37,3 +37,9 @@ export const AKINATOR_COST_PER_GAME = 50;
 // regardless of the chosen difficulty: difficulty only changes the number
 // and size of the words, never the price.
 export const CRUCIGRAMA_COST_PER_GAME = 50;
+
+// Same kind of direct per-play debit as MORPION / AKINATOR / CRUCIGRAMA --
+// charged in the game-creation transaction (POST /api/peintre) via an
+// updateMany decrement, logged as a `spend_peintre` NeuronTransaction. Not a
+// NeuronUnlock ticket. FIXED regardless of the chosen deck.
+export const PEINTRE_COST_PER_GAME = 50;

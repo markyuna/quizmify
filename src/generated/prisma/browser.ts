@@ -183,6 +183,11 @@ export type AkinatorGame = Prisma.AkinatorGameModel
  */
 export type CrucigramaGame = Prisma.CrucigramaGameModel
 /**
+ * Model PeintreGame
+ * 
+ */
+export type PeintreGame = Prisma.PeintreGameModel
+/**
  * Model UserDailyFreeGame
  * 
  */
