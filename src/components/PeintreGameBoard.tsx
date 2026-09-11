@@ -137,7 +137,7 @@ export default function PeintreGameBoard({ gameId }: Props) {
 
   if (loading) {
     return (
-      <div className="flex min-h-[40vh] items-center justify-center">
+      <div className="mx-auto flex min-h-[40vh] max-w-3xl items-center justify-center">
         <Loader2 className="h-6 w-6 animate-spin text-violet-500" />
       </div>
     );
@@ -145,7 +145,7 @@ export default function PeintreGameBoard({ gameId }: Props) {
 
   if (loadError) {
     return (
-      <div className="space-y-4 text-center">
+      <div className="mx-auto max-w-3xl space-y-4 text-center">
         <p className="text-sm text-slate-600 dark:text-slate-300">{t("errorGeneric")}</p>
         <Button onClick={() => router.push("/peintre")}>{t("playAgain")}</Button>
       </div>
@@ -154,7 +154,7 @@ export default function PeintreGameBoard({ gameId }: Props) {
 
   if (summary) {
     return (
-      <div className="space-y-6">
+      <div className="mx-auto max-w-3xl space-y-6">
         <div className="rounded-2xl border border-violet-200 bg-violet-50 p-6 text-center dark:border-violet-500/30 dark:bg-violet-500/10">
           <p className="text-sm font-bold uppercase tracking-widest text-violet-500 dark:text-violet-300">
             {t("resultTitle")}
@@ -233,62 +233,66 @@ export default function PeintreGameBoard({ gameId }: Props) {
   const picked = picks[current.index];
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-5xl space-y-6">
       <div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-violet-500 dark:text-violet-300">
         <span>{t("progress", { current: step + 1, total })}</span>
       </div>
 
-      <div className="flex justify-center">
-        <div className="inline-flex rounded-md border-[10px] border-white bg-white shadow-xl dark:border-white/90">
-          {/* eslint-disable-next-line @next/next/no-img-element -- natural aspect ratio, not a fixed box */}
-          <img
-            src={current.imageUrl}
-            alt=""
-            className="block max-h-72 max-w-full rounded-sm object-contain sm:max-h-96"
-          />
+      <div className="lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
+        <div className="flex justify-center">
+          <div className="inline-flex rounded-md border-[10px] border-white bg-white shadow-xl dark:border-white/90">
+            {/* eslint-disable-next-line @next/next/no-img-element -- natural aspect ratio, not a fixed box */}
+            <img
+              src={current.imageUrl}
+              alt=""
+              className="block max-h-72 max-w-full rounded-sm object-contain sm:max-h-96 lg:max-h-[60vh]"
+            />
+          </div>
+        </div>
+
+        <div className="mt-6 space-y-6 lg:mt-0">
+          <h1 className="text-center text-lg font-bold leading-snug text-slate-900 dark:text-white sm:text-xl">
+            {current.questionText}
+          </h1>
+
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
+            {current.options.map((opt) => (
+              <button
+                key={opt}
+                type="button"
+                onClick={() => setPicks((p) => ({ ...p, [current.index]: opt }))}
+                className={cn(
+                  "rounded-xl border px-4 py-3 text-sm font-semibold transition-colors",
+                  picked === opt
+                    ? "border-violet-400 bg-violet-50 text-violet-700 dark:border-violet-500/60 dark:bg-violet-500/15 dark:text-violet-200"
+                    : "border-slate-200 text-slate-700 hover:border-violet-300 dark:border-white/10 dark:text-slate-200"
+                )}
+              >
+                {opt}
+              </button>
+            ))}
+          </div>
+
+          {isLast ? (
+            <Button
+              onClick={handleSubmit}
+              disabled={answeredCount < total || submitting}
+              className="w-full"
+            >
+              {submitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {t("seeResultButton")}
+            </Button>
+          ) : (
+            <Button
+              onClick={() => setStep((s) => Math.min(s + 1, total - 1))}
+              disabled={!picked}
+              className="w-full"
+            >
+              {t("nextButton")}
+            </Button>
+          )}
         </div>
       </div>
-
-      <h1 className="text-center text-lg font-bold leading-snug text-slate-900 dark:text-white sm:text-xl">
-        {current.questionText}
-      </h1>
-
-      <div className="grid gap-2 sm:grid-cols-2">
-        {current.options.map((opt) => (
-          <button
-            key={opt}
-            type="button"
-            onClick={() => setPicks((p) => ({ ...p, [current.index]: opt }))}
-            className={cn(
-              "rounded-xl border px-4 py-3 text-sm font-semibold transition-colors",
-              picked === opt
-                ? "border-violet-400 bg-violet-50 text-violet-700 dark:border-violet-500/60 dark:bg-violet-500/15 dark:text-violet-200"
-                : "border-slate-200 text-slate-700 hover:border-violet-300 dark:border-white/10 dark:text-slate-200"
-            )}
-          >
-            {opt}
-          </button>
-        ))}
-      </div>
-
-      {isLast ? (
-        <Button
-          onClick={handleSubmit}
-          disabled={answeredCount < total || submitting}
-          className="w-full"
-        >
-          {submitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          {t("seeResultButton")}
-        </Button>
-      ) : (
-        <Button
-          onClick={() => setStep((s) => Math.min(s + 1, total - 1))}
-          disabled={!picked}
-          className="w-full"
-        >
-          {t("nextButton")}
-        </Button>
-      )}
 
       <Link
         href="/"

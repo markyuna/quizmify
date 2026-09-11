@@ -19,7 +19,7 @@ export default async function PeintreGamePage({
   if (!game || game.userId !== session.user.id) redirect("/peintre");
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:py-8">
+    <div className="w-full px-4 py-6 sm:py-8">
       <PeintreGameBoard gameId={game.id} />
     </div>
   );
