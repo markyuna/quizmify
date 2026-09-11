@@ -104,12 +104,19 @@ Config in `src/lib/personalityTests/quelAnimalEsTu.config.ts`; routes under `/ap
 
 ### Curated quizzes
 
-Hand-curated, image-based question sets that bypass AI generation entirely. Registry in `src/lib/curatedQuizzes/registry.ts` (`CURATED_QUIZZES`), e.g. "Qui est le peintre?" (`quiEstLePeintre.ts`).
+Hand-curated, image-based question sets that bypass AI generation entirely. Registry in `src/lib/curatedQuizzes/registry.ts` (`CURATED_QUIZZES`).
 
-- `findCuratedQuiz(categorySlug, topicNormalized)` is the only lookup path, called from `/api/game/route.ts` and `QuizCreation.tsx`.
-- Lookup is keyed on the topic's canonical `topicNormalized` text, **never** the visitor's active UI locale — curated content exists in only one language, but a visitor in a different locale must still land on the same curated quiz rather than falling through to AI generation.
-- Curated quizzes launch through the normal `/quiz` creation flow with topic+category prefilled (see `QUI_EST_LE_PEINTRE_HREF` in `PrimaryNav.tsx`), not a dedicated route.
-- `CuratedQuizCompletion` tracks completions in Prisma.
+- **Empty today.** The only curated quiz, "Qui est le peintre?", was promoted to its own standalone game — see **Painter game** below. `quiEstLePeintre.ts` is kept on disk for reference; the machinery (`findCuratedQuiz`, the curated branches in `/api/game` and `/api/quiz/submit`, `CuratedQuizCompletion`) is left intact and inert for the next curated set.
+- `findCuratedQuiz(categorySlug, topicNormalized)` is the only lookup path — keyed on the topic's canonical `topicNormalized` text, **never** the visitor's active UI locale.
+
+### Painter game — "Qui est le peintre?"
+
+A standalone game (`src/lib/peintre/`, routes `src/app/api/peintre/*`, pages `src/app/peintre/`), cloned from Crucigrama's skeleton minus the AI layer. Login-required; free users pay `PEINTRE_COST_PER_GAME` (`src/lib/neurons/costs.ts`, 50) per play, debited in the create `$transaction` (`spend_peintre` `NeuronTransaction`); Pro's first completed game per UTC day is free via `UserDailyFreeGame` (`gameKey "peintre"`).
+
+- Content: static **decks** in `src/lib/peintre/decks.ts` (`PEINTRE_DECKS`, `findPeintreDeck`) — an art-movement question set of 10 "who painted this?" image MCQs each. Ships with `classiques` (the old curated 10) and `renaissance`. Painter names are literal French canonical strings (not i18n'd); titles/questions/explanations are localized under `Peintre.decks.<deckKey>` in `messages/{fr,es,en}.json`. Deck images: `curated-quiz-images/qui-est-le-peintre/<deckKey-or-flat>/<slug>.webp` (each deck carries its own `imageBaseUrl`).
+- Flat XP on completion (`src/lib/peintre/config.ts`): `PEINTRE_XP_BASE = 10` + `PEINTRE_XP_PERFECT_BONUS = 10` for a 10/10 — deliberately not `calculateEarnedXpBreakdown`, same stance as Crucigrama/Puzzle du Jour.
+- `PeintreGame` model (`deckKey`/`status` validated Strings, `answers` JSON). Grading is server-side only in `[gameId]/submit` (correct answers never reach the client mid-game); the `in_progress`→`completed` flip is a conditional `updateMany` so a double-submit can't double-credit.
+- Listed in `ALL_GAMES` as `kind: "pro-neuron"`, `href: "/peintre"`, `neuronCost: PEINTRE_COST_PER_GAME`.
 
 ### Notifications
 
@@ -139,7 +146,7 @@ Transactional/reminder emails (streak reminders, daily challenge nudges, weekly 
 
 ### Games catalog
 
-`ALL_GAMES` (`src/lib/games/allGames.ts`) is the single source of truth for **every** game the app lists in a "games" surface — the 3 free guest mini-games plus Puzzle du Jour, Morpion, and "Qui est le peintre?". Each entry carries `kind` (`guest` | `pro-neuron` | `curated`), `href`, an `(i18nNamespace, i18nKey)` title pair, image, and presentational hints (`neuronCost`, `showProBadge`). `QUI_EST_LE_PEINTRE_HREF` lives here too. Add a game here once and it shows up in all four surfaces.
+`ALL_GAMES` (`src/lib/games/allGames.ts`) is the single source of truth for **every** game the app lists in a "games" surface — the 3 free guest mini-games plus Puzzle du Jour, Morpion, and "Qui est le peintre?". Each entry carries `kind` (`guest` | `pro-neuron` | `curated` — `curated` unused today), `href`, an `(i18nNamespace, i18nKey)` title pair, image, and presentational hints (`neuronCost`, `showProBadge`). Add a game here once and it shows up in all four surfaces.
 
 The four surfaces all iterate `ALL_GAMES` and render `<GameCard>` (`src/components/games/GameCard.tsx`, a presentational, no-`"use client"`, no-fetch component with `grid`/`list`/`dropdown` variants): `GamesSidebarSection.tsx` (`/categories`), `CategorySidebar.tsx` (`/quiz/categoria/[slug]`), `GameCarousel.tsx` (homepage), and `PrimaryNav.tsx` (header, desktop + mobile). Puzzle du Jour's card in the three grid surfaces is `<PuzzleDuJourGameCard>` instead — a client island that owns the eligibility fetch + unlock-modal flow; the nav keeps a plain `<GameCard>`.
 

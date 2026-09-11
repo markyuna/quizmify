@@ -127,6 +127,7 @@ model User {
   morpionGames                   MorpionGame[]
   akinatorGames                  AkinatorGame[]
   crucigramaGames                CrucigramaGame[]
+  peintreGames                   PeintreGame[]
   dailyFreeGames                 UserDailyFreeGame[]
 
   @@index([xp])
@@ -826,6 +827,11 @@ enum NeuronTransactionType {
   // spend_akinator, never a NeuronUnlock ticket. Fixed amount regardless of
   // the chosen difficulty (difficulty only changes word count/size).
   spend_crucigrama
+  // Per-game debit for "Qui est le peintre?" (the standalone painter game),
+  // taken at game creation (POST /api/peintre) -- same direct updateMany
+  // decrement as spend_morpion / spend_akinator / spend_crucigrama, never a
+  // NeuronUnlock ticket. Fixed amount regardless of the chosen deck.
+  spend_peintre
   // A real-money purchase from the Neuron shop (Stripe checkout). Credited
   // by creditNeuronsForPurchase() from the Stripe webhook; the matching
   // NeuronPurchase row is the anti-double-credit guard (unique on
@@ -1054,6 +1060,46 @@ model CrucigramaGame {
   @@index([topicNormalized, language, difficulty])
 }
 
+// Auth-only painter-identification quiz: the player picks a DECK (an
+// art-movement question set from src/lib/peintre/decks.ts -- no AI, no
+// generation) and answers 10 "who painted this?" image MCQs. Migrated from
+// the old curated-quiz path (src/lib/curatedQuizzes/quiEstLePeintre.ts, kept
+// on disk for reference) to a standalone game modelled on CrucigramaGame:
+// one in-progress game at a time, 50-Neuron debit at creation, Pro's first
+// completed game per UTC day free via UserDailyFreeGame (gameKey "peintre"),
+// flat XP on completion.
+//
+// `deckKey` and `status` are plain validated Strings, NOT native Postgres
+// enums -- same stance as CrucigramaGame, keeps adding decks off the
+// migration path.
+model PeintreGame {
+  id          String    @id @default(cuid())
+  userId      String
+  // UTC "YYYY-MM-DD" from getTodayDateKey() -- history + UserDailyFreeGame
+  // date key, same convention as CrucigramaGame.date / PuzzleDuJourGame.date.
+  date        String
+  // Deck catalog key from src/lib/peintre/decks.ts ("classiques" |
+  // "renaissance" | ...) -- validated in code (findPeintreDeck), same stance
+  // as AkinatorGame.characterKey.
+  deckKey     String
+  language    String    @default("en")
+  // "in_progress" | "completed" -- validated in code.
+  status      String    @default("in_progress")
+  // JSON PeintreAnswer[] : [{ index: 0-9, selected: string }] -- the
+  // player's picks, written on submit. "[]" until then.
+  answers     String    @default("[]")
+  // Correct answers out of 10, set on completion (for the result screen).
+  score       Int       @default(0)
+  xpEarned    Int       @default(0)
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+  @@index([userId, date])
+}
+
 // One row per user per game per UTC day, inserted the moment a PRO user
 // *completes* (won/lost/draw) their first Morpion or Akinator game of the
 // day. That first game is played for free -- no Neuron debit at creation --
@@ -1070,8 +1116,8 @@ model CrucigramaGame {
 // DailyGameChallenge/GuestAttempt -- rows these games never have. Same
 // reasoning that kept PuzzleDuJourGame off that model (see its comment).
 //
-// `gameKey` is a plain String ("morpion" | "akinator" | "crucigrama"),
-// validated in code -- same stance as NeuronTransaction.gameKey and
+// `gameKey` is a plain String ("morpion" | "akinator" | "crucigrama" |
+// "peintre"), validated in code -- same stance as NeuronTransaction.gameKey and
 // AkinatorGame.characterKey.
 // `date` is the UTC "YYYY-MM-DD" key from getTodayDateKey() (src/lib/
 // guestPlay.ts), same convention as UserDailyAttempt.date / PuzzleDuJourGame.date.

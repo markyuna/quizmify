@@ -430,6 +430,7 @@ export const ModelName = {
   MorpionGame: 'MorpionGame',
   AkinatorGame: 'AkinatorGame',
   CrucigramaGame: 'CrucigramaGame',
+  PeintreGame: 'PeintreGame',
   UserDailyFreeGame: 'UserDailyFreeGame'
 } as const
 
@@ -446,7 +447,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronPurchase" | "neuronUnlock" | "morpionGame" | "akinatorGame" | "crucigramaGame" | "userDailyFreeGame"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronPurchase" | "neuronUnlock" | "morpionGame" | "akinatorGame" | "crucigramaGame" | "peintreGame" | "userDailyFreeGame"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2892,6 +2893,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PeintreGame: {
+      payload: Prisma.$PeintreGamePayload<ExtArgs>
+      fields: Prisma.PeintreGameFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PeintreGameFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeintreGamePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PeintreGameFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeintreGamePayload>
+        }
+        findFirst: {
+          args: Prisma.PeintreGameFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeintreGamePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PeintreGameFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeintreGamePayload>
+        }
+        findMany: {
+          args: Prisma.PeintreGameFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeintreGamePayload>[]
+        }
+        create: {
+          args: Prisma.PeintreGameCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeintreGamePayload>
+        }
+        createMany: {
+          args: Prisma.PeintreGameCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PeintreGameCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeintreGamePayload>[]
+        }
+        delete: {
+          args: Prisma.PeintreGameDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeintreGamePayload>
+        }
+        update: {
+          args: Prisma.PeintreGameUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeintreGamePayload>
+        }
+        deleteMany: {
+          args: Prisma.PeintreGameDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PeintreGameUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PeintreGameUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeintreGamePayload>[]
+        }
+        upsert: {
+          args: Prisma.PeintreGameUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeintreGamePayload>
+        }
+        aggregate: {
+          args: Prisma.PeintreGameAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePeintreGame>
+        }
+        groupBy: {
+          args: Prisma.PeintreGameGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PeintreGameGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PeintreGameCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PeintreGameCountAggregateOutputType> | number
+        }
+      }
+    }
     UserDailyFreeGame: {
       payload: Prisma.$UserDailyFreeGamePayload<ExtArgs>
       fields: Prisma.UserDailyFreeGameFieldRefs
@@ -3506,6 +3581,23 @@ export const CrucigramaGameScalarFieldEnum = {
 export type CrucigramaGameScalarFieldEnum = (typeof CrucigramaGameScalarFieldEnum)[keyof typeof CrucigramaGameScalarFieldEnum]
 
 
+export const PeintreGameScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  deckKey: 'deckKey',
+  language: 'language',
+  status: 'status',
+  answers: 'answers',
+  score: 'score',
+  xpEarned: 'xpEarned',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PeintreGameScalarFieldEnum = (typeof PeintreGameScalarFieldEnum)[keyof typeof PeintreGameScalarFieldEnum]
+
+
 export const UserDailyFreeGameScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -4042,6 +4134,7 @@ export type GlobalOmitConfig = {
   morpionGame?: Prisma.MorpionGameOmit
   akinatorGame?: Prisma.AkinatorGameOmit
   crucigramaGame?: Prisma.CrucigramaGameOmit
+  peintreGame?: Prisma.PeintreGameOmit
   userDailyFreeGame?: Prisma.UserDailyFreeGameOmit
 }
 

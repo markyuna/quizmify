@@ -5,6 +5,7 @@ import {
   CRUCIGRAMA_COST_PER_GAME,
   MORPION_COST_PER_GAME,
   NEURON_UNLOCK_COSTS,
+  PEINTRE_COST_PER_GAME,
 } from "@/lib/neurons/costs";
 
 /**
@@ -30,7 +31,10 @@ export type GameKind =
   // Morpion (per-game debit) -- their real access UI is client-side, see
   // PuzzleDuJourGameCard.
   | "pro-neuron"
-  // A hand-curated quiz that launches through the normal /quiz flow.
+  // A hand-curated quiz. Was launched through the normal /quiz flow;
+  // "Qui est le peintre?" has since become its own standalone game
+  // (kind "pro-neuron", /peintre) so nothing uses this today -- kept for
+  // the next curated set.
   | "curated";
 
 export type AllGamesEntry = {
@@ -59,11 +63,6 @@ export type AllGamesEntry = {
   /** Show a "Pro" badge to non-Pro users (Puzzle du Jour). */
   showProBadge?: boolean;
 };
-
-// Centralised here so the two nav components stop defining it twice.
-export const QUI_EST_LE_PEINTRE_HREF = `/quiz?topic=${encodeURIComponent(
-  "Qui est le peintre?"
-)}&category=arts`;
 
 export const ALL_GAMES: AllGamesEntry[] = [
   {
@@ -95,11 +94,12 @@ export const ALL_GAMES: AllGamesEntry[] = [
   },
   {
     key: "qui-est-le-peintre",
-    kind: "curated",
-    href: QUI_EST_LE_PEINTRE_HREF,
-    i18nNamespace: "CuratedQuizzes.QuiEstLePeintre",
+    kind: "pro-neuron",
+    href: "/peintre",
+    i18nNamespace: "Peintre",
     i18nKey: "title",
     image: "/images/games/peintre-icon.png",
+    neuronCost: PEINTRE_COST_PER_GAME,
   },
   {
     key: "puzzle-du-jour",

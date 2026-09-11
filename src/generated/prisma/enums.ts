@@ -91,6 +91,7 @@ export const NeuronTransactionType = {
   spend_morpion: 'spend_morpion',
   spend_akinator: 'spend_akinator',
   spend_crucigrama: 'spend_crucigrama',
+  spend_peintre: 'spend_peintre',
   purchase: 'purchase'
 } as const
 

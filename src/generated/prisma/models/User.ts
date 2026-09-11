@@ -431,6 +431,7 @@ export type UserWhereInput = {
   morpionGames?: Prisma.MorpionGameListRelationFilter
   akinatorGames?: Prisma.AkinatorGameListRelationFilter
   crucigramaGames?: Prisma.CrucigramaGameListRelationFilter
+  peintreGames?: Prisma.PeintreGameListRelationFilter
   dailyFreeGames?: Prisma.UserDailyFreeGameListRelationFilter
 }
 
@@ -488,6 +489,7 @@ export type UserOrderByWithRelationInput = {
   morpionGames?: Prisma.MorpionGameOrderByRelationAggregateInput
   akinatorGames?: Prisma.AkinatorGameOrderByRelationAggregateInput
   crucigramaGames?: Prisma.CrucigramaGameOrderByRelationAggregateInput
+  peintreGames?: Prisma.PeintreGameOrderByRelationAggregateInput
   dailyFreeGames?: Prisma.UserDailyFreeGameOrderByRelationAggregateInput
 }
 
@@ -548,6 +550,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   morpionGames?: Prisma.MorpionGameListRelationFilter
   akinatorGames?: Prisma.AkinatorGameListRelationFilter
   crucigramaGames?: Prisma.CrucigramaGameListRelationFilter
+  peintreGames?: Prisma.PeintreGameListRelationFilter
   dailyFreeGames?: Prisma.UserDailyFreeGameListRelationFilter
 }, "id" | "email" | "stripePaymentId">
 
@@ -671,6 +674,7 @@ export type UserCreateInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -728,6 +732,7 @@ export type UserUncheckedCreateInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -785,6 +790,7 @@ export type UserUpdateInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -842,6 +848,7 @@ export type UserUncheckedUpdateInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1443,6 +1450,20 @@ export type UserUpdateOneRequiredWithoutCrucigramaGamesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCrucigramaGamesInput, Prisma.UserUpdateWithoutCrucigramaGamesInput>, Prisma.UserUncheckedUpdateWithoutCrucigramaGamesInput>
 }
 
+export type UserCreateNestedOneWithoutPeintreGamesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPeintreGamesInput, Prisma.UserUncheckedCreateWithoutPeintreGamesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPeintreGamesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPeintreGamesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPeintreGamesInput, Prisma.UserUncheckedCreateWithoutPeintreGamesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPeintreGamesInput
+  upsert?: Prisma.UserUpsertWithoutPeintreGamesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPeintreGamesInput, Prisma.UserUpdateWithoutPeintreGamesInput>, Prisma.UserUncheckedUpdateWithoutPeintreGamesInput>
+}
+
 export type UserCreateNestedOneWithoutDailyFreeGamesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutDailyFreeGamesInput, Prisma.UserUncheckedCreateWithoutDailyFreeGamesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutDailyFreeGamesInput
@@ -1510,6 +1531,7 @@ export type UserCreateWithoutAccountsInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -1566,6 +1588,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -1638,6 +1661,7 @@ export type UserUpdateWithoutAccountsInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -1694,6 +1718,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1750,6 +1775,7 @@ export type UserCreateWithoutSessionsInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -1806,6 +1832,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -1878,6 +1905,7 @@ export type UserUpdateWithoutSessionsInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -1934,6 +1962,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -1990,6 +2019,7 @@ export type UserCreateWithoutGamesInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -2046,6 +2076,7 @@ export type UserUncheckedCreateWithoutGamesInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -2118,6 +2149,7 @@ export type UserUpdateWithoutGamesInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -2174,6 +2206,7 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -2230,6 +2263,7 @@ export type UserCreateWithoutAttemptsInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -2286,6 +2320,7 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -2358,6 +2393,7 @@ export type UserUpdateWithoutAttemptsInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -2414,6 +2450,7 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -2470,6 +2507,7 @@ export type UserCreateWithoutCuratedQuizCompletionsInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -2526,6 +2564,7 @@ export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -2598,6 +2637,7 @@ export type UserUpdateWithoutCuratedQuizCompletionsInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -2654,6 +2694,7 @@ export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -2710,6 +2751,7 @@ export type UserCreateWithoutCertificatesInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -2766,6 +2808,7 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -2838,6 +2881,7 @@ export type UserUpdateWithoutCertificatesInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -2894,6 +2938,7 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -2950,6 +2995,7 @@ export type UserCreateWithoutTopicRecommendationsInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -3006,6 +3052,7 @@ export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -3078,6 +3125,7 @@ export type UserUpdateWithoutTopicRecommendationsInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -3134,6 +3182,7 @@ export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -3190,6 +3239,7 @@ export type UserCreateWithoutCategoryRecommendationInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -3246,6 +3296,7 @@ export type UserUncheckedCreateWithoutCategoryRecommendationInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -3318,6 +3369,7 @@ export type UserUpdateWithoutCategoryRecommendationInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -3374,6 +3426,7 @@ export type UserUncheckedUpdateWithoutCategoryRecommendationInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -3430,6 +3483,7 @@ export type UserCreateWithoutTrophiesInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -3486,6 +3540,7 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -3558,6 +3613,7 @@ export type UserUpdateWithoutTrophiesInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -3614,6 +3670,7 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -3670,6 +3727,7 @@ export type UserCreateWithoutQuestionProgressInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -3726,6 +3784,7 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -3798,6 +3857,7 @@ export type UserUpdateWithoutQuestionProgressInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -3854,6 +3914,7 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -3910,6 +3971,7 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -3966,6 +4028,7 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -4038,6 +4101,7 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -4094,6 +4158,7 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -4150,6 +4215,7 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -4206,6 +4272,7 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -4278,6 +4345,7 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -4334,6 +4402,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -4390,6 +4459,7 @@ export type UserCreateWithoutNotificationLogsInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -4446,6 +4516,7 @@ export type UserUncheckedCreateWithoutNotificationLogsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -4518,6 +4589,7 @@ export type UserUpdateWithoutNotificationLogsInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -4574,6 +4646,7 @@ export type UserUncheckedUpdateWithoutNotificationLogsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -4630,6 +4703,7 @@ export type UserCreateWithoutFriendshipsSentInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -4686,6 +4760,7 @@ export type UserUncheckedCreateWithoutFriendshipsSentInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -4747,6 +4822,7 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -4803,6 +4879,7 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -4875,6 +4952,7 @@ export type UserUpdateWithoutFriendshipsSentInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -4931,6 +5009,7 @@ export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -4998,6 +5077,7 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -5054,6 +5134,7 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -5110,6 +5191,7 @@ export type UserCreateWithoutReferralsMadeInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -5166,6 +5248,7 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -5227,6 +5310,7 @@ export type UserCreateWithoutReferralReceivedInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -5283,6 +5367,7 @@ export type UserUncheckedCreateWithoutReferralReceivedInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -5355,6 +5440,7 @@ export type UserUpdateWithoutReferralsMadeInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -5411,6 +5497,7 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -5478,6 +5565,7 @@ export type UserUpdateWithoutReferralReceivedInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -5534,6 +5622,7 @@ export type UserUncheckedUpdateWithoutReferralReceivedInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -5590,6 +5679,7 @@ export type UserCreateWithoutGuestAttemptsClaimedInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -5646,6 +5736,7 @@ export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -5718,6 +5809,7 @@ export type UserUpdateWithoutGuestAttemptsClaimedInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -5774,6 +5866,7 @@ export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -5830,6 +5923,7 @@ export type UserCreateWithoutDailyAttemptsInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -5886,6 +5980,7 @@ export type UserUncheckedCreateWithoutDailyAttemptsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -5958,6 +6053,7 @@ export type UserUpdateWithoutDailyAttemptsInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -6014,6 +6110,7 @@ export type UserUncheckedUpdateWithoutDailyAttemptsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -6070,6 +6167,7 @@ export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -6126,6 +6224,7 @@ export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -6198,6 +6297,7 @@ export type UserUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -6254,6 +6354,7 @@ export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -6310,6 +6411,7 @@ export type UserCreateWithoutPuzzleDuJourGamesInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -6366,6 +6468,7 @@ export type UserUncheckedCreateWithoutPuzzleDuJourGamesInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -6438,6 +6541,7 @@ export type UserUpdateWithoutPuzzleDuJourGamesInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -6494,6 +6598,7 @@ export type UserUncheckedUpdateWithoutPuzzleDuJourGamesInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -6550,6 +6655,7 @@ export type UserCreateWithoutNeuronTransactionsInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -6606,6 +6712,7 @@ export type UserUncheckedCreateWithoutNeuronTransactionsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -6678,6 +6785,7 @@ export type UserUpdateWithoutNeuronTransactionsInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -6734,6 +6842,7 @@ export type UserUncheckedUpdateWithoutNeuronTransactionsInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -6790,6 +6899,7 @@ export type UserCreateWithoutNeuronPurchasesInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -6846,6 +6956,7 @@ export type UserUncheckedCreateWithoutNeuronPurchasesInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -6918,6 +7029,7 @@ export type UserUpdateWithoutNeuronPurchasesInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -6974,6 +7086,7 @@ export type UserUncheckedUpdateWithoutNeuronPurchasesInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -7030,6 +7143,7 @@ export type UserCreateWithoutNeuronUnlocksInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -7086,6 +7200,7 @@ export type UserUncheckedCreateWithoutNeuronUnlocksInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -7158,6 +7273,7 @@ export type UserUpdateWithoutNeuronUnlocksInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -7214,6 +7330,7 @@ export type UserUncheckedUpdateWithoutNeuronUnlocksInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -7270,6 +7387,7 @@ export type UserCreateWithoutMorpionGamesInput = {
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -7326,6 +7444,7 @@ export type UserUncheckedCreateWithoutMorpionGamesInput = {
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -7398,6 +7517,7 @@ export type UserUpdateWithoutMorpionGamesInput = {
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -7454,6 +7574,7 @@ export type UserUncheckedUpdateWithoutMorpionGamesInput = {
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -7510,6 +7631,7 @@ export type UserCreateWithoutAkinatorGamesInput = {
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -7566,6 +7688,7 @@ export type UserUncheckedCreateWithoutAkinatorGamesInput = {
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -7638,6 +7761,7 @@ export type UserUpdateWithoutAkinatorGamesInput = {
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -7694,6 +7818,7 @@ export type UserUncheckedUpdateWithoutAkinatorGamesInput = {
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -7750,6 +7875,7 @@ export type UserCreateWithoutCrucigramaGamesInput = {
   neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
 }
 
@@ -7806,6 +7932,7 @@ export type UserUncheckedCreateWithoutCrucigramaGamesInput = {
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -7878,6 +8005,7 @@ export type UserUpdateWithoutCrucigramaGamesInput = {
   neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
 }
 
@@ -7934,6 +8062,251 @@ export type UserUncheckedUpdateWithoutCrucigramaGamesInput = {
   neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPeintreGamesInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPeintreGamesInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPeintreGamesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPeintreGamesInput, Prisma.UserUncheckedCreateWithoutPeintreGamesInput>
+}
+
+export type UserUpsertWithoutPeintreGamesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPeintreGamesInput, Prisma.UserUncheckedUpdateWithoutPeintreGamesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPeintreGamesInput, Prisma.UserUncheckedCreateWithoutPeintreGamesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPeintreGamesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPeintreGamesInput, Prisma.UserUncheckedUpdateWithoutPeintreGamesInput>
+}
+
+export type UserUpdateWithoutPeintreGamesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPeintreGamesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -7991,6 +8364,7 @@ export type UserCreateWithoutDailyFreeGamesInput = {
   morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDailyFreeGamesInput = {
@@ -8047,6 +8421,7 @@ export type UserUncheckedCreateWithoutDailyFreeGamesInput = {
   morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDailyFreeGamesInput = {
@@ -8119,6 +8494,7 @@ export type UserUpdateWithoutDailyFreeGamesInput = {
   morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyFreeGamesInput = {
@@ -8175,6 +8551,7 @@ export type UserUncheckedUpdateWithoutDailyFreeGamesInput = {
   morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -8207,6 +8584,7 @@ export type UserCountOutputType = {
   morpionGames: number
   akinatorGames: number
   crucigramaGames: number
+  peintreGames: number
   dailyFreeGames: number
 }
 
@@ -8235,6 +8613,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   morpionGames?: boolean | UserCountOutputTypeCountMorpionGamesArgs
   akinatorGames?: boolean | UserCountOutputTypeCountAkinatorGamesArgs
   crucigramaGames?: boolean | UserCountOutputTypeCountCrucigramaGamesArgs
+  peintreGames?: boolean | UserCountOutputTypeCountPeintreGamesArgs
   dailyFreeGames?: boolean | UserCountOutputTypeCountDailyFreeGamesArgs
 }
 
@@ -8419,6 +8798,13 @@ export type UserCountOutputTypeCountCrucigramaGamesArgs<ExtArgs extends runtime.
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountPeintreGamesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PeintreGameWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountDailyFreeGamesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserDailyFreeGameWhereInput
 }
@@ -8478,6 +8864,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   morpionGames?: boolean | Prisma.User$morpionGamesArgs<ExtArgs>
   akinatorGames?: boolean | Prisma.User$akinatorGamesArgs<ExtArgs>
   crucigramaGames?: boolean | Prisma.User$crucigramaGamesArgs<ExtArgs>
+  peintreGames?: boolean | Prisma.User$peintreGamesArgs<ExtArgs>
   dailyFreeGames?: boolean | Prisma.User$dailyFreeGamesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -8598,6 +8985,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   morpionGames?: boolean | Prisma.User$morpionGamesArgs<ExtArgs>
   akinatorGames?: boolean | Prisma.User$akinatorGamesArgs<ExtArgs>
   crucigramaGames?: boolean | Prisma.User$crucigramaGamesArgs<ExtArgs>
+  peintreGames?: boolean | Prisma.User$peintreGamesArgs<ExtArgs>
   dailyFreeGames?: boolean | Prisma.User$dailyFreeGamesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -8634,6 +9022,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     morpionGames: Prisma.$MorpionGamePayload<ExtArgs>[]
     akinatorGames: Prisma.$AkinatorGamePayload<ExtArgs>[]
     crucigramaGames: Prisma.$CrucigramaGamePayload<ExtArgs>[]
+    peintreGames: Prisma.$PeintreGamePayload<ExtArgs>[]
     dailyFreeGames: Prisma.$UserDailyFreeGamePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -9084,6 +9473,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   morpionGames<T extends Prisma.User$morpionGamesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$morpionGamesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MorpionGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   akinatorGames<T extends Prisma.User$akinatorGamesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$akinatorGamesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AkinatorGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   crucigramaGames<T extends Prisma.User$crucigramaGamesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$crucigramaGamesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CrucigramaGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  peintreGames<T extends Prisma.User$peintreGamesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$peintreGamesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PeintreGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   dailyFreeGames<T extends Prisma.User$dailyFreeGamesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$dailyFreeGamesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserDailyFreeGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -10163,6 +10553,30 @@ export type User$crucigramaGamesArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.CrucigramaGameScalarFieldEnum | Prisma.CrucigramaGameScalarFieldEnum[]
+}
+
+/**
+ * User.peintreGames
+ */
+export type User$peintreGamesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PeintreGame
+   */
+  select?: Prisma.PeintreGameSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PeintreGame
+   */
+  omit?: Prisma.PeintreGameOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PeintreGameInclude<ExtArgs> | null
+  where?: Prisma.PeintreGameWhereInput
+  orderBy?: Prisma.PeintreGameOrderByWithRelationInput | Prisma.PeintreGameOrderByWithRelationInput[]
+  cursor?: Prisma.PeintreGameWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PeintreGameScalarFieldEnum | Prisma.PeintreGameScalarFieldEnum[]
 }
 
 /**
