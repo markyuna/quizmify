@@ -38,9 +38,9 @@ export type PeintreDeck = {
 // The 10 works the game shipped with as a curated quiz. Named "classiques"
 // (not "impressionnisme") because the set is mostly non-Impressionist --
 // Botticelli (Renaissance), Klimt (Symbolism), van Gogh (Post-Impressionism),
-// Wood (Regionalism)... "impressionnisme" is reserved for a future deck of
-// genuinely Impressionist works. Images stay at the flat bucket path they
-// were uploaded to as a curated quiz -- no file move on migration.
+// Wood (Regionalism)... "impressionnisme" below is the deck of genuinely
+// Impressionist works. Images stay at the flat bucket path they were
+// uploaded to as a curated quiz -- no file move on migration.
 const CLASSIQUES_DECK: PeintreDeck = {
   deckKey: "classiques",
   imageBaseUrl: BUCKET_BASE,
@@ -161,7 +161,75 @@ const RENAISSANCE_DECK: PeintreDeck = {
   ],
 };
 
-export const PEINTRE_DECKS: PeintreDeck[] = [CLASSIQUES_DECK, RENAISSANCE_DECK];
+// Impressionism deck. Same closed-pool distractor pattern as Renaissance:
+// each of these 10 painters is the correct answer exactly once and a
+// distractor exactly 3 times. Images in the `impressionnisme/` subfolder.
+// All 10 sources verified public domain / CC0 on Wikimedia Commons before
+// upload (no CC-BY / CC-BY-SA).
+const IMPRESSIONNISME_DECK: PeintreDeck = {
+  deckKey: "impressionnisme",
+  imageBaseUrl: `${BUCKET_BASE}/impressionnisme`,
+  coverSlug: "bal-du-moulin-de-la-galette",
+  questions: [
+    {
+      slug: "bal-du-moulin-de-la-galette",
+      correct_answer: "Pierre-Auguste Renoir",
+      options: ["Pierre-Auguste Renoir", "Edgar Degas", "Georges Seurat", "Gustave Caillebotte"],
+    },
+    {
+      slug: "la-classe-de-danse",
+      correct_answer: "Edgar Degas",
+      options: ["Edgar Degas", "Georges Seurat", "Gustave Caillebotte", "Mary Cassatt"],
+    },
+    {
+      slug: "un-dimanche-a-la-grande-jatte",
+      correct_answer: "Georges Seurat",
+      options: ["Georges Seurat", "Gustave Caillebotte", "Mary Cassatt", "Paul Cézanne"],
+    },
+    {
+      slug: "rue-de-paris-temps-de-pluie",
+      correct_answer: "Gustave Caillebotte",
+      options: ["Gustave Caillebotte", "Mary Cassatt", "Paul Cézanne", "Paul Gauguin"],
+    },
+    {
+      slug: "la-toilette-de-l-enfant",
+      correct_answer: "Mary Cassatt",
+      options: ["Mary Cassatt", "Paul Cézanne", "Paul Gauguin", "Henri de Toulouse-Lautrec"],
+    },
+    {
+      slug: "les-joueurs-de-cartes",
+      correct_answer: "Paul Cézanne",
+      options: ["Paul Cézanne", "Paul Gauguin", "Henri de Toulouse-Lautrec", "Camille Pissarro"],
+    },
+    {
+      slug: "d-ou-venons-nous",
+      correct_answer: "Paul Gauguin",
+      options: ["Paul Gauguin", "Henri de Toulouse-Lautrec", "Camille Pissarro", "Alfred Sisley"],
+    },
+    {
+      slug: "moulin-rouge-la-goulue",
+      correct_answer: "Henri de Toulouse-Lautrec",
+      options: [
+        "Henri de Toulouse-Lautrec",
+        "Camille Pissarro",
+        "Alfred Sisley",
+        "Pierre-Auguste Renoir",
+      ],
+    },
+    {
+      slug: "boulevard-montmartre-la-nuit",
+      correct_answer: "Camille Pissarro",
+      options: ["Camille Pissarro", "Alfred Sisley", "Pierre-Auguste Renoir", "Edgar Degas"],
+    },
+    {
+      slug: "le-pont-de-moret",
+      correct_answer: "Alfred Sisley",
+      options: ["Alfred Sisley", "Pierre-Auguste Renoir", "Edgar Degas", "Georges Seurat"],
+    },
+  ],
+};
+
+export const PEINTRE_DECKS: PeintreDeck[] = [CLASSIQUES_DECK, RENAISSANCE_DECK, IMPRESSIONNISME_DECK];
 
 export function findPeintreDeck(deckKey: string | null | undefined): PeintreDeck | null {
   if (!deckKey) return null;
