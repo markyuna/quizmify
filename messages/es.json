@@ -1307,7 +1307,9 @@
     "goToFriends": "Ir a tus amigos",
     "cantAddSelf": "No podés agregarte a vos mismo como amigo",
     "error": "Algo salió mal",
-    "userNotFound": "Este link de invitación no es válido"
+    "userNotFound": "Este link de invitación no es válido",
+    "online": "En línea",
+    "lastSeenAgo": "Activo {time}"
   },
   "Referrals": {
     "badge": "Referidos",

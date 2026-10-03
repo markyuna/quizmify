@@ -1307,7 +1307,9 @@
     "goToFriends": "Go to your friends",
     "cantAddSelf": "You can't add yourself as a friend",
     "error": "Something went wrong",
-    "userNotFound": "This invite link isn't valid"
+    "userNotFound": "This invite link isn't valid",
+    "online": "Online",
+    "lastSeenAgo": "Active {time}"
   },
   "Referrals": {
     "badge": "Referrals",

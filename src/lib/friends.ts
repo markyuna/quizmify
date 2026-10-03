@@ -22,6 +22,11 @@ export type FriendSummary = {
   xp: number;
   level: number;
   currentStreak: number;
+  // ISO string (not a Date -- this crosses a server/client boundary via
+  // JSON) or null if the friend has never sent a presence heartbeat yet
+  // (see PresenceProvider.tsx). Compare against `serverNow` below, not the
+  // client's own clock, via isOnline() from src/lib/presence.ts.
+  lastSeenAt: string | null;
 };
 
 export type FriendRequestSummary = {
@@ -35,24 +40,52 @@ export type FriendsOverview = {
   friends: FriendSummary[];
   incomingRequests: FriendRequestSummary[];
   outgoingRequests: FriendRequestSummary[];
+  // Server clock at query time, so the client can compute isOnline()
+  // without trusting its own clock (which may be skewed or simply stale by
+  // the time this response is used, given this gets polled every 60s).
+  serverNow: string;
 };
 
 /** Shared by the /api/friends GET route and the /friends page's SSR fetch. */
 export async function getFriendsOverview(userId: string): Promise<FriendsOverview> {
+  const now = new Date();
   const friendships = await prisma.friendship.findMany({
     where: { OR: [{ requesterId: userId }, { addresseeId: userId }] },
     include: {
       requester: {
-        select: { id: true, name: true, image: true, xp: true, level: true, currentStreak: true, lastQuizDate: true },
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          xp: true,
+          level: true,
+          currentStreak: true,
+          lastQuizDate: true,
+          lastSeenAt: true,
+        },
       },
       addressee: {
-        select: { id: true, name: true, image: true, xp: true, level: true, currentStreak: true, lastQuizDate: true },
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          xp: true,
+          level: true,
+          currentStreak: true,
+          lastQuizDate: true,
+          lastSeenAt: true,
+        },
       },
     },
     orderBy: { createdAt: "desc" },
   });
 
-  const overview: FriendsOverview = { friends: [], incomingRequests: [], outgoingRequests: [] };
+  const overview: FriendsOverview = {
+    friends: [],
+    incomingRequests: [],
+    outgoingRequests: [],
+    serverNow: now.toISOString(),
+  };
 
   for (const f of friendships) {
     const isRequester = f.requesterId === userId;
@@ -67,6 +100,7 @@ export async function getFriendsOverview(userId: string): Promise<FriendsOvervie
         xp: other.xp,
         level: other.level,
         currentStreak: getEffectiveStreak(other),
+        lastSeenAt: other.lastSeenAt ? other.lastSeenAt.toISOString() : null,
       });
     } else if (isRequester) {
       overview.outgoingRequests.push({

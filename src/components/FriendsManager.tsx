@@ -3,12 +3,13 @@
 import * as React from "react";
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Check, Copy, Crown, Flame, UserMinus, UserPlus, X } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
+import { isOnline } from "@/lib/presence";
 import type { FriendsOverview } from "@/lib/friends";
 
 type FriendsManagerProps = {
@@ -17,8 +18,27 @@ type FriendsManagerProps = {
   currentUserId: string;
 };
 
+// No existing "time ago" helper in the repo (only date-fns' differenceInSeconds,
+// used for quiz timers, not relative-past phrasing). Intl.RelativeTimeFormat
+// already localizes the full phrase ("hace 5 minutos" / "il y a 5 minutes" /
+// "5 minutes ago"), so Friends.lastSeenAgo only wraps it with a prefix rather
+// than re-building it from parts. Only called when !isOnline, so diffMinutes
+// is always >= 3 here (the 180s PRESENCE_ONLINE_WINDOW_MS already covers
+// anything more recent).
+function formatLastSeen(lastSeenAt: string, serverNow: string, locale: string): string {
+  const diffMs = new Date(serverNow).getTime() - new Date(lastSeenAt).getTime();
+  const diffMinutes = Math.round(diffMs / 60_000);
+  const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto" });
+
+  if (diffMinutes < 60) return rtf.format(-diffMinutes, "minute");
+  const diffHours = Math.round(diffMinutes / 60);
+  if (diffHours < 24) return rtf.format(-diffHours, "hour");
+  return rtf.format(-Math.round(diffHours / 24), "day");
+}
+
 export default function FriendsManager({ initialOverview, inviteLink, currentUserId }: FriendsManagerProps) {
   const t = useTranslations("Friends");
+  const locale = useLocale();
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -26,6 +46,14 @@ export default function FriendsManager({ initialOverview, inviteLink, currentUse
     queryKey: ["friends-overview"],
     queryFn: async () => (await axios.get<FriendsOverview>("/api/friends")).data,
     initialData: initialOverview,
+    // First polling query in the app (QueryProvider.tsx sets
+    // refetchOnWindowFocus: false globally and nothing else uses
+    // refetchInterval). Needed so a friend's presence dot updates without a
+    // manual refresh. refetchIntervalInBackground is left at its default
+    // (false), so this pauses while the /friends tab isn't visible --
+    // consistent with the "treat the shared prod DB with care" rule, same
+    // spirit as PresenceProvider only heartbeating while visible.
+    refetchInterval: 60_000,
   });
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey: ["friends-overview"] });
@@ -157,10 +185,20 @@ export default function FriendsManager({ initialOverview, inviteLink, currentUse
                   )}
                 </div>
 
-                <Avatar className="h-9 w-9">
-                  {friend.image && <AvatarImage src={friend.image} alt={friend.name} />}
-                  <AvatarFallback>{friend.name.charAt(0).toUpperCase()}</AvatarFallback>
-                </Avatar>
+                <div className="relative shrink-0">
+                  <Avatar className="h-9 w-9">
+                    {friend.image && <AvatarImage src={friend.image} alt={friend.name} />}
+                    <AvatarFallback>{friend.name.charAt(0).toUpperCase()}</AvatarFallback>
+                  </Avatar>
+                  {friend.userId !== currentUserId &&
+                    friend.lastSeenAt &&
+                    isOnline(new Date(friend.lastSeenAt), new Date(overview.serverNow)) && (
+                      <span
+                        aria-hidden="true"
+                        className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-emerald-500 dark:border-slate-950"
+                      />
+                    )}
+                </div>
 
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-semibold text-foreground">
@@ -176,6 +214,13 @@ export default function FriendsManager({ initialOverview, inviteLink, currentUse
                       </span>
                     )}
                   </p>
+                  {friend.userId !== currentUserId && friend.lastSeenAt && (
+                    <p className="truncate text-[11px] text-muted-foreground/70">
+                      {isOnline(new Date(friend.lastSeenAt), new Date(overview.serverNow))
+                        ? t("online")
+                        : t("lastSeenAgo", { time: formatLastSeen(friend.lastSeenAt, overview.serverNow, locale) })}
+                    </p>
+                  )}
                 </div>
 
                 <div className="shrink-0 text-right">

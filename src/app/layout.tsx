@@ -10,6 +10,7 @@ import ThemeProvider from "@/components/ThemeProvider";
 import QueryProvider from "@/components/QueryProvider";
 import AuthSessionProvider from "@/components/AuthSessionProvider";
 import IdleTimeoutProvider from "@/components/IdleTimeoutProvider";
+import PresenceProvider from "@/components/PresenceProvider";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import TimezoneSync from "@/components/TimezoneSync";
@@ -119,6 +120,7 @@ export default async function RootLayout({
                     <ReferralCapture />
                     <GuestRoundClaim />
                     <IdleTimeoutProvider />
+                    <PresenceProvider />
                   </div>
                 </TooltipProvider>
               </QueryProvider>

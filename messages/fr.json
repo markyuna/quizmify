@@ -1307,7 +1307,9 @@
     "goToFriends": "Voir vos amis",
     "cantAddSelf": "Vous ne pouvez pas vous ajouter vous-même comme ami",
     "error": "Une erreur est survenue",
-    "userNotFound": "Ce lien d'invitation n'est pas valide"
+    "userNotFound": "Ce lien d'invitation n'est pas valide",
+    "online": "En ligne",
+    "lastSeenAgo": "Actif {time}"
   },
   "Referrals": {
     "badge": "Parrainage",
