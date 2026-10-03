@@ -1318,7 +1318,12 @@
     "friendRequestAccepted": "{name} aceptó tu solicitud de amistad",
     "requestGone": "Esa solicitud ya no existe",
     "error": "Algo salió mal",
-    "ariaLabel": "{count, plural, =0 {Notificaciones, sin pendientes} one {Notificaciones, # sin leer} other {Notificaciones, # sin leer}}"
+    "ariaLabel": "{count, plural, =0 {Notificaciones, sin pendientes} one {Notificaciones, # sin leer} other {Notificaciones, # sin leer}}",
+    "proOfferReceived": "{name} te invita a Pro: los dos reciben {days} días",
+    "proOfferAccepted": "{name} aceptó tu invitación: ganaste {days} días de Pro",
+    "proOfferAcceptedToast": "¡Ganaste {days} días de Pro!",
+    "accept": "Aceptar",
+    "ignore": "Ignorar"
   },
   "Referrals": {
     "badge": "Referidos",
@@ -1330,7 +1335,16 @@
     "referralCount": "Amigos referidos",
     "daysEarned": "Días Pro ganados",
     "premiumActive": "Tenés Pro por {days} días más",
-    "noPremiumActive": "Referí a un amigo para desbloquear tiempo Pro gratis"
+    "noPremiumActive": "Referí a un amigo para desbloquear tiempo Pro gratis",
+    "inviteProTitle": "Invitar a Pro",
+    "inviteProSubtitle": "Invitá a cualquier jugador del ranking: si acepta, los dos ganan {days} días de Pro.",
+    "inviteCta": "Invitar a Pro",
+    "invited": "Invitado",
+    "unavailable": "No disponible",
+    "dailyLimitReached": "Ya usaste tus invitaciones de hoy. Volvé a intentar mañana.",
+    "offerError": "No se pudo enviar la invitación",
+    "emptyCandidates": "Todavía no hay nadie en el ranking para invitar",
+    "loadMore": "Cargar más"
   },
   "Trial": {
     "startTrial": "Activá tu prueba gratis de {days} días",

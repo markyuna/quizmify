@@ -1318,7 +1318,12 @@
     "friendRequestAccepted": "{name} accepted your friend request",
     "requestGone": "That request no longer exists",
     "error": "Something went wrong",
-    "ariaLabel": "{count, plural, =0 {Notifications, none unread} one {Notifications, # unread} other {Notifications, # unread}}"
+    "ariaLabel": "{count, plural, =0 {Notifications, none unread} one {Notifications, # unread} other {Notifications, # unread}}",
+    "proOfferReceived": "{name} invites you to Pro: you both get {days} days",
+    "proOfferAccepted": "{name} accepted your invitation: you earned {days} days of Pro",
+    "proOfferAcceptedToast": "You earned {days} days of Pro!",
+    "accept": "Accept",
+    "ignore": "Ignore"
   },
   "Referrals": {
     "badge": "Referrals",
@@ -1330,7 +1335,16 @@
     "referralCount": "Friends referred",
     "daysEarned": "Pro days earned",
     "premiumActive": "You have Pro for {days} more days",
-    "noPremiumActive": "Refer a friend to unlock free Pro time"
+    "noPremiumActive": "Refer a friend to unlock free Pro time",
+    "inviteProTitle": "Invite to Pro",
+    "inviteProSubtitle": "Invite anyone from the leaderboard: if they accept, you both get {days} days of Pro.",
+    "inviteCta": "Invite to Pro",
+    "invited": "Invited",
+    "unavailable": "Unavailable",
+    "dailyLimitReached": "You've used today's invitations. Try again tomorrow.",
+    "offerError": "Couldn't send the invitation",
+    "emptyCandidates": "No one on the leaderboard to invite yet",
+    "loadMore": "Load more"
   },
   "Trial": {
     "startTrial": "Start your free {days}-day trial",

@@ -7,6 +7,8 @@ import { getReferralStats } from "@/lib/referrals";
 import { REFERRAL_REWARD_DAYS } from "@/lib/premium";
 import { getSiteUrl } from "@/lib/site";
 import ReferralLinkCard from "@/components/ReferralLinkCard";
+import InviteToProCard from "@/components/InviteToProCard";
+import { getProOfferCandidates } from "@/lib/proOffers";
 
 export const metadata = {
   title: "Referrals | Quizmify",
@@ -26,7 +28,10 @@ export default async function ReferralsPage() {
     redirect("/login");
   }
 
-  const stats = await getReferralStats(session.user.id);
+  const [stats, candidates] = await Promise.all([
+    getReferralStats(session.user.id),
+    getProOfferCandidates(session.user.id),
+  ]);
   const appUrl = getSiteUrl();
   const referralLink = `${appUrl}/register?ref=${session.user.id}`;
   const remainingDays = daysRemaining(stats.premiumUntil, new Date());
@@ -48,6 +53,7 @@ export default async function ReferralsPage() {
 
       <div className="space-y-4">
         <ReferralLinkCard referralLink={referralLink} />
+        <InviteToProCard initialData={candidates} />
 
         <div className="grid grid-cols-2 gap-3">
           <div className="rounded-2xl border border-slate-200/80 bg-white/80 p-4 text-center backdrop-blur-xl dark:border-white/10 dark:bg-white/5">

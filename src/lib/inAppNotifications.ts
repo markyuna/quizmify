@@ -93,7 +93,11 @@ export async function deleteFriendNotificationsBetween(
 export async function listNotifications(userId: string): Promise<NotificationsPage> {
   const now = new Date();
   const rows = await prisma.inAppNotification.findMany({
-    where: { userId },
+    // dismissedAt is only ever set on a resolved referral_offer (accepted
+    // or ignored -- see acceptProOffer/ignoreProOffer in proOffers.ts).
+    // Excluding it here is what makes a resolved offer stop showing in the
+    // bell. No-op for friend_request_* rows, which never get dismissedAt set.
+    where: { userId, dismissedAt: null },
     orderBy: { createdAt: "desc" },
     take: 20,
     include: { actor: { select: { name: true, image: true } } },

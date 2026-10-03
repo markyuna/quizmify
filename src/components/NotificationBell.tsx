@@ -4,23 +4,21 @@ import * as React from "react";
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useLocale, useTranslations } from "next-intl";
-import { Bell, Check, X } from "lucide-react";
+import { Bell, Check, Sparkles, X } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useToast } from "./ui/use-toast";
 import { formatRelativeTime } from "@/lib/relativeTime";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import type { NotificationsPage } from "@/lib/inAppNotifications";
+// PRO_OFFER_REWARD_DAYS from the pure constants module, never from
+// @/lib/proOffers -- that one imports `{ prisma } from "@/lib/db"` and must
+// never be reachable from a "use client" component.
+import { PRO_OFFER_REWARD_DAYS } from "@/lib/proOfferConstants";
 
 type Props = {
   initialUnreadCount: number;
 };
-
-// Phase 5 (referrals) will add referral_offer* to InAppNotificationType --
-// filtered out here on purpose so this bell stays scoped to friend requests
-// until that phase wires up its own copy. Nothing creates those types yet,
-// so this is a no-op today, purely defensive/forward-compatible.
-const FRIEND_NOTIFICATION_TYPES = new Set(["friend_request_received", "friend_request_accepted"]);
 
 const itemButtonClass =
   "h-7 flex-1 cursor-pointer justify-center gap-1 rounded-lg px-2.5 py-0 text-xs font-semibold outline-none transition-all duration-200 data-[disabled]:pointer-events-none data-[disabled]:opacity-50";
@@ -101,6 +99,39 @@ export default function NotificationBell({ initialUnreadCount }: Props) {
     },
   });
 
+  const {
+    mutate: respondToOffer,
+    isPending: isRespondingToOffer,
+    variables: offerVariables,
+  } = useMutation({
+    mutationFn: async ({ notificationId, action }: { notificationId: string; action: "accept" | "ignore" }) =>
+      axios.post<{ rewardDays?: number }>(`/api/referrals/offers/${notificationId}/${action}`),
+    onSuccess: (res, variables) => {
+      if (variables.action === "accept" && typeof res.data.rewardDays === "number") {
+        toast({ title: t("proOfferAcceptedToast", { days: res.data.rewardDays }) });
+      }
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+      queryClient.invalidateQueries({ queryKey: ["notifications-unread-count"] });
+      // Relevant when the person accepting is also mid-browsing their own
+      // outgoing invites; harmless no-op otherwise.
+      queryClient.invalidateQueries({ queryKey: ["pro-offer-candidates"] });
+    },
+    onError: (error, variables) => {
+      // Same 404/409 stance as friend requests: the offer is gone (ignored
+      // from another tab) or already resolved (already_referred) -- either
+      // way, drop it from the list.
+      if (axios.isAxiosError(error) && (error.response?.status === 404 || error.response?.status === 409)) {
+        queryClient.setQueryData<NotificationsPage | undefined>(["notifications"], (old) =>
+          old ? { ...old, notifications: old.notifications.filter((n) => n.id !== variables.notificationId) } : old
+        );
+        queryClient.invalidateQueries({ queryKey: ["notifications-unread-count"] });
+        toast({ title: t("requestGone") });
+        return;
+      }
+      toast({ title: t("error"), variant: "destructive" });
+    },
+  });
+
   const handleOpenChange = (nextOpen: boolean) => {
     setOpen(nextOpen);
     if (nextOpen && unreadCount > 0) {
@@ -111,7 +142,9 @@ export default function NotificationBell({ initialUnreadCount }: Props) {
     }
   };
 
-  const visibleNotifications = notifications.filter((n) => FRIEND_NOTIFICATION_TYPES.has(n.type));
+  // Server already excludes dismissed rows (listNotifications filters
+  // dismissedAt: null) -- no client-side type filter needed anymore.
+  const visibleNotifications = notifications;
 
   return (
     // modal={false}: same reasoning as PrimaryNav.tsx/UserAccountNav.tsx --
@@ -150,6 +183,7 @@ export default function NotificationBell({ initialUnreadCount }: Props) {
           ) : (
             visibleNotifications.map((n) => {
               const isThisPending = isResponding && respondingVariables?.friendshipId === n.friendshipId;
+              const isThisOfferPending = isRespondingToOffer && offerVariables?.notificationId === n.id;
 
               return (
                 <div key={n.id} className="flex items-start gap-2.5 rounded-2xl px-3 py-2.5">
@@ -160,9 +194,12 @@ export default function NotificationBell({ initialUnreadCount }: Props) {
 
                   <div className="min-w-0 flex-1">
                     <p className="text-sm text-slate-700 dark:text-slate-200">
-                      {n.type === "friend_request_received"
-                        ? t("friendRequestReceived", { name: n.actorName })
-                        : t("friendRequestAccepted", { name: n.actorName })}
+                      {n.type === "friend_request_received" && t("friendRequestReceived", { name: n.actorName })}
+                      {n.type === "friend_request_accepted" && t("friendRequestAccepted", { name: n.actorName })}
+                      {n.type === "referral_offer" &&
+                        t("proOfferReceived", { name: n.actorName, days: PRO_OFFER_REWARD_DAYS })}
+                      {n.type === "referral_offer_accepted" &&
+                        t("proOfferAccepted", { name: n.actorName, days: PRO_OFFER_REWARD_DAYS })}
                     </p>
                     <p className="mt-0.5 text-[11px] text-muted-foreground">
                       {formatRelativeTime(n.createdAt, serverNow, locale)}
@@ -198,6 +235,33 @@ export default function NotificationBell({ initialUnreadCount }: Props) {
                         >
                           <X className="h-3.5 w-3.5" />
                           {tFriends("decline")}
+                        </DropdownMenuItem>
+                      </div>
+                    )}
+
+                    {n.type === "referral_offer" && (
+                      <div className="mt-2 flex gap-1.5">
+                        <DropdownMenuItem
+                          disabled={isThisOfferPending}
+                          onSelect={(event) => {
+                            event.preventDefault();
+                            respondToOffer({ notificationId: n.id, action: "accept" });
+                          }}
+                          className={`${itemButtonClass} bg-emerald-500 text-white hover:bg-emerald-600 hover:text-white focus:bg-emerald-600 focus:text-white`}
+                        >
+                          <Sparkles className="h-3.5 w-3.5" />
+                          {t("accept")}
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          disabled={isThisOfferPending}
+                          onSelect={(event) => {
+                            event.preventDefault();
+                            respondToOffer({ notificationId: n.id, action: "ignore" });
+                          }}
+                          className={`${itemButtonClass} border border-slate-200 text-foreground/90 dark:border-white/10`}
+                        >
+                          <X className="h-3.5 w-3.5" />
+                          {t("ignore")}
                         </DropdownMenuItem>
                       </div>
                     )}
