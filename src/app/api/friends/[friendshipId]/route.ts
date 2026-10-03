@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
+import { deleteFriendNotificationsBetween, upsertFriendRequestAccepted } from "@/lib/inAppNotifications";
 
 const actionSchema = z.object({ action: z.enum(["accept", "decline"]) });
 
@@ -35,14 +36,24 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ friend
   }
 
   if (parsed.data.action === "accept") {
-    await prisma.friendship.update({
-      where: { id: friendshipId },
-      data: { status: "accepted", respondedAt: new Date() },
+    await prisma.$transaction(async (tx) => {
+      await tx.friendship.update({
+        where: { id: friendshipId },
+        data: { status: "accepted", respondedAt: new Date() },
+      });
+      await deleteFriendNotificationsBetween(friendship.requesterId, friendship.addresseeId, tx);
+      await upsertFriendRequestAccepted(
+        { userId: friendship.requesterId, actorId: friendship.addresseeId, friendshipId },
+        tx
+      );
     });
     return NextResponse.json({ success: true, status: "accepted" });
   }
 
-  await prisma.friendship.delete({ where: { id: friendshipId } });
+  await prisma.$transaction(async (tx) => {
+    await tx.friendship.delete({ where: { id: friendshipId } });
+    await deleteFriendNotificationsBetween(friendship.requesterId, friendship.addresseeId, tx);
+  });
   return NextResponse.json({ success: true, status: "declined" });
 }
 
@@ -63,6 +74,9 @@ export async function DELETE(_req: Request, { params }: { params: Promise<{ frie
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  await prisma.friendship.delete({ where: { id: friendshipId } });
+  await prisma.$transaction(async (tx) => {
+    await tx.friendship.delete({ where: { id: friendshipId } });
+    await deleteFriendNotificationsBetween(friendship.requesterId, friendship.addresseeId, tx);
+  });
   return NextResponse.json({ success: true });
 }

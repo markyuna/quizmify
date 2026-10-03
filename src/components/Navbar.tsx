@@ -10,7 +10,9 @@ import { buttonVariants } from "./ui/button";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
 import UserAccountNav from "./UserAccountNav";
+import NotificationBell from "./NotificationBell";
 import PrimaryNav from "./nav/PrimaryNav";
+import { getUnreadNotificationCount } from "@/lib/inAppNotifications";
 
 export default async function Navbar() {
   const session = await getAuthSession();
@@ -19,13 +21,18 @@ export default async function Navbar() {
   // Server-rendered, so read Pro status straight from the DB (same pattern
   // as GameCarousel.tsx / ProStatusBanner.tsx) and hand PrimaryNav a plain
   // boolean -- keeps the "Go Pro" CTA from flashing in for a user who
-  // already is Pro.
-  const user = session?.user?.id
-    ? await prisma.user.findUnique({
-        where: { id: session.user.id },
-        select: { subscriptionStatus: true, premiumUntil: true },
-      })
-    : null;
+  // already is Pro. Run alongside the unread-notifications count rather
+  // than sequentially -- two independent reads, no reason to wait on one
+  // before starting the other.
+  const [user, unreadCount] = await Promise.all([
+    session?.user?.id
+      ? prisma.user.findUnique({
+          where: { id: session.user.id },
+          select: { subscriptionStatus: true, premiumUntil: true },
+        })
+      : Promise.resolve(null),
+    session?.user?.id ? getUnreadNotificationCount(session.user.id) : Promise.resolve(0),
+  ]);
   const isPro = user ? isEffectivelyPro(user) : false;
 
   return (
@@ -38,11 +45,14 @@ export default async function Navbar() {
           <PrimaryNav isPro={isPro} isLoggedIn={!!session?.user} />
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
           <LanguageSwitcher />
           <ThemeToggle />
           {session?.user ? (
-            <UserAccountNav user={session.user} />
+            <>
+              <NotificationBell initialUnreadCount={unreadCount} />
+              <UserAccountNav user={session.user} />
+            </>
           ) : (
             <Link href="/login" className={cn(buttonVariants(), "hidden md:inline-flex")}>
               {t("signIn")}

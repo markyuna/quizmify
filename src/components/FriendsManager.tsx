@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import { isOnline } from "@/lib/presence";
+import { formatRelativeTime } from "@/lib/relativeTime";
 import type { FriendsOverview } from "@/lib/friends";
 
 type FriendsManagerProps = {
@@ -17,24 +18,6 @@ type FriendsManagerProps = {
   inviteLink: string;
   currentUserId: string;
 };
-
-// No existing "time ago" helper in the repo (only date-fns' differenceInSeconds,
-// used for quiz timers, not relative-past phrasing). Intl.RelativeTimeFormat
-// already localizes the full phrase ("hace 5 minutos" / "il y a 5 minutes" /
-// "5 minutes ago"), so Friends.lastSeenAgo only wraps it with a prefix rather
-// than re-building it from parts. Only called when !isOnline, so diffMinutes
-// is always >= 3 here (the 180s PRESENCE_ONLINE_WINDOW_MS already covers
-// anything more recent).
-function formatLastSeen(lastSeenAt: string, serverNow: string, locale: string): string {
-  const diffMs = new Date(serverNow).getTime() - new Date(lastSeenAt).getTime();
-  const diffMinutes = Math.round(diffMs / 60_000);
-  const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto" });
-
-  if (diffMinutes < 60) return rtf.format(-diffMinutes, "minute");
-  const diffHours = Math.round(diffMinutes / 60);
-  if (diffHours < 24) return rtf.format(-diffHours, "hour");
-  return rtf.format(-Math.round(diffHours / 24), "day");
-}
 
 export default function FriendsManager({ initialOverview, inviteLink, currentUserId }: FriendsManagerProps) {
   const t = useTranslations("Friends");
@@ -218,7 +201,7 @@ export default function FriendsManager({ initialOverview, inviteLink, currentUse
                     <p className="truncate text-[11px] text-muted-foreground/70">
                       {isOnline(new Date(friend.lastSeenAt), new Date(overview.serverNow))
                         ? t("online")
-                        : t("lastSeenAgo", { time: formatLastSeen(friend.lastSeenAt, overview.serverNow, locale) })}
+                        : t("lastSeenAgo", { time: formatRelativeTime(friend.lastSeenAt, overview.serverNow, locale) })}
                     </p>
                   )}
                 </div>

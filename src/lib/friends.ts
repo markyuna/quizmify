@@ -1,5 +1,10 @@
 import { prisma } from "@/lib/db";
 import { getEffectiveStreak } from "@/lib/streak";
+import {
+  deleteFriendNotificationsBetween,
+  upsertFriendRequestAccepted,
+  upsertFriendRequestReceived,
+} from "@/lib/inAppNotifications";
 
 /** Every accepted friend's user ID, from either side of the relation. */
 export async function getAcceptedFriendIds(userId: string): Promise<string[]> {
@@ -149,16 +154,30 @@ export async function sendFriendRequest(fromUserId: string, toUserId: string): P
     if (existing.requesterId === fromUserId) return "already_pending";
 
     // The other user already requested us -- accept it now instead of
-    // leaving two crossed pending rows.
-    await prisma.friendship.update({
-      where: { id: existing.id },
-      data: { status: "accepted", respondedAt: new Date() },
+    // leaving two crossed pending rows. fromUserId is the one completing
+    // the acceptance here (even though they called sendFriendRequest, not
+    // PATCH accept), so the bell mirrors the normal accept path: the
+    // original requester gets notified, and their now-resolved
+    // friend_request_received is cleared.
+    await prisma.$transaction(async (tx) => {
+      await tx.friendship.update({
+        where: { id: existing.id },
+        data: { status: "accepted", respondedAt: new Date() },
+      });
+      await deleteFriendNotificationsBetween(existing.requesterId, existing.addresseeId, tx);
+      await upsertFriendRequestAccepted(
+        { userId: existing.requesterId, actorId: fromUserId, friendshipId: existing.id },
+        tx
+      );
     });
     return "auto_accepted";
   }
 
-  await prisma.friendship.create({
-    data: { requesterId: fromUserId, addresseeId: toUserId },
+  await prisma.$transaction(async (tx) => {
+    const friendship = await tx.friendship.create({
+      data: { requesterId: fromUserId, addresseeId: toUserId },
+    });
+    await upsertFriendRequestReceived({ userId: toUserId, actorId: fromUserId, friendshipId: friendship.id }, tx);
   });
   return "created";
 }

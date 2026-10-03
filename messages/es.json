@@ -1311,6 +1311,15 @@
     "online": "En línea",
     "lastSeenAgo": "Activo {time}"
   },
+  "Notifications": {
+    "title": "Notificaciones",
+    "empty": "No tenés notificaciones",
+    "friendRequestReceived": "{name} te envió una solicitud de amistad",
+    "friendRequestAccepted": "{name} aceptó tu solicitud de amistad",
+    "requestGone": "Esa solicitud ya no existe",
+    "error": "Algo salió mal",
+    "ariaLabel": "{count, plural, =0 {Notificaciones, sin pendientes} one {Notificaciones, # sin leer} other {Notificaciones, # sin leer}}"
+  },
   "Referrals": {
     "badge": "Referidos",
     "title": "Invitá amigos, ganá tiempo Pro",

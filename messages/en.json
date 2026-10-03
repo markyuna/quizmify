@@ -1311,6 +1311,15 @@
     "online": "Online",
     "lastSeenAgo": "Active {time}"
   },
+  "Notifications": {
+    "title": "Notifications",
+    "empty": "You have no notifications",
+    "friendRequestReceived": "{name} sent you a friend request",
+    "friendRequestAccepted": "{name} accepted your friend request",
+    "requestGone": "That request no longer exists",
+    "error": "Something went wrong",
+    "ariaLabel": "{count, plural, =0 {Notifications, none unread} one {Notifications, # unread} other {Notifications, # unread}}"
+  },
   "Referrals": {
     "badge": "Referrals",
     "title": "Invite friends, earn Pro time",
