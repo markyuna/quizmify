@@ -71,6 +71,7 @@ export type UserMinAggregateOutputType = {
   personalityAnimalSetAt: Date | null
   lastMascotNudgeDismissedAt: Date | null
   neuronsBalance: number | null
+  lastSeenAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -100,6 +101,7 @@ export type UserMaxAggregateOutputType = {
   personalityAnimalSetAt: Date | null
   lastMascotNudgeDismissedAt: Date | null
   neuronsBalance: number | null
+  lastSeenAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -129,6 +131,7 @@ export type UserCountAggregateOutputType = {
   personalityAnimalSetAt: number
   lastMascotNudgeDismissedAt: number
   neuronsBalance: number
+  lastSeenAt: number
   _all: number
 }
 
@@ -178,6 +181,7 @@ export type UserMinAggregateInputType = {
   personalityAnimalSetAt?: true
   lastMascotNudgeDismissedAt?: true
   neuronsBalance?: true
+  lastSeenAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -207,6 +211,7 @@ export type UserMaxAggregateInputType = {
   personalityAnimalSetAt?: true
   lastMascotNudgeDismissedAt?: true
   neuronsBalance?: true
+  lastSeenAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -236,6 +241,7 @@ export type UserCountAggregateInputType = {
   personalityAnimalSetAt?: true
   lastMascotNudgeDismissedAt?: true
   neuronsBalance?: true
+  lastSeenAt?: true
   _all?: true
 }
 
@@ -352,6 +358,7 @@ export type UserGroupByOutputType = {
   personalityAnimalSetAt: Date | null
   lastMascotNudgeDismissedAt: Date | null
   neuronsBalance: number
+  lastSeenAt: Date | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -404,6 +411,7 @@ export type UserWhereInput = {
   personalityAnimalSetAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   neuronsBalance?: Prisma.IntFilter<"User"> | number
+  lastSeenAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   games?: Prisma.GameListRelationFilter
@@ -417,6 +425,8 @@ export type UserWhereInput = {
   notificationLogs?: Prisma.NotificationLogListRelationFilter
   friendshipsSent?: Prisma.FriendshipListRelationFilter
   friendshipsReceived?: Prisma.FriendshipListRelationFilter
+  notificationsReceived?: Prisma.InAppNotificationListRelationFilter
+  notificationsTriggered?: Prisma.InAppNotificationListRelationFilter
   referralsMade?: Prisma.ReferralListRelationFilter
   referralReceived?: Prisma.XOR<Prisma.ReferralNullableScalarRelationFilter, Prisma.ReferralWhereInput> | null
   guestAttemptsClaimed?: Prisma.GuestAttemptListRelationFilter
@@ -462,6 +472,7 @@ export type UserOrderByWithRelationInput = {
   personalityAnimalSetAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastMascotNudgeDismissedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   neuronsBalance?: Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   games?: Prisma.GameOrderByRelationAggregateInput
@@ -475,6 +486,8 @@ export type UserOrderByWithRelationInput = {
   notificationLogs?: Prisma.NotificationLogOrderByRelationAggregateInput
   friendshipsSent?: Prisma.FriendshipOrderByRelationAggregateInput
   friendshipsReceived?: Prisma.FriendshipOrderByRelationAggregateInput
+  notificationsReceived?: Prisma.InAppNotificationOrderByRelationAggregateInput
+  notificationsTriggered?: Prisma.InAppNotificationOrderByRelationAggregateInput
   referralsMade?: Prisma.ReferralOrderByRelationAggregateInput
   referralReceived?: Prisma.ReferralOrderByWithRelationInput
   guestAttemptsClaimed?: Prisma.GuestAttemptOrderByRelationAggregateInput
@@ -523,6 +536,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   personalityAnimalSetAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   neuronsBalance?: Prisma.IntFilter<"User"> | number
+  lastSeenAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   games?: Prisma.GameListRelationFilter
@@ -536,6 +550,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   notificationLogs?: Prisma.NotificationLogListRelationFilter
   friendshipsSent?: Prisma.FriendshipListRelationFilter
   friendshipsReceived?: Prisma.FriendshipListRelationFilter
+  notificationsReceived?: Prisma.InAppNotificationListRelationFilter
+  notificationsTriggered?: Prisma.InAppNotificationListRelationFilter
   referralsMade?: Prisma.ReferralListRelationFilter
   referralReceived?: Prisma.XOR<Prisma.ReferralNullableScalarRelationFilter, Prisma.ReferralWhereInput> | null
   guestAttemptsClaimed?: Prisma.GuestAttemptListRelationFilter
@@ -581,6 +597,7 @@ export type UserOrderByWithAggregationInput = {
   personalityAnimalSetAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastMascotNudgeDismissedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   neuronsBalance?: Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -618,6 +635,7 @@ export type UserScalarWhereWithAggregatesInput = {
   personalityAnimalSetAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   neuronsBalance?: Prisma.IntWithAggregatesFilter<"User"> | number
+  lastSeenAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
 
 export type UserCreateInput = {
@@ -647,6 +665,7 @@ export type UserCreateInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -660,6 +679,8 @@ export type UserCreateInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -705,6 +726,7 @@ export type UserUncheckedCreateInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -718,6 +740,8 @@ export type UserUncheckedCreateInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -763,6 +787,7 @@ export type UserUpdateInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -776,6 +801,8 @@ export type UserUpdateInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -821,6 +848,7 @@ export type UserUncheckedUpdateInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -834,6 +862,8 @@ export type UserUncheckedUpdateInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -879,6 +909,7 @@ export type UserCreateManyInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -908,6 +939,7 @@ export type UserUpdateManyMutationInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -937,6 +969,7 @@ export type UserUncheckedUpdateManyInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserScalarRelationFilter = {
@@ -971,6 +1004,7 @@ export type UserCountOrderByAggregateInput = {
   personalityAnimalSetAt?: Prisma.SortOrder
   lastMascotNudgeDismissedAt?: Prisma.SortOrder
   neuronsBalance?: Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -1009,6 +1043,7 @@ export type UserMaxOrderByAggregateInput = {
   personalityAnimalSetAt?: Prisma.SortOrder
   lastMascotNudgeDismissedAt?: Prisma.SortOrder
   neuronsBalance?: Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -1038,6 +1073,7 @@ export type UserMinOrderByAggregateInput = {
   personalityAnimalSetAt?: Prisma.SortOrder
   lastMascotNudgeDismissedAt?: Prisma.SortOrder
   neuronsBalance?: Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -1278,6 +1314,34 @@ export type UserUpdateOneRequiredWithoutFriendshipsReceivedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFriendshipsReceivedInput, Prisma.UserUpdateWithoutFriendshipsReceivedInput>, Prisma.UserUncheckedUpdateWithoutFriendshipsReceivedInput>
 }
 
+export type UserCreateNestedOneWithoutNotificationsReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsReceivedInput, Prisma.UserUncheckedCreateWithoutNotificationsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutNotificationsTriggeredInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsTriggeredInput, Prisma.UserUncheckedCreateWithoutNotificationsTriggeredInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsTriggeredInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationsReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsReceivedInput, Prisma.UserUncheckedCreateWithoutNotificationsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsReceivedInput
+  upsert?: Prisma.UserUpsertWithoutNotificationsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsReceivedInput, Prisma.UserUpdateWithoutNotificationsReceivedInput>, Prisma.UserUncheckedUpdateWithoutNotificationsReceivedInput>
+}
+
+export type UserUpdateOneRequiredWithoutNotificationsTriggeredNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsTriggeredInput, Prisma.UserUncheckedCreateWithoutNotificationsTriggeredInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsTriggeredInput
+  upsert?: Prisma.UserUpsertWithoutNotificationsTriggeredInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsTriggeredInput, Prisma.UserUpdateWithoutNotificationsTriggeredInput>, Prisma.UserUncheckedUpdateWithoutNotificationsTriggeredInput>
+}
+
 export type UserCreateNestedOneWithoutReferralsMadeInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutReferralsMadeInput, Prisma.UserUncheckedCreateWithoutReferralsMadeInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutReferralsMadeInput
@@ -1505,6 +1569,7 @@ export type UserCreateWithoutAccountsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
@@ -1517,6 +1582,8 @@ export type UserCreateWithoutAccountsInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -1562,6 +1629,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
@@ -1574,6 +1642,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -1635,6 +1705,7 @@ export type UserUpdateWithoutAccountsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
@@ -1647,6 +1718,8 @@ export type UserUpdateWithoutAccountsInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -1692,6 +1765,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -1704,6 +1778,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -1749,6 +1825,7 @@ export type UserCreateWithoutSessionsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
@@ -1761,6 +1838,8 @@ export type UserCreateWithoutSessionsInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -1806,6 +1885,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
@@ -1818,6 +1898,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -1879,6 +1961,7 @@ export type UserUpdateWithoutSessionsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
@@ -1891,6 +1974,8 @@ export type UserUpdateWithoutSessionsInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -1936,6 +2021,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -1948,6 +2034,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -1993,6 +2081,7 @@ export type UserCreateWithoutGamesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
@@ -2005,6 +2094,8 @@ export type UserCreateWithoutGamesInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -2050,6 +2141,7 @@ export type UserUncheckedCreateWithoutGamesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
@@ -2062,6 +2154,8 @@ export type UserUncheckedCreateWithoutGamesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -2123,6 +2217,7 @@ export type UserUpdateWithoutGamesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
@@ -2135,6 +2230,8 @@ export type UserUpdateWithoutGamesInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -2180,6 +2277,7 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -2192,6 +2290,8 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -2237,6 +2337,7 @@ export type UserCreateWithoutAttemptsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2249,6 +2350,8 @@ export type UserCreateWithoutAttemptsInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -2294,6 +2397,7 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2306,6 +2410,8 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -2367,6 +2473,7 @@ export type UserUpdateWithoutAttemptsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2379,6 +2486,8 @@ export type UserUpdateWithoutAttemptsInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -2424,6 +2533,7 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2436,6 +2546,8 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -2481,6 +2593,7 @@ export type UserCreateWithoutCuratedQuizCompletionsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2494,6 +2607,8 @@ export type UserCreateWithoutCuratedQuizCompletionsInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -2538,6 +2653,7 @@ export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2551,6 +2667,8 @@ export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -2611,6 +2729,7 @@ export type UserUpdateWithoutCuratedQuizCompletionsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2624,6 +2743,8 @@ export type UserUpdateWithoutCuratedQuizCompletionsInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -2668,6 +2789,7 @@ export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2681,6 +2803,8 @@ export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -2725,6 +2849,7 @@ export type UserCreateWithoutCertificatesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2737,6 +2862,8 @@ export type UserCreateWithoutCertificatesInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -2782,6 +2909,7 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -2794,6 +2922,8 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -2855,6 +2985,7 @@ export type UserUpdateWithoutCertificatesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -2867,6 +2998,8 @@ export type UserUpdateWithoutCertificatesInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -2912,6 +3045,7 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -2924,6 +3058,8 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -2969,6 +3105,7 @@ export type UserCreateWithoutTopicRecommendationsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -2981,6 +3118,8 @@ export type UserCreateWithoutTopicRecommendationsInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -3026,6 +3165,7 @@ export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3038,6 +3178,8 @@ export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -3099,6 +3241,7 @@ export type UserUpdateWithoutTopicRecommendationsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3111,6 +3254,8 @@ export type UserUpdateWithoutTopicRecommendationsInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -3156,6 +3301,7 @@ export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3168,6 +3314,8 @@ export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -3213,6 +3361,7 @@ export type UserCreateWithoutCategoryRecommendationInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3226,6 +3375,8 @@ export type UserCreateWithoutCategoryRecommendationInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -3270,6 +3421,7 @@ export type UserUncheckedCreateWithoutCategoryRecommendationInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3283,6 +3435,8 @@ export type UserUncheckedCreateWithoutCategoryRecommendationInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -3343,6 +3497,7 @@ export type UserUpdateWithoutCategoryRecommendationInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3356,6 +3511,8 @@ export type UserUpdateWithoutCategoryRecommendationInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -3400,6 +3557,7 @@ export type UserUncheckedUpdateWithoutCategoryRecommendationInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3413,6 +3571,8 @@ export type UserUncheckedUpdateWithoutCategoryRecommendationInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -3457,6 +3617,7 @@ export type UserCreateWithoutTrophiesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3469,6 +3630,8 @@ export type UserCreateWithoutTrophiesInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -3514,6 +3677,7 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3526,6 +3690,8 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -3587,6 +3753,7 @@ export type UserUpdateWithoutTrophiesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3599,6 +3766,8 @@ export type UserUpdateWithoutTrophiesInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -3644,6 +3813,7 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3656,6 +3826,8 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -3701,6 +3873,7 @@ export type UserCreateWithoutQuestionProgressInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3713,6 +3886,8 @@ export type UserCreateWithoutQuestionProgressInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -3758,6 +3933,7 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -3770,6 +3946,8 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -3831,6 +4009,7 @@ export type UserUpdateWithoutQuestionProgressInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -3843,6 +4022,8 @@ export type UserUpdateWithoutQuestionProgressInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -3888,6 +4069,7 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -3900,6 +4082,8 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -3945,6 +4129,7 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -3957,6 +4142,8 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -4002,6 +4189,7 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -4014,6 +4202,8 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -4075,6 +4265,7 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -4087,6 +4278,8 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -4132,6 +4325,7 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -4144,6 +4338,8 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -4189,6 +4385,7 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -4201,6 +4398,8 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -4246,6 +4445,7 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -4258,6 +4458,8 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -4319,6 +4521,7 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -4331,6 +4534,8 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -4376,6 +4581,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -4388,6 +4594,8 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -4433,6 +4641,7 @@ export type UserCreateWithoutNotificationLogsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -4445,6 +4654,8 @@ export type UserCreateWithoutNotificationLogsInput = {
   notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -4490,6 +4701,7 @@ export type UserUncheckedCreateWithoutNotificationLogsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -4502,6 +4714,8 @@ export type UserUncheckedCreateWithoutNotificationLogsInput = {
   notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -4563,6 +4777,7 @@ export type UserUpdateWithoutNotificationLogsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -4575,6 +4790,8 @@ export type UserUpdateWithoutNotificationLogsInput = {
   notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -4620,6 +4837,7 @@ export type UserUncheckedUpdateWithoutNotificationLogsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -4632,6 +4850,8 @@ export type UserUncheckedUpdateWithoutNotificationLogsInput = {
   notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -4677,6 +4897,7 @@ export type UserCreateWithoutFriendshipsSentInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -4689,6 +4910,8 @@ export type UserCreateWithoutFriendshipsSentInput = {
   notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -4734,6 +4957,7 @@ export type UserUncheckedCreateWithoutFriendshipsSentInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -4746,6 +4970,8 @@ export type UserUncheckedCreateWithoutFriendshipsSentInput = {
   notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -4796,6 +5022,7 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -4808,6 +5035,8 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -4853,6 +5082,7 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -4865,6 +5095,8 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -4926,6 +5158,7 @@ export type UserUpdateWithoutFriendshipsSentInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -4938,6 +5171,8 @@ export type UserUpdateWithoutFriendshipsSentInput = {
   notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -4983,6 +5218,7 @@ export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -4995,6 +5231,8 @@ export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
   notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -5051,6 +5289,7 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -5063,6 +5302,8 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -5108,6 +5349,7 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -5120,6 +5362,520 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutNotificationsReceivedInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
+  referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsReceivedInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
+  referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutNotificationsReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsReceivedInput, Prisma.UserUncheckedCreateWithoutNotificationsReceivedInput>
+}
+
+export type UserCreateWithoutNotificationsTriggeredInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsTriggeredInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutNotificationsTriggeredInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsTriggeredInput, Prisma.UserUncheckedCreateWithoutNotificationsTriggeredInput>
+}
+
+export type UserUpsertWithoutNotificationsReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsReceivedInput, Prisma.UserUncheckedUpdateWithoutNotificationsReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsReceivedInput, Prisma.UserUncheckedCreateWithoutNotificationsReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationsReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsReceivedInput, Prisma.UserUncheckedUpdateWithoutNotificationsReceivedInput>
+}
+
+export type UserUpdateWithoutNotificationsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutNotificationsTriggeredInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsTriggeredInput, Prisma.UserUncheckedUpdateWithoutNotificationsTriggeredInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsTriggeredInput, Prisma.UserUncheckedCreateWithoutNotificationsTriggeredInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationsTriggeredInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsTriggeredInput, Prisma.UserUncheckedUpdateWithoutNotificationsTriggeredInput>
+}
+
+export type UserUpdateWithoutNotificationsTriggeredInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsTriggeredInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -5165,6 +5921,7 @@ export type UserCreateWithoutReferralsMadeInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -5178,6 +5935,8 @@ export type UserCreateWithoutReferralsMadeInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
@@ -5222,6 +5981,7 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -5235,6 +5995,8 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
@@ -5284,6 +6046,7 @@ export type UserCreateWithoutReferralReceivedInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -5297,6 +6060,8 @@ export type UserCreateWithoutReferralReceivedInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
   dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
@@ -5341,6 +6106,7 @@ export type UserUncheckedCreateWithoutReferralReceivedInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -5354,6 +6120,8 @@ export type UserUncheckedCreateWithoutReferralReceivedInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
   dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
@@ -5414,6 +6182,7 @@ export type UserUpdateWithoutReferralsMadeInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -5427,6 +6196,8 @@ export type UserUpdateWithoutReferralsMadeInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
@@ -5471,6 +6242,7 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -5484,6 +6256,8 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -5539,6 +6313,7 @@ export type UserUpdateWithoutReferralReceivedInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -5552,6 +6327,8 @@ export type UserUpdateWithoutReferralReceivedInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
   dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
@@ -5596,6 +6373,7 @@ export type UserUncheckedUpdateWithoutReferralReceivedInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -5609,6 +6387,8 @@ export type UserUncheckedUpdateWithoutReferralReceivedInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
   dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -5653,6 +6433,7 @@ export type UserCreateWithoutGuestAttemptsClaimedInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -5666,6 +6447,8 @@ export type UserCreateWithoutGuestAttemptsClaimedInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
@@ -5710,6 +6493,7 @@ export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -5723,6 +6507,8 @@ export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
@@ -5783,6 +6569,7 @@ export type UserUpdateWithoutGuestAttemptsClaimedInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -5796,6 +6583,8 @@ export type UserUpdateWithoutGuestAttemptsClaimedInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
@@ -5840,6 +6629,7 @@ export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -5853,6 +6643,8 @@ export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
@@ -5897,6 +6689,7 @@ export type UserCreateWithoutDailyAttemptsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -5910,6 +6703,8 @@ export type UserCreateWithoutDailyAttemptsInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -5954,6 +6749,7 @@ export type UserUncheckedCreateWithoutDailyAttemptsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -5967,6 +6763,8 @@ export type UserUncheckedCreateWithoutDailyAttemptsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -6027,6 +6825,7 @@ export type UserUpdateWithoutDailyAttemptsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -6040,6 +6839,8 @@ export type UserUpdateWithoutDailyAttemptsInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -6084,6 +6885,7 @@ export type UserUncheckedUpdateWithoutDailyAttemptsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -6097,6 +6899,8 @@ export type UserUncheckedUpdateWithoutDailyAttemptsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -6141,6 +6945,7 @@ export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -6154,6 +6959,8 @@ export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -6198,6 +7005,7 @@ export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -6211,6 +7019,8 @@ export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -6271,6 +7081,7 @@ export type UserUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -6284,6 +7095,8 @@ export type UserUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -6328,6 +7141,7 @@ export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -6341,6 +7155,8 @@ export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -6385,6 +7201,7 @@ export type UserCreateWithoutPuzzleDuJourGamesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -6398,6 +7215,8 @@ export type UserCreateWithoutPuzzleDuJourGamesInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -6442,6 +7261,7 @@ export type UserUncheckedCreateWithoutPuzzleDuJourGamesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -6455,6 +7275,8 @@ export type UserUncheckedCreateWithoutPuzzleDuJourGamesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -6515,6 +7337,7 @@ export type UserUpdateWithoutPuzzleDuJourGamesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -6528,6 +7351,8 @@ export type UserUpdateWithoutPuzzleDuJourGamesInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -6572,6 +7397,7 @@ export type UserUncheckedUpdateWithoutPuzzleDuJourGamesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -6585,6 +7411,8 @@ export type UserUncheckedUpdateWithoutPuzzleDuJourGamesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -6629,6 +7457,7 @@ export type UserCreateWithoutNeuronTransactionsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -6642,6 +7471,8 @@ export type UserCreateWithoutNeuronTransactionsInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -6686,6 +7517,7 @@ export type UserUncheckedCreateWithoutNeuronTransactionsInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -6699,6 +7531,8 @@ export type UserUncheckedCreateWithoutNeuronTransactionsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -6759,6 +7593,7 @@ export type UserUpdateWithoutNeuronTransactionsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -6772,6 +7607,8 @@ export type UserUpdateWithoutNeuronTransactionsInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -6816,6 +7653,7 @@ export type UserUncheckedUpdateWithoutNeuronTransactionsInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -6829,6 +7667,8 @@ export type UserUncheckedUpdateWithoutNeuronTransactionsInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -6873,6 +7713,7 @@ export type UserCreateWithoutNeuronPurchasesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -6886,6 +7727,8 @@ export type UserCreateWithoutNeuronPurchasesInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -6930,6 +7773,7 @@ export type UserUncheckedCreateWithoutNeuronPurchasesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -6943,6 +7787,8 @@ export type UserUncheckedCreateWithoutNeuronPurchasesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -7003,6 +7849,7 @@ export type UserUpdateWithoutNeuronPurchasesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -7016,6 +7863,8 @@ export type UserUpdateWithoutNeuronPurchasesInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -7060,6 +7909,7 @@ export type UserUncheckedUpdateWithoutNeuronPurchasesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -7073,6 +7923,8 @@ export type UserUncheckedUpdateWithoutNeuronPurchasesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -7117,6 +7969,7 @@ export type UserCreateWithoutNeuronUnlocksInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -7130,6 +7983,8 @@ export type UserCreateWithoutNeuronUnlocksInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -7174,6 +8029,7 @@ export type UserUncheckedCreateWithoutNeuronUnlocksInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -7187,6 +8043,8 @@ export type UserUncheckedCreateWithoutNeuronUnlocksInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -7247,6 +8105,7 @@ export type UserUpdateWithoutNeuronUnlocksInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -7260,6 +8119,8 @@ export type UserUpdateWithoutNeuronUnlocksInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -7304,6 +8165,7 @@ export type UserUncheckedUpdateWithoutNeuronUnlocksInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -7317,6 +8179,8 @@ export type UserUncheckedUpdateWithoutNeuronUnlocksInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -7361,6 +8225,7 @@ export type UserCreateWithoutMorpionGamesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -7374,6 +8239,8 @@ export type UserCreateWithoutMorpionGamesInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -7418,6 +8285,7 @@ export type UserUncheckedCreateWithoutMorpionGamesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -7431,6 +8299,8 @@ export type UserUncheckedCreateWithoutMorpionGamesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -7491,6 +8361,7 @@ export type UserUpdateWithoutMorpionGamesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -7504,6 +8375,8 @@ export type UserUpdateWithoutMorpionGamesInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -7548,6 +8421,7 @@ export type UserUncheckedUpdateWithoutMorpionGamesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -7561,6 +8435,8 @@ export type UserUncheckedUpdateWithoutMorpionGamesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -7605,6 +8481,7 @@ export type UserCreateWithoutAkinatorGamesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -7618,6 +8495,8 @@ export type UserCreateWithoutAkinatorGamesInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -7662,6 +8541,7 @@ export type UserUncheckedCreateWithoutAkinatorGamesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -7675,6 +8555,8 @@ export type UserUncheckedCreateWithoutAkinatorGamesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -7735,6 +8617,7 @@ export type UserUpdateWithoutAkinatorGamesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -7748,6 +8631,8 @@ export type UserUpdateWithoutAkinatorGamesInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -7792,6 +8677,7 @@ export type UserUncheckedUpdateWithoutAkinatorGamesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -7805,6 +8691,8 @@ export type UserUncheckedUpdateWithoutAkinatorGamesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -7849,6 +8737,7 @@ export type UserCreateWithoutCrucigramaGamesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -7862,6 +8751,8 @@ export type UserCreateWithoutCrucigramaGamesInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -7906,6 +8797,7 @@ export type UserUncheckedCreateWithoutCrucigramaGamesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -7919,6 +8811,8 @@ export type UserUncheckedCreateWithoutCrucigramaGamesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -7979,6 +8873,7 @@ export type UserUpdateWithoutCrucigramaGamesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -7992,6 +8887,8 @@ export type UserUpdateWithoutCrucigramaGamesInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -8036,6 +8933,7 @@ export type UserUncheckedUpdateWithoutCrucigramaGamesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -8049,6 +8947,8 @@ export type UserUncheckedUpdateWithoutCrucigramaGamesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -8093,6 +8993,7 @@ export type UserCreateWithoutPeintreGamesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -8106,6 +9007,8 @@ export type UserCreateWithoutPeintreGamesInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -8150,6 +9053,7 @@ export type UserUncheckedCreateWithoutPeintreGamesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -8163,6 +9067,8 @@ export type UserUncheckedCreateWithoutPeintreGamesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -8223,6 +9129,7 @@ export type UserUpdateWithoutPeintreGamesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -8236,6 +9143,8 @@ export type UserUpdateWithoutPeintreGamesInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -8280,6 +9189,7 @@ export type UserUncheckedUpdateWithoutPeintreGamesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -8293,6 +9203,8 @@ export type UserUncheckedUpdateWithoutPeintreGamesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -8337,6 +9249,7 @@ export type UserCreateWithoutDailyFreeGamesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.GameCreateNestedManyWithoutUserInput
@@ -8350,6 +9263,8 @@ export type UserCreateWithoutDailyFreeGamesInput = {
   notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
@@ -8394,6 +9309,7 @@ export type UserUncheckedCreateWithoutDailyFreeGamesInput = {
   personalityAnimalSetAt?: Date | string | null
   lastMascotNudgeDismissedAt?: Date | string | null
   neuronsBalance?: number
+  lastSeenAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
@@ -8407,6 +9323,8 @@ export type UserUncheckedCreateWithoutDailyFreeGamesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
   friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
   referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
   referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
@@ -8467,6 +9385,7 @@ export type UserUpdateWithoutDailyFreeGamesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUpdateManyWithoutUserNestedInput
@@ -8480,6 +9399,8 @@ export type UserUpdateWithoutDailyFreeGamesInput = {
   notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
@@ -8524,6 +9445,7 @@ export type UserUncheckedUpdateWithoutDailyFreeGamesInput = {
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
@@ -8537,6 +9459,8 @@ export type UserUncheckedUpdateWithoutDailyFreeGamesInput = {
   notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
   friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
   referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
   guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
@@ -8572,6 +9496,8 @@ export type UserCountOutputType = {
   notificationLogs: number
   friendshipsSent: number
   friendshipsReceived: number
+  notificationsReceived: number
+  notificationsTriggered: number
   referralsMade: number
   guestAttemptsClaimed: number
   dailyAttempts: number
@@ -8601,6 +9527,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   notificationLogs?: boolean | UserCountOutputTypeCountNotificationLogsArgs
   friendshipsSent?: boolean | UserCountOutputTypeCountFriendshipsSentArgs
   friendshipsReceived?: boolean | UserCountOutputTypeCountFriendshipsReceivedArgs
+  notificationsReceived?: boolean | UserCountOutputTypeCountNotificationsReceivedArgs
+  notificationsTriggered?: boolean | UserCountOutputTypeCountNotificationsTriggeredArgs
   referralsMade?: boolean | UserCountOutputTypeCountReferralsMadeArgs
   guestAttemptsClaimed?: boolean | UserCountOutputTypeCountGuestAttemptsClaimedArgs
   dailyAttempts?: boolean | UserCountOutputTypeCountDailyAttemptsArgs
@@ -8709,6 +9637,20 @@ export type UserCountOutputTypeCountFriendshipsSentArgs<ExtArgs extends runtime.
  */
 export type UserCountOutputTypeCountFriendshipsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FriendshipWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNotificationsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InAppNotificationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNotificationsTriggeredArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InAppNotificationWhereInput
 }
 
 /**
@@ -8837,6 +9779,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   personalityAnimalSetAt?: boolean
   lastMascotNudgeDismissedAt?: boolean
   neuronsBalance?: boolean
+  lastSeenAt?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   games?: boolean | Prisma.User$gamesArgs<ExtArgs>
@@ -8850,6 +9793,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   notificationLogs?: boolean | Prisma.User$notificationLogsArgs<ExtArgs>
   friendshipsSent?: boolean | Prisma.User$friendshipsSentArgs<ExtArgs>
   friendshipsReceived?: boolean | Prisma.User$friendshipsReceivedArgs<ExtArgs>
+  notificationsReceived?: boolean | Prisma.User$notificationsReceivedArgs<ExtArgs>
+  notificationsTriggered?: boolean | Prisma.User$notificationsTriggeredArgs<ExtArgs>
   referralsMade?: boolean | Prisma.User$referralsMadeArgs<ExtArgs>
   referralReceived?: boolean | Prisma.User$referralReceivedArgs<ExtArgs>
   guestAttemptsClaimed?: boolean | Prisma.User$guestAttemptsClaimedArgs<ExtArgs>
@@ -8896,6 +9841,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   personalityAnimalSetAt?: boolean
   lastMascotNudgeDismissedAt?: boolean
   neuronsBalance?: boolean
+  lastSeenAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -8925,6 +9871,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   personalityAnimalSetAt?: boolean
   lastMascotNudgeDismissedAt?: boolean
   neuronsBalance?: boolean
+  lastSeenAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -8954,9 +9901,10 @@ export type UserSelectScalar = {
   personalityAnimalSetAt?: boolean
   lastMascotNudgeDismissedAt?: boolean
   neuronsBalance?: boolean
+  lastSeenAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth" | "timezone" | "premiumUntil" | "freeTrialUsedAt" | "selectedSkinId" | "personalityAnimal" | "personalityAnimalSetAt" | "lastMascotNudgeDismissedAt" | "neuronsBalance", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth" | "timezone" | "premiumUntil" | "freeTrialUsedAt" | "selectedSkinId" | "personalityAnimal" | "personalityAnimalSetAt" | "lastMascotNudgeDismissedAt" | "neuronsBalance" | "lastSeenAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -8971,6 +9919,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   notificationLogs?: boolean | Prisma.User$notificationLogsArgs<ExtArgs>
   friendshipsSent?: boolean | Prisma.User$friendshipsSentArgs<ExtArgs>
   friendshipsReceived?: boolean | Prisma.User$friendshipsReceivedArgs<ExtArgs>
+  notificationsReceived?: boolean | Prisma.User$notificationsReceivedArgs<ExtArgs>
+  notificationsTriggered?: boolean | Prisma.User$notificationsTriggeredArgs<ExtArgs>
   referralsMade?: boolean | Prisma.User$referralsMadeArgs<ExtArgs>
   referralReceived?: boolean | Prisma.User$referralReceivedArgs<ExtArgs>
   guestAttemptsClaimed?: boolean | Prisma.User$guestAttemptsClaimedArgs<ExtArgs>
@@ -9008,6 +9958,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     notificationLogs: Prisma.$NotificationLogPayload<ExtArgs>[]
     friendshipsSent: Prisma.$FriendshipPayload<ExtArgs>[]
     friendshipsReceived: Prisma.$FriendshipPayload<ExtArgs>[]
+    notificationsReceived: Prisma.$InAppNotificationPayload<ExtArgs>[]
+    notificationsTriggered: Prisma.$InAppNotificationPayload<ExtArgs>[]
     referralsMade: Prisma.$ReferralPayload<ExtArgs>[]
     referralReceived: Prisma.$ReferralPayload<ExtArgs> | null
     guestAttemptsClaimed: Prisma.$GuestAttemptPayload<ExtArgs>[]
@@ -9052,6 +10004,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     personalityAnimalSetAt: Date | null
     lastMascotNudgeDismissedAt: Date | null
     neuronsBalance: number
+    lastSeenAt: Date | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -9459,6 +10412,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   notificationLogs<T extends Prisma.User$notificationLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   friendshipsSent<T extends Prisma.User$friendshipsSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$friendshipsSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   friendshipsReceived<T extends Prisma.User$friendshipsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$friendshipsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notificationsReceived<T extends Prisma.User$notificationsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InAppNotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notificationsTriggered<T extends Prisma.User$notificationsTriggeredArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsTriggeredArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InAppNotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   referralsMade<T extends Prisma.User$referralsMadeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$referralsMadeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReferralPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   referralReceived<T extends Prisma.User$referralReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$referralReceivedArgs<ExtArgs>>): Prisma.Prisma__ReferralClient<runtime.Types.Result.GetResult<Prisma.$ReferralPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   guestAttemptsClaimed<T extends Prisma.User$guestAttemptsClaimedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guestAttemptsClaimedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuestAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -9530,6 +10485,7 @@ export interface UserFieldRefs {
   readonly personalityAnimalSetAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly lastMascotNudgeDismissedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly neuronsBalance: Prisma.FieldRef<"User", 'Int'>
+  readonly lastSeenAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 
@@ -10227,6 +11183,54 @@ export type User$friendshipsReceivedArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.FriendshipScalarFieldEnum | Prisma.FriendshipScalarFieldEnum[]
+}
+
+/**
+ * User.notificationsReceived
+ */
+export type User$notificationsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InAppNotification
+   */
+  select?: Prisma.InAppNotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InAppNotification
+   */
+  omit?: Prisma.InAppNotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InAppNotificationInclude<ExtArgs> | null
+  where?: Prisma.InAppNotificationWhereInput
+  orderBy?: Prisma.InAppNotificationOrderByWithRelationInput | Prisma.InAppNotificationOrderByWithRelationInput[]
+  cursor?: Prisma.InAppNotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InAppNotificationScalarFieldEnum | Prisma.InAppNotificationScalarFieldEnum[]
+}
+
+/**
+ * User.notificationsTriggered
+ */
+export type User$notificationsTriggeredArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InAppNotification
+   */
+  select?: Prisma.InAppNotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InAppNotification
+   */
+  omit?: Prisma.InAppNotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InAppNotificationInclude<ExtArgs> | null
+  where?: Prisma.InAppNotificationWhereInput
+  orderBy?: Prisma.InAppNotificationOrderByWithRelationInput | Prisma.InAppNotificationOrderByWithRelationInput[]
+  cursor?: Prisma.InAppNotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InAppNotificationScalarFieldEnum | Prisma.InAppNotificationScalarFieldEnum[]
 }
 
 /**

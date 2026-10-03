@@ -71,6 +71,7 @@ export const ModelName = {
   NotificationPreference: 'NotificationPreference',
   NotificationLog: 'NotificationLog',
   Friendship: 'Friendship',
+  InAppNotification: 'InAppNotification',
   Referral: 'Referral',
   DailyGameChallenge: 'DailyGameChallenge',
   GuestAttempt: 'GuestAttempt',
@@ -158,7 +159,8 @@ export const UserScalarFieldEnum = {
   personalityAnimal: 'personalityAnimal',
   personalityAnimalSetAt: 'personalityAnimalSetAt',
   lastMascotNudgeDismissedAt: 'lastMascotNudgeDismissedAt',
-  neuronsBalance: 'neuronsBalance'
+  neuronsBalance: 'neuronsBalance',
+  lastSeenAt: 'lastSeenAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -399,6 +401,20 @@ export const FriendshipScalarFieldEnum = {
 } as const
 
 export type FriendshipScalarFieldEnum = (typeof FriendshipScalarFieldEnum)[keyof typeof FriendshipScalarFieldEnum]
+
+
+export const InAppNotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  actorId: 'actorId',
+  type: 'type',
+  friendshipId: 'friendshipId',
+  readAt: 'readAt',
+  dismissedAt: 'dismissedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type InAppNotificationScalarFieldEnum = (typeof InAppNotificationScalarFieldEnum)[keyof typeof InAppNotificationScalarFieldEnum]
 
 
 export const ReferralScalarFieldEnum = {

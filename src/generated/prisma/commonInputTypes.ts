@@ -429,6 +429,23 @@ export type EnumFriendshipStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumFriendshipStatusFilter<$PrismaModel>
 }
 
+export type EnumInAppNotificationTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.InAppNotificationType | Prisma.EnumInAppNotificationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.InAppNotificationType[] | Prisma.ListEnumInAppNotificationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InAppNotificationType[] | Prisma.ListEnumInAppNotificationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInAppNotificationTypeFilter<$PrismaModel> | $Enums.InAppNotificationType
+}
+
+export type EnumInAppNotificationTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.InAppNotificationType | Prisma.EnumInAppNotificationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.InAppNotificationType[] | Prisma.ListEnumInAppNotificationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InAppNotificationType[] | Prisma.ListEnumInAppNotificationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInAppNotificationTypeWithAggregatesFilter<$PrismaModel> | $Enums.InAppNotificationType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumInAppNotificationTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumInAppNotificationTypeFilter<$PrismaModel>
+}
+
 export type EnumGuestGameKeyFilter<$PrismaModel = never> = {
   equals?: $Enums.GuestGameKey | Prisma.EnumGuestGameKeyFieldRefInput<$PrismaModel>
   in?: $Enums.GuestGameKey[] | Prisma.ListEnumGuestGameKeyFieldRefInput<$PrismaModel>
@@ -960,6 +977,23 @@ export type NestedEnumFriendshipStatusWithAggregatesFilter<$PrismaModel = never>
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumFriendshipStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumFriendshipStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumInAppNotificationTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.InAppNotificationType | Prisma.EnumInAppNotificationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.InAppNotificationType[] | Prisma.ListEnumInAppNotificationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InAppNotificationType[] | Prisma.ListEnumInAppNotificationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInAppNotificationTypeFilter<$PrismaModel> | $Enums.InAppNotificationType
+}
+
+export type NestedEnumInAppNotificationTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.InAppNotificationType | Prisma.EnumInAppNotificationTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.InAppNotificationType[] | Prisma.ListEnumInAppNotificationTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InAppNotificationType[] | Prisma.ListEnumInAppNotificationTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInAppNotificationTypeWithAggregatesFilter<$PrismaModel> | $Enums.InAppNotificationType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumInAppNotificationTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumInAppNotificationTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumGuestGameKeyFilter<$PrismaModel = never> = {

@@ -118,6 +118,11 @@ export type NotificationLog = Prisma.NotificationLogModel
  */
 export type Friendship = Prisma.FriendshipModel
 /**
+ * Model InAppNotification
+ * 
+ */
+export type InAppNotification = Prisma.InAppNotificationModel
+/**
  * Model Referral
  * 
  */

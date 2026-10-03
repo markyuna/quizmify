@@ -51,6 +51,16 @@ export const FriendshipStatus = {
 export type FriendshipStatus = (typeof FriendshipStatus)[keyof typeof FriendshipStatus]
 
 
+export const InAppNotificationType = {
+  friend_request_received: 'friend_request_received',
+  friend_request_accepted: 'friend_request_accepted',
+  referral_offer: 'referral_offer',
+  referral_offer_accepted: 'referral_offer_accepted'
+} as const
+
+export type InAppNotificationType = (typeof InAppNotificationType)[keyof typeof InAppNotificationType]
+
+
 export const GuestGameKey = {
   word_of_day: 'word_of_day',
   photo_of_day: 'photo_of_day',

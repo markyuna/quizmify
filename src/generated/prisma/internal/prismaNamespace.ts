@@ -417,6 +417,7 @@ export const ModelName = {
   NotificationPreference: 'NotificationPreference',
   NotificationLog: 'NotificationLog',
   Friendship: 'Friendship',
+  InAppNotification: 'InAppNotification',
   Referral: 'Referral',
   DailyGameChallenge: 'DailyGameChallenge',
   GuestAttempt: 'GuestAttempt',
@@ -447,7 +448,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronPurchase" | "neuronUnlock" | "morpionGame" | "akinatorGame" | "crucigramaGame" | "peintreGame" | "userDailyFreeGame"
+    modelProps: "account" | "session" | "user" | "game" | "mcqQuestion" | "question" | "attempt" | "attemptAnswer" | "curatedQuizCompletion" | "certificate" | "topicRecommendation" | "categoryRecommendationMascota" | "trophy" | "userQuestionProgress" | "dailyChallenge" | "dailyChallengeQuestion" | "dailyChallengeAttempt" | "notificationPreference" | "notificationLog" | "friendship" | "inAppNotification" | "referral" | "dailyGameChallenge" | "guestAttempt" | "userDailyAttempt" | "personalityTestAttempt" | "categoryTopic" | "puzzleDuJourGame" | "neuronTransaction" | "neuronPurchase" | "neuronUnlock" | "morpionGame" | "akinatorGame" | "crucigramaGame" | "peintreGame" | "userDailyFreeGame"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1931,6 +1932,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    InAppNotification: {
+      payload: Prisma.$InAppNotificationPayload<ExtArgs>
+      fields: Prisma.InAppNotificationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.InAppNotificationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InAppNotificationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.InAppNotificationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InAppNotificationPayload>
+        }
+        findFirst: {
+          args: Prisma.InAppNotificationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InAppNotificationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.InAppNotificationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InAppNotificationPayload>
+        }
+        findMany: {
+          args: Prisma.InAppNotificationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InAppNotificationPayload>[]
+        }
+        create: {
+          args: Prisma.InAppNotificationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InAppNotificationPayload>
+        }
+        createMany: {
+          args: Prisma.InAppNotificationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.InAppNotificationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InAppNotificationPayload>[]
+        }
+        delete: {
+          args: Prisma.InAppNotificationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InAppNotificationPayload>
+        }
+        update: {
+          args: Prisma.InAppNotificationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InAppNotificationPayload>
+        }
+        deleteMany: {
+          args: Prisma.InAppNotificationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.InAppNotificationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.InAppNotificationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InAppNotificationPayload>[]
+        }
+        upsert: {
+          args: Prisma.InAppNotificationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InAppNotificationPayload>
+        }
+        aggregate: {
+          args: Prisma.InAppNotificationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInAppNotification>
+        }
+        groupBy: {
+          args: Prisma.InAppNotificationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InAppNotificationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.InAppNotificationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InAppNotificationCountAggregateOutputType> | number
+        }
+      }
+    }
     Referral: {
       payload: Prisma.$ReferralPayload<ExtArgs>
       fields: Prisma.ReferralFieldRefs
@@ -3134,7 +3209,8 @@ export const UserScalarFieldEnum = {
   personalityAnimal: 'personalityAnimal',
   personalityAnimalSetAt: 'personalityAnimalSetAt',
   lastMascotNudgeDismissedAt: 'lastMascotNudgeDismissedAt',
-  neuronsBalance: 'neuronsBalance'
+  neuronsBalance: 'neuronsBalance',
+  lastSeenAt: 'lastSeenAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -3375,6 +3451,20 @@ export const FriendshipScalarFieldEnum = {
 } as const
 
 export type FriendshipScalarFieldEnum = (typeof FriendshipScalarFieldEnum)[keyof typeof FriendshipScalarFieldEnum]
+
+
+export const InAppNotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  actorId: 'actorId',
+  type: 'type',
+  friendshipId: 'friendshipId',
+  readAt: 'readAt',
+  dismissedAt: 'dismissedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type InAppNotificationScalarFieldEnum = (typeof InAppNotificationScalarFieldEnum)[keyof typeof InAppNotificationScalarFieldEnum]
 
 
 export const ReferralScalarFieldEnum = {
@@ -3812,6 +3902,20 @@ export type ListEnumFriendshipStatusFieldRefInput<$PrismaModel> = FieldRefInputT
 
 
 /**
+ * Reference to a field of type 'InAppNotificationType'
+ */
+export type EnumInAppNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InAppNotificationType'>
+    
+
+
+/**
+ * Reference to a field of type 'InAppNotificationType[]'
+ */
+export type ListEnumInAppNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InAppNotificationType[]'>
+    
+
+
+/**
  * Reference to a field of type 'GuestGameKey'
  */
 export type EnumGuestGameKeyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuestGameKey'>
@@ -4121,6 +4225,7 @@ export type GlobalOmitConfig = {
   notificationPreference?: Prisma.NotificationPreferenceOmit
   notificationLog?: Prisma.NotificationLogOmit
   friendship?: Prisma.FriendshipOmit
+  inAppNotification?: Prisma.InAppNotificationOmit
   referral?: Prisma.ReferralOmit
   dailyGameChallenge?: Prisma.DailyGameChallengeOmit
   guestAttempt?: Prisma.GuestAttemptOmit

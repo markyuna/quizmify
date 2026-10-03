@@ -100,6 +100,14 @@ model User {
   // source of truth; this field only exists so reading the balance (e.g.
   // the dashboard header) doesn't require summing the whole ledger.
   neuronsBalance                 Int                            @default(0)
+  // Presence shown to friends (last-seen / online indicator), written by a
+  // client heartbeat (~60s, throttled). Deliberately UNRELATED to
+  // token.lastActivity in src/lib/nextauth.ts: that claim lives only inside
+  // the signed-in user's own JWT and drives the 30-minute idle-timeout
+  // logout -- it never touches the DB and other users can't read it.
+  // lastSeenAt is the opposite: a DB-persisted timestamp other users'
+  // friend lists actually query.
+  lastSeenAt                     DateTime?
   accounts                       Account[]
   sessions                       Session[]
   games                          Game[]
@@ -113,6 +121,8 @@ model User {
   notificationLogs               NotificationLog[]
   friendshipsSent                Friendship[]                   @relation("FriendshipRequester")
   friendshipsReceived            Friendship[]                   @relation("FriendshipAddressee")
+  notificationsReceived          InAppNotification[]            @relation("InAppNotificationRecipient")
+  notificationsTriggered         InAppNotification[]            @relation("InAppNotificationActor")
   referralsMade                  Referral[]                     @relation("ReferralsMade")
   referralReceived               Referral?                      @relation("ReferralReceived")
   guestAttemptsClaimed           GuestAttempt[]
@@ -524,6 +534,60 @@ model Friendship {
   @@unique([requesterId, addresseeId])
   @@index([addresseeId])
   @@index([requesterId])
+}
+
+enum InAppNotificationType {
+  friend_request_received
+  friend_request_accepted
+  referral_offer
+  referral_offer_accepted
+}
+
+// In-app notification feed (bell icon), distinct from NotificationLog /
+// NotificationPreference above -- those gate the transactional emails sent
+// by the cron job; this table is only for the live in-app bell and never
+// triggers an email itself. friendshipId only applies to the
+// friend_request_* types (left null for referral_offer*) and is a plain
+// String with no Prisma relation: accepting/declining/removing a
+// friendship deletes the Friendship row (see above), so this reference can
+// go stale on purpose -- it's a best-effort deep link, never a source of
+// truth to join against.
+//
+// @@unique([userId, actorId, type]) is only the invariant "at most one row
+// per recipient+actor+type" -- it does NOT dictate how the row gets
+// written. That differs per type and is resolved in the service layer, not
+// here: friend_request_* upserts and refreshes readAt/createdAt (the
+// notification reappears as unread if the event repeats), while
+// referral_offer* is created once and a repeat attempt is a no-op that
+// leaves the existing row untouched. Both behaviors share the same unique
+// index without conflicting.
+model InAppNotification {
+  id           String                @id @default(cuid())
+  userId       String
+  actorId      String
+  type         InAppNotificationType
+  friendshipId String?
+  readAt       DateTime?
+  // Only meaningful for referral_offer: set when the recipient dismisses
+  // it ("Ignore"). The row is deliberately never deleted -- deleting it
+  // would let @@unique([userId, actorId, type]) stop blocking the same
+  // sender from re-creating the same offer for the same recipient, which is
+  // exactly what that constraint exists to prevent. "Accepted" state isn't
+  // stored here either -- it's derived from the existence of the
+  // recipient's Referral row (see Referral below), not a field on this model.
+  dismissedAt  DateTime?
+  createdAt    DateTime              @default(now())
+
+  recipient User @relation("InAppNotificationRecipient", fields: [userId], references: [id], onDelete: Cascade)
+  actor     User @relation("InAppNotificationActor", fields: [actorId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, actorId, type])
+  @@index([userId, readAt, createdAt])
+  // No real FK (relationMode = "prisma"), so the cascade Prisma emulates on
+  // actorId needs this index to avoid a table scan when a User is deleted.
+  // Also backs the "offers sent per sender per day" count (filter
+  // type = referral_offer, bucket by createdAt).
+  @@index([actorId, type, createdAt])
 }
 
 // One row per successfully-referred signup. @@unique on referredId means a
