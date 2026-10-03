@@ -37,10 +37,10 @@ export default function LanguageSwitcher() {
           type="button"
           aria-label={t("label")}
           disabled={pending}
-          className="inline-flex h-11 items-center gap-1.5 rounded-2xl border border-white/40 bg-white/70 px-3 backdrop-blur-md shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-md disabled:opacity-60 dark:border-white/10 dark:bg-white/10"
+          className="inline-flex h-11 items-center gap-1.5 rounded-2xl border border-white/40 bg-white/70 px-2 backdrop-blur-md shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-md disabled:opacity-60 dark:border-white/10 dark:bg-white/10 sm:px-3"
         >
           <Globe className="h-5 w-5" />
-          <span className="text-sm font-medium uppercase">{locale}</span>
+          <span className="hidden text-sm font-medium uppercase sm:inline">{locale}</span>
         </button>
       </DropdownMenuTrigger>
 

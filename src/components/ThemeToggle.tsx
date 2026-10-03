@@ -27,7 +27,7 @@ export default function ThemeToggle() {
       onClick={() => mounted && setTheme(isDark ? "light" : "dark")}
       aria-label={t("toggle")}
       className={cn(
-        "inline-flex h-11 w-11 items-center justify-center rounded-2xl",
+        "inline-flex h-10 w-10 items-center justify-center rounded-2xl md:h-11 md:w-11",
         "border border-white/40 bg-white/70 backdrop-blur-md shadow-sm",
         "transition-all duration-300 hover:scale-105 hover:shadow-md",
         "dark:border-white/10 dark:bg-white/10",
