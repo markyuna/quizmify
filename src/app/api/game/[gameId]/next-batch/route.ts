@@ -6,7 +6,7 @@ import { getAuthSession } from "@/lib/nextauth";
 import { isGeographyTopic } from "@/lib/geography";
 import { getCategoryBySlug } from "@/lib/categories";
 import { normalizeDifficulty, type Difficulty } from "@/lib/questionGeneration";
-import { sourceQuestions, incrementUsageCount } from "@/lib/questionSourcing";
+import { sourceQuestions, incrementUsageCount, getSeenQuestionTexts } from "@/lib/questionSourcing";
 import { adjustDifficulty } from "@/lib/adaptiveDifficulty";
 import type { Locale } from "@/i18n/locales";
 
@@ -88,6 +88,15 @@ export async function POST(req: Request, { params }: { params: Promise<{ gameId:
       }
     }
 
+    // This game's own first batch, plus everything the player saw in earlier
+    // games on this topic -- same replay exclusion as /api/game, so the
+    // second half of a replayed quiz doesn't fall back to old questions.
+    const seenTexts = await getSeenQuestionTexts({
+      userId: session.user.id,
+      topic: game.topic,
+      language: game.language as Locale,
+    });
+
     const { questions: sourced } = await sourceQuestions({
       topic: game.topic,
       difficulty: nextDifficulty,
@@ -96,7 +105,10 @@ export async function POST(req: Request, { params }: { params: Promise<{ gameId:
       isGeography,
       categoryName,
       countryScope,
-      excludeTexts: existingQuestions.map((q) => q.question),
+      // Set: seenTexts already includes this game's own first batch (it's
+      // the user's most recent game on the topic), keep the AI avoid-list
+      // free of duplicates.
+      excludeTexts: [...new Set([...existingQuestions.map((q) => q.question), ...seenTexts])],
     });
 
     if (sourced.length === 0) {

@@ -35,6 +35,10 @@ type QuizCreationProps = {
   // catalog card (see /quiz/categoria/[slug]) -- see the categoryKnown
   // derivation below for why that hides the selector entirely.
   categoryParam?: string;
+  // Prefilled by a "Rejouer" link (see buildQuizReplayHref) -- already
+  // validated against quizCreationSchema by /quiz/page.tsx.
+  difficultyParam?: QuizCreationInput["difficulty"];
+  amountParam?: number;
   isGuest: boolean;
 };
 
@@ -48,7 +52,13 @@ type CreateGameResponse = {
 
 const TOPIC_SUGGESTIONS = ["JavaScript", "History", "Biology", "Space", "Movies", "Math"];
 
-export default function QuizCreation({ topicParam, categoryParam = "", isGuest }: QuizCreationProps) {
+export default function QuizCreation({
+  topicParam,
+  categoryParam = "",
+  difficultyParam,
+  amountParam,
+  isGuest,
+}: QuizCreationProps) {
   const router = useRouter();
   const { toast } = useToast();
   const t = useTranslations("QuizCreation");
@@ -134,8 +144,10 @@ export default function QuizCreation({ topicParam, categoryParam = "", isGuest }
     resolver: zodResolver(quizCreationSchema),
     defaultValues: {
       topic: normalizedTopic,
-      amount: 5,
-      difficulty: "easy",
+      // Clamped like the +/- stepper below, so a guest can't arrive with
+      // more than the guest cap prefilled.
+      amount: Math.min(amountParam ?? 5, isGuest ? GUEST_MAX_QUESTIONS : 20),
+      difficulty: difficultyParam ?? "easy",
       type: "mcq",
       isTimed: false,
       puzzleMode: false,

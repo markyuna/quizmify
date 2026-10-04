@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 
+import { prisma } from "@/lib/db";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import {
   type Difficulty,
@@ -135,6 +136,45 @@ export async function deactivateQuestions(ids: string[]) {
   }
 }
 
+// Cap on how many past question texts getSeenQuestionTexts returns -- keeps
+// the excludeTexts set (and the cache read it widens, see sourceQuestions)
+// bounded for a player who has replayed one topic dozens of times. Most
+// recent first, so the cap drops the oldest, least-remembered questions.
+const SEEN_QUESTIONS_LIMIT = 200;
+
+/**
+ * Question texts this user has already been served on this topic, across
+ * every difficulty (a question seen in easy shouldn't come back in hard
+ * either), most recent game first. Fed to sourceQuestions() as excludeTexts
+ * so a replay ("Rejouer") of the same topic serves questions the player
+ * hasn't seen yet -- the cache itself is shared by all players and has no
+ * notion of who saw what, so without this a replay just re-shuffled the
+ * same small pool. Filtered by language only because a text from another
+ * locale can never match anyway.
+ */
+export async function getSeenQuestionTexts(params: {
+  userId: string;
+  topic: string;
+  language: Locale;
+}): Promise<string[]> {
+  const { userId, topic, language } = params;
+
+  const rows = await prisma.question.findMany({
+    where: {
+      game: {
+        userId,
+        language,
+        topic: { equals: topic, mode: "insensitive" },
+      },
+    },
+    select: { question: true },
+    orderBy: { game: { timeStarted: "desc" } },
+    take: SEEN_QUESTIONS_LIMIT,
+  });
+
+  return rows.map((row) => row.question);
+}
+
 /**
  * Shared question-sourcing pipeline: Supabase cache first, top up with AI
  * generation when the pool is thin, shuffle, slice to `amount`. Used by
@@ -158,8 +198,10 @@ export async function sourceQuestions(params: {
   // categoryName -- only /api/game passes this today, not next-batch (see
   // that route's own TODO on categoryName being entirely absent there).
   countryScope?: string | null;
-  // Question texts to treat as already served -- e.g. next-batch passes the
-  // first batch's own Question rows for this same game, so the second batch
+  // Question texts to treat as already served -- the player's own history on
+  // this topic (getSeenQuestionTexts, so a replay gets fresh questions), and
+  // for next-batch also the first batch's own Question rows for this same
+  // game, so the second batch
   // can't re-serve them even when the topic's cache pool is thin (see the
   // Photographie bug: pool near `amount` in size + independent shuffles per
   // batch meant batch 2 could re-draw batch 1's own questions). Filtered out
@@ -201,11 +243,14 @@ export async function sourceQuestions(params: {
   let cachedQuestions: SupabaseMCQQuestion[] = [];
 
   try {
+    // Widened by the exclude list: rows the player already saw are dropped
+    // right after this read, so they mustn't eat into the headroom that
+    // unseen cached questions would otherwise fill.
     cachedQuestions = await fetchExistingMCQQuestions({
       topic,
       difficulty,
       language,
-      amount: poolTarget,
+      amount: poolTarget + excludeKeys.size,
     });
   } catch (error) {
     console.error("Supabase cache read error:", error);
