@@ -47,6 +47,7 @@ import { isGeographyTopic } from "@/lib/geography";
 import { TIMEOUT_ANSWER_SENTINEL } from "@/lib/timedMode";
 import { FREE_TRIAL_DAYS } from "@/lib/premium";
 import type { TrophyReason } from "@/app/api/quiz/submit/route";
+import { buildQuizReplayHref } from "@/lib/quizReplay";
 
 type QuestionWithOptions = Pick<
   Question,
@@ -442,7 +443,7 @@ const MCQ = ({ game, isGuest, initialNeuronsCorrectTowardNext }: MCQProps) => {
   };
 
   const handlePlayAgain = () => {
-    router.push(`/quiz?topic=${encodeURIComponent(game.topic)}`);
+    router.push(buildQuizReplayHref(game, game.questions.length));
   };
 
   const liveElapsedSeconds = differenceInSeconds(now, timeStartedAt);

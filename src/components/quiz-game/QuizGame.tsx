@@ -22,6 +22,7 @@ import QuestionCard from "./QuestionCard";
 import ScoreBoard from "./ScoreBoard";
 import TimerBar from "./TimerBar";
 import ResultScreen from "./ResultScreen";
+import { buildQuizReplayHref } from "@/lib/quizReplay";
 
 type QuestionWithOptions = Pick<
   Question,
@@ -180,7 +181,7 @@ export default function QuizGame({ game }: QuizGameProps) {
   });
 
   const handlePlayAgain = () => {
-    router.push(`/quiz?topic=${encodeURIComponent(game.topic)}`);
+    router.push(buildQuizReplayHref(game, game.questions.length));
   };
 
   if (!currentQuestion && !isFinished) {

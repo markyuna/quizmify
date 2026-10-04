@@ -11,7 +11,12 @@ import { isGeographyTopic } from "@/lib/geography";
 import { getCategoryBySlug } from "@/lib/categories";
 import { TIMED_MODE_SECONDS_PER_QUESTION } from "@/lib/timedMode";
 import { normalizeTopic, normalizeDifficulty, ensureValidOptions } from "@/lib/questionGeneration";
-import { sourceQuestions, incrementUsageCount, deactivateQuestions } from "@/lib/questionSourcing";
+import {
+  sourceQuestions,
+  incrementUsageCount,
+  deactivateQuestions,
+  getSeenQuestionTexts,
+} from "@/lib/questionSourcing";
 import { findCuratedQuiz } from "@/lib/curatedQuizzes/registry";
 import type { CuratedQuizQuestion } from "@/lib/curatedQuizzes/types";
 import type { SourcedQuestion } from "@/lib/questionSourcing";
@@ -161,6 +166,11 @@ export async function POST(req: Request) {
         };
       });
     } else {
+      // A guest only ever gets one quiz (see the guest brake above), so
+      // there's no history to exclude for them.
+      const seenTexts = userId
+        ? await getSeenQuestionTexts({ userId, topic, language })
+        : [];
       const result = await sourceQuestions({
         topic,
         difficulty,
@@ -169,6 +179,7 @@ export async function POST(req: Request) {
         isGeography,
         categoryName,
         countryScope,
+        excludeTexts: seenTexts,
       });
       sourced = result.questions;
       cachedCount = result.cachedCount;
