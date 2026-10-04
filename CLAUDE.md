@@ -118,6 +118,14 @@ A standalone game (`src/lib/peintre/`, routes `src/app/api/peintre/*`, pages `sr
 - `PeintreGame` model (`deckKey`/`status` validated Strings, `answers` JSON). Grading is server-side only in `[gameId]/submit` (correct answers never reach the client mid-game); the `in_progress`→`completed` flip is a conditional `updateMany` so a double-submit can't double-credit.
 - Listed in `ALL_GAMES` as `kind: "pro-neuron"`, `href: "/peintre"`, `neuronCost: PEINTRE_COST_PER_GAME`.
 
+### Homepage community band
+
+`CommunitySection.tsx` (`src/components/home/`), streamed behind `<Suspense>` right after the Hero in `src/app/page.tsx`. Data in `src/lib/community.ts`.
+
+- **Anonymous aggregates for everyone** (`getCommunityStats`): players today, games today, games in the last hour — one raw-SQL query over `Attempt` (`createdAt` index), today's `DailyChallengeAttempt` and today's `GuestAttempt` (guests included), wrapped in `unstable_cache` (60 s, single global key, no cookies inside). Deliberately skips `User.lastSeenAt`, `Game.timeStarted` and the Pro game tables — none has an index a global time window can use — so figures are a floor. Players are deduped across sources (`UserDailyAttempt`/`claimedByUserId` map a daily guest game back to its account).
+- **Small-number guard**: any figure below `COMMUNITY_MIN_DISPLAY_COUNT` (5) is hidden; if all are, a generic line shows instead.
+- **Signed-in only** (`getOnlineFriendsSummary`): accepted friends online within `PRESENCE_ONLINE_WINDOW_MS`, max 5 avatars + "+N", link to `/friends`; no friends → invite to `/referrals`. Lighter than `getFriendsOverview` (2 queries, PK lookup), per-user and uncached. Never renders anyone outside the viewer's friends. No polling.
+
 ### Notifications
 
 Transactional/reminder emails (streak reminders, daily challenge nudges, weekly summaries, premium-ending warnings) are sent via Resend using React Email templates (`src/emails/`). `src/lib/notifications.ts` + the `/api/cron/notifications` route drive sending; `NotificationLog`'s `[userId, type, dateKey]` unique constraint is the real anti-duplicate guard, not just an application-level check. Users opt in/out per-category via `NotificationPreference`. Env: `RESEND_API_KEY`, `RESEND_FROM_EMAIL`.

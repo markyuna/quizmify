@@ -1,7 +1,10 @@
+import { Suspense } from "react";
+
 import { getAuthSession } from "@/lib/nextauth";
 import { prisma } from "@/lib/db";
 import HeroSection from "@/components/HeroSection";
 import CategoriesSection from "@/components/CategoriesSection";
+import CommunitySection from "@/components/home/CommunitySection";
 import TopicCarousel from "@/components/games/TopicCarousel";
 import GameCarousel from "@/components/games/GameCarousel";
 import FeatureCards from "@/components/FeatureCards";
@@ -44,6 +47,12 @@ export default async function HomePage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-cyan-50 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950">
       <HeroSection isAuthenticated={isAuthenticated} popularTopics={popularTopics} />
+      {/* Streamed behind Suspense so a slow stats/friends read never holds
+          back the rest of the page; the fallback reserves roughly the same
+          height to avoid a layout shift when it resolves. */}
+      <Suspense fallback={<CommunitySectionSkeleton />}>
+        <CommunitySection userId={session?.user?.id ?? null} />
+      </Suspense>
       <CategoriesSection />
       <TopicCarousel />
       <GameCarousel />
@@ -51,5 +60,13 @@ export default async function HomePage() {
       <WhyQuizmifySection />
       <FinalCtaSection hasMascot={hasMascot} />
     </main>
+  );
+}
+
+function CommunitySectionSkeleton() {
+  return (
+    <div className="px-4 pt-8 md:px-8" aria-hidden="true">
+      <div className="mx-auto h-40 max-w-7xl animate-pulse rounded-3xl border border-slate-200/80 bg-white/60 dark:border-white/10 dark:bg-white/5 motion-reduce:animate-none" />
+    </div>
   );
 }

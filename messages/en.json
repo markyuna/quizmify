@@ -502,6 +502,18 @@
     "subtitle": "Jump straight into a quiz on what everyone else is playing right now.",
     "cardDescription": "Create a quiz on this topic with AI."
   },
+  "CommunitySection": {
+    "title": "The community, live",
+    "playersTodayLabel": "Players today",
+    "gamesTodayLabel": "Games played today",
+    "gamesLastHourLabel": "Games in the last hour",
+    "quietFallback": "New players join Quizmify every day — start a game and become part of the community.",
+    "friendsOnline": "{count, plural, one {# friend online} other {# friends online}}",
+    "noFriendsOnline": "None of your friends are online right now.",
+    "viewFriends": "View my friends",
+    "noFriends": "Play together: invite your friends and you'll both earn Pro time.",
+    "inviteFriends": "Invite friends"
+  },
   "CategoriesSection": {
     "title": "Quizzes by theme",
     "subtitle": "Browse our categories and dive into a quiz on your favorite topic.",
