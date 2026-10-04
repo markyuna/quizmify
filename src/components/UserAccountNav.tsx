@@ -5,9 +5,10 @@ import Link from "next/link";
 import React from "react";
 import { signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { Flame, History, LayoutDashboard, LogOut, Settings, Sparkles, Trophy } from "lucide-react";
+import { LogOut } from "lucide-react";
 
 import UserAvatar from "./UserAvatar";
+import { ACCOUNT_LINKS } from "./nav/accountLinks";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -74,65 +75,18 @@ const UserAccountNav = ({ user }: Props) => {
 
         <DropdownMenuSeparator className="bg-slate-200 dark:bg-white/10" />
 
-        <DropdownMenuItem
-          asChild
-          className="mt-1 cursor-pointer rounded-2xl px-3 py-2.5 text-sm font-medium text-slate-700 outline-none transition hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10"
-        >
-          <Link href="/dashboard" className="flex items-center gap-3">
-            <LayoutDashboard className="h-4 w-4" />
-            <span>{t("dashboard")}</span>
-          </Link>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem
-          asChild
-          className="cursor-pointer rounded-2xl px-3 py-2.5 text-sm font-medium text-slate-700 outline-none transition hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10"
-        >
-          <Link href="/quiz" className="flex items-center gap-3">
-            <Sparkles className="h-4 w-4" />
-            <span>{t("quiz")}</span>
-          </Link>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem
-          asChild
-          className="cursor-pointer rounded-2xl px-3 py-2.5 text-sm font-medium text-slate-700 outline-none transition hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10"
-        >
-          <Link href="/games" className="flex items-center gap-3">
-            <Flame className="h-4 w-4" />
-            <span>{t("games")}</span>
-          </Link>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem
-          asChild
-          className="cursor-pointer rounded-2xl px-3 py-2.5 text-sm font-medium text-slate-700 outline-none transition hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10"
-        >
-          <Link href="/history" className="flex items-center gap-3">
-            <History className="h-4 w-4" />
-            <span>{t("history")}</span>
-          </Link>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem
-          asChild
-          className="cursor-pointer rounded-2xl px-3 py-2.5 text-sm font-medium text-slate-700 outline-none transition hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10"
-        >
-          <Link href="/leaderboard" className="flex items-center gap-3">
-            <Trophy className="h-4 w-4" />
-            <span>{t("leaderboard")}</span>
-          </Link>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem
-          asChild
-          className="cursor-pointer rounded-2xl px-3 py-2.5 text-sm font-medium text-slate-700 outline-none transition hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10"
-        >
-          <Link href="/account" className="flex items-center gap-3">
-            <Settings className="h-4 w-4" />
-            <span>{t("myAccount")}</span>
-          </Link>
-        </DropdownMenuItem>
+        {ACCOUNT_LINKS.map((link, index) => (
+          <DropdownMenuItem
+            key={link.href}
+            asChild
+            className={`${index === 0 ? "mt-1 " : ""}cursor-pointer rounded-2xl px-3 py-2.5 text-sm font-medium text-slate-700 outline-none transition hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10`}
+          >
+            <Link href={link.href} className="flex items-center gap-3">
+              <link.icon className="h-4 w-4" />
+              <span>{t(link.labelKey)}</span>
+            </Link>
+          </DropdownMenuItem>
+        ))}
 
         <DropdownMenuSeparator className="bg-slate-200 dark:bg-white/10" />
 
