@@ -30,6 +30,7 @@ export const CATEGORY_SLUGS = [
   "alimentation",
   "code-de-la-route",
   "drapeaux",
+  "beaute",
 ] as const;
 export type CategorySlug = (typeof CATEGORY_SLUGS)[number];
 

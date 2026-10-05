@@ -27,6 +27,7 @@ const FEATURED_CATEGORY_SLUGS = [
   "alimentation",
   "code-de-la-route",
   "drapeaux",
+  "beaute",
 ] as const;
 
 // 2 rows x md:grid-cols-8.

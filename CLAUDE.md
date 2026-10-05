@@ -98,7 +98,7 @@ A "20 questions" game: the AI holds a secret character and the player asks yes/n
 Config in `src/lib/personalityTests/quelAnimalEsTu.config.ts`; routes under `/api/personality-tests/[testKey]/*` (`submit`, `confirm`, `retry`, `status`) plus `claim` (migrate a guest attempt onto a real account, mirroring `GuestAttempt.claimedByUserId`) and `mascot-nudge-dismiss`.
 
 - Scores land on one of 6 animals (`ANIMAL_KEYS`: lion, dauphin, hibou, renard, loup, ours) via per-question `weights`.
-- A second, independent axis (`categoryWeights`, present only on later questions) scores interest across the 17 real category slugs (`CATEGORY_SLUGS` — a hand-maintained literal list mirroring `src/lib/categories.ts`; must be kept in sync by hand) and feeds cold-start topic recommendations via `src/lib/categoryRecommendations.ts`. This axis never affects the animal result.
+- A second, independent axis (`categoryWeights`, present only on later questions) scores interest across the 18 real category slugs (`CATEGORY_SLUGS` — a hand-maintained literal list mirroring `src/lib/categories.ts`; must be kept in sync by hand) and feeds cold-start topic recommendations via `src/lib/categoryRecommendations.ts`. This axis never affects the animal result.
 - First-time completion also grants the +50 Neuron bonus (`withPersonalityBonus`, see Neuronas above).
 - UI touchpoints: `MascotDiscoveryNudge.tsx` (dashboard nudge), `PersonalityMascotCard.tsx`, `HeroMascot.tsx`.
 
