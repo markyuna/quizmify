@@ -204,6 +204,14 @@ export const CATEGORIES: Category[] = [
     aiPrompt:
       "Génère des questions permettant d'identifier des drapeaux de pays du monde entier et leur signification.",
   },
+  {
+    slug: "beaute",
+    icon: "💄",
+    group: "vie-quotidienne",
+    heroImage: CATEGORY_IMAGES_BASE_URL + "/beaute-hero.webp",
+    aiPrompt:
+      "Génère des questions sur la beauté : maquillage, soins de la peau, parfums, coiffure, marques de cosmétiques et histoire de la beauté.",
+  },
 ];
 
 export function getCategoryBySlug(slug: string): Category | undefined {
