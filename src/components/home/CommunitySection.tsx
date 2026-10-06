@@ -7,16 +7,20 @@ import {
   COMMUNITY_MIN_DISPLAY_COUNT,
   getCommunityStats,
   getOnlineFriendsSummary,
+  getRecentCommunityActivity,
+  type CommunityActivityItem,
   type CommunityStats,
   type OnlineFriendsSummary,
 } from "@/lib/community";
+import CommunityActivityTicker from "@/components/home/CommunityActivityTicker";
 
 /**
- * Homepage "live community" band. Visitors without a session only ever see
- * anonymous aggregates (cached globally, see getCommunityStats); signed-in
- * users additionally see their own online friends, or an invitation to
- * /referrals when they have none. Identities of anyone outside the viewer's
- * accepted friends are never rendered.
+ * Homepage "live community" band. Every visitor sees anonymous aggregates
+ * and a ticker of recent games (both cached globally, see getCommunityStats
+ * / getRecentCommunityActivity); signed-in users additionally see their own
+ * online friends, or an invitation to /referrals when they have none. The
+ * ticker is the only place identities of non-friends appear, and only as a
+ * shortened "First L." name for users who left showInCommunityFeed on.
  *
  * Both reads are best-effort -- a failing stats/friends query hides its own
  * block rather than taking the homepage down (same stance as the Hero's
@@ -27,10 +31,14 @@ export default async function CommunitySection({ userId }: { userId: string | nu
   const t = await getTranslations("CommunitySection");
   const format = await getFormatter();
 
-  const [stats, friends] = await Promise.all([
+  const [stats, activity, friends] = await Promise.all([
     getCommunityStats().catch((error: unknown): CommunityStats | null => {
       console.error("Failed to fetch community stats:", error);
       return null;
+    }),
+    getRecentCommunityActivity().catch((error: unknown): CommunityActivityItem[] => {
+      console.error("Failed to fetch community activity:", error);
+      return [];
     }),
     userId
       ? getOnlineFriendsSummary(userId).catch((error: unknown): OnlineFriendsSummary | null => {
@@ -82,6 +90,10 @@ export default async function CommunitySection({ userId }: { userId: string | nu
               {t("quietFallback")}
             </p>
           )}
+
+          {/* Same small-number guard as the figures: a near-empty ticker
+              reads as an empty room. */}
+          {activity.length >= COMMUNITY_MIN_DISPLAY_COUNT && <CommunityActivityTicker items={activity} />}
 
           {friends && <FriendsBlock friends={friends} />}
         </div>

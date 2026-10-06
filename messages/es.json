@@ -503,6 +503,9 @@
     "cardDescription": "Creá un quiz sobre este tema con IA."
   },
   "CommunitySection": {
+    "activityTitle": "Jugaron estos últimos días",
+    "activityAnonymousPlayer": "Un jugador",
+    "activityDailyChallenge": "Desafío del día: {topic}",
     "title": "La comunidad en vivo",
     "playersTodayLabel": "Jugadores hoy",
     "gamesTodayLabel": "Partidas jugadas hoy",
@@ -1094,6 +1097,9 @@
     "instantActivation": "Activación instantánea"
   },
   "Account": {
+    "communityTitle": "Comunidad",
+    "communityFeedLabel": "Aparecer en la actividad de la comunidad",
+    "communityFeedDesc": "Tu nombre y la inicial de tu apellido, con las partidas que terminas, pueden mostrarse en la página de inicio.",
     "title": "Mi cuenta",
     "deleteMyAccount": "Eliminar mi cuenta",
     "deleteWarning": "Esto elimina permanentemente tu cuenta y todos los datos asociados (partidas, respuestas, progreso, XP). Esta acción no se puede deshacer. Si compraste Pro, consultá nuestra",

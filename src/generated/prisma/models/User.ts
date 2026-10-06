@@ -66,6 +66,7 @@ export type UserMinAggregateOutputType = {
   timezone: string | null
   premiumUntil: Date | null
   freeTrialUsedAt: Date | null
+  showInCommunityFeed: boolean | null
   selectedSkinId: string | null
   personalityAnimal: string | null
   personalityAnimalSetAt: Date | null
@@ -96,6 +97,7 @@ export type UserMaxAggregateOutputType = {
   timezone: string | null
   premiumUntil: Date | null
   freeTrialUsedAt: Date | null
+  showInCommunityFeed: boolean | null
   selectedSkinId: string | null
   personalityAnimal: string | null
   personalityAnimalSetAt: Date | null
@@ -126,6 +128,7 @@ export type UserCountAggregateOutputType = {
   timezone: number
   premiumUntil: number
   freeTrialUsedAt: number
+  showInCommunityFeed: number
   selectedSkinId: number
   personalityAnimal: number
   personalityAnimalSetAt: number
@@ -176,6 +179,7 @@ export type UserMinAggregateInputType = {
   timezone?: true
   premiumUntil?: true
   freeTrialUsedAt?: true
+  showInCommunityFeed?: true
   selectedSkinId?: true
   personalityAnimal?: true
   personalityAnimalSetAt?: true
@@ -206,6 +210,7 @@ export type UserMaxAggregateInputType = {
   timezone?: true
   premiumUntil?: true
   freeTrialUsedAt?: true
+  showInCommunityFeed?: true
   selectedSkinId?: true
   personalityAnimal?: true
   personalityAnimalSetAt?: true
@@ -236,6 +241,7 @@ export type UserCountAggregateInputType = {
   timezone?: true
   premiumUntil?: true
   freeTrialUsedAt?: true
+  showInCommunityFeed?: true
   selectedSkinId?: true
   personalityAnimal?: true
   personalityAnimalSetAt?: true
@@ -353,6 +359,7 @@ export type UserGroupByOutputType = {
   timezone: string | null
   premiumUntil: Date | null
   freeTrialUsedAt: Date | null
+  showInCommunityFeed: boolean
   selectedSkinId: string | null
   personalityAnimal: string | null
   personalityAnimalSetAt: Date | null
@@ -406,6 +413,7 @@ export type UserWhereInput = {
   timezone?: Prisma.StringNullableFilter<"User"> | string | null
   premiumUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   freeTrialUsedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFilter<"User"> | boolean
   selectedSkinId?: Prisma.StringNullableFilter<"User"> | string | null
   personalityAnimal?: Prisma.StringNullableFilter<"User"> | string | null
   personalityAnimalSetAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -467,6 +475,7 @@ export type UserOrderByWithRelationInput = {
   timezone?: Prisma.SortOrderInput | Prisma.SortOrder
   premiumUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  showInCommunityFeed?: Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrderInput | Prisma.SortOrder
   personalityAnimal?: Prisma.SortOrderInput | Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -531,6 +540,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   timezone?: Prisma.StringNullableFilter<"User"> | string | null
   premiumUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   freeTrialUsedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFilter<"User"> | boolean
   selectedSkinId?: Prisma.StringNullableFilter<"User"> | string | null
   personalityAnimal?: Prisma.StringNullableFilter<"User"> | string | null
   personalityAnimalSetAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -592,6 +602,7 @@ export type UserOrderByWithAggregationInput = {
   timezone?: Prisma.SortOrderInput | Prisma.SortOrder
   premiumUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  showInCommunityFeed?: Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrderInput | Prisma.SortOrder
   personalityAnimal?: Prisma.SortOrderInput | Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -630,6 +641,7 @@ export type UserScalarWhereWithAggregatesInput = {
   timezone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   premiumUntil?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   freeTrialUsedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  showInCommunityFeed?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   selectedSkinId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   personalityAnimal?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   personalityAnimalSetAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -660,6 +672,7 @@ export type UserCreateInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -721,6 +734,7 @@ export type UserUncheckedCreateInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -782,6 +796,7 @@ export type UserUpdateInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -843,6 +858,7 @@ export type UserUncheckedUpdateInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -904,6 +920,7 @@ export type UserCreateManyInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -934,6 +951,7 @@ export type UserUpdateManyMutationInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -964,6 +982,7 @@ export type UserUncheckedUpdateManyInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -999,6 +1018,7 @@ export type UserCountOrderByAggregateInput = {
   timezone?: Prisma.SortOrder
   premiumUntil?: Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrder
+  showInCommunityFeed?: Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrder
   personalityAnimal?: Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrder
@@ -1038,6 +1058,7 @@ export type UserMaxOrderByAggregateInput = {
   timezone?: Prisma.SortOrder
   premiumUntil?: Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrder
+  showInCommunityFeed?: Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrder
   personalityAnimal?: Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrder
@@ -1068,6 +1089,7 @@ export type UserMinOrderByAggregateInput = {
   timezone?: Prisma.SortOrder
   premiumUntil?: Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrder
+  showInCommunityFeed?: Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrder
   personalityAnimal?: Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrder
@@ -1128,6 +1150,10 @@ export type IntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type UserCreateNestedOneWithoutGamesInput = {
@@ -1564,6 +1590,7 @@ export type UserCreateWithoutAccountsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -1624,6 +1651,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -1700,6 +1728,7 @@ export type UserUpdateWithoutAccountsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1760,6 +1789,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1820,6 +1850,7 @@ export type UserCreateWithoutSessionsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -1880,6 +1911,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -1956,6 +1988,7 @@ export type UserUpdateWithoutSessionsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2016,6 +2049,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2076,6 +2110,7 @@ export type UserCreateWithoutGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2136,6 +2171,7 @@ export type UserUncheckedCreateWithoutGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2212,6 +2248,7 @@ export type UserUpdateWithoutGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2272,6 +2309,7 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2332,6 +2370,7 @@ export type UserCreateWithoutAttemptsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2392,6 +2431,7 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2468,6 +2508,7 @@ export type UserUpdateWithoutAttemptsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2528,6 +2569,7 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2588,6 +2630,7 @@ export type UserCreateWithoutCuratedQuizCompletionsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2648,6 +2691,7 @@ export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2724,6 +2768,7 @@ export type UserUpdateWithoutCuratedQuizCompletionsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2784,6 +2829,7 @@ export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2844,6 +2890,7 @@ export type UserCreateWithoutCertificatesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2904,6 +2951,7 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2980,6 +3028,7 @@ export type UserUpdateWithoutCertificatesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3040,6 +3089,7 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3100,6 +3150,7 @@ export type UserCreateWithoutTopicRecommendationsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -3160,6 +3211,7 @@ export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -3236,6 +3288,7 @@ export type UserUpdateWithoutTopicRecommendationsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3296,6 +3349,7 @@ export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3356,6 +3410,7 @@ export type UserCreateWithoutCategoryRecommendationInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -3416,6 +3471,7 @@ export type UserUncheckedCreateWithoutCategoryRecommendationInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -3492,6 +3548,7 @@ export type UserUpdateWithoutCategoryRecommendationInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3552,6 +3609,7 @@ export type UserUncheckedUpdateWithoutCategoryRecommendationInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3612,6 +3670,7 @@ export type UserCreateWithoutTrophiesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -3672,6 +3731,7 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -3748,6 +3808,7 @@ export type UserUpdateWithoutTrophiesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3808,6 +3869,7 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3868,6 +3930,7 @@ export type UserCreateWithoutQuestionProgressInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -3928,6 +3991,7 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4004,6 +4068,7 @@ export type UserUpdateWithoutQuestionProgressInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4064,6 +4129,7 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4124,6 +4190,7 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4184,6 +4251,7 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4260,6 +4328,7 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4320,6 +4389,7 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4380,6 +4450,7 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4440,6 +4511,7 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4516,6 +4588,7 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4576,6 +4649,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4636,6 +4710,7 @@ export type UserCreateWithoutNotificationLogsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4696,6 +4771,7 @@ export type UserUncheckedCreateWithoutNotificationLogsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4772,6 +4848,7 @@ export type UserUpdateWithoutNotificationLogsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4832,6 +4909,7 @@ export type UserUncheckedUpdateWithoutNotificationLogsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4892,6 +4970,7 @@ export type UserCreateWithoutFriendshipsSentInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4952,6 +5031,7 @@ export type UserUncheckedCreateWithoutFriendshipsSentInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5017,6 +5097,7 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5077,6 +5158,7 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5153,6 +5235,7 @@ export type UserUpdateWithoutFriendshipsSentInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5213,6 +5296,7 @@ export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5284,6 +5368,7 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5344,6 +5429,7 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5404,6 +5490,7 @@ export type UserCreateWithoutNotificationsReceivedInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5464,6 +5551,7 @@ export type UserUncheckedCreateWithoutNotificationsReceivedInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5529,6 +5617,7 @@ export type UserCreateWithoutNotificationsTriggeredInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5589,6 +5678,7 @@ export type UserUncheckedCreateWithoutNotificationsTriggeredInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5665,6 +5755,7 @@ export type UserUpdateWithoutNotificationsReceivedInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5725,6 +5816,7 @@ export type UserUncheckedUpdateWithoutNotificationsReceivedInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5796,6 +5888,7 @@ export type UserUpdateWithoutNotificationsTriggeredInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5856,6 +5949,7 @@ export type UserUncheckedUpdateWithoutNotificationsTriggeredInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5916,6 +6010,7 @@ export type UserCreateWithoutReferralsMadeInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5976,6 +6071,7 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6041,6 +6137,7 @@ export type UserCreateWithoutReferralReceivedInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6101,6 +6198,7 @@ export type UserUncheckedCreateWithoutReferralReceivedInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6177,6 +6275,7 @@ export type UserUpdateWithoutReferralsMadeInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6237,6 +6336,7 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6308,6 +6408,7 @@ export type UserUpdateWithoutReferralReceivedInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6368,6 +6469,7 @@ export type UserUncheckedUpdateWithoutReferralReceivedInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6428,6 +6530,7 @@ export type UserCreateWithoutGuestAttemptsClaimedInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6488,6 +6591,7 @@ export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6564,6 +6668,7 @@ export type UserUpdateWithoutGuestAttemptsClaimedInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6624,6 +6729,7 @@ export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6684,6 +6790,7 @@ export type UserCreateWithoutDailyAttemptsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6744,6 +6851,7 @@ export type UserUncheckedCreateWithoutDailyAttemptsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6820,6 +6928,7 @@ export type UserUpdateWithoutDailyAttemptsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6880,6 +6989,7 @@ export type UserUncheckedUpdateWithoutDailyAttemptsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6940,6 +7050,7 @@ export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7000,6 +7111,7 @@ export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7076,6 +7188,7 @@ export type UserUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7136,6 +7249,7 @@ export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7196,6 +7310,7 @@ export type UserCreateWithoutPuzzleDuJourGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7256,6 +7371,7 @@ export type UserUncheckedCreateWithoutPuzzleDuJourGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7332,6 +7448,7 @@ export type UserUpdateWithoutPuzzleDuJourGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7392,6 +7509,7 @@ export type UserUncheckedUpdateWithoutPuzzleDuJourGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7452,6 +7570,7 @@ export type UserCreateWithoutNeuronTransactionsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7512,6 +7631,7 @@ export type UserUncheckedCreateWithoutNeuronTransactionsInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7588,6 +7708,7 @@ export type UserUpdateWithoutNeuronTransactionsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7648,6 +7769,7 @@ export type UserUncheckedUpdateWithoutNeuronTransactionsInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7708,6 +7830,7 @@ export type UserCreateWithoutNeuronPurchasesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7768,6 +7891,7 @@ export type UserUncheckedCreateWithoutNeuronPurchasesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7844,6 +7968,7 @@ export type UserUpdateWithoutNeuronPurchasesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7904,6 +8029,7 @@ export type UserUncheckedUpdateWithoutNeuronPurchasesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7964,6 +8090,7 @@ export type UserCreateWithoutNeuronUnlocksInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8024,6 +8151,7 @@ export type UserUncheckedCreateWithoutNeuronUnlocksInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8100,6 +8228,7 @@ export type UserUpdateWithoutNeuronUnlocksInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8160,6 +8289,7 @@ export type UserUncheckedUpdateWithoutNeuronUnlocksInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8220,6 +8350,7 @@ export type UserCreateWithoutMorpionGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8280,6 +8411,7 @@ export type UserUncheckedCreateWithoutMorpionGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8356,6 +8488,7 @@ export type UserUpdateWithoutMorpionGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8416,6 +8549,7 @@ export type UserUncheckedUpdateWithoutMorpionGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8476,6 +8610,7 @@ export type UserCreateWithoutAkinatorGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8536,6 +8671,7 @@ export type UserUncheckedCreateWithoutAkinatorGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8612,6 +8748,7 @@ export type UserUpdateWithoutAkinatorGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8672,6 +8809,7 @@ export type UserUncheckedUpdateWithoutAkinatorGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8732,6 +8870,7 @@ export type UserCreateWithoutCrucigramaGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8792,6 +8931,7 @@ export type UserUncheckedCreateWithoutCrucigramaGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8868,6 +9008,7 @@ export type UserUpdateWithoutCrucigramaGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8928,6 +9069,7 @@ export type UserUncheckedUpdateWithoutCrucigramaGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8988,6 +9130,7 @@ export type UserCreateWithoutPeintreGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -9048,6 +9191,7 @@ export type UserUncheckedCreateWithoutPeintreGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -9124,6 +9268,7 @@ export type UserUpdateWithoutPeintreGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9184,6 +9329,7 @@ export type UserUncheckedUpdateWithoutPeintreGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9244,6 +9390,7 @@ export type UserCreateWithoutDailyFreeGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -9304,6 +9451,7 @@ export type UserUncheckedCreateWithoutDailyFreeGamesInput = {
   timezone?: string | null
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -9380,6 +9528,7 @@ export type UserUpdateWithoutDailyFreeGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9440,6 +9589,7 @@ export type UserUncheckedUpdateWithoutDailyFreeGamesInput = {
   timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9774,6 +9924,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   timezone?: boolean
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
+  showInCommunityFeed?: boolean
   selectedSkinId?: boolean
   personalityAnimal?: boolean
   personalityAnimalSetAt?: boolean
@@ -9836,6 +9987,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   timezone?: boolean
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
+  showInCommunityFeed?: boolean
   selectedSkinId?: boolean
   personalityAnimal?: boolean
   personalityAnimalSetAt?: boolean
@@ -9866,6 +10018,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   timezone?: boolean
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
+  showInCommunityFeed?: boolean
   selectedSkinId?: boolean
   personalityAnimal?: boolean
   personalityAnimalSetAt?: boolean
@@ -9896,6 +10049,7 @@ export type UserSelectScalar = {
   timezone?: boolean
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
+  showInCommunityFeed?: boolean
   selectedSkinId?: boolean
   personalityAnimal?: boolean
   personalityAnimalSetAt?: boolean
@@ -9904,7 +10058,7 @@ export type UserSelectScalar = {
   lastSeenAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth" | "timezone" | "premiumUntil" | "freeTrialUsedAt" | "selectedSkinId" | "personalityAnimal" | "personalityAnimalSetAt" | "lastMascotNudgeDismissedAt" | "neuronsBalance" | "lastSeenAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth" | "timezone" | "premiumUntil" | "freeTrialUsedAt" | "showInCommunityFeed" | "selectedSkinId" | "personalityAnimal" | "personalityAnimalSetAt" | "lastMascotNudgeDismissedAt" | "neuronsBalance" | "lastSeenAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -9999,6 +10153,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     timezone: string | null
     premiumUntil: Date | null
     freeTrialUsedAt: Date | null
+    showInCommunityFeed: boolean
     selectedSkinId: string | null
     personalityAnimal: string | null
     personalityAnimalSetAt: Date | null
@@ -10480,6 +10635,7 @@ export interface UserFieldRefs {
   readonly timezone: Prisma.FieldRef<"User", 'String'>
   readonly premiumUntil: Prisma.FieldRef<"User", 'DateTime'>
   readonly freeTrialUsedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly showInCommunityFeed: Prisma.FieldRef<"User", 'Boolean'>
   readonly selectedSkinId: Prisma.FieldRef<"User", 'String'>
   readonly personalityAnimal: Prisma.FieldRef<"User", 'String'>
   readonly personalityAnimalSetAt: Prisma.FieldRef<"User", 'DateTime'>

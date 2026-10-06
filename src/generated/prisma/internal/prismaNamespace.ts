@@ -3205,6 +3205,7 @@ export const UserScalarFieldEnum = {
   timezone: 'timezone',
   premiumUntil: 'premiumUntil',
   freeTrialUsedAt: 'freeTrialUsedAt',
+  showInCommunityFeed: 'showInCommunityFeed',
   selectedSkinId: 'selectedSkinId',
   personalityAnimal: 'personalityAnimal',
   personalityAnimalSetAt: 'personalityAnimalSetAt',
@@ -3797,6 +3798,13 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'GameType'
  */
 export type EnumGameTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GameType'>
@@ -3807,13 +3815,6 @@ export type EnumGameTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'GameType[]'
  */
 export type ListEnumGameTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GameType[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

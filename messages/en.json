@@ -503,6 +503,9 @@
     "cardDescription": "Create a quiz on this topic with AI."
   },
   "CommunitySection": {
+    "activityTitle": "Played in the last few days",
+    "activityAnonymousPlayer": "A player",
+    "activityDailyChallenge": "Daily challenge: {topic}",
     "title": "The community, live",
     "playersTodayLabel": "Players today",
     "gamesTodayLabel": "Games played today",
@@ -1094,6 +1097,9 @@
     "instantActivation": "Instant activation"
   },
   "Account": {
+    "communityTitle": "Community",
+    "communityFeedLabel": "Show me in the community activity",
+    "communityFeedDesc": "Your first name and last initial, along with the games you finish, may appear on the homepage.",
     "title": "My Account",
     "deleteMyAccount": "Delete my account",
     "deleteWarning": "This permanently deletes your account and all associated data (games, answers, progress, XP). This cannot be undone. If you purchased Pro, see our",
