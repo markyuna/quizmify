@@ -70,6 +70,12 @@ model User {
   // premiumUntil so "already used the trial" stays true even after it
   // expires and premiumUntil is in the past.
   freeTrialUsedAt                DateTime?
+  // Whether this user's recent games show up, under a shortened "First L."
+  // name, in the public activity ticker of the homepage community band (see
+  // getRecentCommunityActivity in src/lib/community.ts). On by default,
+  // switchable off from /account -- an opted-out user's games are left out
+  // of the ticker entirely, not just anonymized.
+  showInCommunityFeed            Boolean                        @default(true)
   // References an id in the hardcoded catalog in src/lib/avatarSkins.ts,
   // not a DB table -- same "visuals live in code, not the database" idiom
   // already used for avatar tiers and trophy shapes. Selection persists

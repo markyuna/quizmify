@@ -7,6 +7,7 @@ import { isEffectivelyPro } from "@/lib/paywall";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DeleteAccountButton from "@/components/DeleteAccountButton";
 import NotificationPreferencesCard from "@/components/NotificationPreferencesCard";
+import CommunityVisibilityCard from "@/components/CommunityVisibilityCard";
 import AvatarSkinSelector from "@/components/AvatarSkinSelector";
 
 export const metadata = {
@@ -48,6 +49,8 @@ export default async function AccountPage() {
           <AvatarSkinSelector isPro={isPro} selectedSkinId={user?.selectedSkinId ?? null} />
 
           <NotificationPreferencesCard />
+
+          <CommunityVisibilityCard />
 
           <div className="rounded-2xl border border-rose-200 bg-rose-50/50 p-4 dark:border-rose-500/20 dark:bg-rose-500/5">
             <p className="text-sm font-semibold text-rose-700 dark:text-rose-400">

@@ -103,6 +103,166 @@ export const getCommunityStats = unstable_cache(computeCommunityStats, ["communi
   revalidate: COMMUNITY_STATS_REVALIDATE_SECONDS,
 });
 
+/** How far back the activity ticker looks. */
+export const COMMUNITY_ACTIVITY_WINDOW_DAYS = 3;
+
+/** Most recent games shown in the activity ticker. */
+export const COMMUNITY_ACTIVITY_LIMIT = 20;
+
+/**
+ * What a ticker item was: a quiz or the daily challenge (both shown with
+ * their topic), or the key of a game in ALL_GAMES (shown with that game's
+ * title).
+ */
+export type CommunityActivityKind =
+  | "quiz"
+  | "daily-challenge"
+  | "word-of-day"
+  | "photo-of-day"
+  | "math-target"
+  | "morpion"
+  | "akinator"
+  | "qui-est-le-peintre"
+  | "crucigrama"
+  | "puzzle-du-jour";
+
+export type CommunityActivityItem = {
+  id: string;
+  kind: CommunityActivityKind;
+  // Quiz / daily challenge topic, null for the other games.
+  topic: string | null;
+  // The quiz's category, so the ticker can link to a replay of it in the
+  // same scope. Null for everything but quizzes.
+  categorySlug: string | null;
+  // "First L.", or null for a guest or an account without a usable name --
+  // the UI renders a generic "a player" label instead.
+  playerName: string | null;
+  // ISO string rather than Date: unstable_cache round-trips through JSON.
+  playedAt: string;
+};
+
+/**
+ * Shortens an account name for public display: first word plus the
+ * initial of the second ("Marcos Suárez Ruiz" -> "Marcos S.", the first
+ * surname in Spanish naming), never a full surname. Names that look like an email address (some credentials
+ * sign-ups) are treated as unusable rather than leaking it.
+ */
+export function formatPublicPlayerName(name: string | null): string | null {
+  const words = name?.trim().split(/\s+/).filter(Boolean) ?? [];
+  if (words.length === 0 || words.some((word) => word.includes("@"))) return null;
+
+  const first = words[0];
+  if (words.length === 1) return first;
+  return `${first} ${words[1].charAt(0).toUpperCase()}.`;
+}
+
+/**
+ * The most recent finished games across every game type for the homepage
+ * activity ticker -- the one place the community band shows identities to
+ * anonymous visitors, so only as formatPublicPlayerName() and only for
+ * users with showInCommunityFeed on (an opted-out user's games are dropped,
+ * not anonymized). Unclaimed guest games are kept with no name.
+ *
+ * Unlike computeCommunityStats, the Pro game tables are included here (the
+ * ticker should name the game that was played): their only date indexes
+ * lead with userId, so these branches scan the tables -- acceptable while
+ * they're small, and bounded to one query per cache window for the whole
+ * site.
+ */
+async function computeRecentCommunityActivity(): Promise<CommunityActivityItem[]> {
+  const now = new Date();
+  const since = new Date(now.getTime() - COMMUNITY_ACTIVITY_WINDOW_DAYS * 24 * 60 * 60 * 1000);
+  const sinceIso = since.toISOString();
+  // Daily challenge / guest game rows are keyed by UTC date string; the
+  // timestamp filter below still applies, this just lets the date indexes
+  // narrow the scan first.
+  const sinceDateKey = getTodayDateKey(since);
+
+  const rows = await prisma.$queryRaw<
+    Array<{
+      id: string;
+      kind: string;
+      topic: string | null;
+      categorySlug: string | null;
+      name: string | null;
+      playedAt: Date;
+    }>
+  >`
+    WITH activity AS (
+      SELECT a.id, 'quiz' AS kind, a."userId" AS "userId", g.topic AS topic, g."categorySlug" AS "categorySlug", a."createdAt" AS "playedAt"
+      FROM "Attempt" a
+      JOIN "Game" g ON g.id = a."gameId"
+      -- Same exclusions as the leaderboard: "Practice Mistakes" is the
+      -- internal topic of the /quiz/mistakes review mode, not a real quiz.
+      WHERE a."createdAt" >= ${sinceIso}::timestamp AND g.topic NOT IN ('', 'Practice Mistakes')
+      UNION ALL
+      SELECT dca.id, 'daily-challenge', dca."userId", dc.topic, NULL, dca."createdAt"
+      FROM "DailyChallengeAttempt" dca
+      JOIN "DailyChallenge" dc ON dc.id = dca."dailyChallengeId"
+      WHERE dc."date" >= ${sinceDateKey} AND dca."createdAt" >= ${sinceIso}::timestamp
+      UNION ALL
+      SELECT ga.id, replace(ga."gameKey"::text, '_', '-'), COALESCE(uda."userId", ga."claimedByUserId"), NULL, NULL, ga."createdAt"
+      FROM "GuestAttempt" ga
+      JOIN "DailyGameChallenge" dgc ON dgc.id = ga."challengeId"
+      LEFT JOIN "UserDailyAttempt" uda ON uda."guestAttemptId" = ga.id
+      WHERE dgc."date" >= ${sinceDateKey} AND ga."createdAt" >= ${sinceIso}::timestamp
+      UNION ALL
+      SELECT m.id, 'morpion', m."userId", NULL, NULL, m."completedAt"
+      FROM "MorpionGame" m
+      WHERE m.status <> 'in_progress' AND m."completedAt" >= ${sinceIso}::timestamp
+      UNION ALL
+      SELECT ak.id, 'akinator', ak."userId", NULL, NULL, ak."completedAt"
+      FROM "AkinatorGame" ak
+      WHERE ak.status <> 'in_progress' AND ak."completedAt" >= ${sinceIso}::timestamp
+      UNION ALL
+      SELECT p.id, 'qui-est-le-peintre', p."userId", NULL, NULL, p."completedAt"
+      FROM "PeintreGame" p
+      WHERE p.status = 'completed' AND p."completedAt" >= ${sinceIso}::timestamp
+      UNION ALL
+      SELECT c.id, 'crucigrama', c."userId", NULL, NULL, c."completedAt"
+      FROM "CrucigramaGame" c
+      WHERE c.status = 'completed' AND c."completedAt" >= ${sinceIso}::timestamp
+      UNION ALL
+      SELECT pz.id, 'puzzle-du-jour', pz."userId", NULL, NULL, pz."completedAt"
+      FROM "PuzzleDuJourGame" pz
+      WHERE pz.status = 'completed' AND pz."completedAt" >= ${sinceIso}::timestamp
+    )
+    SELECT id, kind, topic, "categorySlug", name, "playedAt"
+    FROM (
+      SELECT act.id, act.kind, act.topic, act."categorySlug", u.name, act."playedAt",
+             -- A player replaying the same quiz/game back to back would
+             -- otherwise fill the ticker with one line: keep only their
+             -- latest play of each.
+             ROW_NUMBER() OVER (
+               PARTITION BY act."userId", act.kind, act.topic
+               ORDER BY act."playedAt" DESC
+             ) AS rn
+      FROM activity act
+      LEFT JOIN "User" u ON u.id = act."userId"
+      WHERE act."userId" IS NULL OR u."showInCommunityFeed"
+    ) latest
+    WHERE rn = 1
+    ORDER BY "playedAt" DESC
+    LIMIT ${COMMUNITY_ACTIVITY_LIMIT}
+  `;
+
+  return rows.map((row) => ({
+    id: `${row.kind}:${row.id}`,
+    kind: row.kind as CommunityActivityKind,
+    topic: row.topic,
+    categorySlug: row.categorySlug,
+    playerName: formatPublicPlayerName(row.name),
+    playedAt: new Date(row.playedAt).toISOString(),
+  }));
+}
+
+/** Same global, cookie-free cache as getCommunityStats. */
+export const getRecentCommunityActivity = unstable_cache(
+  computeRecentCommunityActivity,
+  ["community-activity"],
+  { revalidate: COMMUNITY_STATS_REVALIDATE_SECONDS }
+);
+
 export type OnlineFriend = {
   userId: string;
   name: string;

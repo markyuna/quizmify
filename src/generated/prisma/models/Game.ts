@@ -692,10 +692,6 @@ export type EnumGameTypeFieldUpdateOperationsInput = {
   set?: $Enums.GameType
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type GameCreateNestedOneWithoutQuestionsInput = {
   create?: Prisma.XOR<Prisma.GameCreateWithoutQuestionsInput, Prisma.GameUncheckedCreateWithoutQuestionsInput>
   connectOrCreate?: Prisma.GameCreateOrConnectWithoutQuestionsInput

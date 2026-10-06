@@ -155,6 +155,7 @@ export const UserScalarFieldEnum = {
   timezone: 'timezone',
   premiumUntil: 'premiumUntil',
   freeTrialUsedAt: 'freeTrialUsedAt',
+  showInCommunityFeed: 'showInCommunityFeed',
   selectedSkinId: 'selectedSkinId',
   personalityAnimal: 'personalityAnimal',
   personalityAnimalSetAt: 'personalityAnimalSetAt',
