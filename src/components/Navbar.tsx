@@ -38,21 +38,21 @@ export default async function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-3 py-3 sm:px-4 md:px-8">
-        <div className="flex items-center gap-2 md:gap-5">
-          <Link href="/" className="flex items-center" aria-label="Quizmify">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-3 py-3 sm:px-4 lg:px-8">
+        <div className="flex min-w-0 items-center gap-2 lg:gap-5">
+          <Link href="/" className="flex shrink-0 items-center" aria-label="Quizmify">
             <Logo />
           </Link>
           <PrimaryNav isPro={isPro} />
         </div>
 
-        <div className="flex items-center gap-2 md:gap-3">
+        <div className="flex shrink-0 items-center gap-2 lg:gap-3">
           <LanguageSwitcher />
           <ThemeToggle />
           {session?.user && <NotificationBell initialUnreadCount={unreadCount} />}
-          {/* Desktop only -- below md, the account section and sign-in live
+          {/* Desktop only -- below lg, the account section and sign-in live
               inside MobileMenu instead. */}
-          <div className="hidden md:inline-flex">
+          <div className="hidden lg:inline-flex">
             {session?.user ? (
               <UserAccountNav user={session.user} />
             ) : (

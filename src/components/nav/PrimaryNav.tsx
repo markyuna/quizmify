@@ -26,7 +26,7 @@ type PrimaryNavProps = {
 };
 
 const triggerClass =
-  "inline-flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 outline-none transition hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-violet-500/40 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white";
+  "inline-flex items-center gap-1 whitespace-nowrap rounded-xl px-3 py-2 text-sm font-medium text-slate-700 outline-none transition hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-violet-500/40 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white";
 
 // Mirrors UserAccountNav.tsx's dropdown look (rounded-2xl, backdrop-blur-xl,
 // bg-white/95 + dark:bg-slate-950/85) for visual consistency.
@@ -36,14 +36,17 @@ const contentClass =
 const itemClass =
   "cursor-pointer rounded-2xl px-3 py-2.5 text-sm font-medium text-slate-700 outline-none transition hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white dark:focus:bg-white/10";
 
-// Desktop only (md and up). Below md, navigation lives in nav/MobileMenu.tsx.
+// Desktop only (lg and up). Below lg, navigation lives in nav/MobileMenu.tsx --
+// the full bar (two dropdowns, the animal-test link, Go Pro, plus the right-
+// hand controls) needs ~1000px, so at md (768px) it wrapped its labels onto
+// several lines and squashed the logo on tablets.
 export default function PrimaryNav({ isPro }: PrimaryNavProps) {
   const t = useTranslations("Navbar");
   const tGroups = useTranslations("CategoryGroups");
   const tCategories = useTranslations("Categories");
 
   return (
-    <nav className="hidden items-center gap-0.5 md:flex">
+    <nav className="hidden items-center gap-0.5 lg:flex">
       {/* Categories */}
       {/* modal={false}: a nav dropdown must not lock body scroll --
           react-remove-scroll's scrollbar compensation adds a margin to
@@ -109,7 +112,7 @@ export default function PrimaryNav({ isPro }: PrimaryNavProps) {
       {!isPro && (
         <Link
           href="/upgrade"
-          className="ml-1 inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-3.5 py-2 text-sm font-bold text-white shadow-sm transition hover:opacity-95"
+          className="ml-1 inline-flex items-center gap-1.5 whitespace-nowrap rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-3.5 py-2 text-sm font-bold text-white shadow-sm transition hover:opacity-95"
         >
           <Sparkles className="h-4 w-4" />
           {t("goPro")}

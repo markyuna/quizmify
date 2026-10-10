@@ -29,9 +29,9 @@ const GROUPED_CATEGORIES = getCategoriesGroupedByGroup();
 // ACCOUNT_LINKS itself (and the desktop UserAccountNav) keep it.
 const MOBILE_ACCOUNT_LINKS = ACCOUNT_LINKS.filter((link) => link.href !== "/games");
 
-// Tailwind's `md` breakpoint -- the trigger is md:hidden, so an open menu
+// Tailwind's `lg` breakpoint -- the trigger is lg:hidden, so an open menu
 // must not survive a resize/rotation past it.
-const DESKTOP_QUERY = "(min-width: 768px)";
+const DESKTOP_QUERY = "(min-width: 1024px)";
 
 type MobileMenuProps = {
   isPro: boolean;
@@ -257,7 +257,7 @@ export default function MobileMenu(props: MobileMenuProps) {
           type="button"
           aria-label={open ? tNavbar("closeMenu") : tNavbar("openMenu")}
           aria-expanded={open}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/40 bg-white/70 backdrop-blur-md shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-md md:hidden dark:border-white/10 dark:bg-white/10"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/40 bg-white/70 backdrop-blur-md shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-md lg:hidden dark:border-white/10 dark:bg-white/10"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
