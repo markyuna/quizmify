@@ -1,12 +1,17 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { RotateCcw } from "lucide-react";
 
 import AccuracyCard from "@/components/statistics/AccuracyCard";
 import QuestionsList from "@/components/statistics/QuestionsList";
 import ResultsCard from "@/components/statistics/ResultsCard";
 import TimeTakenCard from "@/components/statistics/TimeTakenCard";
+import { buttonVariants } from "@/components/ui/button";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
+import { buildQuizReplayHref } from "@/lib/quizReplay";
+import { cn } from "@/lib/utils";
 
 type StatisticsPageProps = {
   params: Promise<{
@@ -84,6 +89,14 @@ export default async function StatisticsPage({
           <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300 md:text-base">
             {t("fullBreakdown")}
           </p>
+
+          <Link
+            href={buildQuizReplayHref(game, totalQuestions)}
+            className={cn(buttonVariants({ size: "lg" }), "mt-6 w-full sm:w-auto")}
+          >
+            <RotateCcw className="mr-2 h-4 w-4" />
+            {t("playAgain")}
+          </Link>
         </section>
 
         <section className="grid gap-6 md:grid-cols-12">

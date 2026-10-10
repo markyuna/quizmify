@@ -1055,7 +1055,8 @@
     "quizStatistics": "Quiz Statistics",
     "fullBreakdown": "Here's a full breakdown of your quiz.",
     "questionReview": "Question Review",
-    "finalScore": "Final score:"
+    "finalScore": "Final score:",
+    "playAgain": "Play again"
   },
   "HistoryPage": {
     "title": "History",
