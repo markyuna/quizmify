@@ -43,5 +43,17 @@ export async function POST(req: Request) {
   }
 
   const outcome = await sendFriendRequest(session.user.id, targetUserId);
+  // Stable codes, not copy (the existing callers show their generic error
+  // toast on any 4xx). "blocked" is deliberately vague: it never says who
+  // blocked whom.
+  if (outcome === "blocked") {
+    return NextResponse.json({ error: "FRIEND_REQUEST_NOT_ALLOWED" }, { status: 403 });
+  }
+  if (outcome === "rate_limited") {
+    return NextResponse.json({ error: "RATE_LIMITED" }, { status: 429 });
+  }
+  if (outcome === "too_many_pending") {
+    return NextResponse.json({ error: "TOO_MANY_PENDING_REQUESTS" }, { status: 429 });
+  }
   return NextResponse.json({ outcome });
 }

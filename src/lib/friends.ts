@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/db";
 import { getEffectiveStreak } from "@/lib/streak";
+import { checkFriendRequestRateLimit } from "@/lib/chatRateLimit";
+import { isBlockedEitherWay } from "@/lib/userBlocks";
 import {
   deleteFriendNotificationsBetween,
   upsertFriendRequestAccepted,
@@ -129,7 +131,14 @@ export async function getFriendsOverview(userId: string): Promise<FriendsOvervie
   return overview;
 }
 
-export type FriendRequestOutcome = "created" | "auto_accepted" | "already_pending" | "already_friends";
+export type FriendRequestOutcome =
+  | "created"
+  | "auto_accepted"
+  | "already_pending"
+  | "already_friends"
+  | "blocked"
+  | "rate_limited"
+  | "too_many_pending";
 
 /**
  * Sends a friend request from `fromUserId` to `toUserId`. If `toUserId` had
@@ -137,8 +146,15 @@ export type FriendRequestOutcome = "created" | "auto_accepted" | "already_pendin
  * creating a redundant second row -- so two people adding each other at
  * roughly the same time just become friends immediately rather than being
  * stuck with two crossed pending requests.
+ *
+ * Refused with "blocked" if either user blocked the other -- checked first,
+ * so a block can't be bypassed through the crossed-request path. The abuse
+ * limits only gate the "created" path: accepting someone else's pending
+ * request isn't a new request.
  */
 export async function sendFriendRequest(fromUserId: string, toUserId: string): Promise<FriendRequestOutcome> {
+  if (await isBlockedEitherWay(fromUserId, toUserId)) return "blocked";
+
   const existing = await prisma.friendship.findFirst({
     where: {
       OR: [
@@ -172,6 +188,9 @@ export async function sendFriendRequest(fromUserId: string, toUserId: string): P
     });
     return "auto_accepted";
   }
+
+  const limit = await checkFriendRequestRateLimit(fromUserId);
+  if (!limit.allowed) return limit.reason;
 
   await prisma.$transaction(async (tx) => {
     const friendship = await tx.friendship.create({
