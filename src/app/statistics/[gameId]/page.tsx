@@ -75,7 +75,7 @@ export default async function StatisticsPage({
   const timeEnded = game.timeEnded;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50 px-4 py-8 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950 md:px-6 md:py-10">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50 py-6 sm:px-4 dark:from-slate-950 dark:via-slate-900 dark:to-cyan-950 md:px-6 md:py-10">
       <div className="mx-auto flex max-w-6xl flex-col gap-6">
         <section className="rounded-[2rem] border border-slate-200/80 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none md:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-600 dark:text-cyan-300">
@@ -116,8 +116,8 @@ export default async function StatisticsPage({
           </div>
         </section>
 
-        <section className="rounded-[2rem] border border-slate-200/80 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none md:p-8">
-          <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <section className="overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 px-4 py-5 dark:border-white/10 sm:px-6 md:px-8 md:py-6">
             <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
               {t("questionReview")}
             </h2>
