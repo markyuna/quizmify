@@ -1055,7 +1055,8 @@
     "quizStatistics": "Statistiques du quiz",
     "fullBreakdown": "Voici le détail complet de votre quiz.",
     "questionReview": "Revue des questions",
-    "finalScore": "Score final :"
+    "finalScore": "Score final :",
+    "playAgain": "Rejouer"
   },
   "HistoryPage": {
     "title": "Historique",

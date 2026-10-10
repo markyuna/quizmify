@@ -23,6 +23,7 @@ import ScoreBoard from "./ScoreBoard";
 import TimerBar from "./TimerBar";
 import ResultScreen from "./ResultScreen";
 import { buildQuizReplayHref } from "@/lib/quizReplay";
+import { markQuizFinished } from "@/lib/finishedQuizMarker";
 
 type QuestionWithOptions = Pick<
   Question,
@@ -94,7 +95,10 @@ export default function QuizGame({ game }: QuizGameProps) {
       const response = await axios.post<SubmitQuizResponse>("/api/quiz/submit", payload);
       return response.data;
     },
-    onSuccess: (data) => setSubmitResult(data),
+    onSuccess: (data) => {
+      markQuizFinished(game.id);
+      setSubmitResult(data);
+    },
     onError: (error) => {
       console.error("submitQuiz failed:", error);
     },

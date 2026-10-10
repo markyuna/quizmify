@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import FinishedQuizGuard from "@/components/FinishedQuizGuard";
 import QuizGame from "@/components/quiz-game/QuizGame";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
@@ -55,5 +56,15 @@ export default async function KahootPage({ params }: KahootPageProps) {
     redirect("/quiz");
   }
 
-  return <QuizGame game={game} />;
+  // Already submitted (back button, reload, old link): show the results
+  // instead of restarting the game at question 1.
+  if (game.timeEnded) {
+    redirect(`/statistics/${game.id}`);
+  }
+
+  return (
+    <FinishedQuizGuard gameId={game.id}>
+      <QuizGame game={game} />
+    </FinishedQuizGuard>
+  );
 }

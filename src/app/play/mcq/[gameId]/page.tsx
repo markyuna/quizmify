@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import FinishedQuizGuard from "@/components/FinishedQuizGuard";
 import MCQ from "@/components/MCQ";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
@@ -61,6 +62,14 @@ export default async function MCQPage({ params }: MCQPageProps) {
     redirect("/quiz");
   }
 
+  // Already submitted (back button, reload, old link): show the results
+  // instead of restarting the quiz at question 1. Guests never get here --
+  // their game's timeEnded is only set when /api/guest/claim-quiz moves it
+  // onto a real account, and /statistics requires a session anyway.
+  if (userId && game.timeEnded) {
+    redirect(`/statistics/${game.id}`);
+  }
+
   // How far the user already was toward their next 50-Neuron batch *before*
   // this quiz -- the starting point for MCQ's live in-quiz Neurons badge.
   // Only meaningful for a signed-in user on a medium/hard game (easy games
@@ -71,10 +80,12 @@ export default async function MCQPage({ params }: MCQPageProps) {
       : null;
 
   return (
-    <MCQ
-      game={game}
-      isGuest={!userId}
-      initialNeuronsCorrectTowardNext={initialNeuronsCorrectTowardNext}
-    />
+    <FinishedQuizGuard gameId={game.id}>
+      <MCQ
+        game={game}
+        isGuest={!userId}
+        initialNeuronsCorrectTowardNext={initialNeuronsCorrectTowardNext}
+      />
+    </FinishedQuizGuard>
   );
 }

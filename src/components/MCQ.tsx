@@ -48,6 +48,7 @@ import { TIMEOUT_ANSWER_SENTINEL } from "@/lib/timedMode";
 import { FREE_TRIAL_DAYS } from "@/lib/premium";
 import type { TrophyReason } from "@/app/api/quiz/submit/route";
 import { buildQuizReplayHref } from "@/lib/quizReplay";
+import { markQuizFinished } from "@/lib/finishedQuizMarker";
 
 type QuestionWithOptions = Pick<
   Question,
@@ -316,6 +317,7 @@ const MCQ = ({ game, isGuest, initialNeuronsCorrectTowardNext }: MCQProps) => {
       return response.data;
     },
     onSuccess: (data) => {
+      markQuizFinished(game.id);
       setFinalResult(data);
       setQuizFinished(true);
       setShowLevelUpOverlay(data.didLevelUp);
