@@ -25,19 +25,18 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeUserId, setActiveUserId] = React.useState<string | null>(null);
 
+  // Stable identities, so consumers can list them as effect dependencies.
+  const open = React.useCallback(() => setIsOpen(true), []);
+  const close = React.useCallback(() => setIsOpen(false), []);
+  const openConversation = React.useCallback((userId: string) => {
+    setActiveUserId(userId);
+    setIsOpen(true);
+  }, []);
+  const back = React.useCallback(() => setActiveUserId(null), []);
+
   const value = React.useMemo<ChatContextValue>(
-    () => ({
-      isOpen,
-      activeUserId,
-      open: () => setIsOpen(true),
-      close: () => setIsOpen(false),
-      openConversation: (userId) => {
-        setActiveUserId(userId);
-        setIsOpen(true);
-      },
-      back: () => setActiveUserId(null),
-    }),
-    [isOpen, activeUserId]
+    () => ({ isOpen, activeUserId, open, close, openConversation, back }),
+    [isOpen, activeUserId, open, close, openConversation, back]
   );
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
