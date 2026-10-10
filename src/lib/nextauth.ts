@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 
 import { prisma } from "@/lib/db";
 import { IDLE_TIMEOUT_MS } from "@/lib/idleTimeoutConfig";
+import { resolveGoogleImage } from "@/lib/profilePhoto";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -75,9 +76,23 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
-    async jwt({ token, user, trigger }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
+      }
+
+      // The profile photo is copied into the token at sign-in, so a change
+      // made from /account (ProfilePhotoCard) wouldn't show in the header
+      // until the next login. That card calls update({ refreshProfile: true })
+      // after saving; only then is the image re-read -- always from the DB,
+      // never from the client payload. The idle hook's frequent payload-less
+      // update() calls skip this query.
+      if (trigger === "update" && session?.refreshProfile === true && token.id) {
+        const fresh = await prisma.user.findUnique({
+          where: { id: token.id },
+          select: { image: true },
+        });
+        token.picture = fresh?.image ?? null;
       }
 
       // Set on sign-in, bumped explicitly by the client's idle-timeout hook
@@ -96,6 +111,37 @@ export const authOptions: NextAuthOptions = {
       session.lastActivity =
         typeof token.lastActivity === "number" ? token.lastActivity : Date.now();
       return session;
+    },
+  },
+
+  events: {
+    // Keeps User.googleImage (the "restore my Google photo" option) in step
+    // with the account's current Google picture. If the user is showing their
+    // Google photo, `image` follows along; an upload or mascot is left alone.
+    async signIn({ user, account, profile }) {
+      if (account?.provider !== "google" || !user.id) return;
+
+      const picture = (profile as { picture?: unknown } | undefined)?.picture;
+      if (typeof picture !== "string" || !picture) return;
+
+      try {
+        const current = await prisma.user.findUnique({
+          where: { id: user.id },
+          select: { image: true, googleImage: true },
+        });
+        if (!current) return;
+
+        const usingGooglePhoto = current.image !== null && current.image === resolveGoogleImage(current);
+        if (current.googleImage === picture && (!usingGooglePhoto || current.image === picture)) return;
+
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { googleImage: picture, ...(usingGooglePhoto ? { image: picture } : {}) },
+        });
+      } catch (error) {
+        // Never block a sign-in over a profile-photo refresh.
+        console.error("[nextauth] googleImage refresh failed", error);
+      }
     },
   },
 };

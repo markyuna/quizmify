@@ -43,6 +43,13 @@ model User {
   email                          String?                        @unique
   emailVerified                  DateTime?
   image                          String?
+  // The user's own Google profile picture, kept apart from `image` so it can
+  // be restored after `image` is replaced by an uploaded photo or the
+  // personality mascot (see src/lib/profilePhoto.ts). Refreshed on every
+  // Google sign-in; for accounts that haven't signed in since this column
+  // existed, it's backfilled lazily from `image` the first time `image` is
+  // overwritten -- never by a bulk migration. Null for credentials-only users.
+  googleImage                    String?
   password                       String?
   createdAt                      DateTime                       @default(now())
   updatedAt                      DateTime                       @updatedAt

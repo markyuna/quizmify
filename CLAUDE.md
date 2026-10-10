@@ -35,6 +35,10 @@ Many models carry inline schema comments explaining *why* a field exists (e.g. w
 
 NextAuth v4 with the Prisma adapter and both Google and Credentials (bcrypt) providers. Session strategy is **JWT**, not database — Credentials sign-in can't revalidate against a DB session on every request, so all providers use JWT once signed in; the adapter still creates/links `User`/`Account` rows for Google sign-ins. `getAuthSession()` (`src/lib/nextauth.ts`) is the server-side helper used in every route/page that needs the current user — it also enforces a 30-minute idle timeout server-side (`IDLE_TIMEOUT_MS`), bumped by the client's idle-timeout hook via `useSession().update()`.
 
+### Profile photo
+
+`ProfilePhotoCard.tsx` on `/account` (all users, not Pro-gated) → `/api/user/avatar` (`POST` multipart upload, `PATCH { source: "mascot" | "google" }`, `DELETE`); helpers in `src/lib/profilePhoto.ts`. Uploads go to the public `avatars` Supabase bucket (2 MB, jpeg/png/webp, type sniffed from magic bytes) at `<userId>/<timestamp>.<ext>`; a replaced upload is deleted. The mascot option is resolved server-side from `personalityAnimal`, so only the user's own animal can be picked. `User.googleImage` keeps the Google picture restorable (refreshed by `events.signIn`, lazily backfilled from `image`). Since the photo lives in the JWT, the card calls `update({ refreshProfile: true })` and the `jwt` callback re-reads `image` from the DB only for that payload.
+
 ### Paywall / Pro tier
 
 `src/lib/paywall.ts` is the single source of truth for entitlement — every Pro gate should read through `isEffectivelyPro()`, `isUserPro()`, or `isUserAtFreeLimit()` rather than checking `subscriptionStatus` directly. Pro access comes from two independent sources that both need to be true-or-active: a real Stripe subscription (`subscriptionStatus === "pro"`) or a temporary grant (`premiumUntil` in the future, set by referrals or the free trial). Free-tier accounts are capped at `FREE_XP_CAP` (`src/lib/stripe.ts`, derived from `FREE_LEVEL_CAP = 2`) — `/api/quiz/submit` clamps stored XP just below that cap rather than ever letting it reach the ceiling.

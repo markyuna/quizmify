@@ -50,6 +50,7 @@ export type UserMinAggregateOutputType = {
   email: string | null
   emailVerified: Date | null
   image: string | null
+  googleImage: string | null
   password: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -81,6 +82,7 @@ export type UserMaxAggregateOutputType = {
   email: string | null
   emailVerified: Date | null
   image: string | null
+  googleImage: string | null
   password: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -112,6 +114,7 @@ export type UserCountAggregateOutputType = {
   email: number
   emailVerified: number
   image: number
+  googleImage: number
   password: number
   createdAt: number
   updatedAt: number
@@ -163,6 +166,7 @@ export type UserMinAggregateInputType = {
   email?: true
   emailVerified?: true
   image?: true
+  googleImage?: true
   password?: true
   createdAt?: true
   updatedAt?: true
@@ -194,6 +198,7 @@ export type UserMaxAggregateInputType = {
   email?: true
   emailVerified?: true
   image?: true
+  googleImage?: true
   password?: true
   createdAt?: true
   updatedAt?: true
@@ -225,6 +230,7 @@ export type UserCountAggregateInputType = {
   email?: true
   emailVerified?: true
   image?: true
+  googleImage?: true
   password?: true
   createdAt?: true
   updatedAt?: true
@@ -343,6 +349,7 @@ export type UserGroupByOutputType = {
   email: string | null
   emailVerified: Date | null
   image: string | null
+  googleImage: string | null
   password: string | null
   createdAt: Date
   updatedAt: Date
@@ -397,6 +404,7 @@ export type UserWhereInput = {
   email?: Prisma.StringNullableFilter<"User"> | string | null
   emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
+  googleImage?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -459,6 +467,7 @@ export type UserOrderByWithRelationInput = {
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   emailVerified?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
+  googleImage?: Prisma.SortOrderInput | Prisma.SortOrder
   password?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -525,6 +534,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringNullableFilter<"User"> | string | null
   emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
+  googleImage?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -586,6 +596,7 @@ export type UserOrderByWithAggregationInput = {
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   emailVerified?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
+  googleImage?: Prisma.SortOrderInput | Prisma.SortOrder
   password?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -625,6 +636,7 @@ export type UserScalarWhereWithAggregatesInput = {
   email?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   emailVerified?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  googleImage?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -656,6 +668,7 @@ export type UserCreateInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -718,6 +731,7 @@ export type UserUncheckedCreateInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -780,6 +794,7 @@ export type UserUpdateInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -842,6 +857,7 @@ export type UserUncheckedUpdateInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -904,6 +920,7 @@ export type UserCreateManyInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -935,6 +952,7 @@ export type UserUpdateManyMutationInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -966,6 +984,7 @@ export type UserUncheckedUpdateManyInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1002,6 +1021,7 @@ export type UserCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  googleImage?: Prisma.SortOrder
   password?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -1042,6 +1062,7 @@ export type UserMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  googleImage?: Prisma.SortOrder
   password?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -1073,6 +1094,7 @@ export type UserMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   image?: Prisma.SortOrder
+  googleImage?: Prisma.SortOrder
   password?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -1574,6 +1596,7 @@ export type UserCreateWithoutAccountsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1635,6 +1658,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1712,6 +1736,7 @@ export type UserUpdateWithoutAccountsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1773,6 +1798,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1834,6 +1860,7 @@ export type UserCreateWithoutSessionsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1895,6 +1922,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1972,6 +2000,7 @@ export type UserUpdateWithoutSessionsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2033,6 +2062,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2094,6 +2124,7 @@ export type UserCreateWithoutGamesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2155,6 +2186,7 @@ export type UserUncheckedCreateWithoutGamesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2232,6 +2264,7 @@ export type UserUpdateWithoutGamesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2293,6 +2326,7 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2354,6 +2388,7 @@ export type UserCreateWithoutAttemptsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2415,6 +2450,7 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2492,6 +2528,7 @@ export type UserUpdateWithoutAttemptsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2553,6 +2590,7 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2614,6 +2652,7 @@ export type UserCreateWithoutCuratedQuizCompletionsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2675,6 +2714,7 @@ export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2752,6 +2792,7 @@ export type UserUpdateWithoutCuratedQuizCompletionsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2813,6 +2854,7 @@ export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2874,6 +2916,7 @@ export type UserCreateWithoutCertificatesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2935,6 +2978,7 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3012,6 +3056,7 @@ export type UserUpdateWithoutCertificatesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3073,6 +3118,7 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3134,6 +3180,7 @@ export type UserCreateWithoutTopicRecommendationsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3195,6 +3242,7 @@ export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3272,6 +3320,7 @@ export type UserUpdateWithoutTopicRecommendationsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3333,6 +3382,7 @@ export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3394,6 +3444,7 @@ export type UserCreateWithoutCategoryRecommendationInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3455,6 +3506,7 @@ export type UserUncheckedCreateWithoutCategoryRecommendationInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3532,6 +3584,7 @@ export type UserUpdateWithoutCategoryRecommendationInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3593,6 +3646,7 @@ export type UserUncheckedUpdateWithoutCategoryRecommendationInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3654,6 +3708,7 @@ export type UserCreateWithoutTrophiesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3715,6 +3770,7 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3792,6 +3848,7 @@ export type UserUpdateWithoutTrophiesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3853,6 +3910,7 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3914,6 +3972,7 @@ export type UserCreateWithoutQuestionProgressInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3975,6 +4034,7 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -4052,6 +4112,7 @@ export type UserUpdateWithoutQuestionProgressInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4113,6 +4174,7 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4174,6 +4236,7 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -4235,6 +4298,7 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -4312,6 +4376,7 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4373,6 +4438,7 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4434,6 +4500,7 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -4495,6 +4562,7 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -4572,6 +4640,7 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4633,6 +4702,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4694,6 +4764,7 @@ export type UserCreateWithoutNotificationLogsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -4755,6 +4826,7 @@ export type UserUncheckedCreateWithoutNotificationLogsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -4832,6 +4904,7 @@ export type UserUpdateWithoutNotificationLogsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4893,6 +4966,7 @@ export type UserUncheckedUpdateWithoutNotificationLogsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4954,6 +5028,7 @@ export type UserCreateWithoutFriendshipsSentInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -5015,6 +5090,7 @@ export type UserUncheckedCreateWithoutFriendshipsSentInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -5081,6 +5157,7 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -5142,6 +5219,7 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -5219,6 +5297,7 @@ export type UserUpdateWithoutFriendshipsSentInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5280,6 +5359,7 @@ export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5352,6 +5432,7 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5413,6 +5494,7 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5474,6 +5556,7 @@ export type UserCreateWithoutNotificationsReceivedInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -5535,6 +5618,7 @@ export type UserUncheckedCreateWithoutNotificationsReceivedInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -5601,6 +5685,7 @@ export type UserCreateWithoutNotificationsTriggeredInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -5662,6 +5747,7 @@ export type UserUncheckedCreateWithoutNotificationsTriggeredInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -5739,6 +5825,7 @@ export type UserUpdateWithoutNotificationsReceivedInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5800,6 +5887,7 @@ export type UserUncheckedUpdateWithoutNotificationsReceivedInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5872,6 +5960,7 @@ export type UserUpdateWithoutNotificationsTriggeredInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5933,6 +6022,7 @@ export type UserUncheckedUpdateWithoutNotificationsTriggeredInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -5994,6 +6084,7 @@ export type UserCreateWithoutReferralsMadeInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -6055,6 +6146,7 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -6121,6 +6213,7 @@ export type UserCreateWithoutReferralReceivedInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -6182,6 +6275,7 @@ export type UserUncheckedCreateWithoutReferralReceivedInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -6259,6 +6353,7 @@ export type UserUpdateWithoutReferralsMadeInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6320,6 +6415,7 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6392,6 +6488,7 @@ export type UserUpdateWithoutReferralReceivedInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6453,6 +6550,7 @@ export type UserUncheckedUpdateWithoutReferralReceivedInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6514,6 +6612,7 @@ export type UserCreateWithoutGuestAttemptsClaimedInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -6575,6 +6674,7 @@ export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -6652,6 +6752,7 @@ export type UserUpdateWithoutGuestAttemptsClaimedInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6713,6 +6814,7 @@ export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6774,6 +6876,7 @@ export type UserCreateWithoutDailyAttemptsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -6835,6 +6938,7 @@ export type UserUncheckedCreateWithoutDailyAttemptsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -6912,6 +7016,7 @@ export type UserUpdateWithoutDailyAttemptsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -6973,6 +7078,7 @@ export type UserUncheckedUpdateWithoutDailyAttemptsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7034,6 +7140,7 @@ export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -7095,6 +7202,7 @@ export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -7172,6 +7280,7 @@ export type UserUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7233,6 +7342,7 @@ export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7294,6 +7404,7 @@ export type UserCreateWithoutPuzzleDuJourGamesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -7355,6 +7466,7 @@ export type UserUncheckedCreateWithoutPuzzleDuJourGamesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -7432,6 +7544,7 @@ export type UserUpdateWithoutPuzzleDuJourGamesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7493,6 +7606,7 @@ export type UserUncheckedUpdateWithoutPuzzleDuJourGamesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7554,6 +7668,7 @@ export type UserCreateWithoutNeuronTransactionsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -7615,6 +7730,7 @@ export type UserUncheckedCreateWithoutNeuronTransactionsInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -7692,6 +7808,7 @@ export type UserUpdateWithoutNeuronTransactionsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7753,6 +7870,7 @@ export type UserUncheckedUpdateWithoutNeuronTransactionsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -7814,6 +7932,7 @@ export type UserCreateWithoutNeuronPurchasesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -7875,6 +7994,7 @@ export type UserUncheckedCreateWithoutNeuronPurchasesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -7952,6 +8072,7 @@ export type UserUpdateWithoutNeuronPurchasesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8013,6 +8134,7 @@ export type UserUncheckedUpdateWithoutNeuronPurchasesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8074,6 +8196,7 @@ export type UserCreateWithoutNeuronUnlocksInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -8135,6 +8258,7 @@ export type UserUncheckedCreateWithoutNeuronUnlocksInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -8212,6 +8336,7 @@ export type UserUpdateWithoutNeuronUnlocksInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8273,6 +8398,7 @@ export type UserUncheckedUpdateWithoutNeuronUnlocksInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8334,6 +8460,7 @@ export type UserCreateWithoutMorpionGamesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -8395,6 +8522,7 @@ export type UserUncheckedCreateWithoutMorpionGamesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -8472,6 +8600,7 @@ export type UserUpdateWithoutMorpionGamesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8533,6 +8662,7 @@ export type UserUncheckedUpdateWithoutMorpionGamesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8594,6 +8724,7 @@ export type UserCreateWithoutAkinatorGamesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -8655,6 +8786,7 @@ export type UserUncheckedCreateWithoutAkinatorGamesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -8732,6 +8864,7 @@ export type UserUpdateWithoutAkinatorGamesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8793,6 +8926,7 @@ export type UserUncheckedUpdateWithoutAkinatorGamesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -8854,6 +8988,7 @@ export type UserCreateWithoutCrucigramaGamesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -8915,6 +9050,7 @@ export type UserUncheckedCreateWithoutCrucigramaGamesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -8992,6 +9128,7 @@ export type UserUpdateWithoutCrucigramaGamesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -9053,6 +9190,7 @@ export type UserUncheckedUpdateWithoutCrucigramaGamesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -9114,6 +9252,7 @@ export type UserCreateWithoutPeintreGamesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -9175,6 +9314,7 @@ export type UserUncheckedCreateWithoutPeintreGamesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -9252,6 +9392,7 @@ export type UserUpdateWithoutPeintreGamesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -9313,6 +9454,7 @@ export type UserUncheckedUpdateWithoutPeintreGamesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -9374,6 +9516,7 @@ export type UserCreateWithoutDailyFreeGamesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -9435,6 +9578,7 @@ export type UserUncheckedCreateWithoutDailyFreeGamesInput = {
   email?: string | null
   emailVerified?: Date | string | null
   image?: string | null
+  googleImage?: string | null
   password?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -9512,6 +9656,7 @@ export type UserUpdateWithoutDailyFreeGamesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -9573,6 +9718,7 @@ export type UserUncheckedUpdateWithoutDailyFreeGamesInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -9908,6 +10054,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  googleImage?: boolean
   password?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -9971,6 +10118,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  googleImage?: boolean
   password?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -10002,6 +10150,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  googleImage?: boolean
   password?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -10033,6 +10182,7 @@ export type UserSelectScalar = {
   email?: boolean
   emailVerified?: boolean
   image?: boolean
+  googleImage?: boolean
   password?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -10058,7 +10208,7 @@ export type UserSelectScalar = {
   lastSeenAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth" | "timezone" | "premiumUntil" | "freeTrialUsedAt" | "showInCommunityFeed" | "selectedSkinId" | "personalityAnimal" | "personalityAnimalSetAt" | "lastMascotNudgeDismissedAt" | "neuronsBalance" | "lastSeenAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "googleImage" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth" | "timezone" | "premiumUntil" | "freeTrialUsedAt" | "showInCommunityFeed" | "selectedSkinId" | "personalityAnimal" | "personalityAnimalSetAt" | "lastMascotNudgeDismissedAt" | "neuronsBalance" | "lastSeenAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -10137,6 +10287,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     email: string | null
     emailVerified: Date | null
     image: string | null
+    googleImage: string | null
     password: string | null
     createdAt: Date
     updatedAt: Date
@@ -10619,6 +10770,7 @@ export interface UserFieldRefs {
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly emailVerified: Prisma.FieldRef<"User", 'DateTime'>
   readonly image: Prisma.FieldRef<"User", 'String'>
+  readonly googleImage: Prisma.FieldRef<"User", 'String'>
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
