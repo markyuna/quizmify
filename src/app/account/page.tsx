@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DeleteAccountButton from "@/components/DeleteAccountButton";
 import NotificationPreferencesCard from "@/components/NotificationPreferencesCard";
 import CommunityVisibilityCard from "@/components/CommunityVisibilityCard";
+import ChatDiscoverableCard from "@/components/ChatDiscoverableCard";
 import AvatarSkinSelector from "@/components/AvatarSkinSelector";
 import ProfilePhotoCard from "@/components/ProfilePhotoCard";
 import { QUEL_ANIMAL_ES_TU_IMAGES, isAnimalKey } from "@/lib/personalityTests/quelAnimalEsTu.config";
@@ -76,6 +77,8 @@ export default async function AccountPage() {
           <NotificationPreferencesCard />
 
           <CommunityVisibilityCard />
+
+          <ChatDiscoverableCard />
 
           <div className="rounded-2xl border border-rose-200 bg-rose-50/50 p-4 dark:border-rose-500/20 dark:bg-rose-500/5">
             <p className="text-sm font-semibold text-rose-700 dark:text-rose-400">

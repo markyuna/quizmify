@@ -3,6 +3,7 @@
 export const chatKeys = {
   all: ["chat"] as const,
   unreadCount: ["chat", "unread-count"] as const,
+  discoverable: ["chat", "discoverable"] as const,
   contactsAll: ["chat", "contacts"] as const,
   contacts: (query: string) => ["chat", "contacts", query] as const,
   messages: (userId: string) => ["chat", "messages", userId] as const,
