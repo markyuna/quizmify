@@ -17,6 +17,18 @@ export const CHAT_MESSAGES_PAGE_SIZE = 30;
 export const CHAT_CONTACTS_PAGE_SIZE = 20;
 const CHAT_CONTACTS_MAX_PAGE = 500;
 
+/**
+ * The only part of a search query that may filter non-friends: its first
+ * word, minus the LIKE metacharacters % _ and \ (Prisma passes them
+ * through to ILIKE unescaped, and % / _ can match the space between first
+ * name and surname). Returns "" when nothing searchable is left, meaning
+ * "no name filter".
+ */
+function nonFriendNamePrefix(query: string): string {
+  const firstWord = query.trim().split(/\s+/)[0] ?? "";
+  return firstWord.replace(/[%_\\]/g, "");
+}
+
 export const CHAT_REPORT_REASONS = ["spam", "harassment", "inappropriate", "other"] as const;
 export type ChatReportReason = (typeof CHAT_REPORT_REASONS)[number];
 
@@ -282,6 +294,9 @@ export type ChatContactsPage = {
  * non-friend as formatPublicPlayerName() ("Marcos S."), and matching the
  * whole query against the full name would let anyone confirm a stranger's
  * surname by typing "Marcos Suárez" and watching the result appear.
+ * That first word is also stripped of % _ \ (nonFriendNamePrefix): they're
+ * LIKE wildcards, and "Marcos_S" or "M%z" would otherwise cross the space
+ * and probe the surname all the same.
  *
  * Non-friends: lastSeenAt is never selected, chatDiscoverable = false hides
  * them, and accounts with no usable public name (null or email-like, see
@@ -293,7 +308,7 @@ export async function listChatContacts(
 ): Promise<ChatContactsPage> {
   const now = new Date();
   const query = opts.query?.trim() ?? "";
-  const firstWord = query.split(/\s+/)[0] ?? "";
+  const namePrefix = nonFriendNamePrefix(query);
   const page = Math.min(Math.max(opts.page ?? 1, 1), CHAT_CONTACTS_MAX_PAGE);
 
   const [accepted, pending, blockedIds] = await Promise.all([
@@ -345,7 +360,7 @@ export async function listChatContacts(
       AND: [
         { name: { not: null } },
         { NOT: { name: { contains: "@" } } },
-        ...(firstWord ? [{ name: { startsWith: firstWord, mode: "insensitive" as const } }] : []),
+        ...(namePrefix ? [{ name: { startsWith: namePrefix, mode: "insensitive" as const } }] : []),
       ],
     },
     orderBy: [{ xp: "desc" }, { id: "asc" }],
