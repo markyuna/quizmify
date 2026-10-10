@@ -1398,6 +1398,7 @@
     "messagePlaceholder": "Écrivez un message…",
     "send": "Envoyer",
     "charCount": "{count}/{max}",
+    "conversationOptions": "Options de la conversation",
     "messageOptions": "Options du message",
     "block": "Bloquer",
     "blockConfirmTitle": "Bloquer {name} ?",
