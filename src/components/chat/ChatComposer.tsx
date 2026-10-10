@@ -27,6 +27,15 @@ export default function ChatComposer({ userId }: { userId: string }) {
   const [error, setError] = React.useState<ParsedChatError | null>(null);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const errorId = React.useId();
+  // The send can settle after the panel closed (Esc, X, or a click outside
+  // mid-request): only touch local state and focus while still mounted.
+  const mountedRef = React.useRef(false);
+  React.useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   const trimmed = text.trim();
   const canSend = trimmed.length > 0 && !send.isPending;
@@ -39,20 +48,37 @@ export default function ChatComposer({ userId }: { userId: string }) {
   const submit = () => {
     if (!canSend) return;
     setError(null);
-    send.mutate(trimmed, {
-      // Cleared only on success: a failed send keeps the text for a retry.
-      onSuccess: () => {
-        updateText("");
+    const sentText = text;
+    // mutateAsync rather than mutate(…, { onSuccess }): per-call callbacks
+    // are dropped once the component unmounts, which would leave an
+    // already-sent message sitting in the draft. This promise settles either way.
+    send
+      .mutateAsync(trimmed)
+      .then(() => {
+        // Cleared only on success: a failed send keeps the text for a retry.
+        // Whatever was typed while the request was in flight survives: if the
+        // draft still starts with the sent text, only that prefix goes; if
+        // it was edited some other way, it's left intact.
+        const current = getDraft(userId);
+        const remaining =
+          current === sentText ? "" : current.startsWith(sentText) ? current.slice(sentText.length) : current;
+        if (remaining === current) return;
+        setDraft(userId, remaining);
+        if (!mountedRef.current) return;
+        setText(remaining);
         textareaRef.current?.focus();
-      },
-      onError: (sendError) => {
+      })
+      .catch((sendError: unknown) => {
+        // Unmounted: the draft still holds the text, so reopening the
+        // conversation brings it back for a retry; there's nowhere to show
+        // the error, and the next open refetches the messages anyway.
+        if (!mountedRef.current) return;
         const parsed = parseChatError(sendError);
         setError(parsed);
         if (parsed.code && CLOSING_CODES.has(parsed.code)) {
           queryClient.invalidateQueries({ queryKey: chatKeys.messages(userId) });
         }
-      },
-    });
+      });
   };
 
   // Enter sends, Shift+Enter breaks the line. Never while an IME is
