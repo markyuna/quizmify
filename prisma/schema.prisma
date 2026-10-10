@@ -83,6 +83,11 @@ model User {
   // switchable off from /account -- an opted-out user's games are left out
   // of the ticker entirely, not just anonymized.
   showInCommunityFeed            Boolean                        @default(true)
+  // Whether this user appears in the "other users" list of the chat panel
+  // (searchable by non-friends, who can send a friend request from there).
+  // On by default, switchable off from /account. Opting out never hides
+  // the user from their existing friends, and never affects the chat itself.
+  chatDiscoverable               Boolean                        @default(true)
   // References an id in the hardcoded catalog in src/lib/avatarSkins.ts,
   // not a DB table -- same "visuals live in code, not the database" idiom
   // already used for avatar tiers and trophy shapes. Selection persists
@@ -152,6 +157,12 @@ model User {
   crucigramaGames                CrucigramaGame[]
   peintreGames                   PeintreGame[]
   dailyFreeGames                 UserDailyFreeGame[]
+  chatConversationsA             ChatConversation[]             @relation("ChatConversationA")
+  chatConversationsB             ChatConversation[]             @relation("ChatConversationB")
+  chatMessagesSent               ChatMessage[]                  @relation("ChatMessagesSent")
+  blocksMade                     UserBlock[]                    @relation("BlocksMade")
+  blocksReceived                 UserBlock[]                    @relation("BlocksReceived")
+  chatReportsMade                ChatMessageReport[]            @relation("ChatReportsMade")
 
   @@index([xp])
 }
@@ -617,6 +628,102 @@ model Referral {
   referred User @relation("ReferralReceived", fields: [referredId], references: [id], onDelete: Cascade)
 
   @@index([referrerId])
+}
+
+// One-to-one chat between two users, one row per unordered pair: userAId is
+// always the lexicographically smaller id (see orderedUserPair in
+// src/lib/chat.ts), so @@unique([userAId, userBId]) can't be dodged by
+// swapping sides. Deliberately keyed on the pair and NOT on Friendship.id:
+// unfriending deletes the Friendship row and re-friending creates a new one,
+// while the conversation (and its history) must survive both. Access is
+// never stored here -- every read/send re-checks "accepted friendship and no
+// UserBlock either way" at request time, so an ended friendship or a block
+// closes the chat without touching this row.
+//
+// userALastReadAt / userBLastReadAt are per-side read cursors: a message is
+// unread for a side when createdAt > that side's cursor and the other side
+// sent it. They drive the chat bubble's unread badge, not the bell.
+model ChatConversation {
+  id              String    @id @default(cuid())
+  userAId         String
+  userBId         String
+  lastMessageAt   DateTime?
+  userALastReadAt DateTime?
+  userBLastReadAt DateTime?
+  createdAt       DateTime  @default(now())
+
+  userA    User          @relation("ChatConversationA", fields: [userAId], references: [id], onDelete: Cascade)
+  userB    User          @relation("ChatConversationB", fields: [userBId], references: [id], onDelete: Cascade)
+  messages ChatMessage[]
+
+  @@unique([userAId, userBId])
+  // "My conversations, most recent first" from either side. Also covers the
+  // cascade Prisma emulates on userBId (no native FKs, relationMode =
+  // "prisma"); userAId's cascade is covered by the unique index above.
+  @@index([userAId, lastMessageAt])
+  @@index([userBId, lastMessageAt])
+}
+
+// Text-only message. body is capped at the DB level as well as by the Zod
+// schema on the send route. deletedAt is a soft delete so a reported
+// message keeps its context; ChatMessageReport.bodySnapshot is the copy the
+// moderator actually reads.
+model ChatMessage {
+  id             String    @id @default(cuid())
+  conversationId String
+  senderId       String
+  body           String    @db.VarChar(1000)
+  createdAt      DateTime  @default(now())
+  deletedAt      DateTime?
+
+  conversation ChatConversation    @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       User                @relation("ChatMessagesSent", fields: [senderId], references: [id], onDelete: Cascade)
+  reports      ChatMessageReport[]
+
+  @@index([conversationId, createdAt])
+  // Cascade emulation on senderId + per-sender rate limiting.
+  @@index([senderId, createdAt])
+}
+
+// Directional block: blockerId blocked blockedId. Either direction is enough
+// to close the chat between the pair and to refuse friend requests both
+// ways (see canChat / isBlockedEitherWay in src/lib/chat.ts). Creating a
+// block also deletes the pair's Friendship row in the same transaction.
+model UserBlock {
+  id        String   @id @default(cuid())
+  blockerId String
+  blockedId String
+  createdAt DateTime @default(now())
+
+  blocker User @relation("BlocksMade", fields: [blockerId], references: [id], onDelete: Cascade)
+  blocked User @relation("BlocksReceived", fields: [blockedId], references: [id], onDelete: Cascade)
+
+  @@unique([blockerId, blockedId])
+  @@index([blockedId])
+}
+
+// A user's report of one chat message. reason and status are validated
+// Strings, same stance as PeintreGame.status: reason is
+// spam | harassment | inappropriate | other, status is
+// open | reviewed | dismissed. bodySnapshot freezes what was reported, so
+// a later soft delete of the message can't erase the evidence.
+// @@unique([messageId, reporterId]): one report per message per reporter.
+model ChatMessageReport {
+  id           String    @id @default(cuid())
+  messageId    String
+  reporterId   String
+  reason       String
+  bodySnapshot String    @db.VarChar(1000)
+  status       String    @default("open")
+  createdAt    DateTime  @default(now())
+  reviewedAt   DateTime?
+
+  message  ChatMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  reporter User        @relation("ChatReportsMade", fields: [reporterId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, reporterId])
+  @@index([reporterId])
+  @@index([status, createdAt])
 }
 
 enum GuestGameKey {

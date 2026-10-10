@@ -152,6 +152,26 @@ export type InAppNotification = Prisma.InAppNotificationModel
  */
 export type Referral = Prisma.ReferralModel
 /**
+ * Model ChatConversation
+ * 
+ */
+export type ChatConversation = Prisma.ChatConversationModel
+/**
+ * Model ChatMessage
+ * 
+ */
+export type ChatMessage = Prisma.ChatMessageModel
+/**
+ * Model UserBlock
+ * 
+ */
+export type UserBlock = Prisma.UserBlockModel
+/**
+ * Model ChatMessageReport
+ * 
+ */
+export type ChatMessageReport = Prisma.ChatMessageReportModel
+/**
  * Model DailyGameChallenge
  * 
  */

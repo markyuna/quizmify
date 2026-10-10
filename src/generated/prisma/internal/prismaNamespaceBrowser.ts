@@ -73,6 +73,10 @@ export const ModelName = {
   Friendship: 'Friendship',
   InAppNotification: 'InAppNotification',
   Referral: 'Referral',
+  ChatConversation: 'ChatConversation',
+  ChatMessage: 'ChatMessage',
+  UserBlock: 'UserBlock',
+  ChatMessageReport: 'ChatMessageReport',
   DailyGameChallenge: 'DailyGameChallenge',
   GuestAttempt: 'GuestAttempt',
   UserDailyAttempt: 'UserDailyAttempt',
@@ -157,6 +161,7 @@ export const UserScalarFieldEnum = {
   premiumUntil: 'premiumUntil',
   freeTrialUsedAt: 'freeTrialUsedAt',
   showInCommunityFeed: 'showInCommunityFeed',
+  chatDiscoverable: 'chatDiscoverable',
   selectedSkinId: 'selectedSkinId',
   personalityAnimal: 'personalityAnimal',
   personalityAnimalSetAt: 'personalityAnimalSetAt',
@@ -428,6 +433,55 @@ export const ReferralScalarFieldEnum = {
 } as const
 
 export type ReferralScalarFieldEnum = (typeof ReferralScalarFieldEnum)[keyof typeof ReferralScalarFieldEnum]
+
+
+export const ChatConversationScalarFieldEnum = {
+  id: 'id',
+  userAId: 'userAId',
+  userBId: 'userBId',
+  lastMessageAt: 'lastMessageAt',
+  userALastReadAt: 'userALastReadAt',
+  userBLastReadAt: 'userBLastReadAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ChatConversationScalarFieldEnum = (typeof ChatConversationScalarFieldEnum)[keyof typeof ChatConversationScalarFieldEnum]
+
+
+export const ChatMessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  senderId: 'senderId',
+  body: 'body',
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[keyof typeof ChatMessageScalarFieldEnum]
+
+
+export const UserBlockScalarFieldEnum = {
+  id: 'id',
+  blockerId: 'blockerId',
+  blockedId: 'blockedId',
+  createdAt: 'createdAt'
+} as const
+
+export type UserBlockScalarFieldEnum = (typeof UserBlockScalarFieldEnum)[keyof typeof UserBlockScalarFieldEnum]
+
+
+export const ChatMessageReportScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  reporterId: 'reporterId',
+  reason: 'reason',
+  bodySnapshot: 'bodySnapshot',
+  status: 'status',
+  createdAt: 'createdAt',
+  reviewedAt: 'reviewedAt'
+} as const
+
+export type ChatMessageReportScalarFieldEnum = (typeof ChatMessageReportScalarFieldEnum)[keyof typeof ChatMessageReportScalarFieldEnum]
 
 
 export const DailyGameChallengeScalarFieldEnum = {

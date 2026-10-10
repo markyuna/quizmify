@@ -68,6 +68,7 @@ export type UserMinAggregateOutputType = {
   premiumUntil: Date | null
   freeTrialUsedAt: Date | null
   showInCommunityFeed: boolean | null
+  chatDiscoverable: boolean | null
   selectedSkinId: string | null
   personalityAnimal: string | null
   personalityAnimalSetAt: Date | null
@@ -100,6 +101,7 @@ export type UserMaxAggregateOutputType = {
   premiumUntil: Date | null
   freeTrialUsedAt: Date | null
   showInCommunityFeed: boolean | null
+  chatDiscoverable: boolean | null
   selectedSkinId: string | null
   personalityAnimal: string | null
   personalityAnimalSetAt: Date | null
@@ -132,6 +134,7 @@ export type UserCountAggregateOutputType = {
   premiumUntil: number
   freeTrialUsedAt: number
   showInCommunityFeed: number
+  chatDiscoverable: number
   selectedSkinId: number
   personalityAnimal: number
   personalityAnimalSetAt: number
@@ -184,6 +187,7 @@ export type UserMinAggregateInputType = {
   premiumUntil?: true
   freeTrialUsedAt?: true
   showInCommunityFeed?: true
+  chatDiscoverable?: true
   selectedSkinId?: true
   personalityAnimal?: true
   personalityAnimalSetAt?: true
@@ -216,6 +220,7 @@ export type UserMaxAggregateInputType = {
   premiumUntil?: true
   freeTrialUsedAt?: true
   showInCommunityFeed?: true
+  chatDiscoverable?: true
   selectedSkinId?: true
   personalityAnimal?: true
   personalityAnimalSetAt?: true
@@ -248,6 +253,7 @@ export type UserCountAggregateInputType = {
   premiumUntil?: true
   freeTrialUsedAt?: true
   showInCommunityFeed?: true
+  chatDiscoverable?: true
   selectedSkinId?: true
   personalityAnimal?: true
   personalityAnimalSetAt?: true
@@ -367,6 +373,7 @@ export type UserGroupByOutputType = {
   premiumUntil: Date | null
   freeTrialUsedAt: Date | null
   showInCommunityFeed: boolean
+  chatDiscoverable: boolean
   selectedSkinId: string | null
   personalityAnimal: string | null
   personalityAnimalSetAt: Date | null
@@ -422,6 +429,7 @@ export type UserWhereInput = {
   premiumUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   freeTrialUsedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   showInCommunityFeed?: Prisma.BoolFilter<"User"> | boolean
+  chatDiscoverable?: Prisma.BoolFilter<"User"> | boolean
   selectedSkinId?: Prisma.StringNullableFilter<"User"> | string | null
   personalityAnimal?: Prisma.StringNullableFilter<"User"> | string | null
   personalityAnimalSetAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -459,6 +467,12 @@ export type UserWhereInput = {
   crucigramaGames?: Prisma.CrucigramaGameListRelationFilter
   peintreGames?: Prisma.PeintreGameListRelationFilter
   dailyFreeGames?: Prisma.UserDailyFreeGameListRelationFilter
+  chatConversationsA?: Prisma.ChatConversationListRelationFilter
+  chatConversationsB?: Prisma.ChatConversationListRelationFilter
+  chatMessagesSent?: Prisma.ChatMessageListRelationFilter
+  blocksMade?: Prisma.UserBlockListRelationFilter
+  blocksReceived?: Prisma.UserBlockListRelationFilter
+  chatReportsMade?: Prisma.ChatMessageReportListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -485,6 +499,7 @@ export type UserOrderByWithRelationInput = {
   premiumUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   showInCommunityFeed?: Prisma.SortOrder
+  chatDiscoverable?: Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrderInput | Prisma.SortOrder
   personalityAnimal?: Prisma.SortOrderInput | Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -522,6 +537,12 @@ export type UserOrderByWithRelationInput = {
   crucigramaGames?: Prisma.CrucigramaGameOrderByRelationAggregateInput
   peintreGames?: Prisma.PeintreGameOrderByRelationAggregateInput
   dailyFreeGames?: Prisma.UserDailyFreeGameOrderByRelationAggregateInput
+  chatConversationsA?: Prisma.ChatConversationOrderByRelationAggregateInput
+  chatConversationsB?: Prisma.ChatConversationOrderByRelationAggregateInput
+  chatMessagesSent?: Prisma.ChatMessageOrderByRelationAggregateInput
+  blocksMade?: Prisma.UserBlockOrderByRelationAggregateInput
+  blocksReceived?: Prisma.UserBlockOrderByRelationAggregateInput
+  chatReportsMade?: Prisma.ChatMessageReportOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -551,6 +572,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   premiumUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   freeTrialUsedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   showInCommunityFeed?: Prisma.BoolFilter<"User"> | boolean
+  chatDiscoverable?: Prisma.BoolFilter<"User"> | boolean
   selectedSkinId?: Prisma.StringNullableFilter<"User"> | string | null
   personalityAnimal?: Prisma.StringNullableFilter<"User"> | string | null
   personalityAnimalSetAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -588,6 +610,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   crucigramaGames?: Prisma.CrucigramaGameListRelationFilter
   peintreGames?: Prisma.PeintreGameListRelationFilter
   dailyFreeGames?: Prisma.UserDailyFreeGameListRelationFilter
+  chatConversationsA?: Prisma.ChatConversationListRelationFilter
+  chatConversationsB?: Prisma.ChatConversationListRelationFilter
+  chatMessagesSent?: Prisma.ChatMessageListRelationFilter
+  blocksMade?: Prisma.UserBlockListRelationFilter
+  blocksReceived?: Prisma.UserBlockListRelationFilter
+  chatReportsMade?: Prisma.ChatMessageReportListRelationFilter
 }, "id" | "email" | "stripePaymentId">
 
 export type UserOrderByWithAggregationInput = {
@@ -614,6 +642,7 @@ export type UserOrderByWithAggregationInput = {
   premiumUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   showInCommunityFeed?: Prisma.SortOrder
+  chatDiscoverable?: Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrderInput | Prisma.SortOrder
   personalityAnimal?: Prisma.SortOrderInput | Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -654,6 +683,7 @@ export type UserScalarWhereWithAggregatesInput = {
   premiumUntil?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   freeTrialUsedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   showInCommunityFeed?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  chatDiscoverable?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   selectedSkinId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   personalityAnimal?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   personalityAnimalSetAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -686,6 +716,7 @@ export type UserCreateInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -723,6 +754,12 @@ export type UserCreateInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -749,6 +786,7 @@ export type UserUncheckedCreateInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -786,6 +824,12 @@ export type UserUncheckedCreateInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserUpdateInput = {
@@ -812,6 +856,7 @@ export type UserUpdateInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -849,6 +894,12 @@ export type UserUpdateInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -875,6 +926,7 @@ export type UserUncheckedUpdateInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -912,6 +964,12 @@ export type UserUncheckedUpdateInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -938,6 +996,7 @@ export type UserCreateManyInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -970,6 +1029,7 @@ export type UserUpdateManyMutationInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1002,6 +1062,7 @@ export type UserUncheckedUpdateManyInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1039,6 +1100,7 @@ export type UserCountOrderByAggregateInput = {
   premiumUntil?: Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrder
   showInCommunityFeed?: Prisma.SortOrder
+  chatDiscoverable?: Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrder
   personalityAnimal?: Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrder
@@ -1080,6 +1142,7 @@ export type UserMaxOrderByAggregateInput = {
   premiumUntil?: Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrder
   showInCommunityFeed?: Prisma.SortOrder
+  chatDiscoverable?: Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrder
   personalityAnimal?: Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrder
@@ -1112,6 +1175,7 @@ export type UserMinOrderByAggregateInput = {
   premiumUntil?: Prisma.SortOrder
   freeTrialUsedAt?: Prisma.SortOrder
   showInCommunityFeed?: Prisma.SortOrder
+  chatDiscoverable?: Prisma.SortOrder
   selectedSkinId?: Prisma.SortOrder
   personalityAnimal?: Prisma.SortOrder
   personalityAnimalSetAt?: Prisma.SortOrder
@@ -1418,6 +1482,90 @@ export type UserUpdateOneRequiredWithoutReferralReceivedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReferralReceivedInput, Prisma.UserUpdateWithoutReferralReceivedInput>, Prisma.UserUncheckedUpdateWithoutReferralReceivedInput>
 }
 
+export type UserCreateNestedOneWithoutChatConversationsAInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatConversationsAInput, Prisma.UserUncheckedCreateWithoutChatConversationsAInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatConversationsAInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutChatConversationsBInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatConversationsBInput, Prisma.UserUncheckedCreateWithoutChatConversationsBInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatConversationsBInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutChatConversationsANestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatConversationsAInput, Prisma.UserUncheckedCreateWithoutChatConversationsAInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatConversationsAInput
+  upsert?: Prisma.UserUpsertWithoutChatConversationsAInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutChatConversationsAInput, Prisma.UserUpdateWithoutChatConversationsAInput>, Prisma.UserUncheckedUpdateWithoutChatConversationsAInput>
+}
+
+export type UserUpdateOneRequiredWithoutChatConversationsBNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatConversationsBInput, Prisma.UserUncheckedCreateWithoutChatConversationsBInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatConversationsBInput
+  upsert?: Prisma.UserUpsertWithoutChatConversationsBInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutChatConversationsBInput, Prisma.UserUpdateWithoutChatConversationsBInput>, Prisma.UserUncheckedUpdateWithoutChatConversationsBInput>
+}
+
+export type UserCreateNestedOneWithoutChatMessagesSentInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesSentInput, Prisma.UserUncheckedCreateWithoutChatMessagesSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatMessagesSentInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutChatMessagesSentNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesSentInput, Prisma.UserUncheckedCreateWithoutChatMessagesSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatMessagesSentInput
+  upsert?: Prisma.UserUpsertWithoutChatMessagesSentInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutChatMessagesSentInput, Prisma.UserUpdateWithoutChatMessagesSentInput>, Prisma.UserUncheckedUpdateWithoutChatMessagesSentInput>
+}
+
+export type UserCreateNestedOneWithoutBlocksMadeInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksMadeInput, Prisma.UserUncheckedCreateWithoutBlocksMadeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksMadeInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutBlocksReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutBlocksMadeNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksMadeInput, Prisma.UserUncheckedCreateWithoutBlocksMadeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksMadeInput
+  upsert?: Prisma.UserUpsertWithoutBlocksMadeInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBlocksMadeInput, Prisma.UserUpdateWithoutBlocksMadeInput>, Prisma.UserUncheckedUpdateWithoutBlocksMadeInput>
+}
+
+export type UserUpdateOneRequiredWithoutBlocksReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksReceivedInput
+  upsert?: Prisma.UserUpsertWithoutBlocksReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBlocksReceivedInput, Prisma.UserUpdateWithoutBlocksReceivedInput>, Prisma.UserUncheckedUpdateWithoutBlocksReceivedInput>
+}
+
+export type UserCreateNestedOneWithoutChatReportsMadeInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatReportsMadeInput, Prisma.UserUncheckedCreateWithoutChatReportsMadeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatReportsMadeInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutChatReportsMadeNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChatReportsMadeInput, Prisma.UserUncheckedCreateWithoutChatReportsMadeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChatReportsMadeInput
+  upsert?: Prisma.UserUpsertWithoutChatReportsMadeInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutChatReportsMadeInput, Prisma.UserUpdateWithoutChatReportsMadeInput>, Prisma.UserUncheckedUpdateWithoutChatReportsMadeInput>
+}
+
 export type UserCreateNestedOneWithoutGuestAttemptsClaimedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutGuestAttemptsClaimedInput, Prisma.UserUncheckedCreateWithoutGuestAttemptsClaimedInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuestAttemptsClaimedInput
@@ -1614,6 +1762,7 @@ export type UserCreateWithoutAccountsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -1650,6 +1799,12 @@ export type UserCreateWithoutAccountsInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1676,6 +1831,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -1712,6 +1868,12 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1754,6 +1916,7 @@ export type UserUpdateWithoutAccountsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1790,6 +1953,12 @@ export type UserUpdateWithoutAccountsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1816,6 +1985,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1852,6 +2022,12 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1878,6 +2054,7 @@ export type UserCreateWithoutSessionsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -1914,6 +2091,12 @@ export type UserCreateWithoutSessionsInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1940,6 +2123,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -1976,6 +2160,12 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -2018,6 +2208,7 @@ export type UserUpdateWithoutSessionsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2054,6 +2245,12 @@ export type UserUpdateWithoutSessionsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -2080,6 +2277,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2116,6 +2314,12 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutGamesInput = {
@@ -2142,6 +2346,7 @@ export type UserCreateWithoutGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2178,6 +2383,12 @@ export type UserCreateWithoutGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutGamesInput = {
@@ -2204,6 +2415,7 @@ export type UserUncheckedCreateWithoutGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2240,6 +2452,12 @@ export type UserUncheckedCreateWithoutGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutGamesInput = {
@@ -2282,6 +2500,7 @@ export type UserUpdateWithoutGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2318,6 +2537,12 @@ export type UserUpdateWithoutGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGamesInput = {
@@ -2344,6 +2569,7 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2380,6 +2606,12 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutAttemptsInput = {
@@ -2406,6 +2638,7 @@ export type UserCreateWithoutAttemptsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2442,6 +2675,12 @@ export type UserCreateWithoutAttemptsInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutAttemptsInput = {
@@ -2468,6 +2707,7 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2504,6 +2744,12 @@ export type UserUncheckedCreateWithoutAttemptsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutAttemptsInput = {
@@ -2546,6 +2792,7 @@ export type UserUpdateWithoutAttemptsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2582,6 +2829,12 @@ export type UserUpdateWithoutAttemptsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttemptsInput = {
@@ -2608,6 +2861,7 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2644,6 +2898,12 @@ export type UserUncheckedUpdateWithoutAttemptsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutCuratedQuizCompletionsInput = {
@@ -2670,6 +2930,7 @@ export type UserCreateWithoutCuratedQuizCompletionsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2706,6 +2967,12 @@ export type UserCreateWithoutCuratedQuizCompletionsInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
@@ -2732,6 +2999,7 @@ export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2768,6 +3036,12 @@ export type UserUncheckedCreateWithoutCuratedQuizCompletionsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutCuratedQuizCompletionsInput = {
@@ -2810,6 +3084,7 @@ export type UserUpdateWithoutCuratedQuizCompletionsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2846,6 +3121,12 @@ export type UserUpdateWithoutCuratedQuizCompletionsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
@@ -2872,6 +3153,7 @@ export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2908,6 +3190,12 @@ export type UserUncheckedUpdateWithoutCuratedQuizCompletionsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutCertificatesInput = {
@@ -2934,6 +3222,7 @@ export type UserCreateWithoutCertificatesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -2970,6 +3259,12 @@ export type UserCreateWithoutCertificatesInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutCertificatesInput = {
@@ -2996,6 +3291,7 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -3032,6 +3328,12 @@ export type UserUncheckedCreateWithoutCertificatesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutCertificatesInput = {
@@ -3074,6 +3376,7 @@ export type UserUpdateWithoutCertificatesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3110,6 +3413,12 @@ export type UserUpdateWithoutCertificatesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCertificatesInput = {
@@ -3136,6 +3445,7 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3172,6 +3482,12 @@ export type UserUncheckedUpdateWithoutCertificatesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutTopicRecommendationsInput = {
@@ -3198,6 +3514,7 @@ export type UserCreateWithoutTopicRecommendationsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -3234,6 +3551,12 @@ export type UserCreateWithoutTopicRecommendationsInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
@@ -3260,6 +3583,7 @@ export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -3296,6 +3620,12 @@ export type UserUncheckedCreateWithoutTopicRecommendationsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutTopicRecommendationsInput = {
@@ -3338,6 +3668,7 @@ export type UserUpdateWithoutTopicRecommendationsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3374,6 +3705,12 @@ export type UserUpdateWithoutTopicRecommendationsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
@@ -3400,6 +3737,7 @@ export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3436,6 +3774,12 @@ export type UserUncheckedUpdateWithoutTopicRecommendationsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutCategoryRecommendationInput = {
@@ -3462,6 +3806,7 @@ export type UserCreateWithoutCategoryRecommendationInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -3498,6 +3843,12 @@ export type UserCreateWithoutCategoryRecommendationInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutCategoryRecommendationInput = {
@@ -3524,6 +3875,7 @@ export type UserUncheckedCreateWithoutCategoryRecommendationInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -3560,6 +3912,12 @@ export type UserUncheckedCreateWithoutCategoryRecommendationInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutCategoryRecommendationInput = {
@@ -3602,6 +3960,7 @@ export type UserUpdateWithoutCategoryRecommendationInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3638,6 +3997,12 @@ export type UserUpdateWithoutCategoryRecommendationInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCategoryRecommendationInput = {
@@ -3664,6 +4029,7 @@ export type UserUncheckedUpdateWithoutCategoryRecommendationInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3700,6 +4066,12 @@ export type UserUncheckedUpdateWithoutCategoryRecommendationInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutTrophiesInput = {
@@ -3726,6 +4098,7 @@ export type UserCreateWithoutTrophiesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -3762,6 +4135,12 @@ export type UserCreateWithoutTrophiesInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutTrophiesInput = {
@@ -3788,6 +4167,7 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -3824,6 +4204,12 @@ export type UserUncheckedCreateWithoutTrophiesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutTrophiesInput = {
@@ -3866,6 +4252,7 @@ export type UserUpdateWithoutTrophiesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3902,6 +4289,12 @@ export type UserUpdateWithoutTrophiesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTrophiesInput = {
@@ -3928,6 +4321,7 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3964,6 +4358,12 @@ export type UserUncheckedUpdateWithoutTrophiesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutQuestionProgressInput = {
@@ -3990,6 +4390,7 @@ export type UserCreateWithoutQuestionProgressInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4026,6 +4427,12 @@ export type UserCreateWithoutQuestionProgressInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutQuestionProgressInput = {
@@ -4052,6 +4459,7 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4088,6 +4496,12 @@ export type UserUncheckedCreateWithoutQuestionProgressInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutQuestionProgressInput = {
@@ -4130,6 +4544,7 @@ export type UserUpdateWithoutQuestionProgressInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4166,6 +4581,12 @@ export type UserUpdateWithoutQuestionProgressInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuestionProgressInput = {
@@ -4192,6 +4613,7 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4228,6 +4650,12 @@ export type UserUncheckedUpdateWithoutQuestionProgressInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutDailyChallengeAttemptsInput = {
@@ -4254,6 +4682,7 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4290,6 +4719,12 @@ export type UserCreateWithoutDailyChallengeAttemptsInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
@@ -4316,6 +4751,7 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4352,6 +4788,12 @@ export type UserUncheckedCreateWithoutDailyChallengeAttemptsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutDailyChallengeAttemptsInput = {
@@ -4394,6 +4836,7 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4430,6 +4873,12 @@ export type UserUpdateWithoutDailyChallengeAttemptsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
@@ -4456,6 +4905,7 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4492,6 +4942,12 @@ export type UserUncheckedUpdateWithoutDailyChallengeAttemptsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutNotificationPreferenceInput = {
@@ -4518,6 +4974,7 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4554,6 +5011,12 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
@@ -4580,6 +5043,7 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4616,6 +5080,12 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutNotificationPreferenceInput = {
@@ -4658,6 +5128,7 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4694,6 +5165,12 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
@@ -4720,6 +5197,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4756,6 +5234,12 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutNotificationLogsInput = {
@@ -4782,6 +5266,7 @@ export type UserCreateWithoutNotificationLogsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4818,6 +5303,12 @@ export type UserCreateWithoutNotificationLogsInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutNotificationLogsInput = {
@@ -4844,6 +5335,7 @@ export type UserUncheckedCreateWithoutNotificationLogsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -4880,6 +5372,12 @@ export type UserUncheckedCreateWithoutNotificationLogsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutNotificationLogsInput = {
@@ -4922,6 +5420,7 @@ export type UserUpdateWithoutNotificationLogsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4958,6 +5457,12 @@ export type UserUpdateWithoutNotificationLogsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationLogsInput = {
@@ -4984,6 +5489,7 @@ export type UserUncheckedUpdateWithoutNotificationLogsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5020,6 +5526,12 @@ export type UserUncheckedUpdateWithoutNotificationLogsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutFriendshipsSentInput = {
@@ -5046,6 +5558,7 @@ export type UserCreateWithoutFriendshipsSentInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5082,6 +5595,12 @@ export type UserCreateWithoutFriendshipsSentInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutFriendshipsSentInput = {
@@ -5108,6 +5627,7 @@ export type UserUncheckedCreateWithoutFriendshipsSentInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5144,6 +5664,12 @@ export type UserUncheckedCreateWithoutFriendshipsSentInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutFriendshipsSentInput = {
@@ -5175,6 +5701,7 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5211,6 +5738,12 @@ export type UserCreateWithoutFriendshipsReceivedInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
@@ -5237,6 +5770,7 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5273,6 +5807,12 @@ export type UserUncheckedCreateWithoutFriendshipsReceivedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutFriendshipsReceivedInput = {
@@ -5315,6 +5855,7 @@ export type UserUpdateWithoutFriendshipsSentInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5351,6 +5892,12 @@ export type UserUpdateWithoutFriendshipsSentInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
@@ -5377,6 +5924,7 @@ export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5413,6 +5961,12 @@ export type UserUncheckedUpdateWithoutFriendshipsSentInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUpsertWithoutFriendshipsReceivedInput = {
@@ -5450,6 +6004,7 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5486,6 +6041,12 @@ export type UserUpdateWithoutFriendshipsReceivedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
@@ -5512,6 +6073,7 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5548,6 +6110,12 @@ export type UserUncheckedUpdateWithoutFriendshipsReceivedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutNotificationsReceivedInput = {
@@ -5574,6 +6142,7 @@ export type UserCreateWithoutNotificationsReceivedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5610,6 +6179,12 @@ export type UserCreateWithoutNotificationsReceivedInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsReceivedInput = {
@@ -5636,6 +6211,7 @@ export type UserUncheckedCreateWithoutNotificationsReceivedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5672,6 +6248,12 @@ export type UserUncheckedCreateWithoutNotificationsReceivedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsReceivedInput = {
@@ -5703,6 +6285,7 @@ export type UserCreateWithoutNotificationsTriggeredInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5739,6 +6322,12 @@ export type UserCreateWithoutNotificationsTriggeredInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsTriggeredInput = {
@@ -5765,6 +6354,7 @@ export type UserUncheckedCreateWithoutNotificationsTriggeredInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -5801,6 +6391,12 @@ export type UserUncheckedCreateWithoutNotificationsTriggeredInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsTriggeredInput = {
@@ -5843,6 +6439,7 @@ export type UserUpdateWithoutNotificationsReceivedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5879,6 +6476,12 @@ export type UserUpdateWithoutNotificationsReceivedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsReceivedInput = {
@@ -5905,6 +6508,7 @@ export type UserUncheckedUpdateWithoutNotificationsReceivedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -5941,6 +6545,12 @@ export type UserUncheckedUpdateWithoutNotificationsReceivedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUpsertWithoutNotificationsTriggeredInput = {
@@ -5978,6 +6588,7 @@ export type UserUpdateWithoutNotificationsTriggeredInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6014,6 +6625,12 @@ export type UserUpdateWithoutNotificationsTriggeredInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsTriggeredInput = {
@@ -6040,6 +6657,7 @@ export type UserUncheckedUpdateWithoutNotificationsTriggeredInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6076,6 +6694,12 @@ export type UserUncheckedUpdateWithoutNotificationsTriggeredInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutReferralsMadeInput = {
@@ -6102,6 +6726,7 @@ export type UserCreateWithoutReferralsMadeInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6138,6 +6763,12 @@ export type UserCreateWithoutReferralsMadeInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutReferralsMadeInput = {
@@ -6164,6 +6795,7 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6200,6 +6832,12 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutReferralsMadeInput = {
@@ -6231,6 +6869,7 @@ export type UserCreateWithoutReferralReceivedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6267,6 +6906,12 @@ export type UserCreateWithoutReferralReceivedInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutReferralReceivedInput = {
@@ -6293,6 +6938,7 @@ export type UserUncheckedCreateWithoutReferralReceivedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6329,6 +6975,12 @@ export type UserUncheckedCreateWithoutReferralReceivedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutReferralReceivedInput = {
@@ -6371,6 +7023,7 @@ export type UserUpdateWithoutReferralsMadeInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6407,6 +7060,12 @@ export type UserUpdateWithoutReferralsMadeInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralsMadeInput = {
@@ -6433,6 +7092,7 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6469,6 +7129,12 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUpsertWithoutReferralReceivedInput = {
@@ -6506,6 +7172,7 @@ export type UserUpdateWithoutReferralReceivedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6542,6 +7209,12 @@ export type UserUpdateWithoutReferralReceivedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralReceivedInput = {
@@ -6568,6 +7241,7 @@ export type UserUncheckedUpdateWithoutReferralReceivedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6604,6 +7278,1764 @@ export type UserUncheckedUpdateWithoutReferralReceivedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
+}
+
+export type UserCreateWithoutChatConversationsAInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  googleImage?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
+  referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
+}
+
+export type UserUncheckedCreateWithoutChatConversationsAInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  googleImage?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
+  referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
+}
+
+export type UserCreateOrConnectWithoutChatConversationsAInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatConversationsAInput, Prisma.UserUncheckedCreateWithoutChatConversationsAInput>
+}
+
+export type UserCreateWithoutChatConversationsBInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  googleImage?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
+  referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
+}
+
+export type UserUncheckedCreateWithoutChatConversationsBInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  googleImage?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
+  referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
+}
+
+export type UserCreateOrConnectWithoutChatConversationsBInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatConversationsBInput, Prisma.UserUncheckedCreateWithoutChatConversationsBInput>
+}
+
+export type UserUpsertWithoutChatConversationsAInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutChatConversationsAInput, Prisma.UserUncheckedUpdateWithoutChatConversationsAInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatConversationsAInput, Prisma.UserUncheckedCreateWithoutChatConversationsAInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutChatConversationsAInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutChatConversationsAInput, Prisma.UserUncheckedUpdateWithoutChatConversationsAInput>
+}
+
+export type UserUpdateWithoutChatConversationsAInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
+}
+
+export type UserUncheckedUpdateWithoutChatConversationsAInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
+}
+
+export type UserUpsertWithoutChatConversationsBInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutChatConversationsBInput, Prisma.UserUncheckedUpdateWithoutChatConversationsBInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatConversationsBInput, Prisma.UserUncheckedCreateWithoutChatConversationsBInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutChatConversationsBInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutChatConversationsBInput, Prisma.UserUncheckedUpdateWithoutChatConversationsBInput>
+}
+
+export type UserUpdateWithoutChatConversationsBInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
+}
+
+export type UserUncheckedUpdateWithoutChatConversationsBInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
+}
+
+export type UserCreateWithoutChatMessagesSentInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  googleImage?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
+  referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
+}
+
+export type UserUncheckedCreateWithoutChatMessagesSentInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  googleImage?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
+  referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
+}
+
+export type UserCreateOrConnectWithoutChatMessagesSentInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesSentInput, Prisma.UserUncheckedCreateWithoutChatMessagesSentInput>
+}
+
+export type UserUpsertWithoutChatMessagesSentInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutChatMessagesSentInput, Prisma.UserUncheckedUpdateWithoutChatMessagesSentInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatMessagesSentInput, Prisma.UserUncheckedCreateWithoutChatMessagesSentInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutChatMessagesSentInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutChatMessagesSentInput, Prisma.UserUncheckedUpdateWithoutChatMessagesSentInput>
+}
+
+export type UserUpdateWithoutChatMessagesSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
+}
+
+export type UserUncheckedUpdateWithoutChatMessagesSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
+}
+
+export type UserCreateWithoutBlocksMadeInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  googleImage?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
+  referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
+}
+
+export type UserUncheckedCreateWithoutBlocksMadeInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  googleImage?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
+  referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
+}
+
+export type UserCreateOrConnectWithoutBlocksMadeInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksMadeInput, Prisma.UserUncheckedCreateWithoutBlocksMadeInput>
+}
+
+export type UserCreateWithoutBlocksReceivedInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  googleImage?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
+  referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
+}
+
+export type UserUncheckedCreateWithoutBlocksReceivedInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  googleImage?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
+  referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
+}
+
+export type UserCreateOrConnectWithoutBlocksReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+}
+
+export type UserUpsertWithoutBlocksMadeInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBlocksMadeInput, Prisma.UserUncheckedUpdateWithoutBlocksMadeInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksMadeInput, Prisma.UserUncheckedCreateWithoutBlocksMadeInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBlocksMadeInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBlocksMadeInput, Prisma.UserUncheckedUpdateWithoutBlocksMadeInput>
+}
+
+export type UserUpdateWithoutBlocksMadeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBlocksMadeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
+}
+
+export type UserUpsertWithoutBlocksReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBlocksReceivedInput, Prisma.UserUncheckedUpdateWithoutBlocksReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBlocksReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBlocksReceivedInput, Prisma.UserUncheckedUpdateWithoutBlocksReceivedInput>
+}
+
+export type UserUpdateWithoutBlocksReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
+}
+
+export type UserCreateWithoutChatReportsMadeInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  googleImage?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.GameCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationCreateNestedManyWithoutActorInput
+  referralsMade?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+}
+
+export type UserUncheckedCreateWithoutChatReportsMadeInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  googleImage?: string | null
+  password?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscriptionStatus?: string
+  stripeCustomerId?: string | null
+  stripePaymentId?: string | null
+  xp?: number
+  level?: number
+  currentStreak?: number
+  longestStreak?: number
+  lastQuizDate?: Date | string | null
+  streakProtectionsUsed?: number
+  streakProtectionMonth?: string | null
+  timezone?: string | null
+  premiumUntil?: Date | string | null
+  freeTrialUsedAt?: Date | string | null
+  showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
+  selectedSkinId?: string | null
+  personalityAnimal?: string | null
+  personalityAnimalSetAt?: Date | string | null
+  lastMascotNudgeDismissedAt?: Date | string | null
+  neuronsBalance?: number
+  lastSeenAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.GameUncheckedCreateNestedManyWithoutUserInput
+  attempts?: Prisma.AttemptUncheckedCreateNestedManyWithoutUserInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedCreateNestedManyWithoutUserInput
+  trophies?: Prisma.TrophyUncheckedCreateNestedManyWithoutUserInput
+  certificates?: Prisma.CertificateUncheckedCreateNestedManyWithoutUserInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedCreateNestedManyWithoutUserInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  notificationLogs?: Prisma.NotificationLogUncheckedCreateNestedManyWithoutUserInput
+  friendshipsSent?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedCreateNestedManyWithoutActorInput
+  referralsMade?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  referralReceived?: Prisma.ReferralUncheckedCreateNestedOneWithoutReferredInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedCreateNestedManyWithoutUserInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedCreateNestedManyWithoutClaimedByInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedCreateNestedManyWithoutUserInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedCreateNestedOneWithoutUserInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedCreateNestedManyWithoutUserInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedCreateNestedManyWithoutUserInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedCreateNestedManyWithoutUserInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedCreateNestedManyWithoutUserInput
+  morpionGames?: Prisma.MorpionGameUncheckedCreateNestedManyWithoutUserInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
+  peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+}
+
+export type UserCreateOrConnectWithoutChatReportsMadeInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatReportsMadeInput, Prisma.UserUncheckedCreateWithoutChatReportsMadeInput>
+}
+
+export type UserUpsertWithoutChatReportsMadeInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutChatReportsMadeInput, Prisma.UserUncheckedUpdateWithoutChatReportsMadeInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutChatReportsMadeInput, Prisma.UserUncheckedCreateWithoutChatReportsMadeInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutChatReportsMadeInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutChatReportsMadeInput, Prisma.UserUncheckedUpdateWithoutChatReportsMadeInput>
+}
+
+export type UserUpdateWithoutChatReportsMadeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+}
+
+export type UserUncheckedUpdateWithoutChatReportsMadeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptionStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  currentStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  longestStreak?: Prisma.IntFieldUpdateOperationsInput | number
+  lastQuizDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  streakProtectionsUsed?: Prisma.IntFieldUpdateOperationsInput | number
+  streakProtectionMonth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastMascotNudgeDismissedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  neuronsBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.GameUncheckedUpdateManyWithoutUserNestedInput
+  attempts?: Prisma.AttemptUncheckedUpdateManyWithoutUserNestedInput
+  questionProgress?: Prisma.UserQuestionProgressUncheckedUpdateManyWithoutUserNestedInput
+  trophies?: Prisma.TrophyUncheckedUpdateManyWithoutUserNestedInput
+  certificates?: Prisma.CertificateUncheckedUpdateManyWithoutUserNestedInput
+  topicRecommendations?: Prisma.TopicRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  dailyChallengeAttempts?: Prisma.DailyChallengeAttemptUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  notificationLogs?: Prisma.NotificationLogUncheckedUpdateManyWithoutUserNestedInput
+  friendshipsSent?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  friendshipsReceived?: Prisma.FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+  notificationsReceived?: Prisma.InAppNotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationsTriggered?: Prisma.InAppNotificationUncheckedUpdateManyWithoutActorNestedInput
+  referralsMade?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  referralReceived?: Prisma.ReferralUncheckedUpdateOneWithoutReferredNestedInput
+  guestAttemptsClaimed?: Prisma.GuestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  dailyAttempts?: Prisma.UserDailyAttemptUncheckedUpdateManyWithoutUserNestedInput
+  personalityTestAttemptsClaimed?: Prisma.PersonalityTestAttemptUncheckedUpdateManyWithoutClaimedByNestedInput
+  curatedQuizCompletions?: Prisma.CuratedQuizCompletionUncheckedUpdateManyWithoutUserNestedInput
+  categoryRecommendation?: Prisma.CategoryRecommendationMascotaUncheckedUpdateOneWithoutUserNestedInput
+  puzzleDuJourGames?: Prisma.PuzzleDuJourGameUncheckedUpdateManyWithoutUserNestedInput
+  neuronTransactions?: Prisma.NeuronTransactionUncheckedUpdateManyWithoutUserNestedInput
+  neuronUnlocks?: Prisma.NeuronUnlockUncheckedUpdateManyWithoutUserNestedInput
+  neuronPurchases?: Prisma.NeuronPurchaseUncheckedUpdateManyWithoutUserNestedInput
+  morpionGames?: Prisma.MorpionGameUncheckedUpdateManyWithoutUserNestedInput
+  akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
+  crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
+  peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
+  dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
 }
 
 export type UserCreateWithoutGuestAttemptsClaimedInput = {
@@ -6630,6 +9062,7 @@ export type UserCreateWithoutGuestAttemptsClaimedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6666,6 +9099,12 @@ export type UserCreateWithoutGuestAttemptsClaimedInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
@@ -6692,6 +9131,7 @@ export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6728,6 +9168,12 @@ export type UserUncheckedCreateWithoutGuestAttemptsClaimedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutGuestAttemptsClaimedInput = {
@@ -6770,6 +9216,7 @@ export type UserUpdateWithoutGuestAttemptsClaimedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6806,6 +9253,12 @@ export type UserUpdateWithoutGuestAttemptsClaimedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
@@ -6832,6 +9285,7 @@ export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6868,6 +9322,12 @@ export type UserUncheckedUpdateWithoutGuestAttemptsClaimedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutDailyAttemptsInput = {
@@ -6894,6 +9354,7 @@ export type UserCreateWithoutDailyAttemptsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6930,6 +9391,12 @@ export type UserCreateWithoutDailyAttemptsInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutDailyAttemptsInput = {
@@ -6956,6 +9423,7 @@ export type UserUncheckedCreateWithoutDailyAttemptsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -6992,6 +9460,12 @@ export type UserUncheckedCreateWithoutDailyAttemptsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutDailyAttemptsInput = {
@@ -7034,6 +9508,7 @@ export type UserUpdateWithoutDailyAttemptsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7070,6 +9545,12 @@ export type UserUpdateWithoutDailyAttemptsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyAttemptsInput = {
@@ -7096,6 +9577,7 @@ export type UserUncheckedUpdateWithoutDailyAttemptsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7132,6 +9614,12 @@ export type UserUncheckedUpdateWithoutDailyAttemptsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
@@ -7158,6 +9646,7 @@ export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7194,6 +9683,12 @@ export type UserCreateWithoutPersonalityTestAttemptsClaimedInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
@@ -7220,6 +9715,7 @@ export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7256,6 +9752,12 @@ export type UserUncheckedCreateWithoutPersonalityTestAttemptsClaimedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutPersonalityTestAttemptsClaimedInput = {
@@ -7298,6 +9800,7 @@ export type UserUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7334,6 +9837,12 @@ export type UserUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
@@ -7360,6 +9869,7 @@ export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7396,6 +9906,12 @@ export type UserUncheckedUpdateWithoutPersonalityTestAttemptsClaimedInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutPuzzleDuJourGamesInput = {
@@ -7422,6 +9938,7 @@ export type UserCreateWithoutPuzzleDuJourGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7458,6 +9975,12 @@ export type UserCreateWithoutPuzzleDuJourGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutPuzzleDuJourGamesInput = {
@@ -7484,6 +10007,7 @@ export type UserUncheckedCreateWithoutPuzzleDuJourGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7520,6 +10044,12 @@ export type UserUncheckedCreateWithoutPuzzleDuJourGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutPuzzleDuJourGamesInput = {
@@ -7562,6 +10092,7 @@ export type UserUpdateWithoutPuzzleDuJourGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7598,6 +10129,12 @@ export type UserUpdateWithoutPuzzleDuJourGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPuzzleDuJourGamesInput = {
@@ -7624,6 +10161,7 @@ export type UserUncheckedUpdateWithoutPuzzleDuJourGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7660,6 +10198,12 @@ export type UserUncheckedUpdateWithoutPuzzleDuJourGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutNeuronTransactionsInput = {
@@ -7686,6 +10230,7 @@ export type UserCreateWithoutNeuronTransactionsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7722,6 +10267,12 @@ export type UserCreateWithoutNeuronTransactionsInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutNeuronTransactionsInput = {
@@ -7748,6 +10299,7 @@ export type UserUncheckedCreateWithoutNeuronTransactionsInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7784,6 +10336,12 @@ export type UserUncheckedCreateWithoutNeuronTransactionsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutNeuronTransactionsInput = {
@@ -7826,6 +10384,7 @@ export type UserUpdateWithoutNeuronTransactionsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7862,6 +10421,12 @@ export type UserUpdateWithoutNeuronTransactionsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNeuronTransactionsInput = {
@@ -7888,6 +10453,7 @@ export type UserUncheckedUpdateWithoutNeuronTransactionsInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -7924,6 +10490,12 @@ export type UserUncheckedUpdateWithoutNeuronTransactionsInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutNeuronPurchasesInput = {
@@ -7950,6 +10522,7 @@ export type UserCreateWithoutNeuronPurchasesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -7986,6 +10559,12 @@ export type UserCreateWithoutNeuronPurchasesInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutNeuronPurchasesInput = {
@@ -8012,6 +10591,7 @@ export type UserUncheckedCreateWithoutNeuronPurchasesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8048,6 +10628,12 @@ export type UserUncheckedCreateWithoutNeuronPurchasesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutNeuronPurchasesInput = {
@@ -8090,6 +10676,7 @@ export type UserUpdateWithoutNeuronPurchasesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8126,6 +10713,12 @@ export type UserUpdateWithoutNeuronPurchasesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNeuronPurchasesInput = {
@@ -8152,6 +10745,7 @@ export type UserUncheckedUpdateWithoutNeuronPurchasesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8188,6 +10782,12 @@ export type UserUncheckedUpdateWithoutNeuronPurchasesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutNeuronUnlocksInput = {
@@ -8214,6 +10814,7 @@ export type UserCreateWithoutNeuronUnlocksInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8250,6 +10851,12 @@ export type UserCreateWithoutNeuronUnlocksInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutNeuronUnlocksInput = {
@@ -8276,6 +10883,7 @@ export type UserUncheckedCreateWithoutNeuronUnlocksInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8312,6 +10920,12 @@ export type UserUncheckedCreateWithoutNeuronUnlocksInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutNeuronUnlocksInput = {
@@ -8354,6 +10968,7 @@ export type UserUpdateWithoutNeuronUnlocksInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8390,6 +11005,12 @@ export type UserUpdateWithoutNeuronUnlocksInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNeuronUnlocksInput = {
@@ -8416,6 +11037,7 @@ export type UserUncheckedUpdateWithoutNeuronUnlocksInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8452,6 +11074,12 @@ export type UserUncheckedUpdateWithoutNeuronUnlocksInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutMorpionGamesInput = {
@@ -8478,6 +11106,7 @@ export type UserCreateWithoutMorpionGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8514,6 +11143,12 @@ export type UserCreateWithoutMorpionGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutMorpionGamesInput = {
@@ -8540,6 +11175,7 @@ export type UserUncheckedCreateWithoutMorpionGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8576,6 +11212,12 @@ export type UserUncheckedCreateWithoutMorpionGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutMorpionGamesInput = {
@@ -8618,6 +11260,7 @@ export type UserUpdateWithoutMorpionGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8654,6 +11297,12 @@ export type UserUpdateWithoutMorpionGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMorpionGamesInput = {
@@ -8680,6 +11329,7 @@ export type UserUncheckedUpdateWithoutMorpionGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8716,6 +11366,12 @@ export type UserUncheckedUpdateWithoutMorpionGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutAkinatorGamesInput = {
@@ -8742,6 +11398,7 @@ export type UserCreateWithoutAkinatorGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8778,6 +11435,12 @@ export type UserCreateWithoutAkinatorGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutAkinatorGamesInput = {
@@ -8804,6 +11467,7 @@ export type UserUncheckedCreateWithoutAkinatorGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -8840,6 +11504,12 @@ export type UserUncheckedCreateWithoutAkinatorGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutAkinatorGamesInput = {
@@ -8882,6 +11552,7 @@ export type UserUpdateWithoutAkinatorGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8918,6 +11589,12 @@ export type UserUpdateWithoutAkinatorGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAkinatorGamesInput = {
@@ -8944,6 +11621,7 @@ export type UserUncheckedUpdateWithoutAkinatorGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8980,6 +11658,12 @@ export type UserUncheckedUpdateWithoutAkinatorGamesInput = {
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutCrucigramaGamesInput = {
@@ -9006,6 +11690,7 @@ export type UserCreateWithoutCrucigramaGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -9042,6 +11727,12 @@ export type UserCreateWithoutCrucigramaGamesInput = {
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutCrucigramaGamesInput = {
@@ -9068,6 +11759,7 @@ export type UserUncheckedCreateWithoutCrucigramaGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -9104,6 +11796,12 @@ export type UserUncheckedCreateWithoutCrucigramaGamesInput = {
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutCrucigramaGamesInput = {
@@ -9146,6 +11844,7 @@ export type UserUpdateWithoutCrucigramaGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9182,6 +11881,12 @@ export type UserUpdateWithoutCrucigramaGamesInput = {
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCrucigramaGamesInput = {
@@ -9208,6 +11913,7 @@ export type UserUncheckedUpdateWithoutCrucigramaGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9244,6 +11950,12 @@ export type UserUncheckedUpdateWithoutCrucigramaGamesInput = {
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutPeintreGamesInput = {
@@ -9270,6 +11982,7 @@ export type UserCreateWithoutPeintreGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -9306,6 +12019,12 @@ export type UserCreateWithoutPeintreGamesInput = {
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutPeintreGamesInput = {
@@ -9332,6 +12051,7 @@ export type UserUncheckedCreateWithoutPeintreGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -9368,6 +12088,12 @@ export type UserUncheckedCreateWithoutPeintreGamesInput = {
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutPeintreGamesInput = {
@@ -9410,6 +12136,7 @@ export type UserUpdateWithoutPeintreGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9446,6 +12173,12 @@ export type UserUpdateWithoutPeintreGamesInput = {
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPeintreGamesInput = {
@@ -9472,6 +12205,7 @@ export type UserUncheckedUpdateWithoutPeintreGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9508,6 +12242,12 @@ export type UserUncheckedUpdateWithoutPeintreGamesInput = {
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   dailyFreeGames?: Prisma.UserDailyFreeGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutDailyFreeGamesInput = {
@@ -9534,6 +12274,7 @@ export type UserCreateWithoutDailyFreeGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -9570,6 +12311,12 @@ export type UserCreateWithoutDailyFreeGamesInput = {
   akinatorGames?: Prisma.AkinatorGameCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportCreateNestedManyWithoutReporterInput
 }
 
 export type UserUncheckedCreateWithoutDailyFreeGamesInput = {
@@ -9596,6 +12343,7 @@ export type UserUncheckedCreateWithoutDailyFreeGamesInput = {
   premiumUntil?: Date | string | null
   freeTrialUsedAt?: Date | string | null
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: string | null
   personalityAnimal?: string | null
   personalityAnimalSetAt?: Date | string | null
@@ -9632,6 +12380,12 @@ export type UserUncheckedCreateWithoutDailyFreeGamesInput = {
   akinatorGames?: Prisma.AkinatorGameUncheckedCreateNestedManyWithoutUserInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedCreateNestedManyWithoutUserInput
   peintreGames?: Prisma.PeintreGameUncheckedCreateNestedManyWithoutUserInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserAInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedCreateNestedManyWithoutUserBInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  blocksMade?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedCreateNestedManyWithoutReporterInput
 }
 
 export type UserCreateOrConnectWithoutDailyFreeGamesInput = {
@@ -9674,6 +12428,7 @@ export type UserUpdateWithoutDailyFreeGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9710,6 +12465,12 @@ export type UserUpdateWithoutDailyFreeGamesInput = {
   akinatorGames?: Prisma.AkinatorGameUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUpdateManyWithoutReporterNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyFreeGamesInput = {
@@ -9736,6 +12497,7 @@ export type UserUncheckedUpdateWithoutDailyFreeGamesInput = {
   premiumUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   freeTrialUsedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   showInCommunityFeed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  chatDiscoverable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   selectedSkinId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   personalityAnimalSetAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9772,6 +12534,12 @@ export type UserUncheckedUpdateWithoutDailyFreeGamesInput = {
   akinatorGames?: Prisma.AkinatorGameUncheckedUpdateManyWithoutUserNestedInput
   crucigramaGames?: Prisma.CrucigramaGameUncheckedUpdateManyWithoutUserNestedInput
   peintreGames?: Prisma.PeintreGameUncheckedUpdateManyWithoutUserNestedInput
+  chatConversationsA?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserANestedInput
+  chatConversationsB?: Prisma.ChatConversationUncheckedUpdateManyWithoutUserBNestedInput
+  chatMessagesSent?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  blocksMade?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  chatReportsMade?: Prisma.ChatMessageReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 
@@ -9808,6 +12576,12 @@ export type UserCountOutputType = {
   crucigramaGames: number
   peintreGames: number
   dailyFreeGames: number
+  chatConversationsA: number
+  chatConversationsB: number
+  chatMessagesSent: number
+  blocksMade: number
+  blocksReceived: number
+  chatReportsMade: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -9839,6 +12613,12 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   crucigramaGames?: boolean | UserCountOutputTypeCountCrucigramaGamesArgs
   peintreGames?: boolean | UserCountOutputTypeCountPeintreGamesArgs
   dailyFreeGames?: boolean | UserCountOutputTypeCountDailyFreeGamesArgs
+  chatConversationsA?: boolean | UserCountOutputTypeCountChatConversationsAArgs
+  chatConversationsB?: boolean | UserCountOutputTypeCountChatConversationsBArgs
+  chatMessagesSent?: boolean | UserCountOutputTypeCountChatMessagesSentArgs
+  blocksMade?: boolean | UserCountOutputTypeCountBlocksMadeArgs
+  blocksReceived?: boolean | UserCountOutputTypeCountBlocksReceivedArgs
+  chatReportsMade?: boolean | UserCountOutputTypeCountChatReportsMadeArgs
 }
 
 /**
@@ -10047,6 +12827,48 @@ export type UserCountOutputTypeCountDailyFreeGamesArgs<ExtArgs extends runtime.T
   where?: Prisma.UserDailyFreeGameWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountChatConversationsAArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ChatConversationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountChatConversationsBArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ChatConversationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountChatMessagesSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ChatMessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBlocksMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserBlockWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBlocksReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserBlockWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountChatReportsMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ChatMessageReportWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -10072,6 +12894,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: boolean
   personalityAnimal?: boolean
   personalityAnimalSetAt?: boolean
@@ -10109,6 +12932,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   crucigramaGames?: boolean | Prisma.User$crucigramaGamesArgs<ExtArgs>
   peintreGames?: boolean | Prisma.User$peintreGamesArgs<ExtArgs>
   dailyFreeGames?: boolean | Prisma.User$dailyFreeGamesArgs<ExtArgs>
+  chatConversationsA?: boolean | Prisma.User$chatConversationsAArgs<ExtArgs>
+  chatConversationsB?: boolean | Prisma.User$chatConversationsBArgs<ExtArgs>
+  chatMessagesSent?: boolean | Prisma.User$chatMessagesSentArgs<ExtArgs>
+  blocksMade?: boolean | Prisma.User$blocksMadeArgs<ExtArgs>
+  blocksReceived?: boolean | Prisma.User$blocksReceivedArgs<ExtArgs>
+  chatReportsMade?: boolean | Prisma.User$chatReportsMadeArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -10136,6 +12965,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: boolean
   personalityAnimal?: boolean
   personalityAnimalSetAt?: boolean
@@ -10168,6 +12998,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: boolean
   personalityAnimal?: boolean
   personalityAnimalSetAt?: boolean
@@ -10200,6 +13031,7 @@ export type UserSelectScalar = {
   premiumUntil?: boolean
   freeTrialUsedAt?: boolean
   showInCommunityFeed?: boolean
+  chatDiscoverable?: boolean
   selectedSkinId?: boolean
   personalityAnimal?: boolean
   personalityAnimalSetAt?: boolean
@@ -10208,7 +13040,7 @@ export type UserSelectScalar = {
   lastSeenAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "googleImage" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth" | "timezone" | "premiumUntil" | "freeTrialUsedAt" | "showInCommunityFeed" | "selectedSkinId" | "personalityAnimal" | "personalityAnimalSetAt" | "lastMascotNudgeDismissedAt" | "neuronsBalance" | "lastSeenAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "googleImage" | "password" | "createdAt" | "updatedAt" | "subscriptionStatus" | "stripeCustomerId" | "stripePaymentId" | "xp" | "level" | "currentStreak" | "longestStreak" | "lastQuizDate" | "streakProtectionsUsed" | "streakProtectionMonth" | "timezone" | "premiumUntil" | "freeTrialUsedAt" | "showInCommunityFeed" | "chatDiscoverable" | "selectedSkinId" | "personalityAnimal" | "personalityAnimalSetAt" | "lastMascotNudgeDismissedAt" | "neuronsBalance" | "lastSeenAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -10241,6 +13073,12 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   crucigramaGames?: boolean | Prisma.User$crucigramaGamesArgs<ExtArgs>
   peintreGames?: boolean | Prisma.User$peintreGamesArgs<ExtArgs>
   dailyFreeGames?: boolean | Prisma.User$dailyFreeGamesArgs<ExtArgs>
+  chatConversationsA?: boolean | Prisma.User$chatConversationsAArgs<ExtArgs>
+  chatConversationsB?: boolean | Prisma.User$chatConversationsBArgs<ExtArgs>
+  chatMessagesSent?: boolean | Prisma.User$chatMessagesSentArgs<ExtArgs>
+  blocksMade?: boolean | Prisma.User$blocksMadeArgs<ExtArgs>
+  blocksReceived?: boolean | Prisma.User$blocksReceivedArgs<ExtArgs>
+  chatReportsMade?: boolean | Prisma.User$chatReportsMadeArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -10280,6 +13118,12 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     crucigramaGames: Prisma.$CrucigramaGamePayload<ExtArgs>[]
     peintreGames: Prisma.$PeintreGamePayload<ExtArgs>[]
     dailyFreeGames: Prisma.$UserDailyFreeGamePayload<ExtArgs>[]
+    chatConversationsA: Prisma.$ChatConversationPayload<ExtArgs>[]
+    chatConversationsB: Prisma.$ChatConversationPayload<ExtArgs>[]
+    chatMessagesSent: Prisma.$ChatMessagePayload<ExtArgs>[]
+    blocksMade: Prisma.$UserBlockPayload<ExtArgs>[]
+    blocksReceived: Prisma.$UserBlockPayload<ExtArgs>[]
+    chatReportsMade: Prisma.$ChatMessageReportPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -10305,6 +13149,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     premiumUntil: Date | null
     freeTrialUsedAt: Date | null
     showInCommunityFeed: boolean
+    chatDiscoverable: boolean
     selectedSkinId: string | null
     personalityAnimal: string | null
     personalityAnimalSetAt: Date | null
@@ -10736,6 +13581,12 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   crucigramaGames<T extends Prisma.User$crucigramaGamesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$crucigramaGamesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CrucigramaGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   peintreGames<T extends Prisma.User$peintreGamesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$peintreGamesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PeintreGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   dailyFreeGames<T extends Prisma.User$dailyFreeGamesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$dailyFreeGamesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserDailyFreeGamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  chatConversationsA<T extends Prisma.User$chatConversationsAArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatConversationsAArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  chatConversationsB<T extends Prisma.User$chatConversationsBArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatConversationsBArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  chatMessagesSent<T extends Prisma.User$chatMessagesSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatMessagesSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  blocksMade<T extends Prisma.User$blocksMadeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blocksMadeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  blocksReceived<T extends Prisma.User$blocksReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blocksReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  chatReportsMade<T extends Prisma.User$chatReportsMadeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatReportsMadeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessageReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10788,6 +13639,7 @@ export interface UserFieldRefs {
   readonly premiumUntil: Prisma.FieldRef<"User", 'DateTime'>
   readonly freeTrialUsedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly showInCommunityFeed: Prisma.FieldRef<"User", 'Boolean'>
+  readonly chatDiscoverable: Prisma.FieldRef<"User", 'Boolean'>
   readonly selectedSkinId: Prisma.FieldRef<"User", 'String'>
   readonly personalityAnimal: Prisma.FieldRef<"User", 'String'>
   readonly personalityAnimalSetAt: Prisma.FieldRef<"User", 'DateTime'>
@@ -11913,6 +14765,150 @@ export type User$dailyFreeGamesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.UserDailyFreeGameScalarFieldEnum | Prisma.UserDailyFreeGameScalarFieldEnum[]
+}
+
+/**
+ * User.chatConversationsA
+ */
+export type User$chatConversationsAArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChatConversation
+   */
+  select?: Prisma.ChatConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChatConversation
+   */
+  omit?: Prisma.ChatConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChatConversationInclude<ExtArgs> | null
+  where?: Prisma.ChatConversationWhereInput
+  orderBy?: Prisma.ChatConversationOrderByWithRelationInput | Prisma.ChatConversationOrderByWithRelationInput[]
+  cursor?: Prisma.ChatConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ChatConversationScalarFieldEnum | Prisma.ChatConversationScalarFieldEnum[]
+}
+
+/**
+ * User.chatConversationsB
+ */
+export type User$chatConversationsBArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChatConversation
+   */
+  select?: Prisma.ChatConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChatConversation
+   */
+  omit?: Prisma.ChatConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChatConversationInclude<ExtArgs> | null
+  where?: Prisma.ChatConversationWhereInput
+  orderBy?: Prisma.ChatConversationOrderByWithRelationInput | Prisma.ChatConversationOrderByWithRelationInput[]
+  cursor?: Prisma.ChatConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ChatConversationScalarFieldEnum | Prisma.ChatConversationScalarFieldEnum[]
+}
+
+/**
+ * User.chatMessagesSent
+ */
+export type User$chatMessagesSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChatMessage
+   */
+  select?: Prisma.ChatMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChatMessage
+   */
+  omit?: Prisma.ChatMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChatMessageInclude<ExtArgs> | null
+  where?: Prisma.ChatMessageWhereInput
+  orderBy?: Prisma.ChatMessageOrderByWithRelationInput | Prisma.ChatMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ChatMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ChatMessageScalarFieldEnum | Prisma.ChatMessageScalarFieldEnum[]
+}
+
+/**
+ * User.blocksMade
+ */
+export type User$blocksMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserBlock
+   */
+  select?: Prisma.UserBlockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserBlock
+   */
+  omit?: Prisma.UserBlockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserBlockInclude<ExtArgs> | null
+  where?: Prisma.UserBlockWhereInput
+  orderBy?: Prisma.UserBlockOrderByWithRelationInput | Prisma.UserBlockOrderByWithRelationInput[]
+  cursor?: Prisma.UserBlockWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserBlockScalarFieldEnum | Prisma.UserBlockScalarFieldEnum[]
+}
+
+/**
+ * User.blocksReceived
+ */
+export type User$blocksReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserBlock
+   */
+  select?: Prisma.UserBlockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserBlock
+   */
+  omit?: Prisma.UserBlockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserBlockInclude<ExtArgs> | null
+  where?: Prisma.UserBlockWhereInput
+  orderBy?: Prisma.UserBlockOrderByWithRelationInput | Prisma.UserBlockOrderByWithRelationInput[]
+  cursor?: Prisma.UserBlockWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserBlockScalarFieldEnum | Prisma.UserBlockScalarFieldEnum[]
+}
+
+/**
+ * User.chatReportsMade
+ */
+export type User$chatReportsMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChatMessageReport
+   */
+  select?: Prisma.ChatMessageReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChatMessageReport
+   */
+  omit?: Prisma.ChatMessageReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChatMessageReportInclude<ExtArgs> | null
+  where?: Prisma.ChatMessageReportWhereInput
+  orderBy?: Prisma.ChatMessageReportOrderByWithRelationInput | Prisma.ChatMessageReportOrderByWithRelationInput[]
+  cursor?: Prisma.ChatMessageReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ChatMessageReportScalarFieldEnum | Prisma.ChatMessageReportScalarFieldEnum[]
 }
 
 /**
