@@ -1,14 +1,18 @@
 "use client";
 
 import * as React from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useQueryClient, type InfiniteData, type QueryClient } from "@tanstack/react-query";
 import { ArrowLeft, X } from "lucide-react";
 
-import type { ChatContactsPage } from "@/lib/chat";
+import type { ChatContactsPage, ChatFriendContact } from "@/lib/chat";
+import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useChat } from "@/components/chat/ChatProvider";
 import ChatContactsView from "@/components/chat/ChatContactsView";
+import ChatConversationView from "@/components/chat/ChatConversationView";
+import { describePresence } from "@/components/chat/chatFormat";
 import { chatKeys } from "@/hooks/chat/chatKeys";
 
 // Below Tailwind's sm: the panel is full screen and behaves as a modal.
@@ -29,22 +33,67 @@ function useIsMobile(): boolean {
   );
 }
 
-/** The open conversation's name, from whatever contacts page already holds that friend. */
-function findFriendName(queryClient: QueryClient, userId: string): string | null {
+/**
+ * On mobile, iOS doesn't shrink 100dvh when the virtual keyboard opens (and
+ * Chrome on Android no longer resizes the layout viewport by default): the
+ * full-screen panel would extend under the keyboard and hide the composer.
+ * Track the visual viewport instead -- its height excludes the keyboard and
+ * offsetTop is how far the browser scrolled to reveal the focused field.
+ * Returns null on desktop and where visualViewport doesn't exist, so the
+ * CSS sizes (100dvh / 520px) apply untouched.
+ */
+function useVisualViewportBox(enabled: boolean): { height: number; top: number } | null {
+  const subscribe = React.useCallback(
+    (onChange: () => void) => {
+      const viewport = window.visualViewport;
+      if (!enabled || !viewport) return () => {};
+      viewport.addEventListener("resize", onChange);
+      viewport.addEventListener("scroll", onChange);
+      return () => {
+        viewport.removeEventListener("resize", onChange);
+        viewport.removeEventListener("scroll", onChange);
+      };
+    },
+    [enabled]
+  );
+  // A string snapshot: useSyncExternalStore needs a stable primitive.
+  const snapshot = React.useSyncExternalStore(
+    subscribe,
+    () => {
+      const viewport = window.visualViewport;
+      return enabled && viewport ? `${Math.round(viewport.height)}:${Math.round(viewport.offsetTop)}` : null;
+    },
+    () => null
+  );
+  return React.useMemo(() => {
+    if (!snapshot) return null;
+    const [height, top] = snapshot.split(":").map(Number);
+    return { height, top };
+  }, [snapshot]);
+}
+
+/** The open conversation's friend (and that page's server clock), from whatever contacts page already holds them. */
+function findFriend(
+  queryClient: QueryClient,
+  userId: string
+): { friend: ChatFriendContact; serverNow: string } | null {
   for (const [, data] of queryClient.getQueriesData<InfiniteData<ChatContactsPage>>({
     queryKey: chatKeys.contactsAll,
   })) {
-    const friend = data?.pages[0]?.friends.find((f) => f.userId === userId);
-    if (friend) return friend.name;
+    const page = data?.pages[0];
+    const friend = page?.friends.find((f) => f.userId === userId);
+    if (page && friend) return { friend, serverNow: page.serverNow };
   }
   return null;
 }
 
 export default function ChatPanel() {
   const t = useTranslations("Chat");
+  const locale = useLocale();
   const queryClient = useQueryClient();
   const { activeUserId, close, back } = useChat();
   const isMobile = useIsMobile();
+  const viewportBox = useVisualViewportBox(isMobile);
   const panelRef = React.useRef<HTMLDivElement>(null);
 
   // Move focus into the panel when it opens.
@@ -98,7 +147,10 @@ export default function ChatPanel() {
     back();
   };
 
-  const activeName = activeUserId ? findFriendName(queryClient, activeUserId) : null;
+  const active = activeUserId ? findFriend(queryClient, activeUserId) : null;
+  const activeName = active?.friend.name ?? t("anonymousPlayer");
+  // No presence line when the friend isn't in the contacts cache.
+  const presence = active ? describePresence(active.friend, active.serverNow, locale) : null;
 
   return (
     <div
@@ -108,6 +160,9 @@ export default function ChatPanel() {
       aria-label={t("title")}
       tabIndex={-1}
       onKeyDown={onKeyDown}
+      // Mobile + visualViewport only: top + height over-constrain inset-0,
+      // so `bottom` is ignored and the panel ends where the keyboard starts.
+      style={viewportBox ? { top: viewportBox.top, height: viewportBox.height } : undefined}
       className="fixed inset-0 z-30 flex h-[100dvh] flex-col bg-white outline-none dark:bg-slate-950 sm:inset-auto sm:bottom-4 sm:right-4 sm:h-[520px] sm:max-h-[calc(100dvh-2rem)] sm:w-[360px] sm:overflow-hidden sm:rounded-3xl sm:border sm:border-slate-200/80 sm:shadow-2xl sm:shadow-violet-500/10 sm:dark:border-white/10"
     >
       <header className="flex items-center gap-2 border-b border-slate-200/80 px-3 pb-2.5 pt-[max(0.625rem,env(safe-area-inset-top))] dark:border-white/10">
@@ -116,9 +171,23 @@ export default function ChatPanel() {
             <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl" onClick={handleBack} aria-label={t("back")}>
               <ArrowLeft className="h-5 w-5" aria-hidden="true" />
             </Button>
-            <h2 className="min-w-0 flex-1 truncate text-base font-bold text-slate-900 dark:text-white">
-              {activeName ?? t("anonymousPlayer")}
-            </h2>
+            <Avatar className="h-8 w-8 shrink-0">
+              {active?.friend.image && <AvatarImage src={active.friend.image} alt="" />}
+              <AvatarFallback>{activeName.charAt(0).toUpperCase()}</AvatarFallback>
+            </Avatar>
+            <div className="min-w-0 flex-1">
+              <h2 className="truncate text-sm font-bold text-slate-900 dark:text-white">{activeName}</h2>
+              {presence && (
+                <p
+                  className={cn(
+                    "truncate text-xs",
+                    presence.key === "online" ? "text-emerald-600 dark:text-emerald-400" : "text-slate-500 dark:text-slate-400"
+                  )}
+                >
+                  {presence.key === "lastSeen" ? t("lastSeen", { time: presence.time }) : t(presence.key)}
+                </p>
+              )}
+            </div>
           </>
         ) : (
           <h2 className="flex-1 bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text px-1 text-lg font-bold text-transparent">
@@ -130,8 +199,12 @@ export default function ChatPanel() {
         </Button>
       </header>
 
-      {/* Conversation view (messages + input) lands in phase 4c: header only for now. */}
-      {activeUserId ? <div className="flex-1" /> : <ChatContactsView />}
+      {/* Keyed by user: switching conversation resets scroll and read tracking. */}
+      {activeUserId ? (
+        <ChatConversationView key={activeUserId} userId={activeUserId} name={activeName} />
+      ) : (
+        <ChatContactsView />
+      )}
     </div>
   );
 }

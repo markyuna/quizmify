@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 import type { ChatFriendContact } from "@/lib/chat";
 import { cn } from "@/lib/utils";
-import { formatRelativeTime } from "@/lib/relativeTime";
+import { describePresence } from "@/components/chat/chatFormat";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useChat } from "@/components/chat/ChatProvider";
 
@@ -22,11 +22,8 @@ export default function ChatFriendRow({
 
   // `online` is computed server-side; "last seen" uses the server clock
   // (serverNow), same as FriendsManager, never the client's own.
-  const presence = friend.online
-    ? t("online")
-    : friend.lastSeenAt && serverNow
-      ? t("lastSeen", { time: formatRelativeTime(friend.lastSeenAt, serverNow, locale) })
-      : t("offline");
+  const status = describePresence(friend, serverNow, locale);
+  const presence = status.key === "lastSeen" ? t("lastSeen", { time: status.time }) : t(status.key);
 
   return (
     <button
