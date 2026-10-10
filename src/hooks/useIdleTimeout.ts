@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { IDLE_TIMEOUT_MS, IDLE_WARNING_MS } from "@/lib/idleTimeoutConfig";
 
@@ -21,6 +22,7 @@ type BroadcastMessage = { at: number };
 export function useIdleTimeout() {
   const { data: session, status, update } = useSession();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const [showWarning, setShowWarning] = useState(false);
   const [secondsRemaining, setSecondsRemaining] = useState(Math.round(IDLE_WARNING_MS / 1000));
@@ -49,9 +51,14 @@ export function useIdleTimeout() {
     clearTimers();
     setShowWarning(false);
     void signOut({ redirect: false }).then(() => {
+      // Unlike a manual sign-out, this path never reloads the page, so the
+      // React Query cache would outlive the session: the bell, the friends
+      // list or the chat could show this account's data to whoever signs in
+      // next. Cleared once the session is gone, before leaving the page.
+      queryClient.clear();
       router.push("/login?reason=idle");
     });
-  }, [clearTimers, router]);
+  }, [clearTimers, router, queryClient]);
 
   // Arms the warning + logout timers for a session with `remainingMs` left
   // before it should expire. Called both on a fresh reset (remainingMs ==
