@@ -107,7 +107,7 @@ export default function ChatPanel() {
   const t = useTranslations("Chat");
   const locale = useLocale();
   const queryClient = useQueryClient();
-  const { activeUserId, close, back } = useChat();
+  const { activeUserId, activeContact, close, back } = useChat();
   const isMobile = useIsMobile();
   const viewportBox = useVisualViewportBox(isMobile);
   const panelRef = React.useRef<HTMLDivElement>(null);
@@ -188,7 +188,11 @@ export default function ChatPanel() {
   };
 
   const active = activeUserId ? findFriend(queryClient, activeUserId) : null;
-  const activeName = active?.friend.name ?? t("anonymousPlayer");
+  // Name and photo come from the contact captured when the conversation was
+  // opened; the contacts cache is only the fallback, and the one source of
+  // presence (it is garbage-collected a few minutes after the list unmounts).
+  const identity = activeContact ?? active?.friend;
+  const activeName = identity?.name ?? t("anonymousPlayer");
   // No presence line when the friend isn't in the contacts cache.
   const presence = active ? describePresence(active.friend, active.serverNow, locale) : null;
 
@@ -212,7 +216,7 @@ export default function ChatPanel() {
               <ArrowLeft className="h-5 w-5" aria-hidden="true" />
             </Button>
             <Avatar className="h-8 w-8 shrink-0">
-              {active?.friend.image && <AvatarImage src={active.friend.image} alt="" />}
+              {identity?.image && <AvatarImage src={identity.image} alt="" />}
               <AvatarFallback>{activeName.charAt(0).toUpperCase()}</AvatarFallback>
             </Avatar>
             <div className="min-w-0 flex-1">

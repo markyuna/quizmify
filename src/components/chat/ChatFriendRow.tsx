@@ -28,7 +28,7 @@ export default function ChatFriendRow({
   return (
     <button
       type="button"
-      onClick={() => openConversation(friend.userId)}
+      onClick={() => openConversation(friend.userId, { name: friend.name, image: friend.image })}
       className="flex w-full items-center gap-3 rounded-2xl px-2 py-2 text-left transition-colors hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/40 dark:hover:bg-white/5"
     >
       <div className="relative shrink-0">

@@ -2,17 +2,25 @@
 
 import * as React from "react";
 
+// What the header needs to show about the open conversation's friend,
+// captured when it is opened so it doesn't depend on the contacts query
+// cache, which is garbage-collected a few minutes after the list unmounts.
+export type ChatActiveContact = { name: string | null; image: string | null };
+
 type ChatContextValue = {
   isOpen: boolean;
   // The conversation shown in the panel; null = the contacts list.
   activeUserId: string | null;
+  // Set together with activeUserId when the caller provides it, cleared by
+  // back(). Kept by close(), like activeUserId.
+  activeContact: ChatActiveContact | null;
   open: () => void;
   // restoreFocus defaults to true (Esc, the X button). A click outside
   // passes false: focus belongs to whatever the user just clicked.
   close: (options?: { restoreFocus?: boolean }) => void;
   // Whether the bubble should take focus back after the last close.
   restoreFocusOnClose: boolean;
-  openConversation: (userId: string) => void;
+  openConversation: (userId: string, contact?: ChatActiveContact) => void;
   back: () => void;
   // Unsent text per conversation, in memory only (never persisted).
   getDraft: (userId: string) => string;
@@ -32,6 +40,7 @@ const ChatContext = React.createContext<ChatContextValue | null>(null);
 export function ChatProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeUserId, setActiveUserId] = React.useState<string | null>(null);
+  const [activeContact, setActiveContact] = React.useState<ChatActiveContact | null>(null);
   const [restoreFocusOnClose, setRestoreFocusOnClose] = React.useState(true);
 
   // Stable identities, so consumers can list them as effect dependencies.
@@ -40,11 +49,15 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     setRestoreFocusOnClose(options?.restoreFocus ?? true);
     setIsOpen(false);
   }, []);
-  const openConversation = React.useCallback((userId: string) => {
+  const openConversation = React.useCallback((userId: string, contact?: ChatActiveContact) => {
     setActiveUserId(userId);
+    setActiveContact(contact ?? null);
     setIsOpen(true);
   }, []);
-  const back = React.useCallback(() => setActiveUserId(null), []);
+  const back = React.useCallback(() => {
+    setActiveUserId(null);
+    setActiveContact(null);
+  }, []);
 
   // Drafts live in a ref: typing must not re-render every context consumer.
   // Memory only -- gone on reload, and cleared on sign-out by ChatRoot.
@@ -60,6 +73,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     () => ({
       isOpen,
       activeUserId,
+      activeContact,
       open,
       close,
       restoreFocusOnClose,
@@ -69,7 +83,19 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       setDraft,
       clearDrafts,
     }),
-    [isOpen, activeUserId, open, close, restoreFocusOnClose, openConversation, back, getDraft, setDraft, clearDrafts]
+    [
+      isOpen,
+      activeUserId,
+      activeContact,
+      open,
+      close,
+      restoreFocusOnClose,
+      openConversation,
+      back,
+      getDraft,
+      setDraft,
+      clearDrafts,
+    ]
   );
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
