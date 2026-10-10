@@ -24,7 +24,7 @@ const ChatPanel = dynamic(loadPanel, { ssr: false });
 export default function ChatRoot() {
   const { status } = useSession();
   const queryClient = useQueryClient();
-  const { isOpen, close, back, clearDrafts } = useChat();
+  const { isOpen, close, back, clearDrafts, restoreFocusOnClose } = useChat();
 
   // Return focus to the bubble after the panel closes -- but not on the
   // first load, where nothing was ever opened. Adjusted during render
@@ -47,5 +47,10 @@ export default function ChatRoot() {
   }, [status, close, back, clearDrafts, queryClient]);
 
   if (status !== "authenticated") return null;
-  return isOpen ? <ChatPanel /> : <ChatBubble restoreFocus={hasOpened} onPreload={loadPanel} />;
+  // A click outside closes without taking focus back (see ChatProvider.close).
+  return isOpen ? (
+    <ChatPanel />
+  ) : (
+    <ChatBubble restoreFocus={hasOpened && restoreFocusOnClose} onPreload={loadPanel} />
+  );
 }

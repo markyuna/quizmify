@@ -21,6 +21,22 @@ const MOBILE_QUERY = "(max-width: 639px)";
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+// Layers rendered outside the panel that a click must NOT close it from:
+// Radix poppers (dropdown menus, tooltips), Radix dialog / alertdialog
+// content (the panel's own role="dialog" has no data-state), and the toasts
+// (they sit right over the panel's corner on desktop).
+const KEEP_OPEN_SELECTOR = [
+  "[data-radix-popper-content-wrapper]",
+  '[role="dialog"][data-state]',
+  '[role="alertdialog"]',
+  "[data-toast-viewport]",
+  "[data-swipe-direction]",
+].join(", ");
+
+// While a Radix modal is open (block / report confirmations, the idle
+// warning) every click belongs to it: never close the panel underneath.
+const OPEN_MODAL_SELECTOR = '[role="dialog"][data-state="open"], [role="alertdialog"][data-state="open"]';
+
 function useIsMobile(): boolean {
   return React.useSyncExternalStore(
     (onChange) => {
@@ -111,6 +127,30 @@ export default function ChatPanel() {
     };
   }, [isMobile]);
 
+  // Desktop / tablet only: on mobile the panel is full screen, there is no
+  // "outside". The panel only mounts while open, so this listener only
+  // exists while open; the click that opened it already went by (the bubble
+  // opens on `click`, after pointerdown). pointerdown, not click, so ending
+  // a text selection outside doesn't close it. Capture phase so a handler
+  // that stops propagation can't hide the event -- and nothing here calls
+  // preventDefault/stopPropagation: the page still gets its click, and the
+  // idle-timeout listeners still see every event.
+  React.useEffect(() => {
+    if (isMobile) return;
+    const onPointerDown = (event: PointerEvent) => {
+      if (event.button !== 0) return;
+      const panel = panelRef.current;
+      if (!panel) return;
+      const path = event.composedPath();
+      if (path.includes(panel)) return;
+      if (path.some((node) => node instanceof Element && node.matches(KEEP_OPEN_SELECTOR))) return;
+      if (document.querySelector(OPEN_MODAL_SELECTOR)) return;
+      close({ restoreFocus: false });
+    };
+    document.addEventListener("pointerdown", onPointerDown, { capture: true });
+    return () => document.removeEventListener("pointerdown", onPointerDown, { capture: true });
+  }, [isMobile, close]);
+
   // Esc closes; on mobile (full screen = modal) Tab wraps inside the panel.
   // Only for keys pressed inside the panel's own DOM: React events bubble
   // through the component tree even out of a portal, so an Escape meant for
@@ -194,7 +234,7 @@ export default function ChatPanel() {
             {t("title")}
           </h2>
         )}
-        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl" onClick={close} aria-label={t("close")}>
+        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl" onClick={() => close()} aria-label={t("close")}>
           <X className="h-5 w-5" aria-hidden="true" />
         </Button>
       </header>

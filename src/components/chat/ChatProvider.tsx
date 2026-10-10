@@ -7,7 +7,11 @@ type ChatContextValue = {
   // The conversation shown in the panel; null = the contacts list.
   activeUserId: string | null;
   open: () => void;
-  close: () => void;
+  // restoreFocus defaults to true (Esc, the X button). A click outside
+  // passes false: focus belongs to whatever the user just clicked.
+  close: (options?: { restoreFocus?: boolean }) => void;
+  // Whether the bubble should take focus back after the last close.
+  restoreFocusOnClose: boolean;
   openConversation: (userId: string) => void;
   back: () => void;
   // Unsent text per conversation, in memory only (never persisted).
@@ -28,10 +32,14 @@ const ChatContext = React.createContext<ChatContextValue | null>(null);
 export function ChatProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeUserId, setActiveUserId] = React.useState<string | null>(null);
+  const [restoreFocusOnClose, setRestoreFocusOnClose] = React.useState(true);
 
   // Stable identities, so consumers can list them as effect dependencies.
   const open = React.useCallback(() => setIsOpen(true), []);
-  const close = React.useCallback(() => setIsOpen(false), []);
+  const close = React.useCallback((options?: { restoreFocus?: boolean }) => {
+    setRestoreFocusOnClose(options?.restoreFocus ?? true);
+    setIsOpen(false);
+  }, []);
   const openConversation = React.useCallback((userId: string) => {
     setActiveUserId(userId);
     setIsOpen(true);
@@ -49,8 +57,19 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   const clearDrafts = React.useCallback(() => draftsRef.current.clear(), []);
 
   const value = React.useMemo<ChatContextValue>(
-    () => ({ isOpen, activeUserId, open, close, openConversation, back, getDraft, setDraft, clearDrafts }),
-    [isOpen, activeUserId, open, close, openConversation, back, getDraft, setDraft, clearDrafts]
+    () => ({
+      isOpen,
+      activeUserId,
+      open,
+      close,
+      restoreFocusOnClose,
+      openConversation,
+      back,
+      getDraft,
+      setDraft,
+      clearDrafts,
+    }),
+    [isOpen, activeUserId, open, close, restoreFocusOnClose, openConversation, back, getDraft, setDraft, clearDrafts]
   );
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;

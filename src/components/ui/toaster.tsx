@@ -29,7 +29,8 @@ export function Toaster() {
           </Toast>
         )
       })}
-      <ToastViewport />
+      {/* Lets the chat panel tell "clicked a toast" from "clicked outside". */}
+      <ToastViewport data-toast-viewport="" />
     </ToastProvider>
   )
 }
