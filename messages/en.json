@@ -515,7 +515,13 @@
     "noFriendsOnline": "None of your friends are online right now.",
     "viewFriends": "View my friends",
     "noFriends": "Play together: invite your friends and you'll both earn Pro time.",
-    "inviteFriends": "Invite friends"
+    "inviteFriends": "Invite friends",
+    "dailyChallengeBadge": "Daily challenge",
+    "dailyChallengeLastScore": "{player} scored {score}% · {ago}",
+    "dailyChallengeBeFirst": "No one has taken today's challenge yet — be the first!",
+    "dailyChallengeBeat": "Can you beat that?",
+    "dailyChallengePlay": "Take the challenge",
+    "dailyChallengeMoreGames": "Or jump into one of our games"
   },
   "CategoriesSection": {
     "title": "Quizzes by theme",

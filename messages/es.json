@@ -515,7 +515,13 @@
     "noFriendsOnline": "Ninguno de tus amigos está conectado en este momento.",
     "viewFriends": "Ver mis amigos",
     "noFriends": "Jugá en compañía: invitá a tus amigos y ganen tiempo Pro los dos.",
-    "inviteFriends": "Invitar amigos"
+    "inviteFriends": "Invitar amigos",
+    "dailyChallengeBadge": "Desafío diario",
+    "dailyChallengeLastScore": "{player} obtuvo {score} % · {ago}",
+    "dailyChallengeBeFirst": "Nadie aceptó todavía el desafío de hoy — ¡sé el primero!",
+    "dailyChallengeBeat": "¿Podés hacerlo mejor?",
+    "dailyChallengePlay": "Aceptar el desafío",
+    "dailyChallengeMoreGames": "O animate con alguno de nuestros juegos"
   },
   "CategoriesSection": {
     "title": "Quiz por temáticas",

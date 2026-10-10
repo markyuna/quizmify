@@ -515,7 +515,13 @@
     "noFriendsOnline": "Aucun de vos amis n'est en ligne pour le moment.",
     "viewFriends": "Voir mes amis",
     "noFriends": "Jouez à plusieurs : invitez vos amis et gagnez chacun du temps Pro.",
-    "inviteFriends": "Inviter des amis"
+    "inviteFriends": "Inviter des amis",
+    "dailyChallengeBadge": "Défi quotidien",
+    "dailyChallengeLastScore": "{player} a obtenu {score} % · {ago}",
+    "dailyChallengeBeFirst": "Personne n'a encore relevé le défi aujourd'hui — soyez le premier !",
+    "dailyChallengeBeat": "Pouvez-vous faire mieux ?",
+    "dailyChallengePlay": "Relever le défi",
+    "dailyChallengeMoreGames": "Ou lancez-vous dans l'un de nos jeux"
   },
   "CategoriesSection": {
     "title": "Quiz par thématiques",
