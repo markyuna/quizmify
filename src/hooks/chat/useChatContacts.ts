@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import axios from "axios";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 
 import type { ChatContactsPage, ChatOtherContact } from "@/lib/chat";
 import { chatKeys } from "@/hooks/chat/chatKeys";
@@ -38,6 +38,9 @@ export function useChatContacts(query: string, { enabled }: { enabled: boolean }
     initialPageParam: 1,
     getNextPageParam: (lastPage) => (lastPage.hasMore ? lastPage.page + 1 : undefined),
     enabled,
+    // Keep the previous results on screen while a new search loads, instead
+    // of flashing the list empty after every debounced keystroke.
+    placeholderData: keepPreviousData,
     staleTime: 30_000,
     refetchInterval: (q) =>
       !enabled || isClientError(q.state.error) || (q.state.data?.pages.length ?? 0) > 1 ? false : CONTACTS_REFRESH_MS,

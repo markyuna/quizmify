@@ -8,6 +8,7 @@ import { ArrowLeft, X } from "lucide-react";
 import type { ChatContactsPage } from "@/lib/chat";
 import { Button } from "@/components/ui/button";
 import { useChat } from "@/components/chat/ChatProvider";
+import ChatContactsView from "@/components/chat/ChatContactsView";
 import { chatKeys } from "@/hooks/chat/chatKeys";
 
 // Below Tailwind's sm: the panel is full screen and behaves as a modal.
@@ -129,8 +130,8 @@ export default function ChatPanel() {
         </Button>
       </header>
 
-      {/* Contacts list lands in the next commit; the conversation view in phase 4c. */}
-      <div className="flex-1" />
+      {/* Conversation view (messages + input) lands in phase 4c: header only for now. */}
+      {activeUserId ? <div className="flex-1" /> : <ChatContactsView />}
     </div>
   );
 }
