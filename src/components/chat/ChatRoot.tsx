@@ -24,7 +24,7 @@ const ChatPanel = dynamic(loadPanel, { ssr: false });
 export default function ChatRoot() {
   const { status } = useSession();
   const queryClient = useQueryClient();
-  const { isOpen, close, back } = useChat();
+  const { isOpen, close, back, clearDrafts } = useChat();
 
   // Return focus to the bubble after the panel closes -- but not on the
   // first load, where nothing was ever opened. Adjusted during render
@@ -34,15 +34,17 @@ export default function ChatRoot() {
 
   // The idle-timeout logout is client-side (signOut without redirect +
   // router.push), so this provider and the React Query cache both survive
-  // it. Reset the panel so the next sign-in starts closed on the list, and
-  // drop every chat query: mergeLatest folds new pages into the cached ones,
-  // so another account would otherwise inherit this one's messages.
+  // it. Reset the panel so the next sign-in starts closed on the list, drop
+  // unsent drafts, and drop every chat query: mergeLatest folds new pages
+  // into the cached ones, so another account would otherwise inherit this
+  // one's messages.
   React.useEffect(() => {
     if (status !== "unauthenticated") return;
     close();
     back();
+    clearDrafts();
     queryClient.removeQueries({ queryKey: chatKeys.all });
-  }, [status, close, back, queryClient]);
+  }, [status, close, back, clearDrafts, queryClient]);
 
   if (status !== "authenticated") return null;
   return isOpen ? <ChatPanel /> : <ChatBubble restoreFocus={hasOpened} onPreload={loadPanel} />;

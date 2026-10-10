@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { parseChatError } from "@/lib/chatErrors";
 import { Button } from "@/components/ui/button";
 import { useChat } from "@/components/chat/ChatProvider";
+import ChatComposer from "@/components/chat/ChatComposer";
 import { dayKey, formatDayLabel, formatMessageTime } from "@/components/chat/chatFormat";
 import { useChatMessages } from "@/hooks/chat/useChatMessages";
 import { useMarkConversationRead } from "@/hooks/chat/useChatMutations";
@@ -187,13 +188,15 @@ export default function ChatConversationView({ userId, name }: { userId: string;
         )}
       </div>
 
-      {closedKey && (
+      {closedKey ? (
         <p
           role="status"
           className="border-t border-slate-200/80 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] text-center text-sm text-slate-600 dark:border-white/10 dark:text-slate-300"
         >
           {t(closedKey)}
         </p>
+      ) : (
+        <ChatComposer userId={userId} />
       )}
     </div>
   );

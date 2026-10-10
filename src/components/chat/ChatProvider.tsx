@@ -10,6 +10,10 @@ type ChatContextValue = {
   close: () => void;
   openConversation: (userId: string) => void;
   back: () => void;
+  // Unsent text per conversation, in memory only (never persisted).
+  getDraft: (userId: string) => string;
+  setDraft: (userId: string, text: string) => void;
+  clearDrafts: () => void;
 };
 
 const ChatContext = React.createContext<ChatContextValue | null>(null);
@@ -34,9 +38,19 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   }, []);
   const back = React.useCallback(() => setActiveUserId(null), []);
 
+  // Drafts live in a ref: typing must not re-render every context consumer.
+  // Memory only -- gone on reload, and cleared on sign-out by ChatRoot.
+  const draftsRef = React.useRef(new Map<string, string>());
+  const getDraft = React.useCallback((userId: string) => draftsRef.current.get(userId) ?? "", []);
+  const setDraft = React.useCallback((userId: string, text: string) => {
+    if (text) draftsRef.current.set(userId, text);
+    else draftsRef.current.delete(userId);
+  }, []);
+  const clearDrafts = React.useCallback(() => draftsRef.current.clear(), []);
+
   const value = React.useMemo<ChatContextValue>(
-    () => ({ isOpen, activeUserId, open, close, openConversation, back }),
-    [isOpen, activeUserId, open, close, openConversation, back]
+    () => ({ isOpen, activeUserId, open, close, openConversation, back, getDraft, setDraft, clearDrafts }),
+    [isOpen, activeUserId, open, close, openConversation, back, getDraft, setDraft, clearDrafts]
   );
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
