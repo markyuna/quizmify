@@ -263,6 +263,65 @@ export const getRecentCommunityActivity = unstable_cache(
   { revalidate: COMMUNITY_STATS_REVALIDATE_SECONDS }
 );
 
+/**
+ * Today's daily challenge for one language, as the homepage band shows it:
+ * the topic plus the most recent finished attempt. Strictly read-only --
+ * unlike getOrCreateTodaysChallenge() it never generates the challenge, so a
+ * homepage visit can't trigger an OpenAI call; before anyone has opened
+ * today's challenge in this language it returns null and the band shows its
+ * call to action without a topic or a score.
+ */
+export type DailyChallengeSpotlight = {
+  topic: string;
+  lastPlayer: {
+    // "First L.", or null when the account has no usable name.
+    name: string | null;
+    // Percentage, as stored on DailyChallengeAttempt.
+    score: number;
+    // ISO string rather than Date: unstable_cache round-trips through JSON.
+    playedAt: string;
+  } | null;
+};
+
+async function computeDailyChallengeSpotlight(language: string): Promise<DailyChallengeSpotlight | null> {
+  const challenge = await prisma.dailyChallenge.findUnique({
+    where: { date_language: { date: getTodayDateKey(), language } },
+    select: { id: true, topic: true },
+  });
+  if (!challenge) return null;
+
+  // Same opt-out rule as the activity ticker: a user with showInCommunityFeed
+  // off is skipped entirely (not shown as "a player"). One day's attempts for
+  // one language is a small set, scoped by @@index([dailyChallengeId]).
+  const last = await prisma.dailyChallengeAttempt.findFirst({
+    where: { dailyChallengeId: challenge.id, user: { showInCommunityFeed: true } },
+    orderBy: { createdAt: "desc" },
+    select: { score: true, createdAt: true, user: { select: { name: true } } },
+  });
+
+  return {
+    topic: challenge.topic,
+    lastPlayer: last
+      ? {
+          name: formatPublicPlayerName(last.user.name),
+          score: last.score,
+          playedAt: last.createdAt.toISOString(),
+        }
+      : null,
+  };
+}
+
+/**
+ * Same global, cookie-free cache as getCommunityStats. The language is an
+ * argument, and unstable_cache folds arguments into the key, so each
+ * language gets its own entry.
+ */
+export const getDailyChallengeSpotlight = unstable_cache(
+  computeDailyChallengeSpotlight,
+  ["daily-challenge-spotlight"],
+  { revalidate: COMMUNITY_STATS_REVALIDATE_SECONDS }
+);
+
 export type OnlineFriend = {
   userId: string;
   name: string;

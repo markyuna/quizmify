@@ -6,13 +6,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   COMMUNITY_MIN_DISPLAY_COUNT,
   getCommunityStats,
+  getDailyChallengeSpotlight,
   getOnlineFriendsSummary,
   getRecentCommunityActivity,
   type CommunityActivityItem,
   type CommunityStats,
+  type DailyChallengeSpotlight,
   type OnlineFriendsSummary,
 } from "@/lib/community";
+import { getRequestLocale } from "@/i18n/get-locale";
 import CommunityActivityTicker from "@/components/home/CommunityActivityTicker";
+import DailyChallengeBand from "@/components/home/DailyChallengeBand";
 
 /**
  * Homepage "live community" band. Every visitor sees anonymous aggregates
@@ -30,8 +34,9 @@ import CommunityActivityTicker from "@/components/home/CommunityActivityTicker";
 export default async function CommunitySection({ userId }: { userId: string | null }) {
   const t = await getTranslations("CommunitySection");
   const format = await getFormatter();
+  const locale = await getRequestLocale();
 
-  const [stats, activity, friends] = await Promise.all([
+  const [stats, activity, spotlight, friends] = await Promise.all([
     getCommunityStats().catch((error: unknown): CommunityStats | null => {
       console.error("Failed to fetch community stats:", error);
       return null;
@@ -39,6 +44,10 @@ export default async function CommunitySection({ userId }: { userId: string | nu
     getRecentCommunityActivity().catch((error: unknown): CommunityActivityItem[] => {
       console.error("Failed to fetch community activity:", error);
       return [];
+    }),
+    getDailyChallengeSpotlight(locale).catch((error: unknown): DailyChallengeSpotlight | null => {
+      console.error("Failed to fetch daily challenge spotlight:", error);
+      return null;
     }),
     userId
       ? getOnlineFriendsSummary(userId).catch((error: unknown): OnlineFriendsSummary | null => {
@@ -90,6 +99,10 @@ export default async function CommunitySection({ userId }: { userId: string | nu
               {t("quietFallback")}
             </p>
           )}
+
+          {/* Always rendered: with no spotlight (challenge not generated yet, or
+              the read failed) it degrades to the call to action alone. */}
+          <DailyChallengeBand spotlight={spotlight} />
 
           {/* Same small-number guard as the figures: a near-empty ticker
               reads as an empty room. */}
