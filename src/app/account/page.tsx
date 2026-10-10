@@ -9,6 +9,9 @@ import DeleteAccountButton from "@/components/DeleteAccountButton";
 import NotificationPreferencesCard from "@/components/NotificationPreferencesCard";
 import CommunityVisibilityCard from "@/components/CommunityVisibilityCard";
 import AvatarSkinSelector from "@/components/AvatarSkinSelector";
+import ProfilePhotoCard from "@/components/ProfilePhotoCard";
+import { QUEL_ANIMAL_ES_TU_IMAGES, isAnimalKey } from "@/lib/personalityTests/quelAnimalEsTu.config";
+import { resolveGoogleImage } from "@/lib/profilePhoto";
 
 export const metadata = {
   title: "My Account | Quizmify",
@@ -18,6 +21,7 @@ export const metadata = {
 export default async function AccountPage() {
   const session = await getAuthSession();
   const t = await getTranslations("Account");
+  const tAnimals = await getTranslations("PersonalityTests.quelAnimalEsTu");
 
   if (!session?.user?.id) {
     redirect("/login");
@@ -25,9 +29,23 @@ export default async function AccountPage() {
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { subscriptionStatus: true, premiumUntil: true, selectedSkinId: true },
+    select: {
+      subscriptionStatus: true,
+      premiumUntil: true,
+      selectedSkinId: true,
+      image: true,
+      googleImage: true,
+      personalityAnimal: true,
+    },
   });
   const isPro = user ? isEffectivelyPro(user) : false;
+
+  // Only the user's own assigned mascot is ever offered -- never the others.
+  const animal = user?.personalityAnimal;
+  const mascot =
+    animal && isAnimalKey(animal)
+      ? { image: QUEL_ANIMAL_ES_TU_IMAGES[animal], name: tAnimals(`animals.${animal}.name`) }
+      : null;
 
   return (
     <main className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-2xl items-center justify-center px-4 py-10">
@@ -45,6 +63,13 @@ export default async function AccountPage() {
               {session.user.email}
             </p>
           </div>
+
+          <ProfilePhotoCard
+            name={session.user.name ?? null}
+            currentImage={user?.image ?? null}
+            mascot={mascot}
+            googleImage={user ? resolveGoogleImage(user) : null}
+          />
 
           <AvatarSkinSelector isPro={isPro} selectedSkinId={user?.selectedSkinId ?? null} />
 
