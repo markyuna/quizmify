@@ -132,6 +132,18 @@ A standalone game (`src/lib/peintre/`, routes `src/app/api/peintre/*`, pages `sr
 - **Daily challenge block** (`DailyChallengeBand.tsx` + `getDailyChallengeSpotlight` in `community.ts`): today's challenge topic + the most recent finished attempt's score (name via `formatPublicPlayerName`, users with `showInCommunityFeed` off are skipped entirely), a CTA to `/daily-challenge` (which already redirects anonymous visitors to `/login`), and badge-less shortcuts to every `ALL_GAMES` entry. Read-only by design: it never calls `getOrCreateTodaysChallenge`, so a homepage visit can't trigger an OpenAI generation; before the challenge exists in that language it shows only the CTA. Cached 60 s per language via `unstable_cache`.
 - **Signed-in only** (`getOnlineFriendsSummary`): accepted friends online within `PRESENCE_ONLINE_WINDOW_MS`, max 5 avatars + "+N", link to `/friends`; no friends → invite to `/referrals`. Lighter than `getFriendsOverview` (2 queries, PK lookup), per-user and uncached. Never renders anyone outside the viewer's friends. No polling.
 
+### Friends chat (backend)
+
+Text-only 1:1 chat between accepted friends; UI pending. Logic in `src/lib/chat.ts`, routes under `src/app/api/chat/*` (`contacts`, `conversations/[userId]/messages` GET+POST, `conversations/[userId]/read`, `unread-count`, `blocks/[userId]` POST/DELETE, `messages/[messageId]/report`).
+
+- **Access is never stored**: every read and send re-runs `canChat()` (accepted friendship + no `UserBlock` either way). `ChatConversation` is keyed on the ordered user pair (`orderedUserPair`), not on `Friendship.id`, so history survives unfriend/re-friend while access doesn't.
+- **Blocks** (`src/lib/userBlocks.ts`, a leaf module to avoid a `chat → community → friends` import cycle): `blockUser` deletes the pair's `Friendship` + friend bell notifications in one transaction; `sendFriendRequest` refuses blocked pairs. A blocked user gets `NOT_FRIENDS`, never `BLOCKED` — a block looks like an unfriend from their side.
+- **Contacts search** (`listChatContacts`): friends match the full query against their full name; non-friends only match the query's first word as a case-insensitive name prefix (`startsWith`), so the search can't confirm the surname of a stranger the list shows as `formatPublicPlayerName` ("Marcos S."). `chatDiscoverable = false` hides a user from non-friends only; non-friends never get `lastSeenAt`.
+- **Limits** (`src/lib/chatRateLimit.ts`, counted from DB rows, soft caps): 20 messages/min, 20 friend requests/day, 50 pending outgoing. Known gap: declined/cancelled requests delete their `Friendship` row and stop counting.
+- **Unread** = messages from the other side newer than the viewer's `userA/BLastReadAt`, only for current friends; drives the chat bubble, not the bell.
+- **Reports** store `bodySnapshot` and email `CHAT_REPORTS_EMAIL_TO` (falls back to `CONTACT_EMAIL_TO`) via `after()`, so email failures never fail the request.
+- Error responses are stable codes (`{ error: "NOT_FRIENDS" }`, see `src/lib/chatApi.ts`), translated by the UI — never user-facing copy.
+
 ### Notifications
 
 Transactional/reminder emails (streak reminders, daily challenge nudges, weekly summaries, premium-ending warnings) are sent via Resend using React Email templates (`src/emails/`). `src/lib/notifications.ts` + the `/api/cron/notifications` route drive sending; `NotificationLog`'s `[userId, type, dateKey]` unique constraint is the real anti-duplicate guard, not just an application-level check. Users opt in/out per-category via `NotificationPreference`. Env: `RESEND_API_KEY`, `RESEND_FROM_EMAIL`.
@@ -186,6 +198,7 @@ STRIPE_WEBHOOK_SECRET     # Stripe webhook signing secret
 RESEND_API_KEY            # Resend API key (notification emails)
 RESEND_FROM_EMAIL         # Verified sender address for Resend
 CONTACT_EMAIL_TO          # Destination inbox for /contact form submissions (distinct from RESEND_FROM_EMAIL)
+CHAT_REPORTS_EMAIL_TO     # (optional) moderation inbox for chat message reports; falls back to CONTACT_EMAIL_TO
 ```
 
 `SUPABASE_SERVICE_ROLE_KEY` must be the **secret** key (`sb_secret_…`, or the
