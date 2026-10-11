@@ -78,6 +78,8 @@ export default function ChatComposer({ userId }: { userId: string }) {
   const submit = () => {
     if (!canSend) return;
     setError(null);
+    // Sending is done with the picker: close it so the conversation is visible again.
+    setPickerOpen(false);
     const sentText = text;
     // mutateAsync rather than mutate(…, { onSuccess }): per-call callbacks
     // are dropped once the component unmounts, which would leave an
