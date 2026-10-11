@@ -151,6 +151,9 @@ export type ChatMessagesPage = {
   // Pass back as `before` to load the previous page; null when !hasMore.
   nextBefore: string | null;
   serverNow: string;
+  // When the other participant last opened the conversation (ISO), or null if
+  // never: my messages up to that instant are "read". Never the viewer's own.
+  otherLastReadAt: string | null;
 };
 
 /** Caller must have checked canChat() first. */
@@ -160,14 +163,17 @@ export async function listChatMessages(
   opts: { before?: string; limit?: number } = {}
 ): Promise<ChatMessagesPage> {
   const serverNow = new Date().toISOString();
-  const empty: ChatMessagesPage = { messages: [], hasMore: false, nextBefore: null, serverNow };
+  const empty: ChatMessagesPage = { messages: [], hasMore: false, nextBefore: null, serverNow, otherLastReadAt: null };
   const limit = Math.min(Math.max(opts.limit ?? CHAT_MESSAGES_PAGE_SIZE, 1), 100);
 
   const conversation = await prisma.chatConversation.findUnique({
     where: { userAId_userBId: orderedUserPair(userId, otherId) },
-    select: { id: true },
+    select: { id: true, userAId: true, userBId: true, userALastReadAt: true, userBLastReadAt: true },
   });
   if (!conversation) return empty;
+  const otherLastRead =
+    conversationSide(conversation, userId) === "A" ? conversation.userBLastReadAt : conversation.userALastReadAt;
+  const otherLastReadAt = otherLastRead?.toISOString() ?? null;
 
   // Resolve the cursor inside THIS conversation, so an id from another
   // conversation is just "not found" rather than a pagination anchor.
@@ -177,7 +183,7 @@ export async function listChatMessages(
       where: { id: opts.before, conversationId: conversation.id },
       select: { id: true, createdAt: true },
     });
-    if (!cursor) return empty;
+    if (!cursor) return { ...empty, otherLastReadAt };
   }
 
   const rows = await prisma.chatMessage.findMany({
@@ -205,6 +211,7 @@ export async function listChatMessages(
     hasMore,
     nextBefore: hasMore ? page[0].id : null,
     serverNow,
+    otherLastReadAt,
   };
 }
 

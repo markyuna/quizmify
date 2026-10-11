@@ -16,6 +16,7 @@ export type ChatMessagesCache = {
   hasOlder: boolean;
   olderCursor: string | null;
   serverNow: string;
+  otherLastReadAt: string | null;
 };
 
 async function fetchPage(userId: string, before?: string): Promise<ChatMessagesPage> {
@@ -42,6 +43,7 @@ function mergeLatest(prev: ChatMessagesCache | undefined, page: ChatMessagesPage
     hasOlder: page.hasMore,
     olderCursor: page.nextBefore,
     serverNow: page.serverNow,
+    otherLastReadAt: page.otherLastReadAt,
   };
   if (!prev || prev.messages.length === 0) return fresh;
   if (!page.hasMore) return { ...fresh, messages: mergeById(prev.messages, page.messages) };
@@ -49,7 +51,12 @@ function mergeLatest(prev: ChatMessagesCache | undefined, page: ChatMessagesPage
   const known = new Set(prev.messages.map((message) => message.id));
   if (!page.messages.some((message) => known.has(message.id))) return fresh;
 
-  return { ...prev, messages: mergeById(prev.messages, page.messages), serverNow: page.serverNow };
+  return {
+    ...prev,
+    messages: mergeById(prev.messages, page.messages),
+    serverNow: page.serverNow,
+    otherLastReadAt: page.otherLastReadAt,
+  };
 }
 
 /**
@@ -99,6 +106,7 @@ export function useChatMessages(userId: string | null, { active }: { active: boo
     messages: query.data?.messages ?? [],
     hasOlder: query.data?.hasOlder ?? false,
     serverNow: query.data?.serverNow ?? null,
+    otherLastReadAt: query.data?.otherLastReadAt ?? null,
     loadOlder,
     isLoadingOlder: older.isPending,
     loadOlderError: older.error,

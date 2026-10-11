@@ -1398,6 +1398,18 @@
     "messagePlaceholder": "Write a message…",
     "send": "Send",
     "charCount": "{count}/{max}",
+    "emojiButton": "Emojis",
+    "emojiPickerLabel": "Emoji picker",
+    "emojiCategory": {
+      "smileys": "Smileys",
+      "gestures": "Gestures",
+      "hearts": "Hearts and symbols",
+      "animals": "Animals",
+      "food": "Food and drink",
+      "activities": "Activities and objects"
+    },
+    "messageSent": "Sent",
+    "messageRead": "Read",
     "conversationOptions": "Conversation options",
     "messageOptions": "Message options",
     "block": "Block",

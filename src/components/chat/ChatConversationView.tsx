@@ -2,13 +2,14 @@
 
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { Check, CheckCheck } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { parseChatError } from "@/lib/chatErrors";
 import { Button } from "@/components/ui/button";
 import { useChat } from "@/components/chat/ChatProvider";
 import ChatComposer from "@/components/chat/ChatComposer";
-import { dayKey, formatDayLabel, formatMessageTime } from "@/components/chat/chatFormat";
+import { dayKey, formatDayLabel, formatMessageTime, isEmojiOnly, isReadBy } from "@/components/chat/chatFormat";
 import { useChatMessages } from "@/hooks/chat/useChatMessages";
 import { useMarkConversationRead } from "@/hooks/chat/useChatMutations";
 
@@ -40,6 +41,7 @@ export default function ChatConversationView({ userId, name }: { userId: string;
   // conversation must stop showing what was cached before the 403.
   const messages = closedKey ? [] : conversation.messages;
   const serverNow = conversation.serverNow;
+  const otherLastReadAt = closedKey ? null : conversation.otherLastReadAt;
 
   const lastMessage = messages.at(-1);
   const lastId = lastMessage?.id;
@@ -169,14 +171,33 @@ export default function ChatConversationView({ userId, name }: { userId: string;
                         )}
                       >
                         {/* Plain text only: React escapes it and nothing is auto-linked. */}
-                        <p className="whitespace-pre-wrap break-words [overflow-wrap:anywhere]">{message.body}</p>
                         <p
                           className={cn(
-                            "mt-1 text-right text-[10px]",
+                            "whitespace-pre-wrap break-words [overflow-wrap:anywhere]",
+                            isEmojiOnly(message.body) && "text-3xl leading-tight"
+                          )}
+                        >
+                          {message.body}
+                        </p>
+                        <p
+                          className={cn(
+                            "mt-1 flex items-center justify-end gap-1 text-[10px]",
                             message.mine ? "text-white/70" : "text-slate-500 dark:text-slate-400"
                           )}
                         >
                           <time dateTime={message.createdAt}>{formatMessageTime(message.createdAt, locale)}</time>
+                          {message.mine &&
+                            (isReadBy(message.createdAt, otherLastReadAt) ? (
+                              <>
+                                <CheckCheck className="h-3.5 w-3.5 text-sky-200" aria-hidden="true" />
+                                <span className="sr-only">{t("messageRead")}</span>
+                              </>
+                            ) : (
+                              <>
+                                <Check className="h-3.5 w-3.5" aria-hidden="true" />
+                                <span className="sr-only">{t("messageSent")}</span>
+                              </>
+                            ))}
                         </p>
                       </div>
                     </div>
