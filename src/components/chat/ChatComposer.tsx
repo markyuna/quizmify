@@ -115,7 +115,9 @@ export default function ChatComposer({ userId }: { userId: string }) {
           maxLength={CHAT_MESSAGE_MAX_LENGTH}
           enterKeyHint="send"
           rows={1}
-          className="field-sizing-content max-h-32 min-h-11 resize-none py-2.5"
+          // 16px on mobile: iOS Safari zooms the whole page on focus for any
+          // input under 16px, pushing the send button off screen.
+          className="field-sizing-content max-h-32 min-h-11 resize-none py-2.5 text-base sm:text-sm"
         />
         <Button type="submit" size="icon" className="h-11 w-11 shrink-0" disabled={!canSend} aria-label={t("send")}>
           <SendHorizontal className="h-5 w-5" aria-hidden="true" />
