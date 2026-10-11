@@ -39,7 +39,7 @@ export default function CategoryQuizCard({ topic, category }: CategoryQuizCardPr
 
   return (
     <Link
-      href={`/quiz?topic=${encodeURIComponent(topic.displayLabel)}&category=${category.slug}`}
+      href={`/quiz?topic=${encodeURIComponent(topic.displayLabel)}&category=${category.slug}&difficulty=${topic.difficulty}`}
       className="group overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-white/5"
     >
       <div className="relative flex h-24 w-full items-center justify-center overflow-hidden bg-slate-100 text-4xl transition duration-300 group-hover:scale-105 dark:bg-white/10">
