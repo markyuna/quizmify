@@ -51,3 +51,25 @@ export function describePresence(friend: ChatFriendContact, serverNow: string | 
   }
   return { key: "offline" };
 }
+
+// Pictographs, skin tones, ZWJ / variation selectors (composed emojis) and flags.
+const EMOJI_ONLY = /^(?:\p{Extended_Pictographic}|\p{Emoji_Modifier}|\p{Regional_Indicator}|\u200d|\ufe0f|\s)+$/u;
+const EMOJI_ONLY_MAX = 3;
+
+/** A short message made only of emojis (up to 3): shown larger, like most chat apps. */
+export function isEmojiOnly(body: string): boolean {
+  const text = body.trim();
+  if (!text || !EMOJI_ONLY.test(text)) return false;
+  if (typeof Intl.Segmenter === "undefined") return false;
+  let count = 0;
+  for (const { segment } of new Intl.Segmenter(undefined, { granularity: "grapheme" }).segment(text)) {
+    if (segment.trim()) count += 1;
+    if (count > EMOJI_ONLY_MAX) return false;
+  }
+  return count > 0;
+}
+
+/** Whether my message was read: the other side opened the conversation at or after it was sent. */
+export function isReadBy(createdAt: string, otherLastReadAt: string | null): boolean {
+  return otherLastReadAt !== null && new Date(createdAt).getTime() <= new Date(otherLastReadAt).getTime();
+}

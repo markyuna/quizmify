@@ -1398,6 +1398,18 @@
     "messagePlaceholder": "Écrivez un message…",
     "send": "Envoyer",
     "charCount": "{count}/{max}",
+    "emojiButton": "Emojis",
+    "emojiPickerLabel": "Sélecteur d’emojis",
+    "emojiCategory": {
+      "smileys": "Visages",
+      "gestures": "Gestes",
+      "hearts": "Cœurs et symboles",
+      "animals": "Animaux",
+      "food": "Nourriture et boissons",
+      "activities": "Activités et objets"
+    },
+    "messageSent": "Envoyé",
+    "messageRead": "Lu",
     "conversationOptions": "Options de la conversation",
     "messageOptions": "Options du message",
     "block": "Bloquer",

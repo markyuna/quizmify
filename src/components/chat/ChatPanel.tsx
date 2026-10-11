@@ -162,6 +162,8 @@ export default function ChatPanel() {
     if (!panel || !(event.target instanceof Node) || !panel.contains(event.target)) return;
 
     if (event.key === "Escape") {
+      // An inner layer (the emoji picker) already used this Escape.
+      if (event.defaultPrevented) return;
       close();
       return;
     }

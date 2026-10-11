@@ -3,12 +3,13 @@
 import * as React from "react";
 import { useTranslations } from "next-intl";
 import { useQueryClient } from "@tanstack/react-query";
-import { SendHorizontal } from "lucide-react";
+import { SendHorizontal, Smile } from "lucide-react";
 
 import { parseChatError, type ParsedChatError } from "@/lib/chatErrors";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useChat } from "@/components/chat/ChatProvider";
+import ChatEmojiPicker from "@/components/chat/ChatEmojiPicker";
 import { CHAT_COUNTER_THRESHOLD, CHAT_MESSAGE_MAX_LENGTH } from "@/components/chat/chatLimits";
 import { chatKeys } from "@/hooks/chat/chatKeys";
 import { useSendChatMessage } from "@/hooks/chat/useChatMutations";
@@ -27,6 +28,10 @@ export default function ChatComposer({ userId }: { userId: string }) {
   const [error, setError] = React.useState<ParsedChatError | null>(null);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const errorId = React.useId();
+  const pickerId = React.useId();
+  const [pickerOpen, setPickerOpen] = React.useState(false);
+  // Caret to restore after an emoji is inserted (state updates are async).
+  const pendingCaretRef = React.useRef<number | null>(null);
   // The send can settle after the panel closed (Esc, X, or a click outside
   // mid-request): only touch local state and focus while still mounted.
   const mountedRef = React.useRef(false);
@@ -43,6 +48,31 @@ export default function ChatComposer({ userId }: { userId: string }) {
   const updateText = (next: string) => {
     setText(next);
     setDraft(userId, next);
+  };
+
+  React.useLayoutEffect(() => {
+    const caret = pendingCaretRef.current;
+    const textarea = textareaRef.current;
+    if (caret === null || !textarea) return;
+    pendingCaretRef.current = null;
+    textarea.setSelectionRange(caret, caret);
+  }, [text]);
+
+  // Inserts at the caret / over the selection; ignored if it would pass the cap.
+  const insertEmoji = (emoji: string) => {
+    const textarea = textareaRef.current;
+    const start = textarea?.selectionStart ?? text.length;
+    const end = textarea?.selectionEnd ?? text.length;
+    const next = text.slice(0, start) + emoji + text.slice(end);
+    if (next.length > CHAT_MESSAGE_MAX_LENGTH) return;
+    pendingCaretRef.current = start + emoji.length;
+    updateText(next);
+    if (error) setError(null);
+  };
+
+  const closePicker = () => {
+    setPickerOpen(false);
+    textareaRef.current?.focus();
   };
 
   const submit = () => {
@@ -98,9 +128,22 @@ export default function ChatComposer({ userId }: { userId: string }) {
         event.preventDefault();
         submit();
       }}
-      className="border-t border-slate-200/80 px-3 pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] dark:border-white/10"
+      className="relative border-t border-slate-200/80 px-3 pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] dark:border-white/10"
     >
+      {pickerOpen && <ChatEmojiPicker id={pickerId} onPick={insertEmoji} onClose={closePicker} />}
       <div className="flex items-end gap-2">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className="h-11 w-11 shrink-0"
+          onClick={() => setPickerOpen((open) => !open)}
+          aria-label={t("emojiButton")}
+          aria-expanded={pickerOpen}
+          aria-controls={pickerOpen ? pickerId : undefined}
+        >
+          <Smile className="h-5 w-5" aria-hidden="true" />
+        </Button>
         <Textarea
           ref={textareaRef}
           value={text}
