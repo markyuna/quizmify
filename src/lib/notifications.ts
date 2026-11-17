@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db";
+import type { NotificationType } from "@/generated/prisma/client";
 import { LOCALES, DEFAULT_LOCALE, type Locale } from "@/i18n/locales";
 
 /**
@@ -96,7 +97,7 @@ export function utcDaysBetween(from: Date, to: Date): number {
  */
 export async function tryLogNotification(
   userId: string,
-  type: "streak_reminder" | "daily_challenge_reminder" | "weekly_summary" | "premium_ending_soon",
+  type: NotificationType,
   dateKey: string
 ): Promise<boolean> {
   try {
@@ -113,4 +114,83 @@ export async function tryLogNotification(
     }
     throw error;
   }
+}
+
+/**
+ * Discretionary "come play" emails that share the one-per-user-per-day cap.
+ * weekly_summary (a report) and premium_ending_soon (transactional) are
+ * deliberately left out. The cron sends these in priority order
+ * (streak > winback > daily challenge > neurons) and skips a user once any
+ * of them went out.
+ */
+export const ENGAGEMENT_NOTIFICATION_TYPES: NotificationType[] = [
+  "streak_reminder",
+  "winback",
+  "daily_challenge_reminder",
+  "neurons_reminder",
+];
+
+// Slightly under 24h so a cron that drifts a few minutes later tomorrow
+// isn't blocked by today's send.
+const ENGAGEMENT_CAP_WINDOW_MS = 20 * 60 * 60 * 1000;
+
+/**
+ * Users who already got an engagement email in the cap window -- seeds the
+ * cron's in-memory cap so a manual re-run the same day can't stack a
+ * second, different engagement email on top of the first.
+ */
+export async function getRecentlyEngagedUserIds(now: Date): Promise<Set<string>> {
+  const rows = await prisma.notificationLog.findMany({
+    where: {
+      type: { in: ENGAGEMENT_NOTIFICATION_TYPES },
+      sentAt: { gte: new Date(now.getTime() - ENGAGEMENT_CAP_WINDOW_MS) },
+    },
+    select: { userId: true },
+    distinct: ["userId"],
+  });
+  return new Set(rows.map((row) => row.userId));
+}
+
+/**
+ * Best signal of "last time this user was around": the presence heartbeat
+ * (any signed-in visit, any game) or the last AI-quiz submit, whichever is
+ * later. lastQuizDate alone would miss Morpion/Akinator/etc. players;
+ * createdAt is the floor for accounts that never did either.
+ */
+export function getLastActiveAt(user: {
+  lastSeenAt: Date | null;
+  lastQuizDate: Date | null;
+  createdAt: Date;
+}): Date {
+  let latest = user.createdAt;
+  for (const candidate of [user.lastSeenAt, user.lastQuizDate]) {
+    if (candidate && candidate > latest) latest = candidate;
+  }
+  return latest;
+}
+
+export const WINBACK_STAGES = [
+  { stage: "d7", minDays: 7, maxDays: 20 },
+  // Upper bound so accounts that have been dormant for months (including
+  // everyone already dormant the day this shipped) are never mass-emailed
+  // -- past it, the user simply stops hearing from us.
+  { stage: "d21", minDays: 21, maxDays: 45 },
+] as const;
+
+export type WinbackStage = (typeof WINBACK_STAGES)[number]["stage"];
+
+/** Which win-back email (if any) a user inactive since `lastActiveAt` is in range for today. */
+export function getWinbackStage(lastActiveAt: Date, now: Date): { stage: WinbackStage; daysInactive: number } | null {
+  const daysInactive = utcDaysBetween(lastActiveAt, now);
+  const match = WINBACK_STAGES.find((s) => daysInactive >= s.minDays && daysInactive <= s.maxDays);
+  return match ? { stage: match.stage, daysInactive } : null;
+}
+
+/**
+ * Dedupe key for a win-back email: anchored to the start of the inactivity
+ * period, so each stage fires at most once per period and a user who comes
+ * back and lapses again starts a fresh cycle.
+ */
+export function getWinbackDateKey(lastActiveAt: Date, stage: WinbackStage): string {
+  return `${lastActiveAt.toISOString().slice(0, 10)}:${stage}`;
 }

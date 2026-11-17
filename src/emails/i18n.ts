@@ -1,4 +1,5 @@
 import type { Locale } from "@/i18n/locales";
+import type { WinbackStage } from "@/lib/notifications";
 
 /**
  * Standalone string dictionary for transactional emails. Cron-triggered
@@ -22,6 +23,29 @@ export const emailStrings: Record<
       preview: string;
       heading: string;
       body: (topic: string) => string;
+      cta: string;
+      /** Subject when at least one friend already played (name may be null if none has a usable public name). */
+      friendsSubject: (topFriendName: string | null, friendsCount: number) => string;
+      friendsLine: (topFriendName: string | null, correct: number, total: number, otherFriends: number) => string;
+      playersLine: (count: number) => string;
+    };
+    winback: {
+      subject: Record<WinbackStage, string>;
+      preview: string;
+      heading: (daysInactive: number) => string;
+      body: string;
+      level: string;
+      neurons: string;
+      bestStreak: string;
+      days: (n: number) => string;
+      challengeLine: (topic: string) => string;
+      cta: string;
+    };
+    neuronsReminder: {
+      subject: (balance: number) => string;
+      preview: string;
+      body: (cost: number) => string;
+      progress: (remaining: number, reward: number) => string;
       cta: string;
     };
     weeklySummary: {
@@ -62,6 +86,45 @@ export const emailStrings: Record<
       heading: "You haven't played today's Daily Challenge yet",
       body: (topic) => `Today's topic is "${topic}" -- everyone gets the same questions, so it's a fair shot at the top of the board.`,
       cta: "Play the Daily Challenge",
+      friendsSubject: (name, count) =>
+        name
+          ? `${name} already played today's Daily Challenge`
+          : count === 1
+            ? "A friend of yours already played today's Daily Challenge"
+            : `${count} of your friends already played today's Daily Challenge`,
+      friendsLine: (name, correct, total, others) =>
+        name
+          ? `${name} scored ${correct}/${total}${
+              others > 0 ? ` and ${others} other ${others === 1 ? "friend" : "friends"} already played` : ""
+            }. Can you beat that?`
+          : others === 1
+            ? "A friend of yours already played it. Your turn!"
+            : `${others} of your friends already played it. Your turn!`,
+      playersLine: (count) => `${count} players have already taken it today.`,
+    },
+    winback: {
+      subject: {
+        d7: "It's been a week -- your next quiz is waiting",
+        d21: "We miss you at Quizmify",
+      },
+      preview: "Your progress is right where you left it.",
+      heading: (days) => `It's been ${days} days since your last visit`,
+      body: "Your level, your Neurons and your best streak are all still here. A quick quiz is the easiest way to pick up where you left off.",
+      level: "Level",
+      neurons: "Neurons",
+      bestStreak: "Best streak",
+      days: (n) => `${n} ${n === 1 ? "day" : "days"}`,
+      challengeLine: (topic) => `Today's Daily Challenge: "${topic}".`,
+      cta: "Play a quiz",
+    },
+    neuronsReminder: {
+      subject: (balance) =>
+        balance === 0 ? "You're out of Neurons" : `You have ${balance} ${balance === 1 ? "Neuron" : "Neurons"} left`,
+      preview: "Play a quiz to earn more.",
+      body: (cost) => `Each Neuron game costs ${cost} Neurons per play.`,
+      progress: (remaining, reward) =>
+        `You're ${remaining} correct ${remaining === 1 ? "answer" : "answers"} away from +${reward} Neurons -- every 10 correct answers in a medium or hard quiz earns ${reward}.`,
+      cta: "Play a quiz to earn Neurons",
     },
     weeklySummary: {
       subject: "Your Quizmify week in review",
@@ -100,6 +163,55 @@ export const emailStrings: Record<
       heading: "Todavía no jugaste el Desafío Diario de hoy",
       body: (topic) => `El tema de hoy es "${topic}" -- todos reciben las mismas preguntas, así que es una oportunidad justa de llegar arriba de la tabla.`,
       cta: "Jugar el Desafío Diario",
+      friendsSubject: (name, count) =>
+        name
+          ? `${name} ya jugó el Desafío Diario de hoy`
+          : count === 1
+            ? "Un amigo tuyo ya jugó el Desafío Diario de hoy"
+            : `${count} de tus amigos ya jugaron el Desafío Diario de hoy`,
+      friendsLine: (name, correct, total, others) =>
+        name
+          ? `${name} sacó ${correct}/${total}${
+              others > 0
+                ? others === 1
+                  ? " y 1 amigo más ya lo jugó"
+                  : ` y ${others} amigos más ya lo jugaron`
+                : ""
+            }. ¿Lo superás?`
+          : others === 1
+            ? "Un amigo tuyo ya lo jugó. ¡Te toca!"
+            : `${others} de tus amigos ya lo jugaron. ¡Te toca!`,
+      playersLine: (count) => `Ya lo jugaron ${count} personas hoy.`,
+    },
+    winback: {
+      subject: {
+        d7: "Pasó una semana: tu próximo quiz te espera",
+        d21: "Te extrañamos en Quizmify",
+      },
+      preview: "Tu progreso sigue donde lo dejaste.",
+      heading: (days) => `Pasaron ${days} días desde tu última visita`,
+      body: "Tu nivel, tus Neuronas y tu mejor racha siguen acá. Un quiz rápido es la forma más fácil de retomar donde lo dejaste.",
+      level: "Nivel",
+      neurons: "Neuronas",
+      bestStreak: "Mejor racha",
+      days: (n) => `${n} ${n === 1 ? "día" : "días"}`,
+      challengeLine: (topic) => `Desafío Diario de hoy: "${topic}".`,
+      cta: "Jugar un quiz",
+    },
+    neuronsReminder: {
+      subject: (balance) =>
+        balance === 0
+          ? "Te quedaste sin Neuronas"
+          : balance === 1
+            ? "Te queda 1 Neurona"
+            : `Te quedan ${balance} Neuronas`,
+      preview: "Jugá un quiz para ganar más.",
+      body: (cost) => `Cada partida de un juego con Neuronas cuesta ${cost} Neuronas.`,
+      progress: (remaining, reward) =>
+        `${
+          remaining === 1 ? "Te falta 1 respuesta correcta" : `Te faltan ${remaining} respuestas correctas`
+        } para ganar +${reward} Neuronas: cada 10 respuestas correctas en un quiz de dificultad media o difícil suman ${reward}.`,
+      cta: "Jugar un quiz y ganar Neuronas",
     },
     weeklySummary: {
       subject: "Tu semana en Quizmify",
@@ -138,6 +250,53 @@ export const emailStrings: Record<
       heading: "Vous n'avez pas encore joué au défi du jour",
       body: (topic) => `Le thème du jour est « ${topic} » -- tout le monde reçoit les mêmes questions, c'est donc une chance équitable d'atteindre le sommet du classement.`,
       cta: "Jouer au défi du jour",
+      friendsSubject: (name, count) =>
+        name
+          ? `${name} a déjà joué au défi du jour`
+          : count === 1
+            ? "Un de vos amis a déjà joué au défi du jour"
+            : `${count} de vos amis ont déjà joué au défi du jour`,
+      friendsLine: (name, correct, total, others) =>
+        name
+          ? `${name} a obtenu ${correct}/${total}${
+              others > 0
+                ? others === 1
+                  ? " et 1 autre ami a déjà joué"
+                  : ` et ${others} autres amis ont déjà joué`
+                : ""
+            }. Saurez-vous faire mieux ?`
+          : others === 1
+            ? "Un de vos amis y a déjà joué. À vous !"
+            : `${others} de vos amis y ont déjà joué. À vous !`,
+      playersLine: (count) => `${count} joueurs l'ont déjà relevé aujourd'hui.`,
+    },
+    winback: {
+      subject: {
+        d7: "Une semaine déjà : votre prochain quiz vous attend",
+        d21: "Vous nous manquez sur Quizmify",
+      },
+      preview: "Votre progression est là où vous l'avez laissée.",
+      heading: (days) => `Cela fait ${days} jours depuis votre dernière visite`,
+      body: "Votre niveau, vos Neurones et votre meilleure série sont toujours là. Un quiz rapide est le moyen le plus simple de reprendre là où vous en étiez.",
+      level: "Niveau",
+      neurons: "Neurones",
+      bestStreak: "Meilleure série",
+      days: (n) => `${n} ${n === 1 ? "jour" : "jours"}`,
+      challengeLine: (topic) => `Défi du jour : « ${topic} ».`,
+      cta: "Jouer à un quiz",
+    },
+    neuronsReminder: {
+      subject: (balance) =>
+        balance === 0
+          ? "Vous n'avez plus de Neurones"
+          : `Il vous reste ${balance} ${balance === 1 ? "Neurone" : "Neurones"}`,
+      preview: "Jouez à un quiz pour en gagner plus.",
+      body: (cost) => `Chaque partie d'un jeu à Neurones coûte ${cost} Neurones.`,
+      progress: (remaining, reward) =>
+        `${
+          remaining === 1 ? "Plus qu'une bonne réponse" : `Plus que ${remaining} bonnes réponses`
+        } pour gagner +${reward} Neurones : chaque série de 10 bonnes réponses dans un quiz moyen ou difficile en rapporte ${reward}.`,
+      cta: "Jouer à un quiz pour gagner des Neurones",
     },
     weeklySummary: {
       subject: "Votre semaine sur Quizmify",

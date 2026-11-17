@@ -3727,6 +3727,8 @@ export const NotificationPreferenceScalarFieldEnum = {
   streakReminderEmail: 'streakReminderEmail',
   dailyChallengeEmail: 'dailyChallengeEmail',
   weeklySummaryEmail: 'weeklySummaryEmail',
+  winbackEmail: 'winbackEmail',
+  neuronsReminderEmail: 'neuronsReminderEmail',
   updatedAt: 'updatedAt'
 } as const
 
