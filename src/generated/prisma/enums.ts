@@ -37,7 +37,9 @@ export const NotificationType = {
   streak_reminder: 'streak_reminder',
   daily_challenge_reminder: 'daily_challenge_reminder',
   weekly_summary: 'weekly_summary',
-  premium_ending_soon: 'premium_ending_soon'
+  premium_ending_soon: 'premium_ending_soon',
+  winback: 'winback',
+  neurons_reminder: 'neurons_reminder'
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]

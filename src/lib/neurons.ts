@@ -6,7 +6,8 @@ import type { Difficulty } from "@/lib/topicUtils";
 // independently. Sharing a calculation here is exactly how the
 // completionXp bug leaked from quiz submit into the 3 guest daily games:
 // they went through the same calculateEarnedXpBreakdown().
-const NEURONS_PER_BATCH = 50;
+// Exported for the Neurons reminder email (how many Neurons the next batch is worth).
+export const NEURONS_PER_BATCH = 50;
 const CORRECT_ANSWERS_PER_BATCH = 10;
 const ELIGIBLE_DIFFICULTIES: Difficulty[] = ["medium", "hard"];
 

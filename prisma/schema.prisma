@@ -505,6 +505,13 @@ model NotificationPreference {
   streakReminderEmail Boolean  @default(true)
   dailyChallengeEmail Boolean  @default(true)
   weeklySummaryEmail  Boolean  @default(true)
+  // "We miss you" nudge after 7 and 21 days without activity (see
+  // getWinbackStage in src/lib/notifications.ts) -- two sends per
+  // inactivity period, then silence.
+  winbackEmail        Boolean  @default(true)
+  // Weekly "you have N Neurons left" nudge for free users who can't afford
+  // a paid game anymore.
+  neuronsReminderEmail Boolean @default(true)
   updatedAt           DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -515,6 +522,8 @@ enum NotificationType {
   daily_challenge_reminder
   weekly_summary
   premium_ending_soon
+  winback
+  neurons_reminder
 }
 
 model NotificationLog {
@@ -523,7 +532,9 @@ model NotificationLog {
   type    NotificationType
   // User's local calendar date ("YYYY-MM-DD") at send time for
   // streak_reminder/daily_challenge_reminder, or the ISO week ("YYYY-Www")
-  // for weekly_summary. The real anti-duplicate guard is the unique
+  // for weekly_summary/neurons_reminder, or "<last-active YYYY-MM-DD>:d7|d21"
+  // for winback (one row per stage per inactivity period, so a user who
+  // comes back and lapses again gets a fresh cycle). The real anti-duplicate guard is the unique
   // constraint below, not the application check that precedes it.
   dateKey String
   sentAt  DateTime         @default(now())

@@ -4,7 +4,7 @@ import * as React from "react";
 import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { Bell, Flame, Trophy } from "lucide-react";
+import { Bell, Brain, Flame, HeartHandshake, Trophy } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { useToast } from "./ui/use-toast";
@@ -13,6 +13,8 @@ type NotificationPreferences = {
   streakReminderEmail: boolean;
   dailyChallengeEmail: boolean;
   weeklySummaryEmail: boolean;
+  winbackEmail: boolean;
+  neuronsReminderEmail: boolean;
 };
 
 const TOGGLES: {
@@ -29,6 +31,8 @@ const TOGGLES: {
     descKey: "dailyChallengeReminderDesc",
   },
   { key: "weeklySummaryEmail", icon: Bell, labelKey: "weeklySummaryLabel", descKey: "weeklySummaryDesc" },
+  { key: "winbackEmail", icon: HeartHandshake, labelKey: "winbackLabel", descKey: "winbackDesc" },
+  { key: "neuronsReminderEmail", icon: Brain, labelKey: "neuronsReminderLabel", descKey: "neuronsReminderDesc" },
 ];
 
 export default function NotificationPreferencesCard() {

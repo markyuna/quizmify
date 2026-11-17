@@ -43,3 +43,15 @@ export const CRUCIGRAMA_COST_PER_GAME = 50;
 // updateMany decrement, logged as a `spend_peintre` NeuronTransaction. Not a
 // NeuronUnlock ticket. FIXED regardless of the chosen deck.
 export const PEINTRE_COST_PER_GAME = 50;
+
+// Cheapest way to spend Neurons on a game today. A free user below this
+// can't play any Neuron game -- that's the threshold for the weekly
+// "you have N Neurons left" email. Derived, so a new or repriced game
+// above only needs adding here to stay in sync.
+export const MIN_NEURON_GAME_COST = Math.min(
+  ...Object.values(NEURON_UNLOCK_COSTS),
+  MORPION_COST_PER_GAME,
+  AKINATOR_COST_PER_GAME,
+  CRUCIGRAMA_COST_PER_GAME,
+  PEINTRE_COST_PER_GAME
+);

@@ -8,7 +8,17 @@ const preferencesSchema = z.object({
   streakReminderEmail: z.boolean().optional(),
   dailyChallengeEmail: z.boolean().optional(),
   weeklySummaryEmail: z.boolean().optional(),
+  winbackEmail: z.boolean().optional(),
+  neuronsReminderEmail: z.boolean().optional(),
 });
+
+const PREFERENCE_SELECT = {
+  streakReminderEmail: true,
+  dailyChallengeEmail: true,
+  weeklySummaryEmail: true,
+  winbackEmail: true,
+  neuronsReminderEmail: true,
+} as const;
 
 export async function GET() {
   const session = await getAuthSession();
@@ -19,13 +29,19 @@ export async function GET() {
 
   const preference = await prisma.notificationPreference.findUnique({
     where: { userId: session.user.id },
-    select: { streakReminderEmail: true, dailyChallengeEmail: true, weeklySummaryEmail: true },
+    select: PREFERENCE_SELECT,
   });
 
   // No row yet means the user has never touched their preferences --
   // everything defaults to on, matching the schema's column defaults.
   return NextResponse.json(
-    preference ?? { streakReminderEmail: true, dailyChallengeEmail: true, weeklySummaryEmail: true }
+    preference ?? {
+      streakReminderEmail: true,
+      dailyChallengeEmail: true,
+      weeklySummaryEmail: true,
+      winbackEmail: true,
+      neuronsReminderEmail: true,
+    }
   );
 }
 
@@ -47,7 +63,7 @@ export async function PATCH(req: Request) {
     where: { userId: session.user.id },
     create: { userId: session.user.id, ...parsed.data },
     update: parsed.data,
-    select: { streakReminderEmail: true, dailyChallengeEmail: true, weeklySummaryEmail: true },
+    select: PREFERENCE_SELECT,
   });
 
   return NextResponse.json(updated);

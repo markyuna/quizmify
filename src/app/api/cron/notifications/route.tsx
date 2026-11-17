@@ -9,8 +9,16 @@ import {
   getIsoWeekKey,
   utcDaysBetween,
   tryLogNotification,
+  getRecentlyEngagedUserIds,
+  getLastActiveAt,
+  getWinbackStage,
+  getWinbackDateKey,
 } from "@/lib/notifications";
 import { getOrCreateTodaysChallenge } from "@/lib/dailyChallenge";
+import { loadDailyChallengeSocialContext } from "@/lib/dailyChallengeSocial";
+import { getNeuronsProgress, NEURONS_PER_BATCH } from "@/lib/neurons";
+import { MIN_NEURON_GAME_COST } from "@/lib/neurons/costs";
+import { isEffectivelyPro } from "@/lib/paywall";
 import { buildWeeklySummary } from "@/lib/weeklySummary";
 import { TRIAL_EXPIRY_WARNING_HOURS } from "@/lib/premium";
 import { getSiteUrl } from "@/lib/site";
@@ -19,6 +27,8 @@ import StreakReminderEmail from "@/emails/StreakReminderEmail";
 import DailyChallengeReminderEmail from "@/emails/DailyChallengeReminderEmail";
 import WeeklySummaryEmail from "@/emails/WeeklySummaryEmail";
 import PremiumEndingSoonEmail from "@/emails/PremiumEndingSoonEmail";
+import WinbackEmail from "@/emails/WinbackEmail";
+import NeuronsReminderEmail from "@/emails/NeuronsReminderEmail";
 import { LOCALES } from "@/i18n/locales";
 
 export const runtime = "nodejs";
@@ -34,7 +44,13 @@ export const maxDuration = 60;
 // actual local evening instead.
 const STREAK_REMINDER_HOUR_WINDOW = { min: 17, max: 23 };
 const DAILY_CHALLENGE_HOUR_WINDOW = { min: 10, max: 23 };
+const WINBACK_HOUR_WINDOW = { min: 10, max: 23 };
+const NEURONS_REMINDER_HOUR_WINDOW = { min: 10, max: 23 };
 const WEEKLY_SUMMARY_DAY_OF_WEEK = 0; // Sunday (UTC)
+// Neurons reminders only go to recently active users -- anyone quiet for
+// longer is the win-back email's audience (see getWinbackStage).
+const NEURONS_REMINDER_MAX_INACTIVE_DAYS = 6;
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
 export async function GET(req: Request) {
   const cronSecret = process.env.CRON_SECRET;
@@ -51,10 +67,19 @@ export async function GET(req: Request) {
   const results = {
     streakReminders: 0,
     dailyChallengeReminders: 0,
+    winbacks: 0,
     weeklySummaries: 0,
+    neuronsReminders: 0,
     premiumEndingSoon: 0,
     errors: 0,
   };
+
+  // At most one engagement email per user per day (see
+  // ENGAGEMENT_NOTIFICATION_TYPES). Sections below run in priority order
+  // -- streak > win-back > daily challenge > neurons -- and each one skips
+  // users already in this set and adds the ones it emails. Seeded from the
+  // log so a same-day re-run of this cron respects it too.
+  const engagedToday = await getRecentlyEngagedUserIds(now);
 
   // --- Streak-at-risk reminders ---
   const streakCandidates = await prisma.user.findMany({
@@ -77,6 +102,7 @@ export async function GET(req: Request) {
     try {
       if (user.notificationPreference?.streakReminderEmail === false) continue;
       if (!user.email || !user.lastQuizDate) continue;
+      if (engagedToday.has(user.id)) continue;
       // Only "about to lapse today" -- if gapDays is already >= 2 the streak
       // has effectively lapsed already (see getEffectiveStreak) and there's
       // no same-day save to prompt.
@@ -90,6 +116,7 @@ export async function GET(req: Request) {
       const dateKey = getUserLocalDateKey(user.timezone, now);
       const claimed = await tryLogNotification(user.id, "streak_reminder", dateKey);
       if (!claimed) continue;
+      engagedToday.add(user.id);
 
       const locale = await getUserPreferredLocale(user.id);
       const { sent } = await sendEmail({
@@ -104,7 +131,9 @@ export async function GET(req: Request) {
     }
   }
 
-  // --- Daily challenge reminders ---
+  // Today's challenge per language: the daily challenge reminder needs it,
+  // and the win-back email (which replaces that reminder on its day)
+  // mentions its topic.
   const challengesByLocale = new Map<
     string,
     Awaited<ReturnType<typeof getOrCreateTodaysChallenge>>
@@ -112,6 +141,88 @@ export async function GET(req: Request) {
   for (const locale of LOCALES) {
     challengesByLocale.set(locale, await getOrCreateTodaysChallenge(locale, now));
   }
+
+  // --- Win-back ("we miss you") after 7 and 21 days of inactivity ---
+  // The DB filter is a deliberately loose prefilter (a day of slack each
+  // way); getWinbackStage below makes the exact call on UTC calendar days.
+  {
+    const recentCutoff = new Date(now.getTime() - 6 * MS_PER_DAY);
+    const dormantCutoff = new Date(now.getTime() - 47 * MS_PER_DAY);
+    const winbackCandidates = await prisma.user.findMany({
+      where: {
+        email: { not: null },
+        createdAt: { lt: recentCutoff },
+        AND: [
+          { OR: [{ lastSeenAt: null }, { lastSeenAt: { lt: recentCutoff } }] },
+          { OR: [{ lastQuizDate: null }, { lastQuizDate: { lt: recentCutoff } }] },
+          {
+            OR: [
+              { createdAt: { gte: dormantCutoff } },
+              { lastSeenAt: { gte: dormantCutoff } },
+              { lastQuizDate: { gte: dormantCutoff } },
+            ],
+          },
+        ],
+      },
+      select: {
+        id: true,
+        email: true,
+        timezone: true,
+        level: true,
+        neuronsBalance: true,
+        longestStreak: true,
+        lastSeenAt: true,
+        lastQuizDate: true,
+        createdAt: true,
+        notificationPreference: { select: { winbackEmail: true } },
+      },
+    });
+
+    for (const user of winbackCandidates) {
+      try {
+        if (user.notificationPreference?.winbackEmail === false) continue;
+        if (!user.email) continue;
+        if (engagedToday.has(user.id)) continue;
+
+        const lastActiveAt = getLastActiveAt(user);
+        const winback = getWinbackStage(lastActiveAt, now);
+        if (!winback) continue;
+        if (!isReasonableLocalHour(user.timezone, now, WINBACK_HOUR_WINDOW.min, WINBACK_HOUR_WINDOW.max)) {
+          continue;
+        }
+
+        const claimed = await tryLogNotification(user.id, "winback", getWinbackDateKey(lastActiveAt, winback.stage));
+        if (!claimed) continue;
+        engagedToday.add(user.id);
+
+        const locale = await getUserPreferredLocale(user.id);
+        const { sent } = await sendEmail({
+          to: user.email,
+          subject: emailStrings[locale].winback.subject[winback.stage],
+          react: (
+            <WinbackEmail
+              locale={locale}
+              appUrl={appUrl}
+              daysInactive={winback.daysInactive}
+              level={user.level}
+              neuronsBalance={user.neuronsBalance}
+              longestStreak={user.longestStreak}
+              challengeTopic={challengesByLocale.get(locale)?.topic ?? null}
+            />
+          ),
+        });
+        if (sent) results.winbacks++;
+      } catch (error) {
+        console.error("winback email failed for user", user.id, error);
+        results.errors++;
+      }
+    }
+  }
+
+  // --- Daily challenge reminders (with friends' results when there are any) ---
+  const challengeSocial = await loadDailyChallengeSocialContext(
+    [...challengesByLocale.values()].map((challenge) => challenge.id)
+  );
 
   const dailyChallengeCandidates = await prisma.user.findMany({
     where: { email: { not: null } },
@@ -127,6 +238,7 @@ export async function GET(req: Request) {
     try {
       if (user.notificationPreference?.dailyChallengeEmail === false) continue;
       if (!user.email) continue;
+      if (engagedToday.has(user.id)) continue;
       if (
         !isReasonableLocalHour(user.timezone, now, DAILY_CHALLENGE_HOUR_WINDOW.min, DAILY_CHALLENGE_HOUR_WINDOW.max)
       ) {
@@ -137,20 +249,28 @@ export async function GET(req: Request) {
       const challenge = challengesByLocale.get(locale);
       if (!challenge) continue;
 
-      const alreadyPlayed = await prisma.dailyChallengeAttempt.findUnique({
-        where: { dailyChallengeId_userId: { dailyChallengeId: challenge.id, userId: user.id } },
-        select: { id: true },
-      });
-      if (alreadyPlayed) continue;
+      if (challengeSocial.hasPlayed(challenge.id, user.id)) continue;
 
       const dateKey = getUserLocalDateKey(user.timezone, now);
       const claimed = await tryLogNotification(user.id, "daily_challenge_reminder", dateKey);
       if (!claimed) continue;
+      engagedToday.add(user.id);
 
+      const strings = emailStrings[locale].dailyChallengeReminder;
+      const social = challengeSocial.getSocialProof(challenge.id, user.id);
+      const subject =
+        social?.kind === "friends"
+          ? strings.friendsSubject(
+              social.topFriendName,
+              social.otherFriendsCount + (social.topFriendName ? 1 : 0)
+            )
+          : strings.subject;
       const { sent } = await sendEmail({
         to: user.email,
-        subject: emailStrings[locale].dailyChallengeReminder.subject,
-        react: <DailyChallengeReminderEmail locale={locale} topic={challenge.topic} appUrl={appUrl} />,
+        subject,
+        react: (
+          <DailyChallengeReminderEmail locale={locale} topic={challenge.topic} appUrl={appUrl} social={social} />
+        ),
       });
       if (sent) results.dailyChallengeReminders++;
     } catch (error) {
@@ -191,6 +311,83 @@ export async function GET(req: Request) {
         if (sent) results.weeklySummaries++;
       } catch (error) {
         console.error("weekly summary failed for user", user.id, error);
+        results.errors++;
+      }
+    }
+  }
+
+  // --- Weekly "you have N Neurons left" for free users who can't afford a game ---
+  // Lowest-priority engagement email: it only goes out on a day nothing
+  // else did, and its ISO-week dedupe key means a blocked day just rolls
+  // over to the next one in the same week.
+  {
+    const weekKey = getIsoWeekKey(now);
+    const activeCutoff = new Date(now.getTime() - (NEURONS_REMINDER_MAX_INACTIVE_DAYS + 1) * MS_PER_DAY);
+    const neuronsCandidates = await prisma.user.findMany({
+      where: {
+        email: { not: null },
+        neuronsBalance: { lt: MIN_NEURON_GAME_COST },
+        subscriptionStatus: { not: "pro" },
+        OR: [{ lastSeenAt: { gte: activeCutoff } }, { lastQuizDate: { gte: activeCutoff } }],
+      },
+      select: {
+        id: true,
+        email: true,
+        timezone: true,
+        neuronsBalance: true,
+        subscriptionStatus: true,
+        premiumUntil: true,
+        lastSeenAt: true,
+        lastQuizDate: true,
+        createdAt: true,
+        notificationPreference: { select: { neuronsReminderEmail: true } },
+      },
+    });
+
+    for (const user of neuronsCandidates) {
+      try {
+        if (user.notificationPreference?.neuronsReminderEmail === false) continue;
+        if (!user.email) continue;
+        if (engagedToday.has(user.id)) continue;
+        // Pro (paid or temporary) plays the Neuron games for free -- nothing to nag about.
+        if (isEffectivelyPro(user, now)) continue;
+        if (utcDaysBetween(getLastActiveAt(user), now) > NEURONS_REMINDER_MAX_INACTIVE_DAYS) continue;
+        if (
+          !isReasonableLocalHour(
+            user.timezone,
+            now,
+            NEURONS_REMINDER_HOUR_WINDOW.min,
+            NEURONS_REMINDER_HOUR_WINDOW.max
+          )
+        ) {
+          continue;
+        }
+
+        const claimed = await tryLogNotification(user.id, "neurons_reminder", weekKey);
+        if (!claimed) continue;
+        engagedToday.add(user.id);
+
+        const [locale, progress] = await Promise.all([
+          getUserPreferredLocale(user.id),
+          getNeuronsProgress(prisma, user.id),
+        ]);
+        const { sent } = await sendEmail({
+          to: user.email,
+          subject: emailStrings[locale].neuronsReminder.subject(user.neuronsBalance),
+          react: (
+            <NeuronsReminderEmail
+              locale={locale}
+              appUrl={appUrl}
+              balance={user.neuronsBalance}
+              cost={MIN_NEURON_GAME_COST}
+              remainingForNext={progress.neededForNext - progress.correctTowardNext}
+              reward={NEURONS_PER_BATCH}
+            />
+          ),
+        });
+        if (sent) results.neuronsReminders++;
+      } catch (error) {
+        console.error("neurons reminder failed for user", user.id, error);
         results.errors++;
       }
     }

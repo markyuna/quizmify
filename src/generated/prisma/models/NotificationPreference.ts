@@ -30,6 +30,8 @@ export type NotificationPreferenceMinAggregateOutputType = {
   streakReminderEmail: boolean | null
   dailyChallengeEmail: boolean | null
   weeklySummaryEmail: boolean | null
+  winbackEmail: boolean | null
+  neuronsReminderEmail: boolean | null
   updatedAt: Date | null
 }
 
@@ -39,6 +41,8 @@ export type NotificationPreferenceMaxAggregateOutputType = {
   streakReminderEmail: boolean | null
   dailyChallengeEmail: boolean | null
   weeklySummaryEmail: boolean | null
+  winbackEmail: boolean | null
+  neuronsReminderEmail: boolean | null
   updatedAt: Date | null
 }
 
@@ -48,6 +52,8 @@ export type NotificationPreferenceCountAggregateOutputType = {
   streakReminderEmail: number
   dailyChallengeEmail: number
   weeklySummaryEmail: number
+  winbackEmail: number
+  neuronsReminderEmail: number
   updatedAt: number
   _all: number
 }
@@ -59,6 +65,8 @@ export type NotificationPreferenceMinAggregateInputType = {
   streakReminderEmail?: true
   dailyChallengeEmail?: true
   weeklySummaryEmail?: true
+  winbackEmail?: true
+  neuronsReminderEmail?: true
   updatedAt?: true
 }
 
@@ -68,6 +76,8 @@ export type NotificationPreferenceMaxAggregateInputType = {
   streakReminderEmail?: true
   dailyChallengeEmail?: true
   weeklySummaryEmail?: true
+  winbackEmail?: true
+  neuronsReminderEmail?: true
   updatedAt?: true
 }
 
@@ -77,6 +87,8 @@ export type NotificationPreferenceCountAggregateInputType = {
   streakReminderEmail?: true
   dailyChallengeEmail?: true
   weeklySummaryEmail?: true
+  winbackEmail?: true
+  neuronsReminderEmail?: true
   updatedAt?: true
   _all?: true
 }
@@ -159,6 +171,8 @@ export type NotificationPreferenceGroupByOutputType = {
   streakReminderEmail: boolean
   dailyChallengeEmail: boolean
   weeklySummaryEmail: boolean
+  winbackEmail: boolean
+  neuronsReminderEmail: boolean
   updatedAt: Date
   _count: NotificationPreferenceCountAggregateOutputType | null
   _min: NotificationPreferenceMinAggregateOutputType | null
@@ -189,6 +203,8 @@ export type NotificationPreferenceWhereInput = {
   streakReminderEmail?: Prisma.BoolFilter<"NotificationPreference"> | boolean
   dailyChallengeEmail?: Prisma.BoolFilter<"NotificationPreference"> | boolean
   weeklySummaryEmail?: Prisma.BoolFilter<"NotificationPreference"> | boolean
+  winbackEmail?: Prisma.BoolFilter<"NotificationPreference"> | boolean
+  neuronsReminderEmail?: Prisma.BoolFilter<"NotificationPreference"> | boolean
   updatedAt?: Prisma.DateTimeFilter<"NotificationPreference"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -199,6 +215,8 @@ export type NotificationPreferenceOrderByWithRelationInput = {
   streakReminderEmail?: Prisma.SortOrder
   dailyChallengeEmail?: Prisma.SortOrder
   weeklySummaryEmail?: Prisma.SortOrder
+  winbackEmail?: Prisma.SortOrder
+  neuronsReminderEmail?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -212,6 +230,8 @@ export type NotificationPreferenceWhereUniqueInput = Prisma.AtLeast<{
   streakReminderEmail?: Prisma.BoolFilter<"NotificationPreference"> | boolean
   dailyChallengeEmail?: Prisma.BoolFilter<"NotificationPreference"> | boolean
   weeklySummaryEmail?: Prisma.BoolFilter<"NotificationPreference"> | boolean
+  winbackEmail?: Prisma.BoolFilter<"NotificationPreference"> | boolean
+  neuronsReminderEmail?: Prisma.BoolFilter<"NotificationPreference"> | boolean
   updatedAt?: Prisma.DateTimeFilter<"NotificationPreference"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId">
@@ -222,6 +242,8 @@ export type NotificationPreferenceOrderByWithAggregationInput = {
   streakReminderEmail?: Prisma.SortOrder
   dailyChallengeEmail?: Prisma.SortOrder
   weeklySummaryEmail?: Prisma.SortOrder
+  winbackEmail?: Prisma.SortOrder
+  neuronsReminderEmail?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.NotificationPreferenceCountOrderByAggregateInput
   _max?: Prisma.NotificationPreferenceMaxOrderByAggregateInput
@@ -237,6 +259,8 @@ export type NotificationPreferenceScalarWhereWithAggregatesInput = {
   streakReminderEmail?: Prisma.BoolWithAggregatesFilter<"NotificationPreference"> | boolean
   dailyChallengeEmail?: Prisma.BoolWithAggregatesFilter<"NotificationPreference"> | boolean
   weeklySummaryEmail?: Prisma.BoolWithAggregatesFilter<"NotificationPreference"> | boolean
+  winbackEmail?: Prisma.BoolWithAggregatesFilter<"NotificationPreference"> | boolean
+  neuronsReminderEmail?: Prisma.BoolWithAggregatesFilter<"NotificationPreference"> | boolean
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"NotificationPreference"> | Date | string
 }
 
@@ -245,6 +269,8 @@ export type NotificationPreferenceCreateInput = {
   streakReminderEmail?: boolean
   dailyChallengeEmail?: boolean
   weeklySummaryEmail?: boolean
+  winbackEmail?: boolean
+  neuronsReminderEmail?: boolean
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutNotificationPreferenceInput
 }
@@ -255,6 +281,8 @@ export type NotificationPreferenceUncheckedCreateInput = {
   streakReminderEmail?: boolean
   dailyChallengeEmail?: boolean
   weeklySummaryEmail?: boolean
+  winbackEmail?: boolean
+  neuronsReminderEmail?: boolean
   updatedAt?: Date | string
 }
 
@@ -263,6 +291,8 @@ export type NotificationPreferenceUpdateInput = {
   streakReminderEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dailyChallengeEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weeklySummaryEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  winbackEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  neuronsReminderEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutNotificationPreferenceNestedInput
 }
@@ -273,6 +303,8 @@ export type NotificationPreferenceUncheckedUpdateInput = {
   streakReminderEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dailyChallengeEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weeklySummaryEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  winbackEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  neuronsReminderEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -282,6 +314,8 @@ export type NotificationPreferenceCreateManyInput = {
   streakReminderEmail?: boolean
   dailyChallengeEmail?: boolean
   weeklySummaryEmail?: boolean
+  winbackEmail?: boolean
+  neuronsReminderEmail?: boolean
   updatedAt?: Date | string
 }
 
@@ -290,6 +324,8 @@ export type NotificationPreferenceUpdateManyMutationInput = {
   streakReminderEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dailyChallengeEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weeklySummaryEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  winbackEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  neuronsReminderEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -299,6 +335,8 @@ export type NotificationPreferenceUncheckedUpdateManyInput = {
   streakReminderEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dailyChallengeEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weeklySummaryEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  winbackEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  neuronsReminderEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -313,6 +351,8 @@ export type NotificationPreferenceCountOrderByAggregateInput = {
   streakReminderEmail?: Prisma.SortOrder
   dailyChallengeEmail?: Prisma.SortOrder
   weeklySummaryEmail?: Prisma.SortOrder
+  winbackEmail?: Prisma.SortOrder
+  neuronsReminderEmail?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -322,6 +362,8 @@ export type NotificationPreferenceMaxOrderByAggregateInput = {
   streakReminderEmail?: Prisma.SortOrder
   dailyChallengeEmail?: Prisma.SortOrder
   weeklySummaryEmail?: Prisma.SortOrder
+  winbackEmail?: Prisma.SortOrder
+  neuronsReminderEmail?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -331,6 +373,8 @@ export type NotificationPreferenceMinOrderByAggregateInput = {
   streakReminderEmail?: Prisma.SortOrder
   dailyChallengeEmail?: Prisma.SortOrder
   weeklySummaryEmail?: Prisma.SortOrder
+  winbackEmail?: Prisma.SortOrder
+  neuronsReminderEmail?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -371,6 +415,8 @@ export type NotificationPreferenceCreateWithoutUserInput = {
   streakReminderEmail?: boolean
   dailyChallengeEmail?: boolean
   weeklySummaryEmail?: boolean
+  winbackEmail?: boolean
+  neuronsReminderEmail?: boolean
   updatedAt?: Date | string
 }
 
@@ -379,6 +425,8 @@ export type NotificationPreferenceUncheckedCreateWithoutUserInput = {
   streakReminderEmail?: boolean
   dailyChallengeEmail?: boolean
   weeklySummaryEmail?: boolean
+  winbackEmail?: boolean
+  neuronsReminderEmail?: boolean
   updatedAt?: Date | string
 }
 
@@ -403,6 +451,8 @@ export type NotificationPreferenceUpdateWithoutUserInput = {
   streakReminderEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dailyChallengeEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weeklySummaryEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  winbackEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  neuronsReminderEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -411,6 +461,8 @@ export type NotificationPreferenceUncheckedUpdateWithoutUserInput = {
   streakReminderEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dailyChallengeEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weeklySummaryEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  winbackEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  neuronsReminderEmail?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -422,6 +474,8 @@ export type NotificationPreferenceSelect<ExtArgs extends runtime.Types.Extension
   streakReminderEmail?: boolean
   dailyChallengeEmail?: boolean
   weeklySummaryEmail?: boolean
+  winbackEmail?: boolean
+  neuronsReminderEmail?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["notificationPreference"]>
@@ -432,6 +486,8 @@ export type NotificationPreferenceSelectCreateManyAndReturn<ExtArgs extends runt
   streakReminderEmail?: boolean
   dailyChallengeEmail?: boolean
   weeklySummaryEmail?: boolean
+  winbackEmail?: boolean
+  neuronsReminderEmail?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["notificationPreference"]>
@@ -442,6 +498,8 @@ export type NotificationPreferenceSelectUpdateManyAndReturn<ExtArgs extends runt
   streakReminderEmail?: boolean
   dailyChallengeEmail?: boolean
   weeklySummaryEmail?: boolean
+  winbackEmail?: boolean
+  neuronsReminderEmail?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["notificationPreference"]>
@@ -452,10 +510,12 @@ export type NotificationPreferenceSelectScalar = {
   streakReminderEmail?: boolean
   dailyChallengeEmail?: boolean
   weeklySummaryEmail?: boolean
+  winbackEmail?: boolean
+  neuronsReminderEmail?: boolean
   updatedAt?: boolean
 }
 
-export type NotificationPreferenceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "streakReminderEmail" | "dailyChallengeEmail" | "weeklySummaryEmail" | "updatedAt", ExtArgs["result"]["notificationPreference"]>
+export type NotificationPreferenceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "streakReminderEmail" | "dailyChallengeEmail" | "weeklySummaryEmail" | "winbackEmail" | "neuronsReminderEmail" | "updatedAt", ExtArgs["result"]["notificationPreference"]>
 export type NotificationPreferenceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -477,6 +537,8 @@ export type $NotificationPreferencePayload<ExtArgs extends runtime.Types.Extensi
     streakReminderEmail: boolean
     dailyChallengeEmail: boolean
     weeklySummaryEmail: boolean
+    winbackEmail: boolean
+    neuronsReminderEmail: boolean
     updatedAt: Date
   }, ExtArgs["result"]["notificationPreference"]>
   composites: {}
@@ -907,6 +969,8 @@ export interface NotificationPreferenceFieldRefs {
   readonly streakReminderEmail: Prisma.FieldRef<"NotificationPreference", 'Boolean'>
   readonly dailyChallengeEmail: Prisma.FieldRef<"NotificationPreference", 'Boolean'>
   readonly weeklySummaryEmail: Prisma.FieldRef<"NotificationPreference", 'Boolean'>
+  readonly winbackEmail: Prisma.FieldRef<"NotificationPreference", 'Boolean'>
+  readonly neuronsReminderEmail: Prisma.FieldRef<"NotificationPreference", 'Boolean'>
   readonly updatedAt: Prisma.FieldRef<"NotificationPreference", 'DateTime'>
 }
     
